@@ -193,21 +193,58 @@ class ContactUsScreen extends StatelessWidget {
                     // const SizedBox(
                     //   height: 32,
                     // ),
-                    Text(
-                      AppLocalizations.of(context)!.contact_us,
-                      style: const TextStyle(
-                          color: Color(0xff313846),
-                          fontSize: FontSizes.FONT_SIZE_20,
-                          fontWeight: FontWeight.bold),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.contact_us,
+                                style: const TextStyle(
+                                    color: Color(0xff313846),
+                                    fontSize: FontSizes.FONT_SIZE_20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Container(
+                                width: 40,
+                                height: 3,
+                                color: AppColors.APP_MAIN_COLOR,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              "Call",
+                              style: TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Container(
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColors.APP_MAIN_COLOR),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(
+                                    Icons.call,
+                                    color: Colors.white,
+                                  ),
+                                )),
+                          ],
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    Container(
-                      width: 40,
-                      height: 3,
-                      color: AppColors.APP_MAIN_COLOR,
-                    ),
+
                     const SizedBox(
                       height: 24,
                     ),
@@ -231,7 +268,9 @@ class ContactUsScreen extends StatelessWidget {
                       hintText: AppLocalizations.of(context)!.phone_number,
                       textInputType: TextInputType.phone,
                       validator: (phone) {
-                        if (phone == null || phone.length < 8 || phone.length > 13) {
+                        if (phone == null ||
+                            phone.length < 8 ||
+                            phone.length > 13) {
                           return AppLocalizations.of(context)!
                               .enter_a_valid_phone_number;
                         }

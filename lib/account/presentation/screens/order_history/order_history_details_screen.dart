@@ -1,6 +1,7 @@
 import 'package:classic_eccomerce/account/data/models/get_order_details_response.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
+import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/helpers/remove_html_tags_from_string.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
@@ -11,7 +12,9 @@ import '../../../../core/constants/fonts/font_sizes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
-   OrderDetailsScreen({super.key,  });
+  OrderDetailsScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,20 +53,20 @@ class OrderDetailsScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                               Row(
-                                 children: [
-                                   Expanded(
-                                     child: Text(
-                                      AppLocalizations.of(context)!.order_details,
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .order_details,
                                       style: const TextStyle(
                                           color: Color(0xff313846),
                                           fontSize: FontSizes.FONT_SIZE_20,
                                           fontWeight: FontWeight.bold),
-                                                                   ),
-                                   ),
-
-                                 ],
-                               ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                               const SizedBox(
                                 height: 5,
                               ),
@@ -90,8 +93,9 @@ class OrderDetailsScreen extends StatelessWidget {
                                           vertical: 16.0, horizontal: 16),
                                       child: Row(
                                         children: [
-                                           Text(
-                                            AppLocalizations.of(context)!.order_id,
+                                          Text(
+                                            AppLocalizations.of(context)!
+                                                .order_id,
                                             style: const TextStyle(
                                                 fontSize:
                                                     FontSizes.FONT_SIZE_14,
@@ -103,7 +107,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                           Expanded(
                                             child: Text(
                                               "#$selectedOrderId",
-                                              textAlign: TextAlign.right,
+                                              textAlign: TextAlign.end,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
@@ -124,8 +128,11 @@ class OrderDetailsScreen extends StatelessWidget {
                                           vertical: 16.0, horizontal: 16),
                                       child: Row(
                                         children: [
-                                           Text(
-                                             AppLocalizations.of(context)!.date_added,
+                                          Text(
+                                            AppLocalizations.of(context)!
+                                                .date_added,
+                                            textAlign: TextAlign.end,
+                                            maxLines: 1,
                                             style: const TextStyle(
                                                 fontSize:
                                                     FontSizes.FONT_SIZE_14,
@@ -136,10 +143,15 @@ class OrderDetailsScreen extends StatelessWidget {
                                           ),
                                           Expanded(
                                             child: Text(
-                                              selectedOrder?.dateAdded?.split(",").last.split("+").first ?? "-",
-                                              overflow: TextOverflow.ellipsis,
+                                              selectedOrder?.dateAdded
+                                                      ?.split(",")
+                                                      .last
+                                                      .split("+")
+                                                      .first ??
+                                                  "-",
+                                              textAlign: TextAlign.end,
                                               maxLines: 1,
-                                              textAlign: TextAlign.right,
+                                              overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
                                                   fontSize:
                                                       FontSizes.FONT_SIZE_14,
@@ -158,8 +170,9 @@ class OrderDetailsScreen extends StatelessWidget {
                                           vertical: 16.0, horizontal: 16),
                                       child: Row(
                                         children: [
-                                           Text(
-                                             AppLocalizations.of(context)!.payment_method,
+                                          Text(
+                                            AppLocalizations.of(context)!
+                                                .payment_method,
                                             style: const TextStyle(
                                                 fontSize:
                                                     FontSizes.FONT_SIZE_14,
@@ -168,12 +181,11 @@ class OrderDetailsScreen extends StatelessWidget {
                                           const SizedBox(
                                             width: 4,
                                           ),
-
                                           Expanded(
                                             child: Text(
                                               selectedOrder?.paymentMethod ??
                                                   "",
-                                              textAlign: TextAlign.right,
+                                              textAlign: TextAlign.end,
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style: const TextStyle(
@@ -190,12 +202,13 @@ class OrderDetailsScreen extends StatelessWidget {
                                       color: const Color(0xffB6BBC6),
                                     ),
                                     Padding(
-                                      padding:  const EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           vertical: 16.0, horizontal: 16),
                                       child: Row(
                                         children: [
-                                           Text(
-                                            AppLocalizations.of(context)!.shipping_method ,
+                                          Text(
+                                            AppLocalizations.of(context)!
+                                                .shipping_method,
                                             style: const TextStyle(
                                                 fontSize:
                                                     FontSizes.FONT_SIZE_14,
@@ -208,7 +221,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                             child: Text(
                                               selectedOrder?.shippingMethod ??
                                                   "",
-                                              textAlign: TextAlign.right,
+                                              textAlign: TextAlign.end,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
@@ -226,207 +239,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16,
                               ),
-                              // const Text(
-                              //   "Payment Address",
-                              //   style: TextStyle(
-                              //       color: Color(0xff313846),
-                              //       fontSize: FontSizes.FONT_SIZE_20,
-                              //       fontWeight: FontWeight.bold),
-                              // ),
-                              // const SizedBox(
-                              //   height: 5,
-                              // ),
-                              // Container(
-                              //   width: 40,
-                              //   height: 3,
-                              //   color: AppColors.APP_MAIN_COLOR,
-                              // ),
-                              // const SizedBox(
-                              //   height: 16,
-                              // ),
-                              // Container(
-                              //   decoration: BoxDecoration(
-                              //     borderRadius: BorderRadius.circular(8),
-                              //     border: Border.all(
-                              //       width: 1,
-                              //       color: const Color(0xffDDDDDD),
-                              //     ),
-                              //   ),
-                              //   child: Column(
-                              //     children: [
-                              //       Padding(
-                              //         padding: const EdgeInsets.symmetric(
-                              //             vertical: 16.0, horizontal: 16),
-                              //         child: Row(
-                              //           children: [
-                              //             const Text(
-                              //               "Full Name",
-                              //               style: TextStyle(
-                              //                   fontSize:
-                              //                       FontSizes.FONT_SIZE_14,
-                              //                   fontWeight: FontWeight.bold),
-                              //             ),
-                              //             const SizedBox(
-                              //               width: 8,
-                              //             ),
-                              //             Expanded(
-                              //               child: Text(
-                              //                 "${selectedOrder?.paymentFirstname ?? ""} ${selectedOrder?.paymentLastname ?? ""}",
-                              //                 textAlign: TextAlign.right,
-                              //                 maxLines: 1,
-                              //                 overflow: TextOverflow.ellipsis,
-                              //                 style: const TextStyle(
-                              //                     fontSize:
-                              //                         FontSizes.FONT_SIZE_14,
-                              //                     color: Color(0xff947979)),
-                              //               ),
-                              //             )
-                              //           ],
-                              //         ),
-                              //       ),
-                              //       Container(
-                              //         height: 1,
-                              //         color: const Color(0xffB6BBC6),
-                              //       ),
-                              //       Padding(
-                              //         padding: const EdgeInsets.symmetric(
-                              //             vertical: 16.0, horizontal: 16),
-                              //         child: Row(
-                              //           children: [
-                              //             const Text(
-                              //               "Address",
-                              //               style: TextStyle(
-                              //                   fontSize:
-                              //                       FontSizes.FONT_SIZE_14,
-                              //                   fontWeight: FontWeight.bold),
-                              //             ),
-                              //             const SizedBox(
-                              //               width: 8,
-                              //             ),
-                              //             Expanded(
-                              //               child: Text(
-                              //                 removeHTMLTags(selectedOrder
-                              //                         ?.paymentAddress1 ??
-                              //                     "-"),
-                              //                 textAlign: TextAlign.right,
-                              //                 maxLines: 2,
-                              //                 overflow: TextOverflow.ellipsis,
-                              //                 style: const TextStyle(
-                              //                     fontSize:
-                              //                         FontSizes.FONT_SIZE_14,
-                              //                     color: Color(0xff947979)),
-                              //               ),
-                              //             )
-                              //           ],
-                              //         ),
-                              //       ),
-                              //       Container(
-                              //         height: 1,
-                              //         color: const Color(0xffB6BBC6),
-                              //       ),
-                              //       Padding(
-                              //         padding: const EdgeInsets.symmetric(
-                              //             vertical: 16.0, horizontal: 16),
-                              //         child: Row(
-                              //           children: [
-                              //             const Text(
-                              //               "City",
-                              //               style: TextStyle(
-                              //                   fontSize:
-                              //                       FontSizes.FONT_SIZE_14,
-                              //                   fontWeight: FontWeight.bold),
-                              //             ),
-                              //             const SizedBox(
-                              //               width: 8,
-                              //             ),
-                              //             Expanded(
-                              //               child: Text(
-                              //                 selectedOrder?.paymentCity ?? "-",
-                              //                 overflow: TextOverflow.ellipsis,
-                              //                 maxLines: 1,
-                              //                 textAlign: TextAlign.right,
-                              //                 style: const TextStyle(
-                              //                     fontSize:
-                              //                         FontSizes.FONT_SIZE_14,
-                              //                     color: Color(0xff947979)),
-                              //               ),
-                              //             )
-                              //           ],
-                              //         ),
-                              //       ),
-                              //       Container(
-                              //         height: 1,
-                              //         color: const Color(0xffB6BBC6),
-                              //       ),
-                              //       Padding(
-                              //         padding: const EdgeInsets.symmetric(
-                              //             vertical: 16.0, horizontal: 16),
-                              //         child: Row(
-                              //           children: [
-                              //             const Text(
-                              //               "Country",
-                              //               style: TextStyle(
-                              //                   fontSize:
-                              //                       FontSizes.FONT_SIZE_14,
-                              //                   fontWeight: FontWeight.bold),
-                              //             ),
-                              //             Expanded(
-                              //               child: Text(
-                              //                 selectedOrder?.paymentCountry ??
-                              //                     "-",
-                              //                 textAlign: TextAlign.right,
-                              //                 overflow: TextOverflow.ellipsis,
-                              //                 maxLines: 1,
-                              //                 style: const TextStyle(
-                              //                     fontSize:
-                              //                         FontSizes.FONT_SIZE_14,
-                              //                     color: Color(0xff947979)),
-                              //               ),
-                              //             )
-                              //           ],
-                              //         ),
-                              //       ),
-                              //       Container(
-                              //         height: 1,
-                              //         color: const Color(0xffB6BBC6),
-                              //       ),
-                              //       Padding(
-                              //         padding: const EdgeInsets.symmetric(
-                              //             vertical: 16.0, horizontal: 16),
-                              //         child: Row(
-                              //           children: [
-                              //             const Text(
-                              //               "Region",
-                              //               style: TextStyle(
-                              //                   fontSize:
-                              //                       FontSizes.FONT_SIZE_14,
-                              //                   fontWeight: FontWeight.bold),
-                              //             ),
-                              //             const SizedBox(
-                              //               width: 8,
-                              //             ),
-                              //             Expanded(
-                              //               child: Text(
-                              //                 selectedOrder?.paymentZone ?? "",
-                              //                 textAlign: TextAlign.right,
-                              //                 maxLines: 1,
-                              //                 overflow: TextOverflow.ellipsis,
-                              //                 style: const TextStyle(
-                              //                     fontSize:
-                              //                         FontSizes.FONT_SIZE_14,
-                              //                     color: Color(0xff947979)),
-                              //               ),
-                              //             )
-                              //           ],
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 16,
-                              // ),
-                               Text(
+                              Text(
                                 AppLocalizations.of(context)!.shipping_address,
                                 style: const TextStyle(
                                     color: Color(0xff313846),
@@ -459,8 +272,9 @@ class OrderDetailsScreen extends StatelessWidget {
                                           vertical: 16.0, horizontal: 16),
                                       child: Row(
                                         children: [
-                                           Text(
-                                             AppLocalizations.of(context)!.full_name,
+                                          Text(
+                                            AppLocalizations.of(context)!
+                                                .full_name,
                                             style: const TextStyle(
                                                 fontSize:
                                                     FontSizes.FONT_SIZE_14,
@@ -472,7 +286,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                           Expanded(
                                             child: Text(
                                               "${selectedOrder?.shippingFirstname ?? ""} ${selectedOrder?.shippingLastname ?? ""}",
-                                              textAlign: TextAlign.right,
+                                              textAlign: TextAlign.end,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
@@ -493,8 +307,9 @@ class OrderDetailsScreen extends StatelessWidget {
                                           vertical: 16.0, horizontal: 16),
                                       child: Row(
                                         children: [
-                                           Text(
-                                             AppLocalizations.of(context)!.address,
+                                          Text(
+                                            AppLocalizations.of(context)!
+                                                .address,
                                             style: const TextStyle(
                                                 fontSize:
                                                     FontSizes.FONT_SIZE_14,
@@ -503,14 +318,13 @@ class OrderDetailsScreen extends StatelessWidget {
                                           const SizedBox(
                                             width: 4,
                                           ),
-
                                           Expanded(
                                             child: Text(
                                               selectedOrder?.shippingAddress1 ??
                                                   "",
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 2,
-                                              textAlign: TextAlign.right,
+                                              textAlign: TextAlign.end,
                                               style: const TextStyle(
                                                   fontSize:
                                                       FontSizes.FONT_SIZE_14,
@@ -529,8 +343,8 @@ class OrderDetailsScreen extends StatelessWidget {
                                           vertical: 16.0, horizontal: 16),
                                       child: Row(
                                         children: [
-                                           Text(
-                                             AppLocalizations.of(context)!.city ,
+                                          Text(
+                                            AppLocalizations.of(context)!.city,
                                             style: const TextStyle(
                                                 fontSize:
                                                     FontSizes.FONT_SIZE_14,
@@ -539,11 +353,10 @@ class OrderDetailsScreen extends StatelessWidget {
                                           const SizedBox(
                                             width: 4,
                                           ),
-
                                           Expanded(
                                             child: Text(
                                               selectedOrder?.shippingCity ?? "",
-                                              textAlign: TextAlign.right,
+                                              textAlign: TextAlign.end,
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style: const TextStyle(
@@ -564,8 +377,9 @@ class OrderDetailsScreen extends StatelessWidget {
                                           vertical: 16.0, horizontal: 16),
                                       child: Row(
                                         children: [
-                                           Text(
-                                            AppLocalizations.of(context)!.country ,
+                                          Text(
+                                            AppLocalizations.of(context)!
+                                                .country,
                                             style: const TextStyle(
                                                 fontSize:
                                                     FontSizes.FONT_SIZE_14,
@@ -578,7 +392,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                             child: Text(
                                               selectedOrder?.shippingCountry ??
                                                   '-',
-                                              textAlign: TextAlign.right,
+                                              textAlign: TextAlign.end,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
@@ -599,20 +413,21 @@ class OrderDetailsScreen extends StatelessWidget {
                                           vertical: 16.0, horizontal: 16),
                                       child: Row(
                                         children: [
-                                           Text(
-                                            AppLocalizations.of(context)!.region,
+                                          Text(
+                                            AppLocalizations.of(context)!
+                                                .region,
                                             style: const TextStyle(
                                                 fontSize:
                                                     FontSizes.FONT_SIZE_14,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           const SizedBox(
-                                            width: 4,
+                                            width: 8,
                                           ),
                                           Expanded(
                                             child: Text(
                                               selectedOrder?.shippingZone ?? "",
-                                              textAlign: TextAlign.right,
+                                              textAlign: TextAlign.end,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
@@ -624,12 +439,139 @@ class OrderDetailsScreen extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-
                                   ],
                                 ),
                               ),
-                             // const SizedBox(height: 16,),
 
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Text(
+                                AppLocalizations.of(context)!.order,
+                                style: const TextStyle(
+                                    color: Color(0xff313846),
+                                    fontSize: FontSizes.FONT_SIZE_20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                width: 40,
+                                height: 3,
+                                color: AppColors.APP_MAIN_COLOR,
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: const Color(0xffDDDDDD),
+                                  ),
+                                ),
+                                child: Column(children: [
+                                  ...selectedOrder?.products
+                                          ?.map(
+                                            (product) => Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          product.name ?? "",
+                                                          style:
+                                                              const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: FontSizes
+                                                                .FONT_SIZE_14,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 8,
+                                                        ),
+                                                        Text(
+                                                          "${product.priceRaw ?? ""}${product.currency} x ${product.quantity}",
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: const TextStyle(
+                                                              fontSize: FontSizes
+                                                                  .FONT_SIZE_12,
+                                                              color: Color(
+                                                                  0xff947979)),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      "${product.totalRaw ?? ""}${product.currency}",
+                                                      maxLines: 1,
+                                                      textAlign: TextAlign.end,
+                                                      style: const TextStyle(
+                                                          color:
+                                                              Color(0xff947979),
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                          .toList() ??
+                                      [],
+                                  Container(
+                                    height: 1,
+                                    color: const Color(0xffB6BBC6),
+                                  ),
+                                  ...selectedOrder?.totals
+                                          ?.map((total) => Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      total.title ?? "",
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: FontSizes
+                                                            .FONT_SIZE_14,
+                                                      ),
+                                                    )),
+                                                    Text(
+                                                      (double.tryParse(total
+                                                                          .value ??
+                                                                      "")
+                                                                  ?.toString() ??
+                                                              "") +
+                                                          AppSettingsCubit.get(
+                                                                  context)
+                                                              .currencyCode,
+                                                      style: const TextStyle(
+                                                          color: Color(
+                                                              0xff947979)),
+                                                    )
+                                                  ],
+                                                ),
+                                              ))
+                                          .toList() ??
+                                      []
+                                ]),
+                              ),
+                              // const SizedBox(height: 16,),
                             ],
                           ),
                         ),

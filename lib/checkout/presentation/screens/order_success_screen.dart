@@ -1,9 +1,11 @@
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
+import 'package:classic_eccomerce/home_layout/presentation/screens/home_layout.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:page_transition/page_transition.dart';
 
 class OrderSuccessScreen extends StatelessWidget {
   const OrderSuccessScreen({super.key});
@@ -12,7 +14,8 @@ class OrderSuccessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: CustomAppBar.renderAppBar(title: "Quick Checkout",cartCubit: CartCubit.get(context)),
+      appBar: CustomAppBar.renderAppBar(
+          title: "Quick Checkout", cartCubit: CartCubit.get(context)),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -29,9 +32,10 @@ class OrderSuccessScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                 Center(
+                Center(
                   child: Text(
-                    AppLocalizations.of(context)!.your_order_has_been_successfully_processed,
+                    AppLocalizations.of(context)!
+                        .your_order_has_been_successfully_processed,
                     style: const TextStyle(
                         color: Color(0xff313846),
                         fontSize: FontSizes.FONT_SIZE_16,
@@ -117,12 +121,35 @@ class OrderSuccessScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                 Center(
+                Center(
                   child: Text(
                     "${AppLocalizations.of(context)!.thanks_for_shopping_with_us_online}",
                     style: const TextStyle(
                         fontSize: FontSizes.FONT_SIZE_14,
                         color: Color(0xff484242)),
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 16,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      PageTransition(
+                          child: const HomeLayoutScreen(),
+                          type: PageTransitionType.rightToLeft),
+                      (Route<dynamic> route) => false,
+                    );
+                  },
+                  child: Center(
+                    child: Text(
+                      AppLocalizations.of(context)!.return_to_home_page,
+                      style: const TextStyle(
+                          fontSize: FontSizes.FONT_SIZE_14,
+                          color: Color(0xff2859E1)),
+                    ),
                   ),
                 )
               ],

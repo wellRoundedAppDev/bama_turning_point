@@ -1,3 +1,5 @@
+import '../../../home/data/models/product.dart';
+
 class GetOrderDetailsResponse {
   GetOrderDetailsResponse({
     this.success,
@@ -35,72 +37,73 @@ class GetOrderDetailsResponse {
 }
 
 class OrderDetails {
-  OrderDetails({
-    this.orderId,
-    // this.paymentCustomField,
-    // this.shippingCustomField,
-    // this.customField,
-    this.invoiceNo,
-    // this.invoicePrefix,
-    // this.storeId,
-    // this.storeName,
-    // this.storeUrl,
-    // this.customerId,
-    this.firstname,
-    this.lastname,
-    this.telephone,
-    this.email,
-    this.paymentFirstname,
-    this.paymentLastname,
-    this.paymentCompany,
-    this.paymentAddress1,
-    this.paymentAddress2,
-    this.paymentPostcode,
-    this.paymentCity,
-    this.paymentZoneId,
-    this.paymentZone,
-    this.paymentZoneCode,
-    this.paymentCountryId,
-    this.paymentCountry,
-    // this.paymentIsoCode2,
-    // this.paymentIsoCode3,
-    this.paymentAddressFormat,
-    this.paymentMethod,
-    this.shippingFirstname,
-    this.shippingLastname,
-    this.shippingCompany,
-    this.shippingAddress1,
-    this.shippingAddress2,
-    this.shippingPostcode,
-    this.shippingCity,
-    this.shippingZoneId,
-    this.shippingZone,
-    this.shippingZoneCode,
-    this.shippingCountryId,
-    this.shippingCountry,
-    // this.shippingIsoCode2,
-    // this.shippingIsoCode3,
-    this.shippingAddressFormat,
-    this.shippingMethod,
-    this.comment,
-    this.total,
-    this.orderStatusId,
-    // this.languageId,
-    // this.currencyId,
-    // this.currencyCode,
-    // this.currencyValue,
-    // this.dateModified,
-    this.dateAdded,
-    // this.ip,
-    this.paymentAddress,
-    this.shippingAddress,
-    // this.products,
-    // this.vouchers,
-    // this.totals,
-    // this.histories,
-    this.timestamp,
-    //  this.currency,
-  });
+  OrderDetails(
+      {this.orderId,
+      // this.paymentCustomField,
+      // this.shippingCustomField,
+      // this.customField,
+      this.invoiceNo,
+      // this.invoicePrefix,
+      // this.storeId,
+      // this.storeName,
+      // this.storeUrl,
+      // this.customerId,
+      this.firstname,
+      this.lastname,
+      this.telephone,
+      this.email,
+      this.paymentFirstname,
+      this.paymentLastname,
+      this.paymentCompany,
+      this.paymentAddress1,
+      this.paymentAddress2,
+      this.paymentPostcode,
+      this.paymentCity,
+      this.paymentZoneId,
+      this.paymentZone,
+      this.paymentZoneCode,
+      this.paymentCountryId,
+      this.paymentCountry,
+      // this.paymentIsoCode2,
+      // this.paymentIsoCode3,
+      this.paymentAddressFormat,
+      this.paymentMethod,
+      this.shippingFirstname,
+      this.shippingLastname,
+      this.shippingCompany,
+      this.shippingAddress1,
+      this.shippingAddress2,
+      this.shippingPostcode,
+      this.shippingCity,
+      this.shippingZoneId,
+      this.shippingZone,
+      this.shippingZoneCode,
+      this.shippingCountryId,
+      this.shippingCountry,
+      // this.shippingIsoCode2,
+      // this.shippingIsoCode3,
+      this.shippingAddressFormat,
+      this.shippingMethod,
+      this.comment,
+      this.total,
+      this.orderStatusId,
+      // this.languageId,
+      // this.currencyId,
+      // this.currencyCode,
+      // this.currencyValue,
+      // this.dateModified,
+      this.dateAdded,
+      // this.ip,
+      this.paymentAddress,
+      this.shippingAddress,
+      this.products,
+      // this.vouchers,
+      // this.totals,
+      // this.histories,
+      this.timestamp,
+      this.totals
+      //  this.currency,
+      });
 
   factory OrderDetails.fromJson(dynamic json) {
     var orderId = json['order_id'];
@@ -161,24 +164,26 @@ class OrderDetails {
     // var ip = json['ip'];
     var paymentAddress = json['payment_address'];
     var shippingAddress = json['shipping_address'];
-    // if (json['products'] != null) {
-    //   products = [];
-    //   json['products'].forEach((v) {
-    //     products?.add(Products.fromJson(v));
-    //   });
-    // }
+    List<ProductFromOrder>? products;
+    if (json['products'] != null) {
+      products = [];
+      json['products'].forEach((v) {
+        products?.add(ProductFromOrder.fromJson(v));
+      });
+    }
     // if (json['vouchers'] != null) {
     //   vouchers = [];
     //   json['vouchers'].forEach((v) {
     //     vouchers?.add(Dynamic.fromJson(v));
     //   });
     // }
-    // if (json['totals'] != null) {
-    //   totals = [];
-    //   json['totals'].forEach((v) {
-    //     totals?.add(Totals.fromJson(v));
-    //   });
-    // }
+    List<Total>? totals;
+    if (json['totals'] != null) {
+      totals = [];
+      json['totals'].forEach((v) {
+        totals?.add(Total.fromJson(v));
+      });
+    }
     // if (json['histories'] != null) {
     //   histories = [];
     //   json['histories'].forEach((v) {
@@ -189,48 +194,51 @@ class OrderDetails {
     // currency = json['currency'] != null ? Currency.fromJson(json['currency']) : null;
 
     return OrderDetails(
-      firstname: firstname,
-      lastname: lastname,
-      telephone: telephone,
-      email: email,
-      total: total,
-      paymentMethod: paymentMethod,
-      comment: comment,
-      dateAdded: dateAdded,
-      invoiceNo: invoiceNo,
-      orderId: orderId,
-      orderStatusId: orderStatusId,
-      paymentAddress1: paymentAddress1,
-      paymentAddress2: paymentAddress2,
-      paymentAddress: paymentAddress,
-      paymentAddressFormat: paymentAddressFormat,
-      paymentCity: paymentCity,
-      paymentCompany: paymentCompany,
-      paymentCountry: paymentCountry,
-      paymentCountryId: paymentCountryId,
-      paymentFirstname: paymentFirstname,
-      paymentLastname: paymentLastname,
-      paymentPostcode: paymentPostcode,
-      paymentZone: paymentZone,
-      paymentZoneCode: paymentZoneCode,
-      paymentZoneId: paymentZoneId,
-      shippingAddress1: shippingAddress1,
-      shippingAddress2: shippingAddress2,
-      shippingAddress: shippingAddress,
-      shippingAddressFormat: shippingAddressFormat,
-      shippingCity: shippingCity,
-      shippingCompany: shippingCompany,
-      shippingCountry: shippingCountry,
-      shippingCountryId: shippingCountryId,
-      shippingFirstname: shippingFirstname,
-      shippingLastname: shippingLastname,
-      shippingMethod: shippingMethod,
-      shippingPostcode: shippingPostcode,
-      shippingZone: shippingZone,
-      shippingZoneCode: shippingZoneCode,
-      shippingZoneId: shippingZoneId,
-      //timestamp: timestamp
-    );
+        firstname: firstname,
+        lastname: lastname,
+        telephone: telephone,
+        email: email,
+        total: total,
+        paymentMethod: paymentMethod,
+        comment: comment,
+        dateAdded: dateAdded,
+        invoiceNo: invoiceNo,
+        orderId: orderId,
+        orderStatusId: orderStatusId,
+        paymentAddress1: paymentAddress1,
+        paymentAddress2: paymentAddress2,
+        paymentAddress: paymentAddress,
+        paymentAddressFormat: paymentAddressFormat,
+        paymentCity: paymentCity,
+        paymentCompany: paymentCompany,
+        paymentCountry: paymentCountry,
+        paymentCountryId: paymentCountryId,
+        paymentFirstname: paymentFirstname,
+        paymentLastname: paymentLastname,
+        paymentPostcode: paymentPostcode,
+        paymentZone: paymentZone,
+        paymentZoneCode: paymentZoneCode,
+        paymentZoneId: paymentZoneId,
+        shippingAddress1: shippingAddress1,
+        shippingAddress2: shippingAddress2,
+        shippingAddress: shippingAddress,
+        shippingAddressFormat: shippingAddressFormat,
+        shippingCity: shippingCity,
+        shippingCompany: shippingCompany,
+        shippingCountry: shippingCountry,
+        shippingCountryId: shippingCountryId,
+        shippingFirstname: shippingFirstname,
+        shippingLastname: shippingLastname,
+        shippingMethod: shippingMethod,
+        shippingPostcode: shippingPostcode,
+        shippingZone: shippingZone,
+        shippingZoneCode: shippingZoneCode,
+        shippingZoneId: shippingZoneId,
+        products: products,
+        totals: totals
+
+        //timestamp: timestamp
+        );
   }
 
   String? orderId;
@@ -291,9 +299,9 @@ class OrderDetails {
   // String? ip;
   String? paymentAddress;
   String? shippingAddress;
-  //List<Products>? products;
+  List<ProductFromOrder>? products;
   //List<dynamic>? vouchers;
-  //List<Totals>? totals;
+  List<Total>? totals;
   // List<Histories>? histories;
   num? timestamp;
   //Currency? currency;
@@ -442,110 +450,130 @@ class OrderDetails {
 //
 // }
 
-// class Totals {
-//   Totals({
-//       this.orderTotalId,
-//       this.orderId,
-//       this.code,
-//       this.title,
-//       this.value,
-//       this.sortOrder,});
-//
-//   Totals.fromJson(dynamic json) {
-//     orderTotalId = json['order_total_id'];
-//     orderId = json['order_id'];
-//     code = json['code'];
-//     title = json['title'];
-//     value = json['value'];
-//     sortOrder = json['sort_order'];
-//   }
-//   String? orderTotalId;
-//   String? orderId;
-//   String? code;
-//   String? title;
-//   String? value;
-//   String? sortOrder;
-//
-//   Map<String, dynamic> toJson() {
-//     final map = <String, dynamic>{};
-//     map['order_total_id'] = orderTotalId;
-//     map['order_id'] = orderId;
-//     map['code'] = code;
-//     map['title'] = title;
-//     map['value'] = value;
-//     map['sort_order'] = sortOrder;
-//     return map;
-//   }
-//
-// }
-//
-// class Products {
-//   Products({
-//       this.productId,
-//       this.orderProductId,
-//       this.name,
-//       this.model,
-//       this.option,
-//       this.quantity,
-//       this.price,
-//       this.total,
-//       this.priceRaw,
-//       this.,
-//       this.totalRaw,
-//       this.return,});
-//
-//   Products.fromJson(dynamic json) {
-//     productId = json['product_id'];
-//     orderProductId = json['order_product_id'];
-//     name = json['name'];
-//     model = json['model'];
-//     if (json['option'] != null) {
-//       option = [];
-//       json['option'].forEach((v) {
-//         option?.add(Dynamic.fromJson(v));
-//       });
-//     }
-//     quantity = json['quantity'];
-//     price = json['price'];
-//     total = json['total'];
-//     priceRaw = json['price_raw'];
-//      = json['0'];
-//     totalRaw = json['total_raw'];
-//     return = json['return'];
-//   }
-//   String? productId;
-//   String? orderProductId;
-//   String? name;
-//   String? model;
-//   List<dynamic>? option;
-//   String? quantity;
-//   String? price;
-//   String? total;
-//   num? priceRaw;
-//   String? ;
-//   num? totalRaw;
-//   String? return;
-//
-//   Map<String, dynamic> toJson() {
-//     final map = <String, dynamic>{};
-//     map['product_id'] = productId;
-//     map['order_product_id'] = orderProductId;
-//     map['name'] = name;
-//     map['model'] = model;
-//     if (option != null) {
-//       map['option'] = option?.map((v) => v.toJson()).toList();
-//     }
-//     map['quantity'] = quantity;
-//     map['price'] = price;
-//     map['total'] = total;
-//     map['price_raw'] = priceRaw;
-//     map['0'] = ;
-//     map['total_raw'] = totalRaw;
-//     map['return'] = return;
-//     return map;
-//   }
-//
-// }
+class Total {
+  Total({
+    this.orderTotalId,
+    this.orderId,
+    this.code,
+    this.title,
+    this.value,
+    this.sortOrder,
+  });
+
+  factory Total.fromJson(dynamic json) {
+    var orderTotalId = json['order_total_id'];
+    var orderId = json['order_id'];
+    var code = json['code'];
+    var title = json['title'];
+    var value = json['value'];
+    var sortOrder = json['sort_order'];
+
+    return Total(
+        orderId: orderId,
+        orderTotalId: orderTotalId,
+        code: code,
+        title: title,
+        value: value,
+        sortOrder: sortOrder);
+  }
+
+  String? orderTotalId;
+  String? orderId;
+  String? code;
+  String? title;
+  String? value;
+  String? sortOrder;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['order_total_id'] = orderTotalId;
+    map['order_id'] = orderId;
+    map['code'] = code;
+    map['title'] = title;
+    map['value'] = value;
+    map['sort_order'] = sortOrder;
+    return map;
+  }
+}
+
+class ProductFromOrder {
+  ProductFromOrder({
+    this.productId,
+    this.orderProductId,
+    this.name,
+    this.model,
+    this.option,
+    this.quantity,
+    this.price,
+    this.total,
+    this.priceRaw,
+    this.totalRaw,
+    this.currency
+  });
+
+  factory ProductFromOrder.fromJson(dynamic json) {
+    var productId = json['product_id'];
+    var orderProductId = json['order_product_id'];
+    var name = json['name'];
+    var model = json['model'];
+
+    // if (json['option'] != null) {
+    //   option = [];
+    //   json['option'].forEach((v) {
+    //     option?.add(Dynamic.fromJson(v));
+    //   });
+    // }
+    var quantity = json['quantity'];
+    var price = json['price'];
+    var total = json['total'];
+    var priceRaw = json['price_raw'];
+    var currency = json['0'];
+    var totalRaw = json['total_raw'];
+
+    return ProductFromOrder(
+      productId: productId,
+      orderProductId: orderProductId,
+      name: name,
+      model: model,
+      quantity: quantity,
+      price: price,
+      total: total,
+      totalRaw: totalRaw,
+      priceRaw: priceRaw,
+      currency: currency
+    );
+  }
+  String? productId;
+  String? orderProductId;
+  String? name;
+  String? model;
+  List<dynamic>? option;
+  String? quantity;
+  String? price;
+  String? total;
+  num? priceRaw;
+  num? totalRaw;
+  String? currency;
+
+  // Map<String, dynamic> toJson() {
+  //   final map = <String, dynamic>{};
+  //   map['product_id'] = productId;
+  //   map['order_product_id'] = orderProductId;
+  //   map['name'] = name;
+  //   map['model'] = model;
+  //   if (option != null) {
+  //     map['option'] = option?.map((v) => v.toJson()).toList();
+  //   }
+  //   map['quantity'] = quantity;
+  //   map['price'] = price;
+  //   map['total'] = total;
+  //   map['price_raw'] = priceRaw;
+  //   map['0'] = ;
+  //   map['total_raw'] = totalRaw;
+  //   map['return'] = return;
+  //   return map;
+  // }
+}
 //
 // class CustomField {
 //   CustomField({

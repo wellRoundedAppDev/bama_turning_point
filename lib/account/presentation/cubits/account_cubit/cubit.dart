@@ -322,8 +322,15 @@ class AccountCubit extends Cubit<AccountStates> {
 
   setOrderDetails(int? id) async {
     selectedOrderId = id;
+    LocaleCubit localeCubit = LocaleCubit.get(context);
+    AppSettingsCubit appSettingsCubit = AppSettingsCubit.get(context);
+
     emit(GetOrderDetailsLoadingState());
-    var response = await AccountApis.getOrderDetails(id);
+    var response = await AccountApis.getOrderDetails(id,
+
+        currencyCode: appSettingsCubit.currencyCode,
+        languageCode: languageCodes[localeCubit.locale.languageCode]
+    );
     if (response?.success == 1) {
       selectedOrder = response?.orderDetails;
       emit(GetOrderDetailsSuccessState());
@@ -358,7 +365,7 @@ class AccountCubit extends Cubit<AccountStates> {
         int.tryParse(customerOrder?.orderId ?? ""));
     if (response == true) {
       customerOrder?.status =
-          LocaleCubit.get(context).locale.countryCode == "en"
+          LocaleCubit.get(context).locale.languageCode == "en"
               ? "Canceled"
               : "ملغي";
       emit(CancelCustomerOrderSuccessState());

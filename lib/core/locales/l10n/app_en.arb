@@ -141,6 +141,8 @@
   "enter_your_name": "Enter your name",
   "enter_your_subject": "Enter topic",
   "enter_your_message": "Enter message",
+  "return_to_home_page": "Return to home page",
+  "order": "Order",
 
   "welcome_user": "Welcome {username}",
   "@welcome_user": {

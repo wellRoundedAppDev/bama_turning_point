@@ -241,6 +241,7 @@ class AccountApis {
         "X-Oc-Merchant-Language": languageCode,
         "X-Oc-Currency": currencyCode
       });
+
       if (response == null) {
         return null;
       }
@@ -268,7 +269,9 @@ class AccountApis {
       if (response == null) {
         return null;
       }
-      return response.data['success'] == "Order Has Been Canceled Successfully"?true:false;
+      return response.data['success'] == "Order Has Been Canceled Successfully"
+          ? true
+          : false;
     } catch (e) {
       if (kDebugMode) {
         print("Get order details error api $e");

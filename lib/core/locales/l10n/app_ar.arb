@@ -139,7 +139,8 @@
   "enter_your_name": "أدخل أسمك",
   "enter_your_subject": "أدخل الموضوع",
   "enter_your_message": "أدخل الرسالة",
-
+  "return_to_home_page": "العوده للصفحه الرئيسيه",
+  "order": "الطلب",
 
   "welcome_user": "اهلاً بك, {username}"
 }

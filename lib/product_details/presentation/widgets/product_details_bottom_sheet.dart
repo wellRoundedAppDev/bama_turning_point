@@ -118,7 +118,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                     color: const Color(0xff2EAF23),
                     height: MediaQuery.of(context).size.height,
                     textFontSize: FontSizes.FONT_SIZE_14,
-                    action: () {
+                    action: () async {
                       ProductDetailsCubit productDetailsCubit =
                           ProductDetailsCubit.get(context);
                       ProductDetails? selectedProductDetails =
@@ -129,7 +129,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                           productDetailsCubit.selectedProductId.toString());
 
                       if (isProductInCart == false) {
-                        var success = cartCubit.addItemToCart(CartItem(
+                        var success = await cartCubit.addItemToCart(CartItem(
                             productId:
                                 selectedProductDetails?.productId?.toString() ??
                                     "",
