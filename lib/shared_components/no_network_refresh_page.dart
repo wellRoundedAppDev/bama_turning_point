@@ -1,0 +1,41 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../core/constants/fonts/font_sizes.dart';
+import '../core/constants/paths/image_paths.dart';
+import 'custom_button.dart';
+
+class NoNetworkRefreshPage extends StatelessWidget {
+  Function()? refresh;
+  NoNetworkRefreshPage({super.key, required this.refresh});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        //SvgPicture.asset(ImagePaths.NO_NETWORK_ILLUSTARTION),
+        const SizedBox(
+          height: 32,
+        ),
+        const Text(
+          "فشل الاتصال",
+          style: TextStyle(
+              fontSize: FontSizes.FONT_SIZE_18, color: Color(0xff565656)),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        const Text(
+          "تحقق من اتصالك بالإنترنت، وحاول مرة أخرى",
+          style: TextStyle(
+              fontSize: FontSizes.FONT_SIZE_14, color: Color(0xff565656)),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        CustomButton(text: "أعد المحاولة", action: refresh)
+      ],
+    );
+  }
+}

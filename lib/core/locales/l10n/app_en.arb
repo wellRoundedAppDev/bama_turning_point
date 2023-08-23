@@ -1,0 +1,59 @@
+{
+  "language": "English",
+  "login": "Login",
+  "sign_up": "Sign Up",
+  "verify_your_number": "Verify your phone number",
+  "phone_number": "Phone number",
+  "enter_your_phone_number": "Enter your phone number",
+  "continuee": "Continue",
+  "confirm": "Confirm",
+  "already_have_an_account": "Already have an account?",
+  "enter_a_valid_phone_number": "Enter a valid phone number",
+  "sign_in_to_continue": "Sign in to continue",
+  "password": "Password",
+  "confirm_password": "Confirm password",
+  "did_you_forget_password": "Did you forget your password?",
+
+  "enter_a_password_of_at_least_six_characters": "Enter a password of at least 6 characters",
+  "dont_have_an_account": "Don't have an account?",
+  "please_enable_your_gps_and_try_again": "Please enable your gps and try again",
+  "try_again": "Try again",
+  "send_again": "Resend",
+  "reset_password": "Reset password",
+  "create_password": "Create password",
+  "create_password_to_continue": "Create password to continue",
+  "verification_number": "Verification number",
+  "verification_code_will_be_sent_to_your_phone_now": "Verification code will be sent to your phone now",
+  "to_know_you_more": "To know you more!",
+  "enter_your_name_to_continue": "Enter your name to continue",
+  "your_name": "Your name",
+  "first_name": "First name",
+  "family_name": "Family name",
+  "enter_your_first_name": "Enter your first name",
+  "enter_your_family_name": "Enter your family name",
+  "enter_your_email_to_get_updates": "Enter your email to get updates",
+  "email_optional": "Email (optional)",
+  "enter_your_main_address": "Enter your main address",
+  "address_optional": "Address (optional)",
+
+  "street_name": "Street name",
+  "area": "Area",
+  "home": "Home",
+  "floor": "Floor",
+  "apartment":"Apartement",
+  "enter_street_name": "Enter street name",
+  "enter_area": "Enter area",
+  "enter_home": "Enter home",
+  "enter_floor": "Enter floor",
+  "enter_apartment":"Enter apartement",
+
+  "welcome_user": "Welcome {username}",
+  "@welcome_user": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  }
+
+}
