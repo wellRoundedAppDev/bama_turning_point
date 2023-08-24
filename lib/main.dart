@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:classic_eccomerce/splash/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
           900: const Color(AppColors.APP_MAIN_COLOR_HEX).withOpacity(1),
         }),
       ),
-      home: const HomeLayoutScreen(),
+      home: const SplashScreen(),
     );
   }
 }
