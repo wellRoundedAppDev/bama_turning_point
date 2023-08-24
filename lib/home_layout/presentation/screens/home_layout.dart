@@ -1,11 +1,11 @@
+import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/home/presentation/screens/home_screen.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../../core/constants/colors/colors.dart';
-import '../../../core/constants/paths/icon_paths.dart';
 import '../cubits/app_cubit/cubit.dart';
 import '../cubits/app_cubit/states.dart';
 
@@ -24,42 +24,76 @@ class HomeLayoutScreen extends StatelessWidget {
 
           return SafeArea(
               child: Scaffold(
-                  appBar: AppBar(
-                      toolbarHeight: MediaQuery.of(context).size.height * 0.08,
-                      flexibleSpace: const Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 16.0),
-                        child: Row(
-                          children: [],
-                        ),
-                      )),
-                  bottomNavigationBar: BottomNavigationBar(
-                    type: BottomNavigationBarType.fixed,
-                    backgroundColor: const Color(0xffFEF5F5),
-                    onTap: (int index) {
-                      appCubit.changeNavBarIndex(index);
-                    },
-                    currentIndex: navBarCurrentIndex,
-                    items: [
-                      BottomNavigationBarItem(
-                          icon: SvgPicture.asset(
-                            IconPaths.HOME,
-                            color: (navBarCurrentIndex == 0)
-                                ? AppColors.APP_MAIN_COLOR
-                                : null,
-                          ),
-                          label: "الرئيسية"),
-                      BottomNavigationBarItem(
-                          icon: SvgPicture.asset(
-                            IconPaths.CART,
-                            color: (navBarCurrentIndex == 1)
-                                ? AppColors.APP_MAIN_COLOR
-                                : null,
-                          ),
-                          label: "السلة"),
-                    ],
+                  bottomNavigationBar: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: CurvedNavigationBar(
+                        height: 70,
+                        color: AppColors.NAV_BAR_COLOR,
+                        buttonBackgroundColor: AppColors.APP_MAIN_COLOR,
+                        backgroundColor: Colors.transparent,
+                        items: <Widget>[
+                          (navBarCurrentIndex == 0)
+                              ? Image.asset(
+                                  IconPaths.PROFILE,
+                                  width: 30,
+                                  height: 30,
+                                )
+                              : Image.asset(
+                                  IconPaths.PROFILE,
+                                  width: 30,
+                                  height: 30,
+                                ),
+                          (navBarCurrentIndex == 1)
+                              ? Image.asset(
+                                  IconPaths.CART,
+                                  width: 30,
+                                  height: 30,
+                                )
+                              : Image.asset(
+                                  IconPaths.CART,
+                                  width: 30,
+                                  height: 30,
+                                ),
+                          (navBarCurrentIndex == 2)
+                              ? Image.asset(
+                                  IconPaths.CATEGORIES_NAV_ICON,
+                                  width: 30,
+                                  height: 30,
+                                )
+                              : Image.asset(
+                                  IconPaths.CATEGORIES_NAV_ICON,
+                                  width: 30,
+                                  height: 30,
+                                ),
+                          (navBarCurrentIndex == 3)
+                              ? Image.asset(
+                                  IconPaths.FAV_ICON,
+                                  width: 30,
+                                  height: 30,
+                                )
+                              : Image.asset(
+                                  IconPaths.FAV_ICON,
+                                  width: 30,
+                                  height: 30,
+                                ),
+                          (navBarCurrentIndex == 4)
+                              ? Image.asset(
+                                  IconPaths.HOME_NAV_ICON,
+                                  width: 30,
+                                  height: 30,
+                                )
+                              : Image.asset(
+                                  IconPaths.HOME_NAV_ICON,
+                                  width: 30,
+                                  height: 30,
+                                ),
+                        ],
+                        index: appCubit.currentNavbarIndex,
+                        onTap: (index) {
+                          appCubit.changeNavBarIndex(index);
+                        }),
                   ),
-                  body: (navBarCurrentIndex == 0)
+                  body: (navBarCurrentIndex == 4)
                       ? const HomeScreen()
                       : const CartScreen()));
         },

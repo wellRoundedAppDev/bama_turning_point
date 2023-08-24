@@ -1,134 +1,104 @@
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
+import 'package:classic_eccomerce/core/constants/fonts/font_families.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
+import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
+import 'package:classic_eccomerce/home/presentation/widgets/categories_overview.dart';
+import 'package:classic_eccomerce/home/presentation/widgets/products_overview.dart';
 import 'package:classic_eccomerce/products_in_category/presentation/screens/products_in_category_screen.dart';
+import 'package:classic_eccomerce/shared_components/custom_input.dart';
+import 'package:classic_eccomerce/shared_components/search_app_bar_custom_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+
+import '../../../core/constants/paths/image_paths.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: ListView.separated(
-        separatorBuilder: (context, index) => const SizedBox(
-          height: 24,
-        ),
-        itemCount: 9,
-        scrollDirection: Axis.vertical,
-          itemBuilder: (context, index) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: MediaQuery.of(context).size.height * 0.16,
+          backgroundColor: AppColors.APP_BAR_COLOR,
+          flexibleSpace: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Expanded(
-                        child: Text(
-                      "ملابس",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: FontSizes.FONT_SIZE_18),
-                    )),
-                    const SizedBox(
-                      width: 8,
+                    const Icon(
+                      Icons.menu_sharp,
+                      size: 25,
+                      color: Colors.white,
                     ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(context, PageTransition(
-                            child:
-                            const ProductsInCategoryScreen(),
-                            type: PageTransitionType.leftToRight));
-                      },
-                      child: const Row(
-                        children: [
-                          Text(
-                            "المزيد",
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_14,
-                                color: AppColors.APP_MAIN_COLOR),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: AppColors.APP_MAIN_COLOR,
-                          )
-                        ],
-                      ),
-                    )
+                    const Text(
+                      "NORTH GRASS",
+                      style: TextStyle(
+                          fontSize: FontSizes.FONT_SIZE_18,
+                          color: Colors.white,
+                          fontFamily: FontFamilies.JOST_BOld),
+                    ),
+                    Image.asset(
+                      IconPaths.CART,
+                      width: 25,
+                      height: 25,
+                    ),
                   ],
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
+                const Spacer(),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.15,
-
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return SizedBox(
-                          width: MediaQuery.of(
-                              context)
-                              .size
-                              .width *
-                              0.35,
-                          child: ClipRRect(
-
-                            borderRadius: BorderRadius.circular(8),
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  top:0,
-                                  bottom: 0,
-                                  left: 0,
-                                  right: 0,
-                                  child: Image.asset(
-                                    "assets/images/shirt.jpg",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  left: 0,
-                                  child: Container(
-                                    height: 32,
-                                    padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 8),
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xff4E4E4E)
-                                          .withOpacity(0.26),
-                                      backgroundBlendMode: BlendMode.srcOver,
-                                      borderRadius: const BorderRadius.only(
-                                          bottomRight: Radius.circular(8),
-                                          bottomLeft: Radius.circular(8)),
-                                    ),
-                                    child: const Text(
-                                      "T-shirt",
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                          fontSize: FontSizes.FONT_SIZE_12,
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
+                    height: 45,
+                    child: Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: SearchAppBarCustomInput(
+                          hintText: "TYPE HERE",
+                          textDirection: TextDirection.ltr,
+                          textAlign: TextAlign.left,
+                          hintTextStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: FontSizes.FONT_SIZE_14,
+                              fontFamily: FontFamilies.OPEN_SANS),
+                          suffixIcon: const Icon(
+                            Icons.search,
+                            size: 20,
+                            color: Colors.white,
                           ),
-                        );
-                      },
-                      separatorBuilder: (context, index) => const SizedBox(
-                            width: 8,
-                          ),
-                      itemCount: 6),
-                )
+                        ),
+                      ),
+                    )),
               ],
-            );
-          },
+            ),
+          ),
+        ),
+        body: Column(
+          children: [
+            Image.asset(
+              "assets/images/discount_banner.jpg",
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.2,
+              fit: BoxFit.cover,
+            ),
+            Expanded(
+              child: ListView.separated(
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 24,
+                ),
+                itemCount: 7,
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, index) {
+                  return (index == 0)?const CategoriesOverview():
+                   ProductsHorizontalList(index: index,);
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

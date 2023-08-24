@@ -1,6 +1,9 @@
+import 'package:classic_eccomerce/core/constants/fonts/font_families.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
+import 'package:classic_eccomerce/home_layout/presentation/screens/home_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -9,14 +12,18 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-
-
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
-
+    Future.delayed(
+      const Duration(seconds: 3),
+      () => Navigator.pushReplacement(
+          context,
+          PageTransition(
+              child: const HomeLayoutScreen(), type: PageTransitionType.fade)),
+    );
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -59,9 +66,10 @@ class _SplashScreenState extends State<SplashScreen> {
                   const Text(
                     "SHOP NOW",
                     style: TextStyle(
-                        fontSize: FontSizes.FONT_SIZE_24,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                      fontSize: FontSizes.FONT_SIZE_24,
+                      color: Colors.white,
+                      fontFamily: FontFamilies.JOST_BOld,
+                    ),
                   )
                 ],
               ))
@@ -69,6 +77,4 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     ));
   }
-
-
 }
