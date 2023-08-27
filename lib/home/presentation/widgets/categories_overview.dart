@@ -82,8 +82,10 @@ class CategoriesOverview extends StatelessWidget {
                                 fit: BoxFit.cover,
                               )),
                           const Text(
-                            "design department",
+                            "design departmeent",
                             textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 color: Color(0xff333333),
                                 fontWeight: FontWeight.bold,

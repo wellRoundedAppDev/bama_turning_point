@@ -4,14 +4,9 @@ import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/categories_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/products_overview.dart';
-import 'package:classic_eccomerce/products_in_category/presentation/screens/products_in_category_screen.dart';
-import 'package:classic_eccomerce/shared_components/custom_input.dart';
 import 'package:classic_eccomerce/shared_components/search_app_bar_custom_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-
-import '../../../core/constants/paths/image_paths.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -57,6 +52,8 @@ class HomeScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: SearchAppBarCustomInput(
+                          isFilled: true,
+                          filledColor: const Color(0xff5A606B),
                           hintText: "TYPE HERE",
                           textDirection: TextDirection.ltr,
                           textAlign: TextAlign.left,
@@ -93,7 +90,7 @@ class HomeScreen extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
                   return (index == 0)?const CategoriesOverview():
-                   ProductsHorizontalList(index: index,);
+                   ProductsOverview(index: index,);
                 },
               ),
             ),

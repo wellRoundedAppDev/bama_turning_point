@@ -1,0 +1,35 @@
+import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
+import 'package:classic_eccomerce/main.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../core/constants/paths/icon_paths.dart';
+
+class CustomAppBar {
+  static renderAppBar({required String title,bool showBackButton =  true}){
+
+    return AppBar(
+      toolbarHeight: 65,
+      backgroundColor: const Color(0xff101216),
+
+      flexibleSpace: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          (showBackButton)?IconButton(onPressed: (){
+          Navigator.pop( MyApp.navKey.currentState!.context);
+        }, icon: const Icon(Icons.arrow_back_ios,color: Colors.white,)):Container(),
+          Text(title,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: FontSizes.FONT_SIZE_20,color: Colors.white),),
+          Image.asset(
+          IconPaths.CART,
+          width: 25,
+    height: 25,
+    ),
+
+    ],),
+      ),);
+  }
+
+
+}

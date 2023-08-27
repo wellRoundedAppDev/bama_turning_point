@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navKey,
-      title: 'Ecommerce',
+      title: 'North Grass',
       supportedLocales: L10n.all,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [

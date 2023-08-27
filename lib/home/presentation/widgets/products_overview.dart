@@ -4,9 +4,9 @@ import 'package:page_transition/page_transition.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../products_in_category/presentation/screens/products_in_category_screen.dart';
 
-class ProductsHorizontalList extends StatelessWidget {
+class ProductsOverview extends StatelessWidget {
   int index;
-   ProductsHorizontalList({super.key,required this.index});
+   ProductsOverview({super.key,required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -72,14 +72,28 @@ class ProductsHorizontalList extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(
-                            "assets/images/product_dummy.png",
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            width: MediaQuery.of(context).size.width,
-                            fit: BoxFit.cover,
-                          ),
+                        Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.asset(
+                                "assets/images/product_dummy.png",
+                                height: MediaQuery.of(context).size.height * 0.2,
+                                width: MediaQuery.of(context).size.width,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Positioned(
+                                bottom: 8,
+                                right: 8,
+                                child: Container(
+                                  decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white.withOpacity(0.7)),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(2.0),
+                                      child: Icon(Icons.favorite_border_rounded,color: Colors.black,),
+                                    )))
+
+                          ],
                         ),
                         const Text(
                           "Products List",
@@ -112,6 +126,7 @@ class ProductsHorizontalList extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                   style: TextStyle(
+                                      decoration: TextDecoration.lineThrough,
                                     color: const Color(0xff333333)
                                         .withOpacity(0.5),
 
