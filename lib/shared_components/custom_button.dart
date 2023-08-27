@@ -17,15 +17,17 @@ class CustomButton extends StatelessWidget {
   bool isLoading;
   Widget? icon;
   double borderRadius;
+  double? elevation;
 
   CustomButton(
       {Key? key,
       required this.text,
       required this.action,
+        this.elevation,
       this.color = AppColors.APP_MAIN_COLOR,
-      this.textFontSize = FontSizes.FONT_SIZE_22,
+      this.textFontSize = FontSizes.FONT_SIZE_16,
       this.textColor = 0xffffffff,
-        this.borderRadius = 32,
+        this.borderRadius = 0,
       this.buttonBorderWidthColor = AppColors.APP_MAIN_COLOR,
       this.fontWeight = FontWeight.w800,
       this.isLoading = false,
@@ -40,13 +42,14 @@ class CustomButton extends StatelessWidget {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               backgroundColor: color,
+              elevation: elevation,
               shape: RoundedRectangleBorder(
                   side: BorderSide(width: 1, color: buttonBorderWidthColor),
                   borderRadius: BorderRadius.circular(borderRadius))),
           onPressed: (isLoading) ? null : action,
           child: (isLoading)
               ? const Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(color: Colors.white,),
                 )
               : Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
