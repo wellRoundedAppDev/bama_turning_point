@@ -1,4 +1,5 @@
-import 'package:classic_eccomerce/cart/presentation/widgets/wish_list_item.dart';
+import 'package:classic_eccomerce/cart/presentation/widgets/checkout_bottom_sheet.dart';
+import 'package:classic_eccomerce/cart/presentation/widgets/cart_item.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,44 +24,14 @@ class CartScreen extends StatelessWidget {
               padding: const EdgeInsets.only(
                   right: 16, left: 16, bottom: 16, top: 24),
               itemBuilder: (context, index) {
-                return const CartItem();
+                return (index == 6)
+                    ? const Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child: CheckOutBottomSheet()
+                      )
+                    : const CartItem();
               },
               itemCount: 7,
-            ),
-          ),
-          Container(
-            height: 80,
-            color: const Color(0xff313846),
-            padding: const EdgeInsets.only(
-              left: 20,
-              right: 16,
-              top: 16,
-              bottom: 16,
-            ),
-            child: Row(
-              children: [
-                const Expanded(
-                  child: Row(
-                    children: [
-                      Text(
-                        "Total",
-                        style: TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "1478",
-                        style: TextStyle(fontSize: FontSizes.FONT_SIZE_12),
-                      )
-                    ],
-                  ),
-                ),
-                CustomButton(
-                  text: "Checkout",
-                  textFontSize: FontSizes.FONT_SIZE_14,
-                  action: () {},
-                )
-              ],
             ),
           ),
         ],
