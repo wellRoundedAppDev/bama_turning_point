@@ -90,7 +90,8 @@ class CategoriesOverview extends StatelessWidget {
                                 color: Color(0xff333333),
                                 fontWeight: FontWeight.bold,
                                 fontSize: FontSizes.FONT_SIZE_12),
-                          )
+                          ),
+
                         ],
                       ),
                     ),

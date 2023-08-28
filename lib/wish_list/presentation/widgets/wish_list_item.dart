@@ -37,7 +37,7 @@ class WishListItem extends StatelessWidget {
           ),
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
@@ -49,6 +49,7 @@ class WishListItem extends StatelessWidget {
                       color: Color(0xff333333),
                       fontWeight: FontWeight.bold),
                 ),
+                const SizedBox(height: 3,),
                 const Text(
                   "\$59.52",
                   maxLines: 1,
@@ -58,6 +59,7 @@ class WishListItem extends StatelessWidget {
                       color: Color(0xff015963),
                       fontWeight: FontWeight.bold),
                 ),
+                const SizedBox(height: 3,),
                 const Row(
                   children: [
                     Text(
@@ -79,7 +81,7 @@ class WishListItem extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 2,
+                  height: 8,
                 ),
                 Row(
                   children: [

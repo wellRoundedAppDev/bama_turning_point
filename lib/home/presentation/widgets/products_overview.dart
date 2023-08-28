@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/product_details/presentation/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -65,76 +66,82 @@ class ProductsOverview extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Stack(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                "assets/images/product_dummy.png",
-                                height: MediaQuery.of(context).size.height * 0.2,
-                                width: MediaQuery.of(context).size.width,
-                                fit: BoxFit.cover,
+                  return InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ProductDetailsScreen()));
+                    },
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Stack(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.asset(
+                                  "assets/images/product_dummy.png",
+                                  height: MediaQuery.of(context).size.height * 0.2,
+                                  width: MediaQuery.of(context).size.width,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                            Positioned(
-                                bottom: 8,
-                                right: 8,
-                                child: Container(
-                                  decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white.withOpacity(0.7)),
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(2.0),
-                                      child: Icon(Icons.favorite_border_rounded,color: Colors.black,),
-                                    )))
+                              Positioned(
+                                  bottom: 8,
+                                  right: 8,
+                                  child: Container(
+                                    decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white.withOpacity(0.7)),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(2.0),
+                                        child: Icon(Icons.favorite_border_rounded,color: Colors.black,),
+                                      )))
 
-                          ],
-                        ),
-                        const Text(
-                          "Products List",
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: Color(0xff333333),
-                              fontSize: FontSizes.FONT_SIZE_14,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Row(
-                          children: [
-                            const Flexible(
-                                child: Text(
-                              "\$59.52",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Color(0xff015963),
-                                  fontWeight: FontWeight.bold),
-                            )),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Flexible(
-                                flex: 2,
-                                child: Text(
-                                  "\$17.96",
-                                  textAlign: TextAlign.left,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                      decoration: TextDecoration.lineThrough,
-                                    color: const Color(0xff333333)
-                                        .withOpacity(0.5),
+                            ],
+                          ),
+                          const Text(
+                            "Products List",
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Color(0xff333333),
+                                fontSize: FontSizes.FONT_SIZE_14,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Row(
+                            children: [
+                              const Flexible(
+                                  child: Text(
+                                "\$59.52",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    color: Color(0xff015963),
+                                    fontWeight: FontWeight.bold
+                                ),
+                              )),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Flexible(
+                                  flex: 2,
+                                  child: Text(
+                                    "\$17.96",
+                                    textAlign: TextAlign.left,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                        decoration: TextDecoration.lineThrough,
+                                      color: const Color(0xff333333)
+                                          .withOpacity(0.5),
 
-                                  ),
-                                )),
-                          ],
-                        )
-                      ],
+                                    ),
+                                  )),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   );
                 },

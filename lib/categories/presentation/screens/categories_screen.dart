@@ -1,6 +1,5 @@
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/paths/image_paths.dart';
@@ -18,7 +17,7 @@ class CategoriesScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8),
               gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisExtent:  MediaQuery.of(context).size.height * 0.32,
+                mainAxisExtent:  MediaQuery.of(context).size.height * 0.3,
 
               ),
               itemCount: 15,
@@ -42,19 +41,17 @@ class CategoriesScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 16,
+                          height: 8,
                         ),
-                        const SizedBox(
-                          child: Text(
-                            "design depaartment",
-                            textAlign: TextAlign.left,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_16,
-                                color: Color(0xff313846),
-                                fontWeight: FontWeight.bold),
-                          ),
+                        const Text(
+                          "design departments",
+                          textAlign: TextAlign.left,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: FontSizes.FONT_SIZE_16,
+                              color: Color(0xff313846),
+                              fontWeight: FontWeight.bold),
                         )
                       ],
                     ),

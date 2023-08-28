@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       theme:  ThemeData(
         dividerColor: Colors.transparent,
         primaryColor: AppColors.APP_MAIN_COLOR,
-        fontFamily: FontFamilies.CAIRO,
+        fontFamily: FontFamilies.OPEN_SANS,
         appBarTheme: const AppBarTheme(
             systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: AppColors.APP_MAIN_COLOR,
