@@ -1,21 +1,23 @@
-import 'package:classic_eccomerce/core/constants/colors/colors.dart';
-import 'package:classic_eccomerce/core/constants/fonts/font_families.dart';
-import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
-import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
-import 'package:classic_eccomerce/home/presentation/widgets/categories_overview.dart';
-import 'package:classic_eccomerce/home/presentation/widgets/products_overview.dart';
-import 'package:classic_eccomerce/shared_components/search_app_bar_custom_input.dart';
+import 'package:classic_eccomerce/categories/presentation/widgets/filtered_product.dart';
+import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+import '../../../core/constants/colors/colors.dart';
+import '../../../core/constants/fonts/font_families.dart';
+import '../../../core/constants/fonts/font_sizes.dart';
+import '../../../core/constants/paths/icon_paths.dart';
+import '../../../shared_components/search_app_bar_custom_input.dart';
+
+class FilterCategoryScreen extends StatelessWidget {
+  const FilterCategoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          leading: Container(),
           toolbarHeight: MediaQuery.of(context).size.height * 0.16,
           backgroundColor: AppColors.APP_BAR_COLOR,
           flexibleSpace: Padding(
@@ -73,36 +75,38 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(
-                "assets/images/discount_banner.jpg",
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.2,
-                fit: BoxFit.cover,
+        body: Column(
+          children: [
+            Container(
+              height: 30,
+              color: AppColors.APP_BAR_COLOR,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  const Text(
+                    "artificial trees",
+                    style: TextStyle(
+                        fontSize: FontSizes.FONT_SIZE_18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff015963)),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return const FilteredProduct();
+                      })
+                ],
               ),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 24,
-                ),
-                itemCount: 7,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return (index == 0)
-                      ? const CategoriesOverview()
-                      : Container(
-                          color: Colors.white,
-                          child: ProductsOverview(
-                            index: index,
-                          ));
-                },
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -7,5 +7,6 @@ class IconPaths {
   static const FAV_ICON = "assets/icons/favorites.png";
   static const MENU_ICON = "assets/icons/menu.png";
   static const COMPARE_ICON = "assets/icons/compare.png";
+  static const COMPARE_ICON_2 = "assets/icons/compare_icon_2.png";
 
 }

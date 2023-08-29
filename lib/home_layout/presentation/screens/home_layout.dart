@@ -103,7 +103,7 @@ class HomeLayoutScreen extends StatelessWidget {
                               ? const CategoriesScreen()
                               : (navBarCurrentIndex == 1)
                                   ? const CartScreen()
-                                  : const CartScreen()));
+                                  :  Container()));
         },
       ),
     );

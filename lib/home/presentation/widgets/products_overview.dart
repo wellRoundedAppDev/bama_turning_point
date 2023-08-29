@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../core/constants/fonts/font_sizes.dart';
-import '../../../products_in_category/presentation/screens/products_in_category_screen.dart';
 
 class ProductsOverview extends StatelessWidget {
   int index;
@@ -12,7 +11,6 @@ class ProductsOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
       padding: const EdgeInsets.all(16),
       height: MediaQuery.of(context).size.height * 0.4,
       child: Column(
@@ -43,11 +41,11 @@ class ProductsOverview extends StatelessWidget {
               )),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      PageTransition(
-                          child: const ProductsInCategoryScreen(),
-                          type: PageTransitionType.leftToRight));
+                  // Navigator.push(
+                  //     context,
+                  //     PageTransition(
+                  //         child: const ProductsInCategoryScreen(),
+                  //         type: PageTransitionType.leftToRight));
                 },
                 child: const Text(
                   "View All",
