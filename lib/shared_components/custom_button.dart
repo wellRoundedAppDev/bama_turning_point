@@ -44,7 +44,6 @@ class CustomButton extends StatelessWidget {
               backgroundColor: color,
               elevation: elevation,
               shape: RoundedRectangleBorder(
-                  side: BorderSide(width: 1, color: buttonBorderWidthColor),
                   borderRadius: BorderRadius.circular(borderRadius))),
           onPressed: (isLoading) ? null : action,
           child: (isLoading)

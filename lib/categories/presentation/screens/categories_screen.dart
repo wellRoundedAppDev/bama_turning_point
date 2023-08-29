@@ -15,15 +15,14 @@ class CategoriesScreen extends StatelessWidget {
                 title: "Categories", showBackButton: false),
             body: GridView.builder(
               padding: const EdgeInsets.symmetric(vertical: 8),
-              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisExtent:  MediaQuery.of(context).size.height * 0.3,
-
+                mainAxisExtent: MediaQuery.of(context).size.height * 0.3,
               ),
               itemCount: 15,
               itemBuilder: (BuildContext context, int index) {
                 return InkWell(
-                  onTap: (){
+                  onTap: () {
 
                   },
                   child: Padding(

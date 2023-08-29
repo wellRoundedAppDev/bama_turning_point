@@ -1,8 +1,8 @@
+import 'package:classic_eccomerce/categories/presentation/screens/filter_category.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../core/constants/fonts/font_sizes.dart';
-import '../../../products_in_category/presentation/screens/products_in_category_screen.dart';
 
 class CategoriesOverview extends StatelessWidget {
   const CategoriesOverview({super.key});
@@ -44,11 +44,11 @@ class CategoriesOverview extends StatelessWidget {
               )),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      PageTransition(
-                          child: const ProductsInCategoryScreen(),
-                          type: PageTransitionType.leftToRight));
+                  // Navigator.push(
+                  //     context,
+                  //     PageTransition(
+                  //         child: const ProductsInCategoryScreen(),
+                  //         type: PageTransitionType.leftToRight));
                 },
                 child: const Text(
                   "View All",
@@ -68,7 +68,11 @@ class CategoriesOverview extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context,
+                          PageTransition(child: const FilterCategoryScreen(),
+                          type: PageTransitionType.leftToRight));
+                    },
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.25,
                       child: Column(
@@ -91,7 +95,6 @@ class CategoriesOverview extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: FontSizes.FONT_SIZE_12),
                           ),
-
                         ],
                       ),
                     ),

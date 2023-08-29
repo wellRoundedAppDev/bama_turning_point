@@ -24,7 +24,7 @@ class CheckOutBottomSheet extends StatelessWidget {
               ),
               child: Row(
                 crossAxisAlignment:
-                CrossAxisAlignment.start,
+                CrossAxisAlignment.center,
                 children: [
                   Text(
                     "Total",
