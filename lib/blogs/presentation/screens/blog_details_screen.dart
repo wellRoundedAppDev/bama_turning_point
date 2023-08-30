@@ -1,7 +1,5 @@
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
-import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BlogDetailsScreen extends StatelessWidget {
