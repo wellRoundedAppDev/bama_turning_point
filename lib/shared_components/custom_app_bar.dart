@@ -6,30 +6,46 @@ import 'package:flutter/material.dart';
 import '../core/constants/paths/icon_paths.dart';
 
 class CustomAppBar {
-  static renderAppBar({required String title,bool showBackButton =  true, bool showCartIcon = true}){
-
+  static renderAppBar(
+      {required String title,
+      bool showBackButton = true,
+      bool showCartIcon = true}) {
     return AppBar(
       toolbarHeight: 65,
       backgroundColor: const Color(0xff101216),
-
+      leading: Container(),
       flexibleSpace: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          (showBackButton)?IconButton(onPressed: (){
-          Navigator.pop( MyApp.navKey.currentState!.context);
-        }, icon: const Icon(Icons.arrow_back_ios,color: Colors.white,)):Container(),
-          Text(title,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: FontSizes.FONT_SIZE_20,color: Colors.white),),
-          (showCartIcon)?   Image.asset(
-          IconPaths.CART,
-          width: 25,
-    height: 25,
-    ):Container(),
-
-    ],),
-      ),);
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            (showBackButton)
+                ? IconButton(
+                    onPressed: () {
+                      Navigator.pop(MyApp.navKey.currentState!.context);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.white,
+                    ))
+                : Container(),
+            Text(
+              title,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: FontSizes.FONT_SIZE_20,
+                  color: Colors.white),
+            ),
+            (showCartIcon)
+                ? Image.asset(
+                    IconPaths.CART,
+                    width: 25,
+                    height: 25,
+                  )
+                : Container(),
+          ],
+        ),
+      ),
+    );
   }
-
-
 }

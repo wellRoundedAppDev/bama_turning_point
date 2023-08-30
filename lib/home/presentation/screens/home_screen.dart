@@ -8,6 +8,8 @@ import 'package:classic_eccomerce/shared_components/search_app_bar_custom_input.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/home_drawer.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -15,9 +17,11 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        drawer: const HomeDrawer(),
         appBar: AppBar(
           toolbarHeight: MediaQuery.of(context).size.height * 0.16,
           backgroundColor: AppColors.APP_BAR_COLOR,
+          leading: Container(),
           flexibleSpace: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(

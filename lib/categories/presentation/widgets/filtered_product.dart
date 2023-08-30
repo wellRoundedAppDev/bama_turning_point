@@ -13,7 +13,6 @@ class FilteredProduct extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height * 0.15,
       width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: const Color(0xffDDDDDD), width: 1)),
@@ -24,7 +23,7 @@ class FilteredProduct extends StatelessWidget {
             child: Image.asset(
               "assets/images/product_dummy.png",
               width: MediaQuery.of(context).size.width * 0.25,
-              height: MediaQuery.of(context).size.height * 0.2,
+              height: MediaQuery.of(context).size.height,
               fit: BoxFit.cover,
             ),
           ),
@@ -37,118 +36,110 @@ class FilteredProduct extends StatelessWidget {
             width: 8,
           ),
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Product Name",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontSize: FontSizes.FONT_SIZE_14,
-                      color: Color(0xff333333),
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                const Text(
-                  "\$59.52",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontSize: FontSizes.FONT_SIZE_14,
-                      color: Color(0xff015963),
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.25,
-                      height: 25,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xffD0D0D0))),
-                      child: Row(
-                        children: [
-                          const Flexible(
-                              flex: 1,
-                              child: Icon(
-                                Icons.remove,
-                                color: Color(0xff313846),
-                              )),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height,
-                            width: 1,
-                            color: const Color(0xffD0D0D0),
-                          ),
-                          const Flexible(
-                              flex: 2,
-                              child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Product Name",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: FontSizes.FONT_SIZE_14,
+                              color: Color(0xff333333),
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            const Flexible(
+                              child: Text(
+                                "\$59.52",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: FontSizes.FONT_SIZE_15,
+                                    color: Color(0xff015963),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 16,
+                            ),
+                            Flexible(
+                                flex: 2,
                                 child: Text(
-                                  "1",
+                                  "\$17.96",
+                                  textAlign: TextAlign.left,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                   style: TextStyle(
-                                      fontSize: FontSizes.FONT_SIZE_12,
-                                      color: Color(0xff313846),
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              )),
-                          Container(
-                            height: MediaQuery.of(context).size.height,
-                            width: 1,
-                            color: const Color(0xffD0D0D0),
-                          ),
-                          const Flexible(
-                              flex: 1,
-                              child: Center(
-                                  child: Icon(
-                                Icons.add,
-                                color: Color(0xff313846),
-                              ))),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                        ],
-                      ),
+                                    fontSize: FontSizes.FONT_SIZE_14,
+                                    decoration: TextDecoration.lineThrough,
+                                    color: const Color(0xff333333).withOpacity(0.5),
+                                  ),
+                                )),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        const Row(
+                          children: [
+                            Icon(
+                              Icons.star_outline_sharp,
+                              color: Colors.black,
+                              size: 16,
+                            ),
+                            Icon(
+                              Icons.star_outline_sharp,
+                              color: Colors.black,
+                              size: 16,
+                            ),
+                            Icon(
+                              Icons.star_outline_sharp,
+                              color: Colors.black,
+                              size: 16,
+                            ),Icon(
+                              Icons.star_outline_sharp,
+                              color: Colors.black,
+                              size: 16,
+                            ),Icon(
+                              Icons.star_outline_sharp,
+                              color: Colors.black,
+                              size: 16,
+                            )
+
+                          ],
+                        ),
+
+                      ],
                     ),
-                    const SizedBox(
-                      width: 16,
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Row(mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Image.asset(IconPaths.CART,width: 15,height: 15,color: Colors.black,),
+                        const SizedBox(width: 12,),
+                        Image.asset(IconPaths.FAV_ICON,width: 15,height: 15,color: Colors.black,),
+                        const SizedBox(width: 8,),
+                      ],
                     ),
-                    Container(
-                      width: 25,
-                      height: 25,
-                      padding: const EdgeInsets.all(5.0),
-                      color: const Color(0xff36BFB1),
-                      child: Center(
-                          child: Image.asset(
-                        IconPaths.COMPARE_ICON,
-                        color: Colors.white,
-                      )),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Container(
-                      width: 25,
-                      height: 25,
-                      color: const Color(0xffE7284D),
-                      child: const Icon(
-                        Icons.clear,
-                        color: Colors.white,
-                        size: 18,
-                      ),
-                    ),
-                  ],
-                )
-              ],
+                  )
+                ],
+              ),
             ),
-          )
+          ),
+
         ],
       ),
+
     );
   }
 }
