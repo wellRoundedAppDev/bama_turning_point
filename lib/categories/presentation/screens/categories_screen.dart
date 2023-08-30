@@ -43,7 +43,7 @@ class CategoriesScreen extends StatelessWidget {
                           height: 8,
                         ),
                         const Text(
-                          "design departments",
+                          "Design departments",
                           textAlign: TextAlign.left,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

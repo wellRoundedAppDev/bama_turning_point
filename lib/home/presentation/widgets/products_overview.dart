@@ -6,13 +6,13 @@ import '../../../core/constants/fonts/font_sizes.dart';
 
 class ProductsOverview extends StatelessWidget {
   int index;
-   ProductsOverview({super.key,required this.index});
+  ProductsOverview({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      height: MediaQuery.of(context).size.height * 0.4,
+      height: MediaQuery.of(context).size.height * 0.356,
       child: Column(
         children: [
           Row(
@@ -22,7 +22,7 @@ class ProductsOverview extends StatelessWidget {
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   Text(
+                  Text(
                     "Products List $index",
                     maxLines: 1,
                     textDirection: TextDirection.ltr,
@@ -32,6 +32,8 @@ class ProductsOverview extends StatelessWidget {
                         color: Color(0xff313846),
                         fontWeight: FontWeight.bold),
                   ),
+                  const SizedBox(height: 5,),
+
                   Container(
                     width: 40,
                     height: 3,
@@ -65,8 +67,12 @@ class ProductsOverview extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ProductDetailsScreen()));
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const ProductDetailsScreen()));
                     },
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -81,7 +87,8 @@ class ProductsOverview extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.asset(
                                   "assets/images/product_dummy.png",
-                                  height: MediaQuery.of(context).size.height * 0.2,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.2,
                                   width: MediaQuery.of(context).size.width,
                                   fit: BoxFit.cover,
                                 ),
@@ -90,14 +97,19 @@ class ProductsOverview extends StatelessWidget {
                                   bottom: 8,
                                   right: 8,
                                   child: Container(
-                                    decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white.withOpacity(0.7)),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.white.withOpacity(0.7)),
                                       child: const Padding(
                                         padding: EdgeInsets.all(2.0),
-                                        child: Icon(Icons.favorite_border_rounded,color: Colors.black,),
+                                        child: Icon(
+                                          Icons.favorite_border_rounded,
+                                          color: Colors.black,
+                                        ),
                                       )))
-
                             ],
                           ),
+                          SizedBox(height: 3,),
                           const Text(
                             "Products List",
                             maxLines: 2,
@@ -116,8 +128,7 @@ class ProductsOverview extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     color: Color(0xff015963),
-                                    fontWeight: FontWeight.bold
-                                ),
+                                    fontWeight: FontWeight.bold),
                               )),
                               const SizedBox(
                                 width: 8,
@@ -130,10 +141,9 @@ class ProductsOverview extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     style: TextStyle(
-                                        decoration: TextDecoration.lineThrough,
+                                      decoration: TextDecoration.lineThrough,
                                       color: const Color(0xff333333)
                                           .withOpacity(0.5),
-
                                     ),
                                   )),
                             ],
