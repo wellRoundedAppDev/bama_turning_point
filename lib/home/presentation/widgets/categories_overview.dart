@@ -12,7 +12,7 @@ class CategoriesOverview extends StatelessWidget {
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.all(16),
-      height: MediaQuery.of(context).size.height * 0.25,
+      height: MediaQuery.of(context).size.height * 0.22,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -35,6 +35,7 @@ class CategoriesOverview extends StatelessWidget {
                         color: Color(0xff313846),
                         fontWeight: FontWeight.bold),
                   ),
+                  const SizedBox(height: 5,),
                   Container(
                     width: 40,
                     height: 3,
@@ -85,8 +86,9 @@ class CategoriesOverview extends StatelessWidget {
                                 height: 55,
                                 fit: BoxFit.cover,
                               )),
+                          const SizedBox(height: 8,),
                           const Text(
-                            "design departmeent",
+                            "design department",
                             textAlign: TextAlign.center,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
