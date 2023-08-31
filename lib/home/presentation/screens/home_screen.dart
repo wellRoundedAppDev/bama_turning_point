@@ -24,56 +24,65 @@ class HomeScreen extends StatelessWidget {
           leading: Container(),
           flexibleSpace: Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Builder(
+              builder: (context) {
+                return Column(
                   children: [
-                    const Icon(
-                      Icons.menu_sharp,
-                      size: 25,
-                      color: Colors.white,
-                    ),
-                    const Text(
-                      "NORTH GRASS",
-                      style: TextStyle(
-                          fontSize: FontSizes.FONT_SIZE_18,
-                          color: Colors.white,
-                          fontFamily: FontFamilies.JOST_BOld),
-                    ),
-                    Image.asset(
-                      IconPaths.CART,
-                      width: 25,
-                      height: 25,
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                SizedBox(
-                    height: 45,
-                    child: Directionality(
-                      textDirection: TextDirection.ltr,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: SearchAppBarCustomInput(
-                          isFilled: true,
-                          filledColor: const Color(0xff5A606B),
-                          hintText: "TYPE HERE",
-                          textDirection: TextDirection.ltr,
-                          textAlign: TextAlign.left,
-                          hintTextStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: FontSizes.FONT_SIZE_14,
-                              fontFamily: FontFamilies.OPEN_SANS),
-                          suffixIcon: const Icon(
-                            Icons.search,
-                            size: 20,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            Scaffold.of(context).openDrawer();
+                          },
+                          child: const Icon(
+                            Icons.menu_sharp,
+                            size: 25,
                             color: Colors.white,
                           ),
                         ),
-                      ),
-                    )),
-              ],
+                        const Text(
+                          "NORTH GRASS",
+                          style: TextStyle(
+                              fontSize: FontSizes.FONT_SIZE_18,
+                              color: Colors.white,
+                              fontFamily: FontFamilies.JOST_BOld),
+                        ),
+                        Image.asset(
+                          IconPaths.CART,
+                          width: 25,
+                          height: 25,
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                        height: 45,
+                        child: Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: SearchAppBarCustomInput(
+                              isFilled: true,
+                              filledColor: const Color(0xff5A606B),
+                              hintText: "TYPE HERE",
+                              textDirection: TextDirection.ltr,
+                              textAlign: TextAlign.left,
+                              hintTextStyle: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: FontSizes.FONT_SIZE_14,
+                                  fontFamily: FontFamilies.OPEN_SANS),
+                              suffixIcon: const Icon(
+                                Icons.search,
+                                size: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        )),
+                  ],
+                );
+              }
             ),
           ),
         ),

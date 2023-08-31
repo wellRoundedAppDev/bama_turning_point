@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../blogs/presentation/screens/blogs_screen.dart';
+import '../../../contact_us/presentation/screens/contact_us_screen.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({super.key});
@@ -112,7 +113,11 @@ class HomeDrawer extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)
+                  => const ContactsScreen()
+                  ));
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: Row(

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomInput extends StatelessWidget {
+
   String hintText;
   Widget? prefixIcon;
   Widget? suffixIcon;
@@ -71,11 +72,11 @@ class CustomInput extends StatelessWidget {
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius),
             borderSide: BorderSide(color: borderColor, width: borderWidth)),
-
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius),
             borderSide: BorderSide(color: borderColor, width: borderWidth)),
-        contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
         // focusColor: Color(AppColors.LIGHT_GREY),
       ),
     );
