@@ -109,7 +109,7 @@ class ProductsOverview extends StatelessWidget {
                                       )))
                             ],
                           ),
-                          SizedBox(height: 3,),
+                          const SizedBox(height: 3,),
                           const Text(
                             "Products List",
                             maxLines: 2,

@@ -11,17 +11,17 @@ class BlogScreen extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       appBar: CustomAppBar.renderAppBar(title: "Blog"),
-      body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
-          child: ListView.separated(
-            itemBuilder: (context, index) {
-              return const BlogItem();
-            },
-            separatorBuilder: (context, index) => const SizedBox(
-              height: 16,
-            ),
-            itemCount: 6,
-          )),
+      body: ListView.separated(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32),
+
+        itemBuilder: (context, index) {
+          return const BlogItem();
+        },
+        separatorBuilder: (context, index) => const SizedBox(
+          height: 16,
+        ),
+        itemCount: 6,
+      ),
     ));
   }
 }

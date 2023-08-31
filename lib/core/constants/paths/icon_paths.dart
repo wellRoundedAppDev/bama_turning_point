@@ -13,5 +13,15 @@ class IconPaths {
   static const CONTACT_US_ICON = "assets/icons/contact_us.png";
   static const BLOG_ICON = "assets/icons/blog_icon.png";
   static const LOGOUT_ICON = "assets/icons/logout_icon.png";
+  static const CHAT_BUBBLE = "assets/icons/chat_bubble.svg";
+
+  static const SMILEY_FACE = "assets/icons/smiley_face.png";
+  static const LOVE = "assets/icons/love.png";
+  static const LAUGH = "assets/icons/laugh.png";
+  static const WOW = "assets/icons/wow.png";
+
+  static const PIN = "assets/icons/pin.png";
+  static const CALL_US = "assets/icons/call_us.png";
+  static const CLOCK = "assets/icons/clock.png";
 
 }
