@@ -22,7 +22,8 @@ class CategoriesOverview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                  child: Column(
+                  child:
+                  Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
@@ -42,7 +43,8 @@ class CategoriesOverview extends StatelessWidget {
                     color: const Color(0xff015963),
                   )
                 ],
-              )),
+              )
+              ),
               InkWell(
                 onTap: () {
                   // Navigator.push(

@@ -1,6 +1,7 @@
 import 'package:classic_eccomerce/categories/presentation/screens/categories_screen.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/home/presentation/screens/home_screen.dart';
+import 'package:classic_eccomerce/profile/presentation/screens/my_account.dart';
 import 'package:classic_eccomerce/wish_list/presentation/screens/wish_list.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +104,7 @@ class HomeLayoutScreen extends StatelessWidget {
                               ? const CategoriesScreen()
                               : (navBarCurrentIndex == 1)
                                   ? const CartScreen()
-                                  :  Container()));
+                                  :  const MyAccountScreen()));
         },
       ),
     );

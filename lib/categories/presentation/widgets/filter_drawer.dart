@@ -28,14 +28,18 @@ class FilterDrawer extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                   Image.asset(IconPaths.TRASH,width: 22,height: 22,),
+                   GestureDetector(
+                       onTap: (){
+                       },
+                       child: Image.asset(IconPaths.TRASH,width: 22,height: 22,)),
                     const SizedBox(
                       width: 16,
                     ),
                     SizedBox(
                       width: 80,
                       height: 30,
-                      child: CustomButton(text: "Done", action: () {}),
+                      child: CustomButton(text: "Done", action: () {
+                      }),
                     ),
                   ],
                 ),
@@ -47,18 +51,24 @@ class FilterDrawer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
+               Padding(
                 padding:
-                    EdgeInsets.only(top: 32.0, right: 16, left: 16, bottom: 10),
+                    const EdgeInsets.only(top: 32.0, right: 16, left: 16, bottom: 10),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.clear,
-                      color: Color(0xff697285),
-                      size: 20,
+                    GestureDetector(
+                      onTap: (){
+                        Scaffold.of(context).closeEndDrawer();
+
+                      },
+                      child: const Icon(
+                        Icons.clear,
+                        color: Color(0xff697285),
+                        size: 20,
+                      ),
                     ),
-                    Spacer(),
-                    Center(
+                    const Spacer(),
+                    const Center(
                       child: Text(
                         "Filter",
                         style: TextStyle(
@@ -69,7 +79,7 @@ class FilterDrawer extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Spacer()
+                    const Spacer()
                   ],
                 ),
               ),

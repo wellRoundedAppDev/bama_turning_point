@@ -25,5 +25,10 @@ class IconPaths {
   static const CLOCK = "assets/icons/clock.png";
 
   static const TRASH = "assets/icons/trash.png";
+  static const EDIT_ICON = "assets/icons/edit_pen.png";
+  static const ADDRESS_BOOK_ICON = "assets/icons/address_book.png";
+  static const REWARD_POINTS_ICON = "assets/icons/reward_points.png";
+  static const ORDER_HISTORY_ICON = "assets/icons/order_history.png";
+  static const GROUPS_ICON = "assets/icons/group.png";
 
 }

@@ -22,9 +22,7 @@ class CategoriesScreen extends StatelessWidget {
               itemCount: 15,
               itemBuilder: (BuildContext context, int index) {
                 return InkWell(
-                  onTap: () {
-
-                  },
+                  onTap: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -57,6 +55,7 @@ class CategoriesScreen extends StatelessWidget {
                   ),
                 );
               },
-            )));
+            ),
+        ));
   }
 }

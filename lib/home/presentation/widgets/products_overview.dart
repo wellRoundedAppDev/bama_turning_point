@@ -40,7 +40,8 @@ class ProductsOverview extends StatelessWidget {
                     color: const Color(0xff015963),
                   )
                 ],
-              )),
+              )
+              ),
               InkWell(
                 onTap: () {
                   // Navigator.push(
