@@ -20,7 +20,7 @@ class FilterCategoryScreen extends StatelessWidget {
             return Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
+                  height: MediaQuery.of(context).size.height * 0.055,
                   child: Row(
                     children: [
                       const SizedBox(
