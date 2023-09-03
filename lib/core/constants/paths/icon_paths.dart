@@ -24,4 +24,6 @@ class IconPaths {
   static const CALL_US = "assets/icons/call_us.png";
   static const CLOCK = "assets/icons/clock.png";
 
+  static const TRASH = "assets/icons/trash.png";
+
 }

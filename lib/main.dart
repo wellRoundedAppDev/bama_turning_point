@@ -20,7 +20,6 @@ void main() {
       .then((_) {
     runApp(const MyApp());
   });
-
 }
 
 class MyApp extends StatelessWidget {
@@ -42,14 +41,14 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate
       ],
       locale: const Locale("en"),
-      theme:  ThemeData(
+      theme: ThemeData(
         dividerColor: Colors.transparent,
         primaryColor: AppColors.APP_MAIN_COLOR,
         fontFamily: FontFamilies.OPEN_SANS,
         appBarTheme: const AppBarTheme(
             systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: AppColors.APP_MAIN_COLOR,
-            )),
+          statusBarColor: AppColors.APP_MAIN_COLOR,
+        )),
         primarySwatch: MaterialColor(AppColors.APP_MAIN_COLOR_HEX, {
           50: const Color(AppColors.APP_MAIN_COLOR_HEX).withOpacity(0.1),
           100: const Color(AppColors.APP_MAIN_COLOR_HEX).withOpacity(0.2),

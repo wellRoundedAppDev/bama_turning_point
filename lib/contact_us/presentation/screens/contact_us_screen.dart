@@ -162,7 +162,7 @@ class ContactsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Store Address",
+                        "Store Hours",
                         style: TextStyle(
                             fontSize: FontSizes.FONT_SIZE_16,
                             fontWeight: FontWeight.bold,

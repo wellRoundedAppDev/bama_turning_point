@@ -294,6 +294,7 @@ class BlogDetailsScreen extends StatelessWidget {
               CustomButton(
                   text: "Submit",
                   elevation: 0,
+                  height: 50,
                   textFontSize: FontSizes.FONT_SIZE_16,
                   action: () {})
             ],
