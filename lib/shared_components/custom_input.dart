@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,10 +24,12 @@ class CustomInput extends StatelessWidget {
   TextStyle? hintTextStyle;
   TextEditingController? controller;
   TextDirection? textDirection;
+  String label;
 
   CustomInput({
     Key? key,
     this.hintText = "",
+    this.label = "",
     this.controller,
     this.prefixIcon,
     this.isFilled = false,
@@ -39,12 +42,12 @@ class CustomInput extends StatelessWidget {
     this.borderWidth = 1,
     this.validator,
     this.filledColor,
-    this.hintTextStyle,
+    this.hintTextStyle = const TextStyle(color: Color(0xff878787),fontSize: FontSizes.FONT_SIZE_16),
     this.onTap,
-    this.borderColor = Colors.black,
+    this.borderColor = const Color(0xff95989A),
     this.minLines,
     this.initialValue,
-    this.radius = 5,
+    this.radius = 0,
     this.maxLines = 1,
   }) : super(key: key);
 
@@ -67,8 +70,12 @@ class CustomInput extends StatelessWidget {
         filled: isFilled,
         hintText: hintText,
         hintStyle: hintTextStyle,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
+        label: Text(label,style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16,fontWeight: FontWeight.bold,
+        color: Color(0xff313846)
+        ),),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius),
             borderSide: BorderSide(color: borderColor, width: borderWidth)),
