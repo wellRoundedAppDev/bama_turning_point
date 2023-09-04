@@ -1,13 +1,14 @@
+import 'package:classic_eccomerce/account/presentation/screens/change_password_screen.dart';
+import 'package:classic_eccomerce/account/presentation/screens/register_for_affiliate_account_screen.dart';
+import 'package:classic_eccomerce/account/presentation/screens/reward_points.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
-import 'package:classic_eccomerce/profile/presentation/screens/address_book_entries/address_book_entries_screen.dart';
-import 'package:classic_eccomerce/profile/presentation/screens/edit_account_info_screen.dart';
-import 'package:classic_eccomerce/profile/presentation/screens/order_history/order_history_screen.dart';
-import 'package:classic_eccomerce/profile/presentation/screens/register_for_affiliate_account_screen.dart';
-import 'package:classic_eccomerce/profile/presentation/screens/reward_points.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
+import 'address_book_entries/address_book_entries_screen.dart';
+import 'edit_account_info_screen.dart';
+import 'order_history/order_history_screen.dart';
 
 class MyAccountScreen extends StatelessWidget {
   const MyAccountScreen({super.key});
@@ -143,6 +144,103 @@ class MyAccountScreen extends StatelessWidget {
                   )),
                 ],
               ),
+              const SizedBox(
+                height: 16,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      child: const ChangePasswordScreen(),
+                                      type: PageTransitionType.leftToRight));
+                            },
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.15,
+                              color: const Color(0xffF5F5F5),
+                              child: Center(
+                                child: Container(
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                  ),
+                                  child: Image.asset(
+                                    IconPaths.LOCK,
+                                    width: 32,
+                                    height: 32,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          const Text(
+                            "Change your password",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: FontSizes.FONT_SIZE_14,
+                                color: Color(0xff313846)),
+                          )
+                        ],
+                      )),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      child: const AddressBookEntriesScreen(),
+                                      type: PageTransitionType.leftToRight));
+                            },
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.15,
+                              color: const Color(0xffF5F5F5),
+                              child: Center(
+                                child: Container(
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                  ),
+                                  child: Image.asset(
+                                    IconPaths.HEART_PLUS,
+                                    width: 32,
+                                    height: 32,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          const Text(
+                            "Modify your wish list",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: FontSizes.FONT_SIZE_14,
+                                color: Color(0xff313846)),
+                          )
+                        ],
+                      )),
+                ],
+              ),
+
               const SizedBox(
                 height: 24,
               ),

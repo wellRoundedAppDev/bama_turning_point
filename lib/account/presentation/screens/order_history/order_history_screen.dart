@@ -1,5 +1,7 @@
+import 'package:classic_eccomerce/account/presentation/screens/order_history/order_history_details_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../core/constants/fonts/font_sizes.dart';
 import '../../../../shared_components/custom_app_bar.dart';
@@ -52,6 +54,38 @@ class OrderHistoryScreen extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
+                            "Order ID",
+                            style: TextStyle(
+                                fontSize: FontSizes.FONT_SIZE_14,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Expanded(
+                            child: Text(
+                              "#293",
+                              textAlign: TextAlign.right,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_14,
+                                  color: Color(0xff947979)),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: 1,
+                      color: const Color(0xffB6BBC6),
+                    ),
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+                      child: Row(
+                        children: [
+                          Text(
                             "Customer",
                             style: TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_14,
@@ -60,6 +94,8 @@ class OrderHistoryScreen extends StatelessWidget {
                           Expanded(
                             child: Text(
                               "Ahmed Ibrahim",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                   fontSize: FontSizes.FONT_SIZE_14,
@@ -88,6 +124,8 @@ class OrderHistoryScreen extends StatelessWidget {
                             child: Text(
                               "3",
                               textAlign: TextAlign.right,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                               style: TextStyle(
                                   fontSize: FontSizes.FONT_SIZE_14,
                                   color: Color(0xff947979)),
@@ -111,10 +149,15 @@ class OrderHistoryScreen extends StatelessWidget {
                                 fontSize: FontSizes.FONT_SIZE_14,
                                 fontWeight: FontWeight.bold),
                           ),
+                          SizedBox(
+                            width: 8,
+                          ),
                           Expanded(
                             child: Text(
-                              "Pending",
+                              "\$234",
                               textAlign: TextAlign.right,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontSize: FontSizes.FONT_SIZE_14,
                                   color: Color(0xff947979)),
@@ -142,6 +185,8 @@ class OrderHistoryScreen extends StatelessWidget {
                             child: Text(
                               "Pending",
                               textAlign: TextAlign.right,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                               style: TextStyle(
                                   fontSize: FontSizes.FONT_SIZE_14,
                                   color: Color(0xff947979)),
@@ -150,6 +195,60 @@ class OrderHistoryScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    Container(
+                      height: 1,
+                      color: const Color(0xffB6BBC6),
+                    ),
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Date Added",
+                            style: TextStyle(
+                                fontSize: FontSizes.FONT_SIZE_14,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Expanded(
+                            child: Text(
+                              "28/08/2023",
+                              textAlign: TextAlign.right,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_14,
+                                  color: Color(0xff947979)),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: const OrderDetailsScreen(),
+                                type: PageTransitionType.leftToRight));
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: const BoxDecoration(
+                            color: Color(0xffDBD6D6),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(8),
+                                bottomRight: Radius.circular(8))),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: const Center(
+                            child: Text(
+                          "View",
+                          style: TextStyle(
+                              fontSize: FontSizes.FONT_SIZE_14,
+                              color: Color(0xff313846)),
+                        )),
+                      ),
+                    )
                   ],
                 ),
               ),

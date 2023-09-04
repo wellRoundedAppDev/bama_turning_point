@@ -12,20 +12,20 @@ class RewardPointsScreen extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       appBar: CustomAppBar.renderAppBar(title: "MY ACCOUNT"),
-      body:  SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               const Text(
+              const Text(
                 "YOUR REWARD POINTS",
                 style: TextStyle(
                     color: Color(0xff313846),
                     fontSize: FontSizes.FONT_SIZE_20,
                     fontWeight: FontWeight.bold),
               ),
-               const SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Container(
@@ -33,15 +33,22 @@ class RewardPointsScreen extends StatelessWidget {
                 height: 3,
                 color: const Color(0xff015963),
               ),
-              const SizedBox(height: 24,),
-              const Center(
-                child: Text("Your total number of reward points is: 3",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Color(0xff313846), fontSize: FontSizes.FONT_SIZE_15,
-                    fontWeight: FontWeight.bold
-                ),),
+              const SizedBox(
+                height: 24,
               ),
-              const SizedBox(height: 16,),
+              const Center(
+                child: Text(
+                  "Your total number of reward points is: 3",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Color(0xff313846),
+                      fontSize: FontSizes.FONT_SIZE_15,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
@@ -54,7 +61,7 @@ class RewardPointsScreen extends StatelessWidget {
                   children: [
                     const Padding(
                       padding:
-                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
                       child: Row(
                         children: [
                           Text(
@@ -63,11 +70,18 @@ class RewardPointsScreen extends StatelessWidget {
                                 fontSize: FontSizes.FONT_SIZE_14,
                                 fontWeight: FontWeight.bold),
                           ),
+                          SizedBox(
+                            width: 8,
+                          ),
                           Expanded(
                             child: Text(
                               "10 / 7 / 2022",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.right,
-                              style: TextStyle(fontSize: FontSizes.FONT_SIZE_14,color: Color(0xff947979)),
+                              style: TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_14,
+                                  color: Color(0xff947979)),
                             ),
                           )
                         ],
@@ -79,7 +93,7 @@ class RewardPointsScreen extends StatelessWidget {
                     ),
                     const Padding(
                       padding:
-                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
                       child: Row(
                         children: [
                           Text(
@@ -88,11 +102,18 @@ class RewardPointsScreen extends StatelessWidget {
                                 fontSize: FontSizes.FONT_SIZE_14,
                                 fontWeight: FontWeight.bold),
                           ),
+                          SizedBox(
+                            width: 8,
+                          ),
                           Expanded(
                             child: Text(
                               "--",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.right,
-                              style: TextStyle(fontSize: FontSizes.FONT_SIZE_14,color: Color(0xff947979)),
+                              style: TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_14,
+                                  color: Color(0xff947979)),
                             ),
                           )
                         ],
@@ -104,7 +125,7 @@ class RewardPointsScreen extends StatelessWidget {
                     ),
                     const Padding(
                       padding:
-                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
                       child: Row(
                         children: [
                           Text(
@@ -113,11 +134,18 @@ class RewardPointsScreen extends StatelessWidget {
                                 fontSize: FontSizes.FONT_SIZE_14,
                                 fontWeight: FontWeight.bold),
                           ),
+                          SizedBox(
+                            width: 8,
+                          ),
                           Expanded(
                             child: Text(
                               "3",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.right,
-                              style: TextStyle(fontSize: FontSizes.FONT_SIZE_14,color: Color(0xff947979)),
+                              style: TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_14,
+                                  color: Color(0xff947979)),
                             ),
                           )
                         ],
@@ -126,7 +154,6 @@ class RewardPointsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
             ],
           ),
         ),

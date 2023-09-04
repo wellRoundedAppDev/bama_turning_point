@@ -30,5 +30,9 @@ class IconPaths {
   static const REWARD_POINTS_ICON = "assets/icons/reward_points.png";
   static const ORDER_HISTORY_ICON = "assets/icons/order_history.png";
   static const GROUPS_ICON = "assets/icons/group.png";
+  static const HEART_PLUS = "assets/icons/heart_plus.png";
+  static const LOCK = "assets/icons/lock.png";
+  static const RETURN_REQUESTS = "assets/icons/return.png";
+  static const TRANSACTIONS = "assets/icons/transactions.png";
 
 }

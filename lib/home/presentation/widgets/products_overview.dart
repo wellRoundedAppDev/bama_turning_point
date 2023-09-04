@@ -12,7 +12,7 @@ class ProductsOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      height: MediaQuery.of(context).size.height * 0.356,
+      height: MediaQuery.of(context).size.height * 0.37,
       child: Column(
         children: [
           Row(

@@ -1,5 +1,3 @@
-import 'package:classic_eccomerce/profile/presentation/screens/address_book_entries/add_address_screen.dart';
-import 'package:classic_eccomerce/profile/presentation/screens/address_book_entries/edit_address_screen.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../core/constants/fonts/font_sizes.dart';
+import 'add_address_screen.dart';
+import 'edit_address_screen.dart';
 
 class AddressBookEntriesScreen extends StatelessWidget {
   const AddressBookEntriesScreen({super.key});
