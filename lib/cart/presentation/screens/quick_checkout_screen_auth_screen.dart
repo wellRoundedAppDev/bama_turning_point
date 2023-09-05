@@ -1,0 +1,78 @@
+import 'package:classic_eccomerce/authentication/presentation/screens/guest_screen.dart';
+import 'package:classic_eccomerce/authentication/presentation/screens/login_screen.dart';
+import 'package:classic_eccomerce/authentication/presentation/screens/sign_up_screen.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:flutter/material.dart';
+
+import '../../../core/constants/fonts/font_sizes.dart';
+import '../../../shared_components/custom_app_bar.dart';
+
+class QuickCheckoutAuthScreen extends StatelessWidget {
+  const QuickCheckoutAuthScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+        child: Scaffold(
+      appBar: CustomAppBar.renderAppBar(title: "Quick Checkout"),
+      body: Column(
+        children: [
+          DecoratedBox(
+            decoration: const BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(width: 1, color: Color(0xff605050)))),
+            child: TabBar(
+                indicatorWeight: 4,
+                indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
+                controller: CartCubit.get(context).tabController,
+                labelStyle: const TextStyle(
+                    color: Color(0xff36BFB1), fontSize: FontSizes.FONT_SIZE_16),
+                dividerColor: Colors.grey,
+                labelColor: const Color(0xff36BFB1),
+                unselectedLabelColor: const Color(0xff313846),
+                tabs: const [
+                  Tab(
+                      child: Text(
+                    "SIGN IN",
+                    style: TextStyle(fontSize: FontSizes.FONT_SIZE_16),
+                  )),
+                  Tab(
+                      child: Text(
+                    "SIGN UP",
+                    style: TextStyle(fontSize: FontSizes.FONT_SIZE_16),
+                  )),
+                  Tab(
+                    child: Text(
+                      "GUEST",
+                      style: TextStyle(fontSize: FontSizes.FONT_SIZE_16),
+                    ),
+                  ),
+                ]),
+          ),
+          Expanded(
+            child: SizedBox(
+              width: double.maxFinite,
+              child: TabBarView(
+                controller: CartCubit.get(context).tabController,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: SignInScreen(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: SignUpScreen(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: GuestScreen(),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    ));
+  }
+}

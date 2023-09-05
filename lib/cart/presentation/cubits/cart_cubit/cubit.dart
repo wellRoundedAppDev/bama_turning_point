@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/models/cart_item.dart';
@@ -15,7 +16,9 @@ class CartCubit extends Cubit<CartStates> {
   //total price of cart
   double totalPrice = 0;
 
+
   int numberOfItemsInCart = 0;
+  TabController? tabController;
 
   //to call cubit
   static CartCubit get(BuildContext context) => BlocProvider.of(context);
@@ -89,6 +92,18 @@ class CartCubit extends Cubit<CartStates> {
     emit(CartIsClearedState());
   }
 
+  initCheckOut(TickerProvider tickerProvider){
+    tabController =
+        TabController(initialIndex: 0, length: 3, vsync: tickerProvider);
+    // tabController?.addListener(() {
+    //   print(tabController?.index);
+    //   if (tabController?.index == 1) {
+    //     setMyAds();
+    //     // context.read<TransactionsProvider>().getLastTenTransactions();
+    //   }
+    // });
+
+  }
   // this is used to store a cart info in the database. so that when the user
   // exists the app the data presists.
   // SaveCartInDB() async {

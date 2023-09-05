@@ -1,12 +1,21 @@
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:classic_eccomerce/cart/presentation/screens/quick_checkout_screen_auth_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../shared_components/custom_button.dart';
 
-class CheckOutBottomSheet extends StatelessWidget {
+class CheckOutBottomSheet extends StatefulWidget {
   const CheckOutBottomSheet({super.key});
 
+  @override
+  State<CheckOutBottomSheet> createState() => _CheckOutBottomSheetState();
+}
+
+class _CheckOutBottomSheetState extends State<CheckOutBottomSheet> with TickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,7 +68,11 @@ class CheckOutBottomSheet extends StatelessWidget {
                 text: "Checkout",
                 height: MediaQuery.of(context).size.height,
                 textFontSize: FontSizes.FONT_SIZE_14,
-                action: () {},
+                action: () {
+                  Navigator.push(context, PageTransition(child: BlocProvider.value(
+                      value: CartCubit.get(context)..initCheckOut(this),
+                      child: const QuickCheckoutAuthScreen()), type: PageTransitionType.leftToRight));
+                },
               ),
             ),
           )
