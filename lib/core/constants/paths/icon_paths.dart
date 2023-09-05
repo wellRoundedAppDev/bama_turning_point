@@ -35,4 +35,7 @@ class IconPaths {
   static const RETURN_REQUESTS = "assets/icons/return.png";
   static const TRANSACTIONS = "assets/icons/transactions.png";
 
+  static const SHIPPING = "assets/icons/shipping.png";
+  static const CASH = "assets/icons/cash.png";
+
 }

@@ -151,96 +151,95 @@ class MyAccountScreen extends StatelessWidget {
                 children: [
                   Expanded(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  PageTransition(
-                                      child: const ChangePasswordScreen(),
-                                      type: PageTransitionType.leftToRight));
-                            },
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  child: const ChangePasswordScreen(),
+                                  type: PageTransitionType.leftToRight));
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.15,
+                          color: const Color(0xffF5F5F5),
+                          child: Center(
                             child: Container(
-                              height: MediaQuery.of(context).size.height * 0.15,
-                              color: const Color(0xffF5F5F5),
-                              child: Center(
-                                child: Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
-                                  ),
-                                  child: Image.asset(
-                                    IconPaths.LOCK,
-                                    width: 32,
-                                    height: 32,
-                                  ),
-                                ),
+                              padding: const EdgeInsets.all(16),
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                              ),
+                              child: Image.asset(
+                                IconPaths.LOCK,
+                                width: 32,
+                                height: 32,
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          const Text(
-                            "Change your password",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_14,
-                                color: Color(0xff313846)),
-                          )
-                        ],
-                      )),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      const Text(
+                        "Change your password",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: FontSizes.FONT_SIZE_14,
+                            color: Color(0xff313846)),
+                      )
+                    ],
+                  )),
                   const SizedBox(
                     width: 16,
                   ),
                   Expanded(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  PageTransition(
-                                      child: const AddressBookEntriesScreen(),
-                                      type: PageTransitionType.leftToRight));
-                            },
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  child: const AddressBookEntriesScreen(),
+                                  type: PageTransitionType.leftToRight));
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.15,
+                          color: const Color(0xffF5F5F5),
+                          child: Center(
                             child: Container(
-                              height: MediaQuery.of(context).size.height * 0.15,
-                              color: const Color(0xffF5F5F5),
-                              child: Center(
-                                child: Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
-                                  ),
-                                  child: Image.asset(
-                                    IconPaths.HEART_PLUS,
-                                    width: 32,
-                                    height: 32,
-                                  ),
-                                ),
+                              padding: const EdgeInsets.all(16),
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                              ),
+                              child: Image.asset(
+                                IconPaths.HEART_PLUS,
+                                width: 32,
+                                height: 32,
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          const Text(
-                            "Modify your wish list",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_14,
-                                color: Color(0xff313846)),
-                          )
-                        ],
-                      )),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      const Text(
+                        "Modify your wish list",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: FontSizes.FONT_SIZE_14,
+                            color: Color(0xff313846)),
+                      )
+                    ],
+                  )),
                 ],
               ),
-
               const SizedBox(
                 height: 24,
               ),
@@ -277,7 +276,7 @@ class MyAccountScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Navigator.push(
                               context,
                               PageTransition(
