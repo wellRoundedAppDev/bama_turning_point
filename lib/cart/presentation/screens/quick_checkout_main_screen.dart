@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/cart/presentation/screens/order_success_screen.dart';
 import 'package:classic_eccomerce/cart/presentation/widgets/cart_item.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
@@ -7,6 +8,7 @@ import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:classic_eccomerce/shared_components/custom_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class QuickCheckoutMainScreen extends StatelessWidget {
   const QuickCheckoutMainScreen({super.key});
@@ -356,7 +358,9 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16,),
-              CustomButton(text: "Confirm Order", action: (){}),
+              CustomButton(text: "Confirm Order", action: (){
+                Navigator.push(context, PageTransition(child: const OrderSuccessScreen(), type:PageTransitionType.leftToRight));
+              }),
               const SizedBox(height: 8,)
 
             ],

@@ -1,0 +1,11 @@
+abstract class CategoriesStates{}
+
+class CategoriesInitialState extends CategoriesStates{}
+
+class GetCategoriesLoadingState extends CategoriesStates{}
+
+class GetCategoriesSuccessState extends CategoriesStates{}
+
+class GetCategoriesFailedState extends CategoriesStates{}
+
+class GetCategoriesNetworkFailedState extends CategoriesStates{}

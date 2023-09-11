@@ -1,6 +1,10 @@
+import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/cubit.dart';
+import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/states.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
+import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/constants/paths/image_paths.dart';
 
@@ -9,53 +13,79 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-            appBar: CustomAppBar.renderAppBar(
-                title: "Categories", showBackButton: false),
-            body: GridView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisExtent: MediaQuery.of(context).size.height * 0.3,
-              ),
-              itemCount: 15,
-              itemBuilder: (BuildContext context, int index) {
-                return InkWell(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: Image.asset(
-                            "assets/images/product_dummy.png",
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            fit: BoxFit.cover,
-                          ),
+    return BlocProvider(
+      create: (context) => CategoriesCubit()..setCategories(),
+      child: SafeArea(
+          child: Scaffold(
+        appBar: CustomAppBar.renderAppBar(
+            title: "Categories", showBackButton: false),
+        body: BlocConsumer<CategoriesCubit, CategoriesStates>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            CategoriesCubit categoriesCubit = CategoriesCubit.get(context);
+            return (state is GetCategoriesLoadingState)
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : (state is GetCategoriesNetworkFailedState)
+                    ? Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: NoNetworkRefreshPage(
+                          refresh: () {
+                            categoriesCubit.setCategories();
+                          },
                         ),
-                        const SizedBox(
-                          height: 8,
+                      )
+                    : GridView.builder(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisExtent:
+                              MediaQuery.of(context).size.height * 0.3,
                         ),
-                        const Text(
-                          "Design departments",
-                          textAlign: TextAlign.left,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: FontSizes.FONT_SIZE_16,
-                              color: Color(0xff313846),
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-        ));
+                        itemCount: 15,
+                        itemBuilder: (BuildContext context, int index) {
+                          return InkWell(
+                            onTap: () {},
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: Image.asset(
+                                      "assets/images/product_dummy.png",
+                                      width: MediaQuery.of(context).size.width *
+                                          0.45,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.2,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  const Text(
+                                    "Design departments",
+                                    textAlign: TextAlign.left,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: FontSizes.FONT_SIZE_16,
+                                        color: Color(0xff313846),
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+          },
+        ),
+      )),
+    );
   }
 }

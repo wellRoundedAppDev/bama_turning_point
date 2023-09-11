@@ -1,5 +1,5 @@
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
-import 'package:classic_eccomerce/cart/presentation/screens/quick_checkout_screen_auth_screen.dart';
+import 'package:classic_eccomerce/cart/presentation/screens/quick_checkout_auth_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

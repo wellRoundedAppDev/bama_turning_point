@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -16,8 +15,14 @@ class DioHelper {
 
   // Http Client
   final Dio _dio = Dio(BaseOptions(
-      baseUrl: ApiUrls.BASE_URL, receiveDataWhenStatusError: true));
+      baseUrl: ApiUrls.BASE_URL, receiveDataWhenStatusError: true,headers: {
+    "X-Oc-Merchant-Id": 123
 
+  }));
+
+  addHeader(String key, dynamic value){
+    _dio.options.headers[key] = value;
+  }
   // Headers
   final Map<String, dynamic> _apiHeaders = <String, dynamic>{
     "Accept-Language": "ar",
@@ -34,8 +39,10 @@ class DioHelper {
   Future<Response?> get(
       {required String endpoint,
       Map<String, dynamic> queryParameters = const {}}) async {
+
+
     try {
-      return await _dio.get(endpoint, queryParameters: queryParameters);
+      return await _dio.get(endpoint, queryParameters: queryParameters,);
     } catch (e) {
       if (kDebugMode) {
         print(e);

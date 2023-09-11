@@ -42,7 +42,7 @@ class CustomInput extends StatelessWidget {
     this.borderWidth = 1,
     this.validator,
     this.filledColor,
-    this.hintTextStyle = const TextStyle(color: Color(0xff878787),fontSize: FontSizes.FONT_SIZE_16),
+    this.hintTextStyle = const TextStyle(color: Color(0xff878787),fontSize: FontSizes.FONT_SIZE_16,fontWeight: FontWeight.w300),
     this.onTap,
     this.borderColor = const Color(0xff95989A),
     this.minLines,
