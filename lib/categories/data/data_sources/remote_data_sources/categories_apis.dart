@@ -7,8 +7,8 @@ import '../../models/GetCategoriesResponse.dart';
 class CategoriesApis {
   static final _dioHelper = DioHelper.instance;
 
-  static Future<GetCategoriesResponse?> getCategories() async {
-    String endPoint = ApiUrls.GET_CATEGORIES_ENDPOINT;
+  static Future<GetCategoriesResponse?> getCategories(int page) async {
+    String endPoint = ApiUrls.getCategoriesEndpoint(page);
     try {
       var response = await _dioHelper.get(endpoint: endPoint);
       if(response == null){

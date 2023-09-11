@@ -2,17 +2,21 @@ import 'package:classic_eccomerce/product_details/presentation/screens/product_d
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 
 class ProductsOverview extends StatelessWidget {
-  int index;
-  ProductsOverview({super.key, required this.index});
+  var products;
+  String productListTitle;
+
+  ProductsOverview(
+      {super.key, required this.products, required this.productListTitle});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      height: MediaQuery.of(context).size.height * 0.37,
+      height: MediaQuery.of(context).size.height * 0.4,
       child: Column(
         children: [
           Row(
@@ -23,7 +27,7 @@ class ProductsOverview extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Products List $index",
+                    productListTitle,
                     maxLines: 1,
                     textDirection: TextDirection.ltr,
                     overflow: TextOverflow.ellipsis,
@@ -32,16 +36,16 @@ class ProductsOverview extends StatelessWidget {
                         color: Color(0xff313846),
                         fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 5,),
-
+                  const SizedBox(
+                    height: 5,
+                  ),
                   Container(
                     width: 40,
                     height: 3,
                     color: const Color(0xff015963),
                   )
                 ],
-              )
-              ),
+              )),
               InkWell(
                 onTap: () {
                   // Navigator.push(
@@ -67,6 +71,10 @@ class ProductsOverview extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
+                  var product = products[index];
+                  String? productTitle = product.name;
+                  num? productPrice = product.price;
+
                   return InkWell(
                     onTap: () {
                       Navigator.push(
@@ -86,11 +94,18 @@ class ProductsOverview extends StatelessWidget {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
-                                child: Image.asset(
-                                  "assets/images/product_dummy.png",
+                                child: Image.network(
+                                  "",
                                   height:
                                       MediaQuery.of(context).size.height * 0.2,
                                   width: MediaQuery.of(context).size.width,
+                                  errorBuilder: (context, object, stackTrace) {
+                                    return const Icon(
+                                      Icons.error,
+                                      size: 150,
+                                      color: AppColors.APP_MAIN_COLOR,
+                                    );
+                                  },
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -110,43 +125,45 @@ class ProductsOverview extends StatelessWidget {
                                       )))
                             ],
                           ),
-                          const SizedBox(height: 3,),
-                          const Text(
-                            "Products List",
+                          const SizedBox(
+                            height: 3,
+                          ),
+                          Text(
+                            productTitle ?? "-",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Color(0xff333333),
                                 fontSize: FontSizes.FONT_SIZE_14,
                                 fontWeight: FontWeight.bold),
                           ),
                           Row(
                             children: [
-                              const Flexible(
+                              Flexible(
                                   child: Text(
-                                "\$59.52",
+                                "\$${productPrice.toString() ?? "-"}",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Color(0xff015963),
                                     fontWeight: FontWeight.bold),
                               )),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Flexible(
-                                  flex: 2,
-                                  child: Text(
-                                    "\$17.96",
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      decoration: TextDecoration.lineThrough,
-                                      color: const Color(0xff333333)
-                                          .withOpacity(0.5),
-                                    ),
-                                  )),
+                              // const SizedBox(
+                              //   width: 8,
+                              // ),
+                              // Flexible(
+                              //     flex: 2,
+                              //     child: Text(
+                              //       "\$17.96",
+                              //       textAlign: TextAlign.left,
+                              //       overflow: TextOverflow.ellipsis,
+                              //       maxLines: 1,
+                              //       style: TextStyle(
+                              //         decoration: TextDecoration.lineThrough,
+                              //         color: const Color(0xff333333)
+                              //             .withOpacity(0.5),
+                              //       ),
+                              //     )),
                             ],
                           )
                         ],
@@ -157,7 +174,7 @@ class ProductsOverview extends StatelessWidget {
                 separatorBuilder: (context, index) => const SizedBox(
                       width: 8,
                     ),
-                itemCount: 6),
+                itemCount: products.length),
           ),
         ],
       ),

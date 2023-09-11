@@ -23,7 +23,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
       emit(GetCategoriesNetworkFailedState());
       return;
     }
-    var response = await CategoriesApis.getCategories();
+    var response = await CategoriesApis.getCategories(1);
     if (response?.success == 1) {
       categories = response?.categories;
       emit(GetCategoriesSuccessState());

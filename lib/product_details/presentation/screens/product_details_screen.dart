@@ -476,7 +476,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    ProductsOverview(index: 1)
+                    ProductsOverview(products: [], productListTitle: '',)
                   ],
                 ),
               ),

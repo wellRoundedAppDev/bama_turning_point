@@ -2,10 +2,13 @@ import 'package:classic_eccomerce/categories/presentation/screens/filter_categor
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../categories/data/models/GetCategoriesResponse.dart';
+import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 
 class CategoriesOverview extends StatelessWidget {
-  const CategoriesOverview({super.key});
+  List<Category> categories;
+   CategoriesOverview({super.key, required this.categories});
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +73,9 @@ class CategoriesOverview extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
+                  Category category = categories[index];
+                  String? categoryName = category.name;
+                  String? categoryImageUrl = category.originalImage;
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(context,
@@ -82,19 +88,29 @@ class CategoriesOverview extends StatelessWidget {
                         children: [
                           ClipRRect(
                               borderRadius: BorderRadius.circular(100),
-                              child: Image.asset(
-                                "assets/images/product_dummy.png",
+                              child: Image.network(
+                                categoryImageUrl??"",
+                                errorBuilder: (context, object,
+                                    stackTrace) {
+                                  return const Icon(
+                                    Icons.error,
+                                    size: 150,
+                                    color:
+                                    AppColors.APP_MAIN_COLOR,
+                                  );
+                                },
+
                                 width: 55,
                                 height: 55,
                                 fit: BoxFit.cover,
                               )),
                           const SizedBox(height: 8,),
-                          const Text(
-                            "design department",
+                           Text(
+                            categoryName??"-",
                             textAlign: TextAlign.center,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Color(0xff333333),
                                 fontWeight: FontWeight.bold,
                                 fontSize: FontSizes.FONT_SIZE_12),
@@ -107,7 +123,7 @@ class CategoriesOverview extends StatelessWidget {
                 separatorBuilder: (context, index) => const SizedBox(
                       width: 8,
                     ),
-                itemCount: 6),
+                itemCount: categories.length),
           ),
         ],
       ),

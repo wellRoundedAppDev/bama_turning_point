@@ -6,6 +6,9 @@ class FetchingHomeScreenLoadingState extends HomeStates{}
 
 class FetchingHomeScreenSuccessState extends HomeStates{}
 
+class FetchingHomeScreenDoneState extends HomeStates{}
+
+
 class FetchingHomeScreenFailedState extends HomeStates{}
 
 class FetchingHomeScreenNetworkFailedState extends HomeStates{}
