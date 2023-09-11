@@ -1,19 +1,19 @@
 class GetCategoriesResponse {
   GetCategoriesResponse({
     this.success,
-    this.error,
+    //this.error,
     this.categories,
   });
 
   factory GetCategoriesResponse.fromJson(dynamic json) {
     var success = json['success'];
-    List? error;
-    if (json['error'] != null) {
-      error = [];
-      json['error'].forEach((v) {
-        error?.add("error");
-      });
-    }
+    // List? error;
+    // if (json['error'] != null) {
+    //  // error = [];
+    //   json['error'].forEach((v) {
+    //     error?.add("error");
+    //   });
+    // }
     List<Category>? data;
     if (json['data'] != null) {
       data = [];
@@ -23,7 +23,7 @@ class GetCategoriesResponse {
     }
 
     return GetCategoriesResponse(
-        success: success, categories: data, error: error);
+        success: success, categories: data,);
   }
 
   num? success;
@@ -106,26 +106,26 @@ class Category {
   // }
 }
 
-class Filters {
-  Filters({
-    this.filterGroups,
-  });
-
-  Filters.fromJson(dynamic json) {
-    if (json['filter_groups'] != null) {
-      filterGroups = [];
-      json['filter_groups'].forEach((v) {
-        filterGroups?.add("");
-      });
-    }
-  }
-  List<dynamic>? filterGroups;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (filterGroups != null) {
-      map['filter_groups'] = filterGroups?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
-}
+// class Filters {
+//   Filters({
+//     this.filterGroups,
+//   });
+//
+//   Filters.fromJson(dynamic json) {
+//     if (json['filter_groups'] != null) {
+//       filterGroups = [];
+//       json['filter_groups'].forEach((v) {
+//         filterGroups?.add("");
+//       });
+//     }
+//   }
+//   List<dynamic>? filterGroups;
+//
+//   Map<String, dynamic> toJson() {
+//     final map = <String, dynamic>{};
+//     if (filterGroups != null) {
+//       map['filter_groups'] = filterGroups?.map((v) => v.toJson()).toList();
+//     }
+//     return map;
+//   }
+// }

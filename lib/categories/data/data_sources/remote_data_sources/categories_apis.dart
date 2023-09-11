@@ -11,7 +11,10 @@ class CategoriesApis {
     String endPoint = ApiUrls.GET_CATEGORIES_ENDPOINT;
     try {
       var response = await _dioHelper.get(endpoint: endPoint);
-      return GetCategoriesResponse.fromJson(response);
+      if(response == null){
+        return null;
+      }
+      return GetCategoriesResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
         print(e);

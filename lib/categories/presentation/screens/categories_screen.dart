@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/categories/data/models/GetCategoriesResponse.dart';
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/states.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
@@ -6,6 +7,7 @@ import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/paths/image_paths.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -23,6 +25,7 @@ class CategoriesScreen extends StatelessWidget {
           listener: (context, state) {},
           builder: (context, state) {
             CategoriesCubit categoriesCubit = CategoriesCubit.get(context);
+            List<Category>? categories = categoriesCubit.categories;
             return (state is GetCategoriesLoadingState)
                 ? const Center(
                     child: CircularProgressIndicator(),
@@ -43,8 +46,12 @@ class CategoriesScreen extends StatelessWidget {
                           mainAxisExtent:
                               MediaQuery.of(context).size.height * 0.3,
                         ),
-                        itemCount: 15,
+                        itemCount: categories?.length??0,
                         itemBuilder: (BuildContext context, int index) {
+                          Category? category = categories?[index];
+                          num? categoryId = category?.categoryId;
+                          String? categoryName = category?.name;
+                          String? imageUrl = category?.originalImage;
                           return InkWell(
                             onTap: () {},
                             child: Padding(
@@ -54,8 +61,15 @@ class CategoriesScreen extends StatelessWidget {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(5),
-                                    child: Image.asset(
-                                      "assets/images/product_dummy.png",
+                                    child: Image.network(
+                                      imageUrl??"",
+                                      errorBuilder: (context, object, stackTrace) {
+                                        return const Icon(
+                                          Icons.error,
+                                          size: 150,
+                                          color: AppColors.APP_MAIN_COLOR,
+                                        );
+                                      },
                                       width: MediaQuery.of(context).size.width *
                                           0.45,
                                       height:
@@ -67,12 +81,12 @@ class CategoriesScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 8,
                                   ),
-                                  const Text(
-                                    "Design departments",
+                                   Text(
+                                    categoryName??"-",
                                     textAlign: TextAlign.left,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: FontSizes.FONT_SIZE_16,
                                         color: Color(0xff313846),
                                         fontWeight: FontWeight.bold),
