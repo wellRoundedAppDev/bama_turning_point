@@ -99,12 +99,9 @@ class HomeScreen extends StatelessWidget {
               return SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      fit: BoxFit.cover,
                   children: [
                     Image.network(
-                      bannerAds?[0]..
+                      "")
                       ],
                     ),
                     ListView.separated(
@@ -125,9 +122,7 @@ class HomeScreen extends StatelessWidget {
                             ));
                       },
                     ),
-                  ],
-                ),
-              );
+              ]));
             },
           ),
         ),
