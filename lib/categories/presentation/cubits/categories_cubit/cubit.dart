@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/models/GetCategoriesResponse.dart';
 
-class CategoriesCubit extends Cubit<CategoriesStates> {
+class CategoriesCubit extends Cubit<HomeStates> {
   CategoriesCubit() : super(CategoriesInitialState());
 
   BuildContext context = MyApp.navKey.currentState!.context;

@@ -21,7 +21,7 @@ class CategoriesScreen extends StatelessWidget {
           child: Scaffold(
         appBar: CustomAppBar.renderAppBar(
             title: "Categories", showBackButton: false),
-        body: BlocConsumer<CategoriesCubit, CategoriesStates>(
+        body: BlocConsumer<CategoriesCubit, HomeStates>(
           listener: (context, state) {},
           builder: (context, state) {
             CategoriesCubit categoriesCubit = CategoriesCubit.get(context);
@@ -39,63 +39,72 @@ class CategoriesScreen extends StatelessWidget {
                           },
                         ),
                       )
-                    : GridView.builder(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisExtent:
-                              MediaQuery.of(context).size.height * 0.3,
-                        ),
-                        itemCount: categories?.length??0,
-                        itemBuilder: (BuildContext context, int index) {
-                          Category? category = categories?[index];
-                          num? categoryId = category?.categoryId;
-                          String? categoryName = category?.name;
-                          String? imageUrl = category?.originalImage;
-                          return InkWell(
-                            onTap: () {},
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: Image.network(
-                                      imageUrl??"",
-                                      errorBuilder: (context, object, stackTrace) {
-                                        return const Icon(
-                                          Icons.error,
-                                          size: 150,
-                                          color: AppColors.APP_MAIN_COLOR,
-                                        );
-                                      },
-                                      width: MediaQuery.of(context).size.width *
-                                          0.45,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.2,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
-                                   Text(
-                                    categoryName??"-",
-                                    textAlign: TextAlign.left,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                        fontSize: FontSizes.FONT_SIZE_16,
-                                        color: Color(0xff313846),
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
+                    : RefreshIndicator(
+                        onRefresh: () async {
+                          categoriesCubit.setCategories();
                         },
+                        child: GridView.builder(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisExtent:
+                                MediaQuery.of(context).size.height * 0.3,
+                          ),
+                          itemCount: categories?.length ?? 0,
+                          itemBuilder: (BuildContext context, int index) {
+                            Category? category = categories?[index];
+                            num? categoryId = category?.categoryId;
+                            String? categoryName = category?.name;
+                            String? imageUrl = category?.originalImage;
+                            return InkWell(
+                              onTap: () {},
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(5),
+                                      child: Image.network(
+                                        imageUrl ?? "",
+                                        errorBuilder:
+                                            (context, object, stackTrace) {
+                                          return const Icon(
+                                            Icons.error,
+                                            size: 150,
+                                            color: AppColors.APP_MAIN_COLOR,
+                                          );
+                                        },
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.45,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.2,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      categoryName ?? "-",
+                                      textAlign: TextAlign.left,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontSize: FontSizes.FONT_SIZE_16,
+                                          color: Color(0xff313846),
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       );
           },
         ),

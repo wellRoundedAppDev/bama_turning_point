@@ -1,3 +1,5 @@
+import 'package:classic_eccomerce/home/data/models/product.dart';
+
 class GetFeaturedProductsResponse {
   GetFeaturedProductsResponse({
     this.success,
@@ -75,7 +77,7 @@ class Data {
   // }
 }
 
-class FeaturedProduct {
+class FeaturedProduct extends Product {
   FeaturedProduct({
     this.productId,
     this.name,

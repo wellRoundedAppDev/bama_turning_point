@@ -9,6 +9,7 @@ class ApiUrls {
   static const GET_NEW_ARRIVALS_ENDPOINT = "latest";
   static const GET_NEW_ARRIVALS_LIMIT_ENDPOINT = "latest/limit/";
   static const GET_BEST_SELLLERS_LIMIT_ENDPOINT = "bestsellers/limit/";
+  static const GET_SLIDE_SHOWS_ENDPOINT = "slideshows";
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) => "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";
   static String getCategoriesEndpoint(int page) => "$GET_CATEGORIES_ENDPOINT/limit/10/page/$page";

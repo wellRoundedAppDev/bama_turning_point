@@ -84,4 +84,20 @@ class ProductsApis {
       }
     }
   }
+
+  static Future<GetBestSellersResponse?> getBestSellersProducts() async {
+    String endPoint = ApiUrls.getBestSellersWithLimitEndpoint(10);
+    try {
+      var response = await dioHelper.get(endpoint: endPoint);
+      if (response == null) {
+        return null;
+      }
+      return GetBestSellersResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
 }

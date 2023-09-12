@@ -1,11 +1,11 @@
-abstract class CategoriesStates{}
+abstract class HomeStates{}
 
-class CategoriesInitialState extends CategoriesStates{}
+class CategoriesInitialState extends HomeStates{}
 
-class GetCategoriesLoadingState extends CategoriesStates{}
+class GetCategoriesLoadingState extends HomeStates{}
 
-class GetCategoriesSuccessState extends CategoriesStates{}
+class GetCategoriesSuccessState extends HomeStates{}
 
-class GetCategoriesFailedState extends CategoriesStates{}
+class GetCategoriesFailedState extends HomeStates{}
 
-class GetCategoriesNetworkFailedState extends CategoriesStates{}
+class GetCategoriesNetworkFailedState extends HomeStates{}

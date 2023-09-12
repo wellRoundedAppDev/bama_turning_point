@@ -5,11 +5,13 @@ import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/states.dart';
+import 'package:classic_eccomerce/home/presentation/widgets/banners_slider.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/categories_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/products_overview.dart';
 import 'package:classic_eccomerce/shared_components/search_app_bar_custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../data/models/get_slide_shows_response.dart';
 import '../widgets/home_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -93,59 +95,68 @@ class HomeScreen extends StatelessWidget {
               listener: (context, state) {},
               builder: (context, state) {
                 HomeCubit homeCubit = HomeCubit.get(context);
-                // List<BannerAd>? bannerAds = homeCubit.banners;
-                List<Category>? categories = homeCubit.categories;
+                List<BannerAd>? bannerAds = homeCubit.banners;
+                List<Category>? categories = homeCubit.categoriesOverview;
 
-                var featuredProducts = homeCubit.featuredProducts;
-                var newArrivals = homeCubit.newArrivalsProducts;
-                var bestSellers = homeCubit.bestSellersProducts;
+                var featuredProducts = homeCubit.featuredProductsOverview;
+                var newArrivals = homeCubit.newArrivalsProductsOverview;
+                var bestSellers = homeCubit.bestSellersProductsOverview;
 
                 return (state is FetchingHomeScreenLoadingState)
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
-                    : SingleChildScrollView(
-                        child:
-                            Column(mainAxisSize: MainAxisSize.min, children: [
-                        Image.asset(
-                          "assets/images/discount_banner.jpg",
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.22,
-                          fit: BoxFit.cover,
-                        ),
-                        ListView.separated(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          separatorBuilder: (context, index) => const SizedBox(
-                            height: 24,
-                          ),
-                          itemCount: 4,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            String productListTitle = (index == 1)
-                                ? "Featured Products"
-                                : (index == 2)
-                                    ? "New Arrivals"
-                                    : "Bestsellers";
+                    : RefreshIndicator(
+                        onRefresh: () async {
+                         await homeCubit.init();
+                        },
+                        child: SingleChildScrollView(
+                            child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.22,
+                                child: BannersSlider(
+                                  bannerAds: bannerAds ?? [],
+                                ),
+                              ),
+                              ListView.separated(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(
+                                  height: 24,
+                                ),
+                                itemCount: 4,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) {
+                                  String productListTitle = (index == 1)
+                                      ? "Featured Products"
+                                      : (index == 2)
+                                          ? "New Arrivals"
+                                          : "Bestsellers";
 
-                            var products = (index == 1)
-                                ? featuredProducts
-                                : (index == 2)
-                                    ? newArrivals
-                                    : bestSellers;
+                                  var products = (index == 1)
+                                      ? featuredProducts
+                                      : (index == 2)
+                                          ? newArrivals
+                                          : bestSellers;
 
-                            return (index == 0)
-                                ? CategoriesOverview(
-                                    categories: categories ?? [],
-                                  )
-                                : Container(
-                                    color: Colors.white,
-                                    child: ProductsOverview(
-                                        products: products ?? [],
-                                        productListTitle: productListTitle));
-                          },
-                        ),
-                      ]));
+                                  return (index == 0)
+                                      ? CategoriesOverview(
+                                          categories: categories ?? [],
+                                        )
+                                      : Container(
+                                          color: Colors.white,
+                                          child: ProductsOverview(
+                                              products: products ?? [],
+                                              productListTitle:
+                                                  productListTitle));
+                                },
+                              ),
+                            ])),
+                      );
               },
             ),
           ),

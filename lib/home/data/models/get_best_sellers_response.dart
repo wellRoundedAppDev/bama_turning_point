@@ -1,3 +1,5 @@
+import 'package:classic_eccomerce/home/data/models/product.dart';
+
 class GetBestSellersResponse {
   GetBestSellersResponse({
     this.success,
@@ -26,7 +28,7 @@ class GetBestSellersResponse {
   List<BestSeller>? bestSellers;
 }
 
-class BestSeller {
+class BestSeller extends Product{
   BestSeller({
     this.productId,
     this.name,

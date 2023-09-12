@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/categories/presentation/screens/categories_screen.dart';
 import 'package:classic_eccomerce/categories/presentation/screens/filter_category.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -8,7 +9,7 @@ import '../../../core/constants/fonts/font_sizes.dart';
 
 class CategoriesOverview extends StatelessWidget {
   List<Category> categories;
-   CategoriesOverview({super.key, required this.categories});
+  CategoriesOverview({super.key, required this.categories});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +26,7 @@ class CategoriesOverview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                  child:
-                  Column(
+                  child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
@@ -39,22 +39,23 @@ class CategoriesOverview extends StatelessWidget {
                         color: Color(0xff313846),
                         fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 5,),
+                  const SizedBox(
+                    height: 5,
+                  ),
                   Container(
                     width: 40,
                     height: 3,
                     color: const Color(0xff015963),
                   )
                 ],
-              )
-              ),
+              )),
               InkWell(
                 onTap: () {
-                  // Navigator.push(
-                  //     context,
-                  //     PageTransition(
-                  //         child: const ProductsInCategoryScreen(),
-                  //         type: PageTransitionType.leftToRight));
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: const CategoriesScreen(),
+                          type: PageTransitionType.leftToRight));
                 },
                 child: const Text(
                   "View All",
@@ -78,9 +79,11 @@ class CategoriesOverview extends StatelessWidget {
                   String? categoryImageUrl = category.originalImage;
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push(context,
-                          PageTransition(child: const FilterCategoryScreen(),
-                          type: PageTransitionType.leftToRight));
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              child: const FilterCategoryScreen(),
+                              type: PageTransitionType.leftToRight));
                     },
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.25,
@@ -89,24 +92,23 @@ class CategoriesOverview extends StatelessWidget {
                           ClipRRect(
                               borderRadius: BorderRadius.circular(100),
                               child: Image.network(
-                                categoryImageUrl??"",
-                                errorBuilder: (context, object,
-                                    stackTrace) {
+                                categoryImageUrl ?? "",
+                                errorBuilder: (context, object, stackTrace) {
                                   return const Icon(
                                     Icons.error,
                                     size: 150,
-                                    color:
-                                    AppColors.APP_MAIN_COLOR,
+                                    color: AppColors.APP_MAIN_COLOR,
                                   );
                                 },
-
                                 width: 55,
                                 height: 55,
                                 fit: BoxFit.cover,
                               )),
-                          const SizedBox(height: 8,),
-                           Text(
-                            categoryName??"-",
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            categoryName ?? "-",
                             textAlign: TextAlign.center,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,

@@ -1,7 +1,7 @@
+import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/cubit.dart';
+import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/product_details/presentation/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 
@@ -48,6 +48,8 @@ class ProductsOverview extends StatelessWidget {
               )),
               InkWell(
                 onTap: () {
+                  HomeCubit homeCubit = HomeCubit.get(context);
+                  homeCubit.navigateToViewAllProductsScreen(productListTitle);
                   // Navigator.push(
                   //     context,
                   //     PageTransition(

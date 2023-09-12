@@ -1,3 +1,5 @@
+import 'package:classic_eccomerce/home/data/models/product.dart';
+
 class GetLatestProductsResponse {
   GetLatestProductsResponse({
     this.success,
@@ -31,7 +33,7 @@ class GetLatestProductsResponse {
   // }
 }
 
-class LatestProduct {
+class LatestProduct extends Product{
   LatestProduct(
       {this.productId,
       this.name,
