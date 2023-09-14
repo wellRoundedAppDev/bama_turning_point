@@ -39,14 +39,14 @@ class ProductsApis {
     }
   }
 
-  static Future<GetFeaturedProductsResponse?> getNewArrivalsProducts() async {
+  static Future<GetLatestProductsResponse?> getNewArrivalsProducts() async {
     String endPoint = ApiUrls.GET_NEW_ARRIVALS_ENDPOINT;
     try {
       var response = await dioHelper.get(endpoint: endPoint);
       if (response == null) {
         return null;
       }
-      return GetFeaturedProductsResponse.fromJson(response.data);
+      return GetLatestProductsResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
         print(e);

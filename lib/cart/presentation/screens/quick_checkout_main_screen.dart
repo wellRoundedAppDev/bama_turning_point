@@ -1,5 +1,5 @@
 import 'package:classic_eccomerce/cart/presentation/screens/order_success_screen.dart';
-import 'package:classic_eccomerce/cart/presentation/widgets/cart_item.dart';
+import 'package:classic_eccomerce/cart/presentation/widgets/cart_item_widget.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
@@ -205,8 +205,6 @@ class QuickCheckoutMainScreen extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              const CartItem(),
-              const CartItem(),
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(

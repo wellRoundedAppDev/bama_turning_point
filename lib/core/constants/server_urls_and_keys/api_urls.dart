@@ -10,10 +10,16 @@ class ApiUrls {
   static const GET_NEW_ARRIVALS_LIMIT_ENDPOINT = "latest/limit/";
   static const GET_BEST_SELLLERS_LIMIT_ENDPOINT = "bestsellers/limit/";
   static const GET_SLIDE_SHOWS_ENDPOINT = "slideshows";
+  static const GET_PRODUCT_DETAILS_ENDPOINT = "products/";
 
-  static String getFeaturedProductsWithLimitEndpoint(int limit) => "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";
-  static String getCategoriesEndpoint(int page) => "$GET_CATEGORIES_ENDPOINT/limit/10/page/$page";
-  static String getNewArrivalsProductsWithLimitEndpoint(int limit) => "$GET_NEW_ARRIVALS_LIMIT_ENDPOINT$limit";
-  static String getBestSellersWithLimitEndpoint(int limit) => "$GET_BEST_SELLLERS_LIMIT_ENDPOINT$limit";
-
+  static String getFeaturedProductsWithLimitEndpoint(int limit) =>
+      "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";
+  static String getCategoriesEndpoint(int page) =>
+      "$GET_CATEGORIES_ENDPOINT/limit/10/page/$page";
+  static String getNewArrivalsProductsWithLimitEndpoint(int limit) =>
+      "$GET_NEW_ARRIVALS_LIMIT_ENDPOINT$limit";
+  static String getBestSellersWithLimitEndpoint(int limit) =>
+      "$GET_BEST_SELLLERS_LIMIT_ENDPOINT$limit";
+  static String getProductDetailsByIdEndpoint(int id) =>
+      "$GET_PRODUCT_DETAILS_ENDPOINT$id";
 }

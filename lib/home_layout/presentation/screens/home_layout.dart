@@ -1,3 +1,5 @@
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:classic_eccomerce/categories/presentation/screens/categories_screen.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/home/presentation/screens/home_screen.dart';
@@ -17,8 +19,11 @@ class HomeLayoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AppCubit()),
+        BlocProvider(create: (context) => CartCubit()),
+      ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -46,17 +51,22 @@ class HomeLayoutScreen extends StatelessWidget {
                                   width: 30,
                                   height: 30,
                                 ),
-                          (navBarCurrentIndex == 1)
-                              ? Image.asset(
-                                  IconPaths.CART,
-                                  width: 30,
-                                  height: 30,
-                                )
-                              : Image.asset(
-                                  IconPaths.CART,
-                                  width: 30,
-                                  height: 30,
-                                ),
+                          BlocConsumer<CartCubit, CartStates>(
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                return (navBarCurrentIndex == 1)
+                                    ? Image.asset(
+                                        IconPaths.CART,
+                                        width: 30,
+                                        height: 30,
+                                      )
+                                    : Image.asset(
+                                        IconPaths.CART,
+                                        width: 30,
+                                        height: 30,
+                                      );
+                              },
+                            ),
                           (navBarCurrentIndex == 2)
                               ? Image.asset(
                                   IconPaths.CATEGORIES_NAV_ICON,
@@ -104,7 +114,7 @@ class HomeLayoutScreen extends StatelessWidget {
                               ? const CategoriesScreen()
                               : (navBarCurrentIndex == 1)
                                   ? const CartScreen()
-                                  :  const MyAccountScreen()));
+                                  : const MyAccountScreen()));
         },
       ),
     );

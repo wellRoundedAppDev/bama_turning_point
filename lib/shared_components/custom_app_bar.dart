@@ -29,13 +29,18 @@ class CustomAppBar {
                       color: Colors.white,
                     ))
                 : Container(),
-            Text(
-              title,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: FontSizes.FONT_SIZE_20,
-                  color: Colors.white),
+            Expanded(
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: FontSizes.FONT_SIZE_20,
+                    color: Colors.white),
+              ),
             ),
+            const SizedBox(width: 8,),
             (showCartIcon)
                 ? Image.asset(
                     IconPaths.CART,
