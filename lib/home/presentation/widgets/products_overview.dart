@@ -1,9 +1,13 @@
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/product_details/presentation/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
+import '../../data/models/product.dart';
 
 class ProductsOverview extends StatelessWidget {
   var products;
@@ -73,7 +77,8 @@ class ProductsOverview extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  var product = products[index];
+                  Product product = products[index];
+                  int? productId = product.productId?.toInt();
                   String? productTitle = product.name;
                   num? productPrice = product.price;
 
@@ -81,9 +86,14 @@ class ProductsOverview extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const ProductDetailsScreen()));
+                          PageTransition(
+                              child: BlocProvider.value(
+                                value: CartCubit.get(context),
+                                child: ProductDetailsScreen(
+                                  selectedProductId: productId ?? -1,
+                                ),
+                              ),
+                              type: PageTransitionType.leftToRight));
                     },
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.4,

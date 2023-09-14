@@ -1,12 +1,16 @@
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../core/constants/paths/icon_paths.dart';
+import '../../data/models/cart_item.dart';
 
-class CartItem extends StatelessWidget {
-  const CartItem({Key? key}) : super(key: key);
+class CartItemWidget extends StatelessWidget {
+  CartItem cartItem;
+   CartItemWidget({Key? key, required this.cartItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +25,20 @@ class CartItem extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(8),
-            child: Image.asset(
-              "assets/images/product_dummy.png",
+            child: Image.network(
+              cartItem.imagePath,
+
               width: MediaQuery.of(context).size.width * 0.25,
               height: MediaQuery.of(context).size.height * 0.2,
               fit: BoxFit.cover,
+              errorBuilder: (context, object, stackTrace) {
+                return  Icon(
+                  Icons.error,
+                  size: MediaQuery.of(context).size.width * 0.25,
+                  color: AppColors.APP_MAIN_COLOR,
+                );
+              },
+
             ),
           ),
           Container(
@@ -41,11 +54,11 @@ class CartItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Product Name",
-                  maxLines: 1,
+                 Text(
+                  cartItem.name,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: FontSizes.FONT_SIZE_14,
                       color: Color(0xff333333),
                       fontWeight: FontWeight.bold),
@@ -53,11 +66,11 @@ class CartItem extends StatelessWidget {
                 const SizedBox(
                   height: 3,
                 ),
-                const Text(
-                  "\$59.52",
+                 Text(
+                  "\$${cartItem.price.toString()}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: FontSizes.FONT_SIZE_14,
                       color: Color(0xff015963),
                       fontWeight: FontWeight.bold),
@@ -72,26 +85,28 @@ class CartItem extends StatelessWidget {
                           border: Border.all(color: const Color(0xffD0D0D0))),
                       child: Row(
                         children: [
-                          const Flexible(
+                           Flexible(
                               flex: 1,
-                              child: Icon(
-                                Icons.remove,
-                                color: Color(0xff313846),
+                              child: InkWell(
+                                onTap: (){
+                                   CartCubit.get(context).decreaseProductQuantity(cartItem.id);
+                                },
+                                child: const Icon(
+                                  Icons.remove,
+                                  color: Color(0xff313846),
+                                ),
                               )),
-                          const SizedBox(
-                            width: 5,
-                          ),
                           Container(
                             height: MediaQuery.of(context).size.height,
                             width: 1,
                             color: const Color(0xffD0D0D0),
                           ),
-                          const Flexible(
+                           Flexible(
                               flex: 2,
                               child: Center(
                                 child: Text(
-                                  "1",
-                                  style: TextStyle(
+                                  cartItem.quantity.toString(),
+                                  style: const TextStyle(
                                       fontSize: FontSizes.FONT_SIZE_12,
                                       color: Color(0xff313846),
                                       fontWeight: FontWeight.bold),
@@ -102,16 +117,20 @@ class CartItem extends StatelessWidget {
                             width: 1,
                             color: const Color(0xffD0D0D0),
                           ),
-                          const Flexible(
+                           Flexible(
                               flex: 1,
                               child: Center(
-                                  child: Icon(
+                                  child: InkWell(
+                                    onTap: (){
+                                      CartCubit.get(context).increaseProductQuantity(cartItem.id);
+
+                                    },
+                                    child: const Icon(
                                 Icons.add,
                                 color: Color(0xff313846),
-                              ))),
-                          const SizedBox(
-                            width: 5,
-                          ),
+                              ),
+                                  ))),
+
                         ],
                       ),
                     ),
@@ -132,14 +151,19 @@ class CartItem extends StatelessWidget {
                     const SizedBox(
                       width: 8,
                     ),
-                    Container(
-                      width: 25,
-                      height: 25,
-                      color: const Color(0xffE7284D),
-                      child: const Icon(
-                        Icons.clear,
-                        color: Colors.white,
-                        size: 18,
+                    GestureDetector(
+                      onTap: (){
+                        CartCubit.get(context).deleteProductFromSalesCart(cartItem.id);
+                      },
+                      child: Container(
+                        width: 25,
+                        height: 25,
+                        color: const Color(0xffE7284D),
+                        child: const Icon(
+                          Icons.clear,
+                          color: Colors.white,
+                          size: 18,
+                        ),
                       ),
                     ),
                   ],

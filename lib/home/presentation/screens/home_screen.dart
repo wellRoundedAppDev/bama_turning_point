@@ -108,7 +108,7 @@ class HomeScreen extends StatelessWidget {
                       )
                     : RefreshIndicator(
                         onRefresh: () async {
-                         await homeCubit.init();
+                          await homeCubit.init();
                         },
                         child: SingleChildScrollView(
                             child: Column(

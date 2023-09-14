@@ -1,5 +1,4 @@
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,7 +22,7 @@ class CartCubit extends Cubit<CartStates> {
   //to call cubit
   static CartCubit get(BuildContext context) => BlocProvider.of(context);
 
-  addItemToSalesCart(CartItem cartItem, {bool saveInDB = true}) {
+  addItemToCart(CartItem cartItem, {bool saveInDB = true}) {
     String id = cartItem.id;
     bool isItemNotInCart = cartItems[id] == null;
     if (isItemNotInCart) {

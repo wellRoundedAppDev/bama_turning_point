@@ -19,7 +19,7 @@ class ViewAllProductsScreen extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       appBar:
-          CustomAppBar.renderAppBar(title: productTitle, showBackButton: false),
+          CustomAppBar.renderAppBar(title: productTitle, ),
       body: BlocConsumer<HomeCubit, HomeStates>(
         listener: (context, state) {},
         builder: (context, state) {

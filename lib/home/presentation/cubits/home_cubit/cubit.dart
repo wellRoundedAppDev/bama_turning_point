@@ -167,7 +167,7 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(FetchingAllProductsLoadingState());
     var response = await ProductsApis.getNewArrivalsProducts();
     if (response?.success == 1) {
-      allProducts = response?.data?[0].products;
+      allProducts = response?.latestProducts;
       emit(FetchingAllProductsSuccessState());
     } else if (response?.success == 0) {
       allProducts = null;

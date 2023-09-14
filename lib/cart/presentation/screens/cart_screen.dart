@@ -1,6 +1,8 @@
+import 'package:classic_eccomerce/cart/data/models/cart_item.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:classic_eccomerce/cart/presentation/widgets/checkout_bottom_sheet.dart';
-import 'package:classic_eccomerce/cart/presentation/widgets/cart_item.dart';
+import 'package:classic_eccomerce/cart/presentation/widgets/cart_item_widget.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:classic_eccomerce/shared_components/custom_input.dart';
@@ -16,501 +18,510 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CartCubit(),
-      child: Builder(builder: (context) {
+    return BlocConsumer<CartCubit,CartStates>(
+      listener: (context, state){},
+      builder: (context,state){
+        CartCubit cartCubit = CartCubit.get(context);
+        List<CartItem> cartItems = cartCubit.cartItems.entries.map((e) => CartItem(
+            id: e.key ,
+            quantity: e.value['quantity'],
+            name: e.value['name'],
+            price: e.value['price'],
+          imagePath: e.value['imagePath']
+        )).toList();
         return SafeArea(
             child: Scaffold(
-          appBar: CustomAppBar.renderAppBar(
-              title: "Shopping Cart",
-              showBackButton: false,
-              showCartIcon: false),
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.only(
-                      right: 16, left: 16, bottom: 16, top: 24),
-                  itemBuilder: (context, index) {
-                    if ((index == 6)) {
-                      return Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Column(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 5,
-                                    color: const Color(0xffB6BBC6),
-                                  ),
-                                ),
-                                child: Column(
-                                  children: [
-                                    ExpansionTile(
-                                        trailing: Container(
-                                          width: 0,
-                                        ),
-                                        title: Row(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: const Color(
-                                                          0xff313846)),
-                                                  shape: BoxShape.circle),
-                                              child: const Icon(
-                                                Icons.add,
-                                                color: Color(0xff313846),
-                                                size: 16,
-                                              ),
+              appBar: CustomAppBar.renderAppBar(
+                  title: "Shopping Cart",
+                  showBackButton: false,
+                  showCartIcon: false),
+              body: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.only(
+                          right: 16, left: 16, bottom: 16, top: 24),
+                      itemBuilder: (context, index) {
+                        CartItem cartItem = cartItems[index];
+                        if ((index == cartItems.length)) {
+                          return Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 5,
+                                        color: const Color(0xffB6BBC6),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        ExpansionTile(
+                                            trailing: Container(
+                                              width: 0,
                                             ),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            const Text(
-                                              "Use Coupon Code",
-                                              style: TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_14,
-                                                  color: Color(0xff313846)),
-                                            ),
-                                          ],
-                                        ),
-                                        children: [
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            color: const Color(0xffF7F9FF),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                            title: Row(
                                               children: [
                                                 Container(
-                                                  height: 1,
-                                                  color:
-                                                      const Color(0xffB6BBC6),
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: const Color(
+                                                              0xff313846)),
+                                                      shape: BoxShape.circle),
+                                                  child: const Icon(
+                                                    Icons.add,
+                                                    color: Color(0xff313846),
+                                                    size: 16,
+                                                  ),
                                                 ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      16.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
+                                                const SizedBox(
+                                                  width: 8,
+                                                ),
+                                                const Text(
+                                                  "Use Coupon Code",
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                      FontSizes.FONT_SIZE_14,
+                                                      color: Color(0xff313846)),
+                                                ),
+                                              ],
+                                            ),
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                color: const Color(0xffF7F9FF),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      height: 1,
+                                                      color:
+                                                      const Color(0xffB6BBC6),
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(
+                                                          16.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
-                                                    children: [
-                                                      const Text(
-                                                        "Enter your coupon here",
-                                                        style: TextStyle(
-                                                            fontSize: FontSizes
-                                                                .FONT_SIZE_16,
-                                                            color: Color(
-                                                                0xff878787)),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 8,
-                                                      ),
-                                                      CustomInput(
-                                                        hintText:
+                                                        children: [
+                                                          const Text(
                                                             "Enter your coupon here",
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 16,
-                                                      ),
-                                                      SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
+                                                            style: TextStyle(
+                                                                fontSize: FontSizes
+                                                                    .FONT_SIZE_16,
+                                                                color: Color(
+                                                                    0xff878787)),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
+                                                          CustomInput(
+                                                            hintText:
+                                                            "Enter your coupon here",
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 16,
+                                                          ),
+                                                          SizedBox(
+                                                            width: MediaQuery.of(
+                                                                context)
                                                                 .size
                                                                 .width *
-                                                            0.4,
-                                                        child: CustomButton(
-                                                            text:
+                                                                0.4,
+                                                            child: CustomButton(
+                                                                text:
                                                                 "Apply Coupon",
-                                                            action: () {}),
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          )
-                                        ]),
-                                    Container(
-                                      height: 1,
-                                      color: const Color(0xffB6BBC6),
-                                    ),
-                                    ExpansionTile(
-                                        trailing: Container(
-                                          width: 0,
+                                                                action: () {}),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            ]),
+                                        Container(
+                                          height: 1,
+                                          color: const Color(0xffB6BBC6),
                                         ),
-                                        title: Row(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: const Color(
-                                                          0xff313846)),
-                                                  shape: BoxShape.circle),
-                                              child: const Icon(
-                                                Icons.add,
-                                                color: Color(0xff313846),
-                                                size: 16,
-                                              ),
+                                        ExpansionTile(
+                                            trailing: Container(
+                                              width: 0,
                                             ),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            const Text(
-                                              "Estimate Shipping & Taxes",
-                                              style: TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_14,
-                                                  color: Color(0xff313846)),
-                                            ),
-                                          ],
-                                        ),
-                                        children: [
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            color: const Color(0xffF7F9FF),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                            title: Row(
                                               children: [
                                                 Container(
-                                                  height: 1,
-                                                  color:
-                                                      const Color(0xffB6BBC6),
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: const Color(
+                                                              0xff313846)),
+                                                      shape: BoxShape.circle),
+                                                  child: const Icon(
+                                                    Icons.add,
+                                                    color: Color(0xff313846),
+                                                    size: 16,
+                                                  ),
                                                 ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      16.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
+                                                const SizedBox(
+                                                  width: 8,
+                                                ),
+                                                const Text(
+                                                  "Estimate Shipping & Taxes",
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                      FontSizes.FONT_SIZE_14,
+                                                      color: Color(0xff313846)),
+                                                ),
+                                              ],
+                                            ),
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                color: const Color(0xffF7F9FF),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      height: 1,
+                                                      color:
+                                                      const Color(0xffB6BBC6),
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(
+                                                          16.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
-                                                    children: [
-                                                      Container(
-                                                        padding:
+                                                        children: [
+                                                          Container(
+                                                            padding:
                                                             const EdgeInsets
-                                                                    .only(
+                                                                .only(
                                                                 left: 16,
                                                                 right: 8),
-                                                        decoration: BoxDecoration(
-                                                            border: Border.all(
-                                                                color: const Color(
-                                                                    0xff95989A))),
-                                                        child: DropdownSearch<
-                                                            String>(
-                                                          asyncItems: (String
+                                                            decoration: BoxDecoration(
+                                                                border: Border.all(
+                                                                    color: const Color(
+                                                                        0xff95989A))),
+                                                            child: DropdownSearch<
+                                                                String>(
+                                                              asyncItems: (String
                                                               filter) async {
-                                                            // var res =
-                                                            // searchAdsCubit.getJobCategories();
-                                                            return ["ss"];
-                                                          },
-                                                          dropdownDecoratorProps:
+                                                                // var res =
+                                                                // searchAdsCubit.getJobCategories();
+                                                                return ["ss"];
+                                                              },
+                                                              dropdownDecoratorProps:
                                                               const DropDownDecoratorProps(
                                                                   dropdownSearchDecoration:
-                                                                      InputDecoration(
-                                                                          border: InputBorder
-                                                                              .none,
-                                                                          hintStyle:
-                                                                              TextStyle(
-                                                                            fontWeight:
-                                                                                FontWeight.w300,
-                                                                            fontSize:
-                                                                                FontSizes.FONT_SIZE_16,
-                                                                            color:
-                                                                                Color(0xff878787),
-                                                                          ),
-                                                                          hintText:
-                                                                              "Country")),
-                                                          dropdownButtonProps:
+                                                                  InputDecoration(
+                                                                      border: InputBorder
+                                                                          .none,
+                                                                      hintStyle:
+                                                                      TextStyle(
+                                                                        fontWeight:
+                                                                        FontWeight.w300,
+                                                                        fontSize:
+                                                                        FontSizes.FONT_SIZE_16,
+                                                                        color:
+                                                                        Color(0xff878787),
+                                                                      ),
+                                                                      hintText:
+                                                                      "Country")),
+                                                              dropdownButtonProps:
                                                               const DropdownButtonProps(
                                                                   icon: Icon(
-                                                            Icons
-                                                                .keyboard_arrow_down,
-                                                            color: Color(
-                                                                0xff858585),
-                                                          )),
-                                                          popupProps: PopupProps
-                                                              .menu(itemBuilder:
+                                                                    Icons
+                                                                        .keyboard_arrow_down,
+                                                                    color: Color(
+                                                                        0xff858585),
+                                                                  )),
+                                                              popupProps: PopupProps
+                                                                  .menu(itemBuilder:
                                                                   (context,
-                                                                      String
-                                                                          sort,
-                                                                      bool) {
-                                                            return const Padding(
-                                                              padding:
+                                                                  String
+                                                                  sort,
+                                                                  bool) {
+                                                                return const Padding(
+                                                                  padding:
                                                                   EdgeInsets
                                                                       .all(
-                                                                          16.0),
-                                                              child: Text(
-                                                                "Country",
-                                                                style:
+                                                                      16.0),
+                                                                  child: Text(
+                                                                    "Country",
+                                                                    style:
                                                                     TextStyle(
-                                                                  fontWeight:
+                                                                      fontWeight:
                                                                       FontWeight
                                                                           .w300,
-                                                                  fontSize:
+                                                                      fontSize:
                                                                       FontSizes
                                                                           .FONT_SIZE_16,
-                                                                  color: Color(
-                                                                      0xff878787),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }),
-                                                          dropdownBuilder:
-                                                              (context, sort) {
-                                                            return const Text(
-                                                              "Country",
-                                                              style: TextStyle(
-                                                                fontWeight:
+                                                                      color: Color(
+                                                                          0xff878787),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              }),
+                                                              dropdownBuilder:
+                                                                  (context, sort) {
+                                                                return const Text(
+                                                                  "Country",
+                                                                  style: TextStyle(
+                                                                    fontWeight:
                                                                     FontWeight
                                                                         .w300,
-                                                                fontSize: FontSizes
-                                                                    .FONT_SIZE_16,
-                                                                color: Color(
-                                                                    0xff878787),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 16,
-                                                      ),
-                                                      Container(
-                                                        padding:
+                                                                    fontSize: FontSizes
+                                                                        .FONT_SIZE_16,
+                                                                    color: Color(
+                                                                        0xff878787),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 16,
+                                                          ),
+                                                          Container(
+                                                            padding:
                                                             const EdgeInsets
-                                                                    .only(
+                                                                .only(
                                                                 left: 16,
                                                                 right: 8),
-                                                        decoration: BoxDecoration(
-                                                            border: Border.all(
-                                                                color: const Color(
-                                                                    0xff95989A))),
-                                                        child: DropdownSearch<
-                                                            String>(
-                                                          asyncItems: (String
+                                                            decoration: BoxDecoration(
+                                                                border: Border.all(
+                                                                    color: const Color(
+                                                                        0xff95989A))),
+                                                            child: DropdownSearch<
+                                                                String>(
+                                                              asyncItems: (String
                                                               filter) async {
-                                                            // var res =
-                                                            // searchAdsCubit.getJobCategories();
-                                                            return ["ss"];
-                                                          },
-                                                          dropdownDecoratorProps:
+                                                                // var res =
+                                                                // searchAdsCubit.getJobCategories();
+                                                                return ["ss"];
+                                                              },
+                                                              dropdownDecoratorProps:
                                                               const DropDownDecoratorProps(
                                                                   dropdownSearchDecoration:
-                                                                      InputDecoration(
-                                                                          border: InputBorder
-                                                                              .none,
-                                                                          hintStyle:
-                                                                              TextStyle(
-                                                                            fontWeight:
-                                                                                FontWeight.w300,
-                                                                            fontSize:
-                                                                                FontSizes.FONT_SIZE_16,
-                                                                            color:
-                                                                                Color(0xff878787),
-                                                                          ),
-                                                                          hintText:
-                                                                              "Region / State")),
-                                                          dropdownButtonProps:
+                                                                  InputDecoration(
+                                                                      border: InputBorder
+                                                                          .none,
+                                                                      hintStyle:
+                                                                      TextStyle(
+                                                                        fontWeight:
+                                                                        FontWeight.w300,
+                                                                        fontSize:
+                                                                        FontSizes.FONT_SIZE_16,
+                                                                        color:
+                                                                        Color(0xff878787),
+                                                                      ),
+                                                                      hintText:
+                                                                      "Region / State")),
+                                                              dropdownButtonProps:
                                                               const DropdownButtonProps(
                                                                   icon: Icon(
-                                                            Icons
-                                                                .keyboard_arrow_down,
-                                                            color: Color(
-                                                                0xff858585),
-                                                          )),
-                                                          popupProps: PopupProps
-                                                              .menu(itemBuilder:
+                                                                    Icons
+                                                                        .keyboard_arrow_down,
+                                                                    color: Color(
+                                                                        0xff858585),
+                                                                  )),
+                                                              popupProps: PopupProps
+                                                                  .menu(itemBuilder:
                                                                   (context,
-                                                                      String
-                                                                          sort,
-                                                                      bool) {
-                                                            return const Padding(
-                                                              padding:
+                                                                  String
+                                                                  sort,
+                                                                  bool) {
+                                                                return const Padding(
+                                                                  padding:
                                                                   EdgeInsets
                                                                       .all(
-                                                                          16.0),
-                                                              child: Text(
-                                                                "Region / State",
-                                                                style:
+                                                                      16.0),
+                                                                  child: Text(
+                                                                    "Region / State",
+                                                                    style:
                                                                     TextStyle(
-                                                                  fontWeight:
+                                                                      fontWeight:
                                                                       FontWeight
                                                                           .w300,
-                                                                  fontSize:
+                                                                      fontSize:
                                                                       FontSizes
                                                                           .FONT_SIZE_16,
-                                                                  color: Color(
-                                                                      0xff878787),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }),
-                                                          dropdownBuilder:
-                                                              (context, sort) {
-                                                            return const Text(
-                                                              "Region / State",
-                                                              style: TextStyle(
-                                                                fontWeight:
+                                                                      color: Color(
+                                                                          0xff878787),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              }),
+                                                              dropdownBuilder:
+                                                                  (context, sort) {
+                                                                return const Text(
+                                                                  "Region / State",
+                                                                  style: TextStyle(
+                                                                    fontWeight:
                                                                     FontWeight
                                                                         .w300,
-                                                                fontSize: FontSizes
-                                                                    .FONT_SIZE_16,
-                                                                color: Color(
-                                                                    0xff878787),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 16,
-                                                      ),
-                                                      CustomInput(
-                                                          hintText:
+                                                                    fontSize: FontSizes
+                                                                        .FONT_SIZE_16,
+                                                                    color: Color(
+                                                                        0xff878787),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 16,
+                                                          ),
+                                                          CustomInput(
+                                                              hintText:
                                                               "Post Code"),
-                                                      const SizedBox(
-                                                        height: 16,
-                                                      ),
-                                                      SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
+                                                          const SizedBox(
+                                                            height: 16,
+                                                          ),
+                                                          SizedBox(
+                                                            width: MediaQuery.of(
+                                                                context)
                                                                 .size
                                                                 .width *
-                                                            0.4,
-                                                        child: CustomButton(
-                                                            text: "Get Quotes",
-                                                            action: () {}),
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          )
-                                        ]),
-                                    Container(
-                                      height: 1,
-                                      color: const Color(0xffB6BBC6),
-                                    ),
-                                    ExpansionTile(
-                                        trailing: Container(
-                                          width: 0,
+                                                                0.4,
+                                                            child: CustomButton(
+                                                                text: "Get Quotes",
+                                                                action: () {}),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            ]),
+                                        Container(
+                                          height: 1,
+                                          color: const Color(0xffB6BBC6),
                                         ),
-                                        title: Row(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: const Color(
-                                                          0xff313846)),
-                                                  shape: BoxShape.circle),
-                                              child: const Icon(
-                                                Icons.add,
-                                                color: Color(0xff313846),
-                                                size: 16,
-                                              ),
+                                        ExpansionTile(
+                                            trailing: Container(
+                                              width: 0,
                                             ),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            const Text(
-                                              "Use Gift Certificate",
-                                              style: TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_14,
-                                                  color: Color(0xff313846)),
-                                            ),
-                                          ],
-                                        ),
-                                        children: [
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            color: const Color(0xffF7F9FF),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                            title: Row(
                                               children: [
                                                 Container(
-                                                  height: 1,
-                                                  color:
-                                                      const Color(0xffB6BBC6),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      16.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      const Text(
-                                                        "Enter your gift certificate code here",
-                                                        style: TextStyle(
-                                                            fontSize: FontSizes
-                                                                .FONT_SIZE_16,
-                                                            color: Color(
-                                                                0xff878787)),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 8,
-                                                      ),
-                                                      CustomInput(
-                                                        hintText:
-                                                            "Enter your gift certificate code here",
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 16,
-                                                      ),
-                                                      SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.5,
-                                                        child: CustomButton(
-                                                            text:
-                                                                "Apply gift certificate",
-                                                            action: () {}),
-                                                      )
-                                                    ],
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: const Color(
+                                                              0xff313846)),
+                                                      shape: BoxShape.circle),
+                                                  child: const Icon(
+                                                    Icons.add,
+                                                    color: Color(0xff313846),
+                                                    size: 16,
                                                   ),
-                                                )
+                                                ),
+                                                const SizedBox(
+                                                  width: 8,
+                                                ),
+                                                const Text(
+                                                  "Use Gift Certificate",
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                      FontSizes.FONT_SIZE_14,
+                                                      color: Color(0xff313846)),
+                                                ),
                                               ],
                                             ),
-                                          )
-                                        ]),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              const CheckOutBottomSheet(),
-                            ],
-                          ));
-                    } else {
-                      return const CartItem();
-                    }
-                  },
-                  itemCount: 7,
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                color: const Color(0xffF7F9FF),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      height: 1,
+                                                      color:
+                                                      const Color(0xffB6BBC6),
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(
+                                                          16.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                        children: [
+                                                          const Text(
+                                                            "Enter your gift certificate code here",
+                                                            style: TextStyle(
+                                                                fontSize: FontSizes
+                                                                    .FONT_SIZE_16,
+                                                                color: Color(
+                                                                    0xff878787)),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
+                                                          CustomInput(
+                                                            hintText:
+                                                            "Enter your gift certificate code here",
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 16,
+                                                          ),
+                                                          SizedBox(
+                                                            width: MediaQuery.of(
+                                                                context)
+                                                                .size
+                                                                .width *
+                                                                0.5,
+                                                            child: CustomButton(
+                                                                text:
+                                                                "Apply gift certificate",
+                                                                action: () {}),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            ]),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  const CheckOutBottomSheet(),
+                                ],
+                              ));
+                        } else {
+                          return  CartItemWidget(cartItem: cartItem,);
+                        }
+                      },
+                      itemCount: cartItems.length,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        ));
-      }),
+              ),
+            ));
+      },
     );
   }
 }

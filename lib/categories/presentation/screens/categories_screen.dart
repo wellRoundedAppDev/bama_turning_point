@@ -20,7 +20,7 @@ class CategoriesScreen extends StatelessWidget {
       child: SafeArea(
           child: Scaffold(
         appBar: CustomAppBar.renderAppBar(
-            title: "Categories", showBackButton: false),
+            title: "Categories",),
         body: BlocConsumer<CategoriesCubit, HomeStates>(
           listener: (context, state) {},
           builder: (context, state) {
