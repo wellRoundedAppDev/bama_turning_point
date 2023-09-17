@@ -1,4 +1,4 @@
-import 'package:classic_eccomerce/cart/presentation/screens/order_success_screen.dart';
+import 'package:classic_eccomerce/checkout/presentation/screens/order_success_screen.dart';
 import 'package:classic_eccomerce/cart/presentation/widgets/cart_item_widget.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';

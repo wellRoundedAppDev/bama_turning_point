@@ -3,7 +3,7 @@ import 'package:classic_eccomerce/categories/presentation/screens/filter_categor
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../../../categories/data/models/GetCategoriesResponse.dart';
+import '../../../categories/data/models/get_categories_response.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 

@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
-import 'package:classic_eccomerce/authentication/presentation/auth_cubit/cubit.dart';
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/categories/data/data_sources/remote_data_sources/categories_apis.dart';
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/states.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/models/GetCategoriesResponse.dart';
+import '../../../data/models/get_categories_response.dart';
 
 class CategoriesCubit extends Cubit<HomeStates> {
   CategoriesCubit() : super(CategoriesInitialState());

@@ -4,8 +4,11 @@ import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 
+import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../core/constants/colors/colors.dart';
+import '../../../product_details/presentation/screens/product_details_screen.dart';
 import '../cubits/home_cubit/cubit.dart';
 import '../cubits/home_cubit/states.dart';
 
@@ -18,8 +21,9 @@ class ViewAllProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar:
-          CustomAppBar.renderAppBar(title: productTitle, ),
+      appBar: CustomAppBar.renderAppBar(
+        title: productTitle,
+      ),
       body: BlocConsumer<HomeCubit, HomeStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -54,11 +58,22 @@ class ViewAllProductsScreen extends StatelessWidget {
                         itemCount: products?.length ?? 0,
                         itemBuilder: (BuildContext context, int index) {
                           Product? product = products?[index];
-                          num? productId = product?.productId;
+                          int? productId = product?.productId?.toInt();
                           String? productName = product?.name;
                           String? productImageUrl = "";
                           return InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      child: BlocProvider.value(
+                                        value: CartCubit.get(context),
+                                        child: ProductDetailsScreen(
+                                          selectedProductId: productId ?? -1,
+                                        ),
+                                      ),
+                                      type: PageTransitionType.leftToRight));
+                            },
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Column(

@@ -94,14 +94,14 @@ class ProductDetailsBottomSheet extends StatelessWidget {
 
                   return (isProductInCart)
                       ? const Center(
-                        child: Text(
+                          child: Text(
                             "Added to cart",
                             style: TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_14,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
                           ),
-                      )
+                        )
                       : CustomButton(
                           text: "Add to cart",
                           height: MediaQuery.of(context).size.height,
@@ -116,7 +116,9 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                                         ?.toString() ??
                                     "",
                                 name: selectedProductDetails?.name ?? "",
-                                imagePath: selectedProductDetails?.originalImage.toString()??"",
+                                imagePath: selectedProductDetails?.originalImage
+                                        .toString() ??
+                                    "",
                                 price:
                                     selectedProductDetails?.price?.toDouble() ??
                                         -1));

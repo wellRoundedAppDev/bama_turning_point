@@ -7,7 +7,7 @@ import 'package:classic_eccomerce/product_details/presentation/cubits/product_de
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../authentication/presentation/auth_cubit/cubit.dart';
+import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 
 class ProductDetailsCubit extends Cubit<ProductDetailsStates>{

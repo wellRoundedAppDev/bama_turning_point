@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
-import 'package:classic_eccomerce/cart/presentation/screens/quick_checkout_auth_screen.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
+import 'package:classic_eccomerce/checkout/presentation/screens/quick_checkout_auth_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,9 +25,9 @@ class _CheckOutBottomSheetState extends State<CheckOutBottomSheet> with TickerPr
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Expanded(
+           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 left: 20,
                 top: 16,
                 bottom: 16,
@@ -35,7 +36,7 @@ class _CheckOutBottomSheetState extends State<CheckOutBottomSheet> with TickerPr
                 crossAxisAlignment:
                 CrossAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "Total",
                     style: TextStyle(
                         fontSize: FontSizes.FONT_SIZE_14,
@@ -43,14 +44,20 @@ class _CheckOutBottomSheetState extends State<CheckOutBottomSheet> with TickerPr
                         fontWeight: FontWeight.bold),
                   ),
                   Expanded(
-                    child: Text(
-                      " : 1478",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: FontSizes.FONT_SIZE_12,
-                        color: Colors.white,
-                      ),
+                    child: BlocConsumer<CartCubit,CartStates>(
+                      listener: (context,state){},
+                      builder: (context,state){
+                       CartCubit cartCubit =  CartCubit.get(context);
+                       return Text(
+                          " : ${cartCubit.totalPrice}",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: FontSizes.FONT_SIZE_12,
+                            color: Colors.white,
+                          ),
+                        );
+                      },
                     ),
                   )
                 ],

@@ -23,11 +23,13 @@ class GetCategoriesResponse {
     }
 
     return GetCategoriesResponse(
-        success: success, categories: data,);
+      success: success,
+      categories: data,
+    );
   }
 
   num? success;
-  List<dynamic>? error;
+  //List<dynamic>? error;
   List<Category>? categories;
 
   // Map<String, dynamic> toJson() {

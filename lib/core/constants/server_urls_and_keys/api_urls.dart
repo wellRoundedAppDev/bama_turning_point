@@ -11,6 +11,11 @@ class ApiUrls {
   static const GET_BEST_SELLLERS_LIMIT_ENDPOINT = "bestsellers/limit/";
   static const GET_SLIDE_SHOWS_ENDPOINT = "slideshows";
   static const GET_PRODUCT_DETAILS_ENDPOINT = "products/";
+  static const GET_PRODUCTS_BY_CATEGORY_ID_ENDPOINT = "products/category/";
+  static const GUEST_SHIPPING_ENDPOINT = "api/rest/guestshipping";
+  static const GET_LIST_OF_COUNTRIES = "countries";
+  static const GET_LIST_OF_REGIONS_BY_COUNTRY_ID = "countries/";
+
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>
       "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";
@@ -22,4 +27,9 @@ class ApiUrls {
       "$GET_BEST_SELLLERS_LIMIT_ENDPOINT$limit";
   static String getProductDetailsByIdEndpoint(int id) =>
       "$GET_PRODUCT_DETAILS_ENDPOINT$id";
+  static String getProductsByCategoryIdEndpoint(int id) =>
+      "$GET_PRODUCTS_BY_CATEGORY_ID_ENDPOINT$id";
+  static String getListOfRegionsByCountryIdEndpoint(int id) =>
+      "$GET_LIST_OF_REGIONS_BY_COUNTRY_ID$id";
+
 }

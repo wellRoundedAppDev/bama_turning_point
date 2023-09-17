@@ -10,6 +10,7 @@ import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
+import '../../../core/constants/colors/colors.dart';
 import '../../../shared_components/no_network_refresh_page.dart';
 import '../../data/models/get_product_details_response.dart';
 
@@ -33,6 +34,7 @@ class ProductDetailsScreen extends StatelessWidget {
               ProductDetailsCubit.get(context);
           ProductDetails? productDetails =
               productDetailsCubit.selectedProductDetails;
+          String? productImagePath = productDetails?.originalImage;
           String? productName = productDetails?.name;
           num? productPrice = productDetails?.price;
           num? productPriceExcludingTaxes = productDetails?.priceExcludingTax;
@@ -46,7 +48,9 @@ class ProductDetailsScreen extends StatelessWidget {
                       : const SizedBox(
                           height: 0,
                         ),
-                  appBar: CustomAppBar.renderAppBar(title: productName ?? ""),
+                  appBar: CustomAppBar.renderAppBar(
+                      title: productName ?? "",
+                      cartCubit: CartCubit.get(context)),
                   body: (state is GetProductDetailsLoadingState)
                       ? const Center(
                           child: CircularProgressIndicator(),
@@ -84,8 +88,16 @@ class ProductDetailsScreen extends StatelessWidget {
                                           children: [
                                             Stack(
                                               children: [
-                                                Image.asset(
-                                                  "assets/images/product_dummy.png",
+                                                Image.network(
+                                                  productImagePath??"",
+                                                  errorBuilder:
+                                                      (context, object, stackTrace) {
+                                                    return const Icon(
+                                                      Icons.error,
+                                                      size: 150,
+                                                      color: AppColors.APP_MAIN_COLOR,
+                                                    );
+                                                  },
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .width,
@@ -453,7 +465,15 @@ class ProductDetailsScreen extends StatelessWidget {
                                                           .containsKey(
                                                               selectedProductId
                                                                   .toString());
-                                                      int quantity = cartCubit.cartItems[selectedProductId.toString()]['quantity'];
+
+                                                      int quantity = 0;
+                                                      if (isProductInCart) {
+                                                        quantity = cartCubit
+                                                                    .cartItems[
+                                                                selectedProductId
+                                                                    .toString()]
+                                                            ['quantity'];
+                                                      }
                                                       return (isProductInCart)
                                                           ? Column(
                                                               crossAxisAlignment:
@@ -491,12 +511,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                       child:
                                                                           Row(
                                                                         children: [
-                                                                           Flexible(
+                                                                          Flexible(
                                                                               flex: 1,
                                                                               child: GestureDetector(
-                                                                                onTap: (){
+                                                                                onTap: () {
                                                                                   cartCubit.decreaseProductQuantity(selectedProductId.toString());
-
                                                                                 },
                                                                                 child: const Icon(
                                                                                   Icons.remove,
@@ -511,7 +530,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                             color:
                                                                                 const Color(0xffD0D0D0),
                                                                           ),
-                                                                           Flexible(
+                                                                          Flexible(
                                                                               flex: 2,
                                                                               child: Center(
                                                                                 child: Text(

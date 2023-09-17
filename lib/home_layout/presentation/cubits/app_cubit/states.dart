@@ -1,8 +1,8 @@
-abstract class AppStates{}
+abstract class CheckOutStates{}
 
-class AppInitialState extends AppStates{}
+class AppInitialState extends CheckOutStates{}
 
-class AppNavigationChangedState extends AppStates{}
+class AppNavigationChangedState extends CheckOutStates{}
 
 
 

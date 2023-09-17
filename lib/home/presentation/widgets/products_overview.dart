@@ -53,7 +53,7 @@ class ProductsOverview extends StatelessWidget {
               InkWell(
                 onTap: () {
                   HomeCubit homeCubit = HomeCubit.get(context);
-                  homeCubit.navigateToViewAllProductsScreen(productListTitle);
+                  homeCubit.navigateToViewAllProductsScreen(productListTitle,CartCubit.get(context));
                   // Navigator.push(
                   //     context,
                   //     PageTransition(

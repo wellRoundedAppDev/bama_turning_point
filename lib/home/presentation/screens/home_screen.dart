@@ -1,4 +1,5 @@
-import 'package:classic_eccomerce/categories/data/models/GetCategoriesResponse.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:classic_eccomerce/categories/data/models/get_categories_response.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_families.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
@@ -11,6 +12,8 @@ import 'package:classic_eccomerce/home/presentation/widgets/products_overview.da
 import 'package:classic_eccomerce/shared_components/search_app_bar_custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
+import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../data/models/get_slide_shows_response.dart';
 import '../widgets/home_drawer.dart';
 
@@ -53,10 +56,21 @@ class HomeScreen extends StatelessWidget {
                                 color: Colors.white,
                                 fontFamily: FontFamilies.JOST_BOld),
                           ),
-                          Image.asset(
-                            IconPaths.CART,
-                            width: 25,
-                            height: 25,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      child: BlocProvider.value(
+                                          value: CartCubit.get(context),
+                                          child: const CartScreen()),
+                                      type: PageTransitionType.leftToRight));
+                            },
+                            child: Image.asset(
+                              IconPaths.CART,
+                              width: 25,
+                              height: 25,
+                            ),
                           ),
                         ],
                       ),

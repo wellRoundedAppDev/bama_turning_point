@@ -18,36 +18,42 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CartCubit,CartStates>(
-      listener: (context, state){},
-      builder: (context,state){
+    return BlocConsumer<CartCubit, CartStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
         CartCubit cartCubit = CartCubit.get(context);
-        List<CartItem> cartItems = cartCubit.cartItems.entries.map((e) => CartItem(
-            id: e.key ,
-            quantity: e.value['quantity'],
-            name: e.value['name'],
-            price: e.value['price'],
-          imagePath: e.value['imagePath']
-        )).toList();
+        List<CartItem> cartItems = cartCubit.cartItems.entries
+            .map((e) => CartItem(
+                id: e.key,
+                quantity: e.value['quantity'],
+                name: e.value['name'],
+                price: e.value['price'],
+                imagePath: e.value['imagePath']))
+            .toList();
         return SafeArea(
             child: Scaffold(
-              appBar: CustomAppBar.renderAppBar(
-                  title: "Shopping Cart",
-                  showBackButton: false,
-                  showCartIcon: false),
-              body: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.only(
-                          right: 16, left: 16, bottom: 16, top: 24),
-                      itemBuilder: (context, index) {
-                        CartItem cartItem = cartItems[index];
-                        if ((index == cartItems.length)) {
-                          return Padding(
+          appBar: CustomAppBar.renderAppBar(
+              title: "Shopping Cart",
+              showBackButton: false,
+              showCartIcon: false),
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.only(
+                      right: 16, left: 16, bottom: 16, top: 24),
+                  itemBuilder: (context, index) {
+                    CartItem? cartItem;
+                    if (index < cartItems.length) {
+                      cartItem = cartItems[index];
+                    }
+                    if ((index == cartItems.length)) {
+                      return cartItems.isEmpty
+                          ? Container()
+                          : Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Column(
                                 children: [
@@ -84,8 +90,8 @@ class CartScreen extends StatelessWidget {
                                                 const Text(
                                                   "Use Coupon Code",
                                                   style: TextStyle(
-                                                      fontSize:
-                                                      FontSizes.FONT_SIZE_14,
+                                                      fontSize: FontSizes
+                                                          .FONT_SIZE_14,
                                                       color: Color(0xff313846)),
                                                 ),
                                               ],
@@ -98,20 +104,21 @@ class CartScreen extends StatelessWidget {
                                                 color: const Color(0xffF7F9FF),
                                                 child: Column(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Container(
                                                       height: 1,
-                                                      color:
-                                                      const Color(0xffB6BBC6),
+                                                      color: const Color(
+                                                          0xffB6BBC6),
                                                     ),
                                                     Padding(
-                                                      padding: const EdgeInsets.all(
-                                                          16.0),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              16.0),
                                                       child: Column(
                                                         crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
                                                           const Text(
                                                             "Enter your coupon here",
@@ -126,22 +133,15 @@ class CartScreen extends StatelessWidget {
                                                           ),
                                                           CustomInput(
                                                             hintText:
-                                                            "Enter your coupon here",
+                                                                "Enter your coupon here",
                                                           ),
                                                           const SizedBox(
                                                             height: 16,
                                                           ),
-                                                          SizedBox(
-                                                            width: MediaQuery.of(
-                                                                context)
-                                                                .size
-                                                                .width *
-                                                                0.4,
-                                                            child: CustomButton(
-                                                                text:
-                                                                "Apply Coupon",
-                                                                action: () {}),
-                                                          )
+                                                          CustomButton(
+                                                              text:
+                                                                  "Apply Coupon",
+                                                              action: () {})
                                                         ],
                                                       ),
                                                     )
@@ -177,8 +177,8 @@ class CartScreen extends StatelessWidget {
                                                 const Text(
                                                   "Estimate Shipping & Taxes",
                                                   style: TextStyle(
-                                                      fontSize:
-                                                      FontSizes.FONT_SIZE_14,
+                                                      fontSize: FontSizes
+                                                          .FONT_SIZE_14,
                                                       color: Color(0xff313846)),
                                                 ),
                                               ],
@@ -191,85 +191,83 @@ class CartScreen extends StatelessWidget {
                                                 color: const Color(0xffF7F9FF),
                                                 child: Column(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Container(
                                                       height: 1,
-                                                      color:
-                                                      const Color(0xffB6BBC6),
+                                                      color: const Color(
+                                                          0xffB6BBC6),
                                                     ),
                                                     Padding(
-                                                      padding: const EdgeInsets.all(
-                                                          16.0),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              16.0),
                                                       child: Column(
                                                         crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Container(
                                                             padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                left: 16,
-                                                                right: 8),
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 16,
+                                                                    right: 8),
                                                             decoration: BoxDecoration(
                                                                 border: Border.all(
                                                                     color: const Color(
                                                                         0xff95989A))),
-                                                            child: DropdownSearch<
-                                                                String>(
+                                                            child:
+                                                                DropdownSearch<
+                                                                    String>(
                                                               asyncItems: (String
-                                                              filter) async {
+                                                                  filter) async {
                                                                 // var res =
                                                                 // searchAdsCubit.getJobCategories();
                                                                 return ["ss"];
                                                               },
-                                                              dropdownDecoratorProps:
-                                                              const DropDownDecoratorProps(
-                                                                  dropdownSearchDecoration:
-                                                                  InputDecoration(
-                                                                      border: InputBorder
-                                                                          .none,
-                                                                      hintStyle:
-                                                                      TextStyle(
+                                                              dropdownDecoratorProps: const DropDownDecoratorProps(
+                                                                  dropdownSearchDecoration: InputDecoration(
+                                                                      border: InputBorder.none,
+                                                                      hintStyle: TextStyle(
                                                                         fontWeight:
-                                                                        FontWeight.w300,
+                                                                            FontWeight.w300,
                                                                         fontSize:
-                                                                        FontSizes.FONT_SIZE_16,
-                                                                        color:
-                                                                        Color(0xff878787),
+                                                                            FontSizes.FONT_SIZE_16,
+                                                                        color: Color(
+                                                                            0xff878787),
                                                                       ),
-                                                                      hintText:
-                                                                      "Country")),
+                                                                      hintText: "Country")),
                                                               dropdownButtonProps:
-                                                              const DropdownButtonProps(
-                                                                  icon: Icon(
-                                                                    Icons
-                                                                        .keyboard_arrow_down,
-                                                                    color: Color(
-                                                                        0xff858585),
-                                                                  )),
+                                                                  const DropdownButtonProps(
+                                                                      icon:
+                                                                          Icon(
+                                                                Icons
+                                                                    .keyboard_arrow_down,
+                                                                color: Color(
+                                                                    0xff858585),
+                                                              )),
                                                               popupProps: PopupProps
                                                                   .menu(itemBuilder:
-                                                                  (context,
-                                                                  String
-                                                                  sort,
-                                                                  bool) {
+                                                                      (context,
+                                                                          String
+                                                                              sort,
+                                                                          bool) {
                                                                 return const Padding(
                                                                   padding:
-                                                                  EdgeInsets
-                                                                      .all(
-                                                                      16.0),
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              16.0),
                                                                   child: Text(
                                                                     "Country",
                                                                     style:
-                                                                    TextStyle(
+                                                                        TextStyle(
                                                                       fontWeight:
-                                                                      FontWeight
-                                                                          .w300,
+                                                                          FontWeight
+                                                                              .w300,
                                                                       fontSize:
-                                                                      FontSizes
-                                                                          .FONT_SIZE_16,
+                                                                          FontSizes
+                                                                              .FONT_SIZE_16,
                                                                       color: Color(
                                                                           0xff878787),
                                                                     ),
@@ -277,15 +275,18 @@ class CartScreen extends StatelessWidget {
                                                                 );
                                                               }),
                                                               dropdownBuilder:
-                                                                  (context, sort) {
+                                                                  (context,
+                                                                      sort) {
                                                                 return const Text(
                                                                   "Country",
-                                                                  style: TextStyle(
+                                                                  style:
+                                                                      TextStyle(
                                                                     fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                                    fontSize: FontSizes
-                                                                        .FONT_SIZE_16,
+                                                                        FontWeight
+                                                                            .w300,
+                                                                    fontSize:
+                                                                        FontSizes
+                                                                            .FONT_SIZE_16,
                                                                     color: Color(
                                                                         0xff878787),
                                                                   ),
@@ -298,68 +299,65 @@ class CartScreen extends StatelessWidget {
                                                           ),
                                                           Container(
                                                             padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                left: 16,
-                                                                right: 8),
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 16,
+                                                                    right: 8),
                                                             decoration: BoxDecoration(
                                                                 border: Border.all(
                                                                     color: const Color(
                                                                         0xff95989A))),
-                                                            child: DropdownSearch<
-                                                                String>(
+                                                            child:
+                                                                DropdownSearch<
+                                                                    String>(
                                                               asyncItems: (String
-                                                              filter) async {
+                                                                  filter) async {
                                                                 // var res =
                                                                 // searchAdsCubit.getJobCategories();
                                                                 return ["ss"];
                                                               },
-                                                              dropdownDecoratorProps:
-                                                              const DropDownDecoratorProps(
-                                                                  dropdownSearchDecoration:
-                                                                  InputDecoration(
-                                                                      border: InputBorder
-                                                                          .none,
-                                                                      hintStyle:
-                                                                      TextStyle(
+                                                              dropdownDecoratorProps: const DropDownDecoratorProps(
+                                                                  dropdownSearchDecoration: InputDecoration(
+                                                                      border: InputBorder.none,
+                                                                      hintStyle: TextStyle(
                                                                         fontWeight:
-                                                                        FontWeight.w300,
+                                                                            FontWeight.w300,
                                                                         fontSize:
-                                                                        FontSizes.FONT_SIZE_16,
-                                                                        color:
-                                                                        Color(0xff878787),
+                                                                            FontSizes.FONT_SIZE_16,
+                                                                        color: Color(
+                                                                            0xff878787),
                                                                       ),
-                                                                      hintText:
-                                                                      "Region / State")),
+                                                                      hintText: "Region / State")),
                                                               dropdownButtonProps:
-                                                              const DropdownButtonProps(
-                                                                  icon: Icon(
-                                                                    Icons
-                                                                        .keyboard_arrow_down,
-                                                                    color: Color(
-                                                                        0xff858585),
-                                                                  )),
+                                                                  const DropdownButtonProps(
+                                                                      icon:
+                                                                          Icon(
+                                                                Icons
+                                                                    .keyboard_arrow_down,
+                                                                color: Color(
+                                                                    0xff858585),
+                                                              )),
                                                               popupProps: PopupProps
                                                                   .menu(itemBuilder:
-                                                                  (context,
-                                                                  String
-                                                                  sort,
-                                                                  bool) {
+                                                                      (context,
+                                                                          String
+                                                                              sort,
+                                                                          bool) {
                                                                 return const Padding(
                                                                   padding:
-                                                                  EdgeInsets
-                                                                      .all(
-                                                                      16.0),
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              16.0),
                                                                   child: Text(
                                                                     "Region / State",
                                                                     style:
-                                                                    TextStyle(
+                                                                        TextStyle(
                                                                       fontWeight:
-                                                                      FontWeight
-                                                                          .w300,
+                                                                          FontWeight
+                                                                              .w300,
                                                                       fontSize:
-                                                                      FontSizes
-                                                                          .FONT_SIZE_16,
+                                                                          FontSizes
+                                                                              .FONT_SIZE_16,
                                                                       color: Color(
                                                                           0xff878787),
                                                                     ),
@@ -367,15 +365,18 @@ class CartScreen extends StatelessWidget {
                                                                 );
                                                               }),
                                                               dropdownBuilder:
-                                                                  (context, sort) {
+                                                                  (context,
+                                                                      sort) {
                                                                 return const Text(
                                                                   "Region / State",
-                                                                  style: TextStyle(
+                                                                  style:
+                                                                      TextStyle(
                                                                     fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                                    fontSize: FontSizes
-                                                                        .FONT_SIZE_16,
+                                                                        FontWeight
+                                                                            .w300,
+                                                                    fontSize:
+                                                                        FontSizes
+                                                                            .FONT_SIZE_16,
                                                                     color: Color(
                                                                         0xff878787),
                                                                   ),
@@ -388,20 +389,14 @@ class CartScreen extends StatelessWidget {
                                                           ),
                                                           CustomInput(
                                                               hintText:
-                                                              "Post Code"),
+                                                                  "Post Code"),
                                                           const SizedBox(
                                                             height: 16,
                                                           ),
-                                                          SizedBox(
-                                                            width: MediaQuery.of(
-                                                                context)
-                                                                .size
-                                                                .width *
-                                                                0.4,
-                                                            child: CustomButton(
-                                                                text: "Get Quotes",
-                                                                action: () {}),
-                                                          )
+                                                          CustomButton(
+                                                              text:
+                                                                  "Get Quotes",
+                                                              action: () {})
                                                         ],
                                                       ),
                                                     )
@@ -437,8 +432,8 @@ class CartScreen extends StatelessWidget {
                                                 const Text(
                                                   "Use Gift Certificate",
                                                   style: TextStyle(
-                                                      fontSize:
-                                                      FontSizes.FONT_SIZE_14,
+                                                      fontSize: FontSizes
+                                                          .FONT_SIZE_14,
                                                       color: Color(0xff313846)),
                                                 ),
                                               ],
@@ -451,20 +446,21 @@ class CartScreen extends StatelessWidget {
                                                 color: const Color(0xffF7F9FF),
                                                 child: Column(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Container(
                                                       height: 1,
-                                                      color:
-                                                      const Color(0xffB6BBC6),
+                                                      color: const Color(
+                                                          0xffB6BBC6),
                                                     ),
                                                     Padding(
-                                                      padding: const EdgeInsets.all(
-                                                          16.0),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              16.0),
                                                       child: Column(
                                                         crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
                                                           const Text(
                                                             "Enter your gift certificate code here",
@@ -479,22 +475,15 @@ class CartScreen extends StatelessWidget {
                                                           ),
                                                           CustomInput(
                                                             hintText:
-                                                            "Enter your gift certificate code here",
+                                                                "Enter your gift certificate code here",
                                                           ),
                                                           const SizedBox(
                                                             height: 16,
                                                           ),
-                                                          SizedBox(
-                                                            width: MediaQuery.of(
-                                                                context)
-                                                                .size
-                                                                .width *
-                                                                0.5,
-                                                            child: CustomButton(
-                                                                text:
-                                                                "Apply gift certificate",
-                                                                action: () {}),
-                                                          )
+                                                          CustomButton(
+                                                              text:
+                                                                  "Apply gift certificate",
+                                                              action: () {})
                                                         ],
                                                       ),
                                                     )
@@ -511,16 +500,18 @@ class CartScreen extends StatelessWidget {
                                   const CheckOutBottomSheet(),
                                 ],
                               ));
-                        } else {
-                          return  CartItemWidget(cartItem: cartItem,);
-                        }
-                      },
-                      itemCount: cartItems.length,
-                    ),
-                  ],
+                    } else {
+                      return CartItemWidget(
+                        cartItem: cartItem!,
+                      );
+                    }
+                  },
+                  itemCount: cartItems.length + 1,
                 ),
-              ),
-            ));
+              ],
+            ),
+          ),
+        ));
       },
     );
   }

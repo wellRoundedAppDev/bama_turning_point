@@ -1,4 +1,4 @@
-import 'package:classic_eccomerce/categories/data/models/GetCategoriesResponse.dart';
+import 'package:classic_eccomerce/categories/data/models/get_categories_response.dart';
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/states.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';

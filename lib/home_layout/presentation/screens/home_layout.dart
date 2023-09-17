@@ -24,7 +24,7 @@ class HomeLayoutScreen extends StatelessWidget {
         BlocProvider(create: (context) => AppCubit()),
         BlocProvider(create: (context) => CartCubit()),
       ],
-      child: BlocConsumer<AppCubit, AppStates>(
+      child: BlocConsumer<AppCubit, CheckOutStates>(
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit appCubit = AppCubit.get(context);

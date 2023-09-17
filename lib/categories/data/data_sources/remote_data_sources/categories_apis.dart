@@ -1,8 +1,9 @@
+import 'package:classic_eccomerce/categories/data/models/get_products_in_category_response.dart';
 import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../../core/helpers/dio_helper.dart';
-import '../../models/GetCategoriesResponse.dart';
+import '../../models/get_categories_response.dart';
 
 class CategoriesApis {
   static final _dioHelper = DioHelper.instance;
@@ -21,4 +22,22 @@ class CategoriesApis {
       }
     }
   }
+  
+  static Future<GetProductsInCategoryResponse?> getProductsInCategoryById(int id) async {
+
+    String endPoint = ApiUrls.getProductsByCategoryIdEndpoint(id);
+    try {
+      var response = await _dioHelper.get(endpoint: endPoint);
+      if(response == null){
+        return null;
+      }
+      return GetProductsInCategoryResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+
 }

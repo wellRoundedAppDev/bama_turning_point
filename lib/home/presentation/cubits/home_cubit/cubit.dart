@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/data/data_sources/remote_data_sources/categories_apis.dart';
 import 'package:classic_eccomerce/home/data/data_sources/remote_data_sources/get_slide_shows_api.dart';
 import 'package:classic_eccomerce/home/data/data_sources/remote_data_sources/products_apis.dart';
@@ -12,7 +13,7 @@ import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../../../categories/data/models/GetCategoriesResponse.dart';
+import '../../../../categories/data/models/get_categories_response.dart';
 import '../../../data/models/get_slide_shows_response.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
@@ -57,7 +58,8 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  navigateToViewAllProductsScreen(String productsListTitle) {
+  navigateToViewAllProductsScreen(
+      String productsListTitle, CartCubit cartCubit) {
     if (productsListTitle == "Featured Products") {
       loadViewAllProductsScreen(productsListTitle);
       Navigator.push(
@@ -65,8 +67,11 @@ class HomeCubit extends Cubit<HomeStates> {
           PageTransition(
               child: BlocProvider.value(
                   value: this,
-                  child: ViewAllProductsScreen(
-                    productTitle: productsListTitle,
+                  child: BlocProvider.value(
+                    value: cartCubit,
+                    child: ViewAllProductsScreen(
+                      productTitle: productsListTitle,
+                    ),
                   )),
               type: PageTransitionType.leftToRight));
     } else if (productsListTitle == "New Arrivals") {
@@ -76,8 +81,11 @@ class HomeCubit extends Cubit<HomeStates> {
           PageTransition(
               child: BlocProvider.value(
                   value: this,
-                  child: ViewAllProductsScreen(
-                    productTitle: productsListTitle,
+                  child: BlocProvider.value(
+                    value: cartCubit,
+                    child: ViewAllProductsScreen(
+                      productTitle: productsListTitle,
+                    ),
                   )),
               type: PageTransitionType.leftToRight));
     } else {
@@ -87,8 +95,11 @@ class HomeCubit extends Cubit<HomeStates> {
           PageTransition(
               child: BlocProvider.value(
                   value: this,
-                  child: ViewAllProductsScreen(
-                    productTitle: productsListTitle,
+                  child: BlocProvider.value(
+                    value: cartCubit,
+                    child: ViewAllProductsScreen(
+                      productTitle: productsListTitle,
+                    ),
                   )),
               type: PageTransitionType.leftToRight));
     }

@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:classic_eccomerce/authentication/presentation/auth_cubit/cubit.dart';
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/splash/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

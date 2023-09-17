@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../../../cart/presentation/screens/quick_checkout_main_screen.dart';
+import '../../../checkout/presentation/screens/quick_checkout_main_screen.dart';
 import '../../../shared_components/custom_button.dart';
 import '../../../shared_components/custom_input.dart';
 

@@ -1,7 +1,11 @@
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:classic_eccomerce/cart/presentation/screens/cart_screen.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../core/constants/paths/icon_paths.dart';
 
@@ -9,7 +13,8 @@ class CustomAppBar {
   static renderAppBar(
       {required String title,
       bool showBackButton = true,
-      bool showCartIcon = true}) {
+      bool showCartIcon = true,
+      CartCubit? cartCubit}) {
     return AppBar(
       toolbarHeight: 65,
       backgroundColor: const Color(0xff101216),
@@ -40,12 +45,24 @@ class CustomAppBar {
                     color: Colors.white),
               ),
             ),
-            const SizedBox(width: 8,),
+            const SizedBox(
+              width: 8,
+            ),
             (showCartIcon)
-                ? Image.asset(
-                    IconPaths.CART,
-                    width: 25,
-                    height: 25,
+                ? GestureDetector(
+                    onTap: () {
+                      Navigator.push(MyApp.navKey.currentState!.context,
+                      PageTransition(child:  BlocProvider.value(
+
+                          value: cartCubit!,
+                          child: const CartScreen()), type: PageTransitionType.leftToRight)
+                      );
+                    },
+                    child: Image.asset(
+                      IconPaths.CART,
+                      width: 25,
+                      height: 25,
+                    ),
                   )
                 : Container(),
           ],
