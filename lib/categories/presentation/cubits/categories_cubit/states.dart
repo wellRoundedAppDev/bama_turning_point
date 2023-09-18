@@ -1,11 +1,21 @@
-abstract class HomeStates{}
+abstract class CategoriesStates{}
 
-class CategoriesInitialState extends HomeStates{}
+class CategoriesInitialState extends CategoriesStates{}
 
-class GetCategoriesLoadingState extends HomeStates{}
+class GetCategoriesLoadingState extends CategoriesStates{}
 
-class GetCategoriesSuccessState extends HomeStates{}
+class GetCategoriesSuccessState extends CategoriesStates{}
 
-class GetCategoriesFailedState extends HomeStates{}
+class GetCategoriesFailedState extends CategoriesStates{}
 
-class GetCategoriesNetworkFailedState extends HomeStates{}
+class GetCategoriesNetworkFailedState extends CategoriesStates{}
+
+
+class GetProductsInCategoryLoadingState extends CategoriesStates{}
+
+class GetProductsInCategorySuccessState extends CategoriesStates{}
+
+class GetProductsInCategoryFailedState extends CategoriesStates{}
+
+class GetProductsInCategoryFailedNetworkConnectionState extends CategoriesStates{}
+

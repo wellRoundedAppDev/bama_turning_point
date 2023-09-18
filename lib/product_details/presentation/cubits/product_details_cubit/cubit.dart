@@ -19,7 +19,14 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates>{
   static ProductDetailsCubit get(context) => BlocProvider.of(context);
   
   ProductDetails? selectedProductDetails;
-  
+  int slideCurrentIndex = 0;
+
+  setSliderCurrentIndex(int index){
+    slideCurrentIndex = index;
+    emit(ChangeSliderCurrentIndexState());
+  }
+
+
   setProductDetails() async {
     emit(GetProductDetailsLoadingState());
     var success = await AuthCubit.get(context).setSessionId();

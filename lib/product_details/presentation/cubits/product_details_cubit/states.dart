@@ -9,3 +9,5 @@ class GetProductDetailsSuccessState extends ProductDetailsStates{}
 class GetProductDetailsFailedState extends ProductDetailsStates{}
 
 class GetProductDetailsNetworkConnectionFailedState extends ProductDetailsStates{}
+
+class ChangeSliderCurrentIndexState extends ProductDetailsStates{}

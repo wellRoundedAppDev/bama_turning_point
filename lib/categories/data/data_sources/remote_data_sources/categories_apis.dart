@@ -12,7 +12,7 @@ class CategoriesApis {
     String endPoint = ApiUrls.getCategoriesEndpoint(page);
     try {
       var response = await _dioHelper.get(endpoint: endPoint);
-      if(response == null){
+      if (response == null) {
         return null;
       }
       return GetCategoriesResponse.fromJson(response.data);
@@ -22,13 +22,13 @@ class CategoriesApis {
       }
     }
   }
-  
-  static Future<GetProductsInCategoryResponse?> getProductsInCategoryById(int id) async {
 
+  static Future<GetProductsInCategoryResponse?> getProductsInCategoryById(
+      int id) async {
     String endPoint = ApiUrls.getProductsByCategoryIdEndpoint(id);
     try {
       var response = await _dioHelper.get(endpoint: endPoint);
-      if(response == null){
+      if (response == null) {
         return null;
       }
       return GetProductsInCategoryResponse.fromJson(response.data);
@@ -38,6 +38,4 @@ class CategoriesApis {
       }
     }
   }
-
-
 }

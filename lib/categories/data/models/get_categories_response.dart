@@ -58,7 +58,7 @@ class Category {
   });
 
   factory Category.fromJson(dynamic json) {
-    var categoryId = json['category_id'];
+    var categoryId = json['id'];
     var parentId = json['parent_id'];
     var name = json['name'];
     var seoUrl = json['seo_url'];
