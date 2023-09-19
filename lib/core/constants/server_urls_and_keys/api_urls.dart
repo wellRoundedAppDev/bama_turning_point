@@ -1,20 +1,23 @@
 class ApiUrls {
+
   static const BASE_URL =
-      "https://opencart3-simple.api.opencart-api.com/api/rest/";
-  static const GET_SESSION_ID_ENDPOINT = "session";
-  static const GET_CATEGORIES_ENDPOINT = "categories/extended/";
-  static const GET_BANNERS_ENDPOINT = "banners";
-  static const GET_FEATURED_PRODUCTS_ENDPOINT = "featured";
-  static const GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT = "featured/limit/";
-  static const GET_NEW_ARRIVALS_ENDPOINT = "latest";
-  static const GET_NEW_ARRIVALS_LIMIT_ENDPOINT = "latest/limit/";
-  static const GET_BEST_SELLLERS_LIMIT_ENDPOINT = "bestsellers/limit/";
-  static const GET_SLIDE_SHOWS_ENDPOINT = "slideshows";
-  static const GET_PRODUCT_DETAILS_ENDPOINT = "products/";
-  static const GET_PRODUCTS_BY_CATEGORY_ID_ENDPOINT = "products/category/";
+      "https://opencart3-simple.api.opencart-api.com/";
+  static const GET_SESSION_ID_ENDPOINT = "api/rest/session";
+  static const GET_CATEGORIES_ENDPOINT = "api/rest/categories/extended/";
+  static const GET_BANNERS_ENDPOINT = "api/rest/banners";
+  static const GET_FEATURED_PRODUCTS_ENDPOINT = "api/rest/featured";
+  static const GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT = "api/rest/featured/limit/";
+  static const GET_NEW_ARRIVALS_ENDPOINT = "api/rest/latest";
+  static const GET_NEW_ARRIVALS_LIMIT_ENDPOINT = "api/rest/latest/limit/";
+  static const GET_BEST_SELLLERS_LIMIT_ENDPOINT = "api/rest/bestsellers/limit/";
+  static const GET_SLIDE_SHOWS_ENDPOINT = "api/rest/slideshows";
+  static const GET_PRODUCT_DETAILS_ENDPOINT = "api/rest/products/";
+  static const GET_PRODUCTS_BY_CATEGORY_ID_ENDPOINT = "api/rest/products/category/";
   static const GUEST_SHIPPING_ENDPOINT = "api/rest/guestshipping";
-  static const GET_LIST_OF_COUNTRIES = "countries";
-  static const GET_LIST_OF_REGIONS_BY_COUNTRY_ID = "countries/";
+  static const GET_LIST_OF_COUNTRIES = "api/rest/countries";
+  static const GET_LIST_OF_REGIONS_BY_COUNTRY_ID = "api/rest/countries/";
+  static const ADD_ITEMS_TO_CART_ENDPOINT = "api/rest/cart_bulk";
+  static const CREATE_GUEST_USER = 'api/rest/guest';
 
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>

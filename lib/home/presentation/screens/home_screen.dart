@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/data/models/get_categories_response.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
@@ -128,14 +129,40 @@ class HomeScreen extends StatelessWidget {
                             child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.22,
-                                child: BannersSlider(
-                                  bannerAds: bannerAds ?? [],
-                                ),
-                              ),
-                              ListView.separated(
+                                  CarouselSlider(
+                                    options: CarouselOptions(
+                                        height:
+                                        MediaQuery.of(context).size.height * 0.22,
+                                        enlargeCenterPage: true,
+                                        enableInfiniteScroll: false,
+                                        initialPage: 0,
+                                        viewportFraction: 1,
+                                        autoPlay: true,
+                                        onPageChanged: (index, reason) {
+                                        }),
+                                    items: bannerAds
+                                        ?.map(
+                                          (e) => Image.network(
+                                        e.imageOriginal ?? "",
+                                        width:
+                                        MediaQuery.of(context).size.width,
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, object, stackTrace) {
+                                          return const Center(
+                                            child: Icon(
+                                              Icons.error,
+                                              size: 150,
+                                              color: AppColors.APP_MAIN_COLOR,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    )
+                                        .toList(),
+                                  ),
+
+                                  ListView.separated(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
                                 separatorBuilder: (context, index) =>

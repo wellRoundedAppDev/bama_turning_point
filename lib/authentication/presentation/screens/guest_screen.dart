@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/checkout/presentation/screens/quick_checkout_main_screen.dart';
 import 'package:classic_eccomerce/core/data/models/get_countries_response.dart';
 import 'package:classic_eccomerce/core/data/models/get_regions_response.dart';
@@ -32,7 +33,7 @@ class GuestScreen extends StatelessWidget {
                   hintText: "Phone Number",
                   textInputType: TextInputType.phone,
                   validator: (value) {
-                    if (value == null || value.length < 9) {
+                    if (value == null || value.length != 9) {
                       return 'Enter a valid phone number';
                     }
                   },
@@ -84,6 +85,7 @@ class GuestScreen extends StatelessWidget {
                     onChanged: (String? gender) {
                       AuthCubit.get(context).guestFormInput.gender = gender;
                     },
+
                   ),
                 ),
 
@@ -258,6 +260,11 @@ class GuestScreen extends StatelessWidget {
                     onChanged: (Country? country) {
                       AuthCubit.get(context).setCountryOfGuest(country!);
                     },
+                    validator: (Country? country){
+                      if(AuthCubit.get(context).guestFormInput.country == null){
+                        return "Select your country";
+                      }
+                    },
                   ),
                 ),
                 const SizedBox(
@@ -298,6 +305,7 @@ class GuestScreen extends StatelessWidget {
                         ),
                       );
                     }),
+
                     dropdownBuilder: (context, region) {
                       return Text(
                         region?.name ?? "Region / State",
@@ -306,6 +314,10 @@ class GuestScreen extends StatelessWidget {
                             color: Color(0xff878787)),
                       );
                     },
+                    onChanged: (Region? region) {
+                      AuthCubit.get(context).setRegionOfGuest(region!) ;
+                    },
+
                   ),
                 ),
                 const SizedBox(
@@ -346,11 +358,7 @@ class GuestScreen extends StatelessWidget {
                 CustomButton(
                     text: "Next",
                     action: () {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              child: const QuickCheckoutMainScreen(),
-                              type: PageTransitionType.leftToRight));
+                     AuthCubit.get(context).createGuestUser(CartCubit.get(context));
                     })
               ],
             ),

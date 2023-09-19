@@ -14,4 +14,18 @@ class GuestFormInput {
   String? postalCode;
 
   GuestFormInput({this.gender = "Male"});
+
+  Map<String, dynamic> toJsonForCreateGuestApi() =>{
+    "firstname": firstName,
+    "lastname": lastName,
+    "email": "noornido@gmail.com",
+    "telephone": phoneNumber,
+    "company": "",
+    "city": cityName,
+    "address_1": address,
+    "address_2": "",
+    "country_id": country?.countryId?.toInt(),
+    "postcode": postalCode,
+    "zone_id": int.parse(region?.zoneId??"")
+  };
 }

@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/helpers/remove_html_tags_from_string.dart';
@@ -41,6 +42,7 @@ class ProductDetailsScreen extends StatelessWidget {
           num? productRating = productDetails?.rating;
           String? stockStatus = productDetails?.stockStatus;
           String? description = productDetails?.description;
+          List<String>? originalImageUrls = productDetails?.originalImages;
           return SafeArea(
               child: Scaffold(
                   bottomSheet: (state is GetProductDetailsSuccessState)
@@ -88,25 +90,56 @@ class ProductDetailsScreen extends StatelessWidget {
                                           children: [
                                             Stack(
                                               children: [
-                                                Image.network(
-                                                  productImagePath??"",
-                                                  errorBuilder:
-                                                      (context, object, stackTrace) {
-                                                    return const Icon(
-                                                      Icons.error,
-                                                      size: 150,
-                                                      color: AppColors.APP_MAIN_COLOR,
-                                                    );
-                                                  },
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.3,
-                                                  fit: BoxFit.cover,
+                                                CarouselSlider(
+                                                  options: CarouselOptions(
+                                                      height: MediaQuery.of(context).size.height *
+                                                          0.3,
+                                                      enlargeCenterPage: true,
+                                                      enableInfiniteScroll: false,
+                                                      initialPage: 0,
+                                                      autoPlay: true,
+                                                      viewportFraction: 1,
+                                                      onPageChanged: (index, reason) {
+                                                        productDetailsCubit.setSliderCurrentIndex(index);
+                                                      }),
+                                                  items: originalImageUrls
+                                                      ?.map((e) => Image.network(e??"",
+                                                      width: MediaQuery.of(context).size.width,
+                                                      errorBuilder:
+                                                          (context, object, stackTrace) {
+                                                        return const Center(
+                                                          child: Icon(
+                                                            Icons.error,
+                                                            size: 150,
+                                                            color: AppColors.APP_MAIN_COLOR,
+                                                          ),
+                                                        );
+                                                      },
+
+                                                  ),
+                                                  ).toList(),
                                                 ),
+                                                // Image.network(
+                                                //   productImagePath??"",
+                                                //   errorBuilder:
+                                                //       (context, object, stackTrace) {
+                                                //     return const Center(
+                                                //       child: Icon(
+                                                //         Icons.error,
+                                                //         size: 150,
+                                                //         color: AppColors.APP_MAIN_COLOR,
+                                                //       ),
+                                                //     );
+                                                //   },
+                                                //   width: MediaQuery.of(context)
+                                                //       .size
+                                                //       .width,
+                                                //   height: MediaQuery.of(context)
+                                                //           .size
+                                                //           .height *
+                                                //       0.3,
+                                                //   fit: BoxFit.cover,
+                                                // ),
                                                 Positioned(
                                                   bottom: 16,
                                                   right: MediaQuery.of(context)
@@ -126,16 +159,22 @@ class ProductDetailsScreen extends StatelessWidget {
                                                               0xff191616)
                                                           .withOpacity(0.6),
                                                     ),
-                                                    child: const Center(
+                                                    child: Center(
                                                         child: Padding(
                                                       padding:
-                                                          EdgeInsets.all(2.0),
-                                                      child: Text(
-                                                        '1/3',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: FontSizes
-                                                                .FONT_SIZE_12),
+                                                          const EdgeInsets.all(2.0),
+                                                      child: BlocConsumer<ProductDetailsCubit,ProductDetailsStates>(
+                                                        listener: (context,state){},
+                                                        builder: (context, state){
+
+                                                          return Text(
+                                                            '${productDetailsCubit.slideCurrentIndex + 1}/${originalImageUrls?.length}',
+                                                            style: const TextStyle(
+                                                                color: Colors.white,
+                                                                fontSize: FontSizes
+                                                                    .FONT_SIZE_12),
+                                                          );
+                                                        },
                                                       ),
                                                     )),
                                                   ),
