@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/core/constants/fonts/font_families.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
+import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:classic_eccomerce/home_layout/presentation/screens/home_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 children: [
                   ClipOval(
                       child: Image.asset(
-                    "assets/images/app_logo.png",
+                    ImagePaths.APP_LOGO,
                     width: 200,
                     height: 200,
                   )),

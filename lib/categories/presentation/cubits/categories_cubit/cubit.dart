@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/categories/data/data_sources/remote_data_sources/categories_apis.dart';
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/states.dart';
 import 'package:classic_eccomerce/home/data/models/product.dart';
@@ -21,11 +20,11 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
 
   setCategories() async {
     emit(GetCategoriesLoadingState());
-    var success = await AuthCubit.get(context).setSessionId();
-    if (!success) {
-      emit(GetCategoriesNetworkFailedState());
-      return;
-    }
+    // var success = await AuthCubit.get(context).setSessionId();
+    // if (!success) {
+    //   emit(GetCategoriesNetworkFailedState());
+    //   return;
+    // }
     var response = await CategoriesApis.getCategories(1);
     if (response?.success == 1) {
       categories = response?.categories;

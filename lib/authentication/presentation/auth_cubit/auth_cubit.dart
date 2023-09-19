@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:classic_eccomerce/account/presentation/screens/my_account_screen.dart';
 import 'package:classic_eccomerce/authentication/data/data_sources/remote_data_sources/auth_apis.dart';
 import 'package:classic_eccomerce/authentication/data/models/guest_form_input.dart';
+import 'package:classic_eccomerce/authentication/data/models/login_form_input.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/core/data/data_sources/remote_data_sources/get_countries_api.dart';
@@ -22,28 +23,54 @@ class AuthCubit extends Cubit<AuthStates> {
   final dioHelper = DioHelper.instance;
   String? sessionId;
 
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> guestFormKey = GlobalKey<FormState>();
 
+  LoginFormInput loginFormInput = LoginFormInput();
   GuestFormInput guestFormInput = GuestFormInput();
 
   static AuthCubit get(context) => BlocProvider.of(context);
 
   bool isGuestConfirmedBillingAndAddressMatch = false;
 
+  bool isUserLoggedIn = false;
+
   Future<bool> setSessionId() async {
     var response = await AuthApis.getSessionId();
     if (response != null) {
       sessionId = response;
-      addSessionIdToHeader();
-        return true;
+      // addSessionIdToHeader();
+      return true;
     } else {
       return false;
     }
   }
 
-  addSessionIdToHeader(){
-    dioHelper.addHeader("X-Oc-Session", sessionId);
+  login() async {
+    if (validateLoginForm() != true) {
+      return;
+    }
+    loginFormKey.currentState?.save();
+    emit(LoginLoadingState());
+    var success = await AuthApis.login(loginFormInput.toJson());
+    if (success == true) {
+      isUserLoggedIn = true;
+      emit(LoginSuccessState());
+    } else if (success == false) {
+      isUserLoggedIn = false;
+      emit(LoginFailedState());
+    } else {
+      isUserLoggedIn = false;
+      emit(LoginNetworkFailedConnectionState());
+    }
+  }
 
+  validateLoginForm() {
+    return loginFormKey.currentState!.validate();
+  }
+
+  addSessionIdToHeader() {
+    dioHelper.addHeader("X-Oc-Session", sessionId);
   }
 
   Future<List<Country>> getCountries() async {
@@ -98,8 +125,8 @@ class AuthCubit extends Cubit<AuthStates> {
 
     if (await setSessionId() == true) {
       var addItemsToCartSuccess = await cartCubit.addItemsToCart();
-      if(addItemsToCartSuccess == true){
-          var createGuestUserSuccess = await AuthApis.createGuestUser(
+      if (addItemsToCartSuccess == true) {
+        var createGuestUserSuccess = await AuthApis.createGuestUser(
             guestFormInput.toJsonForCreateGuestApi());
         if (createGuestUserSuccess == true) {
           Navigator.push(
@@ -117,22 +144,18 @@ class AuthCubit extends Cubit<AuthStates> {
 
           return null;
         }
-
-      }
-      else if(addItemsToCartSuccess == false){
+      } else if (addItemsToCartSuccess == false) {
         //todo add snackbar
 
         return false;
-      }else{
+      } else {
         //todo add snackbar
 
         return null;
       }
-    }
-    else{
+    } else {
       //todo add snackbar
       return null;
     }
-
   }
 }
