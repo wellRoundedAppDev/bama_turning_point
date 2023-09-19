@@ -30,6 +30,7 @@ class ProductsInCategoryScreen extends StatelessWidget {
         return Scaffold(
           appBar: CustomAppBar.renderAppBar(
             title: selectedCategoryName ?? "",
+            cartCubit: CartCubit.get(context)
           ),
           body: BlocConsumer<CategoriesCubit, CategoriesStates>(
             listener: (context, state) {},

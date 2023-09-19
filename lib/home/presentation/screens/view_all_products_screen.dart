@@ -22,8 +22,7 @@ class ViewAllProductsScreen extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       appBar: CustomAppBar.renderAppBar(
-        title: productTitle,
-      ),
+          title: productTitle, cartCubit: CartCubit.get(context)),
       body: BlocConsumer<HomeCubit, HomeStates>(
         listener: (context, state) {},
         builder: (context, state) {

@@ -55,7 +55,7 @@ class CustomAppBar {
                       PageTransition(child:  BlocProvider.value(
 
                           value: cartCubit!,
-                          child: const CartScreen()), type: PageTransitionType.leftToRight)
+                          child:  CartScreen(showBackButton: true,)), type: PageTransitionType.leftToRight)
                       );
                     },
                     child: Image.asset(

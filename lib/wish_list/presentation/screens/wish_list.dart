@@ -1,10 +1,6 @@
-import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
-import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
-import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../widgets/wish_list_item.dart';
 

@@ -14,7 +14,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({Key? key}) : super(key: key);
+  bool showBackButton;
+   CartScreen({Key? key, this.showBackButton = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class CartScreen extends StatelessWidget {
             child: Scaffold(
           appBar: CustomAppBar.renderAppBar(
               title: "Shopping Cart",
-              showBackButton: false,
+              showBackButton: showBackButton,
               showCartIcon: false),
           body: SingleChildScrollView(
             child: Column(

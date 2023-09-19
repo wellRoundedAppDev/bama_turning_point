@@ -2,6 +2,7 @@ import 'package:classic_eccomerce/cart/data/models/cart_item.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/product_details/presentation/cubits/product_details_cubit/cubit.dart';
+import 'package:classic_eccomerce/product_details/presentation/cubits/product_details_cubit/states.dart';
 import 'package:classic_eccomerce/product_details/presentation/screens/product_comparison_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,12 +29,27 @@ class ProductDetailsBottomSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               children: [
-                GestureDetector(
-                  child: Image.asset(
-                    IconPaths.FAV_ICON,
-                    width: 30,
-                    height: 30,
-                  ),
+                BlocConsumer<ProductDetailsCubit, ProductDetailsStates>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return GestureDetector(
+                      onTap: () {
+                        int productId =
+                            ProductDetailsCubit.get(context).selectedProductId;
+                        ProductDetailsCubit.get(context)
+                            .addItemToWishlist(productId);
+                      },
+                      child: (state is AddItemToFavoritesLoadingState)
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Image.asset(
+                              IconPaths.FAV_ICON,
+                              width: 30,
+                              height: 30,
+                            ),
+                    );
+                  },
                 ),
                 const SizedBox(
                   width: 20,

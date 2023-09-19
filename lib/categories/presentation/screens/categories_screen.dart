@@ -22,6 +22,7 @@ class CategoriesScreen extends StatelessWidget {
           child: Scaffold(
         appBar: CustomAppBar.renderAppBar(
           title: "Categories",
+          cartCubit: CartCubit.get(context)
         ),
         body: BlocConsumer<CategoriesCubit, CategoriesStates>(
           listener: (context, state) {},

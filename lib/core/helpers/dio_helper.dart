@@ -87,7 +87,7 @@ class DioHelper {
   }
 
   Future<Response?> post(
-      {required String endPoint, dynamic body = const {}}) async {
+      {required String endPoint, dynamic body = const {},}) async {
     String? sessionId =
         MyApp.navKey.currentState!.context.read<AuthCubit>().sessionId;
     if (kDebugMode) {
@@ -98,7 +98,8 @@ class DioHelper {
           data: body,
           options: Options(
             headers: {"X-Oc-Session": sessionId},
-          ));
+          ),
+      );
     } catch (e) {
       if (kDebugMode) {
         print(e);

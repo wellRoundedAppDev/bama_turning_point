@@ -90,35 +90,83 @@ class ProductDetailsScreen extends StatelessWidget {
                                           children: [
                                             Stack(
                                               children: [
-                                                CarouselSlider(
-                                                  options: CarouselOptions(
-                                                      height: MediaQuery.of(context).size.height *
-                                                          0.3,
-                                                      enlargeCenterPage: true,
-                                                      enableInfiniteScroll: false,
-                                                      initialPage: 0,
-                                                      autoPlay: true,
-                                                      viewportFraction: 1,
-                                                      onPageChanged: (index, reason) {
-                                                        productDetailsCubit.setSliderCurrentIndex(index);
-                                                      }),
-                                                  items: originalImageUrls
-                                                      ?.map((e) => Image.network(e??"",
-                                                      width: MediaQuery.of(context).size.width,
-                                                      errorBuilder:
-                                                          (context, object, stackTrace) {
-                                                        return const Center(
-                                                          child: Icon(
-                                                            Icons.error,
-                                                            size: 150,
-                                                            color: AppColors.APP_MAIN_COLOR,
-                                                          ),
-                                                        );
-                                                      },
-
-                                                  ),
-                                                  ).toList(),
-                                                ),
+                                                ((originalImageUrls?.length ??
+                                                            0) ==
+                                                        0)
+                                                    ? Image.network(
+                                                        productImagePath ?? "",
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.3,
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        errorBuilder: (context,
+                                                            object,
+                                                            stackTrace) {
+                                                          return const Center(
+                                                            child: Icon(
+                                                              Icons.error,
+                                                              size: 150,
+                                                              color: AppColors
+                                                                  .APP_MAIN_COLOR,
+                                                            ),
+                                                          );
+                                                        },
+                                                      )
+                                                    : CarouselSlider(
+                                                        options:
+                                                            CarouselOptions(
+                                                                height: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height *
+                                                                    0.3,
+                                                                enlargeCenterPage:
+                                                                    true,
+                                                                enableInfiniteScroll:
+                                                                    false,
+                                                                initialPage: 0,
+                                                                autoPlay: true,
+                                                                viewportFraction:
+                                                                    1,
+                                                                onPageChanged:
+                                                                    (index,
+                                                                        reason) {
+                                                                  productDetailsCubit
+                                                                      .setSliderCurrentIndex(
+                                                                          index);
+                                                                }),
+                                                        items: originalImageUrls
+                                                            ?.map(
+                                                              (e) =>
+                                                                  Image.network(
+                                                                e ?? "",
+                                                                width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                                errorBuilder:
+                                                                    (context,
+                                                                        object,
+                                                                        stackTrace) {
+                                                                  return const Center(
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .error,
+                                                                      size: 150,
+                                                                      color: AppColors
+                                                                          .APP_MAIN_COLOR,
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ),
+                                                            )
+                                                            .toList(),
+                                                      ),
                                                 // Image.network(
                                                 //   productImagePath??"",
                                                 //   errorBuilder:
@@ -140,45 +188,61 @@ class ProductDetailsScreen extends StatelessWidget {
                                                 //       0.3,
                                                 //   fit: BoxFit.cover,
                                                 // ),
-                                                Positioned(
-                                                  bottom: 16,
-                                                  right: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.42,
-                                                  left: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.42,
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      color: const Color(
-                                                              0xff191616)
-                                                          .withOpacity(0.6),
-                                                    ),
-                                                    child: Center(
-                                                        child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(2.0),
-                                                      child: BlocConsumer<ProductDetailsCubit,ProductDetailsStates>(
-                                                        listener: (context,state){},
-                                                        builder: (context, state){
-
-                                                          return Text(
-                                                            '${productDetailsCubit.slideCurrentIndex + 1}/${originalImageUrls?.length}',
-                                                            style: const TextStyle(
-                                                                color: Colors.white,
-                                                                fontSize: FontSizes
-                                                                    .FONT_SIZE_12),
-                                                          );
-                                                        },
-                                                      ),
-                                                    )),
-                                                  ),
-                                                )
+                                                ((originalImageUrls?.length ??
+                                                            0) ==
+                                                        0)
+                                                    ? Container()
+                                                    : Positioned(
+                                                        bottom: 16,
+                                                        right: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.42,
+                                                        left: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.42,
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            color: const Color(
+                                                                    0xff191616)
+                                                                .withOpacity(
+                                                                    0.6),
+                                                          ),
+                                                          child: Center(
+                                                              child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(2.0),
+                                                            child: BlocConsumer<
+                                                                ProductDetailsCubit,
+                                                                ProductDetailsStates>(
+                                                              listener:
+                                                                  (context,
+                                                                      state) {},
+                                                              builder: (context,
+                                                                  state) {
+                                                                return Text(
+                                                                  '${productDetailsCubit.slideCurrentIndex + 1}/${originalImageUrls?.length}',
+                                                                  style: const TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          FontSizes
+                                                                              .FONT_SIZE_12),
+                                                                );
+                                                              },
+                                                            ),
+                                                          )),
+                                                        ),
+                                                      )
                                               ],
                                             ),
                                             const SizedBox(
@@ -692,25 +756,69 @@ class ProductDetailsScreen extends StatelessWidget {
                                                     const SizedBox(
                                                       width: 16,
                                                     ),
-                                                    const Row(
+                                                    Row(
                                                       children: [
-                                                        Icon(
-                                                          Icons.star,
-                                                          color:
-                                                              Color(0xffFFAB16),
-                                                        ),
-                                                        Icon(Icons.star,
-                                                            color: Color(
-                                                                0xffFFAB16)),
-                                                        Icon(Icons.star,
-                                                            color: Color(
-                                                                0xffFFAB16)),
-                                                        Icon(Icons.star,
-                                                            color: Color(
-                                                                0xffFFAB16)),
-                                                        Icon(Icons.star,
-                                                            color: Color(
-                                                                0xffFFAB16))
+                                                        ((productRating ?? 0) >=
+                                                                1)
+                                                            ? const Icon(
+                                                                Icons.star,
+                                                                color: Color(
+                                                                    0xffFFAB16),
+                                                              )
+                                                            : const Icon(
+                                                                Icons
+                                                                    .star_outline_sharp,
+                                                                color: Color(
+                                                                    0xffFFAB16),
+                                                              ),
+                                                        ((productRating ?? 0) >=
+                                                                2)
+                                                            ? const Icon(
+                                                                Icons.star,
+                                                                color: Color(
+                                                                    0xffFFAB16),
+                                                              )
+                                                            : const Icon(
+                                                                Icons
+                                                                    .star_outline_sharp,
+                                                                color: Color(
+                                                                    0xffFFAB16)),
+                                                        ((productRating ?? 0) >=
+                                                                3)
+                                                            ? const Icon(
+                                                                Icons.star,
+                                                                color: Color(
+                                                                    0xffFFAB16),
+                                                              )
+                                                            : const Icon(
+                                                                Icons
+                                                                    .star_outline_sharp,
+                                                                color: Color(
+                                                                    0xffFFAB16)),
+                                                        ((productRating ?? 0) >=
+                                                                4)
+                                                            ? const Icon(
+                                                                Icons.star,
+                                                                color: Color(
+                                                                    0xffFFAB16),
+                                                              )
+                                                            : const Icon(
+                                                                Icons
+                                                                    .star_outline_sharp,
+                                                                color: Color(
+                                                                    0xffFFAB16)),
+                                                        ((productRating ?? 0) >=
+                                                                5)
+                                                            ? const Icon(
+                                                                Icons.star,
+                                                                color: Color(
+                                                                    0xffFFAB16),
+                                                              )
+                                                            : const Icon(
+                                                                Icons
+                                                                    .star_outline_sharp,
+                                                                color: Color(
+                                                                    0xffFFAB16))
                                                       ],
                                                     )
                                                   ],

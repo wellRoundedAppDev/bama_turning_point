@@ -7,7 +7,6 @@ import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/states.dart';
-import 'package:classic_eccomerce/home/presentation/widgets/banners_slider.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/categories_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/products_overview.dart';
 import 'package:classic_eccomerce/shared_components/search_app_bar_custom_input.dart';
@@ -64,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                                   PageTransition(
                                       child: BlocProvider.value(
                                           value: CartCubit.get(context),
-                                          child: const CartScreen()),
+                                          child:  CartScreen(showBackButton: true,)),
                                       type: PageTransitionType.leftToRight));
                             },
                             child: Image.asset(

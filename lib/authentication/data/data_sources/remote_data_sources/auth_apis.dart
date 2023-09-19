@@ -47,7 +47,7 @@ class AuthApis {
   }
 
   static Future<bool?> createGuestUser(Map<String, dynamic> guestForm,) async {
-    String endpoint = ApiUrls.CREATE_GUEST_USER;
+    String endpoint = ApiUrls.CREATE_GUEST_USER_ENDPOINT;
     try {
       var response = await dioHelper.post(endPoint: endpoint,body: guestForm,);
       if (response == null) {

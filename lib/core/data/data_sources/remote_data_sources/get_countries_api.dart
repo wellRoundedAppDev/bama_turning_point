@@ -9,7 +9,7 @@ class GetCountriesAndRegionsApi {
 
   static Future<GetCountriesResponse?> getCountries() async {
 
-    String endPoint = ApiUrls.GET_LIST_OF_COUNTRIES;
+    String endPoint = ApiUrls.GET_LIST_OF_COUNTRIES_ENDPOINT;
     try {
       var response = await dioHelper.get(endpoint: endPoint);
       if (response == null) {
