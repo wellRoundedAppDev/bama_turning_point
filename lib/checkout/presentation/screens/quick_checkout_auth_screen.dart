@@ -54,16 +54,16 @@ class QuickCheckoutAuthScreen extends StatelessWidget {
               width: double.maxFinite,
               child: TabBarView(
                 controller: CartCubit.get(context).tabController,
-                children: const [
+                children:  [
                   Padding(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: SignInScreen(),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(16.0),
                     child: SignUpScreen(),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(16.0),
                     child: GuestScreen(),
                   ),

@@ -36,17 +36,6 @@ class HomeCubit extends Cubit<HomeStates> {
   List<BestSeller>? bestSellersProductsOverview;
   //List<BestSeller>? allBestSellersProducts;
 
-  PageController adsSliderController = PageController();
-  Timer? adsSliderTimer;
-
-  animateAdsSlider() {
-    adsSliderTimer?.cancel();
-    adsSliderTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      print("tick tock");
-      adsSliderController.nextPage(
-          duration: const Duration(seconds: 1), curve: Curves.easeIn);
-    });
-  }
 
   setBanners() async {
     var response = await GetSlideShowsApi.getSlideShows();
@@ -213,11 +202,6 @@ class HomeCubit extends Cubit<HomeStates> {
     await setNewArrivalsOverview();
     await setBestSellersOverview();
     emit(FetchingHomeScreenDoneState());
-    animateAdsSlider();
   }
 
-  @override
-  onClose() {
-    adsSliderTimer?.cancel();
-  }
 }

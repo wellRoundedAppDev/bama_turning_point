@@ -63,7 +63,9 @@ class HomeScreen extends StatelessWidget {
                                   PageTransition(
                                       child: BlocProvider.value(
                                           value: CartCubit.get(context),
-                                          child:  CartScreen(showBackButton: true,)),
+                                          child: CartScreen(
+                                            showBackButton: true,
+                                          )),
                                       type: PageTransitionType.leftToRight));
                             },
                             child: Image.asset(
@@ -128,23 +130,22 @@ class HomeScreen extends StatelessWidget {
                             child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  CarouselSlider(
-                                    options: CarouselOptions(
-                                        height:
-                                        MediaQuery.of(context).size.height * 0.22,
-                                        enlargeCenterPage: true,
-                                        enableInfiniteScroll: false,
-                                        initialPage: 0,
-                                        viewportFraction: 1,
-                                        autoPlay: true,
-                                        onPageChanged: (index, reason) {
-                                        }),
-                                    items: bannerAds
-                                        ?.map(
-                                          (e) => Image.network(
+                              CarouselSlider(
+                                options: CarouselOptions(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.22,
+                                    enlargeCenterPage: true,
+                                    enableInfiniteScroll: false,
+                                    initialPage: 0,
+                                    viewportFraction: 1,
+                                    autoPlay: true,
+                                    onPageChanged: (index, reason) {}),
+                                items: bannerAds
+                                    ?.map(
+                                      (e) => Image.network(
                                         e.imageOriginal ?? "",
                                         width:
-                                        MediaQuery.of(context).size.width,
+                                            MediaQuery.of(context).size.width,
                                         fit: BoxFit.cover,
                                         errorBuilder:
                                             (context, object, stackTrace) {
@@ -158,10 +159,9 @@ class HomeScreen extends StatelessWidget {
                                         },
                                       ),
                                     )
-                                        .toList(),
-                                  ),
-
-                                  ListView.separated(
+                                    .toList(),
+                              ),
+                              ListView.separated(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
                                 separatorBuilder: (context, index) =>

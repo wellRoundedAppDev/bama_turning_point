@@ -3,6 +3,7 @@ class ApiUrls {
   static const BASE_URL =
       "https://opencart3-simple.api.opencart-api.com/";
   static const GET_SESSION_ID_ENDPOINT = "api/rest/session";
+  static const LOGIN_ENDPOINT = "api/rest/login";
   static const GET_CATEGORIES_ENDPOINT = "api/rest/categories/extended/";
   static const GET_BANNERS_ENDPOINT = "api/rest/banners";
   static const GET_FEATURED_PRODUCTS_ENDPOINT = "api/rest/featured";

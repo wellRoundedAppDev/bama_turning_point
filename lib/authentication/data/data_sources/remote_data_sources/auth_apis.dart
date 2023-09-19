@@ -21,13 +21,11 @@ class AuthApis {
     }
   }
 
-  static Future<bool?> login(Map<String, dynamic> guestForm,) async {
-    String endpoint = "https://opencart3-simple.api.opencart-api.com/api/rest/login";
+  static Future<bool?> login(Map<String, dynamic> loginInput,) async {
+
+    String endpoint = ApiUrls.LOGIN_ENDPOINT;
     try {
-      var response = await dioHelper.post(endPoint: endpoint,body: {
-        "email": "nash1@vipmail.hu",
-        "password": "password"
-      },);
+      var response = await dioHelper.post(endPoint: endpoint,body: loginInput,);
       if (response == null) {
         return null;
       }
@@ -41,7 +39,7 @@ class AuthApis {
     }
     catch (e) {
       if (kDebugMode) {
-        print("Create Guest User error api $e");
+        print("Login error api $e");
       }
     }
   }

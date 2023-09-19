@@ -1,11 +1,13 @@
+import 'package:classic_eccomerce/wish_list/data/models/get_wishlist_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../core/constants/paths/icon_paths.dart';
 
-class WishListItem extends StatelessWidget {
-  const WishListItem({Key? key}) : super(key: key);
+class WishListItemWidget extends StatelessWidget {
+  WishlistItem? wishlistItem;
+   WishListItemWidget({Key? key,required this.wishlistItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,29 +42,29 @@ class WishListItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Product Name",
+                 Text(
+                 wishlistItem?.name??"" ,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: FontSizes.FONT_SIZE_14,
                       color: Color(0xff333333),
                       fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 3,),
-                const Text(
-                  "\$59.52",
+                wishlistItem?.price == null?Container():const SizedBox(height: 3,),
+                wishlistItem?.price == null?Container(): Text(
+                  "\$${wishlistItem?.price??""}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: FontSizes.FONT_SIZE_14,
                       color: Color(0xff015963),
                       fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 3,),
-                const Row(
+                Row(
                   children: [
-                    Text(
+                    const Text(
                       "Stock : ",
                       style: TextStyle(
                           fontSize: FontSizes.FONT_SIZE_12,
@@ -70,10 +72,10 @@ class WishListItem extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        "In Stock",
+                        wishlistItem?.stock??"",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: FontSizes.FONT_SIZE_12,
                             color: Color(0xff2EAF23)),
                       ),

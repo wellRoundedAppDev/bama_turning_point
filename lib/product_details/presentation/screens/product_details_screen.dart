@@ -297,28 +297,77 @@ class ProductDetailsScreen extends StatelessWidget {
                                                             color: Color(
                                                                 0xff999999)),
                                                       ),
-                                                      const Row(
+                                                      Row(
                                                         children: [
-                                                          Icon(
+                                                          (1 <=
+                                                                  (productRating ??
+                                                                      0))
+                                                              ? const Icon(
+                                                                  Icons.star,
+                                                                  color: Colors
+                                                                      .black,
+                                                                )
+                                                              : const Icon(
+                                                                  Icons
+                                                                      .star_outline,
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
+                                                          (2 <=
+                                                              (productRating ??
+                                                                  0))
+                                                              ? const Icon(
                                                             Icons.star,
-                                                            color: Colors.black,
-                                                          ),
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: Colors.black,
-                                                          ),
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: Colors.black,
-                                                          ),
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: Colors.black,
-                                                          ),
-                                                          Icon(
+                                                            color: Colors
+                                                                .black,
+                                                          )
+                                                              : const Icon(
                                                             Icons
-                                                                .star_border_outlined,
-                                                            color: Colors.black,
+                                                                .star_outline,
+                                                            color: Colors
+                                                                .black,
+                                                          ),
+                                                          (3 <=
+                                                              (productRating ??
+                                                                  0))
+                                                              ? const Icon(
+                                                            Icons.star,
+                                                            color: Colors
+                                                                .black,
+                                                          )
+                                                              : const Icon(
+                                                            Icons
+                                                                .star_outline,
+                                                            color: Colors
+                                                                .black,
+                                                          ),
+                                                          (4 <=
+                                                              (productRating ??
+                                                                  0))
+                                                              ? const Icon(
+                                                            Icons.star,
+                                                            color: Colors
+                                                                .black,
+                                                          )
+                                                              : const Icon(
+                                                            Icons
+                                                                .star_outline,
+                                                            color: Colors
+                                                                .black,
+                                                          ),
+                                                          (5 <=
+                                                              (productRating ??
+                                                                  0))
+                                                              ? const Icon(
+                                                            Icons.star,
+                                                            color: Colors
+                                                                .black,
+                                                          )
+                                                              : const Icon(
+                                                            Icons
+                                                                .star_outline,
+                                                            color: Colors
+                                                                .black,
                                                           ),
                                                         ],
                                                       )
