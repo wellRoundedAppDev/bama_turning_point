@@ -22,7 +22,6 @@ class DioHelper {
       receiveDataWhenStatusError: true,
       headers: {"X-Oc-Merchant-Id": 123}));
 
-
   addHeader(String key, dynamic value) {
     _dio.options.headers[key] = value;
   }
@@ -86,19 +85,22 @@ class DioHelper {
     }
   }
 
-  Future<Response?> post(
-      {required String endPoint, dynamic body = const {},}) async {
+  Future<Response?> post({
+    required String endPoint,
+    dynamic body = const {},
+  }) async {
     String? sessionId =
         MyApp.navKey.currentState!.context.read<AuthCubit>().sessionId;
     if (kDebugMode) {
       print("SessionId: $sessionId");
     }
     try {
-      return await _dio.post(endPoint,
-          data: body,
-          options: Options(
-            headers: {"X-Oc-Session": sessionId},
-          ),
+      return await _dio.post(
+        endPoint,
+        data: body,
+        options: Options(
+          headers: {"X-Oc-Session": sessionId},
+        ),
       );
     } catch (e) {
       if (kDebugMode) {

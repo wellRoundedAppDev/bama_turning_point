@@ -29,9 +29,9 @@ class AuthApis {
       if (response == null) {
         return null;
       }
-      if (response.data['data']['success'] == 1) {
+      if (response.data['success'] == 1) {
         return true;
-      } else if (response.data['data']['success'] == 0) {
+      } else if (response.data['success'] == 0) {
         return false;
       } else {
         return null;
@@ -43,6 +43,32 @@ class AuthApis {
       }
     }
   }
+
+
+  static Future<bool?> logOut() async {
+
+    String endpoint = ApiUrls.LOGOUT_ENDPOINT;
+    try {
+      var response = await dioHelper.post(endPoint: endpoint,);
+      if (response == null) {
+        return null;
+      }
+      if (response.data['success'] == 1) {
+        return true;
+      } else if (response.data['success'] == 0) {
+        return false;
+      } else {
+        return null;
+      }
+    }
+    catch (e) {
+      if (kDebugMode) {
+        print("Logout error api $e");
+      }
+    }
+  }
+
+
 
   static Future<bool?> createGuestUser(Map<String, dynamic> guestForm,) async {
     String endpoint = ApiUrls.CREATE_GUEST_USER_ENDPOINT;

@@ -60,6 +60,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
 
       emit(AddItemToFavoritesFailedState());
     } else {
+
       showAppSnackBar(content:"Check your internet connection, and try again");
       emit(AddItemToFavoritesNetworkConnectionFailedState());
     }
