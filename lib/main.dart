@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
         ],
         locale: const Locale("en"),
         theme: ThemeData(
+
           dividerColor: Colors.transparent,
           primaryColor: AppColors.APP_MAIN_COLOR,
           fontFamily: FontFamilies.OPEN_SANS,
