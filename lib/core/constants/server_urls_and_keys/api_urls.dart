@@ -21,6 +21,7 @@ class ApiUrls {
   static const CREATE_GUEST_USER_ENDPOINT = 'api/rest/guest';
   static const GET_WISH_LIST_ENDPOINT = "api/rest/wishlist";
   static const ADD_TO_WISH_LIST_ENDPOINT = "api/rest/wishlist/";
+  static const LOGOUT_ENDPOINT = "api/rest/logout";
 
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>
