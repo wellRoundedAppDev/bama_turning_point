@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:classic_eccomerce/account/presentation/screens/my_account_screen.dart';
 import 'package:classic_eccomerce/authentication/data/data_sources/remote_data_sources/auth_apis.dart';
 import 'package:classic_eccomerce/authentication/data/models/guest_form_input.dart';
 import 'package:classic_eccomerce/authentication/data/models/login_form_input.dart';
@@ -9,6 +8,7 @@ import 'package:classic_eccomerce/core/data/data_sources/remote_data_sources/get
 import 'package:classic_eccomerce/core/data/models/get_countries_response.dart';
 import 'package:classic_eccomerce/core/data/models/get_regions_response.dart';
 import 'package:classic_eccomerce/main.dart';
+import 'package:classic_eccomerce/shared_components/app_snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -50,18 +50,46 @@ class AuthCubit extends Cubit<AuthStates> {
     if (validateLoginForm() != true) {
       return;
     }
+
     loginFormKey.currentState?.save();
     emit(LoginLoadingState());
+    if (await setSessionId() == false) {
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      emit(LoginNetworkFailedConnectionState());
+      return;
+    }
+
     var success = await AuthApis.login(loginFormInput.toJson());
     if (success == true) {
       isUserLoggedIn = true;
       emit(LoginSuccessState());
     } else if (success == false) {
       isUserLoggedIn = false;
+      showAppSnackBar(content: "Error occured");
       emit(LoginFailedState());
     } else {
       isUserLoggedIn = false;
+      showAppSnackBar(content: "Check your internet connection, and try again");
       emit(LoginNetworkFailedConnectionState());
+    }
+  }
+
+  logOut() async {
+    // if (await setSessionId() == false) {
+    //   showAppSnackBar(content: "Check your internet connection, and try again");
+    //   emit(LogoutNetworkFailedConnectionState());
+    //   return;
+    // }
+    var success = await AuthApis.logOut();
+    if (success == true) {
+      isUserLoggedIn = false;
+      emit(LogoutSuccessState());
+    } else if (success == false) {
+      showAppSnackBar(content: "Error occured");
+      emit(LogoutFailedState());
+    } else {
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      emit(LogoutNetworkFailedConnectionState());
     }
   }
 
