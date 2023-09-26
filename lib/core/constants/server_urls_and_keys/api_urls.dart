@@ -1,7 +1,7 @@
 class ApiUrls {
 
-  static const BASE_URL =
-      "https://opencart3-simple.api.opencart-api.com/";
+  static const BASE_URL = "http://north.smarthospital.solutions/";
+    //  "https://opencart3-simple.api.opencart-api.com/";
   static const GET_SESSION_ID_ENDPOINT = "api/rest/session";
   static const LOGIN_ENDPOINT = "api/rest/login";
   static const GET_CATEGORIES_ENDPOINT = "api/rest/categories/extended/";

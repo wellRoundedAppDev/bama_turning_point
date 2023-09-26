@@ -21,11 +21,15 @@ class AuthApis {
     }
   }
 
-  static Future<bool?> login(Map<String, dynamic> loginInput,) async {
-
+  static Future<bool?> login(
+    Map<String, dynamic> loginInput,
+  ) async {
     String endpoint = ApiUrls.LOGIN_ENDPOINT;
     try {
-      var response = await dioHelper.post(endPoint: endpoint,body: loginInput,);
+      var response = await dioHelper.post(
+        endPoint: endpoint,
+        body: loginInput,
+      );
       if (response == null) {
         return null;
       }
@@ -36,20 +40,19 @@ class AuthApis {
       } else {
         return null;
       }
-    }
-    catch (e) {
+    } catch (e) {
       if (kDebugMode) {
         print("Login error api $e");
       }
     }
   }
 
-
   static Future<bool?> logOut() async {
-
     String endpoint = ApiUrls.LOGOUT_ENDPOINT;
     try {
-      var response = await dioHelper.post(endPoint: endpoint,);
+      var response = await dioHelper.post(
+        endPoint: endpoint,
+      );
       if (response == null) {
         return null;
       }
@@ -60,20 +63,22 @@ class AuthApis {
       } else {
         return null;
       }
-    }
-    catch (e) {
+    } catch (e) {
       if (kDebugMode) {
         print("Logout error api $e");
       }
     }
   }
 
-
-
-  static Future<bool?> createGuestUser(Map<String, dynamic> guestForm,) async {
+  static Future<bool?> createGuestUser(
+    Map<String, dynamic> guestForm,
+  ) async {
     String endpoint = ApiUrls.CREATE_GUEST_USER_ENDPOINT;
     try {
-      var response = await dioHelper.post(endPoint: endpoint,body: guestForm,);
+      var response = await dioHelper.post(
+        endPoint: endpoint,
+        body: guestForm,
+      );
       if (response == null) {
         return null;
       }
@@ -84,8 +89,7 @@ class AuthApis {
       } else {
         return null;
       }
-    }
-    catch (e) {
+    } catch (e) {
       if (kDebugMode) {
         print("Create Guest User error api $e");
       }
