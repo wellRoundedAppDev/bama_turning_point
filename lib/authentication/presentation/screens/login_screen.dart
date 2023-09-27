@@ -61,8 +61,9 @@ class SignInScreen extends StatelessWidget {
                       return "Enter a password of at least 6 characters";
                     }
                   },
-                  onSaved: (v) =>
-                      AuthCubit.get(context).loginFormInput.password = v?.trim(),
+                  onSaved: (v) => AuthCubit.get(context)
+                      .loginFormInput
+                      .password = v?.trim(),
                 ),
                 const SizedBox(
                   height: 8,

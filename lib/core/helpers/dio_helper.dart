@@ -20,7 +20,9 @@ class DioHelper {
   final Dio _dio = Dio(BaseOptions(
       baseUrl: ApiUrls.BASE_URL,
       receiveDataWhenStatusError: true,
-      headers: {"X-Oc-Merchant-Id": "123"}));
+      headers: {
+        "X-Oc-Merchant-Id": "123"
+      }));
 
   addHeader(String key, dynamic value) {
     _dio.options.headers[key] = value;
@@ -99,7 +101,7 @@ class DioHelper {
         endPoint,
         data: body,
         options: Options(
-          headers: {"X-Oc-Session": sessionId},
+          headers: {"X-Oc-Session": "39b5cc5bc0f499eea0d76a16a8"},
         ),
       );
     } catch (e) {
