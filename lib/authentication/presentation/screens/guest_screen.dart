@@ -1,16 +1,12 @@
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
-import 'package:classic_eccomerce/checkout/presentation/screens/quick_checkout_main_screen.dart';
 import 'package:classic_eccomerce/core/data/models/get_countries_response.dart';
 import 'package:classic_eccomerce/core/data/models/get_regions_response.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:page_transition/page_transition.dart';
-
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../shared_components/custom_input.dart';
 
@@ -85,7 +81,6 @@ class GuestScreen extends StatelessWidget {
                     onChanged: (String? gender) {
                       AuthCubit.get(context).guestFormInput.gender = gender;
                     },
-
                   ),
                 ),
 
@@ -131,8 +126,8 @@ class GuestScreen extends StatelessWidget {
                 CustomInput(
                   hintText: "Address",
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Enter your address';
+                    if (value == null || value.length < 4) {
+                      return 'Enter an address of at least 3 characters';
                     }
                   },
                   onSaved: (v) =>
@@ -260,8 +255,9 @@ class GuestScreen extends StatelessWidget {
                     onChanged: (Country? country) {
                       AuthCubit.get(context).setCountryOfGuest(country!);
                     },
-                    validator: (Country? country){
-                      if(AuthCubit.get(context).guestFormInput.country == null){
+                    validator: (Country? country) {
+                      if (AuthCubit.get(context).guestFormInput.country ==
+                          null) {
                         return "Select your country";
                       }
                     },
@@ -305,7 +301,6 @@ class GuestScreen extends StatelessWidget {
                         ),
                       );
                     }),
-
                     dropdownBuilder: (context, region) {
                       return Text(
                         region?.name ?? "Region / State",
@@ -315,9 +310,8 @@ class GuestScreen extends StatelessWidget {
                       );
                     },
                     onChanged: (Region? region) {
-                      AuthCubit.get(context).setRegionOfGuest(region!) ;
+                      AuthCubit.get(context).setRegionOfGuest(region!);
                     },
-
                   ),
                 ),
                 const SizedBox(
@@ -355,11 +349,18 @@ class GuestScreen extends StatelessWidget {
                 const SizedBox(
                   height: 21,
                 ),
-                CustomButton(
-                    text: "Next",
-                    action: () {
-                     AuthCubit.get(context).createGuestUser(CartCubit.get(context));
-                    })
+                BlocConsumer<AuthCubit,AuthStates>(
+                  listener: (context, state){},
+                  builder: (context,state){
+                   return CustomButton(
+                        text: "Next",
+                        isLoading: state is CreatingGuestUserLoadingState,
+                        action: () {
+                          AuthCubit.get(context)
+                              .createGuestUser(CartCubit.get(context));
+                        });
+                  },
+                )
               ],
             ),
           ),

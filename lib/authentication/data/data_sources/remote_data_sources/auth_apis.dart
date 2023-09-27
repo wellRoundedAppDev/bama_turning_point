@@ -1,6 +1,10 @@
 import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/core/helpers/dio_helper.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../main.dart';
+import '../../../presentation/auth_cubit/auth_cubit.dart';
 
 class AuthApis {
   static final dioHelper = DioHelper.instance;
@@ -17,6 +21,27 @@ class AuthApis {
     } catch (e) {
       if (kDebugMode) {
         print("Session Id error api $e");
+      }
+    }
+  }
+
+  static Future<String?> getAccessToken() async {
+    String endpoint = ApiUrls.GET_TOKEN_ENDPONT;
+    try {
+      var response = await dioHelper.post(endPoint: endpoint,
+        headers: {
+        "Authorization": "Basic c2hvcHBpbmdfb2F1dGhfY2xpZW50Om5vcnRodA=="
+        }
+
+      );
+      if (response?.data['success'] == 1) {
+        return response?.data['data']['access_token'];
+      } else {
+        return null;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Get Access Token error api $e");
       }
     }
   }
@@ -73,18 +98,20 @@ class AuthApis {
   static Future<bool?> createGuestUser(
     Map<String, dynamic> guestForm,
   ) async {
+    String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
     String endpoint = ApiUrls.CREATE_GUEST_USER_ENDPOINT;
     try {
       var response = await dioHelper.post(
         endPoint: endpoint,
+        headers: {"Authorization": "Bearer $accessToken"},
         body: guestForm,
       );
       if (response == null) {
         return null;
       }
-      if (response.data['data']['success'] == 1) {
+      if (response.data['success'] == 1) {
         return true;
-      } else if (response.data['data']['success'] == 0) {
+      } else if (response.data['success'] == 0) {
         return false;
       } else {
         return null;

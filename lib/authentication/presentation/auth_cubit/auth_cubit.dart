@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:classic_eccomerce/authentication/data/data_sources/remote_data_sources/auth_apis.dart';
 import 'package:classic_eccomerce/authentication/data/models/guest_form_input.dart';
 import 'package:classic_eccomerce/authentication/data/models/login_form_input.dart';
@@ -12,7 +11,6 @@ import 'package:classic_eccomerce/shared_components/app_snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-
 import '../../../checkout/presentation/screens/quick_checkout_main_screen.dart';
 import '../../../core/helpers/dio_helper.dart';
 
@@ -22,6 +20,7 @@ class AuthCubit extends Cubit<AuthStates> {
   BuildContext context = MyApp.navKey.currentState!.context;
   final dioHelper = DioHelper.instance;
   String? sessionId;
+  String? accessToken;
 
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> guestFormKey = GlobalKey<FormState>();
@@ -35,10 +34,10 @@ class AuthCubit extends Cubit<AuthStates> {
 
   bool isUserLoggedIn = false;
 
-  Future<bool> setSessionId() async {
-    var response = await AuthApis.getSessionId();
+  Future<bool> setAccessToken() async {
+    var response = await AuthApis.getAccessToken();
     if (response != null) {
-      sessionId = response;
+      accessToken = response;
       // addSessionIdToHeader();
       return true;
     } else {
@@ -53,7 +52,7 @@ class AuthCubit extends Cubit<AuthStates> {
 
     loginFormKey.currentState?.save();
     emit(LoginLoadingState());
-    if (await setSessionId() == false) {
+    if (await setAccessToken() == false) {
       showAppSnackBar(content: "Check your internet connection, and try again");
       emit(LoginNetworkFailedConnectionState());
       return;
@@ -151,12 +150,14 @@ class AuthCubit extends Cubit<AuthStates> {
     }
     guestFormKey.currentState?.save();
 
-    if (await setSessionId() == true) {
+    emit(CreatingGuestUserLoadingState());
+    if (await setAccessToken() == true) {
       var addItemsToCartSuccess = await cartCubit.addItemsToCart();
       if (addItemsToCartSuccess == true) {
         var createGuestUserSuccess = await AuthApis.createGuestUser(
             guestFormInput.toJsonForCreateGuestApi());
         if (createGuestUserSuccess == true) {
+          emit(CreatingGuestUserSuccessState());
           Navigator.push(
               context,
               PageTransition(
@@ -164,12 +165,10 @@ class AuthCubit extends Cubit<AuthStates> {
                   type: PageTransitionType.leftToRight));
           return true;
         } else if (createGuestUserSuccess == false) {
-          //todo add snackbar
-
+          emit(CreatingGuestUserFailedState());
           return false;
         } else {
-          //todo add snackbar
-
+          emit(CreatingGuestUserNetworkConnectionFailedState());
           return null;
         }
       } else if (addItemsToCartSuccess == false) {
@@ -182,7 +181,7 @@ class AuthCubit extends Cubit<AuthStates> {
         return null;
       }
     } else {
-      //todo add snackbar
+      showAppSnackBar(content:"Check your internet connection, and try again");
       return null;
     }
   }

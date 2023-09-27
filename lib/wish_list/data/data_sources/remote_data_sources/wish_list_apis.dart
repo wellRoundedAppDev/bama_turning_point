@@ -2,6 +2,10 @@ import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.d
 import 'package:classic_eccomerce/core/helpers/dio_helper.dart';
 import 'package:classic_eccomerce/wish_list/data/models/get_wishlist_response.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
+import '../../../../main.dart';
 
 class WishListApis {
   static final dioHelper = DioHelper.instance;
@@ -9,10 +13,16 @@ class WishListApis {
   static Future<bool?> addItemToWishlist(
     int productId,
   ) async {
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+
     String endpoint = ApiUrls.getAddItemsToWishlistEndpoint(productId);
     try {
       var response = await dioHelper.post(
         endPoint: endpoint,
+          headers: {"Authorization": "Bearer $accessToken"}
+
+
       );
       if (response == null) {
         return null;

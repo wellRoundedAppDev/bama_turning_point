@@ -20,7 +20,10 @@ class DioHelper {
   final Dio _dio = Dio(BaseOptions(
       baseUrl: ApiUrls.BASE_URL,
       receiveDataWhenStatusError: true,
-      headers: {"X-Oc-Merchant-Id": "123"}));
+      // headers: {
+      //   "X-Oc-Merchant-Id": "123"
+      // }
+      ));
 
   addHeader(String key, dynamic value) {
     _dio.options.headers[key] = value;
@@ -41,18 +44,27 @@ class DioHelper {
 
   Future<Response?> get(
       {required String endpoint,
-      Map<String, dynamic> queryParameters = const {}}) async {
-    String? sessionId =
-        MyApp.navKey.currentState!.context.read<AuthCubit>().sessionId;
+        dynamic headers = const {},
+        Map<String, dynamic> queryParameters = const {}}) async {
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
     if (kDebugMode) {
-      print("SessionId: $sessionId");
+      print("Access token: $accessToken");
     }
 
     try {
       return await _dio.get(endpoint,
           queryParameters: queryParameters,
+
           options: Options(
-            headers: {"X-Oc-Session": sessionId},
+            headers: headers,
+              validateStatus: (int? status){
+                if(status! >= 200 && status <= 600){
+                  return true;
+                }
+                return false;
+              }
+
           ));
     } catch (e) {
       if (kDebugMode) {
@@ -88,18 +100,25 @@ class DioHelper {
   Future<Response?> post({
     required String endPoint,
     dynamic body = const {},
+    Map<String, dynamic> headers = const {}
   }) async {
-    String? sessionId =
-        MyApp.navKey.currentState!.context.read<AuthCubit>().sessionId;
-    if (kDebugMode) {
-      print("SessionId: $sessionId");
-    }
+    // String? accessToken =
+    //     MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    // if (kDebugMode) {
+    //   print("Access token: $accessToken");
+    // }
     try {
       return await _dio.post(
         endPoint,
         data: body,
         options: Options(
-          headers: {"X-Oc-Session": sessionId},
+          headers: headers,
+          validateStatus: (int? status){
+            if(status! >= 200 && status <= 600){
+              return true;
+            }
+            return false;
+          }
         ),
       );
     } catch (e) {
