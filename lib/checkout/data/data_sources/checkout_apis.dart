@@ -72,11 +72,10 @@ class CheckoutApis {
     }
   }
 
-
   static Future<GetShippingMethodsResponse?> getShippingMethods() async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
-    String endPoint = ApiUrls.GET_SHIPPING_METHODS_ENDPOINT;
+    String endPoint = ApiUrls.SHIPPING_METHODS_ENDPOINT;
 
     try {
       var response = await _dioHelper.get(
@@ -93,11 +92,38 @@ class CheckoutApis {
     }
   }
 
-  static Future<GetPaymentMethodsResponse?> getPaymentMethods() async {
-
+  static Future<bool?> setShippingMethod(ShippingMethod shippingMethod) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
-    String endPoint = ApiUrls.GET_PAYMENT_METHODS_ENDPOINT;
+    String endPoint = ApiUrls.SHIPPING_METHODS_ENDPOINT;
+
+    try {
+      var response = await _dioHelper.post(endPoint: endPoint, body: {
+        "shipping_method": shippingMethod.quote?[0].code,
+        "comment": "string"
+      }, headers: {
+        "Authorization": "Bearer $accessToken"
+      });
+      if (response == null) {
+        return null;
+      }
+      if (response.data['success'] == 1) {
+        return true;
+      } else if (response.data['success'] == 0) {
+        return false;
+      }
+      return null;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  static Future<GetPaymentMethodsResponse?> getPaymentMethods() async {
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    String endPoint = ApiUrls.PAYMENT_METHODS_ENDPOINT;
 
     try {
       var response = await _dioHelper.get(
@@ -107,6 +133,37 @@ class CheckoutApis {
         return null;
       }
       return GetPaymentMethodsResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  static Future<bool?> setPaymentMethod(PaymentMethod paymentMethod) async {
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    String endPoint = ApiUrls.PAYMENT_METHODS_ENDPOINT;
+
+    try {
+      var response = await _dioHelper.post(endPoint: endPoint, body:
+      {
+        "payment_method": paymentMethod.code,
+        "agree": 1,
+        "comment": "string"
+      }
+      , headers: {
+        "Authorization": "Bearer $accessToken"
+      });
+      if (response == null) {
+        return null;
+      }
+      if (response.data['success'] == 1) {
+        return true;
+      } else if (response.data['success'] == 0) {
+        return false;
+      }
+      return null;
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -133,5 +190,4 @@ class CheckoutApis {
   //     }
   //   }
   // }
-
 }

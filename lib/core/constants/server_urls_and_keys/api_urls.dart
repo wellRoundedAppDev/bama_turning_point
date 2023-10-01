@@ -27,8 +27,8 @@ class ApiUrls {
   static const LOGOUT_ENDPOINT = "api/rest/logout";
   static const CONFIRM_ORDER_ENDPOINT = "api/rest/confirm";
   static const GUEST_CHECKOUT_ENDPOINT = "api/rest/guestshipping";
-  static const GET_SHIPPING_METHODS_ENDPOINT = "api/rest/shippingmethods";
-  static const GET_PAYMENT_METHODS_ENDPOINT = "api/rest/paymentmethods";
+  static const SHIPPING_METHODS_ENDPOINT = "api/rest/shippingmethods";
+  static const PAYMENT_METHODS_ENDPOINT = "api/rest/paymentmethods";
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>
       "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";

@@ -6,8 +6,8 @@ import 'package:classic_eccomerce/checkout/data/models/get_shipping_methods_resp
 import 'package:classic_eccomerce/checkout/presentation/cubits/states.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../shared_components/app_snackbar.dart';
 
 class CheckOutCubit extends Cubit<CheckOutStates> {
@@ -18,8 +18,30 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
 
   List<ShippingMethod>? shippingMethods;
   List<PaymentMethod>? paymentMethods;
+  ShippingMethod? selectedShippingMethod;
+  PaymentMethod? selectedPaymentMethod;
+
+  TabController? tabController;
+
+
+  setShippingMethod(int index) {
+    selectedShippingMethod = shippingMethods?[index];
+    emit(ShippingMethodSelected());
+  }
+
+  setPaymentMethod(int index) {
+    selectedPaymentMethod = paymentMethods?[index];
+    emit(PaymentMethodSelected());
+  }
+
+  initTabBar(TickerProvider tickerProvider){
+    tabController =
+        TabController(initialIndex: 0, length: 3, vsync: tickerProvider);
+
+  }
 
   init() async {
+
     emit(InitializeCheckoutLoadingState());
 
     var settingGuestShippingAddressSuccess = await setGuestShippingAddress();
@@ -31,6 +53,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
       return;
     }
     var getShippingMethodsSuccess = await getShippingMethods();
+
     if (getShippingMethodsSuccess == false) {
       emit(InitializeCheckoutFailedState());
       return;
@@ -38,6 +61,8 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
       emit(InitializeCheckoutNetworkConnectionFailedState());
       return;
     }
+
+    await setShippingMethod(0);
 
     var getPaymentMethodsSuccess = await getPaymentMethods();
     if (getPaymentMethodsSuccess == false) {
@@ -47,6 +72,8 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
       emit(InitializeCheckoutNetworkConnectionFailedState());
       return;
     }
+
+    await setPaymentMethod(0);
     emit(InitializeCheckoutSuccessState());
   }
 
@@ -54,7 +81,6 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     GuestFormInput guestFormInput = AuthCubit.get(context).guestFormInput;
     var success = await CheckoutApis.setGuestShippingAddress(guestFormInput);
     if (success == true) {
-
       //emit(SetGuestShippingAddressSuccessState());
       return true;
     } else if (success == false) {
@@ -94,14 +120,27 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     }
   }
 
-
   confirmOrder() async {
     emit(ConfirmOrderLoadingState());
-    var isGuestShippingSetSuccessfully = await setGuestShippingAddress();
-    if (isGuestShippingSetSuccessfully != true) {
+
+    var setShippingMethodResponse = await setShippingMethodByApi();
+    if (setShippingMethodResponse == false) {
       emit(ConfirmOrderFailedState());
       return;
+    } else if (setShippingMethodResponse == null) {
+      emit(ConfirmOrderNetworkConnectionFailedState());
+      return;
     }
+
+    var setPaymentMethodResponse = await setPaymentMethodByApi();
+    if (setPaymentMethodResponse == false) {
+      emit(ConfirmOrderFailedState());
+      return;
+    } else if (setPaymentMethodResponse == null) {
+      emit(ConfirmOrderNetworkConnectionFailedState());
+      return;
+    }
+
     var isConfirmOrderSuccess = await CheckoutApis.confirmOrder();
     if (isConfirmOrderSuccess == true) {
       emit(ConfirmOrderSuccessState());
@@ -114,5 +153,30 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     }
   }
 
+  Future<bool?> setShippingMethodByApi() async {
+    var response =
+        await CheckoutApis.setShippingMethod(selectedShippingMethod!);
+    if (response == true) {
+      return true;
+    } else if (response == false) {
+      showAppSnackBar(content: "Error occured");
+      return false;
+    } else {
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      return null;
+    }
+  }
 
+  Future<bool?> setPaymentMethodByApi() async {
+    var response = await CheckoutApis.setPaymentMethod(selectedPaymentMethod!);
+    if (response == true) {
+      return true;
+    } else if (response == false) {
+      showAppSnackBar(content: "Error occured");
+      return false;
+    } else {
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      return null;
+    }
+  }
 }

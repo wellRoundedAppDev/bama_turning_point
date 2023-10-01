@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
+import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
 import 'package:classic_eccomerce/checkout/presentation/screens/quick_checkout_auth_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +10,9 @@ import 'package:page_transition/page_transition.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../shared_components/custom_button.dart';
 
-class CheckOutBottomSheet extends StatefulWidget {
+class CheckOutBottomSheet extends StatelessWidget {
   const CheckOutBottomSheet({super.key});
 
-  @override
-  State<CheckOutBottomSheet> createState() => _CheckOutBottomSheetState();
-}
-
-class _CheckOutBottomSheetState extends State<CheckOutBottomSheet> with TickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +21,7 @@ class _CheckOutBottomSheetState extends State<CheckOutBottomSheet> with TickerPr
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-           Expanded(
+          Expanded(
             child: Padding(
               padding: const EdgeInsets.only(
                 left: 20,
@@ -33,8 +29,7 @@ class _CheckOutBottomSheetState extends State<CheckOutBottomSheet> with TickerPr
                 bottom: 16,
               ),
               child: Row(
-                crossAxisAlignment:
-                CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
                     "Total",
@@ -44,11 +39,11 @@ class _CheckOutBottomSheetState extends State<CheckOutBottomSheet> with TickerPr
                         fontWeight: FontWeight.bold),
                   ),
                   Expanded(
-                    child: BlocConsumer<CartCubit,CartStates>(
-                      listener: (context,state){},
-                      builder: (context,state){
-                       CartCubit cartCubit =  CartCubit.get(context);
-                       return Text(
+                    child: BlocConsumer<CartCubit, CartStates>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        CartCubit cartCubit = CartCubit.get(context);
+                        return Text(
                           " : ${cartCubit.totalPrice}",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -76,9 +71,13 @@ class _CheckOutBottomSheetState extends State<CheckOutBottomSheet> with TickerPr
                 height: MediaQuery.of(context).size.height,
                 textFontSize: FontSizes.FONT_SIZE_14,
                 action: () {
-                  Navigator.push(context, PageTransition(child: BlocProvider.value(
-                      value: CartCubit.get(context)..initCheckOut(this),
-                      child: const QuickCheckoutAuthScreen()), type: PageTransitionType.leftToRight));
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: BlocProvider.value(
+                              value: CartCubit.get(context),
+                              child: const QuickCheckoutAuthScreen()),
+                          type: PageTransitionType.leftToRight));
                 },
               ),
             ),

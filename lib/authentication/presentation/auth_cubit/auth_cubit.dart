@@ -3,6 +3,7 @@ import 'package:classic_eccomerce/authentication/data/models/guest_form_input.da
 import 'package:classic_eccomerce/authentication/data/models/login_form_input.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
 import 'package:classic_eccomerce/core/data/data_sources/remote_data_sources/get_countries_api.dart';
 import 'package:classic_eccomerce/core/data/models/get_countries_response.dart';
 import 'package:classic_eccomerce/core/data/models/get_regions_response.dart';
@@ -144,7 +145,8 @@ class AuthCubit extends Cubit<AuthStates> {
     return false;
   }
 
-  Future<bool?> createGuestUser(CartCubit cartCubit) async {
+  Future<bool?> createGuestUser(
+      CartCubit cartCubit, CheckOutCubit checkOutCubit) async {
     if (validateGuestCheckoutForm() == false) {
       return null;
     }
@@ -161,7 +163,9 @@ class AuthCubit extends Cubit<AuthStates> {
           Navigator.push(
               context,
               PageTransition(
-                  child: const QuickCheckoutMainScreen(),
+                  child: BlocProvider.value(
+                      value: checkOutCubit,
+                      child: const QuickCheckoutMainScreen()),
                   type: PageTransitionType.leftToRight));
           return true;
         } else if (createGuestUserSuccess == false) {
@@ -181,7 +185,7 @@ class AuthCubit extends Cubit<AuthStates> {
         return null;
       }
     } else {
-      showAppSnackBar(content:"Check your internet connection, and try again");
+      showAppSnackBar(content: "Check your internet connection, and try again");
       return null;
     }
   }

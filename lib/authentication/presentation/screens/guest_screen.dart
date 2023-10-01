@@ -1,6 +1,7 @@
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
 import 'package:classic_eccomerce/core/data/models/get_countries_response.dart';
 import 'package:classic_eccomerce/core/data/models/get_regions_response.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
@@ -18,7 +19,7 @@ class GuestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.white,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -30,10 +31,10 @@ class GuestScreen extends StatelessWidget {
                 Center(
                   child: ClipOval(
                       child: Image.asset(
-                        ImagePaths.APP_LOGO,
-                        width: 200,
-                        height: 200,
-                      )),
+                    ImagePaths.APP_LOGO,
+                    width: 200,
+                    height: 200,
+                  )),
                 ),
                 CustomInput(
                   hintText: "Phone Number",
@@ -137,7 +138,7 @@ class GuestScreen extends StatelessWidget {
                   hintText: "Address",
                   validator: (value) {
                     if (value == null || value.length < 4) {
-                      return 'Enter an address of at least 3 characters';
+                      return 'Enter an address of at least 4 characters';
                     }
                   },
                   onSaved: (v) =>
@@ -359,15 +360,15 @@ class GuestScreen extends StatelessWidget {
                 const SizedBox(
                   height: 21,
                 ),
-                BlocConsumer<AuthCubit,AuthStates>(
-                  listener: (context, state){},
-                  builder: (context,state){
-                   return CustomButton(
+                BlocConsumer<AuthCubit, AuthStates>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return CustomButton(
                         text: "Next",
                         isLoading: state is CreatingGuestUserLoadingState,
                         action: () {
                           AuthCubit.get(context)
-                              .createGuestUser(CartCubit.get(context));
+                              .createGuestUser(CartCubit.get(context),CheckOutCubit.get(context));
                         });
                   },
                 )

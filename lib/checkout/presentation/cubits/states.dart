@@ -30,3 +30,6 @@ class ConfirmOrderFailedState extends CheckOutStates{}
 class ConfirmOrderNetworkConnectionFailedState extends CheckOutStates{}
 
 
+class ShippingMethodSelected extends CheckOutStates{}
+
+class PaymentMethodSelected extends CheckOutStates{}
