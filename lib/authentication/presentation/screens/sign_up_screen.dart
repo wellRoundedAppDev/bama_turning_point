@@ -6,6 +6,7 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../../checkout/presentation/screens/quick_checkout_main_screen.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
+import '../../../core/constants/paths/image_paths.dart';
 import '../../../shared_components/custom_input.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -22,6 +23,15 @@ class SignUpScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              Center(
+                child: ClipOval(
+                    child: Image.asset(
+                      ImagePaths.APP_LOGO,
+                      width: 200,
+                      height: 200,
+                    )),
+              ),
               CustomInput(
                 hintText: "Phone Number",
                 textInputType: TextInputType.phone,

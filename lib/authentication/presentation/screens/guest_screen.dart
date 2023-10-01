@@ -8,6 +8,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
+import '../../../core/constants/paths/image_paths.dart';
 import '../../../shared_components/custom_input.dart';
 
 class GuestScreen extends StatelessWidget {
@@ -17,6 +18,7 @@ class GuestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -25,6 +27,14 @@ class GuestScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Center(
+                  child: ClipOval(
+                      child: Image.asset(
+                        ImagePaths.APP_LOGO,
+                        width: 200,
+                        height: 200,
+                      )),
+                ),
                 CustomInput(
                   hintText: "Phone Number",
                   textInputType: TextInputType.phone,

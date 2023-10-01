@@ -1,7 +1,6 @@
 class ApiUrls {
-  static const BASE_URL =
-      "http://north.smarthospital.solutions/";
-     // "https://opencart3-simple.api.opencart-api.com/";
+  static const BASE_URL = "http://north.smarthospital.solutions/";
+  // "https://opencart3-simple.api.opencart-api.com/";
   static const GET_TOKEN_ENDPONT = "api/rest/oauth2/token/client_credentials";
   static const GET_SESSION_ID_ENDPOINT = "api/rest/session";
   static const LOGIN_ENDPOINT = "api/rest/login";
@@ -26,6 +25,10 @@ class ApiUrls {
   static const GET_WISH_LIST_ENDPOINT = "api/rest/wishlist";
   static const ADD_TO_WISH_LIST_ENDPOINT = "api/rest/wishlist/";
   static const LOGOUT_ENDPOINT = "api/rest/logout";
+  static const CONFIRM_ORDER_ENDPOINT = "api/rest/confirm";
+  static const GUEST_CHECKOUT_ENDPOINT = "api/rest/guestshipping";
+  static const GET_SHIPPING_METHODS_ENDPOINT = "api/rest/shippingmethods";
+  static const GET_PAYMENT_METHODS_ENDPOINT = "api/rest/paymentmethods";
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>
       "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";

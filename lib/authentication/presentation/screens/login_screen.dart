@@ -28,9 +28,7 @@ class SignInScreen extends StatelessWidget {
             key: AuthCubit.get(context).loginFormKey,
             child: Column(
               children: [
-                const SizedBox(
-                  height: 16,
-                ),
+
                 ClipOval(
                     child: Image.asset(
                   ImagePaths.APP_LOGO,

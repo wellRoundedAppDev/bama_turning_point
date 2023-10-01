@@ -14,6 +14,7 @@ class QuickCheckoutAuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.white,
       appBar: CustomAppBar.renderAppBar(title: "Quick Checkout"),
       body: Column(
         children: [
@@ -54,7 +55,7 @@ class QuickCheckoutAuthScreen extends StatelessWidget {
               width: double.maxFinite,
               child: TabBarView(
                 controller: CartCubit.get(context).tabController,
-                children:  [
+                children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: SignInScreen(),
