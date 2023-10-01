@@ -1,8 +1,8 @@
 class ApiUrls {
-  static const BASE_URL = "http://north.smarthospital.solutions/";
-      //"http://north.smarthospital.solutions/";
-    //  "https://opencart3-simple.api.opencart-api.com/";
-  static const GET_ACCESS_TOKEN_ENDPOINT = "api/rest/oauth2/token/client_credentials";
+  static const BASE_URL =
+      "http://north.smarthospital.solutions/";
+     // "https://opencart3-simple.api.opencart-api.com/";
+  static const GET_TOKEN_ENDPONT = "api/rest/oauth2/token/client_credentials";
   static const GET_SESSION_ID_ENDPOINT = "api/rest/session";
   static const LOGIN_ENDPOINT = "api/rest/login";
   static const GET_CATEGORIES_ENDPOINT = "api/rest/categories/extended/";

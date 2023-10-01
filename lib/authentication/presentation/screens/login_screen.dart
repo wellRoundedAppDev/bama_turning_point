@@ -7,7 +7,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-
 import '../../../checkout/presentation/screens/quick_checkout_main_screen.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../shared_components/custom_button.dart';

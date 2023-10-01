@@ -1,8 +1,11 @@
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/core/data/models/get_countries_response.dart';
 import 'package:classic_eccomerce/core/data/models/get_regions_response.dart';
 import 'package:classic_eccomerce/core/helpers/dio_helper.dart';
+import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GetCountriesAndRegionsApi {
   static final dioHelper = DioHelper.instance;
@@ -10,8 +13,11 @@ class GetCountriesAndRegionsApi {
   static Future<GetCountriesResponse?> getCountries() async {
 
     String endPoint = ApiUrls.GET_LIST_OF_COUNTRIES_ENDPOINT;
+    String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
     try {
-      var response = await dioHelper.get(endpoint: endPoint);
+      var response = await dioHelper.get(endpoint: endPoint,
+      headers: {"Authorization": "Bearer $accessToken"}
+      );
       if (response == null) {
         return null;
       }
@@ -26,8 +32,13 @@ class GetCountriesAndRegionsApi {
   static Future<GetRegionsResponse?> getRegionsByCountryId(int countryId) async {
 
     String endPoint = ApiUrls.getListOfRegionsByCountryIdEndpoint(countryId);
+    String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
     try {
-      var response = await dioHelper.get(endpoint: endPoint);
+      var response = await dioHelper.get(endpoint: endPoint,
+          headers: {"Authorization": "Bearer $accessToken"}
+
+      );
       if (response == null) {
         return null;
       }

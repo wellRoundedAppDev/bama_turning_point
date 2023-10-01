@@ -30,11 +30,11 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
 
   setProductDetails() async {
     emit(GetProductDetailsLoadingState());
-    var success = await AuthCubit.get(context).setSessionId();
-    if (!success) {
-      emit(GetProductDetailsNetworkConnectionFailedState());
-      return;
-    }
+    // var success = await AuthCubit.get(context).setAccessToken();
+    // if (!success) {
+    //   emit(GetProductDetailsNetworkConnectionFailedState());
+    //   return;
+    // }
     var response =
         await ProductDetailsApi.getProductDetailsById(selectedProductId);
     if (response?.success == 1) {

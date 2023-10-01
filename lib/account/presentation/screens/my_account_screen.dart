@@ -4,6 +4,7 @@ import 'package:classic_eccomerce/account/presentation/screens/reward_points.dar
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/login_screen.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class MyAccountScreen extends StatelessWidget {
           body: SignInScreen(),
         ):Scaffold(
           appBar: CustomAppBar.renderAppBar(
+            cartCubit: CartCubit.get(context),
               title: "My Account", showBackButton: false),
           body: SingleChildScrollView(
             child: Padding(

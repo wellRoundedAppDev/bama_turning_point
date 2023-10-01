@@ -25,3 +25,12 @@ class LogoutNetworkFailedConnectionState extends AuthStates{}
 class SetCountryOfGuestState extends AuthStates{}
 
 class GuestCheckingOnMyDeliveryAndAddressAreTheSame extends AuthStates{}
+
+
+class CreatingGuestUserLoadingState extends AuthStates{}
+
+class CreatingGuestUserSuccessState extends AuthStates{}
+
+class CreatingGuestUserFailedState extends AuthStates{}
+
+class CreatingGuestUserNetworkConnectionFailedState extends AuthStates{}

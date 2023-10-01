@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
@@ -24,6 +25,7 @@ class WishListScreen extends StatelessWidget {
           return SafeArea(
               child: Scaffold(
             appBar: CustomAppBar.renderAppBar(
+              cartCubit: CartCubit.get(context),
                 title: "My Wish List", showBackButton: false),
             body: (state is GetWishListLoadingState)
                 ? const Center(
@@ -31,11 +33,11 @@ class WishListScreen extends StatelessWidget {
                   )
                 : (state is GetWishListNetworkConnectionFailedState)
                     ? Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: NoNetworkRefreshPage(refresh: () {
+                        padding: const EdgeInsets.all(16.0),
+                        child: NoNetworkRefreshPage(refresh: () {
                           wishListCubit.setWishListItems();
                         }),
-                    )
+                      )
                     : RefreshIndicator(
                         onRefresh: () async {
                           await wishListCubit.setWishListItems();
