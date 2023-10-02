@@ -150,8 +150,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         context,
         PageTransition(
             child: BlocProvider.value(
-                value: cartCubit,
-                child: const OrderSuccessScreen()),
+                value: cartCubit, child: const OrderSuccessScreen()),
             type: PageTransitionType.leftToRight),
       );
       emit(ConfirmOrderSuccessState());
