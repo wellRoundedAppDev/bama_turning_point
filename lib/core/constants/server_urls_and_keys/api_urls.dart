@@ -21,6 +21,7 @@ class ApiUrls {
   static const GET_LIST_OF_COUNTRIES_ENDPOINT = "api/rest/countries";
   static const GET_LIST_OF_REGIONS_BY_COUNTRY_ID_ENDPOINT =
       "api/rest/countries/";
+  static const ADD_ITEM_TO_CART_ENDPOINT = "api/rest/cart";
   static const ADD_ITEMS_TO_CART_ENDPOINT = "api/rest/cart_bulk";
   static const CREATE_GUEST_USER_ENDPOINT = 'api/rest/guest';
   static const GET_WISH_LIST_ENDPOINT = "api/rest/wishlist";

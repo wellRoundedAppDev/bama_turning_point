@@ -49,6 +49,11 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 
+  clearGuest(){
+    isGuestConfirmedBillingAndAddressMatch = false;
+    guestFormInput.clear();
+  }
+
   login() async {
     if (validateLoginForm() != true) {
       return;
@@ -78,6 +83,7 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   register() async {
+
     if (validateRegisterForm() != true) {
       return;
     }
@@ -197,7 +203,7 @@ class AuthCubit extends Cubit<AuthStates> {
             guestFormInput.toJsonForCreateGuestApi());
         if (createGuestUserSuccess == true) {
           emit(CreatingGuestUserSuccessState());
-          Navigator.push(
+          Navigator.pushReplacement(
               context,
               PageTransition(
                   child: BlocProvider.value(
@@ -206,6 +212,8 @@ class AuthCubit extends Cubit<AuthStates> {
                           value: cartCubit,
                           child: const QuickCheckoutMainScreen())),
                   type: PageTransitionType.leftToRight));
+          MyApp.navKey.currentState!.context.read<AuthCubit>().clearGuest();
+
           return true;
         } else if (createGuestUserSuccess == false) {
           emit(CreatingGuestUserFailedState());

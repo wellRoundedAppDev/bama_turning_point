@@ -7,7 +7,6 @@ import 'package:classic_eccomerce/wish_list/data/data_sources/remote_data_source
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 
 class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
@@ -52,7 +51,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
         MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
     if (isUserLoggedIn == false) {
       showAppSnackBar(content: "You must login to add product to wish list");
-
       return;
     }
 

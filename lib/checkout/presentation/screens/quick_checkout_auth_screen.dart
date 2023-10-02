@@ -20,7 +20,7 @@ class _QuickCheckoutAuthScreenState extends State<QuickCheckoutAuthScreen> with 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>  CheckOutCubit()..initTabBar(this),
+      create: (context) =>  CheckOutCubit()..initCheckOutAuthScreen(this),
       child: Builder(
         builder: (context) {
           return SafeArea(

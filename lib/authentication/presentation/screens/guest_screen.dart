@@ -4,6 +4,7 @@ import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart
 import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
 import 'package:classic_eccomerce/core/data/models/get_countries_response.dart';
 import 'package:classic_eccomerce/core/data/models/get_regions_response.dart';
+import 'package:classic_eccomerce/main.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -47,53 +48,53 @@ class GuestScreen extends StatelessWidget {
                   onSaved: (v) =>
                       AuthCubit.get(context).guestFormInput.phoneNumber = v,
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 16, right: 8),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xff95989A))),
-                  child: DropdownSearch<String>(
-                    dropdownDecoratorProps: const DropDownDecoratorProps(
-                        dropdownSearchDecoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintStyle: TextStyle(
-                              fontSize: FontSizes.FONT_SIZE_16,
-                              color: Color(0xff878787),
-                            ),
-                            hintText: "Male")),
-                    dropdownButtonProps: const DropdownButtonProps(
-                        icon: Icon(
-                      Icons.keyboard_arrow_down,
-                      color: Color(0xff696C6E),
-                    )),
-                    popupProps: PopupProps.menu(
-                        itemBuilder: (context, String item, bool) {
-                      return Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          item,
-                          style: const TextStyle(
-                              fontSize: FontSizes.FONT_SIZE_16,
-                              color: Color(0xff878787)),
-                        ),
-                      );
-                    }),
-                    dropdownBuilder: (context, item) {
-                      return Text(
-                        item ?? "Male",
-                        style: const TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_16,
-                            color: Color(0xff878787)),
-                      );
-                    },
-                    items: const ["Male", "Female"],
-                    onChanged: (String? gender) {
-                      AuthCubit.get(context).guestFormInput.gender = gender;
-                    },
-                  ),
-                ),
+                // const SizedBox(
+                //   height: 16,
+                // ),
+                // Container(
+                //   padding: const EdgeInsets.only(left: 16, right: 8),
+                //   decoration: BoxDecoration(
+                //       border: Border.all(color: const Color(0xff95989A))),
+                //   child: DropdownSearch<String>(
+                //     dropdownDecoratorProps: const DropDownDecoratorProps(
+                //         dropdownSearchDecoration: InputDecoration(
+                //             border: InputBorder.none,
+                //             hintStyle: TextStyle(
+                //               fontSize: FontSizes.FONT_SIZE_16,
+                //               color: Color(0xff878787),
+                //             ),
+                //             hintText: "Male")),
+                //     dropdownButtonProps: const DropdownButtonProps(
+                //         icon: Icon(
+                //       Icons.keyboard_arrow_down,
+                //       color: Color(0xff696C6E),
+                //     )),
+                //     popupProps: PopupProps.menu(
+                //         itemBuilder: (context, String item, bool) {
+                //       return Padding(
+                //         padding: const EdgeInsets.all(16.0),
+                //         child: Text(
+                //           item,
+                //           style: const TextStyle(
+                //               fontSize: FontSizes.FONT_SIZE_16,
+                //               color: Color(0xff878787)),
+                //         ),
+                //       );
+                //     }),
+                //     dropdownBuilder: (context, item) {
+                //       return Text(
+                //         item ?? "Male",
+                //         style: const TextStyle(
+                //             fontSize: FontSizes.FONT_SIZE_16,
+                //             color: Color(0xff878787)),
+                //       );
+                //     },
+                //     items: const ["Male", "Female"],
+                //     onChanged: (String? gender) {
+                //       AuthCubit.get(context).guestFormInput.gender = gender;
+                //     },
+                //   ),
+                // ),
 
                 const SizedBox(
                   height: 16,
@@ -323,6 +324,12 @@ class GuestScreen extends StatelessWidget {
                     onChanged: (Region? region) {
                       AuthCubit.get(context).setRegionOfGuest(region!);
                     },
+                    validator: (Region? region) {
+                      if (AuthCubit.get(context).guestFormInput.region ==
+                          null) {
+                        return "Select your region";
+                      }
+                    },
                   ),
                 ),
                 const SizedBox(
@@ -334,6 +341,7 @@ class GuestScreen extends StatelessWidget {
                     BlocConsumer<AuthCubit, AuthStates>(
                       listener: (context, state) {},
                       builder: (context, state) {
+
                         return Checkbox(
                             value: AuthCubit.get(context)
                                 .isGuestConfirmedBillingAndAddressMatch,
@@ -367,8 +375,9 @@ class GuestScreen extends StatelessWidget {
                         text: "Next",
                         isLoading: state is CreatingGuestUserLoadingState,
                         action: () {
-                          AuthCubit.get(context)
-                              .createGuestUser(CartCubit.get(context),CheckOutCubit.get(context));
+                          AuthCubit.get(context).createGuestUser(
+                              CartCubit.get(context),
+                              CheckOutCubit.get(context));
                         });
                   },
                 )

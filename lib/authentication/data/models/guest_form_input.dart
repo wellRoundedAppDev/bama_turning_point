@@ -28,4 +28,17 @@ class GuestFormInput {
     "postcode": postalCode,
     "zone_id": int.parse(region?.zoneId??"")
   };
+
+  clear(){
+    phoneNumber = null;
+    gender = "Male";
+    firstName = null;
+    lastName = null;
+    address = null;
+    country = null;
+    region = null;
+    cityName = null;
+    postalCode = null;
+
+  }
 }

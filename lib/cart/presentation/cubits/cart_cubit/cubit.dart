@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:classic_eccomerce/cart/data/data_sources/remote_data_sources/cart_apis.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
+import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../data/models/cart_item.dart';
 
 class CartCubit extends Cubit<CartStates> {
@@ -12,28 +14,34 @@ class CartCubit extends Cubit<CartStates> {
     // LoadCartFromDB();
   }
 
+  BuildContext context = MyApp.navKey.currentState!.context;
   //CartItems map used to lookup any item in the cart by its ID from any screen
   Map<String, dynamic> cartItems = {};
 
   //total price of cart
   double totalPrice = 0;
 
-
   int numberOfItemsInCart = 0;
 
   //to call cubit
   static CartCubit get(BuildContext context) => BlocProvider.of(context);
 
-  Future<bool?> addItemsToCart() async{
-    var items = cartItems.entries.map((e) => {
-        "product_id": e.key,
-        "quantity": e.value['quantity']
-      }).toList();
+  Future<bool?> addItemsToCart() async {
+    var items = cartItems.entries
+        .map((e) => {"product_id": e.key, "quantity": e.value['quantity']})
+        .toList();
     var response = await CartApis.addItemsToCart(items);
     return response;
   }
 
-  addItemToCart(CartItem cartItem, {bool saveInDB = true}) {
+  addItemToCart(CartItem cartItem, {bool saveInDB = true}) async {
+    // var success = await AuthCubit.get(context).setAccessToken();
+    // if (success == false) {
+    //   return;
+    // }
+    //
+    // // await CartApis.addItemToCart({"product_id": cartItem.id, "quantity": 1});
+
     String id = cartItem.id;
     bool isItemNotInCart = cartItems[id] == null;
     if (isItemNotInCart) {
@@ -101,7 +109,6 @@ class CartCubit extends Cubit<CartStates> {
     // SaveCartInDB();
     emit(CartIsClearedState());
   }
-
 
   // this is used to store a cart info in the database. so that when the user
   // exists the app the data presists.

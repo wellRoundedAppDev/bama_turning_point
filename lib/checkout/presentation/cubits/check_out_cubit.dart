@@ -37,9 +37,10 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     emit(PaymentMethodSelected());
   }
 
-  initTabBar(TickerProvider tickerProvider) {
+  initCheckOutAuthScreen(TickerProvider tickerProvider) {
     tabController =
         TabController(initialIndex: 0, length: 3, vsync: tickerProvider);
+    MyApp.navKey.currentState!.context.read<AuthCubit>().clearGuest();
   }
 
   init() async {

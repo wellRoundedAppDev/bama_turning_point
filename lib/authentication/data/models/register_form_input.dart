@@ -22,16 +22,13 @@ class RegisterFormInput {
         "firstname": firstName,
         "lastname": lastName,
         "email": email,
-    "password": password,
-    "confirm": confirmPassword,
-    "telephone": phoneNumber,
-    "customer_group_id": 1,
-    "agree": 1,
-
-    "custom_field": {
-      "account": {
-        "1": "+364545454"
-      }
-    }
+        "password": password,
+        "confirm": confirmPassword,
+        "telephone": phoneNumber,
+        "customer_group_id": 1,
+        "agree": 1,
+        "custom_field": {
+          "account": {"1": "+364545454"}
+        }
       };
 }

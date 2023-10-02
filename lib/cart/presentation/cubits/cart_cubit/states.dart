@@ -2,6 +2,8 @@ abstract class CartStates{}
 
 class InitialCartState extends CartStates{}
 
+class AddingItemToCartLoadingState extends CartStates{}
+
 class ItemAddedToCartState extends CartStates{}
 
 class ItemDeletedFromCartState extends CartStates{}
