@@ -94,7 +94,7 @@ class CartCubit extends Cubit<CartStates> {
     emit(ItemQuantityDecreasedFromCartState());
   }
 
-  clearSalesCart() {
+  clearCart() {
     cartItems.clear();
     totalPrice = 0;
     numberOfItemsInCart = 0;

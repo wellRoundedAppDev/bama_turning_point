@@ -19,17 +19,14 @@ class WishListApis {
     String endpoint = ApiUrls.getAddItemsToWishlistEndpoint(productId);
     try {
       var response = await dioHelper.post(
-        endPoint: endpoint,
-          headers: {"Authorization": "Bearer $accessToken"}
-
-
-      );
+          endPoint: endpoint,
+          headers: {"Authorization": "Bearer $accessToken"});
       if (response == null) {
         return null;
       }
-      if (response.data['data']['success'] == 1) {
+      if (response.data['success'] == 1) {
         return true;
-      } else if (response.data['data']['success'] == 0) {
+      } else if (response.data['success'] == 0) {
         return false;
       } else {
         return null;
@@ -43,8 +40,13 @@ class WishListApis {
 
   static Future<GetWishlistResponse?> getWishlist() async {
     String endPoint = ApiUrls.GET_WISH_LIST_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
     try {
-      var response = await dioHelper.get(endpoint: endPoint);
+      var response = await dioHelper.get(
+          endpoint: endPoint,
+          headers: {"Authorization": "Bearer $accessToken"});
       if (response == null) {
         return null;
       }

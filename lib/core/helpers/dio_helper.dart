@@ -127,4 +127,36 @@ class DioHelper {
       }
     }
   }
+
+
+  Future<Response?> put({
+    required String endPoint,
+    dynamic body = const {},
+    Map<String, dynamic> headers = const {}
+  }) async {
+    // String? accessToken =
+    //     MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    // if (kDebugMode) {
+    //   print("Access token: $accessToken");
+    // }
+    try {
+      return await _dio.put(
+        endPoint,
+        data: body,
+        options: Options(
+            headers: headers,
+            validateStatus: (int? status){
+              if(status! >= 200 && status <= 600){
+                return true;
+              }
+              return false;
+            }
+        ),
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
 }

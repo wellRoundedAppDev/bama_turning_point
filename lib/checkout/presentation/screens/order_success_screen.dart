@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,7 +11,7 @@ class OrderSuccessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: CustomAppBar.renderAppBar(title: "Quick Checkout"),
+      appBar: CustomAppBar.renderAppBar(title: "Quick Checkout",cartCubit: CartCubit.get(context)),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),

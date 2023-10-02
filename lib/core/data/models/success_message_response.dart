@@ -1,10 +1,15 @@
-class SuccessAndMessageResponse {
+class SuccessAndErrorResponse {
   bool? success;
-  String? message;
+  List<String>? errorMsgs;
 
-  SuccessAndMessageResponse({required this.success, required this.message});
+  SuccessAndErrorResponse({required this.success, required this.errorMsgs});
 
-  factory SuccessAndMessageResponse.fromJson(Map<String, dynamic> json) =>
-      SuccessAndMessageResponse(
-          success: json['success'], message: json['message']);
+  factory SuccessAndErrorResponse.fromJson(Map<String, dynamic> json) =>
+      SuccessAndErrorResponse(
+          success: json['success'] == 1
+              ? true
+              : json['success'] == 0
+                  ? false
+                  : null,
+          errorMsgs: json['message']);
 }

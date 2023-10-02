@@ -1,10 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
+import 'package:classic_eccomerce/core/constants/paths/routes/routes/routes_ids.dart';
+import 'package:classic_eccomerce/home_layout/presentation/screens/home_layout.dart';
 import 'package:classic_eccomerce/splash/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'cart/presentation/screens/cart_screen.dart';
 import 'core/bloc_observer.dart';
 import 'core/constants/colors/colors.dart';
 import 'core/constants/fonts/font_families.dart';
@@ -44,6 +47,13 @@ class MyApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate
         ],
         locale: const Locale("en"),
+        routes: {
+          RoutesIDs.SPLASH_SCREEN_ROUTE_ID : (context) => const SplashScreen(),
+          RoutesIDs.CART_SCREEN_ROUTE_ID : (context) =>  CartScreen(),
+          RoutesIDs.HOME_LAYOUT_SCREEN_ROUTE_ID : (context) =>  const HomeLayoutScreen()
+
+
+        },
         theme: ThemeData(
 
           dividerColor: Colors.transparent,

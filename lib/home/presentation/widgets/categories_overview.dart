@@ -64,7 +64,7 @@ class CategoriesOverview extends StatelessWidget {
                           PageTransition(
                               child: BlocProvider.value(
                                   value: CartCubit.get(context),
-                                  child: const CategoriesScreen()),
+                                  child:  CategoriesScreen()),
                               type: PageTransitionType.leftToRight));
                     },
                     child: const Text(

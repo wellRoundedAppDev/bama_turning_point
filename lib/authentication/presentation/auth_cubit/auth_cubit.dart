@@ -1,6 +1,7 @@
 import 'package:classic_eccomerce/authentication/data/data_sources/remote_data_sources/auth_apis.dart';
 import 'package:classic_eccomerce/authentication/data/models/guest_form_input.dart';
 import 'package:classic_eccomerce/authentication/data/models/login_form_input.dart';
+import 'package:classic_eccomerce/authentication/data/models/register_form_input.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
@@ -24,10 +25,12 @@ class AuthCubit extends Cubit<AuthStates> {
   String? accessToken;
 
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> guestFormKey = GlobalKey<FormState>();
 
   LoginFormInput loginFormInput = LoginFormInput();
   GuestFormInput guestFormInput = GuestFormInput();
+  RegisterFormInput registerFormInput = RegisterFormInput();
 
   static AuthCubit get(context) => BlocProvider.of(context);
 
@@ -74,6 +77,35 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 
+  register() async {
+    if (validateRegisterForm() != true) {
+      return;
+    }
+
+    registerFormKey.currentState?.save();
+    emit(RegisterLoadingState());
+    if (await setAccessToken() == false) {
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      emit(RegisterNetworkFailedConnectionState());
+      return;
+    }
+
+    var response = await AuthApis.register(registerFormInput.toJsonForApi());
+    if (response?.success == true) {
+      isUserLoggedIn = true;
+      emit(RegisterSuccessState());
+      Navigator.pop(context);
+    } else if (response?.success == false) {
+      isUserLoggedIn = false;
+      showAppSnackBar(content: response?.errorMsgs?[0] ?? "");
+      emit(RegisterFailedState());
+    } else {
+      isUserLoggedIn = false;
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      emit(RegisterNetworkFailedConnectionState());
+    }
+  }
+
   logOut() async {
     // if (await setSessionId() == false) {
     //   showAppSnackBar(content: "Check your internet connection, and try again");
@@ -95,6 +127,10 @@ class AuthCubit extends Cubit<AuthStates> {
 
   validateLoginForm() {
     return loginFormKey.currentState!.validate();
+  }
+
+  validateRegisterForm() {
+    return registerFormKey.currentState!.validate();
   }
 
   addSessionIdToHeader() {
@@ -150,6 +186,7 @@ class AuthCubit extends Cubit<AuthStates> {
     if (validateGuestCheckoutForm() == false) {
       return null;
     }
+
     guestFormKey.currentState?.save();
 
     emit(CreatingGuestUserLoadingState());
@@ -164,8 +201,10 @@ class AuthCubit extends Cubit<AuthStates> {
               context,
               PageTransition(
                   child: BlocProvider.value(
-                      value: checkOutCubit,
-                      child: const QuickCheckoutMainScreen()),
+                      value: checkOutCubit..init(),
+                      child: BlocProvider.value(
+                          value: cartCubit,
+                          child: const QuickCheckoutMainScreen())),
                   type: PageTransitionType.leftToRight));
           return true;
         } else if (createGuestUserSuccess == false) {

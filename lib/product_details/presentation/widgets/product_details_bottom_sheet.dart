@@ -42,6 +42,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                       child: (state is AddItemToFavoritesLoadingState)
                           ? const CircularProgressIndicator(
                               color: Colors.white,
+                        value: 10,
                             )
                           : Image.asset(
                               IconPaths.FAV_ICON,

@@ -70,7 +70,7 @@ class WishlistItem {
   String? model;
   String? stock;
   String? price;
-  num? special;
+  dynamic special;
 
   // Map<String, dynamic> toJson() {
   //   final map = <String, dynamic>{};

@@ -4,9 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/models/get_wishlist_response.dart';
 
-class WishListCubit extends Cubit<WishListStates>{
-
-  WishListCubit():super(WishListInitialState());
+class WishListCubit extends Cubit<WishListStates> {
+  WishListCubit() : super(WishListInitialState());
 
   static WishListCubit get(context) => BlocProvider.of(context);
 
@@ -15,19 +14,15 @@ class WishListCubit extends Cubit<WishListStates>{
   setWishListItems() async {
     emit(GetWishListLoadingState());
     var response = await WishListApis.getWishlist();
-    if(response?.success == 1){
+    if (response?.success == 1) {
       wishListItems = response?.wishListItems;
       emit(GetWishListSuccessState());
-    }else if(response?.success == 0){
+    } else if (response?.success == 0) {
       wishListItems = null;
       emit(GetWishListFailedState());
-    }else{
-
+    } else {
       wishListItems = null;
       emit(GetWishListNetworkConnectionFailedState());
     }
   }
-
-
-
 }

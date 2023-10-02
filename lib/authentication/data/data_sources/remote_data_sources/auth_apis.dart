@@ -1,4 +1,5 @@
 import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
+import 'package:classic_eccomerce/core/data/models/success_message_response.dart';
 import 'package:classic_eccomerce/core/helpers/dio_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,12 +29,9 @@ class AuthApis {
   static Future<String?> getAccessToken() async {
     String endpoint = ApiUrls.GET_TOKEN_ENDPONT;
     try {
-      var response = await dioHelper.post(endPoint: endpoint,
-        headers: {
+      var response = await dioHelper.post(endPoint: endpoint, headers: {
         "Authorization": "Basic c2hvcHBpbmdfb2F1dGhfY2xpZW50Om5vcnRodA=="
-        }
-
-      );
+      });
       if (response?.data['success'] == 1) {
         return response?.data['data']['access_token'];
       } else {
@@ -50,11 +48,14 @@ class AuthApis {
     Map<String, dynamic> loginInput,
   ) async {
     String endpoint = ApiUrls.LOGIN_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
     try {
       var response = await dioHelper.post(
-        endPoint: endpoint,
-        body: loginInput,
-      );
+          endPoint: endpoint,
+          body: loginInput,
+          headers: {"Authorization": "Bearer $accessToken"});
       if (response == null) {
         return null;
       }
@@ -68,6 +69,30 @@ class AuthApis {
     } catch (e) {
       if (kDebugMode) {
         print("Login error api $e");
+      }
+    }
+  }
+
+  static Future<SuccessAndErrorResponse?> register(
+    Map<String, dynamic> registerInput,
+  ) async {
+    String endpoint = ApiUrls.REGISTER_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.post(
+          endPoint: endpoint,
+          body: registerInput,
+          headers: {"Authorization": "Bearer $accessToken"});
+
+      if (response == null) {
+        return null;
+      }
+      return SuccessAndErrorResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Register error api $e");
       }
     }
   }
@@ -98,7 +123,8 @@ class AuthApis {
   static Future<bool?> createGuestUser(
     Map<String, dynamic> guestForm,
   ) async {
-    String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
     String endpoint = ApiUrls.CREATE_GUEST_USER_ENDPOINT;
     try {
       var response = await dioHelper.post(

@@ -1,13 +1,17 @@
 import 'package:classic_eccomerce/authentication/data/models/guest_form_input.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/checkout/data/data_sources/checkout_apis.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_payment_methods_response.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_shipping_methods_response.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/states.dart';
+import 'package:classic_eccomerce/checkout/presentation/screens/order_success_screen.dart';
+import 'package:classic_eccomerce/core/constants/paths/routes/routes/routes_ids.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../../shared_components/app_snackbar.dart';
 
 class CheckOutCubit extends Cubit<CheckOutStates> {
@@ -23,7 +27,6 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
 
   TabController? tabController;
 
-
   setShippingMethod(int index) {
     selectedShippingMethod = shippingMethods?[index];
     emit(ShippingMethodSelected());
@@ -34,14 +37,12 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     emit(PaymentMethodSelected());
   }
 
-  initTabBar(TickerProvider tickerProvider){
+  initTabBar(TickerProvider tickerProvider) {
     tabController =
         TabController(initialIndex: 0, length: 3, vsync: tickerProvider);
-
   }
 
   init() async {
-
     emit(InitializeCheckoutLoadingState());
 
     var settingGuestShippingAddressSuccess = await setGuestShippingAddress();
@@ -120,7 +121,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     }
   }
 
-  confirmOrder() async {
+  confirmOrder(CartCubit cartCubit) async {
     emit(ConfirmOrderLoadingState());
 
     var setShippingMethodResponse = await setShippingMethodByApi();
@@ -143,6 +144,15 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
 
     var isConfirmOrderSuccess = await CheckoutApis.confirmOrder();
     if (isConfirmOrderSuccess == true) {
+      cartCubit.clearCart();
+      Navigator.pushReplacement(
+        context,
+        PageTransition(
+            child: BlocProvider.value(
+                value: cartCubit,
+                child: const OrderSuccessScreen()),
+            type: PageTransitionType.leftToRight),
+      );
       emit(ConfirmOrderSuccessState());
     } else if (isConfirmOrderSuccess == false) {
       emit(ConfirmOrderFailedState());

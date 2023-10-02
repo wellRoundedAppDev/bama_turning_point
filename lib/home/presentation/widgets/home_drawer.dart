@@ -55,7 +55,7 @@ class HomeDrawer extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                  const CategoriesScreen()
+                   CategoriesScreen()
                   ));
 
                 },

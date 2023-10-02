@@ -32,7 +32,7 @@ class HomeLayoutScreen extends StatelessWidget {
           int navBarCurrentIndex = appCubit.currentNavbarIndex;
 
           return WillPopScope(
-            onWillPop: ()async{
+            onWillPop: () async {
               MoveToBackground.moveTaskToBack();
               return false;
             },
@@ -117,9 +117,11 @@ class HomeLayoutScreen extends StatelessWidget {
                         : (navBarCurrentIndex == 3)
                             ? const WishListScreen()
                             : (navBarCurrentIndex == 2)
-                                ? const CategoriesScreen()
+                                ? CategoriesScreen(
+                                    showBackButton: false,
+                                  )
                                 : (navBarCurrentIndex == 1)
-                                    ?  CartScreen()
+                                    ? CartScreen()
                                     : const MyAccountScreen())),
           );
         },

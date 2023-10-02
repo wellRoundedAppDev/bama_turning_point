@@ -26,9 +26,8 @@ class MyAccountScreen extends StatelessWidget {
       builder: (context, state) {
         AuthCubit authCubit = AuthCubit.get(context);
         bool isUserLoggedIn = authCubit.isUserLoggedIn;
-        return (isUserLoggedIn == false)? Scaffold(
-          body: SignInScreen(),
-        ):Scaffold(
+        return (isUserLoggedIn == false)?  SignInScreen()
+        :Scaffold(
           appBar: CustomAppBar.renderAppBar(
             cartCubit: CartCubit.get(context),
               title: "My Account", showBackButton: false),

@@ -146,13 +146,11 @@ class CheckoutApis {
     String endPoint = ApiUrls.PAYMENT_METHODS_ENDPOINT;
 
     try {
-      var response = await _dioHelper.post(endPoint: endPoint, body:
-      {
+      var response = await _dioHelper.post(endPoint: endPoint, body: {
         "payment_method": paymentMethod.code,
         "agree": 1,
         "comment": "string"
-      }
-      , headers: {
+      }, headers: {
         "Authorization": "Bearer $accessToken"
       });
       if (response == null) {

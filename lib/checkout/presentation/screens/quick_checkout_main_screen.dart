@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_payment_methods_response.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_shipping_methods_response.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
@@ -16,10 +17,12 @@ class QuickCheckoutMainScreen extends StatefulWidget {
   const QuickCheckoutMainScreen({super.key});
 
   @override
-  State<QuickCheckoutMainScreen> createState() => _QuickCheckoutMainScreenState();
+  State<QuickCheckoutMainScreen> createState() =>
+      _QuickCheckoutMainScreenState();
 }
 
-class _QuickCheckoutMainScreenState extends State<QuickCheckoutMainScreen> with TickerProviderStateMixin{
+class _QuickCheckoutMainScreenState extends State<QuickCheckoutMainScreen>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CheckOutCubit, CheckOutStates>(
@@ -37,7 +40,8 @@ class _QuickCheckoutMainScreenState extends State<QuickCheckoutMainScreen> with 
         return SafeArea(
             child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: CustomAppBar.renderAppBar(title: "Quick Checkout"),
+          appBar: CustomAppBar.renderAppBar(
+              title: "Quick Checkout", showCartIcon: false),
           body: (state is InitializeCheckoutLoadingState)
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -59,8 +63,8 @@ class _QuickCheckoutMainScreenState extends State<QuickCheckoutMainScreen> with 
                           children: [
                             Container(
                               padding: const EdgeInsets.all(16),
-                              decoration: const BoxDecoration(
-                                  color: Color(0xffF5F5F5)),
+                              decoration:
+                                  const BoxDecoration(color: Color(0xffF5F5F5)),
                               child: Row(
                                 children: [
                                   Image.asset(
@@ -78,8 +82,7 @@ class _QuickCheckoutMainScreenState extends State<QuickCheckoutMainScreen> with 
                                           CrossAxisAlignment.start,
                                       children: [
                                         const Padding(
-                                          padding:
-                                              EdgeInsets.only(left: 16.0),
+                                          padding: EdgeInsets.only(left: 16.0),
                                           child: Text(
                                             "SHIPPING METHOD",
                                             style: TextStyle(
@@ -133,8 +136,8 @@ class _QuickCheckoutMainScreenState extends State<QuickCheckoutMainScreen> with 
                             ),
                             Container(
                               padding: const EdgeInsets.all(16),
-                              decoration: const BoxDecoration(
-                                  color: Color(0xffF5F5F5)),
+                              decoration:
+                                  const BoxDecoration(color: Color(0xffF5F5F5)),
                               child: Row(
                                 children: [
                                   Image.asset(
@@ -152,8 +155,7 @@ class _QuickCheckoutMainScreenState extends State<QuickCheckoutMainScreen> with 
                                           CrossAxisAlignment.start,
                                       children: [
                                         const Padding(
-                                          padding:
-                                              EdgeInsets.only(left: 16.0),
+                                          padding: EdgeInsets.only(left: 16.0),
                                           child: Text(
                                             "PAYMENT METHOD",
                                             style: TextStyle(
@@ -290,25 +292,24 @@ class _QuickCheckoutMainScreenState extends State<QuickCheckoutMainScreen> with 
                               ),
                               child: Column(
                                 children: [
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 16.0, horizontal: 16),
                                     child: Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Sub-Total:",
                                           style: TextStyle(
-                                              fontSize:
-                                                  FontSizes.FONT_SIZE_14,
+                                              fontSize: FontSizes.FONT_SIZE_14,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Expanded(
                                           child: Text(
-                                            "\$499.4",
+                                            "\$${CartCubit.get(context).totalPrice}",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize:
                                                     FontSizes.FONT_SIZE_14),
                                           ),
@@ -320,27 +321,26 @@ class _QuickCheckoutMainScreenState extends State<QuickCheckoutMainScreen> with 
                                     height: 1,
                                     color: const Color(0xffB6BBC6),
                                   ),
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 16.0, horizontal: 16),
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Flat Shipping Rate:",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  FontSizes.FONT_SIZE_14,
+                                          "${selectedShippingMethod?.quote?[0].title ?? ""}:",
+                                          style: const TextStyle(
+                                              fontSize: FontSizes.FONT_SIZE_14,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Expanded(
                                           child: Text(
-                                            "\$5.00",
+                                            "\$${selectedShippingMethod?.quote?[0].cost ?? ""}",
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize:
                                                     FontSizes.FONT_SIZE_14),
                                           ),
@@ -352,25 +352,24 @@ class _QuickCheckoutMainScreenState extends State<QuickCheckoutMainScreen> with 
                                     height: 1,
                                     color: const Color(0xffB6BBC6),
                                   ),
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 16.0, horizontal: 16),
                                     child: Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Total:",
                                           style: TextStyle(
-                                              fontSize:
-                                                  FontSizes.FONT_SIZE_14,
+                                              fontSize: FontSizes.FONT_SIZE_14,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Expanded(
                                           child: Text(
-                                            "\$504.00",
+                                            "\$${CartCubit.get(context).totalPrice + (double.tryParse(selectedShippingMethod?.quote?[0].cost ?? "") ?? 0)} ",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize:
                                                     FontSizes.FONT_SIZE_14),
                                           ),
@@ -417,11 +416,11 @@ class _QuickCheckoutMainScreenState extends State<QuickCheckoutMainScreen> with 
                                       child: CheckboxListTile(
                                         value: true,
                                         onChanged: (check) {},
+
                                         title: const Text(
                                           "I have read and agree to the Terms & Conditions",
                                           style: TextStyle(
-                                              fontSize:
-                                                  FontSizes.FONT_SIZE_14),
+                                              fontSize: FontSizes.FONT_SIZE_14),
                                         ),
                                       )),
                                   const SizedBox(
@@ -435,8 +434,7 @@ class _QuickCheckoutMainScreenState extends State<QuickCheckoutMainScreen> with 
                                         title: const Text(
                                           "I have read and agree to the Privacy Policy",
                                           style: TextStyle(
-                                              fontSize:
-                                                  FontSizes.FONT_SIZE_14),
+                                              fontSize: FontSizes.FONT_SIZE_14),
                                         ),
                                       )),
                                 ],
@@ -449,7 +447,7 @@ class _QuickCheckoutMainScreenState extends State<QuickCheckoutMainScreen> with 
                                 text: "Confirm Order",
                                 isLoading: state is ConfirmOrderLoadingState,
                                 action: () {
-                                  checkOutCubit.confirmOrder();
+                                  checkOutCubit.confirmOrder(CartCubit.get(context));
                                   // Navigator.push(
                                   //     context,
                                   //     PageTransition(

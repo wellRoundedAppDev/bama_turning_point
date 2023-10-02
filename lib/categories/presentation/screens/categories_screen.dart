@@ -12,7 +12,8 @@ import 'package:page_transition/page_transition.dart';
 import '../../../core/constants/colors/colors.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({Key? key}) : super(key: key);
+  bool showBackButton;
+   CategoriesScreen({Key? key,this.showBackButton = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,8 @@ class CategoriesScreen extends StatelessWidget {
           child: Scaffold(
         appBar: CustomAppBar.renderAppBar(
           title: "Categories",
-          cartCubit: CartCubit.get(context)
+          cartCubit: CartCubit.get(context),
+          showBackButton: showBackButton
         ),
         body: BlocConsumer<CategoriesCubit, CategoriesStates>(
           listener: (context, state) {},

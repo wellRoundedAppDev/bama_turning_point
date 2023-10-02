@@ -1,5 +1,3 @@
-import 'package:bloc/bloc.dart';
-import 'package:classic_eccomerce/authentication/data/data_sources/remote_data_sources/auth_apis.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:classic_eccomerce/product_details/data/data_sources/remote_data_sources/product_details_api.dart';
 import 'package:classic_eccomerce/product_details/data/models/get_product_details_response.dart';
@@ -50,21 +48,31 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
   }
 
   addItemToWishlist(int productId) async {
+    bool? isUserLoggedIn =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
+    if (isUserLoggedIn == false) {
+      showAppSnackBar(content: "You must login to add product to wish list");
+
+      return;
+    }
+
+    var success = await AuthCubit.get(context).setAccessToken();
+    if (success == false) {
+      return;
+    }
+
     emit(AddItemToFavoritesLoadingState());
     var response = await WishListApis.addItemToWishlist(productId);
     if (response == true) {
-      showAppSnackBar(content:"Product added to wishlist");
+      showAppSnackBar(content: "Product added to wishlist");
       emit(AddItemToFavoritesSuccessState());
     } else if (response == false) {
-      showAppSnackBar(content:"Error occured");
+      showAppSnackBar(content: "Error occured");
 
       emit(AddItemToFavoritesFailedState());
     } else {
-
-      showAppSnackBar(content:"Check your internet connection, and try again");
+      showAppSnackBar(content: "Check your internet connection, and try again");
       emit(AddItemToFavoritesNetworkConnectionFailedState());
     }
   }
-
-
 }
