@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
+import '../../../../shared_components/app_snackbar.dart';
 import '../../../data/models/cart_item.dart';
 
 class CartCubit extends Cubit<CartStates> {
@@ -26,10 +27,13 @@ class CartCubit extends Cubit<CartStates> {
   //to call cubit
   static CartCubit get(BuildContext context) => BlocProvider.of(context);
 
-  isItemInCart(String id){
-    return cartItems[id]!=null;
+
+
+
+  isItemInCart(String id) {
+    return cartItems[id] != null;
   }
-  
+
   Future<bool?> addItemsToCart() async {
     var items = cartItems.entries
         .map((e) => {"product_id": e.key, "quantity": e.value['quantity']})
@@ -48,15 +52,27 @@ class CartCubit extends Cubit<CartStates> {
         return;
       }
     }
-    await CartApis.addItemToCart({"product_id": cartItem.id, "quantity": 1});
+    emit(ItemAddedToCartLoadingState());
+    var success = await CartApis.addItemToCart(
+        {"product_id": cartItem.id, "quantity": 1});
+    if (success == false) {
+      emit(ItemAddedToCartFailedState());
+      showAppSnackBar(content: "Error occured");
+      return false;
+    } else if (success == null) {
+      emit(ItemAddedToCartNetworkConnectionFailedState());
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      return null;
+    }
 
     String id = cartItem.id;
     bool isItemNotInCart = cartItems[id] == null;
     if (isItemNotInCart) {
       cartItems[id] = cartItem.toJson();
-
-      emit(ItemAddedToCartState());
+      showAppSnackBar(content: "Product added to cart");
       increaseProductQuantity(id, SaveInDB: saveInDB);
+      //emit(ItemAddedToCartState());
+      return true;
     }
 
     if (saveInDB) {

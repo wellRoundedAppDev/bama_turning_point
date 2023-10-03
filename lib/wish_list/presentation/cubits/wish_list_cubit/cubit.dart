@@ -2,6 +2,7 @@ import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart
 import 'package:classic_eccomerce/wish_list/data/data_sources/remote_data_sources/wish_list_apis.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../cart/data/models/cart_item.dart';
 import '../../../../shared_components/app_snackbar.dart';
 import '../../../data/models/get_wishlist_response.dart';
 
@@ -14,10 +15,11 @@ class WishListCubit extends Cubit<WishListStates> {
   int? selectedProductId;
   CartCubit? cartCubit;
 
-  init(CartCubit cartCubit){
+  init(CartCubit cartCubit) {
     this.cartCubit = cartCubit;
     setWishListItems();
   }
+
   setWishListItems() async {
     emit(GetWishListLoadingState());
     var response = await WishListApis.getWishlist();
@@ -33,13 +35,33 @@ class WishListCubit extends Cubit<WishListStates> {
     }
   }
 
-  setSelectedProductId(int? productId){
+  setSelectedProductId(int? productId) {
     selectedProductId = productId;
   }
 
-  addItemToCart(){
-
-  }
+  // addItemToCart(WishlistItem? wishlistItem) {
+  //   setSelectedProductId(int.tryParse(wishlistItem?.productId ?? ""));
+  //   if (wishlistItem?.productId == null) {
+  //     showAppSnackBar(content: "Error occured");
+  //     return;
+  //   }
+  //
+  //   emit(ItemAddedToCartFromWishListLoadingState());
+  //   var success = cartCubit?.addItemToCart(CartItem(
+  //       id: wishlistItem?.productId ?? "",
+  //       name: wishlistItem?.name ?? "",
+  //       price: double.tryParse(wishlistItem?.price ?? "") ?? 0));
+  //   if (success == true) {
+  //     showAppSnackBar(content: "Product removed from wishlist");
+  //     emit(ItemAddedToCartSuccessState());
+  //   } else if (success == false) {
+  //     showAppSnackBar(content: "Error occured");
+  //     emit(ItemAddedToCartFailedState());
+  //   } else {
+  //     showAppSnackBar(content: "Check your internet connection, and try again");
+  //     emit(ItemAddedToCartNetworkConnectionFailedState());
+  //   }
+  // }
 
   deleteItemFromWishList(int? productId) async {
     setSelectedProductId(productId);
@@ -60,5 +82,4 @@ class WishListCubit extends Cubit<WishListStates> {
       emit(DeleteItemFromWishListNetworkConnectionFailedState());
     }
   }
-
 }

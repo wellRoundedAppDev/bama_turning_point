@@ -117,40 +117,54 @@ class WishListItemWidget extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        BlocConsumer<CartCubit,CartStates>(
-                          listener: (context,state){},
-                          builder: (context,state){
-                            return GestureDetector(
-                              onTap: () {
-                                WishListCubit.get(context)
-                                    .setSelectedProductId(int.tryParse(
-                                    wishlistItem?.productId ?? "") ??
-                                    0);
-
-                                if (wishlistItem?.productId == null) {
-                                  showAppSnackBar(content: "Error occured");
-                                  return;
-                                }
-
-                                CartCubit.get(context).addItemToCart(CartItem(
-                                    id: wishlistItem?.productId ?? "",
-                                    name: wishlistItem?.name ?? "",
-                                    price: double.tryParse(
-                                        wishlistItem?.price ?? "") ??
-                                        0));
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(5),
-                                color: const Color(0xff36BFB1),
-                                child: Image.asset(
-                                  IconPaths.CART,
-                                  width: 18,
-                                  height: 18,
-                                ),
-                              ),
-                            );
+                        BlocConsumer<CartCubit, CartStates>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            return (state is ItemAddedToCartLoadingState &&
+                                    int.tryParse(
+                                            wishlistItem?.productId ?? "") ==
+                                        wishListCubit.selectedProductId)
+                                ? const SizedBox(
+                                    width: 18,
+                                    height: 18,
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : (CartCubit.get(context).isItemInCart(
+                                        wishlistItem?.productId ?? ""))
+                                    ? Container()
+                                    : GestureDetector(
+                                        onTap: () {
+                                          wishListCubit.setSelectedProductId(
+                                              int.tryParse(
+                                                  wishlistItem?.productId ??
+                                                      ""));
+                                          CartCubit.get(context).addItemToCart(
+                                              CartItem(
+                                                  id: wishlistItem?.productId ??
+                                                      "",
+                                                  name:
+                                                      wishlistItem?.name ?? "",
+                                                  imagePath:
+                                                      wishlistItem?.thumb,
+                                                  price: double.tryParse(
+                                                          wishlistItem?.price
+                                                                  ?.replaceAll(
+                                                                      "\$",
+                                                                      "") ??
+                                                              "") ??
+                                                      0));
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.all(5),
+                                          color: const Color(0xff36BFB1),
+                                          child: Image.asset(
+                                            IconPaths.CART,
+                                            width: 18,
+                                            height: 18,
+                                          ),
+                                        ),
+                                      );
                           },
-
                         ),
                         const SizedBox(
                           width: 8,

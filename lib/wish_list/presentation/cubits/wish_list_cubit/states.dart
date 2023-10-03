@@ -19,3 +19,12 @@ class DeleteItemFromWishListSuccessState extends WishListStates{}
 class DeleteItemFromWishListFailedState extends WishListStates{}
 
 class DeleteItemFromWishListNetworkConnectionFailedState extends WishListStates{}
+
+
+// class ItemAddedToCartFromWishListLoadingState extends WishListStates{}
+//
+// class ItemAddedToCartSuccessState extends WishListStates{}
+//
+// class ItemAddedToCartFailedState extends WishListStates{}
+//
+// class ItemAddedToCartNetworkConnectionFailedState extends WishListStates{}

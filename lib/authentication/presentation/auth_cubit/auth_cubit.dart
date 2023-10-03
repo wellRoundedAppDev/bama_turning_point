@@ -202,8 +202,7 @@ class AuthCubit extends Cubit<AuthStates> {
         var createGuestUserSuccess = await AuthApis.createGuestUser(
             guestFormInput.toJsonForCreateGuestApi());
         if (createGuestUserSuccess == true) {
-          emit(CreatingGuestUserSuccessState());
-          Navigator.pushReplacement(
+          Navigator.push(
               context,
               PageTransition(
                   child: BlocProvider.value(
@@ -214,24 +213,32 @@ class AuthCubit extends Cubit<AuthStates> {
                   type: PageTransitionType.leftToRight));
           MyApp.navKey.currentState!.context.read<AuthCubit>().clearGuest();
 
+          emit(CreatingGuestUserSuccessState());
           return true;
         } else if (createGuestUserSuccess == false) {
+          showAppSnackBar(content: "Error occured");
           emit(CreatingGuestUserFailedState());
           return false;
         } else {
+          showAppSnackBar(content: "Check your internet connection, and try again");
           emit(CreatingGuestUserNetworkConnectionFailedState());
           return null;
         }
       } else if (addItemsToCartSuccess == false) {
         //todo add snackbar
+        emit(CreatingGuestUserFailedState());
+        showAppSnackBar(content: "Error occured");
 
         return false;
       } else {
         //todo add snackbar
+        emit(CreatingGuestUserNetworkConnectionFailedState());
+        showAppSnackBar(content: "Check your internet connection, and try again");
 
         return null;
       }
     } else {
+      emit(CreatingGuestUserNetworkConnectionFailedState());
       showAppSnackBar(content: "Check your internet connection, and try again");
       return null;
     }

@@ -41,12 +41,12 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                       },
                       child: (state is AddItemToFavoritesLoadingState)
                           ? const SizedBox(
-                        width: 30,
-                            height: 30,
-                            child: CircularProgressIndicator(
+                              width: 30,
+                              height: 30,
+                              child: CircularProgressIndicator(
                                 color: Colors.white,
                               ),
-                          )
+                            )
                           : Image.asset(
                               IconPaths.FAV_ICON,
                               width: 30,
@@ -122,28 +122,35 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                         )
-                      : CustomButton(
-                          text: "Add to cart",
-                          height: MediaQuery.of(context).size.height,
-                          textFontSize: FontSizes.FONT_SIZE_14,
-                          action: () {
-                            CartCubit cartCubit = CartCubit.get(context);
-                            ProductDetails? selectedProductDetails =
-                                ProductDetailsCubit.get(context)
-                                    .selectedProductDetails;
-                            cartCubit.addItemToCart(CartItem(
-                                id: selectedProductDetails?.productId
-                                        ?.toString() ??
-                                    "",
-                                name: selectedProductDetails?.name ?? "",
-                                imagePath: selectedProductDetails?.originalImage
-                                        .toString() ??
-                                    "",
-                                price:
-                                    selectedProductDetails?.price?.toDouble() ??
+                      : (state is ItemAddedToCartLoadingState)
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            )
+                          : CustomButton(
+                              text: "Add to cart",
+                              height: MediaQuery.of(context).size.height,
+                              textFontSize: FontSizes.FONT_SIZE_14,
+                              action: () {
+                                CartCubit cartCubit = CartCubit.get(context);
+                                ProductDetails? selectedProductDetails =
+                                    ProductDetailsCubit.get(context)
+                                        .selectedProductDetails;
+                                cartCubit.addItemToCart(CartItem(
+                                    id: selectedProductDetails?.productId
+                                            ?.toString() ??
+                                        "",
+                                    name: selectedProductDetails?.name ?? "",
+                                    imagePath: selectedProductDetails
+                                            ?.originalImage
+                                            .toString() ??
+                                        "",
+                                    price: selectedProductDetails?.price
+                                            ?.toDouble() ??
                                         -1));
-                          },
-                        );
+                              },
+                            );
                 },
               ),
             ),
