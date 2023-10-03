@@ -37,8 +37,20 @@ class WishListCubit extends Cubit<WishListStates> {
     selectedProductId = productId;
   }
 
-  addItemToCart(){
+  addItemToCart(int productId){
+    setSelectedProductId(productId);
 
+    if (productId == null) {
+      showAppSnackBar(content: "Error occured");
+      return;
+    }
+
+    cartCubit.addItemToCart(CartItem(
+        id: wishlistItem?.productId ?? "",
+        name: wishlistItem?.name ?? "",
+        price: double.tryParse(
+            wishlistItem?.price ?? "") ??
+            0));
   }
 
   deleteItemFromWishList(int? productId) async {

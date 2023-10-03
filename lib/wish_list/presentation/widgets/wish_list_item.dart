@@ -122,22 +122,7 @@ class WishListItemWidget extends StatelessWidget {
                           builder: (context,state){
                             return GestureDetector(
                               onTap: () {
-                                WishListCubit.get(context)
-                                    .setSelectedProductId(int.tryParse(
-                                    wishlistItem?.productId ?? "") ??
-                                    0);
 
-                                if (wishlistItem?.productId == null) {
-                                  showAppSnackBar(content: "Error occured");
-                                  return;
-                                }
-
-                                CartCubit.get(context).addItemToCart(CartItem(
-                                    id: wishlistItem?.productId ?? "",
-                                    name: wishlistItem?.name ?? "",
-                                    price: double.tryParse(
-                                        wishlistItem?.price ?? "") ??
-                                        0));
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(5),
