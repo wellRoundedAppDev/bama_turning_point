@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
+import '../../../../shared_components/app_snackbar.dart';
 import '../../../data/models/get_categories_response.dart';
 
 class CategoriesCubit extends Cubit<CategoriesStates> {
@@ -20,12 +21,20 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
   Category? selectedCategory;
 
   setCategories() async {
+
+
     emit(GetCategoriesLoadingState());
-    var success = await AuthCubit.get(context).setAccessToken();
-    if (!success) {
-      emit(GetCategoriesNetworkFailedState());
-      return;
+    bool? isUserLoggedIn =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
+
+    if (isUserLoggedIn == false) {
+      var success = await AuthCubit.get(context).setAccessToken();
+      if (!success) {
+        emit(GetCategoriesNetworkFailedState());
+        return;
+      }
     }
+
     var response = await CategoriesApis.getCategories(1);
     if (response?.success == 1) {
       categories = response?.categories;
@@ -44,6 +53,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
   }
 
   setAllProductsInCategory(Category? category) async {
+
     setSelectedCategory(category);
     emit(GetProductsInCategoryLoadingState());
     var response = await CategoriesApis.getProductsInCategoryById(selectedCategory?.categoryId?.toInt()??0);

@@ -1,6 +1,6 @@
 class SuccessAndErrorResponse {
   bool? success;
-  List<String>? errorMsgs;
+  List<dynamic>? errorMsgs;
 
   SuccessAndErrorResponse({required this.success, required this.errorMsgs});
 
@@ -11,5 +11,5 @@ class SuccessAndErrorResponse {
               : json['success'] == 0
                   ? false
                   : null,
-          errorMsgs: json['message']);
+          errorMsgs: json['error'].cast<String>());
 }

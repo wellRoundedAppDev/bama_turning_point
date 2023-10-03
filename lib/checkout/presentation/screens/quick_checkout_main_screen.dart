@@ -13,16 +13,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class QuickCheckoutMainScreen extends StatefulWidget {
+class QuickCheckoutMainScreen extends StatelessWidget {
   const QuickCheckoutMainScreen({super.key});
 
-  @override
-  State<QuickCheckoutMainScreen> createState() =>
-      _QuickCheckoutMainScreenState();
-}
-
-class _QuickCheckoutMainScreenState extends State<QuickCheckoutMainScreen>
-    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CheckOutCubit, CheckOutStates>(

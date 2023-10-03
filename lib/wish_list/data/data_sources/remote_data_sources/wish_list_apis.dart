@@ -38,6 +38,33 @@ class WishListApis {
     }
   }
 
+  static Future<bool?> deleteItemFromWishlist(
+    int productId,
+  ) async {
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    String endpoint = ApiUrls.getDeleteItemsFromWishlistEndpoint(productId);
+    try {
+      var response = await dioHelper.delete(
+          endPoint: endpoint,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      if (response.data['success'] == 1) {
+        return true;
+      } else if (response.data['success'] == 0) {
+        return false;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Delete item from wish list error api $e");
+      }
+    }
+  }
+
   static Future<GetWishlistResponse?> getWishlist() async {
     String endPoint = ApiUrls.GET_WISH_LIST_ENDPOINT;
     String? accessToken =

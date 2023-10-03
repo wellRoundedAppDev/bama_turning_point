@@ -26,6 +26,10 @@ class CartCubit extends Cubit<CartStates> {
   //to call cubit
   static CartCubit get(BuildContext context) => BlocProvider.of(context);
 
+  isItemInCart(String id){
+    return cartItems[id]!=null;
+  }
+  
   Future<bool?> addItemsToCart() async {
     var items = cartItems.entries
         .map((e) => {"product_id": e.key, "quantity": e.value['quantity']})
@@ -35,12 +39,16 @@ class CartCubit extends Cubit<CartStates> {
   }
 
   addItemToCart(CartItem cartItem, {bool saveInDB = true}) async {
-    // var success = await AuthCubit.get(context).setAccessToken();
-    // if (success == false) {
-    //   return;
-    // }
-    //
-    // // await CartApis.addItemToCart({"product_id": cartItem.id, "quantity": 1});
+    bool? isUserLoggedIn =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
+    if (isUserLoggedIn == false) {
+      var success = await AuthCubit.get(context).setAccessToken();
+      if (!success) {
+        emit(ItemAddedToCartNetworkConnectionFailedState());
+        return;
+      }
+    }
+    await CartApis.addItemToCart({"product_id": cartItem.id, "quantity": 1});
 
     String id = cartItem.id;
     bool isItemNotInCart = cartItems[id] == null;

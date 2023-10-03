@@ -46,12 +46,13 @@ class DioHelper {
       {required String endpoint,
         dynamic headers = const {},
         Map<String, dynamic> queryParameters = const {}}) async {
-    String? accessToken =
-        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
-    if (kDebugMode) {
-      print("Access token: $accessToken");
-    }
+    // String? accessToken =
+    //     MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    // if (kDebugMode) {
+    //   print("Access token: $accessToken");
+    // }
 
+    print("headers $headers");
     try {
       return await _dio.get(endpoint,
           queryParameters: queryParameters,
@@ -107,6 +108,8 @@ class DioHelper {
     // if (kDebugMode) {
     //   print("Access token: $accessToken");
     // }
+    print("headers $headers");
+
     try {
       return await _dio.post(
         endPoint,
@@ -128,6 +131,41 @@ class DioHelper {
     }
   }
 
+  Future<Response?> delete({
+    required String endPoint,
+    dynamic body = const {},
+    Map<String, dynamic> headers = const {}
+  }) async {
+    // String? accessToken =
+    //     MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    // if (kDebugMode) {
+    //   print("Access token: $accessToken");
+    // }
+    if (kDebugMode) {
+      print("headers $headers");
+    }
+
+    try {
+      return await _dio.delete(
+        endPoint,
+        data: body,
+        options: Options(
+            headers: headers,
+            validateStatus: (int? status){
+              if(status! >= 200 && status <= 600){
+                return true;
+              }
+              return false;
+            }
+        ),
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
 
   Future<Response?> put({
     required String endPoint,
@@ -139,6 +177,8 @@ class DioHelper {
     // if (kDebugMode) {
     //   print("Access token: $accessToken");
     // }
+    print("headers $headers");
+
     try {
       return await _dio.put(
         endPoint,

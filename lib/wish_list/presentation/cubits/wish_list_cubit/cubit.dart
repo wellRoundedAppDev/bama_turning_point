@@ -1,7 +1,7 @@
 import 'package:classic_eccomerce/wish_list/data/data_sources/remote_data_sources/wish_list_apis.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import '../../../../shared_components/app_snackbar.dart';
 import '../../../data/models/get_wishlist_response.dart';
 
 class WishListCubit extends Cubit<WishListStates> {
@@ -10,6 +10,7 @@ class WishListCubit extends Cubit<WishListStates> {
   static WishListCubit get(context) => BlocProvider.of(context);
 
   List<WishlistItem>? wishListItems;
+  int? selectedProductId;
 
   setWishListItems() async {
     emit(GetWishListLoadingState());
@@ -25,4 +26,25 @@ class WishListCubit extends Cubit<WishListStates> {
       emit(GetWishListNetworkConnectionFailedState());
     }
   }
+
+  setSelectedProductId(int productId){
+    selectedProductId = productId;
+  }
+
+  deleteItemFromWishList(int productId) async {
+    setSelectedProductId(productId);
+    emit(DeleteItemFromWishListLoadingState());
+    var response = await WishListApis.deleteItemFromWishlist(productId);
+    if (response == true) {
+      showAppSnackBar(content: "Product removed from wishlist");
+      setWishListItems();
+    } else if (response == false) {
+      showAppSnackBar(content: "Error occured");
+      emit(DeleteItemFromWishListFailedState());
+    } else {
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      emit(DeleteItemFromWishListNetworkConnectionFailedState());
+    }
+  }
+
 }

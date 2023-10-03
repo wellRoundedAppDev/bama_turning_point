@@ -54,10 +54,10 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
       return;
     }
 
-    var success = await AuthCubit.get(context).setAccessToken();
-    if (success == false) {
-      return;
-    }
+    // var success = await AuthCubit.get(context).setAccessToken();
+    // if (success == false) {
+    //   return;
+    // }
 
     emit(AddItemToFavoritesLoadingState());
     var response = await WishListApis.addItemToWishlist(productId);
