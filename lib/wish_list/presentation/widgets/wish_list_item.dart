@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/cart/data/models/cart_item.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:classic_eccomerce/wish_list/data/models/get_wishlist_response.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/states.dart';
@@ -116,38 +117,41 @@ class WishListItemWidget extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        (CartCubit.get(context)
-                                .isItemInCart(wishlistItem?.productId ?? ""))
-                            ? Container()
-                            : GestureDetector(
-                                onTap: () {
-                                  WishListCubit.get(context)
-                                      .setSelectedProductId(int.tryParse(
-                                              wishlistItem?.productId ?? "") ??
-                                          0);
+                        BlocConsumer<CartCubit,CartStates>(
+                          listener: (context,state){},
+                          builder: (context,state){
+                            return GestureDetector(
+                              onTap: () {
+                                WishListCubit.get(context)
+                                    .setSelectedProductId(int.tryParse(
+                                    wishlistItem?.productId ?? "") ??
+                                    0);
 
-                                  if (wishlistItem?.productId == null) {
-                                    showAppSnackBar(content: "Error occured");
-                                    return;
-                                  }
+                                if (wishlistItem?.productId == null) {
+                                  showAppSnackBar(content: "Error occured");
+                                  return;
+                                }
 
-                                  CartCubit.get(context).addItemToCart(CartItem(
-                                      id: wishlistItem?.productId ?? "",
-                                      name: wishlistItem?.name ?? "",
-                                      price: double.tryParse(
-                                              wishlistItem?.price ?? "") ??
-                                          0));
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  color: const Color(0xff36BFB1),
-                                  child: Image.asset(
-                                    IconPaths.CART,
-                                    width: 18,
-                                    height: 18,
-                                  ),
+                                CartCubit.get(context).addItemToCart(CartItem(
+                                    id: wishlistItem?.productId ?? "",
+                                    name: wishlistItem?.name ?? "",
+                                    price: double.tryParse(
+                                        wishlistItem?.price ?? "") ??
+                                        0));
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(5),
+                                color: const Color(0xff36BFB1),
+                                child: Image.asset(
+                                  IconPaths.CART,
+                                  width: 18,
+                                  height: 18,
                                 ),
                               ),
+                            );
+                          },
+
+                        ),
                         const SizedBox(
                           width: 8,
                         ),
@@ -160,15 +164,9 @@ class WishListItemWidget extends StatelessWidget {
                                 child: CircularProgressIndicator())
                             : GestureDetector(
                                 onTap: () {
-                                  if (wishlistItem?.productId == null) {
-                                    showAppSnackBar(content: "Error occured");
-                                    return;
-                                  }
-
                                   WishListCubit.get(context)
                                       .deleteItemFromWishList(int.tryParse(
-                                              wishlistItem?.productId ?? "") ??
-                                          0);
+                                          wishlistItem?.productId ?? ""));
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.all(5),

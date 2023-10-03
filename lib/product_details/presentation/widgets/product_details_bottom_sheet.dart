@@ -40,10 +40,13 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                             .addItemToWishlist(productId);
                       },
                       child: (state is AddItemToFavoritesLoadingState)
-                          ? const CircularProgressIndicator(
-                              color: Colors.white,
-                        value: 10,
-                            )
+                          ? const SizedBox(
+                        width: 30,
+                            height: 30,
+                            child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                          )
                           : Image.asset(
                               IconPaths.FAV_ICON,
                               width: 30,

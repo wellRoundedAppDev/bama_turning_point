@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/wish_list/data/data_sources/remote_data_sources/wish_list_apis.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,12 @@ class WishListCubit extends Cubit<WishListStates> {
 
   List<WishlistItem>? wishListItems;
   int? selectedProductId;
+  CartCubit? cartCubit;
 
+  init(CartCubit cartCubit){
+    this.cartCubit = cartCubit;
+    setWishListItems();
+  }
   setWishListItems() async {
     emit(GetWishListLoadingState());
     var response = await WishListApis.getWishlist();
@@ -27,12 +33,20 @@ class WishListCubit extends Cubit<WishListStates> {
     }
   }
 
-  setSelectedProductId(int productId){
+  setSelectedProductId(int? productId){
     selectedProductId = productId;
   }
 
-  deleteItemFromWishList(int productId) async {
+  addItemToCart(){
+
+  }
+
+  deleteItemFromWishList(int? productId) async {
     setSelectedProductId(productId);
+    if (productId == null) {
+      showAppSnackBar(content: "Error occured");
+      return;
+    }
     emit(DeleteItemFromWishListLoadingState());
     var response = await WishListApis.deleteItemFromWishlist(productId);
     if (response == true) {
