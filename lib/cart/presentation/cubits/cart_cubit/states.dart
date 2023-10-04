@@ -21,3 +21,12 @@ class ItemQuantityDecreasedFromCartState extends CartStates{}
 class OrderInCartConfirmedState extends CartStates{}
 
 class CartIsClearedState extends CartStates{}
+
+
+class LoadCartLoadingState extends CartStates{}
+
+class LoadCartSuccessState extends CartStates{}
+
+class LoadCartFailedState extends CartStates{}
+
+class LoadCartNetworkConnectionFailedState extends CartStates{}

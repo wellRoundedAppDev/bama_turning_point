@@ -27,8 +27,32 @@ class CartCubit extends Cubit<CartStates> {
   //to call cubit
   static CartCubit get(BuildContext context) => BlocProvider.of(context);
 
-
-
+  loadCartItems() async {
+    emit(LoadCartLoadingState());
+    if(await AuthCubit.get(context).setAccessToken() != true){
+      emit(LoadCartNetworkConnectionFailedState());
+      return;
+    }
+    var response = await CartApis.getCartItems();
+    if (response?.success == 1) {
+      response?.data?.cartItemsFromApi?.map((e) {
+        if (e.productId != null) {
+          cartItems[e.productId ?? ""] = {
+            "id": e.productId,
+            "name": e.name,
+            "quantity": int.tryParse(e.quantity ?? ""),
+            "price": double.tryParse(e.price ?? ""),
+            "imagePath": e.thumb
+          };
+        }
+      });
+      emit(LoadCartSuccessState());
+    } else if (response?.success == 0) {
+      emit(LoadCartFailedState());
+    } else {
+      emit(LoadCartNetworkConnectionFailedState());
+    }
+  }
 
   isItemInCart(String id) {
     return cartItems[id] != null;

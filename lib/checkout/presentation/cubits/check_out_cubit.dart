@@ -46,14 +46,17 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   init() async {
     emit(InitializeCheckoutLoadingState());
 
-    var settingGuestShippingAddressSuccess = await setGuestShippingAddress();
-    if (settingGuestShippingAddressSuccess == false) {
-      emit(InitializeCheckoutFailedState());
-      return;
-    } else if (settingGuestShippingAddressSuccess == null) {
-      emit(InitializeCheckoutNetworkConnectionFailedState());
-      return;
+    if (AuthCubit.get(context).isUserLoggedIn == false) {
+      var settingGuestShippingAddressSuccess = await setGuestShippingAddress();
+      if (settingGuestShippingAddressSuccess == false) {
+        emit(InitializeCheckoutFailedState());
+        return;
+      } else if (settingGuestShippingAddressSuccess == null) {
+        emit(InitializeCheckoutNetworkConnectionFailedState());
+        return;
+      }
     }
+
     var getShippingMethodsSuccess = await getShippingMethods();
 
     if (getShippingMethodsSuccess == false) {

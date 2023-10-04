@@ -1,10 +1,8 @@
 import 'package:classic_eccomerce/authentication/presentation/screens/guest_screen.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/login_screen.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/sign_up_screen.dart';
-import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../shared_components/custom_app_bar.dart';
 import '../cubits/check_out_cubit.dart';
@@ -17,6 +15,7 @@ class QuickCheckoutAuthScreen extends StatefulWidget {
 }
 
 class _QuickCheckoutAuthScreenState extends State<QuickCheckoutAuthScreen> with TickerProviderStateMixin {
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

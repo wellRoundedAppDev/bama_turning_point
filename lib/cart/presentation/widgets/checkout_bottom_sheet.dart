@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../checkout/presentation/screens/quick_checkout_main_screen.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../shared_components/custom_button.dart';
 
@@ -71,6 +73,19 @@ class CheckOutBottomSheet extends StatelessWidget {
                 height: MediaQuery.of(context).size.height,
                 textFontSize: FontSizes.FONT_SIZE_14,
                 action: () {
+                  if (AuthCubit.get(context).isUserLoggedIn) {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: BlocProvider.value(
+                                value: CartCubit.get(context),
+                                child: BlocProvider(
+                                    create: (context) =>
+                                        CheckOutCubit()..init(),
+                                    child: const QuickCheckoutMainScreen())),
+                            type: PageTransitionType.leftToRight));
+                    return;
+                  }
                   Navigator.push(
                       context,
                       PageTransition(

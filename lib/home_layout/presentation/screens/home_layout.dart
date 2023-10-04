@@ -23,7 +23,7 @@ class HomeLayoutScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AppCubit()),
-        BlocProvider(create: (context) => CartCubit()),
+        BlocProvider(create: (context) => CartCubit()..loadCartItems()),
       ],
       child: BlocConsumer<AppCubit, CheckOutStates>(
         listener: (context, state) {},

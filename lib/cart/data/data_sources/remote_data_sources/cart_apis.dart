@@ -1,5 +1,7 @@
+import 'package:classic_eccomerce/cart/data/models/get_cart_response.dart';
 import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/core/helpers/dio_helper.dart';
+import 'package:classic_eccomerce/wish_list/data/models/get_wishlist_response.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,8 +15,28 @@ class CartApis {
   // "product_id": 34,
   // "quantity": 2
   // }
+  static Future<GetCartResponse?> getCartItems() async {
+    String endpoint = ApiUrls.CART_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.get(
+          endpoint: endpoint,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+     return GetCartResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Get Cart error api $e");
+      }
+    }
+  }
+
   static Future<bool?> addItemToCart(dynamic item) async {
-    String endpoint = ApiUrls.ADD_ITEM_TO_CART_ENDPOINT;
+    String endpoint = ApiUrls.CART_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
