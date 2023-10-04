@@ -10,7 +10,8 @@ import '../../../core/constants/paths/image_paths.dart';
 import '../../../shared_components/custom_input.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+  bool showBackButton;
+  SignUpScreen({super.key, this.showBackButton = true});
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +26,11 @@ class SignUpScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
-                  children: [BackButton()],
-                ),
+                (showBackButton == false)
+                    ? Container()
+                    : const Row(
+                        children: [BackButton()],
+                      ),
                 Center(
                   child: ClipOval(
                       child: Image.asset(

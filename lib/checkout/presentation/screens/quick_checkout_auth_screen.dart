@@ -71,9 +71,9 @@ class _QuickCheckoutAuthScreenState extends State<QuickCheckoutAuthScreen> with 
                           padding: const EdgeInsets.all(16.0),
                           child: SignInScreen(),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: SignUpScreen(),
+                         Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: SignUpScreen(showBackButton: false,),
                         ),
                         const Padding(
                           padding: EdgeInsets.all(16.0),

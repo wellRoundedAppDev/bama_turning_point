@@ -133,7 +133,7 @@ class SignInScreen extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   PageTransition(
-                                      child: const SignUpScreen(),
+                                      child:  SignUpScreen(),
                                       type: PageTransitionType.leftToRight));
                             },
                             child: const Text(
