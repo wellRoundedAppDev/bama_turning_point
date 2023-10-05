@@ -15,7 +15,7 @@ import '../../../core/constants/fonts/font_sizes.dart';
 
 class CartScreen extends StatelessWidget {
   bool showBackButton;
-   CartScreen({Key? key, this.showBackButton = false}) : super(key: key);
+  CartScreen({Key? key, this.showBackButton = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +211,7 @@ class CartScreen extends StatelessWidget {
                                                           Container(
                                                             padding:
                                                                 const EdgeInsets
-                                                                        .only(
+                                                                    .only(
                                                                     left: 16,
                                                                     right: 8),
                                                             decoration: BoxDecoration(
@@ -301,7 +301,7 @@ class CartScreen extends StatelessWidget {
                                                           Container(
                                                             padding:
                                                                 const EdgeInsets
-                                                                        .only(
+                                                                    .only(
                                                                     left: 16,
                                                                     right: 8),
                                                             decoration: BoxDecoration(

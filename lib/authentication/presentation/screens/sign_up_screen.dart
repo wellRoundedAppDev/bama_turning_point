@@ -1,17 +1,16 @@
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../core/constants/paths/image_paths.dart';
 import '../../../shared_components/custom_input.dart';
 
 class SignUpScreen extends StatelessWidget {
   bool showBackButton;
-  SignUpScreen({super.key, this.showBackButton = true});
+  SignUpScreen(
+      {super.key, this.showBackButton = true, });
 
   @override
   Widget build(BuildContext context) {

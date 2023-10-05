@@ -14,7 +14,10 @@ import '../../../shared_components/custom_input.dart';
 
 class SignInScreen extends StatelessWidget {
   bool isCheckingOut;
-  SignInScreen({super.key, this.isCheckingOut = false});
+  SignInScreen({
+    super.key,
+    this.isCheckingOut = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,6 @@ class SignInScreen extends StatelessWidget {
             key: AuthCubit.get(context).loginFormKey,
             child: Column(
               children: [
-
                 ClipOval(
                     child: Image.asset(
                   ImagePaths.APP_LOGO,
@@ -133,7 +135,7 @@ class SignInScreen extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   PageTransition(
-                                      child:  SignUpScreen(),
+                                      child: SignUpScreen(),
                                       type: PageTransitionType.leftToRight));
                             },
                             child: const Text(

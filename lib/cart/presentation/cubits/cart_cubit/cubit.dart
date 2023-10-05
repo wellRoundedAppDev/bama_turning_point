@@ -29,7 +29,7 @@ class CartCubit extends Cubit<CartStates> {
 
   loadCartItems() async {
     emit(LoadCartLoadingState());
-    if(await AuthCubit.get(context).setAccessToken() != true){
+    if (await AuthCubit.get(context).setAccessToken() != true) {
       emit(LoadCartNetworkConnectionFailedState());
       return;
     }

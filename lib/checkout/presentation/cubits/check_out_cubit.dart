@@ -6,7 +6,6 @@ import 'package:classic_eccomerce/checkout/data/models/get_payment_methods_respo
 import 'package:classic_eccomerce/checkout/data/models/get_shipping_methods_response.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/states.dart';
 import 'package:classic_eccomerce/checkout/presentation/screens/order_success_screen.dart';
-import 'package:classic_eccomerce/core/constants/paths/routes/routes/routes_ids.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +23,12 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   List<PaymentMethod>? paymentMethods;
   ShippingMethod? selectedShippingMethod;
   PaymentMethod? selectedPaymentMethod;
+  
+  GlobalKey<FormState> addressForRegisteredUserFormkey = GlobalKey<FormState>();
 
   TabController? tabController;
+
+
 
   setShippingMethod(int index) {
     selectedShippingMethod = shippingMethods?[index];
@@ -43,10 +46,10 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     MyApp.navKey.currentState!.context.read<AuthCubit>().clearGuest();
   }
 
-  init() async {
+  initCheckoutForGuest() async {
     emit(InitializeCheckoutLoadingState());
 
-    if (AuthCubit.get(context).isUserLoggedIn == false) {
+    
       var settingGuestShippingAddressSuccess = await setGuestShippingAddress();
       if (settingGuestShippingAddressSuccess == false) {
         emit(InitializeCheckoutFailedState());
@@ -55,7 +58,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         emit(InitializeCheckoutNetworkConnectionFailedState());
         return;
       }
-    }
+    
 
     var getShippingMethodsSuccess = await getShippingMethods();
 
@@ -81,6 +84,47 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     await setPaymentMethod(0);
     emit(InitializeCheckoutSuccessState());
   }
+
+
+  initCheckoutForRegisteredUser() async {
+    emit(InitializeCheckoutLoadingState());
+
+
+    var settingGuestShippingAddressSuccess = await setGuestShippingAddress();
+    if (settingGuestShippingAddressSuccess == false) {
+      emit(InitializeCheckoutFailedState());
+      return;
+    } else if (settingGuestShippingAddressSuccess == null) {
+      emit(InitializeCheckoutNetworkConnectionFailedState());
+      return;
+    }
+
+
+    var getShippingMethodsSuccess = await getShippingMethods();
+
+    if (getShippingMethodsSuccess == false) {
+      emit(InitializeCheckoutFailedState());
+      return;
+    } else if (getShippingMethodsSuccess == null) {
+      emit(InitializeCheckoutNetworkConnectionFailedState());
+      return;
+    }
+
+    await setShippingMethod(0);
+
+    var getPaymentMethodsSuccess = await getPaymentMethods();
+    if (getPaymentMethodsSuccess == false) {
+      emit(InitializeCheckoutFailedState());
+      return;
+    } else if (getPaymentMethodsSuccess == null) {
+      emit(InitializeCheckoutNetworkConnectionFailedState());
+      return;
+    }
+
+    await setPaymentMethod(0);
+    emit(InitializeCheckoutSuccessState());
+  }
+
 
   Future<bool?> setGuestShippingAddress() async {
     GuestFormInput guestFormInput = AuthCubit.get(context).guestFormInput;
@@ -148,15 +192,28 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
 
     var isConfirmOrderSuccess = await CheckoutApis.confirmOrder();
     if (isConfirmOrderSuccess == true) {
-      cartCubit.clearCart();
-      Navigator.pushReplacement(
-        context,
-        PageTransition(
-            child: BlocProvider.value(
-                value: cartCubit, child: const OrderSuccessScreen()),
-            type: PageTransitionType.leftToRight),
-      );
-      emit(ConfirmOrderSuccessState());
+      var isConfirmOrderAndEndSessionSuccess =
+          await CheckoutApis.confirmOrderAndEndSession();
+      if (isConfirmOrderAndEndSessionSuccess == true) {
+        cartCubit.clearCart();
+        Navigator.pushReplacement(
+          context,
+          PageTransition(
+              child: BlocProvider.value(
+                  value: cartCubit, child: const OrderSuccessScreen()),
+              type: PageTransitionType.leftToRight),
+        );
+        emit(ConfirmOrderSuccessState());
+      }
+      else if (isConfirmOrderAndEndSessionSuccess == false) {
+        emit(ConfirmOrderFailedState());
+        showAppSnackBar(content: "Error occured");
+      }
+      else {
+        emit(ConfirmOrderNetworkConnectionFailedState());
+        showAppSnackBar(
+            content: "Check your internet connection, and try again");
+      }
     } else if (isConfirmOrderSuccess == false) {
       emit(ConfirmOrderFailedState());
       showAppSnackBar(content: "Error occured");
@@ -192,4 +249,6 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
       return null;
     }
   }
+  
+  
 }

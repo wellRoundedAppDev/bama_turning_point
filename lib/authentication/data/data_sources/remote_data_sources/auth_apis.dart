@@ -84,7 +84,8 @@ class AuthApis {
       var response = await dioHelper.post(
           endPoint: endpoint,
           body: registerInput,
-          headers: {"Authorization": "Bearer $accessToken"});
+          headers: {"Authorization": "Bearer $accessToken"}
+      );
 
       if (response == null) {
         return null;
@@ -99,8 +100,12 @@ class AuthApis {
 
   static Future<bool?> logOut() async {
     String endpoint = ApiUrls.LOGOUT_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
     try {
       var response = await dioHelper.post(
+        headers: {"Authorization": "Bearer $accessToken"},
         endPoint: endpoint,
       );
       if (response == null) {

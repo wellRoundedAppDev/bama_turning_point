@@ -44,7 +44,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: NoNetworkRefreshPage(refresh: () {
-                          checkOutCubit.init();
+                          checkOutCubit.initCheckoutForGuest();
                         }),
                       ),
                     )
@@ -409,7 +409,6 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                       child: CheckboxListTile(
                                         value: true,
                                         onChanged: (check) {},
-
                                         title: const Text(
                                           "I have read and agree to the Terms & Conditions",
                                           style: TextStyle(
@@ -440,7 +439,8 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                 text: "Confirm Order",
                                 isLoading: state is ConfirmOrderLoadingState,
                                 action: () {
-                                  checkOutCubit.confirmOrder(CartCubit.get(context));
+                                  checkOutCubit
+                                      .confirmOrder(CartCubit.get(context));
                                   // Navigator.push(
                                   //     context,
                                   //     PageTransition(

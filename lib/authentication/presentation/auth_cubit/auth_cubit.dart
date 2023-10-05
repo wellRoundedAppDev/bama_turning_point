@@ -112,7 +112,7 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 
-  logOut() async {
+  Future<void> logOut() async {
     // if (await setSessionId() == false) {
     //   showAppSnackBar(content: "Check your internet connection, and try again");
     //   emit(LogoutNetworkFailedConnectionState());
@@ -189,6 +189,7 @@ class AuthCubit extends Cubit<AuthStates> {
 
   Future<bool?> createGuestUser(
       CartCubit cartCubit, CheckOutCubit checkOutCubit) async {
+
     if (validateGuestCheckoutForm() == false) {
       return null;
     }
@@ -206,13 +207,12 @@ class AuthCubit extends Cubit<AuthStates> {
               context,
               PageTransition(
                   child: BlocProvider.value(
-                      value: checkOutCubit..init(),
+                      value: checkOutCubit..initCheckoutForGuest(),
                       child: BlocProvider.value(
                           value: cartCubit,
                           child: const QuickCheckoutMainScreen())),
                   type: PageTransitionType.leftToRight));
           MyApp.navKey.currentState!.context.read<AuthCubit>().clearGuest();
-
           emit(CreatingGuestUserSuccessState());
           return true;
         } else if (createGuestUserSuccess == false) {
@@ -237,7 +237,8 @@ class AuthCubit extends Cubit<AuthStates> {
 
         return null;
       }
-    } else {
+    }
+    else {
       emit(CreatingGuestUserNetworkConnectionFailedState());
       showAppSnackBar(content: "Check your internet connection, and try again");
       return null;

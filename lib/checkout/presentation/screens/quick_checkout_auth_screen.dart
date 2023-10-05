@@ -11,82 +11,89 @@ class QuickCheckoutAuthScreen extends StatefulWidget {
   const QuickCheckoutAuthScreen({super.key});
 
   @override
-  State<QuickCheckoutAuthScreen> createState() => _QuickCheckoutAuthScreenState();
+  State<QuickCheckoutAuthScreen> createState() =>
+      _QuickCheckoutAuthScreenState();
 }
 
-class _QuickCheckoutAuthScreenState extends State<QuickCheckoutAuthScreen> with TickerProviderStateMixin {
-
+class _QuickCheckoutAuthScreenState extends State<QuickCheckoutAuthScreen>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>  CheckOutCubit()..initCheckOutAuthScreen(this),
-      child: Builder(
-        builder: (context) {
-          return SafeArea(
-              child: Scaffold(
-                backgroundColor: Colors.white,
-            appBar: CustomAppBar.renderAppBar(title: "Quick Checkout",showCartIcon: false),
-            body: Column(
-              children: [
-                DecoratedBox(
-                  decoration: const BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(width: 1, color: Color(0xff605050)))),
-                  child: TabBar(
-                      indicatorWeight: 4,
-                      indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
-                      controller: CheckOutCubit.get(context).tabController,
-                      labelStyle: const TextStyle(
-                          color: Color(0xff36BFB1), fontSize: FontSizes.FONT_SIZE_16),
-                      dividerColor: Colors.grey,
-                      labelColor: const Color(0xff36BFB1),
-                      unselectedLabelColor: const Color(0xff313846),
-                      tabs: const [
-                        Tab(
-                            child: Text(
-                          "SIGN IN",
-                          style: TextStyle(fontSize: FontSizes.FONT_SIZE_16),
-                        )),
-                        Tab(
-                            child: Text(
-                          "SIGN UP",
-                          style: TextStyle(fontSize: FontSizes.FONT_SIZE_16),
-                        )),
-                        Tab(
+      create: (context) => CheckOutCubit()..initCheckOutAuthScreen(this),
+      child: Builder(builder: (context) {
+        return SafeArea(
+            child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: CustomAppBar.renderAppBar(
+              title: "Quick Checkout", showCartIcon: false),
+          body: Column(
+            children: [
+              DecoratedBox(
+                decoration: const BoxDecoration(
+                    border: Border(
+                        bottom:
+                            BorderSide(width: 1, color: Color(0xff605050)))),
+                child: TabBar(
+                    indicatorWeight: 4,
+                    indicatorPadding:
+                        const EdgeInsets.symmetric(horizontal: 10),
+                    controller: CheckOutCubit.get(context).tabController,
+                    labelStyle: const TextStyle(
+                        color: Color(0xff36BFB1),
+                        fontSize: FontSizes.FONT_SIZE_16),
+                    dividerColor: Colors.grey,
+                    labelColor: const Color(0xff36BFB1),
+                    unselectedLabelColor: const Color(0xff313846),
+                    tabs: const [
+                      Tab(
                           child: Text(
-                            "GUEST",
-                            style: TextStyle(fontSize: FontSizes.FONT_SIZE_16),
-                          ),
+                        "SIGN IN",
+                        style: TextStyle(fontSize: FontSizes.FONT_SIZE_16),
+                      )),
+                      Tab(
+                          child: Text(
+                        "SIGN UP",
+                        style: TextStyle(fontSize: FontSizes.FONT_SIZE_16),
+                      )),
+                      Tab(
+                        child: Text(
+                          "GUEST",
+                          style: TextStyle(fontSize: FontSizes.FONT_SIZE_16),
                         ),
-                      ]),
-                ),
-                Expanded(
-                  child: SizedBox(
-                    width: double.maxFinite,
-                    child: TabBarView(
-                      controller: CheckOutCubit.get(context).tabController,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: SignInScreen(),
+                      ),
+                    ]),
+              ),
+              Expanded(
+                child: SizedBox(
+                  width: double.maxFinite,
+                  child: TabBarView(
+                    controller: CheckOutCubit.get(context).tabController,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: SignInScreen(
+                          isCheckingOut: true,
                         ),
-                         Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: SignUpScreen(showBackButton: false,),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: SignUpScreen(
+                          showBackButton: false,
                         ),
-                        const Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: GuestScreen(),
-                        ),
-                      ],
-                    ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: GuestScreen(),
+                      ),
+                    ],
                   ),
-                )
-              ],
-            ),
-          ));
-        }
-      ),
+                ),
+              )
+            ],
+          ),
+        ));
+      }),
     );
   }
 }

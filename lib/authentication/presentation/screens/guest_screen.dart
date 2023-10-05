@@ -4,7 +4,6 @@ import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart
 import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
 import 'package:classic_eccomerce/core/data/models/get_countries_response.dart';
 import 'package:classic_eccomerce/core/data/models/get_regions_response.dart';
-import 'package:classic_eccomerce/main.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -341,7 +340,6 @@ class GuestScreen extends StatelessWidget {
                     BlocConsumer<AuthCubit, AuthStates>(
                       listener: (context, state) {},
                       builder: (context, state) {
-
                         return Checkbox(
                             value: AuthCubit.get(context)
                                 .isGuestConfirmedBillingAndAddressMatch,

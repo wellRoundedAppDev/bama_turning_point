@@ -141,9 +141,11 @@ class HomeDrawer extends StatelessWidget {
                   ),
                 ),
               ),
+              (AuthCubit.get(context).isUserLoggedIn == false)
+                  ?Container():
               InkWell(
                 onTap: () {
-                  AuthCubit.get(context).logOut();
+                  AuthCubit.get(context).logOut().then((value) => Navigator.pop(context));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),

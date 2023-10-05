@@ -3,7 +3,6 @@ import 'package:classic_eccomerce/checkout/data/models/get_payment_methods_respo
 import 'package:classic_eccomerce/checkout/data/models/get_shipping_methods_response.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../core/constants/server_urls_and_keys/api_urls.dart';
 import '../../../core/helpers/dio_helper.dart';
@@ -54,6 +53,31 @@ class CheckoutApis {
 
     try {
       var response = await _dioHelper.post(
+          endPoint: endPoint,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      if (response.data['success'] == 1) {
+        return true;
+      } else if (response.data['success'] == 0) {
+        return false;
+      }
+      return null;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  static Future<bool?> confirmOrderAndEndSession() async {
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    String endPoint = ApiUrls.CONFIRM_ORDER_ENDPOINT;
+
+    try {
+      var response = await _dioHelper.put(
           endPoint: endPoint,
           headers: {"Authorization": "Bearer $accessToken"});
       if (response == null) {
