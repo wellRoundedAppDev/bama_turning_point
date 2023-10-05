@@ -1,5 +1,0 @@
-class RegisteredUserAddress{
-
-  String? address;
-
-}

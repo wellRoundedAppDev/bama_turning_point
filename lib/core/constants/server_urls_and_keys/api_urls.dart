@@ -1,5 +1,5 @@
 class ApiUrls {
-  static const BASE_URL = "http://north.smarthospital.solutions/";
+  static const BASE_URL = "http://Northgrass.co/";
   // "https://opencart3-simple.api.opencart-api.com/";
   static const GET_TOKEN_ENDPONT = "api/rest/oauth2/token/client_credentials";
   static const GET_SESSION_ID_ENDPOINT = "api/rest/session";
@@ -31,6 +31,8 @@ class ApiUrls {
   static const GUEST_CHECKOUT_ENDPOINT = "api/rest/guestshipping";
   static const SHIPPING_METHODS_ENDPOINT = "api/rest/shippingmethods";
   static const PAYMENT_METHODS_ENDPOINT = "api/rest/paymentmethods";
+  static const CUSTOMER_PAYMENT_ADDRESS_ENDPOINT = "api/rest/paymentaddress";
+  static const SHIPPING_ADDRESS_ENDPOINT = "api/rest/shippingaddress";
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>
       "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";
@@ -50,5 +52,4 @@ class ApiUrls {
       "$ADD_TO_WISH_LIST_ENDPOINT$id";
   static String getDeleteItemsFromWishlistEndpoint(int id) =>
       "$ADD_TO_WISH_LIST_ENDPOINT$id";
-
 }

@@ -1,4 +1,5 @@
 import 'package:classic_eccomerce/authentication/data/models/guest_form_input.dart';
+import 'package:classic_eccomerce/checkout/data/models/get_customer_payment_address_response.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_payment_methods_response.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_shipping_methods_response.dart';
 import 'package:flutter/foundation.dart';
@@ -186,6 +187,30 @@ class CheckoutApis {
         return false;
       }
       return null;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  static Future<GetCustomerPaymentAddressResponse?> getCustomerPaymentAddress() async {
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    String endPoint = ApiUrls.CUSTOMER_PAYMENT_ADDRESS_ENDPOINT;
+
+    try {
+      var response = await _dioHelper.post(endPoint: endPoint,
+          body: {
+
+      },
+          headers: {
+        "Authorization": "Bearer $accessToken"
+      });
+      if (response == null) {
+        return null;
+      }
+     return GetCustomerPaymentAddressResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
         print(e);

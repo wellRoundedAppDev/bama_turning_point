@@ -29,6 +29,9 @@ class SetAddressForRegisteredUserScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                IconButton(onPressed: (){
+                  Navigator.pop(context);
+                }, icon: const Icon(Icons.arrow_back_ios)),
                 Center(
                   child: ClipOval(
                       child: Image.asset(

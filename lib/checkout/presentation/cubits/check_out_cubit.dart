@@ -85,6 +85,9 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     emit(InitializeCheckoutSuccessState());
   }
 
+  getRegisteredUserPaymentAddress(){
+
+  }
 
   initCheckoutForRegisteredUser() async {
     emit(InitializeCheckoutLoadingState());
