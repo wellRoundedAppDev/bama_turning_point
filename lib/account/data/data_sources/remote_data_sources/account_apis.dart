@@ -1,0 +1,135 @@
+
+import 'package:classic_eccomerce/account/data/models/get_account_details_response.dart';
+import 'package:classic_eccomerce/core/data/models/success_message_response.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
+import '../../../../core/constants/server_urls_and_keys/api_urls.dart';
+import '../../../../core/helpers/dio_helper.dart';
+import '../../../../main.dart';
+import '../../models/get_account_addresses_response.dart';
+
+class AccountApis {
+  static final dioHelper = DioHelper.instance;
+
+
+  static Future<GetAccountDetailsResponse?> getAccountDetails(
+      ) async {
+    String endpoint = ApiUrls.ACCOUNT_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.get(
+          endpoint: endpoint,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      return GetAccountDetailsResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Get Account details error api $e");
+      }
+    }
+  }
+
+  static Future<SuccessAndErrorResponse?> editAccountDetails(
+      Map<String,dynamic> accountDetails
+      ) async {
+    String endpoint = ApiUrls.ACCOUNT_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.put(
+          endPoint: endpoint,
+          body: accountDetails,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      return SuccessAndErrorResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Edit Account details error api $e");
+      }
+    }
+  }
+
+  static Future<SuccessAndErrorResponse?> changePassword(Map<String, dynamic> changePasswordInput) async {
+    String endpoint = ApiUrls.CHANGE_ACCOUNT_PASSWORD_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.put(
+          endPoint: endpoint,
+          body: changePasswordInput,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      return SuccessAndErrorResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Change password error api $e");
+      }
+    }
+  }
+
+  static Future<GetAccountAddressesResponse?> getAccountAddresses() async {
+
+    String endpoint = ApiUrls.GET_ACCOUNT_ADDRESSES;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.get(
+          endpoint: endpoint,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      return GetAccountAddressesResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Get Account Addresses error api $e");
+      }
+    }
+
+
+  }
+
+// static Future<bool?> createGuestUser(
+  //     Map<String, dynamic> guestForm,
+  //     ) async {
+  //   String? accessToken =
+  //       MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+  //   String endpoint = ApiUrls.CREATE_GUEST_USER_ENDPOINT;
+  //   try {
+  //     var response = await dioHelper.post(
+  //       endPoint: endpoint,
+  //       headers: {"Authorization": "Bearer $accessToken"},
+  //       body: guestForm,
+  //     );
+  //     if (response == null) {
+  //       return null;
+  //     }
+  //     if (response.data['success'] == 1) {
+  //       return true;
+  //     } else if (response.data['success'] == 0) {
+  //       return false;
+  //     } else {
+  //       return null;
+  //     }
+  //   } catch (e) {
+  //     if (kDebugMode) {
+  //       print("Create Guest User error api $e");
+  //     }
+  //   }
+  // }
+
+
+}
