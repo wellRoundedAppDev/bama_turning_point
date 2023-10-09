@@ -5,6 +5,7 @@ class ApiUrls {
   static const GET_SESSION_ID_ENDPOINT = "api/rest/session";
   static const LOGIN_ENDPOINT = "api/rest/login";
   static const REGISTER_ENDPOINT = "api/rest/register";
+  static const ACCOUNT_ENDPOINT = "api/rest/account";
   static const GET_CATEGORIES_ENDPOINT = "api/rest/categories/extended/";
   static const GET_BANNERS_ENDPOINT = "api/rest/banners";
   static const GET_FEATURED_PRODUCTS_ENDPOINT = "api/rest/featured";
@@ -33,6 +34,8 @@ class ApiUrls {
   static const PAYMENT_METHODS_ENDPOINT = "api/rest/paymentmethods";
   static const CUSTOMER_PAYMENT_ADDRESS_ENDPOINT = "api/rest/paymentaddress";
   static const SHIPPING_ADDRESS_ENDPOINT = "api/rest/shippingaddress";
+  static const CHANGE_ACCOUNT_PASSWORD_ENDPOINT = "api/rest/account/password";
+  static const GET_ACCOUNT_ADDRESSES = "api/rest/account/address";
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>
       "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";

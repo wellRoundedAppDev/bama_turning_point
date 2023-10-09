@@ -1,10 +1,11 @@
-class GetCustomerPaymentAddressResponse {
-  GetCustomerPaymentAddressResponse({
-      this.success,
-      // this.error,
-      this.data,});
+class GetAccountAddressesResponse {
+  GetAccountAddressesResponse({
+    this.success,
+    //this.error,
+    this.data,
+  });
 
-  factory GetCustomerPaymentAddressResponse.fromJson(dynamic json) {
+  factory GetAccountAddressesResponse.fromJson(dynamic json) {
     var success = json['success'];
     // if (json['error'] != null) {
     //   error = [];
@@ -13,12 +14,12 @@ class GetCustomerPaymentAddressResponse {
     //   });
     // }
     var data = json['data'] != null ? Data.fromJson(json['data']) : null;
-    return GetCustomerPaymentAddressResponse(success: success,data: data);
+    return GetAccountAddressesResponse(success: success, data: data);
   }
   num? success;
-  // List<dynamic>? error;
+  //List<dynamic>? error;
   Data? data;
-  //
+
   // Map<String, dynamic> toJson() {
   //   final map = <String, dynamic>{};
   //   map['success'] = success;
@@ -30,67 +31,65 @@ class GetCustomerPaymentAddressResponse {
   //   }
   //   return map;
   // }
-
 }
 
 class Data {
   Data({
-      this.addressId,
-      this.addresses,});
+    this.addresses,
+  });
 
+  List<AccountAddress>? addresses;
   factory Data.fromJson(dynamic json) {
-    var addressId = json['address_id'];
-    List<Address>? addresses;
+    List<AccountAddress>? addresses;
     if (json['addresses'] != null) {
       addresses = [];
       json['addresses'].forEach((v) {
-        addresses?.add(Address.fromJson(v));
+        addresses?.add(AccountAddress.fromJson(v));
       });
     }
-    return Data(addresses: addresses,addressId: addressId);
+    return Data(
+      addresses: addresses,
+    );
   }
-  String? addressId;
-  List<Address>? addresses;
-
+  //
   // Map<String, dynamic> toJson() {
   //   final map = <String, dynamic>{};
-  //   map['address_id'] = addressId;
   //   if (addresses != null) {
   //     map['addresses'] = addresses?.map((v) => v.toJson()).toList();
   //   }
   //   return map;
   // }
-
 }
 
-class Address {
-  Address({
-      this.addressId,
-      this.firstname,
-      this.lastname,
-      // this.company,
-      this.address1,
-     // this.address2,
-      this.postcode,
-      this.city,
-      this.zoneId,
-      this.zone,
-      this.zoneCode,
-      this.countryId,
-      this.country,
-      // this.isoCode2,
-      // this.isoCode3,
-      // this.addressFormat,
-      // this.customField,
+class AccountAddress {
+  AccountAddress({
+    this.addressId,
+    this.firstname,
+    this.lastname,
+    // this.company,
+    this.address1,
+    //this.address2,
+    this.postcode,
+    this.city,
+    this.zoneId,
+    this.zone,
+    this.zoneCode,
+    this.countryId,
+    this.country,
+    // this.isoCode2,
+    // this.isoCode3,
+    // this.addressFormat,
+    // this.customField,
+    this.defaultAddress,
   });
 
-  factory Address.fromJson(dynamic json) {
+  factory AccountAddress.fromJson(dynamic json) {
     var addressId = json['address_id'];
     var firstname = json['firstname'];
     var lastname = json['lastname'];
     // var company = json['company'];
     var address1 = json['address_1'];
-    // var address2 = json['address_2'];
+    //address2 = json['address_2'];
     var postcode = json['postcode'];
     var city = json['city'];
     var zoneId = json['zone_id'];
@@ -98,22 +97,31 @@ class Address {
     var zoneCode = json['zone_code'];
     var countryId = json['country_id'];
     var country = json['country'];
-    // var isoCode2 = json['iso_code_2'];
-    // var isoCode3 = json['iso_code_3'];
-    // var addressFormat = json['address_format'];
-    // var customField = json['custom_field'] != null ? CustomField.fromJson(json['custom_field']) : null;
-    return Address(
-      addressId: addressId,
-      firstname: firstname,
-      lastname: lastname,
-      countryId: countryId,zoneId: zoneId,address1: address1,city: city,country: country,postcode: postcode,zone: zone,zoneCode: zoneCode,);
+    // isoCode2 = json['iso_code_2'];
+    // isoCode3 = json['iso_code_3'];
+    //addressFormat = json['address_format'];
+    // customField = json['custom_field'] != null ? CustomField.fromJson(json['custom_field']) : null;
+    var defaultAddress = json['default'];
+    return AccountAddress(
+        firstname: firstname,
+        lastname: lastname,
+        zoneId: zoneId,
+        countryId: countryId,
+        address1: address1,
+        city: city,
+        country: country,
+        postcode: postcode,
+        zone: zone,
+        zoneCode: zoneCode,
+        addressId: addressId,
+        defaultAddress: defaultAddress);
   }
   String? addressId;
   String? firstname;
   String? lastname;
-  // String? company;
+  //String? company;
   String? address1;
- // String? address2;
+  //String? address2;
   String? postcode;
   String? city;
   String? zoneId;
@@ -124,7 +132,8 @@ class Address {
   // String? isoCode2;
   // String? isoCode3;
   // String? addressFormat;
-  // CustomField? customField;
+  //CustomField? customField;
+  bool? defaultAddress;
 
   // Map<String, dynamic> toJson() {
   //   final map = <String, dynamic>{};
@@ -147,8 +156,24 @@ class Address {
   //   if (customField != null) {
   //     map['custom_field'] = customField?.toJson();
   //   }
+  //   map['default'] = defaultAddress;
   //   return map;
   // }
-
-//}
 }
+
+// class CustomField {
+//   CustomField({
+//       this.,});
+//
+//   CustomField.fromJson(dynamic json) {
+//      = json['3'];
+//   }
+//   String? ;
+//
+//   Map<String, dynamic> toJson() {
+//     final map = <String, dynamic>{};
+//     map['3'] = ;
+//     return map;
+//   }
+//
+// }

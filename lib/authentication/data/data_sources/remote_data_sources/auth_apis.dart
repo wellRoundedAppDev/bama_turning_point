@@ -44,7 +44,7 @@ class AuthApis {
     }
   }
 
-  static Future<bool?> login(
+  static Future<SuccessAndErrorResponse?> login(
     Map<String, dynamic> loginInput,
   ) async {
     String endpoint = ApiUrls.LOGIN_ENDPOINT;
@@ -59,13 +59,7 @@ class AuthApis {
       if (response == null) {
         return null;
       }
-      if (response.data['success'] == 1) {
-        return true;
-      } else if (response.data['success'] == 0) {
-        return false;
-      } else {
-        return null;
-      }
+      return SuccessAndErrorResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
         print("Login error api $e");
@@ -84,8 +78,7 @@ class AuthApis {
       var response = await dioHelper.post(
           endPoint: endpoint,
           body: registerInput,
-          headers: {"Authorization": "Bearer $accessToken"}
-      );
+          headers: {"Authorization": "Bearer $accessToken"});
 
       if (response == null) {
         return null;
