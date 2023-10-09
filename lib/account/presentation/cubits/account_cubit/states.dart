@@ -33,3 +33,14 @@ class GetAccountAddressesSuccessState extends AccountStates {}
 class GetAccountAddressesFailedState extends AccountStates {}
 
 class GetAccountAddressesNetworkConnectionFailedState extends AccountStates {}
+
+
+class AddAddressLoadingState extends AccountStates{}
+
+class AddAddressSuccessState extends AccountStates{}
+
+class AddAddressFailedState extends AccountStates{}
+
+class AddAddressNetworkConnectionFailedState extends AccountStates{}
+
+class AccountAddressSelectedState extends AccountStates{}

@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:classic_eccomerce/account/data/data_sources/remote_data_sources/account_apis.dart';
+import 'package:classic_eccomerce/account/data/models/account_address_input.dart';
 import 'package:classic_eccomerce/account/data/models/account_input.dart';
 import 'package:classic_eccomerce/account/data/models/change_password_input.dart';
 import 'package:classic_eccomerce/account/data/models/get_account_addresses_response.dart';
@@ -8,6 +8,9 @@ import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/stat
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/data/data_sources/remote_data_sources/get_countries_api.dart';
+import '../../../../core/data/models/get_countries_response.dart';
+import '../../../../core/data/models/get_regions_response.dart';
 import '../../../../shared_components/app_snackbar.dart';
 
 class AccountCubit extends Cubit<AccountStates> {
@@ -17,7 +20,8 @@ class AccountCubit extends Cubit<AccountStates> {
 
   Account? accountDetails;
   List<AccountAddress>? accountAddresses;
-  GlobalKey<FormState> accountFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> accountInformationFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> accountAddressFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> changePasswordFormKey = GlobalKey<FormState>();
   TextEditingController firstNameEditingController = TextEditingController();
   TextEditingController lastNameEditingController = TextEditingController();
@@ -27,6 +31,15 @@ class AccountCubit extends Cubit<AccountStates> {
       AccountInput(firstName: "", lastName: "", email: "", phoneNumber: "");
   ChangePasswordInput changePasswordInput =
       ChangePasswordInput(password: "", confirmPassword: "");
+  AccountAddressInput accountAddressInput = AccountAddressInput(
+      firstName: "",
+      lastName: "",
+      address: "",
+      country: null,
+      city: "",
+      region: null,
+      isDefaultAddress: null,
+      postalCode: "");
 
   setAccountDetails() async {
     emit(GetAccountLoadingState());
@@ -48,11 +61,11 @@ class AccountCubit extends Cubit<AccountStates> {
   }
 
   editAccountDetails() async {
-    var isFormValid = accountFormKey.currentState?.validate();
+    var isFormValid = accountInformationFormKey.currentState?.validate();
     if (isFormValid != true) {
       return;
     }
-    accountFormKey.currentState?.save();
+    accountInformationFormKey.currentState?.save();
 
     emit(EditAccountLoadingState());
     var response = await AccountApis.editAccountDetails(accountInput.toJson());
@@ -83,8 +96,7 @@ class AccountCubit extends Cubit<AccountStates> {
     var response =
         await AccountApis.changePassword(changePasswordInput.toJson());
     if (response?.success == true) {
-      showAppSnackBar(
-          content: "You account password is successfully updated");
+      showAppSnackBar(content: "You account password is successfully updated");
 
       emit(ChangeAccountPasswordSuccessState());
     } else if (response?.success == false) {
@@ -98,18 +110,73 @@ class AccountCubit extends Cubit<AccountStates> {
     }
   }
 
-  setAccountAddresses() async{
+  setAccountAddresses() async {
     emit(GetAccountAddressesLoadingState());
     var response = await AccountApis.getAccountAddresses();
-    if(response?.success == 1){
+    if (response?.success == 1) {
       accountAddresses = response?.data?.addresses;
       emit(GetAccountAddressesSuccessState());
-    }else if(response?.success == 0){
+    } else if (response?.success == 0) {
       accountAddresses = null;
       emit(GetAccountAddressesFailedState());
-    }else{
+    } else {
       accountAddresses = null;
       emit(GetAccountAddressesNetworkConnectionFailedState());
     }
+  }
+
+  Future<List<Country>> getCountries() async {
+    var response = await GetCountriesAndRegionsApi.getCountries();
+    if (response?.success == 1) {
+      return response?.countries ?? [];
+    } else {
+      return [];
+    }
+  }
+
+  setAccountAddressCountry(Country country) {
+    accountAddressInput.country = country;
+    accountAddressInput.region = null;
+    emit(AccountAddressSelectedState());
+  }
+
+  Future<List<Region>> getRegions() async {
+    var response = await GetCountriesAndRegionsApi.getRegionsByCountryId(
+        accountAddressInput.country?.countryId?.toInt() ?? 0);
+    if (response?.success == 1) {
+      return response?.data?.regions ?? [];
+    } else {
+      return [];
+    }
+  }
+
+  setAccountAddressRegion(Region region) {
+    accountAddressInput.region = region;
+  }
+
+  addAddressToAccount() async {
+    accountAddressFormKey.currentState?.save();
+    var isFormValid = accountAddressFormKey.currentState?.validate();
+    if (isFormValid != true) {
+      return;
+    }
+    accountAddressFormKey.currentState?.save();
+    emit(AddAddressLoadingState());
+    var response = await AccountApis.addAccountAddress(accountAddressInput.toJson());
+    if (response?.success == true) {
+      showAppSnackBar(content: "Address is added successfully");
+      emit(AddAddressSuccessState());
+    } else if (response?.success == false) {
+      showAppSnackBar(content: response?.errorMsgs?[0] ?? "");
+      emit(AddAddressFailedState());
+    } else {
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      emit(AddAddressNetworkConnectionFailedState());
+    }
+  }
+
+  initAddAddressScreen() {
+    accountAddressInput.country = null;
+    accountAddressInput.region = null;
   }
 }

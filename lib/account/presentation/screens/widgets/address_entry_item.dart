@@ -1,5 +1,4 @@
 import 'package:classic_eccomerce/account/data/models/get_account_addresses_response.dart';
-import 'package:classic_eccomerce/checkout/data/models/get_customer_payment_address_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../../core/constants/fonts/font_sizes.dart';
@@ -170,7 +169,6 @@ class AddressEntryItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.22,
                   height: 35,
                   child: CustomButton(
                     text: "Edit",
@@ -187,7 +185,6 @@ class AddressEntryItem extends StatelessWidget {
                 width: 8,
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.22,
                 height: 35,
                 child: CustomButton(text: "Delete", action: () {}),
               )
