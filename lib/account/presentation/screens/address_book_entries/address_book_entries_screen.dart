@@ -108,7 +108,7 @@ class AddressBookEntriesScreen extends StatelessWidget {
                             height: 16,
                           ),
                           ListView.separated(
-                            shrinkWrap: true,
+                              shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
                                 var address = accountAddresses?[index];
