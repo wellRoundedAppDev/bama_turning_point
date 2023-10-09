@@ -48,14 +48,12 @@ class MyApp extends StatelessWidget {
         ],
         locale: const Locale("en"),
         routes: {
-          RoutesIDs.SPLASH_SCREEN_ROUTE_ID : (context) => const SplashScreen(),
-          RoutesIDs.CART_SCREEN_ROUTE_ID : (context) =>  CartScreen(),
-          RoutesIDs.HOME_LAYOUT_SCREEN_ROUTE_ID : (context) =>  const HomeLayoutScreen()
-
-
+          RoutesIDs.SPLASH_SCREEN_ROUTE_ID: (context) => const SplashScreen(),
+          RoutesIDs.CART_SCREEN_ROUTE_ID: (context) => CartScreen(),
+          RoutesIDs.HOME_LAYOUT_SCREEN_ROUTE_ID: (context) =>
+              const HomeLayoutScreen()
         },
         theme: ThemeData(
-
           dividerColor: Colors.transparent,
           primaryColor: AppColors.APP_MAIN_COLOR,
           fontFamily: FontFamilies.OPEN_SANS,

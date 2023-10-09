@@ -81,7 +81,7 @@ class AccountApis {
 
   static Future<GetAccountAddressesResponse?> getAccountAddresses() async {
 
-    String endpoint = ApiUrls.GET_ACCOUNT_ADDRESSES;
+    String endpoint = ApiUrls.ACCOUNT_ADDRESS;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
@@ -96,6 +96,30 @@ class AccountApis {
     } catch (e) {
       if (kDebugMode) {
         print("Get Account Addresses error api $e");
+      }
+    }
+
+
+  }
+
+  static Future<SuccessAndErrorResponse?> addAccountAddress(Map<String, dynamic> addressInput) async {
+
+    String endpoint = ApiUrls.ACCOUNT_ADDRESS;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.post(
+          endPoint: endpoint,
+          body: addressInput,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      return SuccessAndErrorResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Add Account Addresses error api $e");
       }
     }
 

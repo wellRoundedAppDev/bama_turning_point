@@ -38,7 +38,7 @@ class EditAccountInformationScreen extends StatelessWidget {
                     )
                   : SingleChildScrollView(
                       child: Form(
-                        key: accountCubit.accountFormKey,
+                        key: accountCubit.accountInformationFormKey,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 24.0, vertical: 16),

@@ -2,18 +2,14 @@ import 'package:classic_eccomerce/account/data/models/get_account_addresses_resp
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
 import 'package:classic_eccomerce/account/presentation/screens/widgets/address_entry_item.dart';
-import 'package:classic_eccomerce/checkout/data/models/get_customer_payment_address_response.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
-import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../core/constants/fonts/font_sizes.dart';
 import 'add_address_screen.dart';
-import 'edit_address_screen.dart';
 
 class AddressBookEntriesScreen extends StatelessWidget {
   const AddressBookEntriesScreen({super.key});
@@ -27,7 +23,9 @@ class AddressBookEntriesScreen extends StatelessWidget {
           Navigator.push(
               context,
               PageTransition(
-                  child: const AddAddressScreen(),
+                  child: BlocProvider.value(
+                      value: AccountCubit.get(context)..initAddAddressScreen(),
+                      child: const AddAddressScreen()),
                   type: PageTransitionType.leftToRight));
         },
         child: Container(
