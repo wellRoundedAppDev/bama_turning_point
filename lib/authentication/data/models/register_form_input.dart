@@ -27,8 +27,8 @@ class RegisterFormInput {
         "telephone": phoneNumber,
         "customer_group_id": 1,
         "agree": 1,
-        "custom_field": {
-          "account": {"1": "+364545454"}
-        }
+        // "custom_field": {
+        //   // "account": {"1": "+364545454"}
+        // }
       };
 }

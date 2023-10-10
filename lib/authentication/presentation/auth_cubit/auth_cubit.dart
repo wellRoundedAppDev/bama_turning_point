@@ -49,7 +49,7 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 
-  clearGuest(){
+  clearGuest() {
     isGuestConfirmedBillingAndAddressMatch = false;
     guestFormInput.clear();
   }
@@ -83,7 +83,6 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   register() async {
-
     if (validateRegisterForm() != true) {
       return;
     }
@@ -189,7 +188,6 @@ class AuthCubit extends Cubit<AuthStates> {
 
   Future<bool?> createGuestUser(
       CartCubit cartCubit, CheckOutCubit checkOutCubit) async {
-
     if (validateGuestCheckoutForm() == false) {
       return null;
     }
@@ -220,7 +218,8 @@ class AuthCubit extends Cubit<AuthStates> {
           emit(CreatingGuestUserFailedState());
           return false;
         } else {
-          showAppSnackBar(content: "Check your internet connection, and try again");
+          showAppSnackBar(
+              content: "Check your internet connection, and try again");
           emit(CreatingGuestUserNetworkConnectionFailedState());
           return null;
         }
@@ -233,12 +232,12 @@ class AuthCubit extends Cubit<AuthStates> {
       } else {
         //todo add snackbar
         emit(CreatingGuestUserNetworkConnectionFailedState());
-        showAppSnackBar(content: "Check your internet connection, and try again");
+        showAppSnackBar(
+            content: "Check your internet connection, and try again");
 
         return null;
       }
-    }
-    else {
+    } else {
       emit(CreatingGuestUserNetworkConnectionFailedState());
       showAppSnackBar(content: "Check your internet connection, and try again");
       return null;

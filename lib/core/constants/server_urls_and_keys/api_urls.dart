@@ -35,7 +35,8 @@ class ApiUrls {
   static const CUSTOMER_PAYMENT_ADDRESS_ENDPOINT = "api/rest/paymentaddress";
   static const SHIPPING_ADDRESS_ENDPOINT = "api/rest/shippingaddress";
   static const CHANGE_ACCOUNT_PASSWORD_ENDPOINT = "api/rest/account/password";
-  static const ACCOUNT_ADDRESS = "api/rest/account/address";
+  static const ACCOUNT_ADDRESS_ENDPOINT = "api/rest/account/address";
+  static const GET_CUSTOMER_ORDERS_ENDPOINT = "api/rest/customerorders/";
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>
       "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";
@@ -56,6 +57,7 @@ class ApiUrls {
   static String getDeleteItemsFromWishlistEndpoint(int id) =>
       "$ADD_TO_WISH_LIST_ENDPOINT$id";
   static String getEditOrDeleteAccountAddressEndpoint(int id) =>
-      "$ACCOUNT_ADDRESS/$id";
-
+      "$ACCOUNT_ADDRESS_ENDPOINT/$id";
+  static String getCustomerOrdersEndpoint(int page) =>
+      "${GET_CUSTOMER_ORDERS_ENDPOINT}limit/10/page/$page";
 }

@@ -5,7 +5,7 @@
 class GetCustomerOrdersResponse {
   GetCustomerOrdersResponse({
     this.success,
-    this.data,
+    this.customerOrders,
   });
 
   factory GetCustomerOrdersResponse.fromJson(dynamic json) {
@@ -16,18 +16,18 @@ class GetCustomerOrdersResponse {
     //     error?.add(Dynamic.fromJson(v));
     //   });
     // }
-    List<Data>? data;
+    List<CustomerOrder>? data;
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        data?.add(Data.fromJson(v));
+        data?.add(CustomerOrder.fromJson(v));
       });
     }
-    return GetCustomerOrdersResponse(success: success, data: data);
+    return GetCustomerOrdersResponse(success: success, customerOrders: data);
   }
   num? success;
   // List<dynamic>? error;
-  List<Data>? data;
+  List<CustomerOrder>? customerOrders;
 
   // Map<String, dynamic> toJson() {
   //   final map = <String, dynamic>{};
@@ -54,13 +54,13 @@ class GetCustomerOrdersResponse {
 /// timestamp : 1696509508
 /// currency : {"currency_id":"2","symbol_left":"$","symbol_right":"","decimal_place":"2","value":"1.00000000"}
 
-class Data {
-  Data({
+class CustomerOrder {
+  CustomerOrder({
     this.orderId,
     this.name,
     this.status,
     this.dateAdded,
-    this.products,
+    this.numOfProducts,
     this.total,
     this.currencyCode,
     this.currencyValue,
@@ -69,7 +69,7 @@ class Data {
    // this.currency,
   });
 
-  factory Data.fromJson(dynamic json) {
+  factory CustomerOrder.fromJson(dynamic json) {
     var orderId = json['order_id'];
     var name = json['name'];
     var status = json['status'];
@@ -83,14 +83,14 @@ class Data {
     // var currency =
     //     json['currency'] != null ? Currency.fromJson(json['currency']) : null;
 
-    return Data(
+    return CustomerOrder(
      // currency: currency,
       currencyCode: currencyCode,
       currencyValue: currencyValue,
       dateAdded: dateAdded,
       name: name,
       orderId: orderId,
-      products: products,
+      numOfProducts: products,
       status: status,
       timestamp: timestamp,
       total: total,
@@ -101,7 +101,7 @@ class Data {
   String? name;
   String? status;
   String? dateAdded;
-  num? products;
+  num? numOfProducts;
   String? total;
   String? currencyCode;
   String? currencyValue;

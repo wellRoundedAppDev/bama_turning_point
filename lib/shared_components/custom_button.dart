@@ -18,6 +18,7 @@ class CustomButton extends StatelessWidget {
   Widget? icon;
   double borderRadius;
   double? elevation;
+  double? circularProgressIndicatorSize;
 
   CustomButton(
       {Key? key,
@@ -27,6 +28,7 @@ class CustomButton extends StatelessWidget {
       this.color = AppColors.APP_MAIN_COLOR,
       this.textFontSize = FontSizes.FONT_SIZE_16,
       this.textColor = 0xffffffff,
+        this.circularProgressIndicatorSize,
       this.borderRadius = 0,
       this.buttonBorderWidthColor = AppColors.APP_MAIN_COLOR,
       this.fontWeight = FontWeight.bold,

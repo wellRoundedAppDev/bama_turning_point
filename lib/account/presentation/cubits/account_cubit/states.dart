@@ -63,6 +63,15 @@ class DeleteAddressFailedState extends AccountStates{}
 class DeleteAddressNetworkConnectionFailedState extends AccountStates{}
 
 
+class GetCustomerOrdersLoadingState extends AccountStates{}
+
+class  GetCustomerOrdersSuccessState extends AccountStates{}
+
+class  GetCustomerOrdersFailedState extends AccountStates{}
+
+class GetCustomerOrdersNetworkConnectionFailedState extends AccountStates{}
+
+
 
 class AccountAddressSelectedState extends AccountStates{}
 

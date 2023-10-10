@@ -292,7 +292,7 @@ class MyAccountScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
-                                  "MY Orders",
+                                  "MY ORDERS",
                                   maxLines: 1,
                                   textDirection: TextDirection.ltr,
                                   overflow: TextOverflow.ellipsis,
@@ -325,8 +325,11 @@ class MyAccountScreen extends StatelessWidget {
                                         Navigator.push(
                                             context,
                                             PageTransition(
-                                                child:
-                                                    const OrderHistoryScreen(),
+                                                child: BlocProvider.value(
+                                                    value: AccountCubit.get(
+                                                        context)..setCustomerOrders(),
+                                                    child:
+                                                        const OrderHistoryScreen()),
                                                 type: PageTransitionType
                                                     .leftToRight));
                                       },

@@ -8,6 +8,7 @@ import '../../../../core/constants/server_urls_and_keys/api_urls.dart';
 import '../../../../core/helpers/dio_helper.dart';
 import '../../../../main.dart';
 import '../../models/get_account_addresses_response.dart';
+import '../../models/get_customer_orders_response.dart';
 
 class AccountApis {
   static final dioHelper = DioHelper.instance;
@@ -77,7 +78,7 @@ class AccountApis {
   }
 
   static Future<GetAccountAddressesResponse?> getAccountAddresses() async {
-    String endpoint = ApiUrls.ACCOUNT_ADDRESS;
+    String endpoint = ApiUrls.ACCOUNT_ADDRESS_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
@@ -98,7 +99,7 @@ class AccountApis {
 
   static Future<SuccessAndErrorResponse?> addAccountAddress(
       Map<String, dynamic> addressInput) async {
-    String endpoint = ApiUrls.ACCOUNT_ADDRESS;
+    String endpoint = ApiUrls.ACCOUNT_ADDRESS_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
@@ -141,7 +142,6 @@ class AccountApis {
   }
 
   static Future<SuccessAndErrorResponse?> deleteAccountAddress(int id) async {
-
     String endpoint = ApiUrls.getEditOrDeleteAccountAddressEndpoint(id);
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
@@ -157,6 +157,26 @@ class AccountApis {
     } catch (e) {
       if (kDebugMode) {
         print("Delete Account Address error api $e");
+      }
+    }
+  }
+
+  static Future<GetCustomerOrdersResponse?> getCustomerOrders(int page) async {
+    String endpoint = ApiUrls.getCustomerOrdersEndpoint(page);
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.get(
+          endpoint: endpoint,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      return GetCustomerOrdersResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Get customer orders error api $e");
       }
     }
   }

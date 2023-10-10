@@ -81,8 +81,8 @@ class AddressBookEntriesScreen extends StatelessWidget {
                       }),
                     )
                   : RefreshIndicator(
-                      onRefresh: () async{
-                       await AccountCubit.get(context).setAccountAddresses();
+                      onRefresh: () async {
+                        await AccountCubit.get(context).setAccountAddresses();
                       },
                       child: SingleChildScrollView(
                           child: Padding(

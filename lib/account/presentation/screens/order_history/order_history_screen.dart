@@ -1,6 +1,12 @@
+import 'package:classic_eccomerce/account/data/models/get_customer_orders_response.dart';
+import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
+import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
 import 'package:classic_eccomerce/account/presentation/screens/order_history/order_history_details_screen.dart';
+import 'package:classic_eccomerce/account/presentation/screens/widgets/order_history_item.dart';
+import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../core/constants/fonts/font_sizes.dart';
@@ -13,248 +19,73 @@ class OrderHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: CustomAppBar.renderAppBar(title: "My Account"),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "ORDER HISTORY",
-                style: TextStyle(
-                    color: Color(0xff313846),
-                    fontSize: FontSizes.FONT_SIZE_20,
-                    fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Container(
-                width: 40,
-                height: 3,
-                color: const Color(0xff015963),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    width: 1,
-                    color: const Color(0xffDDDDDD),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Order ID",
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Expanded(
-                            child: Text(
-                              "#293",
-                              textAlign: TextAlign.right,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: FontSizes.FONT_SIZE_14,
-                                  color: Color(0xff947979)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 1,
-                      color: const Color(0xffB6BBC6),
-                    ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Customer",
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Expanded(
-                            child: Text(
-                              "Ahmed Ibrahim",
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: FontSizes.FONT_SIZE_14,
-                                  color: Color(0xff947979)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 1,
-                      color: const Color(0xffB6BBC6),
-                    ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
-                      child: Row(
-                        children: [
-                          Text(
-                            "No. of Products",
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Expanded(
-                            child: Text(
-                              "3",
-                              textAlign: TextAlign.right,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(
-                                  fontSize: FontSizes.FONT_SIZE_14,
-                                  color: Color(0xff947979)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 1,
-                      color: const Color(0xffB6BBC6),
-                    ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Total",
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Expanded(
-                            child: Text(
-                              "\$234",
-                              textAlign: TextAlign.right,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: FontSizes.FONT_SIZE_14,
-                                  color: Color(0xff947979)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 1,
-                      color: const Color(0xffB6BBC6),
-                    ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Status",
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Expanded(
-                            child: Text(
-                              "Pending",
-                              textAlign: TextAlign.right,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(
-                                  fontSize: FontSizes.FONT_SIZE_14,
-                                  color: Color(0xff947979)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 1,
-                      color: const Color(0xffB6BBC6),
-                    ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Date Added",
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Expanded(
-                            child: Text(
-                              "28/08/2023",
-                              textAlign: TextAlign.right,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: FontSizes.FONT_SIZE_14,
-                                  color: Color(0xff947979)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            PageTransition(
-                                child: const OrderDetailsScreen(),
-                                type: PageTransitionType.leftToRight));
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: const BoxDecoration(
-                            color: Color(0xffDBD6D6),
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(8),
-                                bottomRight: Radius.circular(8))),
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: const Center(
-                            child: Text(
-                          "View",
-                          style: TextStyle(
-                              fontSize: FontSizes.FONT_SIZE_14,
-                              color: Color(0xff313846)),
-                        )),
-                      ),
+      appBar:
+          CustomAppBar.renderAppBar(title: "My Account", showCartIcon: false),
+      body: BlocConsumer<AccountCubit, AccountStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          AccountCubit accountCubit = AccountCubit.get(context);
+          List<CustomerOrder>? customerOrders = accountCubit.customerOrders;
+          return (state is GetCustomerOrdersLoadingState)
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : (state is GetCustomerOrdersNetworkConnectionFailedState)
+                  ? Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: NoNetworkRefreshPage(refresh: () {
+                        accountCubit.setCustomerOrders();
+                      }),
                     )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+                  : RefreshIndicator(
+                      onRefresh: () async {
+                        await accountCubit.setCustomerOrders();
+                      },
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "ORDER HISTORY",
+                                style: TextStyle(
+                                    color: Color(0xff313846),
+                                    fontSize: FontSizes.FONT_SIZE_20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                width: 40,
+                                height: 3,
+                                color: const Color(0xff015963),
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              ListView.separated(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    var customerOrder = customerOrders?[index];
+                                    return OrderHistoryItem(
+                                      customerOrder: customerOrder,
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(
+                                        height: 24,
+                                      ),
+                                  itemCount: customerOrders?.length ?? 0)
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+        },
       ),
     ));
   }

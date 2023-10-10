@@ -13,7 +13,7 @@ class GetAccountAddressesResponse {
     //     error?.add(Dynamic.fromJson(v));
     //   });
     // }
-    var data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    var data = json['data'].isEmpty?null:json['data'] != null ? Data.fromJson(json['data']) : null;
     return GetAccountAddressesResponse(success: success, data: data);
   }
   num? success;
@@ -39,7 +39,8 @@ class Data {
   });
 
   List<AccountAddress>? addresses;
-  factory Data.fromJson(dynamic json) {
+  factory Data.fromJson(Map<String,dynamic> json) {
+    print(json['addresses']);
     List<AccountAddress>? addresses;
     if (json['addresses'] != null) {
       addresses = [];

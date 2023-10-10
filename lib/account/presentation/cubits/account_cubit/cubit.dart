@@ -4,11 +4,11 @@ import 'package:classic_eccomerce/account/data/models/account_input.dart';
 import 'package:classic_eccomerce/account/data/models/change_password_input.dart';
 import 'package:classic_eccomerce/account/data/models/get_account_addresses_response.dart';
 import 'package:classic_eccomerce/account/data/models/get_account_details_response.dart';
+import 'package:classic_eccomerce/account/data/models/get_customer_orders_response.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/data/data_sources/remote_data_sources/get_countries_api.dart';
 import '../../../../core/data/models/get_countries_response.dart';
 import '../../../../core/data/models/get_regions_response.dart';
@@ -44,6 +44,7 @@ class AccountCubit extends Cubit<AccountStates> {
       isDefaultAddress: null,
       postalCode: "");
   int? selectedAddressId;
+  List<CustomerOrder>? customerOrders;
 
   setAccountDetails() async {
     emit(GetAccountLoadingState());
@@ -244,5 +245,24 @@ class AccountCubit extends Cubit<AccountStates> {
     accountAddressInput.region =
         Region(zoneId: address?.zoneId, name: address?.zone);
     accountAddressInput.isDefaultAddress = address?.defaultAddress;
+  }
+  
+  setCustomerOrders() async{
+    emit(GetCustomerOrdersLoadingState());
+    var response =  await AccountApis.getCustomerOrders(1);
+    if(response?.success == 1){
+      customerOrders = response?.customerOrders;
+      emit(GetCustomerOrdersSuccessState());
+    }
+    else if(response?.success == 0){
+      customerOrders = null;
+      emit(GetCustomerOrdersFailedState());
+    }
+    else{
+      customerOrders = null;
+      emit(GetCustomerOrdersNetworkConnectionFailedState());
+
+    }
+    
   }
 }
