@@ -5,6 +5,7 @@ import 'package:classic_eccomerce/account/data/models/change_password_input.dart
 import 'package:classic_eccomerce/account/data/models/get_account_addresses_response.dart';
 import 'package:classic_eccomerce/account/data/models/get_account_details_response.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
+import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +16,8 @@ import '../../../../shared_components/app_snackbar.dart';
 
 class AccountCubit extends Cubit<AccountStates> {
   AccountCubit() : super(AccountInitialState());
+
+  BuildContext context = MyApp.navKey.currentState!.context;
 
   static AccountCubit get(context) => BlocProvider.of(context);
 
@@ -40,6 +43,7 @@ class AccountCubit extends Cubit<AccountStates> {
       region: null,
       isDefaultAddress: null,
       postalCode: "");
+  int? selectedAddressId;
 
   setAccountDetails() async {
     emit(GetAccountLoadingState());
@@ -154,6 +158,11 @@ class AccountCubit extends Cubit<AccountStates> {
     accountAddressInput.region = region;
   }
 
+  setAccountDefaultAddress(bool state) {
+    accountAddressInput.isDefaultAddress = state;
+    emit(DefaultAddressSelectedState());
+  }
+
   addAddressToAccount() async {
     accountAddressFormKey.currentState?.save();
     var isFormValid = accountAddressFormKey.currentState?.validate();
@@ -162,8 +171,11 @@ class AccountCubit extends Cubit<AccountStates> {
     }
     accountAddressFormKey.currentState?.save();
     emit(AddAddressLoadingState());
-    var response = await AccountApis.addAccountAddress(accountAddressInput.toJson());
+    var response =
+        await AccountApis.addAccountAddress(accountAddressInput.toJson());
     if (response?.success == true) {
+      setAccountAddresses();
+      Navigator.pop(context);
       showAppSnackBar(content: "Address is added successfully");
       emit(AddAddressSuccessState());
     } else if (response?.success == false) {
@@ -175,8 +187,62 @@ class AccountCubit extends Cubit<AccountStates> {
     }
   }
 
+  editAddressInAccount(int addressId) async {
+    accountAddressFormKey.currentState?.save();
+    var isFormValid = accountAddressFormKey.currentState?.validate();
+    if (isFormValid != true) {
+      return;
+    }
+    accountAddressFormKey.currentState?.save();
+    emit(EditAddressLoadingState());
+    var response = await AccountApis.editAccountAddress(
+        accountAddressInput.toJson(), addressId);
+    if (response?.success == true) {
+      setAccountAddresses();
+      Navigator.pop(context);
+      showAppSnackBar(content: "Address is updated successfully");
+      emit(EditAddressSuccessState());
+    } else if (response?.success == false) {
+      showAppSnackBar(content: response?.errorMsgs?[0] ?? "");
+      emit(EditAddressFailedState());
+    } else {
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      emit(EditAddressNetworkConnectionFailedState());
+    }
+  }
+
+  setSelectedAddressId(int addressId) {
+    selectedAddressId = addressId;
+  }
+
+  deleteAddressInAccount(int addressId) async {
+    setSelectedAddressId(addressId);
+    emit(DeleteAddressLoadingState());
+    var response = await AccountApis.deleteAccountAddress(addressId);
+    if (response?.success == true) {
+      setAccountAddresses();
+      showAppSnackBar(content: "Address is deleted successfully");
+      emit(DeleteAddressSuccessState());
+    } else if (response?.success == false) {
+      showAppSnackBar(content: response?.errorMsgs?[0] ?? "");
+      emit(DeleteAddressFailedState());
+    } else {
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      emit(DeleteAddressNetworkConnectionFailedState());
+    }
+  }
+
   initAddAddressScreen() {
     accountAddressInput.country = null;
     accountAddressInput.region = null;
+    accountAddressInput.isDefaultAddress = true;
+  }
+
+  initEditAddressScreen(AccountAddress? address) {
+    accountAddressInput.country = Country(
+        countryId: int.parse(address?.countryId ?? ""), name: address?.country);
+    accountAddressInput.region =
+        Region(zoneId: address?.zoneId, name: address?.zone);
+    accountAddressInput.isDefaultAddress = address?.defaultAddress;
   }
 }

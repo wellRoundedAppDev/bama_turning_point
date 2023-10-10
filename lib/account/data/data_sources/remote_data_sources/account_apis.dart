@@ -1,4 +1,3 @@
-
 import 'package:classic_eccomerce/account/data/models/get_account_details_response.dart';
 import 'package:classic_eccomerce/core/data/models/success_message_response.dart';
 import 'package:flutter/foundation.dart';
@@ -13,9 +12,7 @@ import '../../models/get_account_addresses_response.dart';
 class AccountApis {
   static final dioHelper = DioHelper.instance;
 
-
-  static Future<GetAccountDetailsResponse?> getAccountDetails(
-      ) async {
+  static Future<GetAccountDetailsResponse?> getAccountDetails() async {
     String endpoint = ApiUrls.ACCOUNT_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
@@ -36,8 +33,7 @@ class AccountApis {
   }
 
   static Future<SuccessAndErrorResponse?> editAccountDetails(
-      Map<String,dynamic> accountDetails
-      ) async {
+      Map<String, dynamic> accountDetails) async {
     String endpoint = ApiUrls.ACCOUNT_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
@@ -58,7 +54,8 @@ class AccountApis {
     }
   }
 
-  static Future<SuccessAndErrorResponse?> changePassword(Map<String, dynamic> changePasswordInput) async {
+  static Future<SuccessAndErrorResponse?> changePassword(
+      Map<String, dynamic> changePasswordInput) async {
     String endpoint = ApiUrls.CHANGE_ACCOUNT_PASSWORD_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
@@ -80,7 +77,6 @@ class AccountApis {
   }
 
   static Future<GetAccountAddressesResponse?> getAccountAddresses() async {
-
     String endpoint = ApiUrls.ACCOUNT_ADDRESS;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
@@ -98,12 +94,10 @@ class AccountApis {
         print("Get Account Addresses error api $e");
       }
     }
-
-
   }
 
-  static Future<SuccessAndErrorResponse?> addAccountAddress(Map<String, dynamic> addressInput) async {
-
+  static Future<SuccessAndErrorResponse?> addAccountAddress(
+      Map<String, dynamic> addressInput) async {
     String endpoint = ApiUrls.ACCOUNT_ADDRESS;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
@@ -119,11 +113,52 @@ class AccountApis {
       return SuccessAndErrorResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
-        print("Add Account Addresses error api $e");
+        print("Add Account Address error api $e");
       }
     }
+  }
 
+  static Future<SuccessAndErrorResponse?> editAccountAddress(
+      Map<String, dynamic> addressInput, int id) async {
+    String endpoint = ApiUrls.getEditOrDeleteAccountAddressEndpoint(id);
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
+    try {
+      var response = await dioHelper.put(
+          endPoint: endpoint,
+          body: addressInput,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      return SuccessAndErrorResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Edit Account Address error api $e");
+      }
+    }
+  }
+
+  static Future<SuccessAndErrorResponse?> deleteAccountAddress(int id) async {
+
+    String endpoint = ApiUrls.getEditOrDeleteAccountAddressEndpoint(id);
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.delete(
+          endPoint: endpoint,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      return SuccessAndErrorResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Delete Account Address error api $e");
+      }
+    }
   }
 
 // static Future<bool?> createGuestUser(
@@ -154,6 +189,4 @@ class AccountApis {
   //     }
   //   }
   // }
-
-
 }

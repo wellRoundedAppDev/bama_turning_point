@@ -1,5 +1,8 @@
 import 'package:classic_eccomerce/account/data/models/get_account_addresses_response.dart';
+import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
+import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../../core/constants/fonts/font_sizes.dart';
 import '../../../../shared_components/custom_button.dart';
@@ -156,12 +159,39 @@ class AddressEntryItem extends StatelessWidget {
                     ],
                   ),
                 ),
+                Container(
+                  height: 1,
+                  color: const Color(0xffB6BBC6),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 16),
+                  child: Row(
+                    children: [
+                      const Text(
+                        "Region : ",
+                        style: TextStyle(
+                            fontSize: FontSizes.FONT_SIZE_14,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Expanded(
+                        child: Text(
+                          address?.zone ?? "",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style:
+                              const TextStyle(fontSize: FontSizes.FONT_SIZE_14),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
         ),
         const SizedBox(
-          height: 16,
+          height: 8,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -173,10 +203,15 @@ class AddressEntryItem extends StatelessWidget {
                   child: CustomButton(
                     text: "Edit",
                     action: () {
+                      AccountCubit.get(context).initEditAddressScreen(address);
                       Navigator.push(
                           context,
                           PageTransition(
-                              child: const EditAddressScreen(),
+                              child: BlocProvider.value(
+                                  value: AccountCubit.get(context),
+                                  child: EditAddressScreen(
+                                    accountAddress: address,
+                                  )),
                               type: PageTransitionType.leftToRight));
                     },
                     color: const Color(0xff313846),
@@ -186,7 +221,21 @@ class AddressEntryItem extends StatelessWidget {
               ),
               SizedBox(
                 height: 35,
-                child: CustomButton(text: "Delete", action: () {}),
+                child: BlocConsumer<AccountCubit, AccountStates>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return CustomButton(
+                      text: "Delete",
+                      action: () {
+                        AccountCubit.get(context).deleteAddressInAccount(
+                            int.parse(address?.addressId ?? ""));
+                      },
+                      isLoading: state is DeleteAddressLoadingState &&
+                          int.tryParse(address?.addressId ?? "") ==
+                              AccountCubit.get(context).selectedAddressId,
+                    );
+                  },
+                ),
               )
             ],
           ),

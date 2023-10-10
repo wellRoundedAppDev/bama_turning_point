@@ -55,4 +55,7 @@ class ApiUrls {
       "$ADD_TO_WISH_LIST_ENDPOINT$id";
   static String getDeleteItemsFromWishlistEndpoint(int id) =>
       "$ADD_TO_WISH_LIST_ENDPOINT$id";
+  static String getEditOrDeleteAccountAddressEndpoint(int id) =>
+      "$ACCOUNT_ADDRESS/$id";
+
 }

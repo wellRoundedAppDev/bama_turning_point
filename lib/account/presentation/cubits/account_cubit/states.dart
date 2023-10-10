@@ -43,4 +43,27 @@ class AddAddressFailedState extends AccountStates{}
 
 class AddAddressNetworkConnectionFailedState extends AccountStates{}
 
+
+class EditAddressLoadingState extends AccountStates{}
+
+class EditAddressSuccessState extends AccountStates{}
+
+class EditAddressFailedState extends AccountStates{}
+
+class EditAddressNetworkConnectionFailedState extends AccountStates{}
+
+
+
+class DeleteAddressLoadingState extends AccountStates{}
+
+class DeleteAddressSuccessState extends AccountStates{}
+
+class DeleteAddressFailedState extends AccountStates{}
+
+class DeleteAddressNetworkConnectionFailedState extends AccountStates{}
+
+
+
 class AccountAddressSelectedState extends AccountStates{}
+
+class DefaultAddressSelectedState extends AccountStates{}
