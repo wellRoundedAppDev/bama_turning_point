@@ -18,25 +18,23 @@ class AccountAddressInput {
     required this.country,
     required this.city,
     required this.region,
-    required this.isDefaultAddress,
+    this.isDefaultAddress = true,
     required this.postalCode,
   });
 
   Map<String, dynamic> toJson() => {
-    "firstname": firstName,
-    "lastname": lastName,
-    "city": city,
-    "address_1": address,
-    "address_2": "",
-    "country_id": country?.countryId,
-    "postcode": postalCode,
-    "zone_id": region?.zoneId,
-    "company": "",
-    "custom_field": {
-      "address": {
-        "": ""
-      }
-    },
-    "default": 0
-  };
+        "firstname": firstName,
+        "lastname": lastName,
+        "city": city,
+        "address_1": address,
+        "address_2": "",
+        "country_id": country?.countryId,
+        "postcode": postalCode,
+        "zone_id": region?.zoneId,
+        "company": "",
+        "custom_field": {
+          "address": {"": ""}
+        },
+        "default": isDefaultAddress
+      };
 }

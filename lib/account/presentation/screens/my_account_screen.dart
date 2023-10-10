@@ -137,7 +137,8 @@ class MyAccountScreen extends StatelessWidget {
                                             context,
                                             PageTransition(
                                                 child: BlocProvider.value(
-                                                    value: accountCubit..setAccountAddresses(),
+                                                    value: accountCubit
+                                                      ..setAccountAddresses(),
                                                     child:
                                                         const AddressBookEntriesScreen()),
                                                 type: PageTransitionType

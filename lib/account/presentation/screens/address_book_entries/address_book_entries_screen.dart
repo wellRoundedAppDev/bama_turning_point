@@ -80,46 +80,51 @@ class AddressBookEntriesScreen extends StatelessWidget {
                         accountCubit.setAccountAddresses();
                       }),
                     )
-                  : SingleChildScrollView(
-                      child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "ADDRESS BOOK ENTRIES",
-                            style: TextStyle(
-                                color: Color(0xff313846),
-                                fontSize: FontSizes.FONT_SIZE_20,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                            width: 40,
-                            height: 3,
-                            color: const Color(0xff015963),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          ListView.separated(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                var address = accountAddresses?[index];
-                                return AddressEntryItem(address: address);
-                              },
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
-                              itemCount: accountAddresses?.length ?? 0)
-                        ],
-                      ),
-                    ));
+                  : RefreshIndicator(
+                      onRefresh: () async{
+                       await AccountCubit.get(context).setAccountAddresses();
+                      },
+                      child: SingleChildScrollView(
+                          child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "ADDRESS BOOK ENTRIES",
+                              style: TextStyle(
+                                  color: Color(0xff313846),
+                                  fontSize: FontSizes.FONT_SIZE_20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              width: 40,
+                              height: 3,
+                              color: const Color(0xff015963),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            ListView.separated(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  var address = accountAddresses?[index];
+                                  return AddressEntryItem(address: address);
+                                },
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(
+                                      height: 24,
+                                    ),
+                                itemCount: accountAddresses?.length ?? 0)
+                          ],
+                        ),
+                      )),
+                    );
         },
       ),
     ));

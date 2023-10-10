@@ -55,6 +55,7 @@ class SignInScreen extends StatelessWidget {
                 ),
                 CustomInput(
                   hintText: "Password",
+
                   validator: (v) {
                     if (v == null || v.length < 6) {
                       return "Enter a password of at least 6 characters";

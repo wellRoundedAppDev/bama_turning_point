@@ -2,7 +2,6 @@ import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubi
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
 import 'package:classic_eccomerce/core/data/models/get_countries_response.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -314,45 +313,66 @@ class AddAddressScreen extends StatelessWidget {
                                 color: Color(0xff747982),
                                 fontSize: FontSizes.FONT_SIZE_16),
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: RadioListTile(
-                                  value: 1,
-                                  groupValue: 1,
-                                  onChanged: (check) {},
-                                  title: const Text(
-                                    "Yes",
-                                    style: TextStyle(
-                                        fontSize: FontSizes.FONT_SIZE_16,
-                                        fontWeight: FontWeight.w300),
+                          BlocConsumer<AccountCubit, AccountStates>(
+                            listener: (context, state) {},
+                            builder: (context, state) {
+                              return Row(
+                                children: [
+                                  Expanded(
+                                    child: RadioListTile(
+                                      value: true,
+                                      groupValue: AccountCubit.get(context)
+                                          .accountAddressInput
+                                          .isDefaultAddress,
+                                      onChanged: (check) {
+                                        AccountCubit.get(context)
+                                            .setAccountDefaultAddress(check!);
+                                      },
+                                      title: const Text(
+                                        "Yes",
+                                        style: TextStyle(
+                                            fontSize: FontSizes.FONT_SIZE_16,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              Expanded(
-                                child: RadioListTile(
-                                  value: 1,
-                                  groupValue: 1,
-                                  onChanged: (check) {},
-                                  title: const Text(
-                                    "No",
-                                    style: TextStyle(
-                                        fontSize: FontSizes.FONT_SIZE_16,
-                                        fontWeight: FontWeight.w300),
+                                  Expanded(
+                                    child: RadioListTile(
+                                      value: false,
+                                      groupValue: AccountCubit.get(context)
+                                          .accountAddressInput
+                                          .isDefaultAddress,
+                                      onChanged: (check) {
+                                        AccountCubit.get(context)
+                                            .setAccountDefaultAddress(check!);
+                                      },
+                                      title: const Text(
+                                        "No",
+                                        style: TextStyle(
+                                            fontSize: FontSizes.FONT_SIZE_16,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ],
+                                ],
+                              );
+                            },
                           )
                         ],
                       ),
                       const SizedBox(
                         height: 16,
                       ),
-                      CustomButton(
-                        text: "Save",
-                        action: () {
-                          AccountCubit.get(context).addAddressToAccount();
+                      BlocConsumer<AccountCubit, AccountStates>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          return CustomButton(
+                            text: "Save",
+                            isLoading: state is AddAddressLoadingState,
+                            action: () {
+                              AccountCubit.get(context).addAddressToAccount();
+                            },
+                          );
                         },
                       ),
                       const SizedBox(

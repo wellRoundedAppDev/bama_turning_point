@@ -1,7 +1,6 @@
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/presentation/screens/categories_screen.dart';
-import 'package:classic_eccomerce/categories/presentation/screens/filter_category.dart';
 import 'package:classic_eccomerce/categories/presentation/screens/products_in_category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

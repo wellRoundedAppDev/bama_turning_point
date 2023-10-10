@@ -177,7 +177,9 @@ class DioHelper {
     // if (kDebugMode) {
     //   print("Access token: $accessToken");
     // }
-    print("headers $headers");
+    if (kDebugMode) {
+      print("headers $headers");
+    }
 
     try {
       return await _dio.put(
