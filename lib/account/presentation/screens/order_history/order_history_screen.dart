@@ -1,13 +1,10 @@
 import 'package:classic_eccomerce/account/data/models/get_customer_orders_response.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
-import 'package:classic_eccomerce/account/presentation/screens/order_history/order_history_details_screen.dart';
 import 'package:classic_eccomerce/account/presentation/screens/widgets/order_history_item.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:page_transition/page_transition.dart';
 
 import '../../../../core/constants/fonts/font_sizes.dart';
 import '../../../../shared_components/custom_app_bar.dart';
@@ -26,6 +23,7 @@ class OrderHistoryScreen extends StatelessWidget {
         builder: (context, state) {
           AccountCubit accountCubit = AccountCubit.get(context);
           List<CustomerOrder>? customerOrders = accountCubit.customerOrders;
+          ScrollController scrollController = accountCubit.ordersHistoryScrollController;
           return (state is GetFirstCustomerOrdersLoadingState)
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -42,6 +40,7 @@ class OrderHistoryScreen extends StatelessWidget {
                         await accountCubit.setFirstCustomerOrders();
                       },
                       child: SingleChildScrollView(
+                        controller: scrollController,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 16),
@@ -79,7 +78,22 @@ class OrderHistoryScreen extends StatelessWidget {
                                       const SizedBox(
                                         height: 24,
                                       ),
-                                  itemCount: customerOrders?.length ?? 0)
+                                  itemCount: customerOrders?.length ?? 0),
+                              (state is AddMoreCustomerOrdersLoadingState)
+                                  ? Container(
+                                padding: const EdgeInsets.all(16),
+                                child: const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              )
+                                  : (state
+                              is AddMoreCustomerOrdersNetworkConnectionFailedState)
+                                  ? NoNetworkRefreshPage(
+                                  refresh: () {
+                                    AccountCubit.get(context).addMoreCustomerOrders();
+                                  },)
+                                  : Container()
+
                             ],
                           ),
                         ),

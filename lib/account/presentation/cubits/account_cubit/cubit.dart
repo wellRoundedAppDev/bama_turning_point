@@ -45,10 +45,15 @@ class AccountCubit extends Cubit<AccountStates> {
       isDefaultAddress: null,
       postalCode: "");
   int? selectedAddressId;
-  List<CustomerOrder>? customerOrders;
+  List<CustomerOrder> customerOrders = [];
   int? selectedOrderId;
   OrderDetails? selectedOrder;
   int customerOrdersPageNumber = 1;
+
+  ScrollController ordersHistoryScrollController = ScrollController();
+
+
+
 
   setAccountDetails() async {
     emit(GetAccountLoadingState());
@@ -256,19 +261,25 @@ class AccountCubit extends Cubit<AccountStates> {
     var response = await AccountApis.getCustomerOrders(1);
     if (response?.success == 1) {
       var tempCustomerOrders = response?.customerOrders??[];
+      if(tempCustomerOrders.isEmpty == true){
+        emit(GetFirstCustomerOrdersSuccessState());
+        return;
+      }
       customerOrdersPageNumber++;
-      customerOrders?.addAll(tempCustomerOrders);
+      customerOrders.addAll(tempCustomerOrders);
+
       emit(GetFirstCustomerOrdersSuccessState());
     } else if (response?.success == 0) {
-      customerOrders = null;
+      customerOrders.clear();
       emit(GetFirstCustomerOrdersFailedState());
     } else {
-      customerOrders = null;
+      customerOrders.clear();
       emit(GetFirstCustomerOrdersNetworkConnectionFailedState());
     }
   }
 
   addMoreCustomerOrders() async {
+
     emit(AddMoreCustomerOrdersLoadingState());
     var response = await AccountApis.getCustomerOrders(customerOrdersPageNumber);
     if(response?.success == 1){
@@ -278,9 +289,8 @@ class AccountCubit extends Cubit<AccountStates> {
         return;
       }
       customerOrdersPageNumber++;
-      customerOrders?.addAll(tempCustomerOrders);
+      customerOrders.addAll(tempCustomerOrders);
       emit(AddMoreCustomerOrdersSuccessState());
-
     }
     else if(response?.success == 0){
       emit(AddMoreCustomerOrdersFailedState());
@@ -304,5 +314,21 @@ class AccountCubit extends Cubit<AccountStates> {
       selectedOrder = null;
       emit(GetOrderDetailsNetworkConnectionFailedState());
     }
+  }
+
+  initOrderHistoryScreen(){
+    customerOrders = [];
+    setFirstCustomerOrders();
+    ordersHistoryScrollController.removeListener(() {});
+    ordersHistoryScrollController.addListener(() async {
+      if (ordersHistoryScrollController.position.maxScrollExtent ==
+          ordersHistoryScrollController.offset) {
+        if(state is AddMoreCustomerOrdersLoadingState){
+          return;
+        }
+        await addMoreCustomerOrders();
+      }
+    });
+
   }
 }
