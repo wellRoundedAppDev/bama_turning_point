@@ -5,6 +5,7 @@ import 'package:classic_eccomerce/account/data/models/change_password_input.dart
 import 'package:classic_eccomerce/account/data/models/get_account_addresses_response.dart';
 import 'package:classic_eccomerce/account/data/models/get_account_details_response.dart';
 import 'package:classic_eccomerce/account/data/models/get_customer_orders_response.dart';
+import 'package:classic_eccomerce/account/data/models/get_order_details_response.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,6 +46,8 @@ class AccountCubit extends Cubit<AccountStates> {
       postalCode: "");
   int? selectedAddressId;
   List<CustomerOrder>? customerOrders;
+  int? selectedOrderId;
+  OrderDetails? selectedOrder;
 
   setAccountDetails() async {
     emit(GetAccountLoadingState());
@@ -246,23 +249,35 @@ class AccountCubit extends Cubit<AccountStates> {
         Region(zoneId: address?.zoneId, name: address?.zone);
     accountAddressInput.isDefaultAddress = address?.defaultAddress;
   }
-  
-  setCustomerOrders() async{
+
+  setCustomerOrders() async {
     emit(GetCustomerOrdersLoadingState());
-    var response =  await AccountApis.getCustomerOrders(1);
-    if(response?.success == 1){
+    var response = await AccountApis.getCustomerOrders(1);
+    if (response?.success == 1) {
       customerOrders = response?.customerOrders;
       emit(GetCustomerOrdersSuccessState());
-    }
-    else if(response?.success == 0){
+    } else if (response?.success == 0) {
       customerOrders = null;
       emit(GetCustomerOrdersFailedState());
-    }
-    else{
+    } else {
       customerOrders = null;
       emit(GetCustomerOrdersNetworkConnectionFailedState());
-
     }
-    
+  }
+
+  setOrderDetails(int id) async {
+    selectedOrderId = id;
+    emit(GetOrderDetailsLoadingState());
+    var response = await AccountApis.getOrderDetails(id);
+    if (response?.success == 1) {
+      selectedOrder = response?.orderDetails;
+      emit(GetOrderDetailsSuccessState());
+    } else if (response?.success == 0) {
+      selectedOrder = null;
+      emit(GetOrderDetailsFailedState());
+    } else {
+      selectedOrder = null;
+      emit(GetOrderDetailsNetworkConnectionFailedState());
+    }
   }
 }

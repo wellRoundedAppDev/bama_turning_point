@@ -1,4 +1,5 @@
 import 'package:classic_eccomerce/account/data/models/get_account_details_response.dart';
+import 'package:classic_eccomerce/account/data/models/get_order_details_response.dart';
 import 'package:classic_eccomerce/core/data/models/success_message_response.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -177,6 +178,28 @@ class AccountApis {
     } catch (e) {
       if (kDebugMode) {
         print("Get customer orders error api $e");
+      }
+    }
+  }
+
+
+  static Future<GetOrderDetailsResponse?> getOrderDetails(int orderId) async {
+
+    String endpoint = ApiUrls.getCustomerOrderDetailsEndpoint(orderId);
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.get(
+          endpoint: endpoint,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      return GetOrderDetailsResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Get order details error api $e");
       }
     }
   }

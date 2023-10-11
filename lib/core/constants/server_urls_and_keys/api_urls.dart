@@ -60,4 +60,6 @@ class ApiUrls {
       "$ACCOUNT_ADDRESS_ENDPOINT/$id";
   static String getCustomerOrdersEndpoint(int page) =>
       "${GET_CUSTOMER_ORDERS_ENDPOINT}limit/10/page/$page";
+  static String getCustomerOrderDetailsEndpoint(int orderId) =>
+      "$GET_CUSTOMER_ORDERS_ENDPOINT$orderId";
 }

@@ -72,6 +72,15 @@ class  GetCustomerOrdersFailedState extends AccountStates{}
 class GetCustomerOrdersNetworkConnectionFailedState extends AccountStates{}
 
 
+class GetOrderDetailsLoadingState extends AccountStates{}
+
+class GetOrderDetailsSuccessState extends AccountStates{}
+
+class GetOrderDetailsFailedState extends AccountStates{}
+
+class GetOrderDetailsNetworkConnectionFailedState extends AccountStates{}
+
+
 
 class AccountAddressSelectedState extends AccountStates{}
 

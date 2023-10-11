@@ -1,5 +1,7 @@
 import 'package:classic_eccomerce/account/data/models/get_customer_orders_response.dart';
+import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../core/constants/fonts/font_sizes.dart';
@@ -196,7 +198,12 @@ class OrderHistoryItem extends StatelessWidget {
               Navigator.push(
                   context,
                   PageTransition(
-                      child: const OrderDetailsScreen(),
+                      child: BlocProvider.value(
+                          value: AccountCubit.get(context)
+                            ..setOrderDetails(
+                                int.tryParse(customerOrder?.orderId ?? "") ??
+                                    0),
+                          child: const OrderDetailsScreen()),
                       type: PageTransitionType.leftToRight));
             },
             child: Container(
