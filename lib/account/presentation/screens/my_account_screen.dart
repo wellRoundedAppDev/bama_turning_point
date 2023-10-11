@@ -327,7 +327,7 @@ class MyAccountScreen extends StatelessWidget {
                                             PageTransition(
                                                 child: BlocProvider.value(
                                                     value: AccountCubit.get(
-                                                        context)..setCustomerOrders(),
+                                                        context)..setFirstCustomerOrders(),
                                                     child:
                                                         const OrderHistoryScreen()),
                                                 type: PageTransitionType

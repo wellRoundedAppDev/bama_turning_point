@@ -48,6 +48,7 @@ class AccountCubit extends Cubit<AccountStates> {
   List<CustomerOrder>? customerOrders;
   int? selectedOrderId;
   OrderDetails? selectedOrder;
+  int customerOrdersPageNumber = 1;
 
   setAccountDetails() async {
     emit(GetAccountLoadingState());
@@ -250,22 +251,46 @@ class AccountCubit extends Cubit<AccountStates> {
     accountAddressInput.isDefaultAddress = address?.defaultAddress;
   }
 
-  setCustomerOrders() async {
-    emit(GetCustomerOrdersLoadingState());
+  setFirstCustomerOrders() async {
+    emit(GetFirstCustomerOrdersLoadingState());
     var response = await AccountApis.getCustomerOrders(1);
     if (response?.success == 1) {
-      customerOrders = response?.customerOrders;
-      emit(GetCustomerOrdersSuccessState());
+      var tempCustomerOrders = response?.customerOrders??[];
+      customerOrdersPageNumber++;
+      customerOrders?.addAll(tempCustomerOrders);
+      emit(GetFirstCustomerOrdersSuccessState());
     } else if (response?.success == 0) {
       customerOrders = null;
-      emit(GetCustomerOrdersFailedState());
+      emit(GetFirstCustomerOrdersFailedState());
     } else {
       customerOrders = null;
-      emit(GetCustomerOrdersNetworkConnectionFailedState());
+      emit(GetFirstCustomerOrdersNetworkConnectionFailedState());
     }
   }
 
-  setOrderDetails(int id) async {
+  addMoreCustomerOrders() async {
+    emit(AddMoreCustomerOrdersLoadingState());
+    var response = await AccountApis.getCustomerOrders(customerOrdersPageNumber);
+    if(response?.success == 1){
+      var tempCustomerOrders = response?.customerOrders??[];
+      if(tempCustomerOrders.isEmpty == true){
+        emit(AddMoreCustomerOrdersSuccessState());
+        return;
+      }
+      customerOrdersPageNumber++;
+      customerOrders?.addAll(tempCustomerOrders);
+      emit(AddMoreCustomerOrdersSuccessState());
+
+    }
+    else if(response?.success == 0){
+      emit(AddMoreCustomerOrdersFailedState());
+    }
+    else{
+      emit(AddMoreCustomerOrdersNetworkConnectionFailedState());
+    }
+  }
+
+  setOrderDetails(int? id) async {
     selectedOrderId = id;
     emit(GetOrderDetailsLoadingState());
     var response = await AccountApis.getOrderDetails(id);

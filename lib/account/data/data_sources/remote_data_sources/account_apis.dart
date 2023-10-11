@@ -183,9 +183,9 @@ class AccountApis {
   }
 
 
-  static Future<GetOrderDetailsResponse?> getOrderDetails(int orderId) async {
+  static Future<GetOrderDetailsResponse?> getOrderDetails(int? orderId) async {
 
-    String endpoint = ApiUrls.getCustomerOrderDetailsEndpoint(orderId);
+    String endpoint = ApiUrls.getCustomerOrderDetailsEndpoint(orderId??0);
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 

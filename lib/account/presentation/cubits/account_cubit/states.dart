@@ -34,54 +34,62 @@ class GetAccountAddressesFailedState extends AccountStates {}
 
 class GetAccountAddressesNetworkConnectionFailedState extends AccountStates {}
 
+class AddAddressLoadingState extends AccountStates {}
 
-class AddAddressLoadingState extends AccountStates{}
+class AddAddressSuccessState extends AccountStates {}
 
-class AddAddressSuccessState extends AccountStates{}
+class AddAddressFailedState extends AccountStates {}
 
-class AddAddressFailedState extends AccountStates{}
+class AddAddressNetworkConnectionFailedState extends AccountStates {}
 
-class AddAddressNetworkConnectionFailedState extends AccountStates{}
+class EditAddressLoadingState extends AccountStates {}
 
+class EditAddressSuccessState extends AccountStates {}
 
-class EditAddressLoadingState extends AccountStates{}
+class EditAddressFailedState extends AccountStates {}
 
-class EditAddressSuccessState extends AccountStates{}
+class EditAddressNetworkConnectionFailedState extends AccountStates {}
 
-class EditAddressFailedState extends AccountStates{}
+class DeleteAddressLoadingState extends AccountStates {}
 
-class EditAddressNetworkConnectionFailedState extends AccountStates{}
+class DeleteAddressSuccessState extends AccountStates {}
 
+class DeleteAddressFailedState extends AccountStates {}
 
+class DeleteAddressNetworkConnectionFailedState extends AccountStates {}
 
-class DeleteAddressLoadingState extends AccountStates{}
+class GetFirstCustomerOrdersLoadingState extends AccountStates {}
 
-class DeleteAddressSuccessState extends AccountStates{}
+class GetFirstCustomerOrdersSuccessState extends AccountStates {}
 
-class DeleteAddressFailedState extends AccountStates{}
+class GetFirstCustomerOrdersFailedState extends AccountStates {}
 
-class DeleteAddressNetworkConnectionFailedState extends AccountStates{}
-
-
-class GetCustomerOrdersLoadingState extends AccountStates{}
-
-class  GetCustomerOrdersSuccessState extends AccountStates{}
-
-class  GetCustomerOrdersFailedState extends AccountStates{}
-
-class GetCustomerOrdersNetworkConnectionFailedState extends AccountStates{}
-
-
-class GetOrderDetailsLoadingState extends AccountStates{}
-
-class GetOrderDetailsSuccessState extends AccountStates{}
-
-class GetOrderDetailsFailedState extends AccountStates{}
-
-class GetOrderDetailsNetworkConnectionFailedState extends AccountStates{}
+class GetFirstCustomerOrdersNetworkConnectionFailedState
+    extends AccountStates {}
 
 
 
-class AccountAddressSelectedState extends AccountStates{}
 
-class DefaultAddressSelectedState extends AccountStates{}
+
+class AddMoreCustomerOrdersLoadingState extends AccountStates {}
+
+class AddMoreCustomerOrdersSuccessState extends AccountStates {}
+
+class AddMoreCustomerOrdersFailedState extends AccountStates {}
+
+class AddMoreCustomerOrdersNetworkConnectionFailedState extends AccountStates {}
+
+
+
+
+class GetOrderDetailsLoadingState extends AccountStates {}
+
+class GetOrderDetailsSuccessState extends AccountStates {}
+
+class GetOrderDetailsFailedState extends AccountStates {}
+
+class GetOrderDetailsNetworkConnectionFailedState extends AccountStates {}
+
+class AccountAddressSelectedState extends AccountStates {}
+
+class DefaultAddressSelectedState extends AccountStates {}

@@ -26,20 +26,20 @@ class OrderHistoryScreen extends StatelessWidget {
         builder: (context, state) {
           AccountCubit accountCubit = AccountCubit.get(context);
           List<CustomerOrder>? customerOrders = accountCubit.customerOrders;
-          return (state is GetCustomerOrdersLoadingState)
+          return (state is GetFirstCustomerOrdersLoadingState)
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : (state is GetCustomerOrdersNetworkConnectionFailedState)
+              : (state is GetFirstCustomerOrdersNetworkConnectionFailedState)
                   ? Padding(
                       padding: const EdgeInsets.all(16),
                       child: NoNetworkRefreshPage(refresh: () {
-                        accountCubit.setCustomerOrders();
+                        accountCubit.setFirstCustomerOrders();
                       }),
                     )
                   : RefreshIndicator(
                       onRefresh: () async {
-                        await accountCubit.setCustomerOrders();
+                        await accountCubit.setFirstCustomerOrders();
                       },
                       child: SingleChildScrollView(
                         child: Padding(
