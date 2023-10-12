@@ -30,3 +30,19 @@ class LoadCartSuccessState extends CartStates{}
 class LoadCartFailedState extends CartStates{}
 
 class LoadCartNetworkConnectionFailedState extends CartStates{}
+
+
+class ItemDeletedFromCartLoadingState extends CartStates{}
+
+class ItemDeletedFromCartSuccessState extends CartStates{}
+
+class ItemDeletedFromCartFailedState extends CartStates{}
+
+class ItemDeletedFromCartNetworkConnectionFailedState extends CartStates{}
+
+
+class UpdateCartItemQuantityLoadingState extends CartStates{}
+
+class UpdateCartItemQuantityFailedState extends CartStates{}
+
+class UpdateCartItemQuantityNetworkConnectionFailedState extends CartStates{}

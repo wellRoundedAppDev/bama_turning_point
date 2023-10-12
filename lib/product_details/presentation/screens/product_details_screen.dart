@@ -663,7 +663,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                               flex: 1,
                                                                               child: GestureDetector(
                                                                                 onTap: () {
-                                                                                  cartCubit.decreaseProductQuantity(selectedProductId.toString());
+                                                                                  cartCubit.decreaseProductQuantity(selectedProductId.toString(),0);
                                                                                 },
                                                                                 child: const Icon(
                                                                                   Icons.remove,
@@ -699,7 +699,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                               child: Center(
                                                                                   child: GestureDetector(
                                                                                 onTap: () {
-                                                                                  cartCubit.increaseProductQuantity(selectedProductId.toString());
+                                                                                  cartCubit.increaseProductQuantity(selectedProductId.toString(),0);
                                                                                 },
                                                                                 child: const Icon(
                                                                                   Icons.add,
@@ -875,14 +875,16 @@ class ProductDetailsScreen extends StatelessWidget {
                                             ),
                                             ListView.separated(
                                                 separatorBuilder:
-                                                    (context, index) =>
-                                                        const Column(
+                                                    (context, index) => Column(
                                                           children: [
-                                                            Divider(
-                                                              thickness: 1,
-                                                              color: Color(
-                                                                  0xffE5E5E5),
-                                                            ),
+                                                            (index == 2)
+                                                                ? Container()
+                                                                : const Divider(
+                                                                    thickness:
+                                                                        1,
+                                                                    color: Color(
+                                                                        0xffE5E5E5),
+                                                                  ),
                                                           ],
                                                         ),
                                                 shrinkWrap: true,
@@ -898,16 +900,20 @@ class ProductDetailsScreen extends StatelessWidget {
                                                     child: Comment(),
                                                   );
                                                 }),
-                                            const Divider(
-                                              thickness: 2,
-                                              color: Color(0xffE5E5E5),
-                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8.0),
+                                              child: Container(
+                                                height: 1,
+                                                color: const Color(0xffE5E5E5),
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ),
                                       ProductsOverview(
-                                        products: [],
-                                        productListTitle: '',
+                                        products: const [],
+                                        productListTitle: 'You May Also Like',
                                       )
                                     ],
                                   ),

@@ -1,22 +1,25 @@
 class CartItem {
-  String id;
+  String productId;
   String name;
   int quantity;
   double price;
   String imagePath;
+  int? cartId;
 
   CartItem(
-      {required this.id,
+      {required this.productId,
       required this.name,
       required this.price,
+      this.cartId,
       this.quantity = 0,
       this.imagePath = ""});
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+        "id": productId,
+        "cartId": cartId,
         "name": name,
         "quantity": quantity,
         "price": price,
-        "imagePath": imagePath
+        "imagePath": imagePath,
       };
 }

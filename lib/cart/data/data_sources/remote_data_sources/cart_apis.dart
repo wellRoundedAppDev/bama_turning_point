@@ -88,4 +88,68 @@ class CartApis {
       }
     }
   }
+
+  static Future<bool?> deleteCartItem(int cartId) async {
+    String endpoint = ApiUrls.CART_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.delete(
+          endPoint: endpoint,
+          body: {
+            "key": cartId
+          },
+
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      if (response.data['success'] == 1) {
+        return true;
+      } else if (response.data['success'] == 0) {
+        return false;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Delete cart item error api $e");
+      }
+    }
+  }
+
+  static Future<bool?> updateCartItemQuantity(int cartId, int quantity) async {
+    String endpoint = ApiUrls.CART_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.put(
+          endPoint: endpoint,
+          body: {
+            "key": cartId.toString(),
+            "quantity": quantity
+          },
+
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      if (response.data['success'] == 1) {
+        return true;
+      } else if (response.data['success'] == 0) {
+        return false;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Delete cart item error api $e");
+      }
+    }
+  }
+
+
+
 }

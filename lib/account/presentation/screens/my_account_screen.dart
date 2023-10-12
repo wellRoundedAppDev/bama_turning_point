@@ -36,6 +36,7 @@ class MyAccountScreen extends StatelessWidget {
                   AccountCubit accountCubit = AccountCubit.get(context);
                   return Scaffold(
                     appBar: CustomAppBar.renderAppBar(
+                      showLogoutIcon: true,
                         // cartCubit: CartCubit.get(context),
                         title: "My Account",
                         showBackButton: false,

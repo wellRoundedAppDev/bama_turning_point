@@ -47,7 +47,7 @@ class CheckOutBottomSheet extends StatelessWidget {
                       builder: (context, state) {
                         CartCubit cartCubit = CartCubit.get(context);
                         return Text(
-                          " : ${cartCubit.totalPrice.toStringAsFixed(2)}",
+                          " : ${cartCubit.totalPrice.toStringAsFixed(2)}\$",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(

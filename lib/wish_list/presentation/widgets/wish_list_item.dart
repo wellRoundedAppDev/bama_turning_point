@@ -140,7 +140,7 @@ class WishListItemWidget extends StatelessWidget {
                                                       ""));
                                           CartCubit.get(context).addItemToCart(
                                               CartItem(
-                                                  id: wishlistItem?.productId ??
+                                                  productId: wishlistItem?.productId ??
                                                       "",
                                                   name:
                                                       wishlistItem?.name ?? "",

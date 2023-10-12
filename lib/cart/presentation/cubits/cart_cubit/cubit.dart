@@ -23,29 +23,37 @@ class CartCubit extends Cubit<CartStates> {
   double totalPrice = 0;
 
   int numberOfItemsInCart = 0;
+  String? selectedCartProductId;
 
   //to call cubit
   static CartCubit get(BuildContext context) => BlocProvider.of(context);
 
   loadCartItems() async {
     emit(LoadCartLoadingState());
-    if (await AuthCubit.get(context).setAccessToken() != true) {
-      emit(LoadCartNetworkConnectionFailedState());
-      return;
-    }
+    // if ( AuthCubit.get(context).isUserLoggedIn != true) {
+    //   var success = await AuthCubit.get(context).setAccessToken();
+    //   if(success != true){
+    //
+    //   }
+    //   return;
+    // }
     var response = await CartApis.getCartItems();
     if (response?.success == 1) {
-      response?.data?.cartItemsFromApi?.map((e) {
+      response?.data?.cartItemsFromApi?.forEach((e) {
         if (e.productId != null) {
           cartItems[e.productId ?? ""] = {
             "id": e.productId,
             "name": e.name,
             "quantity": int.tryParse(e.quantity ?? ""),
-            "price": double.tryParse(e.price ?? ""),
-            "imagePath": e.thumb
+            "price": double.tryParse(e.price?.replaceAll("\$", "") ?? ""),
+            "imagePath": e.thumb,
+            "cartId": int.tryParse(e.key ?? "")
           };
+          // totalPrice + (double.tryParse(e.price?.replaceAll("\$", "") ?? "")??0 *
+          // (int.tryParse(e.quantity ?? "")??0));
         }
       });
+      totalPrice = response?.data?.totalRaw?.toDouble() ?? 0;
       emit(LoadCartSuccessState());
     } else if (response?.success == 0) {
       emit(LoadCartFailedState());
@@ -69,7 +77,9 @@ class CartCubit extends Cubit<CartStates> {
   addItemToCart(CartItem cartItem, {bool saveInDB = true}) async {
     bool? isUserLoggedIn =
         MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
-    if (isUserLoggedIn == false) {
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+    if (isUserLoggedIn == false && accessToken == null) {
       var success = await AuthCubit.get(context).setAccessToken();
       if (!success) {
         emit(ItemAddedToCartNetworkConnectionFailedState());
@@ -78,7 +88,7 @@ class CartCubit extends Cubit<CartStates> {
     }
     emit(ItemAddedToCartLoadingState());
     var success = await CartApis.addItemToCart(
-        {"product_id": cartItem.id, "quantity": 1});
+        {"product_id": cartItem.productId, "quantity": 1});
     if (success == false) {
       emit(ItemAddedToCartFailedState());
       showAppSnackBar(content: "Error occured");
@@ -89,12 +99,12 @@ class CartCubit extends Cubit<CartStates> {
       return null;
     }
 
-    String id = cartItem.id;
+    String id = cartItem.productId;
     bool isItemNotInCart = cartItems[id] == null;
     if (isItemNotInCart) {
       cartItems[id] = cartItem.toJson();
       showAppSnackBar(content: "Product added to cart");
-      increaseProductQuantity(id, SaveInDB: saveInDB);
+      increaseProductQuantity(id, 0, SaveInDB: saveInDB);
       //emit(ItemAddedToCartState());
       return true;
     }
@@ -104,21 +114,72 @@ class CartCubit extends Cubit<CartStates> {
     }
   }
 
-  deleteProductFromSalesCart(String Id) {
-    int Quantity = cartItems[Id]["quantity"];
-    double Price = cartItems[Id]["price"];
+  deleteProductFromSalesCart(String id, int cartId) async {
+    selectedCartProductId = id;
+    emit(ItemDeletedFromCartLoadingState());
+    bool? isUserLoggedIn =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+    if (isUserLoggedIn == false && accessToken == null) {
+      var success = await AuthCubit.get(context).setAccessToken();
+      if (!success) {
+        showAppSnackBar(
+            content: "Check your internet connection, and try again");
+        emit(ItemDeletedFromCartNetworkConnectionFailedState());
+        return;
+      }
+    }
+    var success = await CartApis.deleteCartItem(cartId);
+    if (success == false) {
+      emit(ItemDeletedFromCartFailedState());
+      showAppSnackBar(content: "Error occured");
+      return false;
+    } else if (success == null) {
+      emit(ItemDeletedFromCartNetworkConnectionFailedState());
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      return null;
+    }
 
-    totalPrice = totalPrice - (Quantity * Price);
-    cartItems.removeWhere((key, value) => key == Id);
+    int quantity = cartItems[id]["quantity"];
+    double price = cartItems[id]["price"];
+
+    totalPrice = totalPrice - (quantity * price);
+    cartItems.removeWhere((key, value) => key == id);
     // SaveCartInDB();
-    emit(ItemDeletedFromCartState());
+    emit(ItemDeletedFromCartSuccessState());
   }
 
-  increaseProductQuantity(String Id, {bool SaveInDB = true}) {
-    //String id = selectedProduct?["id"]??"";
-    cartItems[Id]['quantity'] = cartItems[Id]['quantity'] + 1;
+  increaseProductQuantity(String id, int cartId,{bool SaveInDB = true}) async {
+    emit(UpdateCartItemQuantityLoadingState());
+    bool? isUserLoggedIn =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+    if (isUserLoggedIn == false && accessToken == null) {
+      var success = await AuthCubit.get(context).setAccessToken();
+      if (!success) {
+        showAppSnackBar(
+            content: "Check your internet connection, and try again");
+        emit(UpdateCartItemQuantityNetworkConnectionFailedState());
+        return;
+      }
+    }
+    var success = await CartApis.updateCartItemQuantity(cartId, cartItems[id]['quantity'] + 1);
+    if (success == false) {
+      emit(UpdateCartItemQuantityFailedState());
+      showAppSnackBar(content: "Error occurred");
+      return false;
+    } else if (success == null) {
+      emit(UpdateCartItemQuantityNetworkConnectionFailedState());
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      return null;
+    }
 
-    double Price = cartItems[Id]['price'];
+    //String id = selectedProduct?["id"]??"";
+    cartItems[id]['quantity'] = cartItems[id]['quantity'] + 1;
+
+    double Price = cartItems[id]['price'];
 
     totalPrice = totalPrice + Price;
     if (SaveInDB) {
@@ -128,19 +189,45 @@ class CartCubit extends Cubit<CartStates> {
   }
 
   //
-  decreaseProductQuantity(String Id) {
+  decreaseProductQuantity(String id,int cartId) async {
+
+    emit(UpdateCartItemQuantityLoadingState());
+    bool? isUserLoggedIn =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+    if (isUserLoggedIn == false && accessToken == null) {
+      var success = await AuthCubit.get(context).setAccessToken();
+      if (!success) {
+        showAppSnackBar(
+            content: "Check your internet connection, and try again");
+        emit(UpdateCartItemQuantityNetworkConnectionFailedState());
+        return;
+      }
+    }
+    var success = await CartApis.updateCartItemQuantity(cartId, cartItems[id]['quantity'] - 1);
+    if (success == false) {
+      emit(UpdateCartItemQuantityFailedState());
+      showAppSnackBar(content: "Error occurred");
+      return false;
+    } else if (success == null) {
+      emit(UpdateCartItemQuantityNetworkConnectionFailedState());
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      return null;
+    }
+
     // String id = selectedProduct?["id"]??"";
-    int Quantity = cartItems[Id]['quantity'];
-    double Price = cartItems[Id]['price'];
-    String Name = cartItems[Id]['name'];
-    String ImagePath = cartItems[Id]['imagePath'];
+    int Quantity = cartItems[id]['quantity'];
+    double Price = cartItems[id]['price'];
+    String Name = cartItems[id]['name'];
+    String ImagePath = cartItems[id]['imagePath'];
 
     if (Quantity == 1) {
       // context.read<CategoriesAndProductsProvider>().setSelectedProduct(Product(name: name, id: id, price: price,imagePath: imagePath,quantity: quantity));
 
       return;
     }
-    cartItems[Id]['quantity'] = Quantity - 1;
+    cartItems[id]['quantity'] = Quantity - 1;
 
     // context.read<CategoriesAndProductsProvider>().setSelectedProduct(Product(name: name, id: id, price: price,imagePath: imagePath,quantity: quantity));
 

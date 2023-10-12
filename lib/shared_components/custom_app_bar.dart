@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../core/constants/paths/icon_paths.dart';
 
 class CustomAppBar {
@@ -14,6 +15,7 @@ class CustomAppBar {
       {required String title,
       bool showBackButton = true,
       bool showCartIcon = true,
+        bool showLogoutIcon = false,
       CartCubit? cartCubit}) {
     return AppBar(
       toolbarHeight: 65,
@@ -24,6 +26,19 @@ class CustomAppBar {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            (showLogoutIcon)
+                ? GestureDetector(
+              onTap: () {
+                AuthCubit.get(MyApp.navKey.currentState!.context).logOut();
+
+              },
+              child: Image.asset(
+                IconPaths.LOGOUT_ICON,
+                width: 25,
+                height: 25,
+              ),
+            )
+                : Container(),
             (showBackButton)
                 ? IconButton(
                     onPressed: () {
@@ -65,6 +80,9 @@ class CustomAppBar {
                     ),
                   )
                 : Container(),
+
+
+
           ],
         ),
       ),

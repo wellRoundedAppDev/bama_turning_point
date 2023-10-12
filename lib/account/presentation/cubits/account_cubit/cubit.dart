@@ -52,9 +52,6 @@ class AccountCubit extends Cubit<AccountStates> {
 
   ScrollController ordersHistoryScrollController = ScrollController();
 
-
-
-
   setAccountDetails() async {
     emit(GetAccountLoadingState());
     var response = await AccountApis.getAccountDetails();
@@ -260,8 +257,8 @@ class AccountCubit extends Cubit<AccountStates> {
     emit(GetFirstCustomerOrdersLoadingState());
     var response = await AccountApis.getCustomerOrders(1);
     if (response?.success == 1) {
-      var tempCustomerOrders = response?.customerOrders??[];
-      if(tempCustomerOrders.isEmpty == true){
+      var tempCustomerOrders = response?.customerOrders ?? [];
+      if (tempCustomerOrders.isEmpty == true) {
         emit(GetFirstCustomerOrdersSuccessState());
         return;
       }
@@ -279,23 +276,21 @@ class AccountCubit extends Cubit<AccountStates> {
   }
 
   addMoreCustomerOrders() async {
-
     emit(AddMoreCustomerOrdersLoadingState());
-    var response = await AccountApis.getCustomerOrders(customerOrdersPageNumber);
-    if(response?.success == 1){
-      var tempCustomerOrders = response?.customerOrders??[];
-      if(tempCustomerOrders.isEmpty == true){
+    var response =
+        await AccountApis.getCustomerOrders(customerOrdersPageNumber);
+    if (response?.success == 1) {
+      var tempCustomerOrders = response?.customerOrders ?? [];
+      if (tempCustomerOrders.isEmpty == true) {
         emit(AddMoreCustomerOrdersSuccessState());
         return;
       }
       customerOrdersPageNumber++;
       customerOrders.addAll(tempCustomerOrders);
       emit(AddMoreCustomerOrdersSuccessState());
-    }
-    else if(response?.success == 0){
+    } else if (response?.success == 0) {
       emit(AddMoreCustomerOrdersFailedState());
-    }
-    else{
+    } else {
       emit(AddMoreCustomerOrdersNetworkConnectionFailedState());
     }
   }
@@ -316,19 +311,18 @@ class AccountCubit extends Cubit<AccountStates> {
     }
   }
 
-  initOrderHistoryScreen(){
+  initOrderHistoryScreen() {
     customerOrders = [];
     setFirstCustomerOrders();
     ordersHistoryScrollController.removeListener(() {});
     ordersHistoryScrollController.addListener(() async {
       if (ordersHistoryScrollController.position.maxScrollExtent ==
           ordersHistoryScrollController.offset) {
-        if(state is AddMoreCustomerOrdersLoadingState){
+        if (state is AddMoreCustomerOrdersLoadingState) {
           return;
         }
         await addMoreCustomerOrders();
       }
     });
-
   }
 }

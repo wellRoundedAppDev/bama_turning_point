@@ -138,7 +138,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                                     ProductDetailsCubit.get(context)
                                         .selectedProductDetails;
                                 cartCubit.addItemToCart(CartItem(
-                                    id: selectedProductDetails?.productId
+                                    productId: selectedProductDetails?.productId
                                             ?.toString() ??
                                         "",
                                     name: selectedProductDetails?.name ?? "",

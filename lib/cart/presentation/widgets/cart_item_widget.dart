@@ -1,6 +1,8 @@
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/constants/colors/colors.dart';
@@ -10,7 +12,7 @@ import '../../data/models/cart_item.dart';
 
 class CartItemWidget extends StatelessWidget {
   CartItem cartItem;
-   CartItemWidget({Key? key, required this.cartItem}) : super(key: key);
+  CartItemWidget({Key? key, required this.cartItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +29,16 @@ class CartItemWidget extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             child: Image.network(
               cartItem.imagePath,
-
               width: MediaQuery.of(context).size.width * 0.25,
               height: MediaQuery.of(context).size.height * 0.2,
               fit: BoxFit.cover,
               errorBuilder: (context, object, stackTrace) {
-                return  Icon(
+                return Icon(
                   Icons.error,
                   size: MediaQuery.of(context).size.width * 0.25,
                   color: AppColors.APP_MAIN_COLOR,
                 );
               },
-
             ),
           ),
           Container(
@@ -54,7 +54,7 @@ class CartItemWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 Text(
+                Text(
                   cartItem.name,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -66,7 +66,7 @@ class CartItemWidget extends StatelessWidget {
                 const SizedBox(
                   height: 3,
                 ),
-                 Text(
+                Text(
                   "\$${cartItem.price.toString()}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -85,11 +85,14 @@ class CartItemWidget extends StatelessWidget {
                           border: Border.all(color: const Color(0xffD0D0D0))),
                       child: Row(
                         children: [
-                           Flexible(
+                          Flexible(
                               flex: 1,
                               child: InkWell(
-                                onTap: (){
-                                   CartCubit.get(context).decreaseProductQuantity(cartItem.id);
+                                onTap: () {
+                                  CartCubit.get(context)
+                                      .decreaseProductQuantity(
+                                          cartItem.productId,
+                                          cartItem.cartId ?? 0);
                                 },
                                 child: const Icon(
                                   Icons.remove,
@@ -101,7 +104,7 @@ class CartItemWidget extends StatelessWidget {
                             width: 1,
                             color: const Color(0xffD0D0D0),
                           ),
-                           Flexible(
+                          Flexible(
                               flex: 2,
                               child: Center(
                                 child: Text(
@@ -117,20 +120,21 @@ class CartItemWidget extends StatelessWidget {
                             width: 1,
                             color: const Color(0xffD0D0D0),
                           ),
-                           Flexible(
+                          Flexible(
                               flex: 1,
                               child: Center(
                                   child: InkWell(
-                                    onTap: (){
-                                      CartCubit.get(context).increaseProductQuantity(cartItem.id);
-
-                                    },
-                                    child: const Icon(
-                                Icons.add,
-                                color: Color(0xff313846),
-                              ),
-                                  ))),
-
+                                onTap: () {
+                                  CartCubit.get(context)
+                                      .increaseProductQuantity(
+                                          cartItem.productId,
+                                          cartItem.cartId ?? 0);
+                                },
+                                child: const Icon(
+                                  Icons.add,
+                                  color: Color(0xff313846),
+                                ),
+                              ))),
                         ],
                       ),
                     ),
@@ -152,18 +156,32 @@ class CartItemWidget extends StatelessWidget {
                       width: 8,
                     ),
                     GestureDetector(
-                      onTap: (){
-                        CartCubit.get(context).deleteProductFromSalesCart(cartItem.id);
+                      onTap: () {
+                        CartCubit.get(context).deleteProductFromSalesCart(
+                            cartItem.productId, cartItem.cartId ?? 0);
                       },
-                      child: Container(
-                        width: 25,
-                        height: 25,
-                        color: const Color(0xffE7284D),
-                        child: const Icon(
-                          Icons.clear,
-                          color: Colors.white,
-                          size: 18,
-                        ),
+                      child: BlocConsumer<CartCubit, CartStates>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          return (state is ItemDeletedFromCartLoadingState &&
+                                  cartItem.productId ==
+                                      CartCubit.get(context)
+                                          .selectedCartProductId)
+                              ? const SizedBox(
+                                  width: 18,
+                                  height: 18,
+                                  child: CircularProgressIndicator())
+                              : Container(
+                                  width: 25,
+                                  height: 25,
+                                  color: const Color(0xffE7284D),
+                                  child: const Icon(
+                                    Icons.clear,
+                                    color: Colors.white,
+                                    size: 18,
+                                  ),
+                                );
+                        },
                       ),
                     ),
                   ],
