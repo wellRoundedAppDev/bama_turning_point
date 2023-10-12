@@ -193,7 +193,10 @@ class CartCubit extends Cubit<CartStates> {
 
   //
   decreaseProductQuantity(String id,int cartId) async {
-    if(state is UpdateCartItemQuantityLoadingState){
+    int quantity = cartItems[id]['quantity'];
+    double price = cartItems[id]['price'];
+
+    if(state is UpdateCartItemQuantityLoadingState || quantity == 1){
       return;
     }
 
@@ -223,21 +226,17 @@ class CartCubit extends Cubit<CartStates> {
     }
 
     // String id = selectedProduct?["id"]??"";
-    int Quantity = cartItems[id]['quantity'];
-    double Price = cartItems[id]['price'];
-    String Name = cartItems[id]['name'];
-    String ImagePath = cartItems[id]['imagePath'];
 
-    if (Quantity == 1) {
-      // context.read<CategoriesAndProductsProvider>().setSelectedProduct(Product(name: name, id: id, price: price,imagePath: imagePath,quantity: quantity));
-
-      return;
-    }
-    cartItems[id]['quantity'] = Quantity - 1;
+    // if (Quantity == 1) {
+    //   // context.read<CategoriesAndProductsProvider>().setSelectedProduct(Product(name: name, id: id, price: price,imagePath: imagePath,quantity: quantity));
+    //
+    //   return;
+    // }
+    cartItems[id]['quantity'] = quantity - 1;
 
     // context.read<CategoriesAndProductsProvider>().setSelectedProduct(Product(name: name, id: id, price: price,imagePath: imagePath,quantity: quantity));
 
-    totalPrice = totalPrice - Price;
+    totalPrice = totalPrice - price;
 
     // SaveCartInDB();
     emit(ItemQuantityDecreasedFromCartState());

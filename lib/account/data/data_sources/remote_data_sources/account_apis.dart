@@ -8,6 +8,7 @@ import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../core/constants/server_urls_and_keys/api_urls.dart';
 import '../../../../core/helpers/dio_helper.dart';
 import '../../../../main.dart';
+import '../../models/get_account_address_response.dart';
 import '../../models/get_account_addresses_response.dart';
 import '../../models/get_customer_orders_response.dart';
 
@@ -97,6 +98,27 @@ class AccountApis {
       }
     }
   }
+
+  static Future<GetAccountAddressResponse?> getAccountAddress(int addressId) async {
+    String endpoint = ApiUrls.getAccountAddressEndpoint(addressId);
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.get(
+          endpoint: endpoint,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      return GetAccountAddressResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Get Account Address error api $e");
+      }
+    }
+  }
+
 
   static Future<SuccessAndErrorResponse?> addAccountAddress(
       Map<String, dynamic> addressInput) async {

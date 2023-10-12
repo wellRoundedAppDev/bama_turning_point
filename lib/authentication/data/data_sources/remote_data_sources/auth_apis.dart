@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../main.dart';
 import '../../../presentation/auth_cubit/auth_cubit.dart';
+import '../../models/login_response.dart';
 
 class AuthApis {
   static final dioHelper = DioHelper.instance;
@@ -44,7 +45,7 @@ class AuthApis {
     }
   }
 
-  static Future<SuccessAndErrorResponse?> login(
+  static Future<LoginResponse?> login(
     Map<String, dynamic> loginInput,
   ) async {
     String endpoint = ApiUrls.LOGIN_ENDPOINT;
@@ -59,7 +60,7 @@ class AuthApis {
       if (response == null) {
         return null;
       }
-      return SuccessAndErrorResponse.fromJson(response.data);
+      return LoginResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
         print("Login error api $e");

@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/account/data/data_sources/remote_data_sources/account_apis.dart';
 import 'package:classic_eccomerce/authentication/data/models/guest_form_input.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../../account/data/models/account_address.dart';
 import '../../../shared_components/app_snackbar.dart';
 
 class CheckOutCubit extends Cubit<CheckOutStates> {
@@ -27,7 +29,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   GlobalKey<FormState> addressForRegisteredUserFormkey = GlobalKey<FormState>();
 
   TabController? tabController;
-
+  AccountAddress? defaultAddress;
 
 
   setShippingMethod(int index) {
@@ -252,6 +254,10 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
       return null;
     }
   }
-  
+
+  setDefaultAccountAddress() async {
+    emit(GetDefaultAddressLoadingState());
+    // var response = await AccountApis.getAccountAddress(addressId);
+  }
   
 }

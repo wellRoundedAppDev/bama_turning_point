@@ -1,4 +1,3 @@
-import 'package:classic_eccomerce/account/data/models/get_account_addresses_response.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../../core/constants/fonts/font_sizes.dart';
 import '../../../../shared_components/custom_button.dart';
+import '../../../data/models/account_address.dart';
 import '../address_book_entries/edit_address_screen.dart';
 
 class AddressEntryItem extends StatelessWidget {

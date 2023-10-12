@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../core/constants/fonts/font_sizes.dart';
+import '../../../data/models/account_address.dart';
 import 'add_address_screen.dart';
 
 class AddressBookEntriesScreen extends StatelessWidget {

@@ -33,3 +33,13 @@ class ConfirmOrderNetworkConnectionFailedState extends CheckOutStates{}
 class ShippingMethodSelected extends CheckOutStates{}
 
 class PaymentMethodSelected extends CheckOutStates{}
+
+
+
+class GetDefaultAddressLoadingState extends CheckOutStates{}
+
+class GetDefaultAddressSuccessState extends CheckOutStates{}
+
+class GetDefaultAddressFailedState extends CheckOutStates{}
+
+class GetDefaultAddressNetworkConnectionFailedState extends CheckOutStates{}

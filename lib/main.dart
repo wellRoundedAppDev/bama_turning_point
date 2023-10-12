@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/core/constants/paths/routes/routes/routes_ids.dart';
 import 'package:classic_eccomerce/home_layout/presentation/screens/home_layout.dart';

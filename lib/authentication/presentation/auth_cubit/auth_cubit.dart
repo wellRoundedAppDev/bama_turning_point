@@ -68,12 +68,13 @@ class AuthCubit extends Cubit<AuthStates> {
     }
 
     var response = await AuthApis.login(loginFormInput.toJson());
-    if (response?.success == true) {
+    if (response?.success == 1) {
+
       isUserLoggedIn = true;
       emit(LoginSuccessState());
-    } else if (response?.success == false) {
+    } else if (response?.success == 0) {
       isUserLoggedIn = false;
-      showAppSnackBar(content: response?.errorMsgs?[0] ?? "");
+      showAppSnackBar(content: response?.error?[0] ?? "");
       emit(LoginFailedState());
     } else {
       isUserLoggedIn = false;
