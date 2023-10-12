@@ -151,6 +151,9 @@ class CartCubit extends Cubit<CartStates> {
   }
 
   increaseProductQuantity(String id, int cartId,{bool SaveInDB = true}) async {
+    if(state is UpdateCartItemQuantityLoadingState){
+      return;
+    }
     emit(UpdateCartItemQuantityLoadingState());
     bool? isUserLoggedIn =
         MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
@@ -190,6 +193,9 @@ class CartCubit extends Cubit<CartStates> {
 
   //
   decreaseProductQuantity(String id,int cartId) async {
+    if(state is UpdateCartItemQuantityLoadingState){
+      return;
+    }
 
     emit(UpdateCartItemQuantityLoadingState());
     bool? isUserLoggedIn =

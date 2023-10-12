@@ -600,122 +600,122 @@ class ProductDetailsScreen extends StatelessWidget {
                                                       ),
                                                     ],
                                                   ),
-                                                  BlocConsumer<CartCubit,
-                                                      CartStates>(
-                                                    listener:
-                                                        (context, state) {},
-                                                    builder: (context, state) {
-                                                      CartCubit cartCubit =
-                                                          CartCubit.get(
-                                                              context);
-                                                      bool isProductInCart = cartCubit
-                                                          .cartItems
-                                                          .containsKey(
-                                                              selectedProductId
-                                                                  .toString());
-
-                                                      int quantity = 0;
-                                                      if (isProductInCart) {
-                                                        quantity = cartCubit
-                                                                    .cartItems[
-                                                                selectedProductId
-                                                                    .toString()]
-                                                            ['quantity'];
-                                                      }
-                                                      return (isProductInCart)
-                                                          ? Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                const SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                Row(
-                                                                  children: [
-                                                                    const Text(
-                                                                      "QTY",
-                                                                      style: TextStyle(
-                                                                          fontSize: FontSizes
-                                                                              .FONT_SIZE_16,
-                                                                          color: Color(
-                                                                              0xff313846),
-                                                                          fontWeight:
-                                                                              FontWeight.bold),
-                                                                    ),
-                                                                    const SizedBox(
-                                                                      width: 16,
-                                                                    ),
-                                                                    Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          0.25,
-                                                                      height:
-                                                                          25,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                              border: Border.all(color: const Color(0xffD0D0D0))),
-                                                                      child:
-                                                                          Row(
-                                                                        children: [
-                                                                          Flexible(
-                                                                              flex: 1,
-                                                                              child: GestureDetector(
-                                                                                onTap: () {
-                                                                                  cartCubit.decreaseProductQuantity(selectedProductId.toString(),0);
-                                                                                },
-                                                                                child: const Icon(
-                                                                                  Icons.remove,
-                                                                                  color: Color(0xff313846),
-                                                                                ),
-                                                                              )),
-                                                                          Container(
-                                                                            height:
-                                                                                MediaQuery.of(context).size.height,
-                                                                            width:
-                                                                                1,
-                                                                            color:
-                                                                                const Color(0xffD0D0D0),
-                                                                          ),
-                                                                          Flexible(
-                                                                              flex: 2,
-                                                                              child: Center(
-                                                                                child: Text(
-                                                                                  quantity.toString(),
-                                                                                  style: const TextStyle(fontSize: FontSizes.FONT_SIZE_12, color: Color(0xff313846), fontWeight: FontWeight.bold),
-                                                                                ),
-                                                                              )),
-                                                                          Container(
-                                                                            height:
-                                                                                MediaQuery.of(context).size.height,
-                                                                            width:
-                                                                                1,
-                                                                            color:
-                                                                                const Color(0xffD0D0D0),
-                                                                          ),
-                                                                          Flexible(
-                                                                              flex: 1,
-                                                                              child: Center(
-                                                                                  child: GestureDetector(
-                                                                                onTap: () {
-                                                                                  cartCubit.increaseProductQuantity(selectedProductId.toString(),0);
-                                                                                },
-                                                                                child: const Icon(
-                                                                                  Icons.add,
-                                                                                  color: Color(0xff313846),
-                                                                                ),
-                                                                              ))),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                )
-                                                              ],
-                                                            )
-                                                          : Container();
-                                                    },
-                                                  )
+                                                  // BlocConsumer<CartCubit,
+                                                  //     CartStates>(
+                                                  //   listener:
+                                                  //       (context, state) {},
+                                                  //   builder: (context, state) {
+                                                  //     CartCubit cartCubit =
+                                                  //         CartCubit.get(
+                                                  //             context);
+                                                  //     bool isProductInCart = cartCubit
+                                                  //         .cartItems
+                                                  //         .containsKey(
+                                                  //             selectedProductId
+                                                  //                 .toString());
+                                                  //
+                                                  //     int quantity = 0;
+                                                  //     if (isProductInCart) {
+                                                  //       quantity = cartCubit
+                                                  //                   .cartItems[
+                                                  //               selectedProductId
+                                                  //                   .toString()]
+                                                  //           ['quantity'];
+                                                  //     }
+                                                  //     // return (isProductInCart)
+                                                  //     //     ? Column(
+                                                  //     //         crossAxisAlignment:
+                                                  //     //             CrossAxisAlignment
+                                                  //     //                 .start,
+                                                  //     //         children: [
+                                                  //     //           const SizedBox(
+                                                  //     //             height: 20,
+                                                  //     //           ),
+                                                  //               // Row(
+                                                  //               //   children: [
+                                                  //               //     const Text(
+                                                  //               //       "QTY",
+                                                  //               //       style: TextStyle(
+                                                  //               //           fontSize: FontSizes
+                                                  //               //               .FONT_SIZE_16,
+                                                  //               //           color: Color(
+                                                  //               //               0xff313846),
+                                                  //               //           fontWeight:
+                                                  //               //               FontWeight.bold),
+                                                  //               //     ),
+                                                  //               //     const SizedBox(
+                                                  //               //       width: 16,
+                                                  //               //     ),
+                                                  //               //     Container(
+                                                  //               //       width: MediaQuery.of(context)
+                                                  //               //               .size
+                                                  //               //               .width *
+                                                  //               //           0.25,
+                                                  //               //       height:
+                                                  //               //           25,
+                                                  //               //       decoration:
+                                                  //               //           BoxDecoration(
+                                                  //               //               border: Border.all(color: const Color(0xffD0D0D0))),
+                                                  //               //       child:
+                                                  //               //           Row(
+                                                  //               //         children: [
+                                                  //               //           Flexible(
+                                                  //               //               flex: 1,
+                                                  //               //               child: GestureDetector(
+                                                  //               //                 onTap: () {
+                                                  //               //                   cartCubit.decreaseProductQuantity(selectedProductId.toString(),0);
+                                                  //               //                 },
+                                                  //               //                 child: const Icon(
+                                                  //               //                   Icons.remove,
+                                                  //               //                   color: Color(0xff313846),
+                                                  //               //                 ),
+                                                  //               //               )),
+                                                  //               //           Container(
+                                                  //               //             height:
+                                                  //               //                 MediaQuery.of(context).size.height,
+                                                  //               //             width:
+                                                  //               //                 1,
+                                                  //               //             color:
+                                                  //               //                 const Color(0xffD0D0D0),
+                                                  //               //           ),
+                                                  //               //           Flexible(
+                                                  //               //               flex: 2,
+                                                  //               //               child: Center(
+                                                  //               //                 child: Text(
+                                                  //               //                   quantity.toString(),
+                                                  //               //                   style: const TextStyle(fontSize: FontSizes.FONT_SIZE_12, color: Color(0xff313846), fontWeight: FontWeight.bold),
+                                                  //               //                 ),
+                                                  //               //               )),
+                                                  //               //           Container(
+                                                  //               //             height:
+                                                  //               //                 MediaQuery.of(context).size.height,
+                                                  //               //             width:
+                                                  //               //                 1,
+                                                  //               //             color:
+                                                  //               //                 const Color(0xffD0D0D0),
+                                                  //               //           ),
+                                                  //               //           Flexible(
+                                                  //               //               flex: 1,
+                                                  //               //               child: Center(
+                                                  //               //                   child: GestureDetector(
+                                                  //               //                 onTap: () {
+                                                  //               //                   cartCubit.increaseProductQuantity(selectedProductId.toString(),0);
+                                                  //               //                 },
+                                                  //               //                 child: const Icon(
+                                                  //               //                   Icons.add,
+                                                  //               //                   color: Color(0xff313846),
+                                                  //               //                 ),
+                                                  //               //               ))),
+                                                  //               //         ],
+                                                  //               //       ),
+                                                  //               //     ),
+                                                  //               //   ],
+                                                  //               // )
+                                                  //            // ],
+                                                  //          // )
+                                                  //        // : Container();
+                                                  //   },
+                                                  // )
                                                 ],
                                               ),
                                             ),
