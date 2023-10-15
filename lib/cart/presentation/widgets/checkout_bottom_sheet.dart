@@ -82,9 +82,10 @@ class CheckOutBottomSheet extends StatelessWidget {
                             child: BlocProvider.value(
                                 value: CartCubit.get(context),
                                 child: BlocProvider(
-                                    create: (context) =>
-                                        CheckOutCubit()..setRegisteredUserPaymentAddresses(),
-                                    child: const SelectAddressForRegisteredUsersScreen())),
+                                    create: (context) => CheckOutCubit()
+                                      ..setRegisteredUserPaymentAddresses(),
+                                    child:
+                                        const SelectAddressForRegisteredUsersScreen())),
                             type: PageTransitionType.leftToRight));
                     return;
                   }

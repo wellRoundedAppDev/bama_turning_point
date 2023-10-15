@@ -121,6 +121,13 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
       selectedUserAddressId = response?.data?.addressId;
       userAddresses = response?.data?.addresses;
 
+
+      // for(int i = 0; i < ((userAddresses?.length)??0); i++) {
+      //   if(userAddresses?[i].addressId == selectedUserAddressId){
+      //     userAddresses?.insert(0, userAddresses![i]);
+      //   //  userAddresses?.removeAt(index);
+      //   }
+      // }
       emit(GetUserAddressesSuccessState());
     } else if (response?.success == 0) {
       userAddresses = null;
