@@ -11,8 +11,8 @@ import '../../../core/constants/paths/image_paths.dart';
 import '../../../shared_components/custom_button.dart';
 import '../../../shared_components/custom_input.dart';
 
-class SetAddressForRegisteredUserScreen extends StatelessWidget {
-  const SetAddressForRegisteredUserScreen({
+class AddAddressForRegisteredUserScreen extends StatelessWidget {
+  const AddAddressForRegisteredUserScreen({
     super.key,
   });
 

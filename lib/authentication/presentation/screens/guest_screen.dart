@@ -277,59 +277,65 @@ class GuestScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                Container(
-                  padding: const EdgeInsets.only(left: 16, right: 8),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xff95989A))),
-                  child: DropdownSearch<Region>(
-                    asyncItems: (String filter) async {
-                      // var res =
-                      // searchAdsCubit.getJobCategories();
-                      return await AuthCubit.get(context).getRegionOfGuest();
-                    },
-                    dropdownDecoratorProps: const DropDownDecoratorProps(
-                        dropdownSearchDecoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintStyle: TextStyle(
-                              fontSize: FontSizes.FONT_SIZE_16,
-                              color: Color(0xff878787),
+                BlocConsumer<AuthCubit, AuthStates>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return Container(
+                      padding: const EdgeInsets.only(left: 16, right: 8),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: const Color(0xff95989A))),
+                      child: DropdownSearch<Region>(
+                        asyncItems: (String filter) async {
+                          // var res =
+                          // searchAdsCubit.getJobCategories();
+                          return await AuthCubit.get(context)
+                              .getRegionOfGuest();
+                        },
+                        dropdownDecoratorProps: const DropDownDecoratorProps(
+                            dropdownSearchDecoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_16,
+                                  color: Color(0xff878787),
+                                ),
+                                hintText: "Region / State")),
+                        dropdownButtonProps: const DropdownButtonProps(
+                            icon: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: Color(0xff696C6E),
+                        )),
+                        popupProps: PopupProps.menu(
+                            itemBuilder: (context, Region region, bool) {
+                          return Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              region.name ?? "-",
+                              style: const TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_16,
+                                  color: Color(0xff878787)),
                             ),
-                            hintText: "Region / State")),
-                    dropdownButtonProps: const DropdownButtonProps(
-                        icon: Icon(
-                      Icons.keyboard_arrow_down,
-                      color: Color(0xff696C6E),
-                    )),
-                    popupProps: PopupProps.menu(
-                        itemBuilder: (context, Region region, bool) {
-                      return Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          region.name ?? "-",
-                          style: const TextStyle(
-                              fontSize: FontSizes.FONT_SIZE_16,
-                              color: Color(0xff878787)),
-                        ),
-                      );
-                    }),
-                    dropdownBuilder: (context, region) {
-                      return Text(
-                        region?.name ?? "Region / State",
-                        style: const TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_16,
-                            color: Color(0xff878787)),
-                      );
-                    },
-                    onChanged: (Region? region) {
-                      AuthCubit.get(context).setRegionOfGuest(region!);
-                    },
-                    validator: (Region? region) {
-                      if (AuthCubit.get(context).guestFormInput.region ==
-                          null) {
-                        return "Select your region";
-                      }
-                    },
-                  ),
+                          );
+                        }),
+                        dropdownBuilder: (context, region) {
+                          return Text(
+                            AuthCubit.get(context).guestFormInput.region?.name ?? "Region / State",
+                            style: const TextStyle(
+                                fontSize: FontSizes.FONT_SIZE_16,
+                                color: Color(0xff878787)),
+                          );
+                        },
+                        onChanged: (Region? region) {
+                          AuthCubit.get(context).setRegionOfGuest(region!);
+                        },
+                        validator: (Region? region) {
+                          if (AuthCubit.get(context).guestFormInput.region ==
+                              null) {
+                            return "Select your region";
+                          }
+                        },
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 8,

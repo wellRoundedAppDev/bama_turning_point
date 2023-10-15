@@ -2,6 +2,7 @@ import 'package:classic_eccomerce/authentication/data/models/guest_form_input.da
 import 'package:classic_eccomerce/checkout/data/models/get_customer_payment_address_response.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_payment_methods_response.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_shipping_methods_response.dart';
+import 'package:classic_eccomerce/core/data/models/success_message_response.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../authentication/presentation/auth_cubit/auth_cubit.dart';
@@ -194,23 +195,44 @@ class CheckoutApis {
     }
   }
 
-  static Future<GetCustomerPaymentAddressResponse?> getCustomerPaymentAddress() async {
+  static Future<GetCustomerPaymentAddressesResponse?>
+      getCustomerPaymentAddresses() async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
     String endPoint = ApiUrls.CUSTOMER_PAYMENT_ADDRESS_ENDPOINT;
 
     try {
-      var response = await _dioHelper.post(endPoint: endPoint,
-          body: {
-
-      },
-          headers: {
-        "Authorization": "Bearer $accessToken"
-      });
+      var response = await _dioHelper.get(
+          endpoint: endPoint,
+          headers: {"Authorization": "Bearer $accessToken"});
       if (response == null) {
         return null;
       }
-     return GetCustomerPaymentAddressResponse.fromJson(response.data);
+      return GetCustomerPaymentAddressesResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  static Future<SuccessAndErrorResponse?>
+  setExistingCustomerPaymentAddress(int addressId) async {
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    String endPoint = ApiUrls.SET_EXISTING_CUSTOMER_PAYMENT_ADDRESS_ENDPOINT;
+
+    try {
+      var response = await _dioHelper.post(
+          endPoint: endPoint,
+          body: {
+            "address_id": addressId
+          },
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      return SuccessAndErrorResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
         print(e);

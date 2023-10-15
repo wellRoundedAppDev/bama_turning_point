@@ -1,6 +1,7 @@
 import 'package:classic_eccomerce/authentication/data/data_sources/remote_data_sources/auth_apis.dart';
 import 'package:classic_eccomerce/authentication/data/models/guest_form_input.dart';
 import 'package:classic_eccomerce/authentication/data/models/login_form_input.dart';
+import 'package:classic_eccomerce/authentication/data/models/login_response.dart';
 import 'package:classic_eccomerce/authentication/data/models/register_form_input.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
@@ -23,6 +24,7 @@ class AuthCubit extends Cubit<AuthStates> {
   final dioHelper = DioHelper.instance;
   String? sessionId;
   String? accessToken;
+  LoginResponse? loginResponse;
 
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
@@ -69,14 +71,16 @@ class AuthCubit extends Cubit<AuthStates> {
 
     var response = await AuthApis.login(loginFormInput.toJson());
     if (response?.success == 1) {
-
+      loginResponse = response;
       isUserLoggedIn = true;
       emit(LoginSuccessState());
     } else if (response?.success == 0) {
+      loginResponse = null;
       isUserLoggedIn = false;
       showAppSnackBar(content: response?.error?[0] ?? "");
       emit(LoginFailedState());
     } else {
+      loginResponse = null;
       isUserLoggedIn = false;
       showAppSnackBar(content: "Check your internet connection, and try again");
       emit(LoginNetworkFailedConnectionState());
@@ -211,7 +215,7 @@ class AuthCubit extends Cubit<AuthStates> {
                           value: cartCubit,
                           child: const QuickCheckoutMainScreen())),
                   type: PageTransitionType.leftToRight));
-          MyApp.navKey.currentState!.context.read<AuthCubit>().clearGuest();
+        //  MyApp.navKey.currentState!.context.read<AuthCubit>().clearGuest();
           emit(CreatingGuestUserSuccessState());
           return true;
         } else if (createGuestUserSuccess == false) {

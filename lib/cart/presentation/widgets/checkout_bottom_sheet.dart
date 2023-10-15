@@ -3,7 +3,8 @@ import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
 import 'package:classic_eccomerce/checkout/presentation/screens/quick_checkout_auth_screen.dart';
-import 'package:classic_eccomerce/checkout/presentation/screens/set_address_for_registered_users_screen.dart';
+import 'package:classic_eccomerce/checkout/presentation/screens/add_address_for_registered_users_screen.dart';
+import 'package:classic_eccomerce/checkout/presentation/screens/select_address_for_registered_users_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,8 +83,8 @@ class CheckOutBottomSheet extends StatelessWidget {
                                 value: CartCubit.get(context),
                                 child: BlocProvider(
                                     create: (context) =>
-                                        CheckOutCubit(),
-                                    child: const SetAddressForRegisteredUserScreen())),
+                                        CheckOutCubit()..setRegisteredUserPaymentAddresses(),
+                                    child: const SelectAddressForRegisteredUsersScreen())),
                             type: PageTransitionType.leftToRight));
                     return;
                   }

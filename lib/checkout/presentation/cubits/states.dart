@@ -36,10 +36,19 @@ class PaymentMethodSelected extends CheckOutStates{}
 
 
 
-class GetDefaultAddressLoadingState extends CheckOutStates{}
+class GetUserAddressesLoadingState extends CheckOutStates{}
 
-class GetDefaultAddressSuccessState extends CheckOutStates{}
+class GetUserAddressesSuccessState extends CheckOutStates{}
 
-class GetDefaultAddressFailedState extends CheckOutStates{}
+class GetUserAddressesFailedState extends CheckOutStates{}
 
-class GetDefaultAddressNetworkConnectionFailedState extends CheckOutStates{}
+class GetUserAddressesNetworkConnectionFailedState extends CheckOutStates{}
+
+
+class SetExistingUserAddressLoadingState extends CheckOutStates{}
+
+class SetExistingUserAddressSuccessState extends CheckOutStates{}
+
+class SetExistingUserAddressFailedState extends CheckOutStates{}
+
+class SetExistingUserAddressNetworkConnectionFailedState extends CheckOutStates{}

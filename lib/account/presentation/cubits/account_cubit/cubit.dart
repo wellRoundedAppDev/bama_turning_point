@@ -7,6 +7,7 @@ import 'package:classic_eccomerce/account/data/models/get_account_details_respon
 import 'package:classic_eccomerce/account/data/models/get_customer_orders_response.dart';
 import 'package:classic_eccomerce/account/data/models/get_order_details_response.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -137,8 +138,6 @@ class AccountCubit extends Cubit<AccountStates> {
     }
   }
 
-
-
   Future<List<Country>> getCountries() async {
     var response = await GetCountriesAndRegionsApi.getCountries();
     if (response?.success == 1) {
@@ -208,6 +207,13 @@ class AccountCubit extends Cubit<AccountStates> {
     var response = await AccountApis.editAccountAddress(
         accountAddressInput.toJson(), addressId);
     if (response?.success == true) {
+      if (accountAddressInput.isDefaultAddress == true) {
+        MyApp.navKey.currentState?.context
+            .read<AuthCubit>()
+            .loginResponse
+            ?.loginData
+            ?.addressId = addressId.toString();
+      }
       setAccountAddresses();
       Navigator.pop(context);
       showAppSnackBar(content: "Address is updated successfully");

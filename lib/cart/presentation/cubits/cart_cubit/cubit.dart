@@ -29,6 +29,7 @@ class CartCubit extends Cubit<CartStates> {
   static CartCubit get(BuildContext context) => BlocProvider.of(context);
 
   loadCartItems() async {
+    clearCart();
     emit(LoadCartLoadingState());
     // if ( AuthCubit.get(context).isUserLoggedIn != true) {
     //   var success = await AuthCubit.get(context).setAccessToken();
@@ -103,7 +104,7 @@ class CartCubit extends Cubit<CartStates> {
     bool isItemNotInCart = cartItems[id] == null;
     if (isItemNotInCart) {
       cartItems[id] = cartItem.toJson();
-      showAppSnackBar(content: "Product added to cart");
+      //showAppSnackBar(content: "Product added to cart");
       increaseProductQuantity(id, 0, SaveInDB: saveInDB);
       //emit(ItemAddedToCartState());
       return true;

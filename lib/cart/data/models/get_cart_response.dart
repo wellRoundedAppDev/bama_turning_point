@@ -13,7 +13,7 @@ class GetCartResponse {
     //     error?.add(Dynamic.fromJson(v));
     //   });
     // }
-    var data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    var data = json['data'].isEmpty == true? null:json['data'] != null ? Data.fromJson(json['data']) : null;
 
     return GetCartResponse(data: data, success: success);
   }

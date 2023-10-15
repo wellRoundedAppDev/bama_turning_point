@@ -373,65 +373,65 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: const Color(0xffDDDDDD),
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Add Comments About Your Order",
-                                    style: TextStyle(
-                                        fontSize: FontSizes.FONT_SIZE_20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
-                                  CustomInput(
-                                    hintText: "",
-                                    minLines: 4,
-                                    maxLines: null,
-                                  ),
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: CheckboxListTile(
-                                        value: true,
-                                        onChanged: (check) {},
-                                        title: const Text(
-                                          "I have read and agree to the Terms & Conditions",
-                                          style: TextStyle(
-                                              fontSize: FontSizes.FONT_SIZE_14),
-                                        ),
-                                      )),
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: CheckboxListTile(
-                                        value: true,
-                                        onChanged: (check) {},
-                                        title: const Text(
-                                          "I have read and agree to the Privacy Policy",
-                                          style: TextStyle(
-                                              fontSize: FontSizes.FONT_SIZE_14),
-                                        ),
-                                      )),
-                                ],
-                              ),
-                            ),
+                            // const SizedBox(
+                            //   height: 16,
+                            // ),
+                            // Container(
+                            //   width: MediaQuery.of(context).size.width,
+                            //   padding: const EdgeInsets.all(16),
+                            //   decoration: BoxDecoration(
+                            //     border: Border.all(
+                            //       color: const Color(0xffDDDDDD),
+                            //     ),
+                            //   ),
+                            //   child: Column(
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       const Text(
+                            //         "Add Comments About Your Order",
+                            //         style: TextStyle(
+                            //             fontSize: FontSizes.FONT_SIZE_20,
+                            //             fontWeight: FontWeight.bold),
+                            //       ),
+                            //       const SizedBox(
+                            //         height: 8,
+                            //       ),
+                            //       CustomInput(
+                            //         hintText: "",
+                            //         minLines: 4,
+                            //         maxLines: null,
+                            //       ),
+                            //       const SizedBox(
+                            //         height: 16,
+                            //       ),
+                            //       Directionality(
+                            //           textDirection: TextDirection.rtl,
+                            //           child: CheckboxListTile(
+                            //             value: true,
+                            //             onChanged: (check) {},
+                            //             title: const Text(
+                            //               "I have read and agree to the Terms & Conditions",
+                            //               style: TextStyle(
+                            //                   fontSize: FontSizes.FONT_SIZE_14),
+                            //             ),
+                            //           )),
+                            //       const SizedBox(
+                            //         height: 16,
+                            //       ),
+                            //       Directionality(
+                            //           textDirection: TextDirection.rtl,
+                            //           child: CheckboxListTile(
+                            //             value: true,
+                            //             onChanged: (check) {},
+                            //             title: const Text(
+                            //               "I have read and agree to the Privacy Policy",
+                            //               style: TextStyle(
+                            //                   fontSize: FontSizes.FONT_SIZE_14),
+                            //             ),
+                            //           )),
+                            //     ],
+                            //   ),
+                            // ),
                             const SizedBox(
                               height: 16,
                             ),

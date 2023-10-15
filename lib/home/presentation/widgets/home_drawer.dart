@@ -1,4 +1,5 @@
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/presentation/screens/categories_screen.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
@@ -145,7 +146,9 @@ class HomeDrawer extends StatelessWidget {
                   ?Container():
               InkWell(
                 onTap: () {
-                  AuthCubit.get(context).logOut().then((value) => Navigator.pop(context));
+                  AuthCubit.get(context).logOut().then((value) {
+                    Navigator.pop(context);
+                  });
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),

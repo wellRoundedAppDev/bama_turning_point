@@ -1,10 +1,10 @@
-class GetCustomerPaymentAddressResponse {
-  GetCustomerPaymentAddressResponse({
+class GetCustomerPaymentAddressesResponse {
+  GetCustomerPaymentAddressesResponse({
       this.success,
       // this.error,
       this.data,});
 
-  factory GetCustomerPaymentAddressResponse.fromJson(dynamic json) {
+  factory GetCustomerPaymentAddressesResponse.fromJson(dynamic json) {
     var success = json['success'];
     // if (json['error'] != null) {
     //   error = [];
@@ -13,7 +13,7 @@ class GetCustomerPaymentAddressResponse {
     //   });
     // }
     var data = json['data'] != null ? Data.fromJson(json['data']) : null;
-    return GetCustomerPaymentAddressResponse(success: success,data: data);
+    return GetCustomerPaymentAddressesResponse(success: success,data: data);
   }
   num? success;
   // List<dynamic>? error;

@@ -3,6 +3,7 @@ import 'package:classic_eccomerce/authentication/data/models/guest_form_input.da
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/checkout/data/data_sources/checkout_apis.dart';
+import 'package:classic_eccomerce/checkout/data/models/get_customer_payment_address_response.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_payment_methods_response.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_shipping_methods_response.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/states.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../account/data/models/account_address.dart';
 import '../../../shared_components/app_snackbar.dart';
+import '../screens/quick_checkout_main_screen.dart';
 
 class CheckOutCubit extends Cubit<CheckOutStates> {
   CheckOutCubit() : super(CheckOutInitialState());
@@ -29,17 +31,18 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   GlobalKey<FormState> addressForRegisteredUserFormkey = GlobalKey<FormState>();
 
   TabController? tabController;
-  AccountAddress? defaultAddress;
+  String? selectedUserAddressId;
+  List<Address>? userAddresses;
 
 
   setShippingMethod(int index) {
     selectedShippingMethod = shippingMethods?[index];
-    emit(ShippingMethodSelected());
+    //emit(ShippingMethodSelected());
   }
 
   setPaymentMethod(int index) {
     selectedPaymentMethod = paymentMethods?[index];
-    emit(PaymentMethodSelected());
+   // emit(PaymentMethodSelected());
   }
 
   initCheckOutAuthScreen(TickerProvider tickerProvider) {
@@ -87,10 +90,47 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     emit(InitializeCheckoutSuccessState());
   }
 
-  getRegisteredUserPaymentAddress(){
-
+  setRegisteredUserPaymentAddresses() async{
+    emit(GetUserAddressesLoadingState());
+    var response = await CheckoutApis.getCustomerPaymentAddresses();
+    if(response?.success == 1){
+      selectedUserAddressId = response?.data?.addressId;
+      userAddresses = response?.data?.addresses;
+      
+      emit(GetUserAddressesSuccessState());
+    }
+    else if(response?.success == 0){
+      userAddresses = null;
+      emit(GetUserAddressesFailedState());
+    }
+    else{
+      userAddresses = null;
+      emit(GetUserAddressesNetworkConnectionFailedState());
+    }
   }
 
+  setExistingUserAddress(CartCubit cartCubit) async {
+    emit(SetExistingUserAddressLoadingState());
+    var response = await CheckoutApis.setExistingCustomerPaymentAddress(int.tryParse(selectedUserAddressId??"")??0);
+    if(response?.success == true){
+      Navigator.push(
+          context,
+          PageTransition(
+                  child: BlocProvider.value(
+                      value:cartCubit,
+                      child: BlocProvider.value(
+                        value: this,
+                          child: const QuickCheckoutMainScreen())),
+              type: PageTransitionType.leftToRight));
+      emit(SetExistingUserAddressSuccessState());
+    }else if(response?.success == false){
+      emit(SetExistingUserAddressFailedState());
+    }else{
+      emit(SetExistingUserAddressNetworkConnectionFailedState());
+    }
+    //emit(GetDefaultAddressLoadingState());
+    // var response = await AccountApis.getAccountAddress(addressId);
+  }
   initCheckoutForRegisteredUser() async {
     emit(InitializeCheckoutLoadingState());
 
@@ -255,9 +295,6 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     }
   }
 
-  setDefaultAccountAddress() async {
-    emit(GetDefaultAddressLoadingState());
-    // var response = await AccountApis.getAccountAddress(addressId);
-  }
+
   
 }
