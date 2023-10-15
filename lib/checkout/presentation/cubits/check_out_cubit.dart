@@ -27,13 +27,12 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   List<PaymentMethod>? paymentMethods;
   ShippingMethod? selectedShippingMethod;
   PaymentMethod? selectedPaymentMethod;
-  
+
   GlobalKey<FormState> addressForRegisteredUserFormkey = GlobalKey<FormState>();
 
   TabController? tabController;
   String? selectedUserAddressId;
   List<Address>? userAddresses;
-
 
   setShippingMethod(int index) {
     selectedShippingMethod = shippingMethods?[index];
@@ -42,7 +41,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
 
   setPaymentMethod(int index) {
     selectedPaymentMethod = paymentMethods?[index];
-   // emit(PaymentMethodSelected());
+    // emit(PaymentMethodSelected());
   }
 
   initCheckOutAuthScreen(TickerProvider tickerProvider) {
@@ -51,20 +50,8 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     MyApp.navKey.currentState!.context.read<AuthCubit>().clearGuest();
   }
 
-  initCheckoutForGuest() async {
+  initCheckoutForRegisteredUser() async {
     emit(InitializeCheckoutLoadingState());
-
-    
-      var settingGuestShippingAddressSuccess = await setGuestShippingAddress();
-      if (settingGuestShippingAddressSuccess == false) {
-        emit(InitializeCheckoutFailedState());
-        return;
-      } else if (settingGuestShippingAddressSuccess == null) {
-        emit(InitializeCheckoutNetworkConnectionFailedState());
-        return;
-      }
-    
-
     var getShippingMethodsSuccess = await getShippingMethods();
 
     if (getShippingMethodsSuccess == false) {
@@ -90,50 +77,8 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     emit(InitializeCheckoutSuccessState());
   }
 
-  setRegisteredUserPaymentAddresses() async{
-    emit(GetUserAddressesLoadingState());
-    var response = await CheckoutApis.getCustomerPaymentAddresses();
-    if(response?.success == 1){
-      selectedUserAddressId = response?.data?.addressId;
-      userAddresses = response?.data?.addresses;
-      
-      emit(GetUserAddressesSuccessState());
-    }
-    else if(response?.success == 0){
-      userAddresses = null;
-      emit(GetUserAddressesFailedState());
-    }
-    else{
-      userAddresses = null;
-      emit(GetUserAddressesNetworkConnectionFailedState());
-    }
-  }
-
-  setExistingUserAddress(CartCubit cartCubit) async {
-    emit(SetExistingUserAddressLoadingState());
-    var response = await CheckoutApis.setExistingCustomerPaymentAddress(int.tryParse(selectedUserAddressId??"")??0);
-    if(response?.success == true){
-      Navigator.push(
-          context,
-          PageTransition(
-                  child: BlocProvider.value(
-                      value:cartCubit,
-                      child: BlocProvider.value(
-                        value: this,
-                          child: const QuickCheckoutMainScreen())),
-              type: PageTransitionType.leftToRight));
-      emit(SetExistingUserAddressSuccessState());
-    }else if(response?.success == false){
-      emit(SetExistingUserAddressFailedState());
-    }else{
-      emit(SetExistingUserAddressNetworkConnectionFailedState());
-    }
-    //emit(GetDefaultAddressLoadingState());
-    // var response = await AccountApis.getAccountAddress(addressId);
-  }
-  initCheckoutForRegisteredUser() async {
+  initCheckoutForGuest() async {
     emit(InitializeCheckoutLoadingState());
-
 
     var settingGuestShippingAddressSuccess = await setGuestShippingAddress();
     if (settingGuestShippingAddressSuccess == false) {
@@ -144,7 +89,6 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
       return;
     }
 
-
     var getShippingMethodsSuccess = await getShippingMethods();
 
     if (getShippingMethodsSuccess == false) {
@@ -170,6 +114,51 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     emit(InitializeCheckoutSuccessState());
   }
 
+  setRegisteredUserPaymentAddresses() async {
+    emit(GetUserAddressesLoadingState());
+    var response = await CheckoutApis.getCustomerPaymentAddresses();
+    if (response?.success == 1) {
+      selectedUserAddressId = response?.data?.addressId;
+      userAddresses = response?.data?.addresses;
+
+      emit(GetUserAddressesSuccessState());
+    } else if (response?.success == 0) {
+      userAddresses = null;
+      emit(GetUserAddressesFailedState());
+    } else {
+      userAddresses = null;
+      emit(GetUserAddressesNetworkConnectionFailedState());
+    }
+  }
+
+  selectExistingUserAddress(String addressId){
+    selectedUserAddressId = addressId;
+    emit(SelectUserAddressState());
+  }
+
+  setExistingUserAddress(CartCubit cartCubit) async {
+    emit(SetExistingUserAddressLoadingState());
+    var response = await CheckoutApis.setExistingCustomerPaymentAddress(
+        int.tryParse(selectedUserAddressId ?? "") ?? 0);
+    if (response?.success == true) {
+      initCheckoutForRegisteredUser();
+      Navigator.push(
+          context,
+          PageTransition(
+              child: BlocProvider.value(
+                  value: cartCubit,
+                  child: BlocProvider.value(
+                      value: this, child: const QuickCheckoutMainScreen())),
+              type: PageTransitionType.leftToRight));
+     // emit(SetExistingUserAddressSuccessState());
+    } else if (response?.success == false) {
+      showAppSnackBar(content: "Error occurred");
+      emit(SetExistingUserAddressFailedState());
+    } else {
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      emit(SetExistingUserAddressNetworkConnectionFailedState());
+    }
+  }
 
   Future<bool?> setGuestShippingAddress() async {
     GuestFormInput guestFormInput = AuthCubit.get(context).guestFormInput;
@@ -249,12 +238,10 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
               type: PageTransitionType.leftToRight),
         );
         emit(ConfirmOrderSuccessState());
-      }
-      else if (isConfirmOrderAndEndSessionSuccess == false) {
+      } else if (isConfirmOrderAndEndSessionSuccess == false) {
         emit(ConfirmOrderFailedState());
         showAppSnackBar(content: "Error occured");
-      }
-      else {
+      } else {
         emit(ConfirmOrderNetworkConnectionFailedState());
         showAppSnackBar(
             content: "Check your internet connection, and try again");
@@ -294,7 +281,4 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
       return null;
     }
   }
-
-
-  
 }

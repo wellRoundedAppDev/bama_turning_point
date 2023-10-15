@@ -52,3 +52,6 @@ class SetExistingUserAddressSuccessState extends CheckOutStates{}
 class SetExistingUserAddressFailedState extends CheckOutStates{}
 
 class SetExistingUserAddressNetworkConnectionFailedState extends CheckOutStates{}
+
+
+class SelectUserAddressState extends CheckOutStates{}
