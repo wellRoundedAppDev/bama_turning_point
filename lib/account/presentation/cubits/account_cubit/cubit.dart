@@ -266,6 +266,7 @@ class AccountCubit extends Cubit<AccountStates> {
     emit(GetFirstCustomerOrdersLoadingState());
     var response = await AccountApis.getCustomerOrders(1);
     if (response?.success == 1) {
+      customerOrders.clear();
       var tempCustomerOrders = response?.customerOrders ?? [];
       if (tempCustomerOrders.isEmpty == true) {
         emit(GetFirstCustomerOrdersSuccessState());
@@ -297,9 +298,11 @@ class AccountCubit extends Cubit<AccountStates> {
       customerOrdersPageNumber++;
       customerOrders.addAll(tempCustomerOrders);
       emit(AddMoreCustomerOrdersSuccessState());
-    } else if (response?.success == 0) {
+    }
+    else if (response?.success == 0) {
       emit(AddMoreCustomerOrdersFailedState());
-    } else {
+    }
+    else {
       emit(AddMoreCustomerOrdersNetworkConnectionFailedState());
     }
   }
@@ -322,6 +325,7 @@ class AccountCubit extends Cubit<AccountStates> {
 
   initOrderHistoryScreen() {
     customerOrders = [];
+    customerOrdersPageNumber = 1;
     setFirstCustomerOrders();
     ordersHistoryScrollController.removeListener(() {});
     ordersHistoryScrollController.addListener(() async {

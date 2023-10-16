@@ -26,16 +26,15 @@ class SelectAddressForRegisteredUsersScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 16),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "ADD ADDRESS",
+                      "Next",
                       style: TextStyle(
                           fontSize: FontSizes.FONT_SIZE_16,
                           color: Color(0xff313846)),
                     ),
-                    const SizedBox(
-                      width: 12,
-                    ),
+
                     Container(
                       width: 25,
                       height: 25,

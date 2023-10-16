@@ -7,7 +7,10 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
+import '../../../checkout/presentation/cubits/check_out_cubit.dart';
 import '../../../checkout/presentation/screens/quick_checkout_main_screen.dart';
+import '../../../checkout/presentation/screens/select_address_for_registered_users_screen.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../shared_components/custom_button.dart';
 import '../../../shared_components/custom_input.dart';
@@ -55,7 +58,6 @@ class SignInScreen extends StatelessWidget {
                 ),
                 CustomInput(
                   hintText: "Password",
-
                   validator: (v) {
                     if (v == null || v.length < 6) {
                       return "Enter a password of at least 6 characters";
@@ -105,16 +107,12 @@ class SignInScreen extends StatelessWidget {
                         text: "Login",
                         isLoading: state is LoginLoadingState,
                         action: () {
-                          if (isCheckingOut == false) {
-                            AuthCubit.get(context).login();
-                          } else {
-                            Navigator.push(
-                                context,
-                                PageTransition(
-                                    child: const QuickCheckoutMainScreen(),
-                                    type: PageTransitionType.leftToRight));
-                          }
-                        });
+                          AuthCubit.get(context).login(
+                              isCheckingOut: isCheckingOut,
+                              cartCubit: CartCubit.get(context));
+                        }
+
+                        );
                   },
                 ),
                 const SizedBox(

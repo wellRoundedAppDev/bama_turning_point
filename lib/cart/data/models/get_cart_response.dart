@@ -216,6 +216,7 @@ class Total {
 }
 
 class CartItemFromApi {
+
   CartItemFromApi({
     this.key,
     this.thumb,

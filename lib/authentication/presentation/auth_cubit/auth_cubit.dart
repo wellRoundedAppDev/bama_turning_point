@@ -15,6 +15,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../checkout/presentation/screens/quick_checkout_main_screen.dart';
+import '../../../checkout/presentation/screens/select_address_for_registered_users_screen.dart';
 import '../../../core/helpers/dio_helper.dart';
 
 class AuthCubit extends Cubit<AuthStates> {
@@ -56,13 +57,14 @@ class AuthCubit extends Cubit<AuthStates> {
     guestFormInput.clear();
   }
 
-  login() async {
+  login({bool isCheckingOut = false, CartCubit? cartCubit}) async {
     if (validateLoginForm() != true) {
       return;
     }
 
     loginFormKey.currentState?.save();
     emit(LoginLoadingState());
+
     if (await setAccessToken() == false) {
       showAppSnackBar(content: "Check your internet connection, and try again");
       emit(LoginNetworkFailedConnectionState());
@@ -73,7 +75,21 @@ class AuthCubit extends Cubit<AuthStates> {
     if (response?.success == 1) {
       loginResponse = response;
       isUserLoggedIn = true;
+
       emit(LoginSuccessState());
+
+      if (isCheckingOut) {
+        Navigator.push(
+            context,
+            PageTransition(
+                child: BlocProvider.value(
+                    value: cartCubit!,
+                    child: BlocProvider(
+                        create: (context) => CheckOutCubit()
+                          ..setRegisteredUserPaymentAddresses(),
+                        child: const SelectAddressForRegisteredUsersScreen())),
+                type: PageTransitionType.leftToRight));
+      }
     } else if (response?.success == 0) {
       loginResponse = null;
       isUserLoggedIn = false;
@@ -215,7 +231,7 @@ class AuthCubit extends Cubit<AuthStates> {
                           value: cartCubit,
                           child: const QuickCheckoutMainScreen())),
                   type: PageTransitionType.leftToRight));
-        //  MyApp.navKey.currentState!.context.read<AuthCubit>().clearGuest();
+          //  MyApp.navKey.currentState!.context.read<AuthCubit>().clearGuest();
           emit(CreatingGuestUserSuccessState());
           return true;
         } else if (createGuestUserSuccess == false) {

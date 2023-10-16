@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:classic_eccomerce/categories/data/data_sources/remote_data_sources/categories_apis.dart';
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/states.dart';
 import 'package:classic_eccomerce/home/data/models/product.dart';
@@ -7,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
-import '../../../../shared_components/app_snackbar.dart';
 import '../../../data/models/get_categories_response.dart';
 
 class CategoriesCubit extends Cubit<CategoriesStates> {
@@ -21,13 +19,12 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
   Category? selectedCategory;
 
   setCategories() async {
-
-
     emit(GetCategoriesLoadingState());
     bool? isUserLoggedIn =
         MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
+    String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
-    if (isUserLoggedIn == false) {
+    if (isUserLoggedIn == false && accessToken == null) {
       var success = await AuthCubit.get(context).setAccessToken();
       if (!success) {
         emit(GetCategoriesNetworkFailedState());
@@ -48,27 +45,24 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
     }
   }
 
-  setSelectedCategory(Category? category){
+  setSelectedCategory(Category? category) {
     selectedCategory = category;
   }
 
   setAllProductsInCategory(Category? category) async {
-
     setSelectedCategory(category);
     emit(GetProductsInCategoryLoadingState());
-    var response = await CategoriesApis.getProductsInCategoryById(selectedCategory?.categoryId?.toInt()??0);
-    if(response?.success == 1){
+    var response = await CategoriesApis.getProductsInCategoryById(
+        selectedCategory?.categoryId?.toInt() ?? 0);
+    if (response?.success == 1) {
       products = response?.products;
       emit(GetProductsInCategorySuccessState());
-    }
-    else if(response?.success == 0){
+    } else if (response?.success == 0) {
       products = null;
       emit(GetProductsInCategoryFailedState());
-    }
-    else{
+    } else {
       products = null;
       emit(GetProductsInCategoryFailedNetworkConnectionState());
     }
   }
-
 }

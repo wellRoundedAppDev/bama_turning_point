@@ -221,58 +221,63 @@ class GuestScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                Container(
-                  padding: const EdgeInsets.only(left: 16, right: 8),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xff95989A))),
-                  child: DropdownSearch<Country>(
-                    asyncItems: (String filter) async {
-                      // var res =
-                      return await AuthCubit.get(context).getCountries();
-                    },
-                    dropdownDecoratorProps: const DropDownDecoratorProps(
-                        dropdownSearchDecoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintStyle: TextStyle(
-                              fontSize: FontSizes.FONT_SIZE_16,
-                              color: Color(0xff878787),
-                            ),
-                            hintText: "Country")),
-                    dropdownButtonProps: const DropdownButtonProps(
-                        icon: Icon(
-                      Icons.keyboard_arrow_down,
-                      color: Color(0xff696C6E),
-                    )),
-                    popupProps: PopupProps.menu(
-                        itemBuilder: (context, Country country, bool) {
-                      return Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          country.name ?? "-",
-                          style: const TextStyle(
-                              fontSize: FontSizes.FONT_SIZE_16,
-                              color: Color(0xff878787)),
-                        ),
-                      );
-                    }),
-                    dropdownBuilder: (context, country) {
-                      return Text(
-                        country?.name ?? "Country",
-                        style: const TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_16,
-                            color: Color(0xff878787)),
-                      );
-                    },
-                    onChanged: (Country? country) {
-                      AuthCubit.get(context).setCountryOfGuest(country!);
-                    },
-                    validator: (Country? country) {
-                      if (AuthCubit.get(context).guestFormInput.country ==
-                          null) {
-                        return "Select your country";
-                      }
-                    },
-                  ),
+                BlocConsumer<AuthCubit,AuthStates>(
+                  listener: (context,state){},
+                  builder: (context,state) {
+                    return Container(
+                      padding: const EdgeInsets.only(left: 16, right: 8),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: const Color(0xff95989A))),
+                      child: DropdownSearch<Country>(
+                        asyncItems: (String filter) async {
+                          // var res =
+                          return await AuthCubit.get(context).getCountries();
+                        },
+                        dropdownDecoratorProps: const DropDownDecoratorProps(
+                            dropdownSearchDecoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_16,
+                                  color: Color(0xff878787),
+                                ),
+                                hintText: "Country")),
+                        dropdownButtonProps: const DropdownButtonProps(
+                            icon: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: Color(0xff696C6E),
+                            )),
+                        popupProps: PopupProps.menu(
+                            itemBuilder: (context, Country country, bool) {
+                              return Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Text(
+                                  country.name ?? "-",
+                                  style: const TextStyle(
+                                      fontSize: FontSizes.FONT_SIZE_16,
+                                      color: Color(0xff878787)),
+                                ),
+                              );
+                            }),
+                        dropdownBuilder: (context, country) {
+                          return Text(
+                            AuthCubit.get(context).guestFormInput.country?.name ?? "Country",
+                            style: const TextStyle(
+                                fontSize: FontSizes.FONT_SIZE_16,
+                                color: Color(0xff878787)),
+                          );
+                        },
+                        onChanged: (Country? country) {
+                          AuthCubit.get(context).setCountryOfGuest(country!);
+                        },
+                        validator: (Country? country) {
+                          if (AuthCubit.get(context).guestFormInput.country ==
+                              null) {
+                            return "Select your country";
+                          }
+                        },
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 16,

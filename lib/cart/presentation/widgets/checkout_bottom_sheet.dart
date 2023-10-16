@@ -89,6 +89,7 @@ class CheckOutBottomSheet extends StatelessWidget {
                             type: PageTransitionType.leftToRight));
                     return;
                   }
+
                   Navigator.push(
                       context,
                       PageTransition(
