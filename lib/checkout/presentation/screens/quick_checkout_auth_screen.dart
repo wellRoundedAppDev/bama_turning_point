@@ -17,6 +17,7 @@ class QuickCheckoutAuthScreen extends StatefulWidget {
 
 class _QuickCheckoutAuthScreenState extends State<QuickCheckoutAuthScreen>
     with TickerProviderStateMixin {
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

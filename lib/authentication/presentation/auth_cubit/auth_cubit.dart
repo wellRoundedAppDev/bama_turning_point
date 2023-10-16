@@ -15,7 +15,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../checkout/presentation/screens/quick_checkout_main_screen.dart';
-import '../../../checkout/presentation/screens/select_address_for_registered_users_screen.dart';
+import '../../../checkout/presentation/screens/set_billing_address_for_registered_user_screen.dart';
 import '../../../core/helpers/dio_helper.dart';
 
 class AuthCubit extends Cubit<AuthStates> {
@@ -87,7 +87,7 @@ class AuthCubit extends Cubit<AuthStates> {
                     child: BlocProvider(
                         create: (context) => CheckOutCubit()
                           ..setRegisteredUserPaymentAddresses(),
-                        child: const SelectAddressForRegisteredUsersScreen())),
+                        child: const SetBillingAddressForRegisteredUserScreen())),
                 type: PageTransitionType.leftToRight));
       }
     } else if (response?.success == 0) {

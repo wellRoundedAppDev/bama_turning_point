@@ -1,54 +1,77 @@
+import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
+import 'package:classic_eccomerce/account/presentation/screens/address_book_entries/add_address_screen.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_customer_payment_address_response.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/states.dart';
+import 'package:classic_eccomerce/checkout/presentation/screens/add_address_for_registered_users_screen.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
+import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../../core/constants/fonts/font_sizes.dart';
+import '../../../shared_components/custom_app_bar.dart';
 
-class SelectAddressForRegisteredUsersScreen extends StatelessWidget {
-  const SelectAddressForRegisteredUsersScreen({super.key});
+class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
+  const SetBillingAddressForRegisteredUserScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      bottomNavigationBar: GestureDetector(
-        onTap: () {
-          CheckOutCubit.get(context)
-              .setExistingUserAddress(CartCubit.get(context));
-        },
-        child: Container(
-          height: 60,
-          color: const Color(0xffF2F1F1),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Next",
-                  style: TextStyle(
-                      fontSize: FontSizes.FONT_SIZE_16,
-                      color: Color(0xff313846)),
+          backgroundColor: Colors.white,
+      appBar: CustomAppBar.renderAppBar(
+          title: "Quick Checkout", showCartIcon: false),
+      bottomNavigationBar: Container(
+        height: MediaQuery.of(context).size.height * 0.08,
+        color: const Color(0xff313846),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 8),
+          child: Row(
+            children: [
+              Expanded(
+                child: CustomButton(
+                  text: "Add Address",
+                  color: const Color(0xff2EAF23),
+                  height: MediaQuery.of(context).size.height,
+                  textFontSize: FontSizes.FONT_SIZE_14,
+                  action: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: BlocProvider(
+                                create: (context) => AccountCubit(),
+                                child: const AddAddressScreen()),
+                            type: PageTransitionType.leftToRight));
+                  },
                 ),
-                Container(
-                  width: 25,
-                  height: 25,
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.black),
-                  child: const Center(
-                    child: Icon(
-                      Icons.arrow_forward_rounded,
-                      color: Colors.white,
-                    ),
-                  ),
-                )
-              ],
-            ),
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                child: BlocConsumer<CheckOutCubit, CheckOutStates>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return (state is SetExistingUserAddressLoadingState)
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : CustomButton(
+                            text: "Next",
+                            height: MediaQuery.of(context).size.height,
+                            textFontSize: FontSizes.FONT_SIZE_14,
+                            action: () {
+                              CheckOutCubit.get(context).setExistingUserAddress(
+                                  CartCubit.get(context));
+                            },
+                          );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -79,24 +102,27 @@ class SelectAddressForRegisteredUsersScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                IconButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    icon: const Icon(Icons.arrow_back_ios)),
-                                const Expanded(
-                                  child: Text(
-                                    "SELECT BILLING ADDRESS",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color: Color(0xff313846),
-                                        fontSize: FontSizes.FONT_SIZE_20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                const Text(
+                                  "BILLING ADDRESS",
+                                  maxLines: 1,
+                                  textDirection: TextDirection.ltr,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: FontSizes.FONT_SIZE_20,
+                                      color: Color(0xff313846),
+                                      fontWeight: FontWeight.bold),
                                 ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                  width: 40,
+                                  height: 3,
+                                  color: const Color(0xff015963),
+                                )
                               ],
                             ),
                             const SizedBox(

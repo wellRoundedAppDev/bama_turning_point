@@ -10,7 +10,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../checkout/presentation/cubits/check_out_cubit.dart';
 import '../../../checkout/presentation/screens/quick_checkout_main_screen.dart';
-import '../../../checkout/presentation/screens/select_address_for_registered_users_screen.dart';
+import '../../../checkout/presentation/screens/set_billing_address_for_registered_user_screen.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../shared_components/custom_button.dart';
 import '../../../shared_components/custom_input.dart';
