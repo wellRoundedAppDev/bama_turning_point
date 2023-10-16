@@ -16,45 +16,43 @@ class SelectAddressForRegisteredUsersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          bottomNavigationBar: GestureDetector(
-            onTap: () {
-              CheckOutCubit.get(context).setExistingUserAddress(CartCubit.get(context));
-            },
-            child: Container(
-              height: 60,
-              color: const Color(0xffF2F1F1),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 16),
-                child: Row(
-                  children: [
-                    const Text(
-                      "ADD ADDRESS",
-                      style: TextStyle(
-                          fontSize: FontSizes.FONT_SIZE_16,
-                          color: Color(0xff313846)),
-                    ),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Container(
-                      width: 25,
-                      height: 25,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.black),
-                      child: const Center(
-                        child: Icon(
-                          Icons.arrow_forward_rounded,
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
-                  ],
+      bottomNavigationBar: GestureDetector(
+        onTap: () {
+          CheckOutCubit.get(context)
+              .setExistingUserAddress(CartCubit.get(context));
+        },
+        child: Container(
+          height: 60,
+          color: const Color(0xffF2F1F1),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Next",
+                  style: TextStyle(
+                      fontSize: FontSizes.FONT_SIZE_16,
+                      color: Color(0xff313846)),
                 ),
-              ),
+                Container(
+                  width: 25,
+                  height: 25,
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.black),
+                  child: const Center(
+                    child: Icon(
+                      Icons.arrow_forward_rounded,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
-
-          body: BlocConsumer<CheckOutCubit, CheckOutStates>(
+        ),
+      ),
+      body: BlocConsumer<CheckOutCubit, CheckOutStates>(
         listener: (context, state) {},
         builder: (context, state) {
           CheckOutCubit checkOutCubit = CheckOutCubit.get(context);
@@ -83,9 +81,11 @@ class SelectAddressForRegisteredUsersScreen extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                IconButton(onPressed: (){
-                                  Navigator.pop(context);
-                                }, icon: const Icon(Icons.arrow_back_ios)),
+                                IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    icon: const Icon(Icons.arrow_back_ios)),
                                 const Expanded(
                                   child: Text(
                                     "SELECT BILLING ADDRESS",
@@ -97,10 +97,8 @@ class SelectAddressForRegisteredUsersScreen extends StatelessWidget {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-
                               ],
                             ),
-
                             const SizedBox(
                               height: 16,
                             ),
@@ -110,13 +108,10 @@ class SelectAddressForRegisteredUsersScreen extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   var address = userAddresses?[index];
                                   return Container(
-                                    decoration:  BoxDecoration(
-                                      border: Border.all(
-                                        color:
-                                        const Color(0xffB6BBC6),
-                                      )
-
-                                    ),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                      color: const Color(0xffB6BBC6),
+                                    )),
                                     child: Column(
                                       children: [
                                         Padding(
@@ -127,16 +122,20 @@ class SelectAddressForRegisteredUsersScreen extends StatelessWidget {
                                               const Text(
                                                 "Full Name : ",
                                                 style: TextStyle(
-                                                    fontSize: FontSizes.FONT_SIZE_14,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontSize:
+                                                        FontSizes.FONT_SIZE_14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               Expanded(
                                                 child: Text(
                                                   "${address?.firstname ?? ""} ${address?.lastname ?? ""}",
                                                   maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style:
-                                                  const TextStyle(fontSize: FontSizes.FONT_SIZE_14),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      fontSize: FontSizes
+                                                          .FONT_SIZE_14),
                                                 ),
                                               )
                                             ],
@@ -147,24 +146,29 @@ class SelectAddressForRegisteredUsersScreen extends StatelessWidget {
                                           color: const Color(0xffB6BBC6),
                                         ),
                                         Padding(
-                                          padding:
-                                          const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 16, horizontal: 16),
                                           child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               const Text(
                                                 "Address : ",
                                                 style: TextStyle(
-                                                    fontSize: FontSizes.FONT_SIZE_14,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontSize:
+                                                        FontSizes.FONT_SIZE_14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               Expanded(
                                                 child: Text(
                                                   address?.address1 ?? "-",
                                                   maxLines: 2,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style:
-                                                  const TextStyle(fontSize: FontSizes.FONT_SIZE_14),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      fontSize: FontSizes
+                                                          .FONT_SIZE_14),
                                                 ),
                                               )
                                             ],
@@ -182,16 +186,20 @@ class SelectAddressForRegisteredUsersScreen extends StatelessWidget {
                                               const Text(
                                                 "Post Code : ",
                                                 style: TextStyle(
-                                                    fontSize: FontSizes.FONT_SIZE_14,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontSize:
+                                                        FontSizes.FONT_SIZE_14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               Expanded(
                                                 child: Text(
                                                   address?.postcode ?? "",
                                                   maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style:
-                                                  const TextStyle(fontSize: FontSizes.FONT_SIZE_14),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      fontSize: FontSizes
+                                                          .FONT_SIZE_14),
                                                 ),
                                               )
                                             ],
@@ -209,16 +217,20 @@ class SelectAddressForRegisteredUsersScreen extends StatelessWidget {
                                               const Text(
                                                 "City : ",
                                                 style: TextStyle(
-                                                    fontSize: FontSizes.FONT_SIZE_14,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontSize:
+                                                        FontSizes.FONT_SIZE_14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               Expanded(
                                                 child: Text(
                                                   address?.city ?? "",
                                                   maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style:
-                                                  const TextStyle(fontSize: FontSizes.FONT_SIZE_14),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      fontSize: FontSizes
+                                                          .FONT_SIZE_14),
                                                 ),
                                               )
                                             ],
@@ -236,16 +248,20 @@ class SelectAddressForRegisteredUsersScreen extends StatelessWidget {
                                               const Text(
                                                 "Country : ",
                                                 style: TextStyle(
-                                                    fontSize: FontSizes.FONT_SIZE_14,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontSize:
+                                                        FontSizes.FONT_SIZE_14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               Expanded(
                                                 child: Text(
                                                   address?.country ?? "",
                                                   maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style:
-                                                  const TextStyle(fontSize: FontSizes.FONT_SIZE_14),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      fontSize: FontSizes
+                                                          .FONT_SIZE_14),
                                                 ),
                                               )
                                             ],
@@ -263,39 +279,52 @@ class SelectAddressForRegisteredUsersScreen extends StatelessWidget {
                                               const Text(
                                                 "Region : ",
                                                 style: TextStyle(
-                                                    fontSize: FontSizes.FONT_SIZE_14,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontSize:
+                                                        FontSizes.FONT_SIZE_14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               Expanded(
                                                 child: Text(
                                                   address?.zone ?? "",
                                                   maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style:
-                                                  const TextStyle(fontSize: FontSizes.FONT_SIZE_14),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      fontSize: FontSizes
+                                                          .FONT_SIZE_14),
                                                 ),
                                               )
                                             ],
                                           ),
                                         ),
                                         GestureDetector(
-                                          onTap: (){
-                                            checkOutCubit.selectExistingUserAddress(address?.addressId??"");
-
+                                          onTap: () {
+                                            checkOutCubit
+                                                .selectExistingUserAddress(
+                                                    address?.addressId ?? "");
                                           },
                                           child: Container(
-                                            padding:const EdgeInsets.all(8),
-                                            width: MediaQuery.of(context).size.width,
-                                            color:  (address?.addressId == checkOutCubit.selectedUserAddressId)?AppColors.APP_MAIN_COLOR:
-                                            const Color(0xffB6BBC6),
-                                         child:
-                                           Text(
-                                            (address?.addressId == checkOutCubit.selectedUserAddressId)?"Selected Address":
-                                            "Select Address",style: const TextStyle(color: Colors.white,
-                                           fontSize: FontSizes.FONT_SIZE_16
-                                           ),
-
-                                          ),
+                                            padding: const EdgeInsets.all(8),
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            color: (address?.addressId ==
+                                                    checkOutCubit
+                                                        .selectedUserAddressId)
+                                                ? AppColors.APP_MAIN_COLOR
+                                                : const Color(0xffB6BBC6),
+                                            child: Text(
+                                              (address?.addressId ==
+                                                      checkOutCubit
+                                                          .selectedUserAddressId)
+                                                  ? "Selected Address"
+                                                  : "Select Address",
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize:
+                                                      FontSizes.FONT_SIZE_16),
+                                            ),
                                           ),
                                         )
                                       ],

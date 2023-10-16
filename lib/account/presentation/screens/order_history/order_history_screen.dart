@@ -5,7 +5,6 @@ import 'package:classic_eccomerce/account/presentation/screens/widgets/order_his
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/constants/fonts/font_sizes.dart';
 import '../../../../shared_components/custom_app_bar.dart';
 
@@ -69,7 +68,7 @@ class OrderHistoryScreen extends StatelessWidget {
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
-                                    var customerOrder = customerOrders?[index];
+                                    var customerOrder = customerOrders[index];
                                     return OrderHistoryItem(
                                       customerOrder: customerOrder,
                                     );
@@ -78,7 +77,7 @@ class OrderHistoryScreen extends StatelessWidget {
                                       const SizedBox(
                                         height: 24,
                                       ),
-                                  itemCount: customerOrders?.length ?? 0),
+                                  itemCount: customerOrders.length ?? 0),
                               (state is AddMoreCustomerOrdersLoadingState)
                                   ? Container(
                                 padding: const EdgeInsets.all(16),
