@@ -4,7 +4,6 @@ import 'package:classic_eccomerce/core/data/models/get_countries_response.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/constants/fonts/font_sizes.dart';
 import '../../../../core/data/models/get_regions_response.dart';
 import '../../../../shared_components/custom_app_bar.dart';
@@ -18,6 +17,7 @@ class AddAddressScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.white,
       appBar:
           CustomAppBar.renderAppBar(title: "My ACCOUNT", showCartIcon: false),
       body: SingleChildScrollView(
