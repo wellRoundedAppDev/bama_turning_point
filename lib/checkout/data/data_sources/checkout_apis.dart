@@ -93,7 +93,7 @@ class CheckoutApis {
       return null;
     } catch (e) {
       if (kDebugMode) {
-        print(e);
+        print("Confirm order and end session API: $e");
       }
     }
   }
@@ -216,8 +216,8 @@ class CheckoutApis {
     }
   }
 
-  static Future<SuccessAndErrorResponse?>
-  setExistingCustomerPaymentAddress(int addressId) async {
+  static Future<SuccessAndErrorResponse?> setExistingCustomerPaymentAddress(
+      int addressId) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
     String endPoint = ApiUrls.SET_EXISTING_CUSTOMER_PAYMENT_ADDRESS_ENDPOINT;
@@ -225,9 +225,7 @@ class CheckoutApis {
     try {
       var response = await _dioHelper.post(
           endPoint: endPoint,
-          body: {
-            "address_id": addressId
-          },
+          body: {"address_id": addressId},
           headers: {"Authorization": "Bearer $accessToken"});
       if (response == null) {
         return null;
@@ -236,6 +234,51 @@ class CheckoutApis {
     } catch (e) {
       if (kDebugMode) {
         print(e);
+      }
+    }
+  }
+
+  static Future<SuccessAndErrorResponse?> setExistingCustomerShippingAddress(
+      int addressId) async {
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    String endPoint = ApiUrls.SET_EXISTING_CUSTOMER_SHIPPING_ADDRESS_ENDPOINT;
+
+    try {
+      var response = await _dioHelper.post(
+          endPoint: endPoint,
+          body: {"address_id": addressId},
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      return SuccessAndErrorResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+
+  static Future<SuccessAndErrorResponse?> addAddressToOrder(
+      Map<String, dynamic> addressInput) async {
+    String endpoint = ApiUrls.CUSTOMER_PAYMENT_ADDRESS_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await _dioHelper.post(
+          endPoint: endpoint,
+          body: addressInput,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      return SuccessAndErrorResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Add Address to order, error api $e");
       }
     }
   }

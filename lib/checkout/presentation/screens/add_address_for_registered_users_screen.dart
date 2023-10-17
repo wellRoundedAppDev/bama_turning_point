@@ -1,6 +1,7 @@
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
+import 'package:classic_eccomerce/checkout/presentation/cubits/states.dart';
 import 'package:classic_eccomerce/core/data/models/get_countries_response.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Form(
-                key: CheckOutCubit.get(context).addressForRegisteredUserFormkey,
+                key: CheckOutCubit.get(context).addAddressToOrderFormKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -58,8 +59,8 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                 return "Enter your first name";
                               }
                             },
-                            onSaved: (v) => AccountCubit.get(context)
-                                .accountAddressInput
+                            onSaved: (v) => CheckOutCubit.get(context)
+                                .addAddressToOrderInput
                                 .firstName = v!,
                           ),
                           const SizedBox(
@@ -72,8 +73,8 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                 return "Enter your last name";
                               }
                             },
-                            onSaved: (v) => AccountCubit.get(context)
-                                .accountAddressInput
+                            onSaved: (v) => CheckOutCubit.get(context)
+                                .addAddressToOrderInput
                                 .lastName = v!,
                           ),
                           const SizedBox(
@@ -86,8 +87,8 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                 return 'Enter an address of at least 4 characters';
                               }
                             },
-                            onSaved: (v) => AccountCubit.get(context)
-                                .accountAddressInput
+                            onSaved: (v) => CheckOutCubit.get(context)
+                                .addAddressToOrderInput
                                 .address = v!,
                           ),
                           // const SizedBox(
@@ -151,8 +152,8 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                 return "Enter your city";
                               }
                             },
-                            onSaved: (v) => AccountCubit.get(context)
-                                .accountAddressInput
+                            onSaved: (v) => CheckOutCubit.get(context)
+                                .addAddressToOrderInput
                                 .city = v!,
                           ),
                           const SizedBox(
@@ -166,8 +167,8 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                               }
                             },
                             textInputType: TextInputType.number,
-                            onSaved: (v) => AccountCubit.get(context)
-                                .accountAddressInput
+                            onSaved: (v) => CheckOutCubit.get(context)
+                                .addAddressToOrderInput
                                 .postalCode = v!,
                           ),
                           const SizedBox(
@@ -181,7 +182,7 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                               asyncItems: (String filter) async {
                                 // var res =
                                 // searchAdsCubit.getJobCategories();
-                                return AccountCubit.get(context).getCountries();
+                                return CheckOutCubit.get(context).getCountries();
                               },
                               dropdownDecoratorProps: const DropDownDecoratorProps(
                                   dropdownSearchDecoration: InputDecoration(
@@ -209,13 +210,11 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                     );
                                   }),
                               onChanged: (Country? country) {
-                                AccountCubit.get(context)
-                                    .setAccountAddressCountry(country!);
+                                CheckOutCubit.get(context)
+                                    .setAddAddressCountry(country!);
                               },
                               validator: (Country? country) {
-                                if (AccountCubit.get(context)
-                                    .accountAddressInput
-                                    .country ==
+                                if (country  ==
                                     null) {
                                   return "Select your country";
                                 }
@@ -233,9 +232,9 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                           const SizedBox(
                             height: 21,
                           ),
-                          BlocConsumer<AccountCubit, AccountStates>(
-                            listener: (context, child) {},
-                            builder: (context, child) {
+                          BlocConsumer<CheckOutCubit, CheckOutStates>(
+                            listener: (context, state) {},
+                            builder: (context, state) {
                               return Container(
                                 padding: const EdgeInsets.only(left: 16, right: 8),
                                 decoration: BoxDecoration(
@@ -245,7 +244,7 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                   asyncItems: (String filter) async {
                                     // var res =
                                     // searchAdsCubit.getJobCategories();
-                                    return await AccountCubit.get(context)
+                                    return await CheckOutCubit.get(context)
                                         .getRegions();
                                   },
                                   dropdownDecoratorProps:
@@ -276,8 +275,8 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                       }),
                                   dropdownBuilder: (context, region) {
                                     return Text(
-                                      AccountCubit.get(context)
-                                          .accountAddressInput
+                                      CheckOutCubit.get(context)
+                                          .addAddressToOrderInput
                                           .region
                                           ?.name ??
                                           "Region / State",
@@ -287,12 +286,12 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                     );
                                   },
                                   onChanged: (Region? region) {
-                                    AccountCubit.get(context)
-                                        .setAccountAddressRegion(region!);
+                                    CheckOutCubit.get(context)
+                                        .setAddAddressRegion(region!);
                                   },
                                   validator: (Region? region) {
-                                    if (AccountCubit.get(context)
-                                        .accountAddressInput
+                                    if (CheckOutCubit.get(context)
+                                        .addAddressToOrderInput
                                         .region ==
                                         null) {
                                       return "Select your region";
@@ -302,76 +301,76 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                               );
                             },
                           ),
+                          // const SizedBox(
+                          //   height: 16,
+                          // ),
+                          // Column(
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   children: [
+                          //     const Text(
+                          //       "Default Address",
+                          //       style: TextStyle(
+                          //           color: Color(0xff747982),
+                          //           fontSize: FontSizes.FONT_SIZE_16),
+                          //     ),
+                          //     // BlocConsumer<CheckOutCubit, CheckOutStates>(
+                          //     //   listener: (context, state) {},
+                          //     //   builder: (context, state) {
+                          //     //     return Row(
+                          //     //       children: [
+                          //     //         Expanded(
+                          //     //           child: RadioListTile(
+                          //     //             value: true,
+                          //     //             groupValue: CheckOutCubit.get(context)
+                          //     //                 .addAddressToOrderInput
+                          //     //                 .isDefaultAddress,
+                          //     //             onChanged: (check) {
+                          //     //               CheckOutCubit.get(context)
+                          //     //                   .setAccountDefaultAddress(check!);
+                          //     //             },
+                          //     //             title: const Text(
+                          //     //               "Yes",
+                          //     //               style: TextStyle(
+                          //     //                   fontSize: FontSizes.FONT_SIZE_16,
+                          //     //                   fontWeight: FontWeight.w300),
+                          //     //             ),
+                          //     //           ),
+                          //     //         ),
+                          //     //         Expanded(
+                          //     //           child: RadioListTile(
+                          //     //             value: false,
+                          //     //             groupValue: CheckOutCubit.get(context)
+                          //     //                 .addAddressToOrderInput
+                          //     //                 .isDefaultAddress,
+                          //     //             onChanged: (check) {
+                          //     //               CheckOutCubit.get(context)
+                          //     //                   .setAccountDefaultAddress(check!);
+                          //     //             },
+                          //     //             title: const Text(
+                          //     //               "No",
+                          //     //               style: TextStyle(
+                          //     //                   fontSize: FontSizes.FONT_SIZE_16,
+                          //     //                   fontWeight: FontWeight.w300),
+                          //     //             ),
+                          //     //           ),
+                          //     //         ),
+                          //     //       ],
+                          //     //     );
+                          //     //   },
+                          //     // )
+                          //   ],
+                          // ),
                           const SizedBox(
                             height: 16,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Default Address",
-                                style: TextStyle(
-                                    color: Color(0xff747982),
-                                    fontSize: FontSizes.FONT_SIZE_16),
-                              ),
-                              BlocConsumer<AccountCubit, AccountStates>(
-                                listener: (context, state) {},
-                                builder: (context, state) {
-                                  return Row(
-                                    children: [
-                                      Expanded(
-                                        child: RadioListTile(
-                                          value: true,
-                                          groupValue: AccountCubit.get(context)
-                                              .accountAddressInput
-                                              .isDefaultAddress,
-                                          onChanged: (check) {
-                                            AccountCubit.get(context)
-                                                .setAccountDefaultAddress(check!);
-                                          },
-                                          title: const Text(
-                                            "Yes",
-                                            style: TextStyle(
-                                                fontSize: FontSizes.FONT_SIZE_16,
-                                                fontWeight: FontWeight.w300),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: RadioListTile(
-                                          value: false,
-                                          groupValue: AccountCubit.get(context)
-                                              .accountAddressInput
-                                              .isDefaultAddress,
-                                          onChanged: (check) {
-                                            AccountCubit.get(context)
-                                                .setAccountDefaultAddress(check!);
-                                          },
-                                          title: const Text(
-                                            "No",
-                                            style: TextStyle(
-                                                fontSize: FontSizes.FONT_SIZE_16,
-                                                fontWeight: FontWeight.w300),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          BlocConsumer<AccountCubit, AccountStates>(
+                          BlocConsumer<CheckOutCubit, CheckOutStates>(
                             listener: (context, state) {},
                             builder: (context, state) {
                               return CustomButton(
                                 text: "Save",
-                                isLoading: state is AddAddressLoadingState,
+                                isLoading: state is AddAddressToOrderLoadingState,
                                 action: () {
-                                  AccountCubit.get(context).addAddressToAccount();
+                                  CheckOutCubit.get(context).addAddressToOrder();
                                 },
                               );
                             },

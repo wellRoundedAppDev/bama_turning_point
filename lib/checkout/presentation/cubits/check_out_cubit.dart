@@ -1,19 +1,20 @@
-import 'package:classic_eccomerce/account/data/data_sources/remote_data_sources/account_apis.dart';
 import 'package:classic_eccomerce/authentication/data/models/guest_form_input.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/checkout/data/data_sources/checkout_apis.dart';
+import 'package:classic_eccomerce/checkout/data/models/add_address_input.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_customer_payment_address_response.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_payment_methods_response.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_shipping_methods_response.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/states.dart';
 import 'package:classic_eccomerce/checkout/presentation/screens/order_success_screen.dart';
 import 'package:classic_eccomerce/main.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../../account/data/models/account_address.dart';
+import '../../../core/data/data_sources/remote_data_sources/get_countries_api.dart';
+import '../../../core/data/models/get_countries_response.dart';
+import '../../../core/data/models/get_regions_response.dart';
 import '../../../shared_components/app_snackbar.dart';
 import '../screens/quick_checkout_main_screen.dart';
 
@@ -28,10 +29,13 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   ShippingMethod? selectedShippingMethod;
   PaymentMethod? selectedPaymentMethod;
 
-  GlobalKey<FormState> addressForRegisteredUserFormkey = GlobalKey<FormState>();
+  AddAddressToOrderInput addAddressToOrderInput = AddAddressToOrderInput(firstName: "",
+      lastName: "", address: '', country: null, city: '', region: null, postalCode: '',);
+  GlobalKey<FormState> addAddressToOrderFormKey = GlobalKey<FormState>();
 
   TabController? tabController;
   String? selectedUserAddressId;
+  Address? selectedUserAddress;
   List<Address>? userAddresses;
 
   setShippingMethod(int index) {
@@ -120,14 +124,13 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     if (response?.success == 1) {
       selectedUserAddressId = response?.data?.addressId;
       userAddresses = response?.data?.addresses;
+      for (int i = 0; i < ((userAddresses?.length) ?? 0); i++) {
+        if (userAddresses?[i].addressId == selectedUserAddressId) {
+          selectedUserAddress = userAddresses?[i];
+          userAddresses?.removeAt(i);
+        }
+      }
 
-
-      // for(int i = 0; i < ((userAddresses?.length)??0); i++) {
-      //   if(userAddresses?[i].addressId == selectedUserAddressId){
-      //     userAddresses?.insert(0, userAddresses![i]);
-      //   //  userAddresses?.removeAt(index);
-      //   }
-      // }
       emit(GetUserAddressesSuccessState());
     } else if (response?.success == 0) {
       userAddresses = null;
@@ -138,16 +141,19 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     }
   }
 
-  selectExistingUserAddress(String addressId){
+  selectExistingUserAddress(String addressId) {
     selectedUserAddressId = addressId;
     emit(SelectUserAddressState());
   }
 
   setExistingUserAddress(CartCubit cartCubit) async {
     emit(SetExistingUserAddressLoadingState());
-    var response = await CheckoutApis.setExistingCustomerPaymentAddress(
+    var settingPaymentAddressResponse = await CheckoutApis.setExistingCustomerPaymentAddress(
         int.tryParse(selectedUserAddressId ?? "") ?? 0);
-    if (response?.success == true) {
+    var settingShippingAddressResponse = await CheckoutApis.setExistingCustomerShippingAddress(
+        int.tryParse(selectedUserAddressId ?? "") ?? 0);
+
+    if (settingPaymentAddressResponse?.success == true && settingShippingAddressResponse?.success == true) {
       initCheckoutForRegisteredUser();
       Navigator.push(
           context,
@@ -157,8 +163,8 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
                   child: BlocProvider.value(
                       value: this, child: const QuickCheckoutMainScreen())),
               type: PageTransitionType.leftToRight));
-     // emit(SetExistingUserAddressSuccessState());
-    } else if (response?.success == false) {
+      // emit(SetExistingUserAddressSuccessState());
+    } else if (settingPaymentAddressResponse?.success == false || settingShippingAddressResponse?.success == false) {
       showAppSnackBar(content: "Error occurred");
       emit(SetExistingUserAddressFailedState());
     } else {
@@ -268,7 +274,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     if (response == true) {
       return true;
     } else if (response == false) {
-      showAppSnackBar(content: "Error occured");
+      showAppSnackBar(content: "Error occurred");
       return false;
     } else {
       showAppSnackBar(content: "Check your internet connection, and try again");
@@ -281,11 +287,71 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     if (response == true) {
       return true;
     } else if (response == false) {
-      showAppSnackBar(content: "Error occured");
+      showAppSnackBar(content: "Error occurred");
       return false;
     } else {
       showAppSnackBar(content: "Check your internet connection, and try again");
       return null;
     }
   }
+
+
+  Future<List<Country>> getCountries() async {
+    var response = await GetCountriesAndRegionsApi.getCountries();
+    if (response?.success == 1) {
+      return response?.countries ?? [];
+    } else {
+      return [];
+    }
+  }
+  Future<List<Region>> getRegions() async {
+    var response = await GetCountriesAndRegionsApi.getRegionsByCountryId(
+        addAddressToOrderInput.country?.countryId?.toInt() ?? 0);
+    if (response?.success == 1) {
+      return response?.data?.regions ?? [];
+    } else {
+      return [];
+    }
+  }
+
+  setAddAddressCountry(Country country) {
+    addAddressToOrderInput.country = country;
+    addAddressToOrderInput.region = null;
+    emit(SelectedCountryStateInAddAddressScreen());
+  }
+
+  setAddAddressRegion(Region region) {
+    addAddressToOrderInput.region = region;
+  }
+
+  // setAccountDefaultAddress(bool state) {
+  //   addAddressToOrderInput.isDefaultAddress = state;
+  //   emit(DefaultAddressSelectedStateInAddAddressScreen());
+  // }
+
+  addAddressToOrder() async {
+    addAddressToOrderFormKey.currentState?.save();
+    var isFormValid = addAddressToOrderFormKey.currentState?.validate();
+    if (isFormValid != true) {
+      return;
+    }
+    addAddressToOrderFormKey.currentState?.save();
+    emit(AddAddressToOrderLoadingState());
+    var response =
+    await CheckoutApis.addAddressToOrder(addAddressToOrderInput.toJson());
+    if (response?.success == true) {
+      setRegisteredUserPaymentAddresses();
+      Navigator.pop(context);
+      showAppSnackBar(content: "Address is added successfully");
+      emit(AddAddressToOrderSuccessState());
+    } else if (response?.success == false) {
+      showAppSnackBar(content: response?.errorMsgs?[0] ?? "");
+      emit(AddAddressToOrderFailedState());
+    } else {
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      emit(AddAddressToOrderNetworkConnectionFailedState());
+    }
+  }
+
+
 }

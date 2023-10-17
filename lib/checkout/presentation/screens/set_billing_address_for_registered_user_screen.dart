@@ -1,5 +1,3 @@
-import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
-import 'package:classic_eccomerce/account/presentation/screens/address_book_entries/add_address_screen.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_customer_payment_address_response.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
@@ -41,9 +39,9 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         PageTransition(
-                            child: BlocProvider(
-                                create: (context) => AccountCubit(),
-                                child: const AddAddressScreen()),
+                            child: BlocProvider.value(
+                               value: CheckOutCubit.get(context)..addAddressToOrderInput.clear(),
+                                child: const AddAddressForRegisteredUserScreen()),
                             type: PageTransitionType.leftToRight));
                   },
                 ),
@@ -80,6 +78,7 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
         builder: (context, state) {
           CheckOutCubit checkOutCubit = CheckOutCubit.get(context);
           List<Address>? userAddresses = checkOutCubit.userAddresses;
+          Address? selectedUserAddress = checkOutCubit.selectedUserAddress;
           return (state is GetUserAddressesLoadingState)
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -128,6 +127,230 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                             const SizedBox(
                               height: 16,
                             ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: const Color(0xffB6BBC6),
+                                    )),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0, horizontal: 16),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            "Full Name : ",
+                                            style: TextStyle(
+                                                fontSize:
+                                                FontSizes.FONT_SIZE_14,
+                                                fontWeight:
+                                                FontWeight.bold),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              "${selectedUserAddress?.firstname ?? ""} ${selectedUserAddress?.lastname ?? ""}",
+                                              maxLines: 1,
+                                              overflow:
+                                              TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontSize: FontSizes
+                                                      .FONT_SIZE_14),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 1,
+                                      color: const Color(0xffB6BBC6),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16, horizontal: 16),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Address : ",
+                                            style: TextStyle(
+                                                fontSize:
+                                                FontSizes.FONT_SIZE_14,
+                                                fontWeight:
+                                                FontWeight.bold),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              selectedUserAddress?.address1 ?? "-",
+                                              maxLines: 2,
+                                              overflow:
+                                              TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontSize: FontSizes
+                                                      .FONT_SIZE_14),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 1,
+                                      color: const Color(0xffB6BBC6),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0, horizontal: 16),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            "Post Code : ",
+                                            style: TextStyle(
+                                                fontSize:
+                                                FontSizes.FONT_SIZE_14,
+                                                fontWeight:
+                                                FontWeight.bold),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              selectedUserAddress?.postcode ?? "",
+                                              maxLines: 1,
+                                              overflow:
+                                              TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontSize: FontSizes
+                                                      .FONT_SIZE_14),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 1,
+                                      color: const Color(0xffB6BBC6),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0, horizontal: 16),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            "City : ",
+                                            style: TextStyle(
+                                                fontSize:
+                                                FontSizes.FONT_SIZE_14,
+                                                fontWeight:
+                                                FontWeight.bold),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              selectedUserAddress?.city ?? "",
+                                              maxLines: 1,
+                                              overflow:
+                                              TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontSize: FontSizes
+                                                      .FONT_SIZE_14),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 1,
+                                      color: const Color(0xffB6BBC6),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0, horizontal: 16),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            "Country : ",
+                                            style: TextStyle(
+                                                fontSize:
+                                                FontSizes.FONT_SIZE_14,
+                                                fontWeight:
+                                                FontWeight.bold),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              selectedUserAddress?.country ?? "",
+                                              maxLines: 1,
+                                              overflow:
+                                              TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontSize: FontSizes
+                                                      .FONT_SIZE_14),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 1,
+                                      color: const Color(0xffB6BBC6),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0, horizontal: 16),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            "Region : ",
+                                            style: TextStyle(
+                                                fontSize:
+                                                FontSizes.FONT_SIZE_14,
+                                                fontWeight:
+                                                FontWeight.bold),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              selectedUserAddress?.zone ?? "",
+                                              maxLines: 1,
+                                              overflow:
+                                              TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontSize: FontSizes
+                                                      .FONT_SIZE_14),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        checkOutCubit
+                                            .selectExistingUserAddress(
+                                            selectedUserAddress?.addressId ?? "");
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width,
+                                        color: (selectedUserAddress?.addressId ==
+                                            checkOutCubit
+                                                .selectedUserAddressId)
+                                            ? AppColors.APP_MAIN_COLOR
+                                            : const Color(0xffB6BBC6),
+                                        child: Text(
+                                          (selectedUserAddress?.addressId ==
+                                              checkOutCubit
+                                                  .selectedUserAddressId)
+                                              ? "Selected Address"
+                                              : "Select Address",
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize:
+                                              FontSizes.FONT_SIZE_16),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            const SizedBox(height: 16,),
                             ListView.separated(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),

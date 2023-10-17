@@ -79,7 +79,7 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(LoginSuccessState());
 
       if (isCheckingOut) {
-        Navigator.push(
+        Navigator.pushReplacement(
             context,
             PageTransition(
                 child: BlocProvider.value(

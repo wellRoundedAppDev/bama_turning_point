@@ -55,3 +55,20 @@ class SetExistingUserAddressNetworkConnectionFailedState extends CheckOutStates{
 
 
 class SelectUserAddressState extends CheckOutStates{}
+
+class SelectedCountryStateInAddAddressScreen extends CheckOutStates{}
+
+class SelectedRegionStateInAddAddressScreen extends CheckOutStates{}
+
+
+class DefaultAddressSelectedStateInAddAddressScreen extends CheckOutStates{}
+
+
+class AddAddressToOrderLoadingState extends CheckOutStates{}
+
+class AddAddressToOrderSuccessState extends CheckOutStates{}
+
+class AddAddressToOrderFailedState extends CheckOutStates{}
+
+class AddAddressToOrderNetworkConnectionFailedState extends CheckOutStates{}
+
