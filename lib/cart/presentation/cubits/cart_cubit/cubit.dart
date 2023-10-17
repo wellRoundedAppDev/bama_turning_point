@@ -22,7 +22,7 @@ class CartCubit extends Cubit<CartStates> {
   //total price of cart
   double totalPrice = 0;
 
-  int numberOfItemsInCart = 0;
+  num numberOfItemsInCart =  MyApp.navKey.currentState?.context.read<AuthCubit>().loginResponse?.loginData?.cartCountProducts??0;
   String? selectedCartProductId;
 
   //to call cubit
@@ -147,6 +147,7 @@ class CartCubit extends Cubit<CartStates> {
 
     totalPrice = totalPrice - (quantity * price);
     cartItems.removeWhere((key, value) => key == id);
+    numberOfItemsInCart = numberOfItemsInCart - quantity;
     // SaveCartInDB();
     emit(ItemDeletedFromCartSuccessState());
   }
@@ -182,6 +183,7 @@ class CartCubit extends Cubit<CartStates> {
 
     //String id = selectedProduct?["id"]??"";
     cartItems[id]['quantity'] = cartItems[id]['quantity'] + 1;
+    numberOfItemsInCart = numberOfItemsInCart + 1;
 
     double Price = cartItems[id]['price'];
 
@@ -234,6 +236,7 @@ class CartCubit extends Cubit<CartStates> {
     //   return;
     // }
     cartItems[id]['quantity'] = quantity - 1;
+    numberOfItemsInCart = numberOfItemsInCart - 1;
 
     // context.read<CategoriesAndProductsProvider>().setSelectedProduct(Product(name: name, id: id, price: price,imagePath: imagePath,quantity: quantity));
 
@@ -246,7 +249,6 @@ class CartCubit extends Cubit<CartStates> {
   clearCart() {
     cartItems.clear();
     totalPrice = 0;
-    numberOfItemsInCart = 0;
     // SaveCartInDB();
     emit(CartIsClearedState());
   }

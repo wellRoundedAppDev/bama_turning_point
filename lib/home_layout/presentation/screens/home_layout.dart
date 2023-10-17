@@ -1,6 +1,7 @@
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:classic_eccomerce/categories/presentation/screens/categories_screen.dart';
+import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/home/presentation/screens/home_screen.dart';
 import 'package:classic_eccomerce/wish_list/presentation/screens/wish_list.dart';
@@ -24,8 +25,8 @@ class HomeLayoutScreen extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => AppCubit()),
         BlocProvider(create: (context) => CartCubit()
-        //  ..loadCartItems()
-        ),
+            //  ..loadCartItems()
+            ),
       ],
       child: BlocConsumer<AppCubit, CheckOutStates>(
         listener: (context, state) {},
@@ -62,16 +63,47 @@ class HomeLayoutScreen extends StatelessWidget {
                             BlocConsumer<CartCubit, CartStates>(
                               listener: (context, state) {},
                               builder: (context, state) {
+                                num itemsCount =
+                                    CartCubit.get(context).numberOfItemsInCart;
                                 return (navBarCurrentIndex == 1)
                                     ? Image.asset(
-                                        IconPaths.CART,
-                                        width: 30,
-                                        height: 30,
-                                      )
-                                    : Image.asset(
-                                        IconPaths.CART,
-                                        width: 30,
-                                        height: 30,
+                                      IconPaths.CART,
+                                      width: 30,
+                                      height: 30,
+                                    )
+                                    : Stack(
+                                        children: [
+                                          Container(
+                                            color: Colors.transparent,
+                                          ),
+                                          Center(
+                                            child: Image.asset(
+                                              IconPaths.CART,
+                                              width: 30,
+                                              height: 30,
+                                            ),
+                                          ),
+                                          // (itemsCount == 0)?Container():
+                                          Positioned(
+                                            bottom: 16,
+                                            right: 16,
+                                            child: Container(
+                                              padding: const EdgeInsets.all(4),
+                                              decoration: const BoxDecoration(
+                                                  color:
+                                                      AppColors.APP_MAIN_COLOR,
+                                                  shape: BoxShape.circle),
+                                              child: Center(
+                                                child: Text(
+                                                  itemsCount.toString(),
+                                                  style: const TextStyle(
+                                                    fontSize: FontSizes.FONT_SIZE_10,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
                                       );
                               },
                             ),
