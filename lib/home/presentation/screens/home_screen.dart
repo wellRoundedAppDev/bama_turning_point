@@ -13,6 +13,7 @@ import 'package:classic_eccomerce/shared_components/search_app_bar_custom_input.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../../cart/presentation/cubits/cart_cubit/states.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../data/models/get_slide_shows_response.dart';
 import '../widgets/home_drawer.dart';
@@ -68,11 +69,50 @@ class HomeScreen extends StatelessWidget {
                                           )),
                                       type: PageTransitionType.leftToRight));
                             },
-                            child: Image.asset(
-                              IconPaths.CART,
-                              width: 25,
-                              height: 25,
-                            ),
+                            child: BlocConsumer<CartCubit,CartStates>(
+                              listener: (context,state){},
+                              builder: (context,state){
+                                num itemsCount =
+                                    CartCubit.get(context).numberOfItemsInCart;
+
+                                return Stack(
+                                  children: [
+                                    Container(
+                                      color: Colors.transparent,
+                                      height: 30,
+                                      width: 30,
+                                    ),
+                                    Center(
+                                      child: Image.asset(
+                                        IconPaths.CART,
+                                        width: 25,
+                                        height: 25,
+                                      ),
+                                    ),
+                                    // (itemsCount == 0)?Container():
+                                    Positioned(
+                                      bottom: 0,
+                                      right: 1,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(3),
+                                        decoration: const BoxDecoration(
+                                            color:
+                                            AppColors.APP_MAIN_COLOR,
+                                            shape: BoxShape.circle),
+                                        child: Center(
+                                          child: Text(
+                                            itemsCount.toString(),
+                                            style: const TextStyle(
+                                                fontSize: FontSizes.FONT_SIZE_8,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                );
+                              },
+                            )
                           ),
                         ],
                       ),
