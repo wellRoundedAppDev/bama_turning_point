@@ -146,7 +146,7 @@ class HomeDrawer extends StatelessWidget {
                   ?Container():
               InkWell(
                 onTap: () {
-                  AuthCubit.get(context).logOut().then((value) {
+                  AuthCubit.get(context).logOut(CartCubit.get(context)).then((value) {
                     Navigator.pop(context);
                   });
                 },

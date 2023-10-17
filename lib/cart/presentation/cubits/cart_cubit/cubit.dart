@@ -29,7 +29,7 @@ class CartCubit extends Cubit<CartStates> {
   static CartCubit get(BuildContext context) => BlocProvider.of(context);
 
   loadCartItems() async {
-    clearCart();
+    cartItems.clear();
     emit(LoadCartLoadingState());
     // if ( AuthCubit.get(context).isUserLoggedIn != true) {
     //   var success = await AuthCubit.get(context).setAccessToken();
@@ -249,9 +249,12 @@ class CartCubit extends Cubit<CartStates> {
   clearCart() {
     cartItems.clear();
     totalPrice = 0;
+    numberOfItemsInCart = 0;
     // SaveCartInDB();
     emit(CartIsClearedState());
   }
+
+
 
   // this is used to store a cart info in the database. so that when the user
   // exists the app the data presists.

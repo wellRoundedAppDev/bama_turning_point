@@ -9,7 +9,6 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:move_to_background/move_to_background.dart';
-
 import '../../../account/presentation/screens/my_account_screen.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../../core/constants/colors/colors.dart';
@@ -67,10 +66,10 @@ class HomeLayoutScreen extends StatelessWidget {
                                     CartCubit.get(context).numberOfItemsInCart;
                                 return (navBarCurrentIndex == 1)
                                     ? Image.asset(
-                                      IconPaths.CART,
-                                      width: 30,
-                                      height: 30,
-                                    )
+                                        IconPaths.CART,
+                                        width: 30,
+                                        height: 30,
+                                      )
                                     : Stack(
                                         children: [
                                           Container(
@@ -83,26 +82,30 @@ class HomeLayoutScreen extends StatelessWidget {
                                               height: 30,
                                             ),
                                           ),
-                                          // (itemsCount == 0)?Container():
-                                          Positioned(
-                                            bottom: 16,
-                                            right: 16,
-                                            child: Container(
-                                              padding: const EdgeInsets.all(4),
-                                              decoration: const BoxDecoration(
-                                                  color:
-                                                      AppColors.APP_MAIN_COLOR,
-                                                  shape: BoxShape.circle),
-                                              child: Center(
-                                                child: Text(
-                                                  itemsCount.toString(),
-                                                  style: const TextStyle(
-                                                    fontSize: FontSizes.FONT_SIZE_10,
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                            ),
-                                          )
+                                          (itemsCount == 0)
+                                              ? Container()
+                                              : Positioned(
+                                                  bottom: 16,
+                                                  right: 16,
+                                                  child: Container(
+                                                    padding:
+                                                        const EdgeInsets.all(4),
+                                                    decoration: const BoxDecoration(
+                                                        color: AppColors
+                                                            .APP_MAIN_COLOR,
+                                                        shape: BoxShape.circle),
+                                                    child: Center(
+                                                      child: Text(
+                                                        itemsCount.toString(),
+                                                        style: const TextStyle(
+                                                            fontSize: FontSizes
+                                                                .FONT_SIZE_10,
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
                                         ],
                                       );
                               },

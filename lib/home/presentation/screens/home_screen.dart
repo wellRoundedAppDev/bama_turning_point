@@ -89,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                                         height: 25,
                                       ),
                                     ),
-                                    // (itemsCount == 0)?Container():
+                                   (itemsCount == 0)?Container():
                                     Positioned(
                                       bottom: 0,
                                       right: 1,
