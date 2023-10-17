@@ -29,8 +29,15 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   ShippingMethod? selectedShippingMethod;
   PaymentMethod? selectedPaymentMethod;
 
-  AddAddressToOrderInput addAddressToOrderInput = AddAddressToOrderInput(firstName: "",
-      lastName: "", address: '', country: null, city: '', region: null, postalCode: '',);
+  AddAddressToOrderInput addAddressToOrderInput = AddAddressToOrderInput(
+    firstName: "",
+    lastName: "",
+    address: '',
+    country: null,
+    city: '',
+    region: null,
+    postalCode: '',
+  );
   GlobalKey<FormState> addAddressToOrderFormKey = GlobalKey<FormState>();
 
   TabController? tabController;
@@ -148,12 +155,15 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
 
   setExistingUserAddress(CartCubit cartCubit) async {
     emit(SetExistingUserAddressLoadingState());
-    var settingPaymentAddressResponse = await CheckoutApis.setExistingCustomerPaymentAddress(
-        int.tryParse(selectedUserAddressId ?? "") ?? 0);
-    var settingShippingAddressResponse = await CheckoutApis.setExistingCustomerShippingAddress(
-        int.tryParse(selectedUserAddressId ?? "") ?? 0);
+    var settingPaymentAddressResponse =
+        await CheckoutApis.setExistingCustomerPaymentAddress(
+            int.tryParse(selectedUserAddressId ?? "") ?? 0);
+    var settingShippingAddressResponse =
+        await CheckoutApis.setExistingCustomerShippingAddress(
+            int.tryParse(selectedUserAddressId ?? "") ?? 0);
 
-    if (settingPaymentAddressResponse?.success == true && settingShippingAddressResponse?.success == true) {
+    if (settingPaymentAddressResponse?.success == true &&
+        settingShippingAddressResponse?.success == true) {
       initCheckoutForRegisteredUser();
       Navigator.push(
           context,
@@ -164,7 +174,8 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
                       value: this, child: const QuickCheckoutMainScreen())),
               type: PageTransitionType.leftToRight));
       // emit(SetExistingUserAddressSuccessState());
-    } else if (settingPaymentAddressResponse?.success == false || settingShippingAddressResponse?.success == false) {
+    } else if (settingPaymentAddressResponse?.success == false ||
+        settingShippingAddressResponse?.success == false) {
       showAppSnackBar(content: "Error occurred");
       emit(SetExistingUserAddressFailedState());
     } else {
@@ -295,7 +306,6 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     }
   }
 
-
   Future<List<Country>> getCountries() async {
     var response = await GetCountriesAndRegionsApi.getCountries();
     if (response?.success == 1) {
@@ -304,6 +314,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
       return [];
     }
   }
+
   Future<List<Region>> getRegions() async {
     var response = await GetCountriesAndRegionsApi.getRegionsByCountryId(
         addAddressToOrderInput.country?.countryId?.toInt() ?? 0);
@@ -338,7 +349,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     addAddressToOrderFormKey.currentState?.save();
     emit(AddAddressToOrderLoadingState());
     var response =
-    await CheckoutApis.addAddressToOrder(addAddressToOrderInput.toJson());
+        await CheckoutApis.addAddressToOrder(addAddressToOrderInput.toJson());
     if (response?.success == true) {
       setRegisteredUserPaymentAddresses();
       Navigator.pop(context);
@@ -352,6 +363,4 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
       emit(AddAddressToOrderNetworkConnectionFailedState());
     }
   }
-
-
 }

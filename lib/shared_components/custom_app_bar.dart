@@ -3,8 +3,6 @@ import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dar
 import 'package:classic_eccomerce/cart/presentation/screens/cart_screen.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/main.dart';
-import 'package:classic_eccomerce/shared_components/custom_alert2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -18,7 +16,7 @@ class CustomAppBar {
       {required String title,
       bool showBackButton = true,
       bool showCartIcon = true,
-        bool showLogoutIcon = false,
+      bool showLogoutIcon = false,
       CartCubit? cartCubit}) {
     return AppBar(
       toolbarHeight: 65,
@@ -31,16 +29,16 @@ class CustomAppBar {
           children: [
             (showLogoutIcon)
                 ? GestureDetector(
-              onTap: () {
-                AuthCubit.get(MyApp.navKey.currentState!.context).logOut();
-
-              },
-              child: Image.asset(
-                IconPaths.LOGOUT_ICON,
-                width: 25,
-                height: 25,
-              ),
-            )
+                    onTap: () {
+                      AuthCubit.get(MyApp.navKey.currentState!.context)
+                          .logOut(cartCubit);
+                    },
+                    child: Image.asset(
+                      IconPaths.LOGOUT_ICON,
+                      width: 25,
+                      height: 25,
+                    ),
+                  )
                 : Container(),
             (showBackButton)
                 ? IconButton(
@@ -69,16 +67,19 @@ class CustomAppBar {
             (showCartIcon)
                 ? GestureDetector(
                     onTap: () {
-                      Navigator.push(MyApp.navKey.currentState!.context,
-                      PageTransition(child:  BlocProvider.value(
-
-                          value: cartCubit!,
-                          child:  CartScreen(showBackButton: true,)), type: PageTransitionType.leftToRight)
-                      );
+                      Navigator.push(
+                          MyApp.navKey.currentState!.context,
+                          PageTransition(
+                              child: BlocProvider.value(
+                                  value: cartCubit!,
+                                  child: CartScreen(
+                                    showBackButton: true,
+                                  )),
+                              type: PageTransitionType.leftToRight));
                     },
-                    child: BlocConsumer<CartCubit,CartStates>(
-                      listener: (context,state){},
-                      builder: (context,state){
+                    child: BlocConsumer<CartCubit, CartStates>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
                         num itemsCount =
                             CartCubit.get(context).numberOfItemsInCart;
 
@@ -86,7 +87,7 @@ class CustomAppBar {
                           children: [
                             Container(
                               color: Colors.transparent,
-                             height: 30,
+                              height: 30,
                               width: 30,
                             ),
                             Center(
@@ -96,21 +97,20 @@ class CustomAppBar {
                                 height: 25,
                               ),
                             ),
-                            // (itemsCount == 0)?Container():
+                          (itemsCount == 0)?Container():
                             Positioned(
                               bottom: 0,
                               right: 1,
                               child: Container(
                                 padding: const EdgeInsets.all(3),
                                 decoration: const BoxDecoration(
-                                    color:
-                                    AppColors.APP_MAIN_COLOR,
+                                    color: AppColors.APP_MAIN_COLOR,
                                     shape: BoxShape.circle),
                                 child: Center(
                                   child: Text(
                                     itemsCount.toString(),
                                     style: const TextStyle(
-                                      fontSize: FontSizes.FONT_SIZE_8,
+                                        fontSize: FontSizes.FONT_SIZE_8,
                                         color: Colors.white),
                                   ),
                                 ),
@@ -122,9 +122,6 @@ class CustomAppBar {
                     ),
                   )
                 : Container(),
-
-
-
           ],
         ),
       ),

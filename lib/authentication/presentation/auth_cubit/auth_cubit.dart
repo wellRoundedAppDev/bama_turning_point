@@ -57,7 +57,7 @@ class AuthCubit extends Cubit<AuthStates> {
     guestFormInput.clear();
   }
 
-  login({bool isCheckingOut = false, CartCubit? cartCubit}) async {
+  login({bool isCheckingOut = false, required CartCubit cartCubit}) async {
     if (validateLoginForm() != true) {
       return;
     }
@@ -75,7 +75,7 @@ class AuthCubit extends Cubit<AuthStates> {
     if (response?.success == 1) {
       loginResponse = response;
       isUserLoggedIn = true;
-
+      cartCubit.numberOfItemsInCart = loginResponse?.loginData?.cartCountProducts??0;
       emit(LoginSuccessState());
 
       if (isCheckingOut) {
@@ -132,7 +132,7 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 
-  Future<void> logOut() async {
+  Future<void> logOut(CartCubit? cartCubit) async {
     // if (await setSessionId() == false) {
     //   showAppSnackBar(content: "Check your internet connection, and try again");
     //   emit(LogoutNetworkFailedConnectionState());
@@ -141,6 +141,7 @@ class AuthCubit extends Cubit<AuthStates> {
     var success = await AuthApis.logOut();
     if (success == true) {
       isUserLoggedIn = false;
+      cartCubit?.clearCart();
       emit(LogoutSuccessState());
     } else if (success == false) {
       showAppSnackBar(content: "Error occured");
