@@ -65,7 +65,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
       showAppSnackBar(content: "Product added to wishlist");
       emit(AddItemToFavoritesSuccessState());
     } else if (response == false) {
-      showAppSnackBar(content: "Error occured");
+      showAppSnackBar(content: "Error occurred");
 
       emit(AddItemToFavoritesFailedState());
     } else {

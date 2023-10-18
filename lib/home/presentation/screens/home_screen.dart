@@ -7,6 +7,7 @@ import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/states.dart';
+import 'package:classic_eccomerce/home/presentation/cubits/search_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/screens/search_and_filter_screen.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/categories_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/products_overview.dart';
@@ -59,62 +60,64 @@ class HomeScreen extends StatelessWidget {
                                 fontFamily: FontFamilies.JOST_BOld),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  PageTransition(
-                                      child: BlocProvider.value(
-                                          value: CartCubit.get(context),
-                                          child: CartScreen(
-                                            showBackButton: true,
-                                          )),
-                                      type: PageTransitionType.leftToRight));
-                            },
-                            child: BlocConsumer<CartCubit,CartStates>(
-                              listener: (context,state){},
-                              builder: (context,state){
-                                num itemsCount =
-                                    CartCubit.get(context).numberOfItemsInCart;
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        child: BlocProvider.value(
+                                            value: CartCubit.get(context),
+                                            child: CartScreen(
+                                              showBackButton: true,
+                                            )),
+                                        type: PageTransitionType.leftToRight));
+                              },
+                              child: BlocConsumer<CartCubit, CartStates>(
+                                listener: (context, state) {},
+                                builder: (context, state) {
+                                  num itemsCount = CartCubit.get(context)
+                                      .numberOfItemsInCart;
 
-                                return Stack(
-                                  children: [
-                                    Container(
-                                      color: Colors.transparent,
-                                      height: 30,
-                                      width: 30,
-                                    ),
-                                    Center(
-                                      child: Image.asset(
-                                        IconPaths.CART,
-                                        width: 25,
-                                        height: 25,
+                                  return Stack(
+                                    children: [
+                                      Container(
+                                        color: Colors.transparent,
+                                        height: 30,
+                                        width: 30,
                                       ),
-                                    ),
-                                   (itemsCount == 0)?Container():
-                                    Positioned(
-                                      bottom: 0,
-                                      right: 1,
-                                      child: Container(
-                                        padding: const EdgeInsets.all(3),
-                                        decoration: const BoxDecoration(
-                                            color:
-                                            AppColors.APP_MAIN_COLOR,
-                                            shape: BoxShape.circle),
-                                        child: Center(
-                                          child: Text(
-                                            itemsCount.toString(),
-                                            style: const TextStyle(
-                                                fontSize: FontSizes.FONT_SIZE_8,
-                                                color: Colors.white),
-                                          ),
+                                      Center(
+                                        child: Image.asset(
+                                          IconPaths.CART,
+                                          width: 25,
+                                          height: 25,
                                         ),
                                       ),
-                                    )
-                                  ],
-                                );
-                              },
-                            )
-                          ),
+                                      (itemsCount == 0)
+                                          ? Container()
+                                          : Positioned(
+                                              bottom: 0,
+                                              right: 1,
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(3),
+                                                decoration: const BoxDecoration(
+                                                    color: AppColors
+                                                        .APP_MAIN_COLOR,
+                                                    shape: BoxShape.circle),
+                                                child: Center(
+                                                  child: Text(
+                                                    itemsCount.toString(),
+                                                    style: const TextStyle(
+                                                        fontSize: FontSizes
+                                                            .FONT_SIZE_8,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                    ],
+                                  );
+                                },
+                              )),
                         ],
                       ),
                       const Spacer(),
@@ -129,12 +132,22 @@ class HomeScreen extends StatelessWidget {
                                 isFilled: true,
                                 filledColor: const Color(0xff5A606B),
                                 hintText: "TYPE HERE",
+
                                 textDirection: TextDirection.ltr,
                                 textAlign: TextAlign.left,
-                                onTap: (){
-                                  Navigator.push(context, PageTransition(child: BlocProvider.value(
-                                      value: CartCubit.get(context),
-                                      child: const SearchAndFilterScreen()), type: PageTransitionType.leftToRight));
+                                readOnly: true,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          child: BlocProvider.value(
+                                              value: CartCubit.get(context),
+                                              child: BlocProvider(
+                                                  create: (context) =>
+                                                      SearchCubit()..setSearchResults("a"),
+                                                  child:
+                                                      const SearchAndFilterScreen())),
+                                          type: PageTransitionType.fade));
                                 },
                                 hintTextStyle: const TextStyle(
                                     color: Colors.white,
