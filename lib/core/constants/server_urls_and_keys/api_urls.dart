@@ -39,6 +39,7 @@ class ApiUrls {
   static const CHANGE_ACCOUNT_PASSWORD_ENDPOINT = "api/rest/account/password";
   static const ACCOUNT_ADDRESS_ENDPOINT = "api/rest/account/address";
   static const GET_CUSTOMER_ORDERS_ENDPOINT = "api/rest/customerorders/";
+  static const SEARCH_ENDPOINT = "api/rest/products/search";
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>
       "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";

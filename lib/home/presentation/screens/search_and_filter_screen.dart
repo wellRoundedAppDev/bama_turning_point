@@ -1,10 +1,18 @@
-import 'package:classic_eccomerce/categories/presentation/widgets/filter_drawer.dart';
-import 'package:classic_eccomerce/categories/presentation/widgets/filtered_product.dart';
+import 'package:classic_eccomerce/home/presentation/widgets/filter_drawer.dart';
+import 'package:classic_eccomerce/home/presentation/widgets/filtered_product.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
+import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
+import '../../../cart/presentation/cubits/cart_cubit/states.dart';
+import '../../../cart/presentation/screens/cart_screen.dart';
+import '../../../core/constants/colors/colors.dart';
+import '../../../core/constants/fonts/font_families.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
+import '../../../shared_components/search_app_bar_custom_input.dart';
 
 class SearchAndFilterScreen extends StatelessWidget {
   const SearchAndFilterScreen({super.key});
@@ -13,7 +21,125 @@ class SearchAndFilterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: CustomAppBar.renderAppBar(title: "Filter Category"),
+        appBar: AppBar(
+          toolbarHeight: MediaQuery.of(context).size.height * 0.16,
+          backgroundColor: AppColors.APP_BAR_COLOR,
+          leading: Container(),
+          flexibleSpace: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Builder(builder: (context) {
+              return Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Scaffold.of(context).openDrawer();
+                        },
+                        child: const Icon(
+                          Icons.menu_sharp,
+                          size: 25,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Text(
+                        "NORTH GRASS",
+                        style: TextStyle(
+                            fontSize: FontSizes.FONT_SIZE_18,
+                            color: Colors.white,
+                            fontFamily: FontFamilies.JOST_BOld),
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                    child: BlocProvider.value(
+                                        value: CartCubit.get(context),
+                                        child: CartScreen(
+                                          showBackButton: true,
+                                        )),
+                                    type: PageTransitionType.leftToRight));
+                          },
+                          child: BlocConsumer<CartCubit,CartStates>(
+                            listener: (context,state){},
+                            builder: (context,state){
+                              num itemsCount =
+                                  CartCubit.get(context).numberOfItemsInCart;
+
+                              return Stack(
+                                children: [
+                                  Container(
+                                    color: Colors.transparent,
+                                    height: 30,
+                                    width: 30,
+                                  ),
+                                  Center(
+                                    child: Image.asset(
+                                      IconPaths.CART,
+                                      width: 25,
+                                      height: 25,
+                                    ),
+                                  ),
+                                  (itemsCount == 0)?Container():
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 1,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(3),
+                                      decoration: const BoxDecoration(
+                                          color:
+                                          AppColors.APP_MAIN_COLOR,
+                                          shape: BoxShape.circle),
+                                      child: Center(
+                                        child: Text(
+                                          itemsCount.toString(),
+                                          style: const TextStyle(
+                                              fontSize: FontSizes.FONT_SIZE_8,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              );
+                            },
+                          )
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                      height: 45,
+                      child: Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Padding(
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: SearchAppBarCustomInput(
+                            isFilled: true,
+                            filledColor: const Color(0xff5A606B),
+                            hintText: "TYPE HERE",
+                            textDirection: TextDirection.ltr,
+                            textAlign: TextAlign.left,
+                            hintTextStyle: const TextStyle(
+                                color: Colors.white,
+                                fontSize: FontSizes.FONT_SIZE_14,
+                                fontFamily: FontFamilies.OPEN_SANS),
+                            suffixIcon: const Icon(
+                              Icons.search,
+                              size: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      )),
+                ],
+              );
+            }),
+          ),
+        ),
         endDrawer: const FilterDrawer(),
         body: Builder(
           builder: (context) {

@@ -7,6 +7,7 @@ import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/states.dart';
+import 'package:classic_eccomerce/home/presentation/screens/search_and_filter_screen.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/categories_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/products_overview.dart';
 import 'package:classic_eccomerce/shared_components/search_app_bar_custom_input.dart';
@@ -130,6 +131,11 @@ class HomeScreen extends StatelessWidget {
                                 hintText: "TYPE HERE",
                                 textDirection: TextDirection.ltr,
                                 textAlign: TextAlign.left,
+                                onTap: (){
+                                  Navigator.push(context, PageTransition(child: BlocProvider.value(
+                                      value: CartCubit.get(context),
+                                      child: const SearchAndFilterScreen()), type: PageTransitionType.leftToRight));
+                                },
                                 hintTextStyle: const TextStyle(
                                     color: Colors.white,
                                     fontSize: FontSizes.FONT_SIZE_14,
