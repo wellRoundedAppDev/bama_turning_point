@@ -9,8 +9,8 @@ import '../../../../main.dart';
 class SearchApis {
   static final dioHelper = DioHelper.instance;
 
-  static Future<SearchResponse?> searchByTerm() async {
-    String endPoint = ApiUrls.SEARCH_ENDPOINT;
+  static Future<SearchResponse?> searchByTerm(String searchTerm) async {
+    String endPoint = ApiUrls.getSearchByTermEndpoint(searchTerm);
     String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {

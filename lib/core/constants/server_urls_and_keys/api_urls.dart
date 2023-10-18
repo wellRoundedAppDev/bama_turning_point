@@ -39,7 +39,7 @@ class ApiUrls {
   static const CHANGE_ACCOUNT_PASSWORD_ENDPOINT = "api/rest/account/password";
   static const ACCOUNT_ADDRESS_ENDPOINT = "api/rest/account/address";
   static const GET_CUSTOMER_ORDERS_ENDPOINT = "api/rest/customerorders/";
-  static const SEARCH_ENDPOINT = "api/rest/products/search";
+  static const SEARCH_ENDPOINT = "api/rest/products/search/";
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>
       "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";
@@ -67,5 +67,8 @@ class ApiUrls {
       "$GET_CUSTOMER_ORDERS_ENDPOINT$orderId";
   static String getAccountAddressEndpoint(int addressId) =>
       "$ACCOUNT_ADDRESS_ENDPOINT/$addressId";
+  static String getSearchByTermEndpoint(String searchTerm) =>
+      "$SEARCH_ENDPOINT$searchTerm";
+
 
 }
