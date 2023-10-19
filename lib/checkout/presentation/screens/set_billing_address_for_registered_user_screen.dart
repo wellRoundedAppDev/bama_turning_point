@@ -127,7 +127,7 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                             const SizedBox(
                               height: 16,
                             ),
-                              Container(
+                            (selectedUserAddress == null)?Container():  Container(
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                       color: const Color(0xffB6BBC6),

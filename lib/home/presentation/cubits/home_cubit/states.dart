@@ -31,3 +31,4 @@ class FetchingAllProductsSuccessState extends HomeStates {}
 class FetchingAllProductsFailedState extends HomeStates {}
 
 class FetchingAllProductsNetworkConnectionFailedState extends HomeStates {}
+

@@ -7,6 +7,7 @@ class SearchAppBarCustomInput extends StatelessWidget {
   Widget? suffixIcon;
   final FormFieldSetter<String>? onSaved;
   final String? Function(String?)? validator;
+  Function(String)? onChanged;
   final TextInputType? textInputType;
   bool obscureText = false;
   int? maxLines;
@@ -19,10 +20,12 @@ class SearchAppBarCustomInput extends StatelessWidget {
   bool isFilled;
   String? initialValue;
   Function()? onTap;
+
   TextStyle? hintTextStyle;
   TextEditingController? controller;
   TextDirection? textDirection;
   TextAlign? textAlign;
+  bool autoFocus;
 
   SearchAppBarCustomInput({
     Key? key,
@@ -30,6 +33,7 @@ class SearchAppBarCustomInput extends StatelessWidget {
     this.controller,
     this.prefixIcon,
     this.isFilled = false,
+    this.autoFocus = false,
     this.readOnly = false,
     this.suffixIcon,
     this.textDirection,
@@ -43,6 +47,7 @@ class SearchAppBarCustomInput extends StatelessWidget {
     this.hintTextStyle,
     this.onTap,
     this.borderColor = Colors.white,
+    this.onChanged,
     this.minLines,
     this.initialValue,
     this.radius = 20,
@@ -58,16 +63,20 @@ class SearchAppBarCustomInput extends StatelessWidget {
       controller: controller,
       onSaved: onSaved,
       validator: validator,
+      autofocus: autoFocus,
       keyboardType: textInputType,
       obscureText: obscureText,
       onTap: onTap,
       readOnly: readOnly,
+      onChanged:onChanged,
       initialValue: initialValue,
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         fillColor: filledColor,
         filled: isFilled,
         hintText: hintText,
         hintStyle: hintTextStyle,
+
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         border: OutlineInputBorder(
