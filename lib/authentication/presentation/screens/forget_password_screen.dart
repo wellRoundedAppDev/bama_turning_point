@@ -13,7 +13,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: CustomAppBar.renderAppBar(title: "Forget Password"),
+      appBar: CustomAppBar.renderAppBar(title: "Forget Password",showCartIcon: false),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

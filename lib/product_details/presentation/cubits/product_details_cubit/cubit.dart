@@ -73,4 +73,21 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
       emit(AddItemToFavoritesNetworkConnectionFailedState());
     }
   }
+
+
+  // setRelatedProducts() async {
+  //   emit(GetRelatedProductsLoadingState());
+  //   var response = await ProductsApis.getFeaturedProducts();
+  //   if (response?.success == 1) {
+  //     allProducts = response?.data?[0].products;
+  //     emit(FetchingAllProductsSuccessState());
+  //   } else if (response?.success == 0) {
+  //     allProducts = null;
+  //     emit(GetRelatedProductsFailedState());
+  //   } else {
+  //     allProducts = null;
+  //     emit(GetRelatedProductsNetworkConnectionFailedState());
+  //   }
+  // }
+
 }

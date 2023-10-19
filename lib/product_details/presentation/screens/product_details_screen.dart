@@ -123,7 +123,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                 enlargeCenterPage:
                                                                     true,
                                                                 enableInfiniteScroll:
-                                                                    false,
+                                                                    true,
                                                                 initialPage: 0,
                                                                 autoPlay: true,
                                                                 viewportFraction:
@@ -410,195 +410,195 @@ class ProductDetailsScreen extends StatelessWidget {
                                                       ),
                                                     ],
                                                   ),
-                                                  const SizedBox(
-                                                    height: 16,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      const Text(
-                                                        "Size : ",
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: FontSizes
-                                                                .FONT_SIZE_14,
-                                                            color: Color(
-                                                                0xfff313846)),
-                                                      ),
-                                                      Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                border:
-                                                                    Border.all(
-                                                                  color: const Color(
-                                                                      0xffD0D0D0),
-                                                                  width: 1,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            2)),
-                                                        child: const Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      8.0,
-                                                                  vertical: 5),
-                                                          child: Text(
-                                                            "xs",
-                                                            style: TextStyle(
-                                                                fontSize: FontSizes
-                                                                    .FONT_SIZE_14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                color: Color(
-                                                                    0xff313846)),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 8,
-                                                      ),
-                                                      Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                border:
-                                                                    Border.all(
-                                                                  color: const Color(
-                                                                      0xffD0D0D0),
-                                                                  width: 1,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            2)),
-                                                        child: const Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      8.0,
-                                                                  vertical: 5),
-                                                          child: Text(
-                                                            "sm",
-                                                            style: TextStyle(
-                                                                fontSize: FontSizes
-                                                                    .FONT_SIZE_14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                color: Color(
-                                                                    0xff313846)),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 8,
-                                                      ),
-                                                      Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                border:
-                                                                    Border.all(
-                                                                  color: const Color(
-                                                                      0xffD0D0D0),
-                                                                  width: 1,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            2)),
-                                                        child: const Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      8.0,
-                                                                  vertical: 5),
-                                                          child: Text(
-                                                            "lg",
-                                                            style: TextStyle(
-                                                                fontSize: FontSizes
-                                                                    .FONT_SIZE_14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                color: Color(
-                                                                    0xff313846)),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 8,
-                                                      ),
-                                                      Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                border:
-                                                                    Border.all(
-                                                                  color: const Color(
-                                                                      0xffD0D0D0),
-                                                                  width: 1,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            2)),
-                                                        child: const Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      8.0,
-                                                                  vertical: 5),
-                                                          child: Text(
-                                                            "lg",
-                                                            style: TextStyle(
-                                                                fontSize: FontSizes
-                                                                    .FONT_SIZE_14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                color: Color(
-                                                                    0xff313846)),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 8,
-                                                      ),
-                                                      Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                border:
-                                                                    Border.all(
-                                                                  color: const Color(
-                                                                      0xffD0D0D0),
-                                                                  width: 1,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            2)),
-                                                        child: const Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      8.0,
-                                                                  vertical: 5),
-                                                          child: Text(
-                                                            "lg",
-                                                            style: TextStyle(
-                                                                fontSize: FontSizes
-                                                                    .FONT_SIZE_14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                color: Color(
-                                                                    0xff313846)),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                  // const SizedBox(
+                                                  //   height: 16,
+                                                  // ),
+                                                  // Row(
+                                                  //   children: [
+                                                  //     const Text(
+                                                  //       "Size : ",
+                                                  //       style: TextStyle(
+                                                  //           fontWeight:
+                                                  //               FontWeight.bold,
+                                                  //           fontSize: FontSizes
+                                                  //               .FONT_SIZE_14,
+                                                  //           color: Color(
+                                                  //               0xfff313846)),
+                                                  //     ),
+                                                  //     Container(
+                                                  //       decoration:
+                                                  //           BoxDecoration(
+                                                  //               border:
+                                                  //                   Border.all(
+                                                  //                 color: const Color(
+                                                  //                     0xffD0D0D0),
+                                                  //                 width: 1,
+                                                  //               ),
+                                                  //               borderRadius:
+                                                  //                   BorderRadius
+                                                  //                       .circular(
+                                                  //                           2)),
+                                                  //       child: const Padding(
+                                                  //         padding: EdgeInsets
+                                                  //             .symmetric(
+                                                  //                 horizontal:
+                                                  //                     8.0,
+                                                  //                 vertical: 5),
+                                                  //         child: Text(
+                                                  //           "xs",
+                                                  //           style: TextStyle(
+                                                  //               fontSize: FontSizes
+                                                  //                   .FONT_SIZE_14,
+                                                  //               fontWeight:
+                                                  //                   FontWeight
+                                                  //                       .w500,
+                                                  //               color: Color(
+                                                  //                   0xff313846)),
+                                                  //         ),
+                                                  //       ),
+                                                  //     ),
+                                                  //     const SizedBox(
+                                                  //       width: 8,
+                                                  //     ),
+                                                  //     Container(
+                                                  //       decoration:
+                                                  //           BoxDecoration(
+                                                  //               border:
+                                                  //                   Border.all(
+                                                  //                 color: const Color(
+                                                  //                     0xffD0D0D0),
+                                                  //                 width: 1,
+                                                  //               ),
+                                                  //               borderRadius:
+                                                  //                   BorderRadius
+                                                  //                       .circular(
+                                                  //                           2)),
+                                                  //       child: const Padding(
+                                                  //         padding: EdgeInsets
+                                                  //             .symmetric(
+                                                  //                 horizontal:
+                                                  //                     8.0,
+                                                  //                 vertical: 5),
+                                                  //         child: Text(
+                                                  //           "sm",
+                                                  //           style: TextStyle(
+                                                  //               fontSize: FontSizes
+                                                  //                   .FONT_SIZE_14,
+                                                  //               fontWeight:
+                                                  //                   FontWeight
+                                                  //                       .w500,
+                                                  //               color: Color(
+                                                  //                   0xff313846)),
+                                                  //         ),
+                                                  //       ),
+                                                  //     ),
+                                                  //     const SizedBox(
+                                                  //       width: 8,
+                                                  //     ),
+                                                  //     Container(
+                                                  //       decoration:
+                                                  //           BoxDecoration(
+                                                  //               border:
+                                                  //                   Border.all(
+                                                  //                 color: const Color(
+                                                  //                     0xffD0D0D0),
+                                                  //                 width: 1,
+                                                  //               ),
+                                                  //               borderRadius:
+                                                  //                   BorderRadius
+                                                  //                       .circular(
+                                                  //                           2)),
+                                                  //       child: const Padding(
+                                                  //         padding: EdgeInsets
+                                                  //             .symmetric(
+                                                  //                 horizontal:
+                                                  //                     8.0,
+                                                  //                 vertical: 5),
+                                                  //         child: Text(
+                                                  //           "lg",
+                                                  //           style: TextStyle(
+                                                  //               fontSize: FontSizes
+                                                  //                   .FONT_SIZE_14,
+                                                  //               fontWeight:
+                                                  //                   FontWeight
+                                                  //                       .w500,
+                                                  //               color: Color(
+                                                  //                   0xff313846)),
+                                                  //         ),
+                                                  //       ),
+                                                  //     ),
+                                                  //     const SizedBox(
+                                                  //       width: 8,
+                                                  //     ),
+                                                  //     Container(
+                                                  //       decoration:
+                                                  //           BoxDecoration(
+                                                  //               border:
+                                                  //                   Border.all(
+                                                  //                 color: const Color(
+                                                  //                     0xffD0D0D0),
+                                                  //                 width: 1,
+                                                  //               ),
+                                                  //               borderRadius:
+                                                  //                   BorderRadius
+                                                  //                       .circular(
+                                                  //                           2)),
+                                                  //       child: const Padding(
+                                                  //         padding: EdgeInsets
+                                                  //             .symmetric(
+                                                  //                 horizontal:
+                                                  //                     8.0,
+                                                  //                 vertical: 5),
+                                                  //         child: Text(
+                                                  //           "lg",
+                                                  //           style: TextStyle(
+                                                  //               fontSize: FontSizes
+                                                  //                   .FONT_SIZE_14,
+                                                  //               fontWeight:
+                                                  //                   FontWeight
+                                                  //                       .w500,
+                                                  //               color: Color(
+                                                  //                   0xff313846)),
+                                                  //         ),
+                                                  //       ),
+                                                  //     ),
+                                                  //     const SizedBox(
+                                                  //       width: 8,
+                                                  //     ),
+                                                  //     Container(
+                                                  //       decoration:
+                                                  //           BoxDecoration(
+                                                  //               border:
+                                                  //                   Border.all(
+                                                  //                 color: const Color(
+                                                  //                     0xffD0D0D0),
+                                                  //                 width: 1,
+                                                  //               ),
+                                                  //               borderRadius:
+                                                  //                   BorderRadius
+                                                  //                       .circular(
+                                                  //                           2)),
+                                                  //       child: const Padding(
+                                                  //         padding: EdgeInsets
+                                                  //             .symmetric(
+                                                  //                 horizontal:
+                                                  //                     8.0,
+                                                  //                 vertical: 5),
+                                                  //         child: Text(
+                                                  //           "lg",
+                                                  //           style: TextStyle(
+                                                  //               fontSize: FontSizes
+                                                  //                   .FONT_SIZE_14,
+                                                  //               fontWeight:
+                                                  //                   FontWeight
+                                                  //                       .w500,
+                                                  //               color: Color(
+                                                  //                   0xff313846)),
+                                                  //         ),
+                                                  //       ),
+                                                  //     ),
+                                                  //   ],
+                                                  // ),
                                                   // BlocConsumer<CartCubit,
                                                   //     CartStates>(
                                                   //   listener:
@@ -764,150 +764,147 @@ class ProductDetailsScreen extends StatelessWidget {
                                             const SizedBox(
                                               height: 16,
                                             ),
-                                            const Divider(
-                                              thickness: 2,
-                                              color: Color(0xffE5E5E5),
-                                            ),
-                                            const SizedBox(
-                                              height: 8,
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 16.0),
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 16,
-                                                        vertical: 8),
-                                                color: const Color(0xffF5F5F5),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      productRating
-                                                              .toString() ??
-                                                          "",
-                                                      style: const TextStyle(
-                                                          color:
-                                                              Color(0xff313846),
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: FontSizes
-                                                              .FONT_SIZE_16),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 16,
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        ((productRating ?? 0) >=
-                                                                1)
-                                                            ? const Icon(
-                                                                Icons.star,
-                                                                color: Color(
-                                                                    0xffFFAB16),
-                                                              )
-                                                            : const Icon(
-                                                                Icons
-                                                                    .star_outline_sharp,
-                                                                color: Color(
-                                                                    0xffFFAB16),
-                                                              ),
-                                                        ((productRating ?? 0) >=
-                                                                2)
-                                                            ? const Icon(
-                                                                Icons.star,
-                                                                color: Color(
-                                                                    0xffFFAB16),
-                                                              )
-                                                            : const Icon(
-                                                                Icons
-                                                                    .star_outline_sharp,
-                                                                color: Color(
-                                                                    0xffFFAB16)),
-                                                        ((productRating ?? 0) >=
-                                                                3)
-                                                            ? const Icon(
-                                                                Icons.star,
-                                                                color: Color(
-                                                                    0xffFFAB16),
-                                                              )
-                                                            : const Icon(
-                                                                Icons
-                                                                    .star_outline_sharp,
-                                                                color: Color(
-                                                                    0xffFFAB16)),
-                                                        ((productRating ?? 0) >=
-                                                                4)
-                                                            ? const Icon(
-                                                                Icons.star,
-                                                                color: Color(
-                                                                    0xffFFAB16),
-                                                              )
-                                                            : const Icon(
-                                                                Icons
-                                                                    .star_outline_sharp,
-                                                                color: Color(
-                                                                    0xffFFAB16)),
-                                                        ((productRating ?? 0) >=
-                                                                5)
-                                                            ? const Icon(
-                                                                Icons.star,
-                                                                color: Color(
-                                                                    0xffFFAB16),
-                                                              )
-                                                            : const Icon(
-                                                                Icons
-                                                                    .star_outline_sharp,
-                                                                color: Color(
-                                                                    0xffFFAB16))
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 16,
-                                            ),
-                                            ListView.separated(
-                                                separatorBuilder:
-                                                    (context, index) => Column(
-                                                          children: [
-                                                            (index == 2)
-                                                                ? Container()
-                                                                : const Divider(
-                                                                    thickness:
-                                                                        1,
-                                                                    color: Color(
-                                                                        0xffE5E5E5),
-                                                                  ),
-                                                          ],
-                                                        ),
-                                                shrinkWrap: true,
-                                                physics:
-                                                    const NeverScrollableScrollPhysics(),
-                                                itemCount: 3,
-                                                itemBuilder: (context, index) {
-                                                  return const Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 16.0,
-                                                            vertical: 8),
-                                                    child: Comment(),
-                                                  );
-                                                }),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 8.0),
-                                              child: Container(
-                                                height: 1,
-                                                color: const Color(0xffE5E5E5),
-                                              ),
-                                            )
-                                          ],
+                                            // const SizedBox(
+                                            //   height: 8,
+                                            // ),
+                                            // Padding(
+                                            //   padding:
+                                            //       const EdgeInsets.symmetric(
+                                            //           horizontal: 16.0),
+                                            //   child: Container(
+                                            //     padding:
+                                            //         const EdgeInsets.symmetric(
+                                            //             horizontal: 16,
+                                            //             vertical: 8),
+                                            //     color: const Color(0xffF5F5F5),
+                                            //     child: Row(
+                                            //       mainAxisAlignment:
+                                            //           MainAxisAlignment.start,
+                                            //       children: [
+                                            //         Text(
+                                            //           productRating
+                                            //                   .toString() ??
+                                            //               "",
+                                            //           style: const TextStyle(
+                                            //               color:
+                                            //                   Color(0xff313846),
+                                            //               fontWeight:
+                                            //                   FontWeight.bold,
+                                            //               fontSize: FontSizes
+                                            //                   .FONT_SIZE_16),
+                                            //         ),
+                                            //         const SizedBox(
+                                            //           width: 16,
+                                            //         ),
+                                            //         Row(
+                                            //           children: [
+                                            //             ((productRating ?? 0) >=
+                                            //                     1)
+                                            //                 ? const Icon(
+                                            //                     Icons.star,
+                                            //                     color: Color(
+                                            //                         0xffFFAB16),
+                                            //                   )
+                                            //                 : const Icon(
+                                            //                     Icons
+                                            //                         .star_outline_sharp,
+                                            //                     color: Color(
+                                            //                         0xffFFAB16),
+                                            //                   ),
+                                            //             ((productRating ?? 0) >=
+                                            //                     2)
+                                            //                 ? const Icon(
+                                            //                     Icons.star,
+                                            //                     color: Color(
+                                            //                         0xffFFAB16),
+                                            //                   )
+                                            //                 : const Icon(
+                                            //                     Icons
+                                            //                         .star_outline_sharp,
+                                            //                     color: Color(
+                                            //                         0xffFFAB16)),
+                                            //             ((productRating ?? 0) >=
+                                            //                     3)
+                                            //                 ? const Icon(
+                                            //                     Icons.star,
+                                            //                     color: Color(
+                                            //                         0xffFFAB16),
+                                            //                   )
+                                            //                 : const Icon(
+                                            //                     Icons
+                                            //                         .star_outline_sharp,
+                                            //                     color: Color(
+                                            //                         0xffFFAB16)),
+                                            //             ((productRating ?? 0) >=
+                                            //                     4)
+                                            //                 ? const Icon(
+                                            //                     Icons.star,
+                                            //                     color: Color(
+                                            //                         0xffFFAB16),
+                                            //                   )
+                                            //                 : const Icon(
+                                            //                     Icons
+                                            //                         .star_outline_sharp,
+                                            //                     color: Color(
+                                            //                         0xffFFAB16)),
+                                            //             ((productRating ?? 0) >=
+                                            //                     5)
+                                            //                 ? const Icon(
+                                            //                     Icons.star,
+                                            //                     color: Color(
+                                            //                         0xffFFAB16),
+                                            //                   )
+                                            //                 : const Icon(
+                                            //                     Icons
+                                            //                         .star_outline_sharp,
+                                            //                     color: Color(
+                                            //                         0xffFFAB16))
+                                            //           ],
+                                            //         )
+                                            //       ],
+                                            //     ),
+                                            //   ),
+                                            // ),
+                                            // const SizedBox(
+                                            //   height: 16,
+                                            // ),
+                                          //   ListView.separated(
+                                          //       separatorBuilder:
+                                          //           (context, index) => Column(
+                                          //                 children: [
+                                          //                   (index == 2)
+                                          //                       ? Container()
+                                          //                       : const Divider(
+                                          //                           thickness:
+                                          //                               1,
+                                          //                           color: Color(
+                                          //                               0xffE5E5E5),
+                                          //                         ),
+                                          //                 ],
+                                          //               ),
+                                          //       shrinkWrap: true,
+                                          //       physics:
+                                          //           const NeverScrollableScrollPhysics(),
+                                          //       itemCount: 3,
+                                          //       itemBuilder: (context, index) {
+                                          //         return const Padding(
+                                          //           padding:
+                                          //               EdgeInsets.symmetric(
+                                          //                   horizontal: 16.0,
+                                          //                   vertical: 8),
+                                          //           child: Comment(),
+                                          //         );
+                                          //       }),
+                                          //   Padding(
+                                          //     padding: const EdgeInsets.only(
+                                          //         top: 8.0),
+                                          //     child: Container(
+                                          //       height: 1,
+                                          //       color: const Color(0xffE5E5E5),
+                                          //     ),
+                                          //   )
+                                          //
+                                    ],
                                         ),
                                       ),
                                       ProductsOverview(
