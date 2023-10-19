@@ -23,3 +23,13 @@ class AddItemToFavoritesFailedState extends ProductDetailsStates {}
 
 class AddItemToFavoritesNetworkConnectionFailedState
     extends ProductDetailsStates {}
+
+
+class GetRelatedProductsLoadingState extends ProductDetailsStates {}
+
+class GetRelatedProductsSuccessState extends ProductDetailsStates {}
+
+class GetRelatedProductsFailedState extends ProductDetailsStates {}
+
+class GetRelatedProductsNetworkConnectionFailedState extends ProductDetailsStates {}
+
