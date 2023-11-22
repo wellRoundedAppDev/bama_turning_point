@@ -6,7 +6,6 @@ import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-
 import '../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../core/constants/colors/colors.dart';
 import '../core/constants/paths/icon_paths.dart';
@@ -20,10 +19,17 @@ class CustomAppBar {
       CartCubit? cartCubit}) {
     return AppBar(
       toolbarHeight: 65,
-      backgroundColor: const Color(0xff101216),
       leading: Container(),
-      flexibleSpace: Padding(
+      flexibleSpace: Container(
         padding: const EdgeInsets.all(16.0),
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+          AppColors.APP_BAR_COLOR_GRAD_ONE,
+          AppColors.APP_BAR_COLOR_GRAD_TWO
+        ], stops: [
+          0.05,
+              0.95
+        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -97,25 +103,26 @@ class CustomAppBar {
                                 height: 25,
                               ),
                             ),
-                          (itemsCount == 0)?Container():
-                            Positioned(
-                              bottom: 0,
-                              right: 1,
-                              child: Container(
-                                padding: const EdgeInsets.all(3),
-                                decoration: const BoxDecoration(
-                                    color: AppColors.APP_MAIN_COLOR,
-                                    shape: BoxShape.circle),
-                                child: Center(
-                                  child: Text(
-                                    itemsCount.toString(),
-                                    style: const TextStyle(
-                                        fontSize: FontSizes.FONT_SIZE_8,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            )
+                            (itemsCount == 0)
+                                ? Container()
+                                : Positioned(
+                                    bottom: 0,
+                                    right: 1,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(3),
+                                      decoration: const BoxDecoration(
+                                          color: AppColors.APP_MAIN_COLOR,
+                                          shape: BoxShape.circle),
+                                      child: Center(
+                                        child: Text(
+                                          itemsCount.toString(),
+                                          style: const TextStyle(
+                                              fontSize: FontSizes.FONT_SIZE_8,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  )
                           ],
                         );
                       },

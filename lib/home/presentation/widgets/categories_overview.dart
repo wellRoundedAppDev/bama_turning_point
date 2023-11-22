@@ -52,7 +52,7 @@ class CategoriesOverview extends StatelessWidget {
                       Container(
                         width: 40,
                         height: 3,
-                        color: const Color(0xff015963),
+                        color: AppColors.APP_MAIN_COLOR,
                       )
                     ],
                   )),
@@ -63,7 +63,7 @@ class CategoriesOverview extends StatelessWidget {
                           PageTransition(
                               child: BlocProvider.value(
                                   value: CartCubit.get(context),
-                                  child:  CategoriesScreen()),
+                                  child: CategoriesScreen()),
                               type: PageTransitionType.leftToRight));
                     },
                     child: const Text(

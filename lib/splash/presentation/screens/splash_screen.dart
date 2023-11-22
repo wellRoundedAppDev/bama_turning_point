@@ -38,41 +38,19 @@ class _SplashScreenState extends State<SplashScreen> {
               bottom: 0,
               right: 0,
               child: Image.asset(
-                "assets/images/app_splash.jpg",
+                ImagePaths.APP_SPLASH,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 fit: BoxFit.cover,
               )),
-          Container(
-            color: const Color(0xff025A64).withOpacity(0.45),
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-          ),
           Positioned(
-              top: MediaQuery.of(context).size.height * 0.25,
-              bottom: 0,
+              top: MediaQuery.of(context).size.height * 0.2,
               left: 0,
               right: 0,
-              child: Column(
-                children: [
-                  ClipOval(
-                      child: Image.asset(
-                    ImagePaths.APP_LOGO,
-                    width: 200,
-                    height: 200,
-                  )),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  const Text(
-                    "SHOP NOW",
-                    style: TextStyle(
-                      fontSize: FontSizes.FONT_SIZE_24,
-                      color: Colors.white,
-                      fontFamily: FontFamilies.JOST_BOld,
-                    ),
-                  )
-                ],
+              child: Image.asset(
+                ImagePaths.APP_LOGO,
+                width: MediaQuery.of(context).size.width * 0.1,
+                height: MediaQuery.of(context).size.height * 0.3,
               ))
         ],
       ),

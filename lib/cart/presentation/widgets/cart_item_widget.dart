@@ -1,9 +1,7 @@
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
@@ -72,7 +70,7 @@ class CartItemWidget extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       fontSize: FontSizes.FONT_SIZE_14,
-                      color: Color(0xff015963),
+                      color: AppColors.APP_MAIN_COLOR,
                       fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
@@ -96,7 +94,7 @@ class CartItemWidget extends StatelessWidget {
                                 },
                                 child: const Icon(
                                   Icons.remove,
-                                  color: Color(0xff313846),
+                                  color: AppColors.DELETE_BUTTON_COLOR,
                                 ),
                               )),
                           Container(
@@ -138,20 +136,20 @@ class CartItemWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Container(
-                      width: 25,
-                      height: 25,
-                      padding: const EdgeInsets.all(5.0),
-                      color: const Color(0xff36BFB1),
-                      child: Center(
-                          child: Image.asset(
-                        IconPaths.COMPARE_ICON,
-                        color: Colors.white,
-                      )),
-                    ),
+                    // const SizedBox(
+                    //   width: 16,
+                    // ),
+                    // Container(
+                    //   width: 25,
+                    //   height: 25,
+                    //   padding: const EdgeInsets.all(5.0),
+                    //   color: const Color(0xff36BFB1),
+                    //   child: Center(
+                    //       child: Image.asset(
+                    //     IconPaths.COMPARE_ICON,
+                    //     color: Colors.white,
+                    //   )),
+                    // ),
                     const SizedBox(
                       width: 8,
                     ),
@@ -174,7 +172,7 @@ class CartItemWidget extends StatelessWidget {
                               : Container(
                                   width: 25,
                                   height: 25,
-                                  color: const Color(0xffE7284D),
+                                  color: AppColors.DELETE_BUTTON_COLOR,
                                   child: const Icon(
                                     Icons.clear,
                                     color: Colors.white,

@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/core/constants/strings/strings.dart';
 import 'package:classic_eccomerce/home/data/models/search_response.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/search_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/search_cubit/states.dart';
@@ -23,12 +24,19 @@ class SearchAndFilterScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: MediaQuery.of(context).size.height * 0.16,
-          backgroundColor: AppColors.APP_BAR_COLOR,
+          backgroundColor: AppColors.APP_BAR_COLOR_GRAD_ONE,
           leading: Container(),
-          flexibleSpace: Padding(
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(colors: [
+              AppColors.APP_BAR_COLOR_GRAD_ONE,
+              AppColors.APP_BAR_COLOR_GRAD_TWO
+            ], stops: [
+              0.1,
+              0.9
+            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
             padding: const EdgeInsets.all(16),
-            child: Builder(
-                builder: (context) {
+            child: Builder(builder: (context) {
               return Column(
                 children: [
                   Row(
@@ -45,9 +53,9 @@ class SearchAndFilterScreen extends StatelessWidget {
                         ),
                       ),
                       const Text(
-                        "NORTH GRASS",
+                        Strings.APP_NAME,
                         style: TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_18,
+                            fontSize: FontSizes.FONT_SIZE_24,
                             color: Colors.white,
                             fontFamily: FontFamilies.JOST_BOld),
                       ),
@@ -119,7 +127,7 @@ class SearchAndFilterScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: SearchAppBarCustomInput(
                             isFilled: true,
-                            filledColor: const Color(0xff5A606B),
+                            filledColor: AppColors.APP_BAR_SEARCH_FIELD,
                             hintText: "TYPE HERE",
                             autoFocus: true,
                             onChanged: (searchTerm) {
@@ -140,6 +148,8 @@ class SearchAndFilterScreen extends StatelessWidget {
                           ),
                         ),
                       )),
+                  const SizedBox(height: 4,)
+
                 ],
               );
             }),
@@ -153,20 +163,23 @@ class SearchAndFilterScreen extends StatelessWidget {
               List<SearchItem>? searchItems = searchCubit.searchItems;
               return Column(
                 children: [
-                  (state is SearchByTermLoadingState)?const LinearProgressIndicator():
-
-                  Expanded(
-                    child: ListView.separated(
-                      padding: const EdgeInsets.all(16),
-                        itemBuilder: (context, index) {
-                          var searchItem = searchItems?[index];
-                          return  FilteredProduct(searchItem: searchItem,);
-                          },
-                        separatorBuilder: (context, index) => const SizedBox(
-                              height: 16,
-                            ),
-                        itemCount: searchItems?.length??0),
-                  ),
+                  (state is SearchByTermLoadingState)
+                      ? const LinearProgressIndicator()
+                      : Expanded(
+                          child: ListView.separated(
+                              padding: const EdgeInsets.all(16),
+                              itemBuilder: (context, index) {
+                                var searchItem = searchItems?[index];
+                                return FilteredProduct(
+                                  searchItem: searchItem,
+                                );
+                              },
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                              itemCount: searchItems?.length ?? 0),
+                        ),
                 ],
               );
 

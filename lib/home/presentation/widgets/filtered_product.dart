@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/home/data/models/search_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,12 +11,12 @@ import '../../../product_details/presentation/screens/product_details_screen.dar
 
 class FilteredProduct extends StatelessWidget {
   SearchItem? searchItem;
-   FilteredProduct({Key? key,required this.searchItem}) : super(key: key);
+  FilteredProduct({Key? key, required this.searchItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Navigator.push(
             context,
             PageTransition(
@@ -26,7 +27,6 @@ class FilteredProduct extends StatelessWidget {
                   ),
                 ),
                 type: PageTransitionType.leftToRight));
-
       },
       child: Container(
         height: MediaQuery.of(context).size.height * 0.15,
@@ -39,7 +39,7 @@ class FilteredProduct extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8),
               child: Image.network(
-                searchItem?.originalImage??'',
+                searchItem?.originalImage ?? '',
                 width: MediaQuery.of(context).size.width * 0.25,
                 height: MediaQuery.of(context).size.height,
                 fit: BoxFit.cover,
@@ -63,8 +63,8 @@ class FilteredProduct extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                           Text(
-                            searchItem?.name??'',
+                          Text(
+                            searchItem?.name ?? '',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -81,7 +81,7 @@ class FilteredProduct extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_15,
-                                color: Color(0xff015963),
+                                color: AppColors.APP_MAIN_COLOR,
                                 fontWeight: FontWeight.bold),
                           ),
                           // Row(
@@ -116,35 +116,45 @@ class FilteredProduct extends StatelessWidget {
                           //   ],
                           // ),
                           const SizedBox(height: 5),
-                           Row(
+                          Row(
                             children: [
-                             Icon(
-                               ((searchItem?.rating??0) >= 1) ? Icons.star:Icons.star_outline_sharp,
+                              Icon(
+                                ((searchItem?.rating ?? 0) >= 1)
+                                    ? Icons.star
+                                    : Icons.star_outline_sharp,
                                 color: Colors.black,
                                 size: 16,
                               ),
                               Icon(
-                                ((searchItem?.rating??0) >= 2) ? Icons.star:Icons.star_outline_sharp,
+                                ((searchItem?.rating ?? 0) >= 2)
+                                    ? Icons.star
+                                    : Icons.star_outline_sharp,
                                 color: Colors.black,
                                 size: 16,
                               ),
                               Icon(
-                                ((searchItem?.rating??0) >= 3) ? Icons.star:Icons.star_outline_sharp,
+                                ((searchItem?.rating ?? 0) >= 3)
+                                    ? Icons.star
+                                    : Icons.star_outline_sharp,
                                 color: Colors.black,
                                 size: 16,
-                              ),Icon(
-                                ((searchItem?.rating??0) >= 4) ? Icons.star:Icons.star_outline_sharp,
+                              ),
+                              Icon(
+                                ((searchItem?.rating ?? 0) >= 4)
+                                    ? Icons.star
+                                    : Icons.star_outline_sharp,
                                 color: Colors.black,
                                 size: 16,
-                              ),Icon(
-                                ((searchItem?.rating??0) >= 5) ? Icons.star:Icons.star_outline_sharp,
+                              ),
+                              Icon(
+                                ((searchItem?.rating ?? 0) >= 5)
+                                    ? Icons.star
+                                    : Icons.star_outline_sharp,
                                 color: Colors.black,
                                 size: 16,
                               )
-
                             ],
                           ),
-
                         ],
                       ),
                     ),
@@ -163,10 +173,8 @@ class FilteredProduct extends StatelessWidget {
                 ),
               ),
             ),
-
           ],
         ),
-
       ),
     );
   }

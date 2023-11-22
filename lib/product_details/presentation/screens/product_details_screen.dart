@@ -268,7 +268,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                     "\$$productPrice",
                                                     style: const TextStyle(
                                                         color:
-                                                            Color(0xff015963),
+                                                            AppColors.APP_MAIN_COLOR,
                                                         fontSize: FontSizes
                                                             .FONT_SIZE_18,
                                                         fontWeight:
@@ -868,43 +868,43 @@ class ProductDetailsScreen extends StatelessWidget {
                                             // const SizedBox(
                                             //   height: 16,
                                             // ),
-                                          //   ListView.separated(
-                                          //       separatorBuilder:
-                                          //           (context, index) => Column(
-                                          //                 children: [
-                                          //                   (index == 2)
-                                          //                       ? Container()
-                                          //                       : const Divider(
-                                          //                           thickness:
-                                          //                               1,
-                                          //                           color: Color(
-                                          //                               0xffE5E5E5),
-                                          //                         ),
-                                          //                 ],
-                                          //               ),
-                                          //       shrinkWrap: true,
-                                          //       physics:
-                                          //           const NeverScrollableScrollPhysics(),
-                                          //       itemCount: 3,
-                                          //       itemBuilder: (context, index) {
-                                          //         return const Padding(
-                                          //           padding:
-                                          //               EdgeInsets.symmetric(
-                                          //                   horizontal: 16.0,
-                                          //                   vertical: 8),
-                                          //           child: Comment(),
-                                          //         );
-                                          //       }),
-                                          //   Padding(
-                                          //     padding: const EdgeInsets.only(
-                                          //         top: 8.0),
-                                          //     child: Container(
-                                          //       height: 1,
-                                          //       color: const Color(0xffE5E5E5),
-                                          //     ),
-                                          //   )
-                                          //
-                                    ],
+                                            //   ListView.separated(
+                                            //       separatorBuilder:
+                                            //           (context, index) => Column(
+                                            //                 children: [
+                                            //                   (index == 2)
+                                            //                       ? Container()
+                                            //                       : const Divider(
+                                            //                           thickness:
+                                            //                               1,
+                                            //                           color: Color(
+                                            //                               0xffE5E5E5),
+                                            //                         ),
+                                            //                 ],
+                                            //               ),
+                                            //       shrinkWrap: true,
+                                            //       physics:
+                                            //           const NeverScrollableScrollPhysics(),
+                                            //       itemCount: 3,
+                                            //       itemBuilder: (context, index) {
+                                            //         return const Padding(
+                                            //           padding:
+                                            //               EdgeInsets.symmetric(
+                                            //                   horizontal: 16.0,
+                                            //                   vertical: 8),
+                                            //           child: Comment(),
+                                            //         );
+                                            //       }),
+                                            //   Padding(
+                                            //     padding: const EdgeInsets.only(
+                                            //         top: 8.0),
+                                            //     child: Container(
+                                            //       height: 1,
+                                            //       color: const Color(0xffE5E5E5),
+                                            //     ),
+                                            //   )
+                                            //
+                                          ],
                                         ),
                                       ),
                                       ProductsOverview(

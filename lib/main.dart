@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/core/constants/paths/routes/routes/routes_ids.dart';
+import 'package:classic_eccomerce/core/constants/strings/strings.dart';
 import 'package:classic_eccomerce/home_layout/presentation/screens/home_layout.dart';
 import 'package:classic_eccomerce/splash/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,6 @@ import 'core/locales/l10n/l10n.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
   Bloc.observer = MyBlocObserver();
 
   //await Firebase.initializeApp();
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       providers: [BlocProvider(create: (context) => AuthCubit())],
       child: MaterialApp(
         navigatorKey: navKey,
-        title: 'North Grass',
+        title: Strings.APP_NAME,
         supportedLocales: L10n.all,
         debugShowCheckedModeBanner: false,
         localizationsDelegates: const [
@@ -56,6 +56,7 @@ class MyApp extends StatelessWidget {
           dividerColor: Colors.transparent,
           primaryColor: AppColors.APP_MAIN_COLOR,
           fontFamily: FontFamilies.OPEN_SANS,
+          useMaterial3: false,
           appBarTheme: const AppBarTheme(
               systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: AppColors.APP_MAIN_COLOR,

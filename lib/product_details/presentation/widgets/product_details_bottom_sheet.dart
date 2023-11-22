@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/cart/data/models/cart_item.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/product_details/presentation/cubits/product_details_cubit/cubit.dart';
 import 'package:classic_eccomerce/product_details/presentation/cubits/product_details_cubit/states.dart';
@@ -22,7 +23,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.08,
-      color: const Color(0xff313846),
+      color: AppColors.APP_PURPLE,
       child: Row(
         children: [
           Padding(
@@ -55,32 +56,32 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(
-                  width: 20,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            child: const ProductComparisonScreen(),
-                            type: PageTransitionType.leftToRight));
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 2,
-                        ),
-                        borderRadius: BorderRadius.circular(100)),
-                    child: Image.asset(
-                      IconPaths.COMPARE_ICON_2,
-                      width: 20,
-                      height: 20,
-                    ),
-                  ),
-                )
+                // const SizedBox(
+                //   width: 20,
+                // ),
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.push(
+                //         context,
+                //         PageTransition(
+                //             child: const ProductComparisonScreen(),
+                //             type: PageTransitionType.leftToRight));
+                //   },
+                //   child: Container(
+                //     padding: const EdgeInsets.all(5),
+                //     decoration: BoxDecoration(
+                //         border: Border.all(
+                //           color: Colors.white,
+                //           width: 2,
+                //         ),
+                //         borderRadius: BorderRadius.circular(100)),
+                //     child: Image.asset(
+                //       IconPaths.COMPARE_ICON_2,
+                //       width: 20,
+                //       height: 20,
+                //     ),
+                //   ),
+                // )
               ],
             ),
           ),

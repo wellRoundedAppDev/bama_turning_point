@@ -46,7 +46,7 @@ class ProductsOverview extends StatelessWidget {
                   Container(
                     width: 40,
                     height: 3,
-                    color: const Color(0xff015963),
+                    color: AppColors.APP_MAIN_COLOR,
                   )
                 ],
               )),
@@ -157,7 +157,7 @@ class ProductsOverview extends StatelessWidget {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
-                                    color: Color(0xff015963),
+                                    color: AppColors.APP_MAIN_COLOR,
                                     fontWeight: FontWeight.bold),
                               )),
                               // const SizedBox(

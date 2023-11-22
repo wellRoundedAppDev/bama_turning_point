@@ -99,22 +99,25 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                           if (kDebugMode) {
                                             print(shippingMethodCost);
                                           }
-                                          return RadioListTile(
-                                            value: index,
-                                            groupValue: 0,
-                                            contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 0),
-                                            dense: true,
-                                            onChanged: (index) {
-                                              checkOutCubit
-                                                  .setShippingMethod(index!);
-                                            },
-                                            title: Text(
-                                              "${shippingMethodName ?? "-"} - \$${shippingMethodCost.toString() ?? "-"}",
-                                              style: const TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_16),
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                            child: RadioListTile(
+                                              value: index,
+                                              groupValue: 0,
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 0),
+                                              dense: true,
+                                              onChanged: (index) {
+                                                checkOutCubit
+                                                    .setShippingMethod(index!);
+                                              },
+                                              title: Text(
+                                                "${shippingMethodName ?? "-"} - \$${shippingMethodCost.toString() ?? "-"}",
+                                                style: const TextStyle(
+                                                    fontSize:
+                                                        FontSizes.FONT_SIZE_16),
+                                              ),
                                             ),
                                           );
                                         })
@@ -166,23 +169,26 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                           String? paymentMethodName =
                                               paymentMethod?.title;
 
-                                          return RadioListTile(
-                                            value: index,
-                                            groupValue: 0,
-                                            contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 0),
-                                            dense: true,
-                                            onChanged: (index) {
-                                              checkOutCubit
-                                                  .setPaymentMethod(index!);
-                                            },
-                                            title: Text(
-                                              "${paymentMethodName ?? "-"} ",
-                                              maxLines: 1,
-                                              style: const TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_16),
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                            child: RadioListTile(
+                                              value: index,
+                                              groupValue: 0,
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 0),
+                                              dense: true,
+                                              onChanged: (index) {
+                                                checkOutCubit
+                                                    .setPaymentMethod(index!);
+                                              },
+                                              title: Text(
+                                                "${paymentMethodName ?? "-"} ",
+                                                maxLines: 1,
+                                                style: const TextStyle(
+                                                    fontSize:
+                                                        FontSizes.FONT_SIZE_16),
+                                              ),
                                             ),
                                           );
                                         })

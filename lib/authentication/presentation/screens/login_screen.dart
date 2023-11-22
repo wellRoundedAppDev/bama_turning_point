@@ -34,12 +34,14 @@ class SignInScreen extends StatelessWidget {
             key: AuthCubit.get(context).loginFormKey,
             child: Column(
               children: [
+                const SizedBox(height: 16,),
                 ClipOval(
                     child: Image.asset(
                   ImagePaths.APP_LOGO,
-                  width: 200,
-                  height: 200,
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.2,
                 )),
+                const SizedBox(height: 16,),
                 CustomInput(
                   hintText: "Email",
                   textInputType: TextInputType.emailAddress,
@@ -110,9 +112,7 @@ class SignInScreen extends StatelessWidget {
                           AuthCubit.get(context).login(
                               isCheckingOut: isCheckingOut,
                               cartCubit: CartCubit.get(context));
-                        }
-
-                        );
+                        });
                   },
                 ),
                 const SizedBox(

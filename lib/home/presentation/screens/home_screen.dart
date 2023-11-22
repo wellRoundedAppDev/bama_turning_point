@@ -5,6 +5,7 @@ import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_families.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
+import 'package:classic_eccomerce/core/constants/strings/strings.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/states.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/search_cubit/cubit.dart';
@@ -32,10 +33,17 @@ class HomeScreen extends StatelessWidget {
             drawer: const HomeDrawer(),
             appBar: AppBar(
               toolbarHeight: MediaQuery.of(context).size.height * 0.16,
-              backgroundColor: AppColors.APP_BAR_COLOR,
               leading: Container(),
-              flexibleSpace: Padding(
+              flexibleSpace: Container(
                 padding: const EdgeInsets.all(16),
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(colors: [
+                  AppColors.APP_BAR_COLOR_GRAD_ONE,
+                  AppColors.APP_BAR_COLOR_GRAD_TWO
+                ], stops: [
+                  0.1,
+                  0.9
+                ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
                 child: Builder(builder: (context) {
                   return Column(
                     children: [
@@ -53,9 +61,9 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           const Text(
-                            "NORTH GRASS",
+                            Strings.APP_NAME,
                             style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_18,
+                                fontSize: FontSizes.FONT_SIZE_24,
                                 color: Colors.white,
                                 fontFamily: FontFamilies.JOST_BOld),
                           ),
@@ -130,9 +138,8 @@ class HomeScreen extends StatelessWidget {
                                   const EdgeInsets.symmetric(horizontal: 16.0),
                               child: SearchAppBarCustomInput(
                                 isFilled: true,
-                                filledColor: const Color(0xff5A606B),
+                                filledColor: AppColors.APP_BAR_SEARCH_FIELD,
                                 hintText: "TYPE HERE",
-
                                 textDirection: TextDirection.ltr,
                                 textAlign: TextAlign.left,
                                 readOnly: true,
@@ -144,7 +151,8 @@ class HomeScreen extends StatelessWidget {
                                               value: CartCubit.get(context),
                                               child: BlocProvider(
                                                   create: (context) =>
-                                                      SearchCubit()..setSearchResults("a"),
+                                                      SearchCubit()
+                                                        ..setSearchResults(""),
                                                   child:
                                                       const SearchAndFilterScreen())),
                                           type: PageTransitionType.fade));
@@ -161,6 +169,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           )),
+                      const SizedBox(height: 4,)
                     ],
                   );
                 }),

@@ -24,7 +24,7 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
           title: "Quick Checkout", showCartIcon: false),
       bottomNavigationBar: Container(
         height: MediaQuery.of(context).size.height * 0.08,
-        color: const Color(0xff313846),
+        color: AppColors.NAV_BAR_COLOR,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 8),
           child: Row(
@@ -120,7 +120,7 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                                 Container(
                                   width: 40,
                                   height: 3,
-                                  color: const Color(0xff015963),
+                                  color: AppColors.APP_MAIN_COLOR,
                                 )
                               ],
                             ),

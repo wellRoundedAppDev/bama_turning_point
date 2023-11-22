@@ -86,7 +86,7 @@ class WishListItemWidget extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_14,
-                                color: Color(0xff015963),
+                                color: AppColors.APP_MAIN_COLOR,
                                 fontWeight: FontWeight.bold),
                           ),
                     const SizedBox(
@@ -140,8 +140,9 @@ class WishListItemWidget extends StatelessWidget {
                                                       ""));
                                           CartCubit.get(context).addItemToCart(
                                               CartItem(
-                                                  productId: wishlistItem?.productId ??
-                                                      "",
+                                                  productId:
+                                                      wishlistItem?.productId ??
+                                                          "",
                                                   name:
                                                       wishlistItem?.name ?? "",
                                                   imagePath:
@@ -156,7 +157,7 @@ class WishListItemWidget extends StatelessWidget {
                                         },
                                         child: Container(
                                           padding: const EdgeInsets.all(5),
-                                          color: const Color(0xff36BFB1),
+                                          color: AppColors.APP_MAIN_COLOR,
                                           child: Image.asset(
                                             IconPaths.CART,
                                             width: 18,
@@ -184,7 +185,7 @@ class WishListItemWidget extends StatelessWidget {
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.all(5),
-                                  color: const Color(0xffE7284D),
+                                  color: AppColors.DELETE_BUTTON_COLOR,
                                   child: const Icon(
                                     Icons.clear,
                                     color: Colors.white,
