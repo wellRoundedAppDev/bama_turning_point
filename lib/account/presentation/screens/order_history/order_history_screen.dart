@@ -2,6 +2,7 @@ import 'package:classic_eccomerce/account/data/models/get_customer_orders_respon
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
 import 'package:classic_eccomerce/account/presentation/screens/widgets/order_history_item.dart';
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,7 +60,7 @@ class OrderHistoryScreen extends StatelessWidget {
                               Container(
                                 width: 40,
                                 height: 3,
-                                color: const Color(0xff015963),
+                                color:AppColors.APP_MAIN_COLOR,
                               ),
                               const SizedBox(
                                 height: 16,

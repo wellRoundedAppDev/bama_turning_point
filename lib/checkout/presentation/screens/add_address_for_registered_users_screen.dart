@@ -2,6 +2,7 @@ import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubi
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/states.dart';
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/data/models/get_countries_response.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                     Container(
                       width: 40,
                       height: 3,
-                      color: const Color(0xff015963),
+                      color: AppColors.APP_MAIN_COLOR,
                     ),
                     const SizedBox(
                       height: 16,

@@ -13,6 +13,7 @@ import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_families.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
+import '../../../core/constants/paths/image_paths.dart';
 import '../../../shared_components/search_app_bar_custom_input.dart';
 
 class SearchAndFilterScreen extends StatelessWidget {
@@ -23,7 +24,7 @@ class SearchAndFilterScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: MediaQuery.of(context).size.height * 0.16,
+          toolbarHeight: MediaQuery.of(context).size.height * 0.17,
           backgroundColor: AppColors.APP_BAR_COLOR_GRAD_ONE,
           leading: Container(),
           flexibleSpace: Container(
@@ -52,12 +53,10 @@ class SearchAndFilterScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      const Text(
-                        Strings.APP_NAME,
-                        style: TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_24,
-                            color: Colors.white,
-                            fontFamily: FontFamilies.JOST_BOld),
+                      Image.asset(
+                        ImagePaths.APP_LOGO_2,
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        height: MediaQuery.of(context).size.height * 0.05,
                       ),
                       GestureDetector(
                           onTap: () {
@@ -148,7 +147,6 @@ class SearchAndFilterScreen extends StatelessWidget {
                           ),
                         ),
                       )),
-                  const SizedBox(height: 4,)
 
                 ],
               );

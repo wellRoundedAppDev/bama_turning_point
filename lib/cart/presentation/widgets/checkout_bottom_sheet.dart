@@ -5,6 +5,7 @@ import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.d
 import 'package:classic_eccomerce/checkout/presentation/screens/quick_checkout_auth_screen.dart';
 import 'package:classic_eccomerce/checkout/presentation/screens/add_address_for_registered_users_screen.dart';
 import 'package:classic_eccomerce/checkout/presentation/screens/set_billing_address_for_registered_user_screen.dart';
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,7 @@ class CheckOutBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.08,
-      color: const Color(0xff313846),
+      color: AppColors.APP_PURPLE,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

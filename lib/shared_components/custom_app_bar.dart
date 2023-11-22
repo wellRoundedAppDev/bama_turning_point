@@ -9,6 +9,9 @@ import 'package:page_transition/page_transition.dart';
 import '../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../core/constants/colors/colors.dart';
 import '../core/constants/paths/icon_paths.dart';
+import '../core/constants/paths/image_paths.dart';
+
+BuildContext context = MyApp.navKey.currentState!.context;
 
 class CustomAppBar {
   static renderAppBar(
@@ -28,7 +31,7 @@ class CustomAppBar {
           AppColors.APP_BAR_COLOR_GRAD_TWO
         ], stops: [
           0.05,
-              0.95
+          0.95
         ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,16 +59,10 @@ class CustomAppBar {
                       color: Colors.white,
                     ))
                 : Container(),
-            Expanded(
-              child: Text(
-                title,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: FontSizes.FONT_SIZE_20,
-                    color: Colors.white),
-              ),
+            Image.asset(
+              ImagePaths.APP_LOGO_2,
+              width: MediaQuery.of(context).size.width * 0.3,
+              height: MediaQuery.of(context).size.height * 0.05,
             ),
             const SizedBox(
               width: 8,

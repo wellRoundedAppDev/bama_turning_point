@@ -181,7 +181,7 @@ class OrderHistoryItem extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    customerOrder?.dateAdded ?? "",
+                    customerOrder?.dateAdded?.split(",").last.split("+").first ?? "-",
                     textAlign: TextAlign.right,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

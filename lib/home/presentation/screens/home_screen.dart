@@ -5,6 +5,7 @@ import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_families.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
+import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:classic_eccomerce/core/constants/strings/strings.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/states.dart';
@@ -32,7 +33,7 @@ class HomeScreen extends StatelessWidget {
           child: Scaffold(
             drawer: const HomeDrawer(),
             appBar: AppBar(
-              toolbarHeight: MediaQuery.of(context).size.height * 0.16,
+              toolbarHeight: MediaQuery.of(context).size.height * 0.17,
               leading: Container(),
               flexibleSpace: Container(
                 padding: const EdgeInsets.all(16),
@@ -60,13 +61,7 @@ class HomeScreen extends StatelessWidget {
                               color: Colors.white,
                             ),
                           ),
-                          const Text(
-                            Strings.APP_NAME,
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_24,
-                                color: Colors.white,
-                                fontFamily: FontFamilies.JOST_BOld),
-                          ),
+                          Image.asset(ImagePaths.APP_LOGO_2,width: MediaQuery.of(context).size.width * 0.3,height: MediaQuery.of(context).size.height*0.05,),
                           GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -169,7 +164,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           )),
-                      const SizedBox(height: 4,)
+                      // const SizedBox(height: 4,)
                     ],
                   );
                 }),

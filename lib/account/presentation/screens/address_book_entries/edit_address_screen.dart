@@ -1,4 +1,4 @@
-import 'package:classic_eccomerce/account/data/models/get_account_addresses_response.dart';
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/data/models/get_regions_response.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class EditAddressScreen extends StatelessWidget {
                 Container(
                   width: 40,
                   height: 3,
-                  color: const Color(0xff015963),
+                  color: AppColors.APP_MAIN_COLOR,
                 ),
                 const SizedBox(
                   height: 24,
