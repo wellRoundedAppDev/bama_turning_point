@@ -1,6 +1,7 @@
 import 'package:classic_eccomerce/account/data/models/get_order_details_response.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/helpers/remove_html_tags_from_string.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
@@ -61,7 +62,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               Container(
                                 width: 40,
                                 height: 3,
-                                color: const Color(0xff015963),
+                                color: AppColors.APP_MAIN_COLOR,
                               ),
                               const SizedBox(
                                 height: 16,
@@ -127,7 +128,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                           ),
                                           Expanded(
                                             child: Text(
-                                              selectedOrder?.dateAdded ?? "-",
+                                              selectedOrder?.dateAdded?.split(",").last.split("+").first ?? "-",
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               textAlign: TextAlign.right,
@@ -226,7 +227,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               Container(
                                 width: 40,
                                 height: 3,
-                                color: const Color(0xff015963),
+                                color: AppColors.APP_MAIN_COLOR,
                               ),
                               const SizedBox(
                                 height: 16,
@@ -426,7 +427,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               Container(
                                 width: 40,
                                 height: 3,
-                                color: const Color(0xff015963),
+                                color: AppColors.APP_MAIN_COLOR,
                               ),
                               const SizedBox(
                                 height: 16,

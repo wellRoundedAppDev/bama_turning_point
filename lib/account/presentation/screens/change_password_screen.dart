@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,7 +39,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 Container(
                   width: 40,
                   height: 3,
-                  color: const Color(0xff015963),
+                  color: AppColors.APP_MAIN_COLOR,
                 ),
                 const SizedBox(
                   height: 16,

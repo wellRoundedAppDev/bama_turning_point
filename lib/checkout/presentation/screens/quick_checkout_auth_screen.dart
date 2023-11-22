@@ -1,6 +1,7 @@
 import 'package:classic_eccomerce/authentication/presentation/screens/guest_screen.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/login_screen.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/sign_up_screen.dart';
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
@@ -41,10 +42,10 @@ class _QuickCheckoutAuthScreenState extends State<QuickCheckoutAuthScreen>
                         const EdgeInsets.symmetric(horizontal: 10),
                     controller: CheckOutCubit.get(context).tabController,
                     labelStyle: const TextStyle(
-                        color: Color(0xff36BFB1),
+                        color: AppColors.APP_MAIN_COLOR,
                         fontSize: FontSizes.FONT_SIZE_16),
                     dividerColor: Colors.grey,
-                    labelColor: const Color(0xff36BFB1),
+                    labelColor: AppColors.APP_MAIN_COLOR,
                     unselectedLabelColor: const Color(0xff313846),
                     tabs: const [
                       Tab(

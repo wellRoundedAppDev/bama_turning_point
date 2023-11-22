@@ -31,11 +31,12 @@ class GuestScreen extends StatelessWidget {
                 Center(
                   child: ClipOval(
                       child: Image.asset(
-                    ImagePaths.APP_LOGO,
-                    width: 200,
-                    height: 200,
-                  )),
+                        ImagePaths.APP_LOGO,
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        height: MediaQuery.of(context).size.height * 0.2,
+                      )),
                 ),
+                const SizedBox(height: 16,),
                 CustomInput(
                   hintText: "Phone Number",
                   textInputType: TextInputType.phone,
