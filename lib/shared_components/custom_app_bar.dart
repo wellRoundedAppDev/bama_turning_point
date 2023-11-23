@@ -59,10 +59,12 @@ class CustomAppBar {
                       color: Colors.white,
                     ))
                 : Container(),
-            Image.asset(
-              ImagePaths.APP_LOGO_2,
-              width: MediaQuery.of(context).size.width * 0.3,
-              height: MediaQuery.of(context).size.height * 0.05,
+            Expanded(
+              child: Image.asset(
+                ImagePaths.APP_LOGO_2,
+                width: MediaQuery.of(context).size.width * 0.3,
+                height: MediaQuery.of(context).size.height * 0.05,
+              ),
             ),
             const SizedBox(
               width: 8,
