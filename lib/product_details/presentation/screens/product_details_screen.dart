@@ -99,6 +99,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                 context)
                                                             .size
                                                             .width,
+                                                        fit: BoxFit.cover,
                                                         errorBuilder: (context,
                                                             object,
                                                             stackTrace) {

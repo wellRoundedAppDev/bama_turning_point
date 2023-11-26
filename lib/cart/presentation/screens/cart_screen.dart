@@ -30,7 +30,7 @@ class CartScreen extends StatelessWidget {
                   productId: e.key,
                   quantity: e.value['quantity'],
                   name: e.value['name'],
-                  price: e.value['price'],
+                  price: e.value['price']?.toDouble(),
                   cartId: e.value['cartId'],
                   imagePath: e.value['imagePath']))
               .toList();

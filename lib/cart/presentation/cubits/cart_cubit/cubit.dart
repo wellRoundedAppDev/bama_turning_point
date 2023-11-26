@@ -46,7 +46,7 @@ class CartCubit extends Cubit<CartStates> {
             "id": e.productId,
             "name": e.name,
             "quantity": int.tryParse(e.quantity ?? ""),
-            "price": double.tryParse(e.price?.replaceAll("\$", "") ?? ""),
+            "price": e.priceRaw,
             "imagePath": e.thumb,
             "cartId": int.tryParse(e.key ?? "")
           };
@@ -185,7 +185,7 @@ class CartCubit extends Cubit<CartStates> {
     cartItems[id]['quantity'] = cartItems[id]['quantity'] + 1;
     numberOfItemsInCart = numberOfItemsInCart + 1;
 
-    double Price = cartItems[id]['price'];
+    double Price = cartItems[id]['price']?.toDouble();
 
     totalPrice = totalPrice + Price;
     if (SaveInDB) {

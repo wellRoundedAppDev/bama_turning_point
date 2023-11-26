@@ -6,7 +6,6 @@ import 'package:classic_eccomerce/core/constants/fonts/font_families.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
-import 'package:classic_eccomerce/core/constants/strings/strings.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/states.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/search_cubit/cubit.dart';
@@ -31,7 +30,7 @@ class HomeScreen extends StatelessWidget {
         create: (context) => HomeCubit()..init(),
         child: SafeArea(
           child: Scaffold(
-            drawer: const HomeDrawer(),
+            // drawer: const HomeDrawer(),
             appBar: AppBar(
               toolbarHeight: MediaQuery.of(context).size.height * 0.17,
               leading: Container(),
@@ -51,17 +50,20 @@ class HomeScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              Scaffold.of(context).openDrawer();
-                            },
-                            child: const Icon(
-                              Icons.menu_sharp,
-                              size: 25,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Image.asset(ImagePaths.APP_LOGO_2,width: MediaQuery.of(context).size.width * 0.3,height: MediaQuery.of(context).size.height*0.05,),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     Scaffold.of(context).openDrawer();
+                          //   },
+                          //   child: const Icon(
+                          //     Icons.menu_sharp,
+                          //     size: 25,
+                          //     color: Colors.white,
+                          //   ),
+                          // ),
+                          Expanded(child: Container()),
+                          Center(child: Image.asset(ImagePaths.APP_LOGO_2,width: MediaQuery.of(context).size.width * 0.3,height: MediaQuery.of(context).size.height*0.05,)),
+                          Expanded(child: Container()),
+
                           GestureDetector(
                               onTap: () {
                                 Navigator.push(

@@ -20,9 +20,9 @@ class DioHelper {
   final Dio _dio = Dio(BaseOptions(
       baseUrl: ApiUrls.BASE_URL,
       receiveDataWhenStatusError: true,
-      // headers: {
-      //   "X-Oc-Merchant-Id": "123"
-      // }
+      headers: {
+        "X-Oc-Merchant-Id": "123"
+      }
       ));
 
   addHeader(String key, dynamic value) {
