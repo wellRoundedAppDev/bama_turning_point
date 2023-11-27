@@ -17,7 +17,7 @@ class LoginResponse {
       });
     }
     var loginData =
-        json['data'] != null ? LoginData.fromJson(json['data']) : null;
+         json['data'] != null && json['data'].isNotEmpty ? LoginData.fromJson(json['data']) : null;
     return LoginResponse(error: error, success: success, loginData: loginData);
   }
   num? success;

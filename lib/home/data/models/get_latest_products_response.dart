@@ -62,7 +62,7 @@ class LatestProduct extends Product{
   String? name;
   num? quantity;
   num? price;
-  num? rating;
+  dynamic? rating;
   String? description;
 
   // Map<String, dynamic> toJson() {

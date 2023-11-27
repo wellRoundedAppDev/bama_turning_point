@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/cubit.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/product_details/presentation/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +82,8 @@ class ProductsOverview extends StatelessWidget {
                   int? productId = product.productId?.toInt();
                   String? productTitle = product.name;
                   num? productPrice = product.price;
-
+                  String? productImagePath = (product.productImagePath??"");
+                  print("Image irl: $productImagePath");
                   return InkWell(
                     onTap: () {
                       Navigator.push(
@@ -107,7 +109,7 @@ class ProductsOverview extends StatelessWidget {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.network(
-                                  "",
+                                  productImagePath??"",
                                   height:
                                       MediaQuery.of(context).size.height * 0.2,
                                   width: MediaQuery.of(context).size.width,

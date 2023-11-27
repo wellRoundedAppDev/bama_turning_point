@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             Container(
               width: 40,
               height: 3,
-              color: const Color(0xff015963),
+              color: AppColors.APP_MAIN_COLOR,
             ),
             const SizedBox(
               height: 16,

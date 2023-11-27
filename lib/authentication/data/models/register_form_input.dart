@@ -18,17 +18,29 @@ class RegisterFormInput {
 
   RegisterFormInput({this.gender = "Male"});
 
-  Map<String, dynamic> toJsonForApi() => {
-        "firstname": firstName,
-        "lastname": lastName,
-        "email": email,
-        "password": password,
-        "confirm": confirmPassword,
-        "telephone": phoneNumber,
-        "customer_group_id": 1,
-        "agree": 1,
+  Map<String, dynamic> toJsonForApi() =>
+      {
+        'customer_id': 1,
+        'customer_group_id': 1,
+        'store_id': 1,
+        'language_id': 1,
+        'firstname': firstName,
+        'lastname': lastName,
+        'email': email,
+        'telephone': phoneNumber,
+        'password': password,
+        'confirm': confirmPassword,
+        'mobileAppId': 1,
+        'address_id': 1,
+        'status': 1,
+        // 'cart_count_products': 1,
+        'agree': 1,
         // "custom_field": {
-        //   // "account": {"1": "+364545454"}
-        // }
-      };
-}
+        //   "account": {"1": "32223"}
+
+          "custom_field": {
+            "account": {"1": "+364545454"}
+          }
+       //}
+};
+      }

@@ -71,6 +71,7 @@ class AuthApis {
   static Future<SuccessAndErrorResponse?> register(
     Map<String, dynamic> registerInput,
   ) async {
+
     String endpoint = ApiUrls.REGISTER_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;

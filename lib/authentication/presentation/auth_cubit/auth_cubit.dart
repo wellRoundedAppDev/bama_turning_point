@@ -118,15 +118,15 @@ class AuthCubit extends Cubit<AuthStates> {
 
     var response = await AuthApis.register(registerFormInput.toJsonForApi());
     if (response?.success == true) {
-      isUserLoggedIn = true;
+     // isUserLoggedIn = true;
       emit(RegisterSuccessState());
       Navigator.pop(context);
     } else if (response?.success == false) {
-      isUserLoggedIn = false;
+     // isUserLoggedIn = false;
       showAppSnackBar(content: response?.errorMsgs?[0] ?? "");
       emit(RegisterFailedState());
     } else {
-      isUserLoggedIn = false;
+     // isUserLoggedIn = false;
       showAppSnackBar(content: "Check your internet connection, and try again");
       emit(RegisterNetworkFailedConnectionState());
     }

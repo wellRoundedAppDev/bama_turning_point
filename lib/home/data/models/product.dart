@@ -5,6 +5,7 @@ class Product {
         this.quantity,
         this.price,
         this.description,
+        this.productImagePath,
         this.rating});
 
   factory Product.fromJson(dynamic json) {
@@ -13,6 +14,7 @@ class Product {
     var quantity = json['quantity'];
     var price = json['price'];
     var rating = json['rating'];
+    var productImagePath = json['image'];
     var description = json['description'];
 
     return Product(
@@ -20,6 +22,7 @@ class Product {
         quantity: quantity,
         description: description,
         name: name,
+        productImagePath: productImagePath,
         productId: productId,
         rating: rating);
   }
@@ -27,8 +30,9 @@ class Product {
   String? name;
   num? quantity;
   num? price;
-  num? rating;
+  dynamic rating;
   String? description;
+  String? productImagePath;
 
 // Map<String, dynamic> toJson() {
 //   final map = <String, dynamic>{};
