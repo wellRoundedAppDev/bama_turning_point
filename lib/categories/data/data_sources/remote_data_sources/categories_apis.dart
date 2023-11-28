@@ -45,6 +45,7 @@ class CategoriesApis {
       if (response == null) {
         return null;
       }
+      print(response?.data);
       return GetProductsInCategoryResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {

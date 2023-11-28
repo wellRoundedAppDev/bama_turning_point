@@ -143,9 +143,9 @@ class CartCubit extends Cubit<CartStates> {
     }
 
     int quantity = cartItems[id]["quantity"];
-    double price = cartItems[id]["price"];
+    double? price = double.tryParse(cartItems[id]["price"]?.toString()??"");
 
-    totalPrice = totalPrice - (quantity * price);
+    totalPrice = totalPrice - (quantity * (price??0));
     cartItems.removeWhere((key, value) => key == id);
     numberOfItemsInCart = numberOfItemsInCart - quantity;
     // SaveCartInDB();

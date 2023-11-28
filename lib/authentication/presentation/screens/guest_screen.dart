@@ -31,12 +31,14 @@ class GuestScreen extends StatelessWidget {
                 Center(
                   child: ClipOval(
                       child: Image.asset(
-                        ImagePaths.APP_LOGO,
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        height: MediaQuery.of(context).size.height * 0.2,
-                      )),
+                    ImagePaths.APP_LOGO,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.2,
+                  )),
                 ),
-                const SizedBox(height: 16,),
+                const SizedBox(
+                  height: 16,
+                ),
                 CustomInput(
                   hintText: "Phone Number",
                   textInputType: TextInputType.phone,
@@ -222,9 +224,9 @@ class GuestScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                BlocConsumer<AuthCubit,AuthStates>(
-                  listener: (context,state){},
-                  builder: (context,state) {
+                BlocConsumer<AuthCubit, AuthStates>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
                     return Container(
                       padding: const EdgeInsets.only(left: 16, right: 8),
                       decoration: BoxDecoration(
@@ -244,24 +246,28 @@ class GuestScreen extends StatelessWidget {
                                 hintText: "Country")),
                         dropdownButtonProps: const DropdownButtonProps(
                             icon: Icon(
-                              Icons.keyboard_arrow_down,
-                              color: Color(0xff696C6E),
-                            )),
+                          Icons.keyboard_arrow_down,
+                          color: Color(0xff696C6E),
+                        )),
                         popupProps: PopupProps.menu(
                             itemBuilder: (context, Country country, bool) {
-                              return Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Text(
-                                  country.name ?? "-",
-                                  style: const TextStyle(
-                                      fontSize: FontSizes.FONT_SIZE_16,
-                                      color: Color(0xff878787)),
-                                ),
-                              );
-                            }),
+                          return Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              country.name ?? "-",
+                              style: const TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_16,
+                                  color: Color(0xff878787)),
+                            ),
+                          );
+                        }),
                         dropdownBuilder: (context, country) {
                           return Text(
-                            AuthCubit.get(context).guestFormInput.country?.name ?? "Country",
+                            AuthCubit.get(context)
+                                    .guestFormInput
+                                    .country
+                                    ?.name ??
+                                "Country",
                             style: const TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_16,
                                 color: Color(0xff878787)),
@@ -324,7 +330,11 @@ class GuestScreen extends StatelessWidget {
                         }),
                         dropdownBuilder: (context, region) {
                           return Text(
-                            AuthCubit.get(context).guestFormInput.region?.name ?? "Region / State",
+                            AuthCubit.get(context)
+                                    .guestFormInput
+                                    .region
+                                    ?.name ??
+                                "Region / State",
                             style: const TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_16,
                                 color: Color(0xff878787)),
