@@ -20,55 +20,58 @@ class ProductsOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       height: MediaQuery.of(context).size.height * 0.4,
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                  child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    productListTitle,
-                    maxLines: 1,
-                    textDirection: TextDirection.ltr,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontSize: FontSizes.FONT_SIZE_20,
-                        color: Color(0xff313846),
-                        fontWeight: FontWeight.bold),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      productListTitle,
+                      maxLines: 1,
+                      textDirection: TextDirection.ltr,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontSize: FontSizes.FONT_SIZE_20,
+                          color: Color(0xff313846),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Container(
+                      width: 40,
+                      height: 3,
+                      color: AppColors.APP_MAIN_COLOR,
+                    )
+                  ],
+                )),
+                InkWell(
+                  onTap: () {
+                    HomeCubit homeCubit = HomeCubit.get(context);
+                    homeCubit.navigateToViewAllProductsScreen(productListTitle,CartCubit.get(context));
+                    // Navigator.push(
+                    //     context,
+                    //     PageTransition(
+                    //         child: const ProductsInCategoryScreen(),
+                    //         type: PageTransitionType.leftToRight));
+                  },
+                  child: const Text(
+                    "View All",
+                    style: TextStyle(
+                        fontSize: FontSizes.FONT_SIZE_14,
+                        color: Color(0xff8D929D)),
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    width: 40,
-                    height: 3,
-                    color: AppColors.APP_MAIN_COLOR,
-                  )
-                ],
-              )),
-              InkWell(
-                onTap: () {
-                  HomeCubit homeCubit = HomeCubit.get(context);
-                  homeCubit.navigateToViewAllProductsScreen(productListTitle,CartCubit.get(context));
-                  // Navigator.push(
-                  //     context,
-                  //     PageTransition(
-                  //         child: const ProductsInCategoryScreen(),
-                  //         type: PageTransitionType.leftToRight));
-                },
-                child: const Text(
-                  "View All",
-                  style: TextStyle(
-                      fontSize: FontSizes.FONT_SIZE_14,
-                      color: Color(0xff8D929D)),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           const SizedBox(
             height: 16,
@@ -83,106 +86,113 @@ class ProductsOverview extends StatelessWidget {
                   String? productTitle = product.name;
                   num? productPrice = product.price;
                   String? productImagePath = (product.productImagePath??"");
-                  print("Image irl: $productImagePath");
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              child: BlocProvider.value(
-                                value: CartCubit.get(context),
-                                child: ProductDetailsScreen(
-                                  selectedProductId: productId ?? -1,
-                                ),
-                              ),
-                              type: PageTransitionType.leftToRight));
-                    },
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Stack(
+                  return Row(
+                    children: [
+                      (index == 0)?const SizedBox(width: 16,):Container(),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  child: BlocProvider.value(
+                                    value: CartCubit.get(context),
+                                    child: ProductDetailsScreen(
+                                      selectedProductId: productId ?? -1,
+                                    ),
+                                  ),
+                                  type: PageTransitionType.leftToRight));
+                        },
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  productImagePath??"",
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.2,
-                                  width: MediaQuery.of(context).size.width,
-                                  errorBuilder: (context, object, stackTrace) {
-                                    return const Icon(
-                                      Icons.error,
-                                      size: 150,
-                                      color: AppColors.APP_MAIN_COLOR,
-                                    );
-                                  },
-                                  fit: BoxFit.cover,
-                                ),
+                              Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      productImagePath??"",
+                                      height:
+                                          MediaQuery.of(context).size.height * 0.2,
+                                      width: MediaQuery.of(context).size.width,
+
+                                      errorBuilder: (context, object, stackTrace) {
+                                        return const Icon(
+                                          Icons.error,
+                                          size: 150,
+                                          color: AppColors.APP_MAIN_COLOR,
+                                        );
+                                      },
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Positioned(
+                                      bottom: 8,
+                                      right: 8,
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white.withOpacity(0.7)),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(2.0),
+                                            child: Icon(
+                                              Icons.favorite_border_rounded,
+                                              color: Colors.black,
+                                            ),
+                                          )))
+                                ],
                               ),
-                              Positioned(
-                                  bottom: 8,
-                                  right: 8,
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.white.withOpacity(0.7)),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(2.0),
-                                        child: Icon(
-                                          Icons.favorite_border_rounded,
-                                          color: Colors.black,
-                                        ),
-                                      )))
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 3,
-                          ),
-                          Text(
-                            productTitle ?? "-",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                color: Color(0xff333333),
-                                fontSize: FontSizes.FONT_SIZE_14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Row(
-                            children: [
-                              Flexible(
-                                  child: Text(
-                                "\$${productPrice.toString() ?? "-"}",
-                                maxLines: 1,
+                              const SizedBox(
+                                height: 3,
+                              ),
+                              Text(
+                                productTitle ?? "-",
+                                maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
-                                    color: AppColors.APP_MAIN_COLOR,
+                                    color: Color(0xff333333),
+                                    fontSize: FontSizes.FONT_SIZE_14,
                                     fontWeight: FontWeight.bold),
-                              )),
-                              // const SizedBox(
-                              //   width: 8,
-                              // ),
-                              // Flexible(
-                              //     flex: 2,
-                              //     child: Text(
-                              //       "\$17.96",
-                              //       textAlign: TextAlign.left,
-                              //       overflow: TextOverflow.ellipsis,
-                              //       maxLines: 1,
-                              //       style: TextStyle(
-                              //         decoration: TextDecoration.lineThrough,
-                              //         color: const Color(0xff333333)
-                              //             .withOpacity(0.5),
-                              //       ),
-                              //     )),
+                              ),
+                              Row(
+                                children: [
+                                  Flexible(
+                                      child: Text(
+                                    "\$${productPrice.toString() ?? "-"}",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        color: AppColors.APP_MAIN_COLOR,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                                  // const SizedBox(
+                                  //   width: 8,
+                                  // ),
+                                  // Flexible(
+                                  //     flex: 2,
+                                  //     child: Text(
+                                  //       "\$17.96",
+                                  //       textAlign: TextAlign.left,
+                                  //       overflow: TextOverflow.ellipsis,
+                                  //       maxLines: 1,
+                                  //       style: TextStyle(
+                                  //         decoration: TextDecoration.lineThrough,
+                                  //         color: const Color(0xff333333)
+                                  //             .withOpacity(0.5),
+                                  //       ),
+                                  //     )),
+                                ],
+                              )
                             ],
-                          )
-                        ],
+                          ),
+                        ),
                       ),
-                    ),
+                      (index == products.length - 1)?const SizedBox(width: 16,):Container(),
+
+                    ],
                   );
                 },
                 separatorBuilder: (context, index) => const SizedBox(

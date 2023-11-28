@@ -100,7 +100,8 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                             print(shippingMethodCost);
                                           }
                                           return Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 4.0),
                                             child: RadioListTile(
                                               value: index,
                                               groupValue: 0,
@@ -170,7 +171,8 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                               paymentMethod?.title;
 
                                           return Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 4.0),
                                             child: RadioListTile(
                                               value: index,
                                               groupValue: 0,

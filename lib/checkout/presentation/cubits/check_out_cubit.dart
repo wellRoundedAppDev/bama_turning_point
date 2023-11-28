@@ -254,6 +254,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
           await CheckoutApis.confirmOrderAndEndSession();
       if (isConfirmOrderAndEndSessionSuccess == true) {
         cartCubit.clearCart();
+        Navigator.pop(context);
         Navigator.pushReplacement(
           context,
           PageTransition(

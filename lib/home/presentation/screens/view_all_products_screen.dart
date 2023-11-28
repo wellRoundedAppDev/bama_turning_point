@@ -52,14 +52,14 @@ class ViewAllProductsScreen extends StatelessWidget {
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisExtent:
-                              MediaQuery.of(context).size.height * 0.3,
+                              MediaQuery.of(context).size.height * 0.32,
                         ),
                         itemCount: products?.length ?? 0,
                         itemBuilder: (BuildContext context, int index) {
                           Product? product = products?[index];
                           int? productId = product?.productId?.toInt();
                           String? productName = product?.name;
-                          String? productImageUrl = "";
+                          String? productImageUrl = product?.productImagePath;
                           return InkWell(
                             onTap: () {
                               Navigator.push(
@@ -104,7 +104,7 @@ class ViewAllProductsScreen extends StatelessWidget {
                                   Text(
                                     productName ?? "-",
                                     textAlign: TextAlign.left,
-                                    maxLines: 1,
+                                    maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                         fontSize: FontSizes.FONT_SIZE_16,

@@ -10,6 +10,7 @@ import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../product_details/presentation/screens/product_details_screen.dart';
 import '../../data/models/get_categories_response.dart';
+import '../../data/models/get_products_in_category_response.dart';
 import '../cubits/categories_cubit/states.dart';
 
 class ProductsInCategoryScreen extends StatelessWidget {
@@ -24,7 +25,7 @@ class ProductsInCategoryScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         CategoriesCubit categoriesCubit = CategoriesCubit.get(context);
-        List<Product>? products = categoriesCubit.products;
+        List<ProductInCategory>? products = categoriesCubit.products;
         Category? selectedCategory = categoriesCubit.selectedCategory;
         String? selectedCategoryName = selectedCategory?.name;
         return Scaffold(
@@ -66,10 +67,10 @@ class ProductsInCategoryScreen extends StatelessWidget {
                             ),
                             itemCount: products?.length ?? 0,
                             itemBuilder: (BuildContext context, int index) {
-                              Product? product = products?[index];
+                              ProductInCategory? product = products?[index];
                               int? productId = product?.productId?.toInt();
                               String? productName = product?.name;
-                              String? productImageUrl = "";
+                              String? productImageUrl = product?.productImagePath;
                               return InkWell(
                                 onTap: () {
                                   Navigator.push(

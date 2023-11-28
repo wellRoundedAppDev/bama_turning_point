@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../data/models/get_categories_response.dart';
+import '../../../data/models/get_products_in_category_response.dart';
 
 class CategoriesCubit extends Cubit<CategoriesStates> {
   CategoriesCubit() : super(CategoriesInitialState());
@@ -15,7 +16,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
   static CategoriesCubit get(context) => BlocProvider.of(context);
 
   List<Category>? categories;
-  List<Product>? products;
+  List<ProductInCategory>? products;
   Category? selectedCategory;
 
   setCategories() async {

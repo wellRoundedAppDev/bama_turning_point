@@ -35,6 +35,7 @@ class BestSeller extends Product{
     this.quantity,
     this.price,
     this.rating,
+    this.productImagePath,
     this.description,
   });
 
@@ -45,7 +46,10 @@ class BestSeller extends Product{
     var price = json['price'];
     var rating = json['rating'];
     var description = json['description'];
-    return BestSeller(productId: productId,name: name,quantity: quantity,price: price,rating: rating,description: description);
+    var productImagePath = json['thumb'];
+    return BestSeller(productId: productId,name: name,
+        productImagePath: productImagePath,
+        quantity: quantity,price: price,rating: rating,description: description);
   }
   num? productId;
   String? name;
@@ -53,6 +57,7 @@ class BestSeller extends Product{
   num? price;
   dynamic rating;
   String? description;
+  String? productImagePath;
 
   // Map<String, dynamic> toJson() {
   //   final map = <String, dynamic>{};

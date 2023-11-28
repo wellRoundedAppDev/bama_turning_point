@@ -138,6 +138,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                                 ProductDetails? selectedProductDetails =
                                     ProductDetailsCubit.get(context)
                                         .selectedProductDetails;
+
                                 cartCubit.addItemToCart(CartItem(
                                     productId: selectedProductDetails?.productId
                                             ?.toString() ??
@@ -147,6 +148,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                                             ?.originalImage
                                             .toString() ??
                                         "",
+
                                     price: selectedProductDetails?.price
                                             ?.toDouble() ??
                                         -1));

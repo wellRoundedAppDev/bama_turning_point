@@ -40,6 +40,14 @@ class FilteredProduct extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               child: Image.network(
                 searchItem?.originalImage ?? '',
+                errorBuilder: (context, object, stackTrace) {
+                  return const Icon(
+                    Icons.error,
+                    size: 60,
+                    color: AppColors.APP_MAIN_COLOR,
+                  );
+                },
+
                 width: MediaQuery.of(context).size.width * 0.25,
                 height: MediaQuery.of(context).size.height,
                 fit: BoxFit.cover,

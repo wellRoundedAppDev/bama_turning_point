@@ -15,18 +15,18 @@ class GetProductsInCategoryResponse {
     //   });
     // }
     
-    List<Product>? products;
+    List<ProductInCategory>? products;
     if (json['data'] != null) {
       products = [];
       json['data'].forEach((v) {
-        products?.add(Product.fromJson(v));
+        products?.add(ProductInCategory.fromJson(v));
       });
     }
     return GetProductsInCategoryResponse(success: success,products: products);
   }
   num? success;
   // List<dynamic>? error;
-  List<Product>? products;
+  List<ProductInCategory>? products;
 
   // Map<String, dynamic> toJson() {
   //   final map = <String, dynamic>{};
@@ -41,7 +41,43 @@ class GetProductsInCategoryResponse {
   // }
 
 }
+class ProductInCategory{
+  ProductInCategory(
+      {this.productId,
+        this.name,
+        this.quantity,
+        this.price,
+        this.description,
+        this.productImagePath,
+        this.rating});
 
+  factory ProductInCategory.fromJson(dynamic json) {
+    var productId = json['product_id'];
+    var name = json['name'];
+    var quantity = json['quantity'];
+    var price = json['price'];
+    var rating = json['rating'];
+    var productImagePath = json['image'];
+    var description = json['description'];
+
+    return ProductInCategory(
+        price: price,
+        quantity: quantity,
+        description: description,
+        name: name,
+        productImagePath: productImagePath,
+        productId: productId,
+        rating: rating);
+  }
+  num? productId;
+  String? name;
+  num? quantity;
+  num? price;
+  dynamic rating;
+  String? description;
+  String? productImagePath;
+
+}
 // class Product {
 //   Product({
 //       this.id, 

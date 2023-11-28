@@ -44,6 +44,8 @@ class ProductsApis {
       if (response == null) {
         return null;
       }
+      print(response.data);
+
       return GetFeaturedProductsResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
@@ -114,7 +116,7 @@ class ProductsApis {
   }
 
   static Future<GetBestSellersResponse?> getBestSellersProducts() async {
-    String endPoint = ApiUrls.getBestSellersWithLimitEndpoint(10);
+    String endPoint = ApiUrls.getBestSellersWithLimitEndpoint(100);
     String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {

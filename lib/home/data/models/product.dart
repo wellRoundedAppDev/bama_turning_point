@@ -14,7 +14,7 @@ class Product {
     var quantity = json['quantity'];
     var price = json['price'];
     var rating = json['rating'];
-    var productImagePath = json['image'];
+    var productImagePath = json['thumb'];
     var description = json['description'];
 
     return Product(
