@@ -61,7 +61,12 @@ class HomeScreen extends StatelessWidget {
                           //   ),
                           // ),
                           Expanded(child: Container()),
-                          Center(child: Image.asset(ImagePaths.APP_LOGO_2,width: MediaQuery.of(context).size.width * 0.3,height: MediaQuery.of(context).size.height*0.05,)),
+                          Center(
+                              child: Image.asset(
+                            ImagePaths.APP_LOGO_2,
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            height: MediaQuery.of(context).size.height * 0.05,
+                          )),
                           Expanded(child: Container()),
 
                           GestureDetector(

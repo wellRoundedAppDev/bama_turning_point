@@ -112,7 +112,7 @@ class CategoriesScreen extends StatelessWidget {
                                     ),
                                     Text(
                                       categoryName ?? "-",
-                                      textAlign: TextAlign.left,
+                                      textAlign: TextAlign.center,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
