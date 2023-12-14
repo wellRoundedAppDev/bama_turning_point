@@ -53,7 +53,7 @@ class CartScreen extends StatelessWidget {
                         }),
                       )
                     : Stack(
-              fit: StackFit.expand,
+                        fit: StackFit.expand,
                         children: [
                           ListView.builder(
                             shrinkWrap: true,

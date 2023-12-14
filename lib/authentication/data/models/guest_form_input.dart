@@ -14,22 +14,48 @@ class GuestFormInput {
   String? postalCode;
 
   GuestFormInput({this.gender = "Male"});
+//     {
+  //   "firstname": firstName,
+  //   "lastname": lastName,
+  //   "email": "noornido@gmail.com",
+  //   "telephone": phoneNumber,
+  //   "company": "",
+  //   "city": cityName,
+  //   "address_1": address,
+  //   "address_2": "",
+  //   "country_id": country?.countryId?.toInt(),
+  //   "postcode": postalCode,
+  //   "zone_id": int.parse(region?.zoneId??"")
+  // };
+  Map<String, dynamic> toJsonForCreateGuestApi() => {
+        'customer_id': 1,
+        'customer_group_id': 1,
+        'store_id': 1,
+        'language_id': 1,
+        'firstname': firstName,
+        'lastname': lastName,
+        'email': "noornido@gmail.com",
+        'telephone': phoneNumber,
+        'mobileAppId': 1,
+        'address_id': 1,
+        'status': 1,
+        // 'cart_count_products': 1,
+        'agree': 1,
+        "company": "",
+        "city": cityName,
+        "address_1": address,
+        "address_2": "",
+        "country_id": country?.countryId?.toInt(),
+        "postcode": postalCode,
+        "zone_id": int.parse(region?.zoneId ?? ""),
 
-  Map<String, dynamic> toJsonForCreateGuestApi() =>{
-    "firstname": firstName,
-    "lastname": lastName,
-    "email": "noornido@gmail.com",
-    "telephone": phoneNumber,
-    "company": "",
-    "city": cityName,
-    "address_1": address,
-    "address_2": "",
-    "country_id": country?.countryId?.toInt(),
-    "postcode": postalCode,
-    "zone_id": int.parse(region?.zoneId??"")
-  };
+        "custom_field": {
+          "account": {"1": "+364545454"}
+        }
+        //}
+      };
 
-  clear(){
+  clear() {
     phoneNumber = null;
     gender = "Male";
     firstName = null;
@@ -39,6 +65,5 @@ class GuestFormInput {
     region = null;
     cityName = null;
     postalCode = null;
-
   }
 }
