@@ -1,6 +1,7 @@
 import 'package:classic_eccomerce/account/data/models/get_account_details_response.dart';
 import 'package:classic_eccomerce/account/data/models/get_order_details_response.dart';
 import 'package:classic_eccomerce/core/data/models/success_message_response.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,6 +15,30 @@ import '../../models/get_customer_orders_response.dart';
 
 class AccountApis {
   static final dioHelper = DioHelper.instance;
+
+
+  // static Future<Response?> getLanguages() async {
+  //   String endpoint = ApiUrls.GET_LANGUAGES_ENDPOINT;
+  //   String? accessToken =
+  //       MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+  //
+  //   try {
+  //     var response = await dioHelper.get(
+  //         endpoint: endpoint,
+  //         headers: {"Authorization": "Bearer $accessToken"});
+  //     if (response == null) {
+  //       return null;
+  //     }
+  //     print(response.data);
+  //     return response;
+  //   } catch (e) {
+  //     if (kDebugMode) {
+  //       print("Get Account details error api $e");
+  //     }
+  //   }
+  // }
+
+
 
   static Future<GetAccountDetailsResponse?> getAccountDetails() async {
     String endpoint = ApiUrls.ACCOUNT_ENDPOINT;

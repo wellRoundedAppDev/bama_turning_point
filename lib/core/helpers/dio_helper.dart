@@ -21,7 +21,8 @@ class DioHelper {
       baseUrl: ApiUrls.BASE_URL,
       receiveDataWhenStatusError: true,
       headers: {
-        "X-Oc-Merchant-Id": "123"
+        "X-Oc-Merchant-Id": "123",
+        "X-Oc-Merchant-Language":2,
       }
       ));
 
