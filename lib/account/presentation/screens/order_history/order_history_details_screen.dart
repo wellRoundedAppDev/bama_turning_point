@@ -214,206 +214,206 @@ class OrderDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16,
                               ),
-                              const Text(
-                                "Payment Address",
-                                style: TextStyle(
-                                    color: Color(0xff313846),
-                                    fontSize: FontSizes.FONT_SIZE_20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                width: 40,
-                                height: 3,
-                                color: AppColors.APP_MAIN_COLOR,
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
-                                    width: 1,
-                                    color: const Color(0xffDDDDDD),
-                                  ),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 16.0, horizontal: 16),
-                                      child: Row(
-                                        children: [
-                                          const Text(
-                                            "Full Name",
-                                            style: TextStyle(
-                                                fontSize:
-                                                    FontSizes.FONT_SIZE_14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              "${selectedOrder?.paymentFirstname ?? ""} ${selectedOrder?.paymentLastname ?? ""}",
-                                              textAlign: TextAlign.right,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_14,
-                                                  color: Color(0xff947979)),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 1,
-                                      color: const Color(0xffB6BBC6),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 16.0, horizontal: 16),
-                                      child: Row(
-                                        children: [
-                                          const Text(
-                                            "Address",
-                                            style: TextStyle(
-                                                fontSize:
-                                                    FontSizes.FONT_SIZE_14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              removeHTMLTags(selectedOrder
-                                                      ?.paymentAddress1 ??
-                                                  "-"),
-                                              textAlign: TextAlign.right,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_14,
-                                                  color: Color(0xff947979)),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 1,
-                                      color: const Color(0xffB6BBC6),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 16.0, horizontal: 16),
-                                      child: Row(
-                                        children: [
-                                          const Text(
-                                            "City",
-                                            style: TextStyle(
-                                                fontSize:
-                                                    FontSizes.FONT_SIZE_14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              selectedOrder?.paymentCity ?? "-",
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              textAlign: TextAlign.right,
-                                              style: const TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_14,
-                                                  color: Color(0xff947979)),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 1,
-                                      color: const Color(0xffB6BBC6),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 16.0, horizontal: 16),
-                                      child: Row(
-                                        children: [
-                                          const Text(
-                                            "Country",
-                                            style: TextStyle(
-                                                fontSize:
-                                                    FontSizes.FONT_SIZE_14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              selectedOrder?.paymentCountry ??
-                                                  "-",
-                                              textAlign: TextAlign.right,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              style: const TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_14,
-                                                  color: Color(0xff947979)),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 1,
-                                      color: const Color(0xffB6BBC6),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 16.0, horizontal: 16),
-                                      child: Row(
-                                        children: [
-                                          const Text(
-                                            "Region",
-                                            style: TextStyle(
-                                                fontSize:
-                                                    FontSizes.FONT_SIZE_14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              selectedOrder?.paymentZone ?? "",
-                                              textAlign: TextAlign.right,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_14,
-                                                  color: Color(0xff947979)),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
+                              // const Text(
+                              //   "Payment Address",
+                              //   style: TextStyle(
+                              //       color: Color(0xff313846),
+                              //       fontSize: FontSizes.FONT_SIZE_20,
+                              //       fontWeight: FontWeight.bold),
+                              // ),
+                              // const SizedBox(
+                              //   height: 5,
+                              // ),
+                              // Container(
+                              //   width: 40,
+                              //   height: 3,
+                              //   color: AppColors.APP_MAIN_COLOR,
+                              // ),
+                              // const SizedBox(
+                              //   height: 16,
+                              // ),
+                              // Container(
+                              //   decoration: BoxDecoration(
+                              //     borderRadius: BorderRadius.circular(8),
+                              //     border: Border.all(
+                              //       width: 1,
+                              //       color: const Color(0xffDDDDDD),
+                              //     ),
+                              //   ),
+                              //   child: Column(
+                              //     children: [
+                              //       Padding(
+                              //         padding: const EdgeInsets.symmetric(
+                              //             vertical: 16.0, horizontal: 16),
+                              //         child: Row(
+                              //           children: [
+                              //             const Text(
+                              //               "Full Name",
+                              //               style: TextStyle(
+                              //                   fontSize:
+                              //                       FontSizes.FONT_SIZE_14,
+                              //                   fontWeight: FontWeight.bold),
+                              //             ),
+                              //             const SizedBox(
+                              //               width: 8,
+                              //             ),
+                              //             Expanded(
+                              //               child: Text(
+                              //                 "${selectedOrder?.paymentFirstname ?? ""} ${selectedOrder?.paymentLastname ?? ""}",
+                              //                 textAlign: TextAlign.right,
+                              //                 maxLines: 1,
+                              //                 overflow: TextOverflow.ellipsis,
+                              //                 style: const TextStyle(
+                              //                     fontSize:
+                              //                         FontSizes.FONT_SIZE_14,
+                              //                     color: Color(0xff947979)),
+                              //               ),
+                              //             )
+                              //           ],
+                              //         ),
+                              //       ),
+                              //       Container(
+                              //         height: 1,
+                              //         color: const Color(0xffB6BBC6),
+                              //       ),
+                              //       Padding(
+                              //         padding: const EdgeInsets.symmetric(
+                              //             vertical: 16.0, horizontal: 16),
+                              //         child: Row(
+                              //           children: [
+                              //             const Text(
+                              //               "Address",
+                              //               style: TextStyle(
+                              //                   fontSize:
+                              //                       FontSizes.FONT_SIZE_14,
+                              //                   fontWeight: FontWeight.bold),
+                              //             ),
+                              //             const SizedBox(
+                              //               width: 8,
+                              //             ),
+                              //             Expanded(
+                              //               child: Text(
+                              //                 removeHTMLTags(selectedOrder
+                              //                         ?.paymentAddress1 ??
+                              //                     "-"),
+                              //                 textAlign: TextAlign.right,
+                              //                 maxLines: 2,
+                              //                 overflow: TextOverflow.ellipsis,
+                              //                 style: const TextStyle(
+                              //                     fontSize:
+                              //                         FontSizes.FONT_SIZE_14,
+                              //                     color: Color(0xff947979)),
+                              //               ),
+                              //             )
+                              //           ],
+                              //         ),
+                              //       ),
+                              //       Container(
+                              //         height: 1,
+                              //         color: const Color(0xffB6BBC6),
+                              //       ),
+                              //       Padding(
+                              //         padding: const EdgeInsets.symmetric(
+                              //             vertical: 16.0, horizontal: 16),
+                              //         child: Row(
+                              //           children: [
+                              //             const Text(
+                              //               "City",
+                              //               style: TextStyle(
+                              //                   fontSize:
+                              //                       FontSizes.FONT_SIZE_14,
+                              //                   fontWeight: FontWeight.bold),
+                              //             ),
+                              //             const SizedBox(
+                              //               width: 8,
+                              //             ),
+                              //             Expanded(
+                              //               child: Text(
+                              //                 selectedOrder?.paymentCity ?? "-",
+                              //                 overflow: TextOverflow.ellipsis,
+                              //                 maxLines: 1,
+                              //                 textAlign: TextAlign.right,
+                              //                 style: const TextStyle(
+                              //                     fontSize:
+                              //                         FontSizes.FONT_SIZE_14,
+                              //                     color: Color(0xff947979)),
+                              //               ),
+                              //             )
+                              //           ],
+                              //         ),
+                              //       ),
+                              //       Container(
+                              //         height: 1,
+                              //         color: const Color(0xffB6BBC6),
+                              //       ),
+                              //       Padding(
+                              //         padding: const EdgeInsets.symmetric(
+                              //             vertical: 16.0, horizontal: 16),
+                              //         child: Row(
+                              //           children: [
+                              //             const Text(
+                              //               "Country",
+                              //               style: TextStyle(
+                              //                   fontSize:
+                              //                       FontSizes.FONT_SIZE_14,
+                              //                   fontWeight: FontWeight.bold),
+                              //             ),
+                              //             Expanded(
+                              //               child: Text(
+                              //                 selectedOrder?.paymentCountry ??
+                              //                     "-",
+                              //                 textAlign: TextAlign.right,
+                              //                 overflow: TextOverflow.ellipsis,
+                              //                 maxLines: 1,
+                              //                 style: const TextStyle(
+                              //                     fontSize:
+                              //                         FontSizes.FONT_SIZE_14,
+                              //                     color: Color(0xff947979)),
+                              //               ),
+                              //             )
+                              //           ],
+                              //         ),
+                              //       ),
+                              //       Container(
+                              //         height: 1,
+                              //         color: const Color(0xffB6BBC6),
+                              //       ),
+                              //       Padding(
+                              //         padding: const EdgeInsets.symmetric(
+                              //             vertical: 16.0, horizontal: 16),
+                              //         child: Row(
+                              //           children: [
+                              //             const Text(
+                              //               "Region",
+                              //               style: TextStyle(
+                              //                   fontSize:
+                              //                       FontSizes.FONT_SIZE_14,
+                              //                   fontWeight: FontWeight.bold),
+                              //             ),
+                              //             const SizedBox(
+                              //               width: 8,
+                              //             ),
+                              //             Expanded(
+                              //               child: Text(
+                              //                 selectedOrder?.paymentZone ?? "",
+                              //                 textAlign: TextAlign.right,
+                              //                 maxLines: 1,
+                              //                 overflow: TextOverflow.ellipsis,
+                              //                 style: const TextStyle(
+                              //                     fontSize:
+                              //                         FontSizes.FONT_SIZE_14,
+                              //                     color: Color(0xff947979)),
+                              //               ),
+                              //             )
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 16,
+                              // ),
                               const Text(
                                 "Shipping Address",
                                 style: TextStyle(

@@ -52,23 +52,23 @@ class SignUpScreen extends StatelessWidget {
                       .registerFormInput
                       .phoneNumber = v?.trim(),
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
-                CustomInput(
-                  hintText: "Email Address",
-                  textInputType: TextInputType.emailAddress,
-                  validator: (v) {
-                    if (v == null || v.isEmpty == true) {
-                      return "Enter your email";
-                    } else if (EmailValidator.validate(v) != true) {
-                      return "Enter a valid email";
-                    }
-                  },
-                  onSaved: (v) => AuthCubit.get(context)
-                      .registerFormInput
-                      .email = v?.trim(),
-                ),
+                // const SizedBox(
+                //   height: 16,
+                // ),
+                // CustomInput(
+                //   hintText: "Email Address",
+                //   textInputType: TextInputType.emailAddress,
+                //   validator: (v) {
+                //     if (v == null || v.isEmpty == true) {
+                //       return "Enter your email";
+                //     } else if (EmailValidator.validate(v) != true) {
+                //       return "Enter a valid email";
+                //     }
+                //   },
+                //   onSaved: (v) => AuthCubit.get(context)
+                //       .registerFormInput
+                //       .email = v?.trim(),
+                // ),
                 const SizedBox(
                   height: 16,
                 ),

@@ -201,8 +201,7 @@ class AuthCubit extends Cubit<AuthStates> {
   validateGuestCheckoutForm() {
     if (guestFormKey.currentState!.validate() == true &&
         guestFormInput.country != null &&
-        guestFormInput.region != null &&
-        isGuestConfirmedBillingAndAddressMatch == true) {
+        guestFormInput.region != null) {
       return true;
     }
     return false;

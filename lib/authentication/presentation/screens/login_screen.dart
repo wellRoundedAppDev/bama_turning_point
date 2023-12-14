@@ -43,13 +43,11 @@ class SignInScreen extends StatelessWidget {
                 )),
                 const SizedBox(height: 16,),
                 CustomInput(
-                  hintText: "Email",
-                  textInputType: TextInputType.emailAddress,
-                  validator: (v) {
-                    if (v == null || v.isEmpty == true) {
-                      return "Enter your email";
-                    } else if (EmailValidator.validate(v) != true) {
-                      return "Enter a valid email";
+                  hintText: "Phone number",
+                  textInputType: TextInputType.phone,
+                  validator: (value) {
+                    if (value == null || value.length != 9) {
+                      return 'Enter a valid phone number';
                     }
                   },
                   onSaved: (v) =>

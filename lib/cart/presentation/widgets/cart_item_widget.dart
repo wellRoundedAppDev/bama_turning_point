@@ -151,7 +151,7 @@ class CartItemWidget extends StatelessWidget {
                     //   )),
                     // ),
                     const SizedBox(
-                      width: 8,
+                      width: 16,
                     ),
                     GestureDetector(
                       onTap: () {

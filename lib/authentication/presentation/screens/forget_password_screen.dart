@@ -39,16 +39,16 @@ class ForgetPasswordScreen extends StatelessWidget {
               height: 16,
             ),
             const Text(
-              "Enter the e-mail address associated with your account. Click submit to have a password reset link e-mailed to you.",
+              "Enter phone number associated with your account to verify it.",
               style: TextStyle(
                   fontSize: FontSizes.FONT_SIZE_16, color: Color(0xff705E5E)),
             ),
             const SizedBox(height: 24,),
-            CustomInput(hintText: "E-Mail Address"),
+            CustomInput(hintText: "Phone number"),
             const SizedBox(
               height: 16,
             ),
-            CustomButton(text: "Send Email", action: () {}),
+            CustomButton(text: "Send OTP", action: () {}),
             const SizedBox(height: 16),
              Row(
               mainAxisAlignment: MainAxisAlignment.center,

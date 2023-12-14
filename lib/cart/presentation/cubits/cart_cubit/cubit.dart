@@ -197,7 +197,7 @@ class CartCubit extends Cubit<CartStates> {
   //
   decreaseProductQuantity(String id,int cartId) async {
     int quantity = cartItems[id]['quantity'];
-    double price = cartItems[id]['price'];
+    double price = cartItems[id]['price']?.toDouble();
 
     if(state is UpdateCartItemQuantityLoadingState || quantity == 1){
       return;

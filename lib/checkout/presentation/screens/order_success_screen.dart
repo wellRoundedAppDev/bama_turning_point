@@ -67,31 +67,31 @@ class OrderSuccessScreen extends StatelessWidget {
                       ),
                     ),
                   ])),
-              const SizedBox(
-                height: 24,
-              ),
-              RichText(
-                  text: const TextSpan(
-                      text:
-                          "- If your purchase has an associated download, you can go to the account ",
-                      style: TextStyle(
-                          fontSize: FontSizes.FONT_SIZE_14,
-                          color: Color(0xff484242)),
-                      children: [
-                    TextSpan(
-                      text: "downloads ",
-                      style: TextStyle(
-                        fontSize: FontSizes.FONT_SIZE_14,
-                        color: Color(0xff426CE2),
-                      ),
-                    ),
-                    TextSpan(
-                      text: "page to view them.",
-                      style: TextStyle(
-                          fontSize: FontSizes.FONT_SIZE_14,
-                          color: Color(0xff484242)),
-                    ),
-                  ])),
+              // const SizedBox(
+              //   height: 24,
+              // ),
+              // RichText(
+              //     text: const TextSpan(
+              //         text:
+              //             "- If your purchase has an associated download, you can go to the account ",
+              //         style: TextStyle(
+              //             fontSize: FontSizes.FONT_SIZE_14,
+              //             color: Color(0xff484242)),
+              //         children: [
+              //       TextSpan(
+              //         text: "downloads ",
+              //         style: TextStyle(
+              //           fontSize: FontSizes.FONT_SIZE_14,
+              //           color: Color(0xff426CE2),
+              //         ),
+              //       ),
+              //       TextSpan(
+              //         text: "page to view them.",
+              //         style: TextStyle(
+              //             fontSize: FontSizes.FONT_SIZE_14,
+              //             color: Color(0xff484242)),
+              //       ),
+              //     ])),
               const SizedBox(
                 height: 24,
               ),
@@ -100,13 +100,14 @@ class OrderSuccessScreen extends StatelessWidget {
                       text: "- Please direct any questions you have to the ",
                       style: TextStyle(
                           fontSize: FontSizes.FONT_SIZE_14,
-                          color: Color(0xff484242)),
+                          color: Color(0xff484242)
+                      ),
                       children: [
                     TextSpan(
                       text: "store owner.",
                       style: TextStyle(
                         fontSize: FontSizes.FONT_SIZE_14,
-                        color: Color(0xff1E49D5),
+                          color: Color(0xff484242)
                       ),
                     ),
                   ])),

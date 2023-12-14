@@ -4,14 +4,9 @@ import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dar
 import 'package:classic_eccomerce/cart/presentation/widgets/checkout_bottom_sheet.dart';
 import 'package:classic_eccomerce/cart/presentation/widgets/cart_item_widget.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
-import 'package:classic_eccomerce/shared_components/custom_button.dart';
-import 'package:classic_eccomerce/shared_components/custom_input.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../core/constants/fonts/font_sizes.dart';
 
 class CartScreen extends StatelessWidget {
   bool showBackButton;
@@ -58,6 +53,7 @@ class CartScreen extends StatelessWidget {
                         }),
                       )
                     : Stack(
+              fit: StackFit.expand,
                         children: [
                           ListView.builder(
                             shrinkWrap: true,

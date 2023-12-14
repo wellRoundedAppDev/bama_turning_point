@@ -353,38 +353,38 @@ class GuestScreen extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    BlocConsumer<AuthCubit, AuthStates>(
-                      listener: (context, state) {},
-                      builder: (context, state) {
-                        return Checkbox(
-                            value: AuthCubit.get(context)
-                                .isGuestConfirmedBillingAndAddressMatch,
-                            onChanged: (check) {
-                              AuthCubit.get(context)
-                                  .setIsGuestConfirmedBillingAndAddressMatchState(
-                                      check!);
-                            });
-                      },
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    const Expanded(
-                      child: Text(
-                        "My delivery and billing addresses are the same.",
-                        style: TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_14,
-                            color: Color(0xff747982)),
-                      ),
-                    ),
-                  ],
-                ),
+                // const SizedBox(
+                //   height: 8,
+                // ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   children: [
+                //     BlocConsumer<AuthCubit, AuthStates>(
+                //       listener: (context, state) {},
+                //       builder: (context, state) {
+                //         return Checkbox(
+                //             value: AuthCubit.get(context)
+                //                 .isGuestConfirmedBillingAndAddressMatch,
+                //             onChanged: (check) {
+                //               AuthCubit.get(context)
+                //                   .setIsGuestConfirmedBillingAndAddressMatchState(
+                //                       check!);
+                //             });
+                //       },
+                //     ),
+                //     const SizedBox(
+                //       width: 8,
+                //     ),
+                //     const Expanded(
+                //       child: Text(
+                //         "My delivery and billing addresses are the same.",
+                //         style: TextStyle(
+                //             fontSize: FontSizes.FONT_SIZE_14,
+                //             color: Color(0xff747982)),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 const SizedBox(
                   height: 21,
                 ),

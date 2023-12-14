@@ -26,7 +26,7 @@ class RegisterFormInput {
         'language_id': 1,
         'firstname': firstName,
         'lastname': lastName,
-        'email': email,
+        'email': phoneNumber,
         'telephone': phoneNumber,
         'password': password,
         'confirm': confirmPassword,

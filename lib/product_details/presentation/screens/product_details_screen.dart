@@ -60,6 +60,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     )
                   : SafeArea(
                       child: Scaffold(
+                        backgroundColor: Colors.white,
                           bottomSheet: const ProductDetailsBottomSheet(),
                           appBar: CustomAppBar.renderAppBar(
                               title: productName ?? "",
@@ -75,6 +76,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                     bottom: MediaQuery.of(context).size.height *
                                         0.1),
                                 child: Column(
+                                  mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
@@ -82,7 +84,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Stack(
                                             children: [
@@ -896,10 +898,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    ProductsOverview(
-                                      products: const [],
-                                      productListTitle: 'You May Also Like',
-                                    )
+                                    // ProductsOverview(
+                                    //   products: const [],
+                                    //   productListTitle: 'You May Also Like',
+                                    // )
                                   ],
                                 ),
                               ),

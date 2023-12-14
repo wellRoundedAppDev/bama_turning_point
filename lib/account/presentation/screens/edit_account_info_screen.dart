@@ -60,10 +60,11 @@ class EditAccountInformationScreen extends StatelessWidget {
                                 color: AppColors.APP_MAIN_COLOR,
                               ),
                               const SizedBox(
-                                height: 16,
+                                height: 24,
                               ),
                               CustomInput(
                                 hintText: "First Name",
+                                label: "First Name",
                                 controller:
                                     accountCubit.firstNameEditingController,
                                 validator: (v) {
@@ -80,6 +81,7 @@ class EditAccountInformationScreen extends StatelessWidget {
                               ),
                               CustomInput(
                                 hintText: "Last Name",
+                                label: "Last Name",
                                 controller:
                                     accountCubit.lastNameEditingController,
                                 validator: (v) {
@@ -91,39 +93,41 @@ class EditAccountInformationScreen extends StatelessWidget {
                                     accountCubit.accountInput.lastName = v!,
                                 textInputType: TextInputType.name,
                               ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              CustomInput(
-                                hintText: "E-mail",
-                                controller: accountCubit.emailEditingController,
-                                validator: (v) {
-                                  if (v == null || v.isEmpty) {
-                                    return "Enter email";
-                                  } else if (EmailValidator.validate(v) ==
-                                      false) {
-                                    return "Enter a valid email";
-                                  }
-                                },
-                                textInputType: TextInputType.emailAddress,
-                                onSaved: (v) =>
-                                    accountCubit.accountInput.email = v!,
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              CustomInput(
-                                hintText: "Telephone",
-                                controller: accountCubit.phoneEditingController,
-                                textInputType: TextInputType.phone,
-                                validator: (v) {
-                                  if (v == null || v.length != 9) {
-                                    return "Enter valid phone number";
-                                  }
-                                },
-                                onSaved: (v) =>
-                                    accountCubit.accountInput.phoneNumber = v!,
-                              ),
+                              // const SizedBox(
+                              //   height: 16,
+                              // ),
+                              // CustomInput(
+                              //   hintText: "E-mail",
+                              //   label: "E-mail",
+                              //   controller: accountCubit.emailEditingController,
+                              //   validator: (v) {
+                              //     if (v == null || v.isEmpty) {
+                              //       return "Enter email";
+                              //     } else if (EmailValidator.validate(v) ==
+                              //         false) {
+                              //       return "Enter a valid email";
+                              //     }
+                              //   },
+                              //   textInputType: TextInputType.emailAddress,
+                              //   onSaved: (v) =>
+                              //       accountCubit.accountInput.email = v!,
+                              // ),
+                              // const SizedBox(
+                              //   height: 16,
+                              // ),
+                              // CustomInput(
+                              //   hintText: "Telephone",
+                              //   label: "Telephone",
+                              //   controller: accountCubit.phoneEditingController,
+                              //   textInputType: TextInputType.phone,
+                              //   validator: (v) {
+                              //     if (v == null || v.length != 9) {
+                              //       return "Enter valid phone number";
+                              //     }
+                              //   },
+                              //   onSaved: (v) =>
+                              //       accountCubit.accountInput.phoneNumber = v!,
+                              // ),
                               // const SizedBox(
                               //   height: 16,
                               // ),
