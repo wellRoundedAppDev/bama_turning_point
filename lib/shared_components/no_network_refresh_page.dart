@@ -19,7 +19,7 @@ class NoNetworkRefreshPage extends StatelessWidget {
           height: 32,
         ),
         const Text(
-          "فشل الاتصال",
+          "Network connection failed",
           style: TextStyle(
               fontSize: FontSizes.FONT_SIZE_18, color: Color(0xff565656)),
         ),
@@ -27,14 +27,14 @@ class NoNetworkRefreshPage extends StatelessWidget {
           height: 8,
         ),
         const Text(
-          "تحقق من اتصالك بالإنترنت، وحاول مرة أخرى",
+          "Check your internet connection and try again",
           style: TextStyle(
               fontSize: FontSizes.FONT_SIZE_14, color: Color(0xff565656)),
         ),
         const SizedBox(
           height: 16,
         ),
-        CustomButton(text: "أعد المحاولة", action: refresh)
+        CustomButton(text: "Try again", action: refresh)
       ],
     );
   }

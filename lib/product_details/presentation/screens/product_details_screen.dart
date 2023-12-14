@@ -1,10 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/helpers/remove_html_tags_from_string.dart';
-import 'package:classic_eccomerce/home/presentation/widgets/products_overview.dart';
 import 'package:classic_eccomerce/product_details/presentation/cubits/product_details_cubit/cubit.dart';
 import 'package:classic_eccomerce/product_details/presentation/cubits/product_details_cubit/states.dart';
-import 'package:classic_eccomerce/product_details/presentation/widgets/comment.dart';
 import 'package:classic_eccomerce/product_details/presentation/widgets/product_details_bottom_sheet.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:flutter/material.dart';

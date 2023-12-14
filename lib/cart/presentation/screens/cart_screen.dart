@@ -36,7 +36,7 @@ class CartScreen extends StatelessWidget {
                 showBackButton: showBackButton,
                 showCartIcon: false),
             bottomNavigationBar: (cartItems.isEmpty)
-                ? Container()
+                ? Container(height: 0,)
                 : const Padding(
                     padding: EdgeInsets.all(16.0),
                     child: CheckOutBottomSheet(),

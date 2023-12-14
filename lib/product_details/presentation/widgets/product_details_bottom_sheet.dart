@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/cart/data/models/cart_item.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
+import 'package:classic_eccomerce/cart/presentation/screens/cart_screen.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/product_details/presentation/cubits/product_details_cubit/cubit.dart';
@@ -88,12 +89,49 @@ class ProductDetailsBottomSheet extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(top: 8.0, right: 8, bottom: 8),
-              child: CustomButton(
-                text: "Buy Now",
-                color: const Color(0xff2EAF23),
-                height: MediaQuery.of(context).size.height,
-                textFontSize: FontSizes.FONT_SIZE_14,
-                action: () {},
+              child: BlocConsumer<CartCubit, CartStates>(
+                listener: (context, child) {},
+                builder: (context, child) {
+                  return CustomButton(
+                    text: "Buy Now",
+                    color: const Color(0xff2EAF23),
+                    height: MediaQuery.of(context).size.height,
+                    textFontSize: FontSizes.FONT_SIZE_14,
+                    action: () {
+                      ProductDetailsCubit productDetailsCubit =
+                          ProductDetailsCubit.get(context);
+                      ProductDetails? selectedProductDetails =
+                          ProductDetailsCubit.get(context)
+                              .selectedProductDetails;
+                      CartCubit cartCubit = CartCubit.get(context);
+                      bool isProductInCart = cartCubit.cartItems.containsKey(
+                          productDetailsCubit.selectedProductId.toString());
+
+                      if (isProductInCart == false)
+                      {
+                        cartCubit.addItemToCart(CartItem(
+                            productId:
+                            selectedProductDetails?.productId?.toString() ??
+                                "",
+                            name: selectedProductDetails?.name ?? "",
+                            imagePath: selectedProductDetails?.originalImage
+                                .toString() ??
+                                "",
+                            price: selectedProductDetails?.price?.toDouble() ??
+                                -1));
+
+                        Navigator.push(context,PageTransition(child: BlocProvider.value(
+                            value: cartCubit,
+                            child: CartScreen()), type: PageTransitionType.leftToRight));
+                        return;
+                      }
+                      Navigator.push(context,PageTransition(child: BlocProvider.value(
+                          value: cartCubit,
+                          child: CartScreen()), type: PageTransitionType.leftToRight));
+
+                    },
+                  );
+                },
               ),
             ),
           ),
@@ -148,7 +186,6 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                                             ?.originalImage
                                             .toString() ??
                                         "",
-
                                     price: selectedProductDetails?.price
                                             ?.toDouble() ??
                                         -1));
