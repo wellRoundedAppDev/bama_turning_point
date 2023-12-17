@@ -17,26 +17,26 @@ class AccountApis {
   static final dioHelper = DioHelper.instance;
 
 
-  // static Future<Response?> getLanguages() async {
-  //   String endpoint = ApiUrls.GET_LANGUAGES_ENDPOINT;
-  //   String? accessToken =
-  //       MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
-  //
-  //   try {
-  //     var response = await dioHelper.get(
-  //         endpoint: endpoint,
-  //         headers: {"Authorization": "Bearer $accessToken"});
-  //     if (response == null) {
-  //       return null;
-  //     }
-  //     print(response.data);
-  //     return response;
-  //   } catch (e) {
-  //     if (kDebugMode) {
-  //       print("Get Account details error api $e");
-  //     }
-  //   }
-  // }
+  static Future<Response?> getLanguages() async {
+    String endpoint = ApiUrls.GET_LANGUAGES_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.get(
+          endpoint: endpoint,
+          headers: {"Authorization": "Bearer $accessToken"});
+      if (response == null) {
+        return null;
+      }
+      print(response.data);
+      return response;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Get Account details error api $e");
+      }
+    }
+  }
 
 
 

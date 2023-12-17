@@ -19,7 +19,11 @@ class CategoriesApis {
     try {
 
       var response = await _dioHelper.get(endpoint: endPoint,
-      headers: {"Authorization": "Bearer $accessToken"});
+      headers: {"Authorization": "Bearer $accessToken",
+        // "X-Oc-Merchant-Language": "en-gb",
+        //"ir_arabic"
+
+      });
       if (response == null) {
         return null;
       }

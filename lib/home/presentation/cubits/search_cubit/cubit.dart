@@ -20,6 +20,7 @@ class SearchCubit extends Cubit<SearchStates> {
     emit(SearchByTermLoadingState());
     var response = await SearchApis.searchByTerm(searchTerm);
     if(response?.success == 1){
+      // AccountApis.getLanguages();
       searchItems = response?.searchItems??[];
       emit(SearchByTermSuccessState());
     }

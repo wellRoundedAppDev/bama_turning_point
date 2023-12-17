@@ -1,6 +1,5 @@
 import 'package:classic_eccomerce/categories/data/data_sources/remote_data_sources/categories_apis.dart';
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/states.dart';
-import 'package:classic_eccomerce/home/data/models/product.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
