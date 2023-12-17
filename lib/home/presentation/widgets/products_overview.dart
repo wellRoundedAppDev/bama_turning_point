@@ -85,7 +85,9 @@ class ProductsOverview extends StatelessWidget {
                   int? productId = product.productId?.toInt();
                   String? productTitle = product.name;
                   num? productPrice = product.price;
+                  String? priceFormatted = product.priceFormatted;
                   String? productImagePath = (product.productImagePath??"");
+
                   return Row(
                     children: [
                       (index == 0)?const SizedBox(width: 16,):Container(),
@@ -161,7 +163,8 @@ class ProductsOverview extends StatelessWidget {
                                 children: [
                                   Flexible(
                                       child: Text(
-                                    "\$${productPrice.toString() ?? "-"}",
+                                        priceFormatted??"",
+                                    //"\$${productPrice.toString() ?? "-"}",
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(

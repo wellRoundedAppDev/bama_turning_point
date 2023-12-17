@@ -229,7 +229,7 @@ class CartItemFromApi {
     this.recurring,
     this.stock,
     this.reward,
-    this.price,
+    this.priceFormatted,
     this.total,
     this.priceRaw,
     this.totalRaw,
@@ -252,9 +252,10 @@ class CartItemFromApi {
     var recurring = json['recurring'];
     var stock = json['stock'];
     var reward = json['reward'];
-    var price = json['price'];
+
     var total = json['total'];
     var priceRaw = json['price_raw'];
+    var priceFormatted = json['price'];
     var totalRaw = json['total_raw'];
     return CartItemFromApi(
       totalRaw: totalRaw,
@@ -263,14 +264,16 @@ class CartItemFromApi {
       productId: productId,
       thumb: thumb,
       model: model,
+
       stock: stock,
       name: name,
-      price: price,
+      priceFormatted: priceFormatted,
       quantity: quantity,
      // option: option,
       key: key,
       points: points,
       priceRaw: priceRaw,
+
       recurring: recurring,
     );
   }
@@ -285,7 +288,7 @@ class CartItemFromApi {
   String? recurring;
   bool? stock;
   String? reward;
-  String? price;
+  String? priceFormatted;
   String? total;
   num? priceRaw;
   num? totalRaw;

@@ -1,10 +1,12 @@
+import 'package:classic_eccomerce/app_settings/app_currencies.dart';
+import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
-import 'package:classic_eccomerce/categories/presentation/screens/categories_screen.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
+import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -149,6 +151,8 @@ class HomeDrawer extends StatelessWidget {
                   // AuthCubit.get(context).logOut(CartCubit.get(context)).then((value) {
                   //   Navigator.pop(context);
                   // });
+                  HomeCubit homeCubit = HomeCubit.get(context);
+                  LocaleCubit localeCubit = LocaleCubit.get(context);
                   showDialog(
                       context: context,
                       builder: (context) {
@@ -176,7 +180,8 @@ class HomeDrawer extends StatelessWidget {
                                     //     .read<LocaleProvider>()
                                     //     .saveLocaleInSharedPrefs("ar");
 
-                                    HomeCubit.get(context).init();
+                                    localeCubit.setLocale(const Locale('ar'));
+                                    homeCubit.init();
                                     Navigator.pop(context);
                                   },
                                   child: const Padding(
@@ -200,7 +205,8 @@ class HomeDrawer extends StatelessWidget {
                                     // context
                                     //     .read<LocaleProvider>()
                                     //     .saveLocaleInSharedPrefs("en");
-
+                                    localeCubit.setLocale(const Locale('en'));
+                                    homeCubit.init();
                                     Navigator.pop(context);
                                   },
                                   child: const Padding(
@@ -244,9 +250,83 @@ class HomeDrawer extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  // AuthCubit.get(context).logOut(CartCubit.get(context)).then((value) {
-                  //   Navigator.pop(context);
-                  // });
+                  HomeCubit homeCubit = HomeCubit.get(context);
+                  AppSettingsCubit appSettingsCubit = AppSettingsCubit.get(context);
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Center(
+                              child: Text(
+                                // AppLocalizations.of(context)!.the_language,
+                                "Currency",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: FontSizes.FONT_SIZE_22),
+                              )),
+                          content: Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                InkWell(
+                                  onTap: () async {
+                                    // context
+                                    //     .read<LocaleProvider>()
+                                    //     .setLocale(const Locale("ar"));
+                                    // context
+                                    //     .read<LocaleProvider>()
+                                    //     .saveLocaleInSharedPrefs("ar");
+
+                                    appSettingsCubit.changeCurrency(CurrencyCodes.IQD.name);
+                                    homeCubit.init();
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Iraqi Dinar",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: FontSizes.FONT_SIZE_18),
+                                    ),
+                                  ),
+                                ),
+                                const Divider(
+                                  thickness: 1,
+                                ),
+                                InkWell(
+                                  onTap: () async {
+                                    // context
+                                    //     .read<LocaleProvider>()
+                                    //     .setLocale(const Locale("en"));
+                                    // context
+                                    //     .read<LocaleProvider>()
+                                    //     .saveLocaleInSharedPrefs("en");
+                                    appSettingsCubit.changeCurrency(CurrencyCodes.USD.name);
+                                    homeCubit.init();
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "American Dollar",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: FontSizes.FONT_SIZE_18),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      });
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(24.0),

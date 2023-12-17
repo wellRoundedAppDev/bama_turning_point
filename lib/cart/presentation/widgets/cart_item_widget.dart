@@ -65,7 +65,8 @@ class CartItemWidget extends StatelessWidget {
                   height: 3,
                 ),
                 Text(
-                  "\$${cartItem.price.toString()}",
+                  cartItem.priceFormatted??"",
+                 // "\$${cartItem.price.toString()}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(

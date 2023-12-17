@@ -60,6 +60,7 @@ class ViewAllProductsScreen extends StatelessWidget {
                           int? productId = product?.productId?.toInt();
                           String? productName = product?.name;
                           String? productImageUrl = product?.productImagePath;
+                          String? priceFormatted = product?.priceFormatted;
                           return InkWell(
                             onTap: () {
                               Navigator.push(

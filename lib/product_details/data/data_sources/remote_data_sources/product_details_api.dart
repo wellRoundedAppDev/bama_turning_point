@@ -10,14 +10,25 @@ import '../../../../main.dart';
 class ProductDetailsApi {
   static final dioHelper = DioHelper.instance;
 
-  static Future<GetProductDetailsResponse?> getProductDetailsById(int id) async {
+  static Future<GetProductDetailsResponse?> getProductDetailsById(int id,
+      {String languageCode = "ir_arabic",
+        String currencyCode = "IQD"
+
+      }
+
+      ) async {
     String endPoint = ApiUrls.getProductDetailsByIdEndpoint(id);
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
 
     try {
       var response = await dioHelper.get(endpoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken"}
+          headers: {"Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+
+
+          }
 
       );
       if (response == null) {

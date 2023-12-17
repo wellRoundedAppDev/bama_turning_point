@@ -35,7 +35,9 @@ class ProductDetailsScreen extends StatelessWidget {
           String? productImagePath = productDetails?.originalImage;
           String? productName = productDetails?.name;
           num? productPrice = productDetails?.price;
+          String? priceFormatted = productDetails?.priceFormated;
           num? productPriceExcludingTaxes = productDetails?.priceExcludingTax;
+          String? priceExcludingTaxesFormatted = productDetails?.priceExcludingTaxFormated;
           num? productRating = productDetails?.rating;
           String? stockStatus = productDetails?.stockStatus;
           String? description = productDetails?.description;
@@ -258,7 +260,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                                   height: 2,
                                                 ),
                                                 Text(
-                                                  "\$$productPrice",
+                                                  priceFormatted??"",
+                                               //   "\$$productPrice",
                                                   style: const TextStyle(
                                                       color: AppColors
                                                           .APP_MAIN_COLOR,
@@ -275,15 +278,17 @@ class ProductDetailsScreen extends StatelessWidget {
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: [
-                                                    Text(
-                                                      "Ex Tax: \$$productPriceExcludingTaxes",
-                                                      style: const TextStyle(
-                                                          fontSize: FontSizes
-                                                              .FONT_SIZE_14,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Color(
-                                                              0xff999999)),
+                                                    Expanded(
+                                                      child: Text(
+                                                        "Ex Tax: $priceExcludingTaxesFormatted",
+                                                        style: const TextStyle(
+                                                            fontSize: FontSizes
+                                                                .FONT_SIZE_14,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Color(
+                                                                0xff999999)),
+                                                      ),
                                                     ),
                                                     Row(
                                                       children: [

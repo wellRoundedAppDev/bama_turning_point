@@ -5,6 +5,7 @@ class CartItem {
   double price;
   String imagePath;
   int? cartId;
+  String? priceFormatted;
 
   CartItem(
       {required this.productId,
@@ -12,6 +13,7 @@ class CartItem {
       required this.price,
       this.cartId,
       this.quantity = 0,
+        this.priceFormatted,
       this.imagePath = ""});
 
   Map<String, dynamic> toJson() => {
@@ -21,5 +23,6 @@ class CartItem {
         "quantity": quantity,
         "price": price,
         "imagePath": imagePath,
+    "priceFormatted":priceFormatted
       };
 }

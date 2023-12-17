@@ -11,9 +11,8 @@ class LocaleCubit extends Cubit<LocaleStates>{
 
   static LocaleCubit get(BuildContext context) => BlocProvider.of(context);
 
-  BuildContext context = MyApp.navKey.currentState!.context;
 
-  Locale _locale = const Locale("ar");
+  Locale _locale = const Locale("en");
 
   Locale get locale => _locale;
 
@@ -23,7 +22,7 @@ class LocaleCubit extends Cubit<LocaleStates>{
   }
 
   setDefaultLocale(){
-    _locale = const Locale("ar");
+    _locale = const Locale("en");
     emit(ChangeLanguageState());
   }
 }

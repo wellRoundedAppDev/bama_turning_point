@@ -15,7 +15,13 @@ class CartApis {
   // "product_id": 34,
   // "quantity": 2
   // }
-  static Future<GetCartResponse?> getCartItems() async {
+  static Future<GetCartResponse?> getCartItems(
+      {String languageCode = "ir_arabic",
+        String currencyCode = "IQD"
+
+      }
+
+      ) async {
     String endpoint = ApiUrls.CART_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
@@ -23,7 +29,12 @@ class CartApis {
     try {
       var response = await dioHelper.get(
           endpoint: endpoint,
-          headers: {"Authorization": "Bearer $accessToken"});
+          headers: {"Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+
+          },
+      );
       if (response == null) {
         return null;
       }

@@ -12,13 +12,19 @@ import '../../../../main.dart';
 class ProductsApis {
   static final dioHelper = DioHelper.instance;
 
-  static Future<GetFeaturedProductsResponse?> getFeaturedProducts() async {
+  static Future<GetFeaturedProductsResponse?> getFeaturedProducts(
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}
+
+      ) async {
     String endPoint = ApiUrls.GET_FEATURED_PRODUCTS_ENDPOINT;
     String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {
       var response = await dioHelper.get(endpoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken"}
+          headers: {"Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+          }
 
       );
       if (response == null) {
@@ -33,12 +39,19 @@ class ProductsApis {
   }
 
   static Future<GetFeaturedProductsResponse?>
-      getFeaturedProductsOverview() async {
+      getFeaturedProductsOverview(
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}
+
+      ) async {
     String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
     String endPoint = ApiUrls.getFeaturedProductsWithLimitEndpoint(6);
     try {
       var response = await dioHelper.get(endpoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken"}
+          headers: {"Authorization": "Bearer $accessToken",
+          "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+
+          }
 
       );
       if (response == null) {
@@ -54,14 +67,21 @@ class ProductsApis {
     }
   }
 
-  static Future<GetLatestProductsResponse?> getNewArrivalsProducts() async {
+  static Future<GetLatestProductsResponse?> getNewArrivalsProducts(
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}
+
+      ) async {
     String endPoint = ApiUrls.GET_NEW_ARRIVALS_ENDPOINT;
     String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
 
     try {
       var response = await dioHelper.get(endpoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken"}
+          headers: {"Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+
+          }
 
       );
       if (response == null) {
@@ -76,12 +96,19 @@ class ProductsApis {
   }
 
   static Future<GetLatestProductsResponse?>
-      getNewArrivalsProductsOverview() async {
+      getNewArrivalsProductsOverview(
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}
+
+      ) async {
     String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
     String endPoint = ApiUrls.getNewArrivalsProductsWithLimitEndpoint(6);
     try {
       var response = await dioHelper.get(endpoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken"}
+          headers: {"Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+
+          }
 
       );
       if (response == null) {
@@ -95,13 +122,22 @@ class ProductsApis {
     }
   }
 
-  static Future<GetBestSellersResponse?> getBestSellersOverview() async {
+  static Future<GetBestSellersResponse?> getBestSellersOverview(
+
+  {String languageCode = "ir_arabic", String currencyCode = "IQD"}
+
+
+      ) async {
     String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     String endPoint = ApiUrls.getBestSellersWithLimitEndpoint(6);
     try {
       var response = await dioHelper.get(endpoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken"}
+          headers: {"Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+
+          }
 
       );
       if (response == null) {
@@ -115,13 +151,20 @@ class ProductsApis {
     }
   }
 
-  static Future<GetBestSellersResponse?> getBestSellersProducts() async {
+  static Future<GetBestSellersResponse?> getBestSellersProducts(
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}
+
+      ) async {
     String endPoint = ApiUrls.getBestSellersWithLimitEndpoint(100);
     String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {
       var response = await dioHelper.get(endpoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken"}
+          headers: {"Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+
+          }
 
       );
       if (response == null) {

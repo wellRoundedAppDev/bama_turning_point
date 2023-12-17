@@ -10,8 +10,10 @@ class LocaleProvider extends ChangeNotifier{
     _locale = locale;
     notifyListeners();
   }
+
   setDefaultLocale(){
     _locale = const Locale("ar");
     notifyListeners();
   }
+
 }

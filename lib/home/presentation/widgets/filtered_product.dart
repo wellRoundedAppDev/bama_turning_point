@@ -84,7 +84,8 @@ class FilteredProduct extends StatelessWidget {
                             height: 5,
                           ),
                           Text(
-                            "\$${searchItem?.price}",
+                            searchItem?.priceFormated??"",
+                            //"\$${searchItem?.price}",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
