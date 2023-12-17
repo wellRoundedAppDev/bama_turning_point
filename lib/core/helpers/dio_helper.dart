@@ -28,6 +28,9 @@ class DioHelper {
 
   addHeader(String key, dynamic value) {
     _dio.options.headers[key] = value;
+    // "X-Oc-Merchant-Language": "en-gb",
+    //"ir_arabic"
+
   }
 
   // Headers
@@ -57,7 +60,6 @@ class DioHelper {
     try {
       return await _dio.get(endpoint,
           queryParameters: queryParameters,
-
           options: Options(
             headers: headers,
               validateStatus: (int? status){

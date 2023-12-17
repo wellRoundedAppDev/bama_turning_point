@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
         create: (context) => HomeCubit()..init(),
         child: SafeArea(
           child: Scaffold(
-            // drawer: const HomeDrawer(),
+             drawer: const HomeDrawer(),
             appBar: AppBar(
               toolbarHeight: MediaQuery.of(context).size.height * 0.17,
               leading: Container(),
@@ -50,16 +50,16 @@ class HomeScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     Scaffold.of(context).openDrawer();
-                          //   },
-                          //   child: const Icon(
-                          //     Icons.menu_sharp,
-                          //     size: 25,
-                          //     color: Colors.white,
-                          //   ),
-                          // ),
+                          GestureDetector(
+                            onTap: () {
+                              Scaffold.of(context).openDrawer();
+                            },
+                            child: const Icon(
+                              Icons.menu_sharp,
+                              size: 25,
+                              color: Colors.white,
+                            ),
+                          ),
                           Expanded(child: Container()),
                           Center(
                               child: Image.asset(

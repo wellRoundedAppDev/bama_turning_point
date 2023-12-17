@@ -1,9 +1,11 @@
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/presentation/screens/categories_screen.dart';
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
+import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -16,65 +18,222 @@ class HomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: const Color(0xff015963),
+      backgroundColor: AppColors.APP_MAIN_COLOR,
       child: Column(
         children: [
           Column(
             children: [
-              const SizedBox(
-                height: 32,
+             const SizedBox(
+                height: 24,
               ),
+              // InkWell(
+              //   onTap: () {
+              //     Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              //         const HomeScreen()
+              //     ));
+              //   },
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(24.0),
+              //     child: Row(
+              //       crossAxisAlignment: CrossAxisAlignment.center,
+              //       children: [
+              //         Image.asset(
+              //           IconPaths.HOME_NAV_ICON,
+              //           width: 30,
+              //           height: 30,
+              //         ),
+              //         const SizedBox(
+              //           width: 24,
+              //         ),
+              //         const Text(
+              //           "Home",
+              //           style: TextStyle(
+              //               fontSize: FontSizes.FONT_SIZE_18,
+              //               color: Colors.white),
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // InkWell(
+              //   onTap: () {
+              //     Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              //      CategoriesScreen()
+              //     ));
+              //
+              //   },
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(24.0),
+              //     child: Row(
+              //       crossAxisAlignment: CrossAxisAlignment.center,
+              //       children: [
+              //         Image.asset(
+              //           IconPaths.CATEGORIES_MENU_ICON,
+              //           width: 30,
+              //           height: 30,
+              //         ),
+              //         const SizedBox(
+              //           width: 24,
+              //         ),
+              //         const Text(
+              //           "Categories",
+              //           style: TextStyle(
+              //               fontSize: FontSizes.FONT_SIZE_18,
+              //               color: Colors.white),
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // InkWell(
+              //   onTap: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: (context) => const BlogScreen()));
+              //   },
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(24.0),
+              //     child: Row(
+              //       crossAxisAlignment: CrossAxisAlignment.center,
+              //       children: [
+              //         Image.asset(
+              //           IconPaths.BLOG_ICON,
+              //           width: 30,
+              //           height: 30,
+              //         ),
+              //         const SizedBox(
+              //           width: 24,
+              //         ),
+              //         const Text(
+              //           "Blog",
+              //           style: TextStyle(
+              //               fontSize: FontSizes.FONT_SIZE_18,
+              //               color: Colors.white),
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // InkWell(
+              //   onTap: () {
+              //     Navigator.push(context, MaterialPageRoute(builder: (context)
+              //     => const ContactsScreen()
+              //     ));
+              //   },
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(24.0),
+              //     child: Row(
+              //       crossAxisAlignment: CrossAxisAlignment.center,
+              //       children: [
+              //         Image.asset(
+              //           IconPaths.CONTACT_US_ICON,
+              //           width: 30,
+              //           height: 30,
+              //         ),
+              //         const SizedBox(
+              //           width: 24,
+              //         ),
+              //         const Text(
+              //           "Contact Us",
+              //           style: TextStyle(
+              //               fontSize: FontSizes.FONT_SIZE_18,
+              //               color: Colors.white),
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                      const HomeScreen()
-                  ));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        IconPaths.HOME_NAV_ICON,
-                        width: 30,
-                        height: 30,
-                      ),
-                      const SizedBox(
-                        width: 24,
-                      ),
-                      const Text(
-                        "Home",
-                        style: TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_18,
-                            color: Colors.white),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                   CategoriesScreen()
-                  ));
+                  // AuthCubit.get(context).logOut(CartCubit.get(context)).then((value) {
+                  //   Navigator.pop(context);
+                  // });
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Center(
+                              child: Text(
+                                // AppLocalizations.of(context)!.the_language,
+                                "Language",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: FontSizes.FONT_SIZE_22),
+                              )),
+                          content: Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                InkWell(
+                                  onTap: () async {
+                                    // context
+                                    //     .read<LocaleProvider>()
+                                    //     .setLocale(const Locale("ar"));
+                                    // context
+                                    //     .read<LocaleProvider>()
+                                    //     .saveLocaleInSharedPrefs("ar");
 
+                                    HomeCubit.get(context).init();
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "العربية",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: FontSizes.FONT_SIZE_18),
+                                    ),
+                                  ),
+                                ),
+                                const Divider(
+                                  thickness: 1,
+                                ),
+                                InkWell(
+                                  onTap: () async {
+                                    // context
+                                    //     .read<LocaleProvider>()
+                                    //     .setLocale(const Locale("en"));
+                                    // context
+                                    //     .read<LocaleProvider>()
+                                    //     .saveLocaleInSharedPrefs("en");
+
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "English",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: FontSizes.FONT_SIZE_18),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      });
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(24.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        IconPaths.CATEGORIES_MENU_ICON,
-                        width: 30,
-                        height: 30,
-                      ),
-                      const SizedBox(
+                      Icon(Icons.language,size: 30,color: Colors.white,),
+                      SizedBox(
                         width: 24,
                       ),
-                      const Text(
-                        "Categories",
+                      Text(
+                        "Language",
                         style: TextStyle(
                             fontSize: FontSizes.FONT_SIZE_18,
                             color: Colors.white),
@@ -85,26 +244,21 @@ class HomeDrawer extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BlogScreen()));
+                  // AuthCubit.get(context).logOut(CartCubit.get(context)).then((value) {
+                  //   Navigator.pop(context);
+                  // });
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(24.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        IconPaths.BLOG_ICON,
-                        width: 30,
-                        height: 30,
-                      ),
-                      const SizedBox(
+                      Icon(Icons.currency_exchange_outlined,size: 30,color: Colors.white,),
+                      SizedBox(
                         width: 24,
                       ),
-                      const Text(
-                        "Blog",
+                      Text(
+                        "Currency",
                         style: TextStyle(
                             fontSize: FontSizes.FONT_SIZE_18,
                             color: Colors.white),
@@ -113,35 +267,7 @@ class HomeDrawer extends StatelessWidget {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)
-                  => const ContactsScreen()
-                  ));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        IconPaths.CONTACT_US_ICON,
-                        width: 30,
-                        height: 30,
-                      ),
-                      const SizedBox(
-                        width: 24,
-                      ),
-                      const Text(
-                        "Contact Us",
-                        style: TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_18,
-                            color: Colors.white),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+
               (AuthCubit.get(context).isUserLoggedIn == false)
                   ?Container():
               InkWell(
@@ -176,13 +302,10 @@ class HomeDrawer extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          Align(
-              alignment: Alignment.bottomLeft,
-              child: Image.asset(
-                ImagePaths.LEAF,
-                width: 150,
-                height: 150,
-              )),
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.2,vertical: 8),
+            child: Image.asset(ImagePaths.APP_LOGO_2),
+          ),
           const SizedBox(height: 10,),
         ],
       ),

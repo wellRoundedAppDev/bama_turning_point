@@ -11,7 +11,7 @@ import '../../models/get_categories_response.dart';
 class CategoriesApis {
   static final _dioHelper = DioHelper.instance;
 
-  static Future<GetCategoriesResponse?> getCategories(int page) async {
+  static Future<GetCategoriesResponse?> getCategories(int page,{String languageCode = "ir_arabic"}) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
 
@@ -20,7 +20,7 @@ class CategoriesApis {
 
       var response = await _dioHelper.get(endpoint: endPoint,
       headers: {"Authorization": "Bearer $accessToken",
-        // "X-Oc-Merchant-Language": "en-gb",
+        "X-Oc-Merchant-Language": languageCode,
         //"ir_arabic"
 
       });

@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'package:classic_eccomerce/authentication/data/data_sources/remote_data_sources/auth_apis.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/data/data_sources/remote_data_sources/categories_apis.dart';
 import 'package:classic_eccomerce/home/data/data_sources/remote_data_sources/get_slide_shows_api.dart';
@@ -138,7 +136,7 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  setCategoriesOverview() async {
+  setCategoriesOverview({String languageCode = ""}) async {
     var response = await CategoriesApis.getCategories(1);
     if (response?.success == 1) {
       categoriesOverview = response?.categories;
@@ -194,7 +192,7 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  init() async {
+  init({String languageCode = ""}) async {
     emit(FetchingHomeScreenLoadingState());
     await setBanners();
     await setCategoriesOverview();

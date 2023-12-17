@@ -45,7 +45,7 @@ class ApiUrls {
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>
       "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";
   static String getCategoriesEndpoint(int page) =>
-      "$GET_CATEGORIES_ENDPOINT/limit/10/page/$page";
+      "$GET_CATEGORIES_ENDPOINT/limit/100/page/$page";
   static String getNewArrivalsProductsWithLimitEndpoint(int limit) =>
       "$GET_NEW_ARRIVALS_LIMIT_ENDPOINT$limit";
   static String getBestSellersWithLimitEndpoint(int limit) =>
