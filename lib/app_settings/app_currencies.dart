@@ -1,0 +1,5 @@
+enum CurrencyCodes  {
+  IQD,
+  USD
+}
+

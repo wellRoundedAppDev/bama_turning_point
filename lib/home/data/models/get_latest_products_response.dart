@@ -41,6 +41,7 @@ class LatestProduct extends Product{
       this.price,
       this.description,
         this.productImagePath,
+        this.priceFormatted,
       this.rating});
 
   factory LatestProduct.fromJson(dynamic json) {
@@ -52,8 +53,10 @@ class LatestProduct extends Product{
     var description = json['description'];
     var productImagePath = json['thumb'];
 
+    var priceFormatted = json['price_formated'];
     return LatestProduct(
         price: price,
+        priceFormatted: priceFormatted,
         quantity: quantity,
         description: description,
         name: name,
@@ -68,6 +71,7 @@ class LatestProduct extends Product{
   dynamic? rating;
   String? productImagePath;
   String? description;
+  String? priceFormatted;
 
   // Map<String, dynamic> toJson() {
   //   final map = <String, dynamic>{};

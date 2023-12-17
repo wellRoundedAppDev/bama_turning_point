@@ -1,12 +1,15 @@
 import 'dart:convert';
 
+import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/cart/data/data_sources/remote_data_sources/cart_apis.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../app_settings/app_language_codes.dart';
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
+import '../../../../core/locales/locale_cubit/locale_cubit.dart';
 import '../../../../shared_components/app_snackbar.dart';
 import '../../../data/models/cart_item.dart';
 
@@ -14,6 +17,8 @@ class CartCubit extends Cubit<CartStates> {
   CartCubit() : super(InitialCartState()) {
     // LoadCartFromDB();
   }
+  LocaleCubit? localeCubit;
+  AppSettingsCubit? appSettingsCubit;
 
   BuildContext context = MyApp.navKey.currentState!.context;
   //CartItems map used to lookup any item in the cart by its ID from any screen
@@ -29,6 +34,8 @@ class CartCubit extends Cubit<CartStates> {
   static CartCubit get(BuildContext context) => BlocProvider.of(context);
 
   loadCartItems() async {
+    localeCubit = LocaleCubit.get(context);
+    appSettingsCubit = AppSettingsCubit.get(context);
     cartItems.clear();
     emit(LoadCartLoadingState());
     // if ( AuthCubit.get(context).isUserLoggedIn != true) {
@@ -38,7 +45,11 @@ class CartCubit extends Cubit<CartStates> {
     //   }
     //   return;
     // }
-    var response = await CartApis.getCartItems();
+    var response = await CartApis.getCartItems(
+        languageCode: languageCodes[localeCubit?.locale.languageCode]??"",
+      currencyCode: appSettingsCubit?.currencyCode??""
+    );
+
     if (response?.success == 1) {
       response?.data?.cartItemsFromApi?.forEach((e) {
         if (e.productId != null) {
@@ -48,7 +59,8 @@ class CartCubit extends Cubit<CartStates> {
             "quantity": int.tryParse(e.quantity ?? ""),
             "price": e.priceRaw,
             "imagePath": e.thumb,
-            "cartId": int.tryParse(e.key ?? "")
+            "cartId": int.tryParse(e.key ?? ""),
+            "priceFormatted":e.priceFormatted
           };
           // totalPrice + (double.tryParse(e.price?.replaceAll("\$", "") ?? "")??0 *
           // (int.tryParse(e.quantity ?? "")??0));
@@ -56,9 +68,11 @@ class CartCubit extends Cubit<CartStates> {
       });
       totalPrice = response?.data?.totalRaw?.toDouble() ?? 0;
       emit(LoadCartSuccessState());
-    } else if (response?.success == 0) {
+    }
+    else if (response?.success == 0) {
       emit(LoadCartFailedState());
-    } else {
+    }
+    else {
       emit(LoadCartNetworkConnectionFailedState());
     }
   }

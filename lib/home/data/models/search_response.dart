@@ -106,6 +106,7 @@ class SearchItem {
     this.category,
     this.quantity,
     this.reviews,
+
     //this.recurrings,
   });
 

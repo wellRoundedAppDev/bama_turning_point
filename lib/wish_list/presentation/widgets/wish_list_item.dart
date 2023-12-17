@@ -81,7 +81,8 @@ class WishListItemWidget extends StatelessWidget {
                     wishlistItem?.price == null
                         ? Container()
                         : Text(
-                            wishlistItem?.price ?? "",
+                      wishlistItem?.price??"",
+                          //  wishlistItem?.price ?? "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(

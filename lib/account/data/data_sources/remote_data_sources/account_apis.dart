@@ -18,7 +18,7 @@ class AccountApis {
 
 
   static Future<Response?> getLanguages() async {
-    String endpoint = ApiUrls.GET_LANGUAGES_ENDPOINT;
+    String endpoint = ApiUrls.GET_SELECT_VALUES_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 

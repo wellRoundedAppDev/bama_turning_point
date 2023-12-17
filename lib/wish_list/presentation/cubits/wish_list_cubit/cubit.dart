@@ -1,8 +1,12 @@
+import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
+import 'package:classic_eccomerce/main.dart';
 import 'package:classic_eccomerce/wish_list/data/data_sources/remote_data_sources/wish_list_apis.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/states.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../cart/data/models/cart_item.dart';
+import '../../../../app_settings/app_language_codes.dart';
 import '../../../../shared_components/app_snackbar.dart';
 import '../../../data/models/get_wishlist_response.dart';
 
@@ -10,19 +14,30 @@ class WishListCubit extends Cubit<WishListStates> {
   WishListCubit() : super(WishListInitialState());
 
   static WishListCubit get(context) => BlocProvider.of(context);
+  LocaleCubit? localeCubit;
+  AppSettingsCubit? appSettingsCubit;
+  BuildContext context = MyApp.navKey.currentState!.context;
 
   List<WishlistItem>? wishListItems;
   int? selectedProductId;
   CartCubit? cartCubit;
 
-  init(CartCubit cartCubit) {
-    this.cartCubit = cartCubit;
-    setWishListItems();
-  }
+  init(CartCubit cartCubit)
+    {
+      localeCubit = LocaleCubit.get(context);
+      appSettingsCubit = AppSettingsCubit.get(context);
+      this.cartCubit = cartCubit;
+
+      setWishListItems();
+    }
 
   setWishListItems() async {
+
     emit(GetWishListLoadingState());
-    var response = await WishListApis.getWishlist();
+    var response = await WishListApis.getWishlist(
+        languageCode: languageCodes[LocaleCubit.get(context).locale.languageCode]
+        ,currencyCode: appSettingsCubit?.currencyCode??""
+    );
     if (response?.success == 1) {
       wishListItems = response?.wishListItems;
       emit(GetWishListSuccessState());

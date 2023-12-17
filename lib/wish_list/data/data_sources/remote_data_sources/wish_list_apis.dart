@@ -65,7 +65,13 @@ class WishListApis {
     }
   }
 
-  static Future<GetWishlistResponse?> getWishlist() async {
+  static Future<GetWishlistResponse?> getWishlist(
+      {String languageCode = "ir_arabic",
+        String currencyCode = "IQD"
+
+      }
+
+      ) async {
     String endPoint = ApiUrls.GET_WISH_LIST_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
@@ -73,7 +79,11 @@ class WishListApis {
     try {
       var response = await dioHelper.get(
           endpoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken"});
+          headers: {"Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+
+          });
       if (response == null) {
         return null;
       }

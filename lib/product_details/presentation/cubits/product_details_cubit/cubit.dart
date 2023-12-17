@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:classic_eccomerce/product_details/data/data_sources/remote_data_sources/product_details_api.dart';
 import 'package:classic_eccomerce/product_details/data/models/get_product_details_response.dart';
@@ -7,11 +8,15 @@ import 'package:classic_eccomerce/wish_list/data/data_sources/remote_data_source
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../app_settings/app_language_codes.dart';
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
+import '../../../../core/locales/locale_cubit/locale_cubit.dart';
 
 class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
   int selectedProductId;
   BuildContext context = MyApp.navKey.currentState!.context;
+  LocaleCubit? localeCubit;
+
   ProductDetailsCubit({required this.selectedProductId})
       : super(ProductDetailsInitialState());
 
@@ -26,6 +31,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
   }
 
   setProductDetails() async {
+    localeCubit = LocaleCubit.get(context);
     emit(GetProductDetailsLoadingState());
     // var success = await AuthCubit.get(context).setAccessToken();
     // if (!success) {
@@ -33,7 +39,11 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
     //   return;
     // }
     var response =
-        await ProductDetailsApi.getProductDetailsById(selectedProductId);
+        await ProductDetailsApi.getProductDetailsById(
+            selectedProductId,
+            languageCode: languageCodes[localeCubit?.locale.languageCode??""],
+          currencyCode: AppSettingsCubit.get(context).currencyCode
+        );
     if (response?.success == 1) {
       selectedProductDetails = response?.productDetails;
       emit(GetProductDetailsSuccessState());
@@ -60,7 +70,9 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
     // }
 
     emit(AddItemToFavoritesLoadingState());
-    var response = await WishListApis.addItemToWishlist(productId);
+    var response = await WishListApis.addItemToWishlist(productId,
+
+    );
     if (response == true) {
       showAppSnackBar(content: "Product added to wishlist");
       emit(AddItemToFavoritesSuccessState());
