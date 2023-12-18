@@ -2,6 +2,8 @@
   "the_language": "اللغة",
   "language": "عربي",
   "currency": "العملة",
+  "american_dollar": "دولار امريكي",
+  "iraqi_dinar": "دينار عراقي",
   "login": "تسجيل الدخول",
   "sign_up": "إنشاء حساب",
   "search_here": "ابحث هنا",

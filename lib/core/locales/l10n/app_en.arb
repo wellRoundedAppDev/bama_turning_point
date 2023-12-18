@@ -2,6 +2,8 @@
   "the_language": "Language",
   "language": "English",
   "currency": "Currency",
+  "american_dollar": "American dollar",
+  "iraqi_dinar": "Iraqi dinar",
   "login": "Login",
   "sign_up": "Sign Up",
   "search_here": "Search here",

@@ -264,66 +264,63 @@ class HomeDrawer extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     fontSize: FontSizes.FONT_SIZE_22),
                               )),
-                          content: Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                InkWell(
-                                  onTap: () async {
-                                    // context
-                                    //     .read<LocaleProvider>()
-                                    //     .setLocale(const Locale("ar"));
-                                    // context
-                                    //     .read<LocaleProvider>()
-                                    //     .saveLocaleInSharedPrefs("ar");
+                          content: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  // context
+                                  //     .read<LocaleProvider>()
+                                  //     .setLocale(const Locale("ar"));
+                                  // context
+                                  //     .read<LocaleProvider>()
+                                  //     .saveLocaleInSharedPrefs("ar");
 
-                                    appSettingsCubit.changeCurrency(CurrencyCodes.IQD.name);
-                                    homeCubit.init();
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Iraqi Dinar",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: FontSizes.FONT_SIZE_18),
-                                    ),
+                                  appSettingsCubit.changeCurrency(CurrencyCodes.IQD.name);
+                                  homeCubit.init();
+                                  Navigator.pop(context);
+                                },
+                                child:  Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    AppLocalizations.of(context)!.iraqi_dinar,
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: FontSizes.FONT_SIZE_18),
                                   ),
                                 ),
-                                const Divider(
-                                  thickness: 1,
-                                ),
-                                InkWell(
-                                  onTap: () async {
-                                    // context
-                                    //     .read<LocaleProvider>()
-                                    //     .setLocale(const Locale("en"));
-                                    // context
-                                    //     .read<LocaleProvider>()
-                                    //     .saveLocaleInSharedPrefs("en");
-                                    appSettingsCubit.changeCurrency(CurrencyCodes.USD.name);
-                                    homeCubit.init();
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "American Dollar",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: FontSizes.FONT_SIZE_18),
-                                        ),
-                                      ],
-                                    ),
+                              ),
+                              const Divider(
+                                thickness: 1,
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  // context
+                                  //     .read<LocaleProvider>()
+                                  //     .setLocale(const Locale("en"));
+                                  // context
+                                  //     .read<LocaleProvider>()
+                                  //     .saveLocaleInSharedPrefs("en");
+                                  appSettingsCubit.changeCurrency(CurrencyCodes.USD.name);
+                                  homeCubit.init();
+                                  Navigator.pop(context);
+                                },
+                                child:  Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!.american_dollar,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: FontSizes.FONT_SIZE_18),
+                                      ),
+                                    ],
                                   ),
-                                )
-                              ],
-                            ),
+                                ),
+                              )
+                            ],
                           ),
                         );
                       });
@@ -339,7 +336,7 @@ class HomeDrawer extends StatelessWidget {
                       ),
                       Text(
                         AppLocalizations.of(context)!.currency,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: FontSizes.FONT_SIZE_18,
                             color: Colors.white),
                       )
