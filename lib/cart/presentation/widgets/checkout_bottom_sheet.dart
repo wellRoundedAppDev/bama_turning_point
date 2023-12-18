@@ -12,6 +12,8 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../shared_components/custom_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class CheckOutBottomSheet extends StatelessWidget {
   const CheckOutBottomSheet({super.key});
@@ -35,9 +37,9 @@ class CheckOutBottomSheet extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
-                    "Total",
-                    style: TextStyle(
+                   Text(
+                    AppLocalizations.of(context)!.total,
+                    style: const TextStyle(
                         fontSize: FontSizes.FONT_SIZE_14,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
@@ -50,7 +52,7 @@ class CheckOutBottomSheet extends StatelessWidget {
                         CartCubit cartCubit = CartCubit.get(context);
                         String currencySymbol ="IQD";
                         return Text(
-                          " : ${cartCubit.totalPrice.toStringAsFixed(2)}$currencySymbol",
+                          ": ${cartCubit.totalPrice.toStringAsFixed(2)}$currencySymbol",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -74,7 +76,8 @@ class CheckOutBottomSheet extends StatelessWidget {
                 left: 8
               ),
               child: CustomButton(
-                text: "Checkout",
+                text:                     AppLocalizations.of(context)!.checkout,
+
                 height: MediaQuery.of(context).size.height,
                 textFontSize: FontSizes.FONT_SIZE_14,
                 action: () {

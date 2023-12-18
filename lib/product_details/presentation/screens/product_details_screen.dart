@@ -11,6 +11,8 @@ import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../shared_components/no_network_refresh_page.dart';
 import '../../data/models/get_product_details_response.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class ProductDetailsScreen extends StatelessWidget {
   int selectedProductId;
@@ -279,7 +281,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                                           .spaceBetween,
                                                   children: [
                                                     Expanded(
-                                                      child: Text(
+                                                      child:
+                                                      Text(
                                                         "Ex Tax: $priceExcludingTaxesFormatted",
                                                         style: const TextStyle(
                                                             fontSize: FontSizes
@@ -388,9 +391,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    const Text(
-                                                      "Stock :  ",
-                                                      style: TextStyle(
+                                                     Text(
+                                                      "${AppLocalizations.of(context)!.stock}:  ",
+                                                      style: const TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           color: Color(
@@ -732,9 +735,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                const Text(
-                                                  "Description",
-                                                  style: TextStyle(
+                                                 Text(
+                                                  AppLocalizations.of(context)!.description,
+                                                  style: const TextStyle(
                                                       fontSize: FontSizes
                                                           .FONT_SIZE_16,
                                                       color: Color(0xff313846),

@@ -11,6 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../core/constants/paths/image_paths.dart';
 import '../../../shared_components/custom_input.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class GuestScreen extends StatelessWidget {
   const GuestScreen({super.key});
@@ -40,11 +42,11 @@ class GuestScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
-                  hintText: "Phone Number",
+                  hintText: AppLocalizations.of(context)!.phone_number,
                   textInputType: TextInputType.phone,
                   validator: (value) {
                     if (value == null || value.length != 9) {
-                      return 'Enter a valid phone number';
+                      return AppLocalizations.of(context)!.enter_a_valid_phone_number;
                     }
                   },
                   onSaved: (v) =>
@@ -102,10 +104,10 @@ class GuestScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
-                  hintText: "First Name",
+                  hintText: AppLocalizations.of(context)!.first_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Enter your first name';
+                      return AppLocalizations.of(context)!.enter_your_first_name;
                     }
                   },
                   onSaved: (v) =>
@@ -115,10 +117,10 @@ class GuestScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
-                  hintText: "Last Name",
+                  hintText: AppLocalizations.of(context)!.family_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Enter your last name';
+                      return   AppLocalizations.of(context)!.enter_your_family_name;
                     }
                   },
                   onSaved: (v) =>
@@ -127,9 +129,9 @@ class GuestScreen extends StatelessWidget {
                 const SizedBox(
                   height: 24,
                 ),
-                const Text(
-                  "Billing Address",
-                  style: TextStyle(
+                 Text(
+                  AppLocalizations.of(context)!.billing_address ,
+                  style: const TextStyle(
                       fontSize: FontSizes.FONT_SIZE_16,
                       fontWeight: FontWeight.bold,
                       color: Color(0xff313846)),
@@ -138,10 +140,11 @@ class GuestScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
-                  hintText: "Address",
+                  hintText:                   AppLocalizations.of(context)!.address ,
+
                   validator: (value) {
                     if (value == null || value.length < 4) {
-                      return 'Enter an address of at least 4 characters';
+                      return AppLocalizations.of(context)!.enter_an_address_of_at_least_four_characters;
                     }
                   },
                   onSaved: (v) =>
@@ -197,10 +200,10 @@ class GuestScreen extends StatelessWidget {
                 //   ),
                 // ),
                 CustomInput(
-                  hintText: "City",
+                  hintText: AppLocalizations.of(context)!.city,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Enter your city';
+                      return AppLocalizations.of(context)!.enter_your_city;
                     }
                   },
                   onSaved: (v) =>
@@ -211,11 +214,11 @@ class GuestScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
-                  hintText: "Postal Code",
+                  hintText: AppLocalizations.of(context)!.postal_code,
                   textInputType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Enter your postal code';
+                      return AppLocalizations.of(context)!.enter_your_postal_code;
                     }
                   },
                   onSaved: (v) =>
@@ -236,14 +239,14 @@ class GuestScreen extends StatelessWidget {
                           // var res =
                           return await AuthCubit.get(context).getCountries();
                         },
-                        dropdownDecoratorProps: const DropDownDecoratorProps(
+                        dropdownDecoratorProps:  DropDownDecoratorProps(
                             dropdownSearchDecoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintStyle: TextStyle(
+                                hintStyle: const TextStyle(
                                   fontSize: FontSizes.FONT_SIZE_16,
                                   color: Color(0xff878787),
                                 ),
-                                hintText: "Country")),
+                                hintText: AppLocalizations.of(context)!.country)),
                         dropdownButtonProps: const DropdownButtonProps(
                             icon: Icon(
                           Icons.keyboard_arrow_down,
@@ -267,7 +270,7 @@ class GuestScreen extends StatelessWidget {
                                     .guestFormInput
                                     .country
                                     ?.name ??
-                                "Country",
+                                AppLocalizations.of(context)!.country,
                             style: const TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_16,
                                 color: Color(0xff878787)),
@@ -279,7 +282,7 @@ class GuestScreen extends StatelessWidget {
                         validator: (Country? country) {
                           if (AuthCubit.get(context).guestFormInput.country ==
                               null) {
-                            return "Select your country";
+                            return AppLocalizations.of(context)!.select_your_country;
                           }
                         },
                       ),
@@ -303,14 +306,14 @@ class GuestScreen extends StatelessWidget {
                           return await AuthCubit.get(context)
                               .getRegionOfGuest();
                         },
-                        dropdownDecoratorProps: const DropDownDecoratorProps(
+                        dropdownDecoratorProps:  DropDownDecoratorProps(
                             dropdownSearchDecoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintStyle: TextStyle(
+                                hintStyle: const TextStyle(
                                   fontSize: FontSizes.FONT_SIZE_16,
                                   color: Color(0xff878787),
                                 ),
-                                hintText: "Region / State")),
+                                hintText: AppLocalizations.of(context)!.region_or_state)),
                         dropdownButtonProps: const DropdownButtonProps(
                             icon: Icon(
                           Icons.keyboard_arrow_down,
@@ -334,7 +337,7 @@ class GuestScreen extends StatelessWidget {
                                     .guestFormInput
                                     .region
                                     ?.name ??
-                                "Region / State",
+                                AppLocalizations.of(context)!.region_or_state,
                             style: const TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_16,
                                 color: Color(0xff878787)),
@@ -346,7 +349,8 @@ class GuestScreen extends StatelessWidget {
                         validator: (Region? region) {
                           if (AuthCubit.get(context).guestFormInput.region ==
                               null) {
-                            return "Select your region";
+                           return AppLocalizations.of(context)!.select_your_region_or_state;
+
                           }
                         },
                       ),
@@ -392,7 +396,7 @@ class GuestScreen extends StatelessWidget {
                   listener: (context, state) {},
                   builder: (context, state) {
                     return CustomButton(
-                        text: "Next",
+                        text: AppLocalizations.of(context)!.next,
                         isLoading: state is CreatingGuestUserLoadingState,
                         action: () {
                           AuthCubit.get(context).createGuestUser(

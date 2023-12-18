@@ -14,6 +14,9 @@ import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../shared_components/custom_button.dart';
 import '../../data/models/get_product_details_response.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+
 
 class ProductDetailsBottomSheet extends StatelessWidget {
   const ProductDetailsBottomSheet({
@@ -93,7 +96,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                 listener: (context, child) {},
                 builder: (context, child) {
                   return CustomButton(
-                    text: "Buy Now",
+                    text: AppLocalizations.of(context)!.buy_now,
                     color: const Color(0xff2EAF23),
                     height: MediaQuery.of(context).size.height,
                     textFontSize: FontSizes.FONT_SIZE_14,
@@ -141,6 +144,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                 top: 8.0,
                 right: 8,
                 bottom: 8,
+                left: 8
               ),
               child: BlocConsumer<CartCubit, CartStates>(
                 listener: (context, state) {},
@@ -152,10 +156,10 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                       productDetailsCubit.selectedProductId.toString());
 
                   return (isProductInCart)
-                      ? const Center(
+                      ?  Center(
                           child: Text(
-                            "Added to cart",
-                            style: TextStyle(
+                            AppLocalizations.of(context)!.added_to_cart,
+                            style: const TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_14,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
@@ -168,7 +172,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                               ),
                             )
                           : CustomButton(
-                              text: "Add to cart",
+                              text: AppLocalizations.of(context)!.add_to_cart,
                               height: MediaQuery.of(context).size.height,
                               textFontSize: FontSizes.FONT_SIZE_14,
                               action: () {
