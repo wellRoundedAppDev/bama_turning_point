@@ -12,6 +12,7 @@ import '../../../../core/data/models/get_regions_response.dart';
 import '../../../../shared_components/custom_app_bar.dart';
 import '../../../../shared_components/custom_button.dart';
 import '../../../../shared_components/custom_input.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddAddressForRegisteredUserScreen extends StatelessWidget {
   const AddAddressForRegisteredUserScreen({super.key});
@@ -31,9 +32,9 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "ADD ADDRESS",
-                      style: TextStyle(
+                     Text(
+                      AppLocalizations.of(context)!.add_address,
+                      style: const TextStyle(
                           color: Color(0xff313846),
                           fontSize: FontSizes.FONT_SIZE_20,
                           fontWeight: FontWeight.bold),
@@ -54,10 +55,10 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           CustomInput(
-                            hintText: "First Name",
+                            hintText: AppLocalizations.of(context)!.first_name,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Enter your first name";
+                                return AppLocalizations.of(context)!.enter_your_first_name;
                               }
                             },
                             onSaved: (v) => CheckOutCubit.get(context)
@@ -68,10 +69,10 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                             height: 21,
                           ),
                           CustomInput(
-                            hintText: "Last Name",
+                            hintText: AppLocalizations.of(context)!.family_name,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Enter your last name";
+                                return AppLocalizations.of(context)!.enter_your_family_name;
                               }
                             },
                             onSaved: (v) => CheckOutCubit.get(context)
@@ -82,10 +83,10 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                             height: 21,
                           ),
                           CustomInput(
-                            hintText: "Address 1",
+                            hintText: "${AppLocalizations.of(context)!.address}",
                             validator: (value) {
                               if (value == null || value.length < 4) {
-                                return 'Enter an address of at least 4 characters';
+                                return AppLocalizations.of(context)!.enter_an_address_of_at_least_four_characters;
                               }
                             },
                             onSaved: (v) => CheckOutCubit.get(context)
@@ -147,10 +148,10 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                           //   ),
                           // ),
                           CustomInput(
-                            hintText: "City",
+                            hintText: AppLocalizations.of(context)!.city,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Enter your city";
+                                return AppLocalizations.of(context)!.enter_your_city;
                               }
                             },
                             onSaved: (v) => CheckOutCubit.get(context)
@@ -161,10 +162,10 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                             height: 21,
                           ),
                           CustomInput(
-                            hintText: "Postal Code",
+                            hintText: AppLocalizations.of(context)!.postal_code,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Enter your postal code";
+                                return AppLocalizations.of(context)!.enter_your_postal_code;
                               }
                             },
                             textInputType: TextInputType.number,
@@ -185,14 +186,14 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                 // searchAdsCubit.getJobCategories();
                                 return CheckOutCubit.get(context).getCountries();
                               },
-                              dropdownDecoratorProps: const DropDownDecoratorProps(
+                              dropdownDecoratorProps:  DropDownDecoratorProps(
                                   dropdownSearchDecoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintStyle: TextStyle(
+                                      hintStyle: const TextStyle(
                                         fontSize: FontSizes.FONT_SIZE_16,
                                         color: Color(0xff878787),
                                       ),
-                                      hintText: "Country")),
+                                      hintText: AppLocalizations.of(context)!.country)),
                               dropdownButtonProps: const DropdownButtonProps(
                                   icon: Icon(
                                     Icons.keyboard_arrow_down,
@@ -217,12 +218,12 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                               validator: (Country? country) {
                                 if (country  ==
                                     null) {
-                                  return "Select your country";
+                                  return AppLocalizations.of(context)!.select_your_country;
                                 }
                               },
                               dropdownBuilder: (context, country) {
                                 return Text(
-                                  country?.name ?? "Country",
+                                  country?.name ?? AppLocalizations.of(context)!.country,
                                   style: const TextStyle(
                                       fontSize: FontSizes.FONT_SIZE_16,
                                       color: Color(0xff878787)),
@@ -249,14 +250,14 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                         .getRegions();
                                   },
                                   dropdownDecoratorProps:
-                                  const DropDownDecoratorProps(
+                                   DropDownDecoratorProps(
                                       dropdownSearchDecoration: InputDecoration(
                                           border: InputBorder.none,
-                                          hintStyle: TextStyle(
+                                          hintStyle: const TextStyle(
                                             fontSize: FontSizes.FONT_SIZE_16,
                                             color: Color(0xff878787),
                                           ),
-                                          hintText: "Region / State")),
+                                          hintText: AppLocalizations.of(context)!.region_or_state)),
                                   dropdownButtonProps: const DropdownButtonProps(
                                       icon: Icon(
                                         Icons.keyboard_arrow_down,
@@ -280,7 +281,7 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                           .addAddressToOrderInput
                                           .region
                                           ?.name ??
-                                          "Region / State",
+                                          AppLocalizations.of(context)!.region_or_state,
                                       style: const TextStyle(
                                           fontSize: FontSizes.FONT_SIZE_16,
                                           color: Color(0xff878787)),
@@ -295,7 +296,7 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                         .addAddressToOrderInput
                                         .region ==
                                         null) {
-                                      return "Select your region";
+                                      return AppLocalizations.of(context)!.select_your_region_or_state;
                                     }
                                   },
                                 ),
@@ -368,7 +369,7 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                             listener: (context, state) {},
                             builder: (context, state) {
                               return CustomButton(
-                                text: "Save",
+                                text: AppLocalizations.of(context)!.save,
                                 isLoading: state is AddAddressToOrderLoadingState,
                                 action: () {
                                   CheckOutCubit.get(context).addAddressToOrder();

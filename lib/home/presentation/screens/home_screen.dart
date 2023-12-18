@@ -240,10 +240,10 @@ class HomeScreen extends StatelessWidget {
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (context, index) {
                                   String productListTitle = (index == 1)
-                                      ? "Featured Products"
+                                      ? AppLocalizations.of(context)!.featured_products
                                       : (index == 2)
-                                          ? "New Arrivals"
-                                          : "Bestsellers";
+                                          ? AppLocalizations.of(context)!.new_arrivals
+                                          : AppLocalizations.of(context)!.best_sellers;
 
                                   var products = (index == 1)
                                       ? featuredProducts

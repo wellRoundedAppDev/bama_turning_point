@@ -30,6 +30,7 @@ class CartScreen extends StatelessWidget {
                   cartId: e.value['cartId'],
                   imagePath: e.value['imagePath']))
               .toList();
+
           return SafeArea(
               child: Scaffold(
             appBar: CustomAppBar.renderAppBar(

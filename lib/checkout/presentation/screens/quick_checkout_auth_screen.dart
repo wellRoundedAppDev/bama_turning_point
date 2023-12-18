@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../shared_components/custom_app_bar.dart';
 import '../cubits/check_out_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class QuickCheckoutAuthScreen extends StatefulWidget {
   const QuickCheckoutAuthScreen({super.key});
@@ -47,21 +48,21 @@ class _QuickCheckoutAuthScreenState extends State<QuickCheckoutAuthScreen>
                     dividerColor: Colors.grey,
                     labelColor: AppColors.APP_MAIN_COLOR,
                     unselectedLabelColor: const Color(0xff313846),
-                    tabs: const [
+                    tabs:  [
                       Tab(
                           child: Text(
-                        "SIGN IN",
-                        style: TextStyle(fontSize: FontSizes.FONT_SIZE_16),
+                        AppLocalizations.of(context)!.login,
+                        style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16),
                       )),
                       Tab(
                           child: Text(
-                        "SIGN UP",
-                        style: TextStyle(fontSize: FontSizes.FONT_SIZE_16),
+                            AppLocalizations.of(context)!.sign_up,
+                        style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16),
                       )),
                       Tab(
                         child: Text(
-                          "GUEST",
-                          style: TextStyle(fontSize: FontSizes.FONT_SIZE_16),
+                          AppLocalizations.of(context)!.guest,
+                          style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16),
                         ),
                       ),
                     ]),

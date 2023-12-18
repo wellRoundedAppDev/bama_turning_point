@@ -1,11 +1,12 @@
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/paths/image_paths.dart';
 import '../../../shared_components/custom_input.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class SignUpScreen extends StatelessWidget {
   bool showBackButton;
@@ -41,11 +42,11 @@ class SignUpScreen extends StatelessWidget {
                 const SizedBox(height: 16,),
 
                 CustomInput(
-                  hintText: "Phone Number",
+                  hintText: AppLocalizations.of(context)!.phone_number,
                   textInputType: TextInputType.phone,
                   validator: (value) {
                     if (value == null || value.length != 9) {
-                      return 'Enter a valid phone number';
+                      return AppLocalizations.of(context)!.enter_a_valid_phone_number;
                     }
                   },
                   onSaved: (v) => AuthCubit.get(context)
@@ -121,10 +122,10 @@ class SignUpScreen extends StatelessWidget {
                 //   height: 16,
                 // ),
                 CustomInput(
-                  hintText: "First Name",
+                  hintText: AppLocalizations.of(context)!.first_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Enter your first name';
+                      return AppLocalizations.of(context)!.enter_your_first_name;
                     }
                   },
                   onSaved: (v) =>
@@ -134,10 +135,10 @@ class SignUpScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
-                  hintText: "Last Name",
+                  hintText: AppLocalizations.of(context)!.family_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Enter your last name';
+                      return AppLocalizations.of(context)!.enter_your_family_name;
                     }
                   },
                   onSaved: (v) =>
@@ -147,10 +148,10 @@ class SignUpScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
-                  hintText: "Password",
+                  hintText: AppLocalizations.of(context)!.password,
                   validator: (v) {
                     if (v == null || v.length < 6) {
-                      return "Enter a password of at least 6 characters";
+                      return AppLocalizations.of(context)!.enter_a_password_of_at_least_six_characters;
                     }
                   },
                   onSaved: (v) =>
@@ -160,10 +161,10 @@ class SignUpScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
-                  hintText: "Confirm Password",
+                  hintText: AppLocalizations.of(context)!.confirm_password,
                   validator: (v) {
                     if (v == null || v.length < 6) {
-                      return "Enter a password of at least 6 characters";
+                      return AppLocalizations.of(context)!.enter_a_password_of_at_least_six_characters;
                     }
                   },
                   onSaved: (v) => AuthCubit.get(context)
@@ -366,7 +367,7 @@ class SignUpScreen extends StatelessWidget {
                   listener: (context, state) {},
                   builder: (context, state) {
                     return CustomButton(
-                        text: "Sign up",
+                        text:  AppLocalizations.of(context)!.sign_up,
                         isLoading: state is RegisterLoadingState,
                         action: () {
                           AuthCubit.get(context).register();

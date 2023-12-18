@@ -12,6 +12,8 @@ import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class QuickCheckoutMainScreen extends StatelessWidget {
   const QuickCheckoutMainScreen({super.key});
@@ -54,83 +56,83 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration:
-                                  const BoxDecoration(color: Color(0xffF5F5F5)),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    IconPaths.SHIPPING,
-                                    width: 50,
-                                    height: 50,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  const SizedBox(
-                                    width: 16,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Padding(
-                                          padding: EdgeInsets.only(left: 16.0),
-                                          child: Text(
-                                            "SHIPPING METHOD",
-                                            style: TextStyle(
-                                                color: Color(0xff1E1B1B),
-                                                fontWeight: FontWeight.bold,
-                                                fontSize:
-                                                    FontSizes.FONT_SIZE_20),
-                                          ),
-                                        ),
-                                        ...List.generate(
-                                            shippingMethods?.length ?? 0,
-                                            (index) {
-                                          var shippingMethod =
-                                              shippingMethods?[index];
-                                          String? shippingMethodName =
-                                              shippingMethod?.quote?[0].title;
-                                          double? shippingMethodCost =
-                                              double.tryParse(shippingMethod
-                                                      ?.quote?[0].cost ??
-                                                  "");
-                                          if (kDebugMode) {
-                                            print(shippingMethodCost);
-                                          }
-                                          return Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 4.0),
-                                            child: RadioListTile(
-                                              value: index,
-                                              groupValue: 0,
-                                              contentPadding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 0),
-                                              dense: true,
-                                              onChanged: (index) {
-                                                checkOutCubit
-                                                    .setShippingMethod(index!);
-                                              },
-                                              title: Text(
-                                                "${shippingMethodName ?? "-"} - ${shippingMethodCost.toString() ?? "-"}IQD",
-                                                style: const TextStyle(
-                                                    fontSize:
-                                                        FontSizes.FONT_SIZE_16),
-                                              ),
-                                            ),
-                                          );
-                                        })
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
+                            // Container(
+                            //   padding: const EdgeInsets.all(16),
+                            //   decoration:
+                            //       const BoxDecoration(color: Color(0xffF5F5F5)),
+                            //   child: Row(
+                            //     children: [
+                            //       Image.asset(
+                            //         IconPaths.SHIPPING,
+                            //         width: 50,
+                            //         height: 50,
+                            //         fit: BoxFit.cover,
+                            //       ),
+                            //       const SizedBox(
+                            //         width: 16,
+                            //       ),
+                            //       Expanded(
+                            //         child: Column(
+                            //           crossAxisAlignment:
+                            //               CrossAxisAlignment.start,
+                            //           children: [
+                            //              Padding(
+                            //               padding: const EdgeInsets.only(left: 16.0),
+                            //               child: Text(
+                            //                 AppLocalizations.of(context)!.shipping_method,
+                            //                 style: const TextStyle(
+                            //                     color: Color(0xff1E1B1B),
+                            //                     fontWeight: FontWeight.bold,
+                            //                     fontSize:
+                            //                         FontSizes.FONT_SIZE_20),
+                            //               ),
+                            //             ),
+                            //             ...List.generate(
+                            //                 shippingMethods?.length ?? 0,
+                            //                 (index) {
+                            //               var shippingMethod =
+                            //                   shippingMethods?[index];
+                            //               String? shippingMethodName =
+                            //                   shippingMethod?.quote?[0].title;
+                            //               double? shippingMethodCost =
+                            //                   double.tryParse(shippingMethod
+                            //                           ?.quote?[0].cost ??
+                            //                       "");
+                            //               if (kDebugMode) {
+                            //                 print(shippingMethodCost);
+                            //               }
+                            //               return Padding(
+                            //                 padding: const EdgeInsets.symmetric(
+                            //                     horizontal: 4.0),
+                            //                 child: RadioListTile(
+                            //                   value: index,
+                            //                   groupValue: 0,
+                            //                   contentPadding:
+                            //                       const EdgeInsets.symmetric(
+                            //                           horizontal: 0),
+                            //                   dense: true,
+                            //                   onChanged: (index) {
+                            //                     checkOutCubit
+                            //                         .setShippingMethod(index!);
+                            //                   },
+                            //                   title: Text(
+                            //                     "${shippingMethodName ?? "-"} - ${shippingMethodCost.toString() ?? "-"}IQD",
+                            //                     style: const TextStyle(
+                            //                         fontSize:
+                            //                             FontSizes.FONT_SIZE_16),
+                            //                   ),
+                            //                 ),
+                            //               );
+                            //             })
+                            //           ],
+                            //         ),
+                            //       )
+                            //     ],
+                            //   ),
+                            // ),
+                            // const SizedBox(
+                            //   height: 16,
+                            // ),
                             Container(
                               padding: const EdgeInsets.all(16),
                               decoration:
@@ -151,11 +153,11 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Padding(
+                                         Padding(
                                           padding: EdgeInsets.only(left: 16.0),
                                           child: Text(
-                                            "PAYMENT METHOD",
-                                            style: TextStyle(
+                                            AppLocalizations.of(context)!.payment_method,
+                                            style: const TextStyle(
                                                 color: Color(0xff1E1B1B),
                                                 fontWeight: FontWeight.bold,
                                                 fontSize:
@@ -214,18 +216,18 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    "Coupon / Reward",
-                                    style: TextStyle(
+                                   Text(
+                                AppLocalizations.of(context)!.coupon,
+                                    style: const TextStyle(
                                         fontSize: FontSizes.FONT_SIZE_20,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(
-                                    height: 16,
+                                    height: 4,
                                   ),
-                                  const Text(
-                                    "Enter your coupon here",
-                                    style: TextStyle(
+                                    Text(
+                                    AppLocalizations.of(context)!.enter_your_coupon_here,
+                                    style: const TextStyle(
                                         fontSize: FontSizes.FONT_SIZE_16,
                                         color: Color(0xff878787)),
                                   ),
@@ -241,42 +243,40 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                       SizedBox(
                                           width: 100,
                                           child: CustomButton(
-                                              text: "Submit", action: () {}))
+                                              text: AppLocalizations.of(context)!.submit, action: () {}))
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  const Text(
-                                    "Enter your gift certificate code here",
-                                    style: TextStyle(
-                                        fontSize: FontSizes.FONT_SIZE_16,
-                                        color: Color(0xff878787)),
-                                  ),
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(child: CustomInput()),
-                                      const SizedBox(
-                                        width: 8,
-                                      ),
-                                      SizedBox(
-                                          width: 100,
-                                          child: CustomButton(
-                                              text: "Submit", action: () {}))
-                                    ],
-                                  ),
+
+                                  // const Text(
+                                  //   "Enter your gift certificate code here",
+                                  //   style: TextStyle(
+                                  //       fontSize: FontSizes.FONT_SIZE_16,
+                                  //       color: Color(0xff878787)),
+                                  // ),
+                                  // const SizedBox(
+                                  //   height: 8,
+                                  // ),
+                                  // Row(
+                                  //   children: [
+                                  //     Expanded(child: CustomInput()),
+                                  //     const SizedBox(
+                                  //       width: 8,
+                                  //     ),
+                                  //     SizedBox(
+                                  //         width: 100,
+                                  //         child: CustomButton(
+                                  //             text: "Submit", action: () {}))
+                                  //   ],
+                                  // ),
                                 ],
                               ),
                             ),
                             const SizedBox(
                               height: 16,
                             ),
-                            const Text(
-                              "SHOPPING CART",
-                              style: TextStyle(
+                             Text(
+                             AppLocalizations.of(context)!.shopping_cart ,
+                              style: const TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_20,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -298,15 +298,15 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                         vertical: 16.0, horizontal: 16),
                                     child: Row(
                                       children: [
-                                        const Text(
-                                          "Sub-Total:",
+                                         Text(
+                                          "${AppLocalizations.of(context)!.subtotal}: ",
                                           style: TextStyle(
                                               fontSize: FontSizes.FONT_SIZE_14,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Expanded(
                                           child: Text(
-                                            "${CartCubit.get(context).totalPrice}IQD",
+                                            "${CartCubit.get(context).totalPrice} IQD",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
@@ -330,14 +330,14 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "${selectedShippingMethod?.quote?[0].title ?? ""}:",
+                                          "${selectedShippingMethod?.quote?[0].title ?? ""}: ",
                                           style: const TextStyle(
                                               fontSize: FontSizes.FONT_SIZE_14,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Expanded(
                                           child: Text(
-                                            "${selectedShippingMethod?.quote?[0].cost ?? ""}IQD",
+                                            "${selectedShippingMethod?.quote?[0].cost ?? ""} IQD",
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
@@ -358,15 +358,15 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                         vertical: 16.0, horizontal: 16),
                                     child: Row(
                                       children: [
-                                        const Text(
-                                          "Total:",
-                                          style: TextStyle(
+                                         Text(
+                                          "${AppLocalizations.of(context)!.total}: ",
+                                          style: const TextStyle(
                                               fontSize: FontSizes.FONT_SIZE_14,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Expanded(
                                           child: Text(
-                                            "${CartCubit.get(context).totalPrice + (double.tryParse(selectedShippingMethod?.quote?[0].cost ?? "") ?? 0)}IQD",
+                                            "${CartCubit.get(context).totalPrice + (double.tryParse(selectedShippingMethod?.quote?[0].cost ?? "") ?? 0)} IQD",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
@@ -444,7 +444,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                               height: 16,
                             ),
                             CustomButton(
-                                text: "Confirm Order",
+                                text: AppLocalizations.of(context)!.confirm_order,
                                 isLoading: state is ConfirmOrderLoadingState,
                                 action: () {
                                   checkOutCubit

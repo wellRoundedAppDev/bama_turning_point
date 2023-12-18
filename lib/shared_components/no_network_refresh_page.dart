@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../core/constants/fonts/font_sizes.dart';
 import '../core/constants/paths/image_paths.dart';
 import 'custom_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NoNetworkRefreshPage extends StatelessWidget {
   Function()? refresh;
@@ -18,23 +19,23 @@ class NoNetworkRefreshPage extends StatelessWidget {
         const SizedBox(
           height: 32,
         ),
-        const Text(
-          "Network connection failed",
-          style: TextStyle(
+         Text(
+          AppLocalizations.of(context)!.network_connection_failed,
+          style: const TextStyle(
               fontSize: FontSizes.FONT_SIZE_18, color: Color(0xff565656)),
         ),
         const SizedBox(
           height: 8,
         ),
-        const Text(
-          "Check your internet connection and try again",
-          style: TextStyle(
+         Text(
+          AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later,
+          style: const TextStyle(
               fontSize: FontSizes.FONT_SIZE_14, color: Color(0xff565656)),
         ),
         const SizedBox(
           height: 16,
         ),
-        CustomButton(text: "Try again", action: refresh)
+        CustomButton(text: AppLocalizations.of(context)!.try_again, action: refresh)
       ],
     );
   }
