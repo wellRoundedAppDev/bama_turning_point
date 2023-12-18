@@ -234,7 +234,7 @@ class HomeScreen extends StatelessWidget {
                                 physics: const NeverScrollableScrollPhysics(),
                                 separatorBuilder: (context, index) =>
                                     const SizedBox(
-                                  height: 24,
+                                  height: 16,
                                 ),
                                 itemCount: 4,
                                 scrollDirection: Axis.vertical,

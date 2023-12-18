@@ -9,6 +9,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../categories/data/models/get_categories_response.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoriesOverview extends StatelessWidget {
   List<Category> categories;
@@ -36,12 +37,12 @@ class CategoriesOverview extends StatelessWidget {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Shop By Category",
+                       Text(
+                         AppLocalizations.of(context)!.shop_by_categories,
                         maxLines: 1,
                         textDirection: TextDirection.ltr,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: FontSizes.FONT_SIZE_20,
                             color: Color(0xff313846),
                             fontWeight: FontWeight.bold),
@@ -66,9 +67,9 @@ class CategoriesOverview extends StatelessWidget {
                                   child: CategoriesScreen()),
                               type: PageTransitionType.leftToRight));
                     },
-                    child: const Text(
-                      "View All",
-                      style: TextStyle(
+                    child:  Text(
+                      AppLocalizations.of(context)!.view_all,
+                      style: const TextStyle(
                           fontSize: FontSizes.FONT_SIZE_14,
                           color: Color(0xff8D929D)),
                     ),

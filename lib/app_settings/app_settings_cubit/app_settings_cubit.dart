@@ -11,7 +11,7 @@ class AppSettingsCubit extends Cubit<AppSettingsStates>{
 
   changeCurrency(String currencyCode){
     this.currencyCode = currencyCode;
-    //emit(ChangeCurrencyState());
+    emit(ChangeCurrencyState());
   }
 
 

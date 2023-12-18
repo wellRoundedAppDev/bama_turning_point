@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/app_settings/app_currencies.dart';
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
+import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_states.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
@@ -10,6 +11,7 @@ import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blogs/presentation/screens/blogs_screen.dart';
 import '../../../contact_us/presentation/screens/contact_us_screen.dart';
@@ -21,14 +23,13 @@ class HomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+
       backgroundColor: AppColors.APP_MAIN_COLOR,
       child: Column(
         children: [
           Column(
             children: [
-             const SizedBox(
-                height: 24,
-              ),
+
               // InkWell(
               //   onTap: () {
               //     Navigator.push(context, MaterialPageRoute(builder: (context) =>
@@ -147,6 +148,14 @@ class HomeDrawer extends StatelessWidget {
               //     ),
               //   ),
               // ),
+               Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 12),
+                child: Text(AppLocalizations.of(context)!.settings, style: const TextStyle(
+                  color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: FontSizes.FONT_SIZE_22),),
+              ),
+              const Divider(thickness: 1,color: Colors.white,),
               InkWell(
                 onTap: () {
                   // AuthCubit.get(context).logOut(CartCubit.get(context)).then((value) {
@@ -230,7 +239,7 @@ class HomeDrawer extends StatelessWidget {
                       });
                 },
                 child:  Padding(
-                  padding: const EdgeInsets.all(24.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -238,11 +247,13 @@ class HomeDrawer extends StatelessWidget {
                       const SizedBox(
                         width: 24,
                       ),
-                      Text(
-                        AppLocalizations.of(context)!.language,
-                        style: const TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_18,
-                            color: Colors.white),
+                      Expanded(
+                        child: Text(
+                          AppLocalizations.of(context)!.language,
+                          style: const TextStyle(
+                              fontSize: FontSizes.FONT_SIZE_18,
+                              color: Colors.white),
+                        ),
                       )
                     ],
                   ),
@@ -258,7 +269,7 @@ class HomeDrawer extends StatelessWidget {
                         return AlertDialog(
                           title:  Center(
                               child: Text(
-                                AppLocalizations.of(context)!.the_language,
+                                AppLocalizations.of(context)!.currency,
                                 // "Currency",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -284,7 +295,7 @@ class HomeDrawer extends StatelessWidget {
                                 child:  Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    AppLocalizations.of(context)!.iraqi_dinar,
+                                    "${AppLocalizations.of(context)!.iraqi_dinar} (IQD)",
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: FontSizes.FONT_SIZE_18),
@@ -311,8 +322,8 @@ class HomeDrawer extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Text(
-                                        AppLocalizations.of(context)!.american_dollar,
-                                        style: TextStyle(
+                                        "${AppLocalizations.of(context)!.american_dollar} (USD)",
+                                        style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: FontSizes.FONT_SIZE_18),
                                       ),
@@ -326,7 +337,7 @@ class HomeDrawer extends StatelessWidget {
                       });
                 },
                 child:  Padding(
-                  padding: const EdgeInsets.all(24.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -334,11 +345,19 @@ class HomeDrawer extends StatelessWidget {
                       const SizedBox(
                         width: 24,
                       ),
-                      Text(
-                        AppLocalizations.of(context)!.currency,
-                        style: const TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_18,
-                            color: Colors.white),
+                      BlocConsumer<AppSettingsCubit,AppSettingsStates>(
+                        listener: (context,state){},
+                        builder: (context,state){
+                          return Expanded(
+                            child: Text(
+                              (AppSettingsCubit.get(context).currencyCode == "USD")?"${AppLocalizations.of(context)!.american_dollar} (USD)":
+                              "${AppLocalizations.of(context)!.iraqi_dinar} (IQD)",
+                              style: const TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_18,
+                                  color: Colors.white),
+                            ),
+                          );
+                        },
                       )
                     ],
                   ),

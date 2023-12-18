@@ -9,6 +9,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../data/models/product.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductsOverview extends StatelessWidget {
   var products;
@@ -63,8 +64,8 @@ class ProductsOverview extends StatelessWidget {
                     //         child: const ProductsInCategoryScreen(),
                     //         type: PageTransitionType.leftToRight));
                   },
-                  child: const Text(
-                    "View All",
+                  child:  Text(
+                    AppLocalizations.of(context)!.view_all,
                     style: TextStyle(
                         fontSize: FontSizes.FONT_SIZE_14,
                         color: Color(0xff8D929D)),
