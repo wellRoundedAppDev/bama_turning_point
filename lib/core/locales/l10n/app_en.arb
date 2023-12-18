@@ -1,7 +1,10 @@
 {
+  "the_language": "Language",
   "language": "English",
+  "currency": "Currency",
   "login": "Login",
   "sign_up": "Sign Up",
+  "search_here": "Search here",
   "verify_your_number": "Verify your phone number",
   "phone_number": "Phone number",
   "enter_your_phone_number": "Enter your phone number",

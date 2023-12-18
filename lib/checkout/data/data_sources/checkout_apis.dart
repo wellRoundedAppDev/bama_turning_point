@@ -98,7 +98,13 @@ class CheckoutApis {
     }
   }
 
-  static Future<GetShippingMethodsResponse?> getShippingMethods() async {
+  static Future<GetShippingMethodsResponse?> getShippingMethods(
+      {String languageCode = "ir_arabic",
+        String currencyCode = "IQD"
+
+      }
+
+      ) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
     String endPoint = ApiUrls.SHIPPING_METHODS_ENDPOINT;
@@ -106,7 +112,12 @@ class CheckoutApis {
     try {
       var response = await _dioHelper.get(
           endpoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken"});
+          headers: {"Authorization": "Bearer $accessToken",
+
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+
+          });
       if (response == null) {
         return null;
       }

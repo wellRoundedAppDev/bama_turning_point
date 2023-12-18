@@ -42,7 +42,7 @@ class SearchAppBarCustomInput extends StatelessWidget {
     this.textInputType,
     this.borderWidth = 1,
     this.validator,
-    this.textAlign = TextAlign.left,
+    this.textAlign = TextAlign.start,
     this.filledColor = const Color(0xff5A606B),
     this.hintTextStyle,
     this.onTap,

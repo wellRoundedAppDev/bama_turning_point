@@ -15,6 +15,7 @@ import 'core/bloc_observer.dart';
 import 'core/constants/colors/colors.dart';
 import 'core/constants/fonts/font_families.dart';
 import 'core/locales/l10n/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,7 +47,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AppSettingsCubit(),
         ),
-
       ],
       child: BlocConsumer<LocaleCubit, LocaleStates>(
         listener: (context, state) {},
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
             supportedLocales: L10n.all,
             debugShowCheckedModeBanner: false,
             localizationsDelegates: const [
-              //AppLocalizations.delegate,
+              AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate

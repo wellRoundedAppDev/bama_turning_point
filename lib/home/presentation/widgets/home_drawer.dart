@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 
 import '../../../blogs/presentation/screens/blogs_screen.dart';
 import '../../../contact_us/presentation/screens/contact_us_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({super.key});
@@ -157,11 +158,10 @@ class HomeDrawer extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: const Center(
+                          title:  Center(
                               child: Text(
-                                // AppLocalizations.of(context)!.the_language,
-                                "Language",
-                                style: TextStyle(
+                                AppLocalizations.of(context)!.the_language,
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: FontSizes.FONT_SIZE_22),
                               )),
@@ -229,18 +229,18 @@ class HomeDrawer extends StatelessWidget {
                         );
                       });
                 },
-                child: const Padding(
-                  padding: EdgeInsets.all(24.0),
+                child:  Padding(
+                  padding: const EdgeInsets.all(24.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(Icons.language,size: 30,color: Colors.white,),
-                      SizedBox(
+                      const Icon(Icons.language,size: 30,color: Colors.white,),
+                      const SizedBox(
                         width: 24,
                       ),
                       Text(
-                        "Language",
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.language,
+                        style: const TextStyle(
                             fontSize: FontSizes.FONT_SIZE_18,
                             color: Colors.white),
                       )
@@ -256,11 +256,11 @@ class HomeDrawer extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: const Center(
+                          title:  Center(
                               child: Text(
-                                // AppLocalizations.of(context)!.the_language,
-                                "Currency",
-                                style: TextStyle(
+                                AppLocalizations.of(context)!.the_language,
+                                // "Currency",
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: FontSizes.FONT_SIZE_22),
                               )),
@@ -328,17 +328,17 @@ class HomeDrawer extends StatelessWidget {
                         );
                       });
                 },
-                child: const Padding(
-                  padding: EdgeInsets.all(24.0),
+                child:  Padding(
+                  padding: const EdgeInsets.all(24.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(Icons.currency_exchange_outlined,size: 30,color: Colors.white,),
-                      SizedBox(
+                      const Icon(Icons.currency_exchange_outlined,size: 30,color: Colors.white,),
+                      const SizedBox(
                         width: 24,
                       ),
                       Text(
-                        "Currency",
+                        AppLocalizations.of(context)!.currency,
                         style: TextStyle(
                             fontSize: FontSizes.FONT_SIZE_18,
                             color: Colors.white),

@@ -27,7 +27,12 @@ class CartCubit extends Cubit<CartStates> {
   //total price of cart
   double totalPrice = 0;
 
-  num numberOfItemsInCart =  MyApp.navKey.currentState?.context.read<AuthCubit>().loginResponse?.loginData?.cartCountProducts??0;
+  num numberOfItemsInCart = MyApp.navKey.currentState?.context
+          .read<AuthCubit>()
+          .loginResponse
+          ?.loginData
+          ?.cartCountProducts ??
+      0;
   String? selectedCartProductId;
 
   //to call cubit
@@ -46,8 +51,8 @@ class CartCubit extends Cubit<CartStates> {
     //   return;
     // }
     var response = await CartApis.getCartItems(
-        languageCode: languageCodes[localeCubit?.locale.languageCode]??"",
-      currencyCode: appSettingsCubit?.currencyCode??""
+        languageCode: languageCodes[localeCubit?.locale.languageCode] ?? "",
+        currencyCode: appSettingsCubit?.currencyCode ?? ""
     );
 
     if (response?.success == 1) {
@@ -60,19 +65,21 @@ class CartCubit extends Cubit<CartStates> {
             "price": e.priceRaw,
             "imagePath": e.thumb,
             "cartId": int.tryParse(e.key ?? ""),
-            "priceFormatted":e.priceFormatted
+            "priceFormatted": e.priceFormatted
           };
           // totalPrice + (double.tryParse(e.price?.replaceAll("\$", "") ?? "")??0 *
           // (int.tryParse(e.quantity ?? "")??0));
         }
       });
+      // totalPrice = (cartItems.isNotEmpty == true)?cartItems.entries
+      //     .map((e) => (double.tryParse(e.value['priceFormatted'].toString().replaceAll("\$", "").replaceAll("IQD", "")??"")??0 )* e.value['quantity'])
+      //     .toList()
+      //     .reduce((value, element) => value + element).toDouble():0;
       totalPrice = response?.data?.totalRaw?.toDouble() ?? 0;
       emit(LoadCartSuccessState());
-    }
-    else if (response?.success == 0) {
+    } else if (response?.success == 0) {
       emit(LoadCartFailedState());
-    }
-    else {
+    } else {
       emit(LoadCartNetworkConnectionFailedState());
     }
   }
@@ -157,17 +164,17 @@ class CartCubit extends Cubit<CartStates> {
     }
 
     int quantity = cartItems[id]["quantity"];
-    double? price = double.tryParse(cartItems[id]["price"]?.toString()??"");
+    double? price = double.tryParse(cartItems[id]["price"]?.toString() ?? "");
 
-    totalPrice = totalPrice - (quantity * (price??0));
+    totalPrice = totalPrice - (quantity * (price ?? 0));
     cartItems.removeWhere((key, value) => key == id);
     numberOfItemsInCart = numberOfItemsInCart - quantity;
     // SaveCartInDB();
     emit(ItemDeletedFromCartSuccessState());
   }
 
-  increaseProductQuantity(String id, int cartId,{bool SaveInDB = true}) async {
-    if(state is UpdateCartItemQuantityLoadingState){
+  increaseProductQuantity(String id, int cartId, {bool SaveInDB = true}) async {
+    if (state is UpdateCartItemQuantityLoadingState) {
       return;
     }
     emit(UpdateCartItemQuantityLoadingState());
@@ -184,7 +191,8 @@ class CartCubit extends Cubit<CartStates> {
         return;
       }
     }
-    var success = await CartApis.updateCartItemQuantity(cartId, cartItems[id]['quantity'] + 1);
+    var success = await CartApis.updateCartItemQuantity(
+        cartId, cartItems[id]['quantity'] + 1);
     if (success == false) {
       emit(UpdateCartItemQuantityFailedState());
       showAppSnackBar(content: "Error occurred");
@@ -209,11 +217,11 @@ class CartCubit extends Cubit<CartStates> {
   }
 
   //
-  decreaseProductQuantity(String id,int cartId) async {
+  decreaseProductQuantity(String id, int cartId) async {
     int quantity = cartItems[id]['quantity'];
     double price = cartItems[id]['price']?.toDouble();
 
-    if(state is UpdateCartItemQuantityLoadingState || quantity == 1){
+    if (state is UpdateCartItemQuantityLoadingState || quantity == 1) {
       return;
     }
 
@@ -231,7 +239,8 @@ class CartCubit extends Cubit<CartStates> {
         return;
       }
     }
-    var success = await CartApis.updateCartItemQuantity(cartId, cartItems[id]['quantity'] - 1);
+    var success = await CartApis.updateCartItemQuantity(
+        cartId, cartItems[id]['quantity'] - 1);
     if (success == false) {
       emit(UpdateCartItemQuantityFailedState());
       showAppSnackBar(content: "Error occurred");
@@ -267,8 +276,6 @@ class CartCubit extends Cubit<CartStates> {
     // SaveCartInDB();
     emit(CartIsClearedState());
   }
-
-
 
   // this is used to store a cart info in the database. so that when the user
   // exists the app the data presists.

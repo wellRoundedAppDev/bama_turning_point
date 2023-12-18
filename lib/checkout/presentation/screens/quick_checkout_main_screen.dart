@@ -114,7 +114,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                                     .setShippingMethod(index!);
                                               },
                                               title: Text(
-                                                "${shippingMethodName ?? "-"} - \$${shippingMethodCost.toString() ?? "-"}",
+                                                "${shippingMethodName ?? "-"} - ${shippingMethodCost.toString() ?? "-"}IQD",
                                                 style: const TextStyle(
                                                     fontSize:
                                                         FontSizes.FONT_SIZE_16),
@@ -306,7 +306,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: Text(
-                                            "\$${CartCubit.get(context).totalPrice}",
+                                            "${CartCubit.get(context).totalPrice}IQD",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
@@ -337,7 +337,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: Text(
-                                            "\$${selectedShippingMethod?.quote?[0].cost ?? ""}",
+                                            "${selectedShippingMethod?.quote?[0].cost ?? ""}IQD",
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
@@ -366,7 +366,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: Text(
-                                            "\$${CartCubit.get(context).totalPrice + (double.tryParse(selectedShippingMethod?.quote?[0].cost ?? "") ?? 0)} ",
+                                            "${CartCubit.get(context).totalPrice + (double.tryParse(selectedShippingMethod?.quote?[0].cost ?? "") ?? 0)}IQD",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,

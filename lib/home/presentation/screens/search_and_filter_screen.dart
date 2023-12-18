@@ -15,6 +15,7 @@ import '../../../core/constants/fonts/font_families.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../core/constants/paths/image_paths.dart';
 import '../../../shared_components/search_app_bar_custom_input.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchAndFilterScreen extends StatelessWidget {
   const SearchAndFilterScreen({super.key});
@@ -120,30 +121,27 @@ class SearchAndFilterScreen extends StatelessWidget {
                   const Spacer(),
                   SizedBox(
                       height: 45,
-                      child: Directionality(
-                        textDirection: TextDirection.ltr,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: SearchAppBarCustomInput(
-                            isFilled: true,
-                            filledColor: AppColors.APP_BAR_SEARCH_FIELD,
-                            hintText: "TYPE HERE",
-                            autoFocus: true,
-                            onChanged: (searchTerm) {
-                              SearchCubit.get(context)
-                                  .setSearchResults(searchTerm);
-                            },
-                            textDirection: TextDirection.ltr,
-                            textAlign: TextAlign.left,
-                            hintTextStyle: const TextStyle(
-                                color: Colors.white,
-                                fontSize: FontSizes.FONT_SIZE_14,
-                                fontFamily: FontFamilies.OPEN_SANS),
-                            suffixIcon: const Icon(
-                              Icons.search,
-                              size: 20,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: SearchAppBarCustomInput(
+                          isFilled: true,
+                          filledColor: AppColors.APP_BAR_SEARCH_FIELD,
+                          hintText: AppLocalizations.of(context)!.search_here,
+                          autoFocus: true,
+                          onChanged: (searchTerm) {
+                            SearchCubit.get(context)
+                                .setSearchResults(searchTerm);
+                          },
+                          // textDirection: TextDirection.ltr,
+                          textAlign: TextAlign.start,
+                          hintTextStyle: const TextStyle(
                               color: Colors.white,
-                            ),
+                              fontSize: FontSizes.FONT_SIZE_14,
+                              fontFamily: FontFamilies.OPEN_SANS),
+                          suffixIcon: const Icon(
+                            Icons.search,
+                            size: 20,
+                            color: Colors.white,
                           ),
                         ),
                       )),

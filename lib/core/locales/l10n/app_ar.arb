@@ -1,7 +1,10 @@
 {
+  "the_language": "اللغة",
   "language": "عربي",
+  "currency": "العملة",
   "login": "تسجيل الدخول",
   "sign_up": "إنشاء حساب",
+  "search_here": "ابحث هنا",
   "verify_your_number": "تحقق من رقم جوالك",
   "phone_number": "رقم الهاتف",
   "enter_your_phone_number": "ادخل رقم هاتفك",

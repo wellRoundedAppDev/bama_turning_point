@@ -20,6 +20,8 @@ import '../../../cart/presentation/cubits/cart_cubit/states.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../data/models/get_slide_shows_response.dart';
 import '../widgets/home_drawer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -133,41 +135,37 @@ class HomeScreen extends StatelessWidget {
                       const Spacer(),
                       SizedBox(
                           height: 45,
-                          child: Directionality(
-                            textDirection: TextDirection.ltr,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: SearchAppBarCustomInput(
-                                isFilled: true,
-                                filledColor: AppColors.APP_BAR_SEARCH_FIELD,
-                                hintText: "TYPE HERE",
-                                textDirection: TextDirection.ltr,
-                                textAlign: TextAlign.left,
-                                readOnly: true,
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      PageTransition(
-                                          child: BlocProvider.value(
-                                              value: CartCubit.get(context),
-                                              child: BlocProvider(
-                                                  create: (context) =>
-                                                      SearchCubit()
-                                                        ..setSearchResults(""),
-                                                  child:
-                                                      const SearchAndFilterScreen())),
-                                          type: PageTransitionType.fade));
-                                },
-                                hintTextStyle: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: FontSizes.FONT_SIZE_14,
-                                    fontFamily: FontFamilies.OPEN_SANS),
-                                suffixIcon: const Icon(
-                                  Icons.search,
-                                  size: 20,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: SearchAppBarCustomInput(
+                              filledColor: AppColors.APP_BAR_SEARCH_FIELD,
+                              hintText: AppLocalizations.of(context)!.search_here,
+                              textAlign: TextAlign.start,
+                              isFilled: true,
+                              readOnly: true,
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        child: BlocProvider.value(
+                                            value: CartCubit.get(context),
+                                            child: BlocProvider(
+                                                create: (context) =>
+                                                    SearchCubit()
+                                                      ..setSearchResults(""),
+                                                child:
+                                                    const SearchAndFilterScreen())),
+                                        type: PageTransitionType.fade));
+                              },
+                              hintTextStyle: const TextStyle(
                                   color: Colors.white,
-                                ),
+                                  fontSize: FontSizes.FONT_SIZE_14,
+                                  fontFamily: FontFamilies.OPEN_SANS),
+                              suffixIcon: const Icon(
+                                Icons.search,
+                                size: 20,
+                                color: Colors.white,
                               ),
                             ),
                           )),

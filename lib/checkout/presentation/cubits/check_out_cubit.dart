@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/authentication/data/models/guest_form_input.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
@@ -8,10 +9,12 @@ import 'package:classic_eccomerce/checkout/data/models/get_payment_methods_respo
 import 'package:classic_eccomerce/checkout/data/models/get_shipping_methods_response.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/states.dart';
 import 'package:classic_eccomerce/checkout/presentation/screens/order_success_screen.dart';
+import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../../app_settings/app_language_codes.dart';
 import '../../../core/data/data_sources/remote_data_sources/get_countries_api.dart';
 import '../../../core/data/models/get_countries_response.dart';
 import '../../../core/data/models/get_regions_response.dart';
@@ -200,7 +203,13 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   }
 
   Future<bool?> getShippingMethods() async {
-    var response = await CheckoutApis.getShippingMethods();
+    LocaleCubit localeCubit = LocaleCubit.get(context);
+    AppSettingsCubit appSettingsCubit = AppSettingsCubit.get(context);
+
+    var response = await CheckoutApis.getShippingMethods(
+        languageCode: languageCodes[localeCubit.locale.languageCode] ?? "",
+        currencyCode: appSettingsCubit.currencyCode ?? ""
+    );
     if (response?.success == 1) {
       shippingMethods = response?.data?.shippingMethods;
       return true;
@@ -282,7 +291,9 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
 
   Future<bool?> setShippingMethodByApi() async {
     var response =
-        await CheckoutApis.setShippingMethod(selectedShippingMethod!);
+        await CheckoutApis.setShippingMethod(selectedShippingMethod!,
+
+        );
     if (response == true) {
       return true;
     } else if (response == false) {
