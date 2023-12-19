@@ -103,6 +103,10 @@
   "change_your_password": "غير كلمة المرور الخاصة بك",
   "my_orders": "طلباتي",
   "view_your_orders_history": "عرض تاريخ طلباتك",
+  "address_book_entries": "دفتر العناوين",
+  "region": "المنطقة",
+  "edit": "تعديل",
+  "delete": "حذف",
 
 
   "welcome_user": "اهلاً بك, {username}"

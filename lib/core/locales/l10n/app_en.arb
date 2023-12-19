@@ -105,6 +105,12 @@
   "change_your_password": "Change your password",
   "my_orders": "My orders",
   "view_your_orders_history": "View your orders history",
+  "address_book_entries": "Address book entries",
+  "region": "Region",
+  "edit": "Edit",
+  "delete": "Delete",
+
+
   "welcome_user": "Welcome {username}",
   "@welcome_user": {
     "placeholders": {
