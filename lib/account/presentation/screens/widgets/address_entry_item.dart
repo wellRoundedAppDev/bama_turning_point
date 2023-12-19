@@ -7,6 +7,7 @@ import '../../../../core/constants/fonts/font_sizes.dart';
 import '../../../../shared_components/custom_button.dart';
 import '../../../data/models/account_address.dart';
 import '../address_book_entries/edit_address_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddressEntryItem extends StatelessWidget {
   AccountAddress? address;
@@ -32,9 +33,9 @@ class AddressEntryItem extends StatelessWidget {
                       vertical: 16.0, horizontal: 16),
                   child: Row(
                     children: [
-                      const Text(
-                        "Full Name : ",
-                        style: TextStyle(
+                       Text(
+                        "${AppLocalizations.of(context)!.full_name}: ",
+                        style: const TextStyle(
                             fontSize: FontSizes.FONT_SIZE_14,
                             fontWeight: FontWeight.bold),
                       ),
@@ -60,9 +61,9 @@ class AddressEntryItem extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Address : ",
-                        style: TextStyle(
+                       Text(
+                        "${AppLocalizations.of(context)!.address}: ",
+                        style: const TextStyle(
                             fontSize: FontSizes.FONT_SIZE_14,
                             fontWeight: FontWeight.bold),
                       ),
@@ -78,6 +79,33 @@ class AddressEntryItem extends StatelessWidget {
                     ],
                   ),
                 ),
+                // Container(
+                //   height: 1,
+                //   color: const Color(0xffB6BBC6),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(
+                //       vertical: 16.0, horizontal: 16),
+                //   child: Row(
+                //     children: [
+                //       const Text(
+                //         "Post Code : ",
+                //         style: TextStyle(
+                //             fontSize: FontSizes.FONT_SIZE_14,
+                //             fontWeight: FontWeight.bold),
+                //       ),
+                //       Expanded(
+                //         child: Text(
+                //           address?.postcode ?? "",
+                //           maxLines: 1,
+                //           overflow: TextOverflow.ellipsis,
+                //           style:
+                //               const TextStyle(fontSize: FontSizes.FONT_SIZE_14),
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                // ),
                 Container(
                   height: 1,
                   color: const Color(0xffB6BBC6),
@@ -87,36 +115,9 @@ class AddressEntryItem extends StatelessWidget {
                       vertical: 16.0, horizontal: 16),
                   child: Row(
                     children: [
-                      const Text(
-                        "Post Code : ",
-                        style: TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Expanded(
-                        child: Text(
-                          address?.postcode ?? "",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style:
-                              const TextStyle(fontSize: FontSizes.FONT_SIZE_14),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 1,
-                  color: const Color(0xffB6BBC6),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 16.0, horizontal: 16),
-                  child: Row(
-                    children: [
-                      const Text(
-                        "City : ",
-                        style: TextStyle(
+                       Text(
+                        "${AppLocalizations.of(context)!.city}: ",
+                        style: const TextStyle(
                             fontSize: FontSizes.FONT_SIZE_14,
                             fontWeight: FontWeight.bold),
                       ),
@@ -141,9 +142,9 @@ class AddressEntryItem extends StatelessWidget {
                       vertical: 16.0, horizontal: 16),
                   child: Row(
                     children: [
-                      const Text(
-                        "Country : ",
-                        style: TextStyle(
+                       Text(
+                        "${AppLocalizations.of(context)!.country}: ",
+                        style: const TextStyle(
                             fontSize: FontSizes.FONT_SIZE_14,
                             fontWeight: FontWeight.bold),
                       ),
@@ -168,9 +169,9 @@ class AddressEntryItem extends StatelessWidget {
                       vertical: 16.0, horizontal: 16),
                   child: Row(
                     children: [
-                      const Text(
-                        "Region : ",
-                        style: TextStyle(
+                       Text(
+                        "${AppLocalizations.of(context)!.region}: ",
+                        style: const TextStyle(
                             fontSize: FontSizes.FONT_SIZE_14,
                             fontWeight: FontWeight.bold),
                       ),
@@ -201,7 +202,7 @@ class AddressEntryItem extends StatelessWidget {
               SizedBox(
                   height: 35,
                   child: CustomButton(
-                    text: "Edit",
+                    text: AppLocalizations.of(context)!.edit,
                     action: () {
                       AccountCubit.get(context).initEditAddressScreen(address);
                       Navigator.push(
@@ -214,7 +215,6 @@ class AddressEntryItem extends StatelessWidget {
                                   )),
                               type: PageTransitionType.leftToRight));
                     },
-                    color: const Color(0xff313846),
                   )),
               const SizedBox(
                 width: 8,
@@ -225,7 +225,9 @@ class AddressEntryItem extends StatelessWidget {
                   listener: (context, state) {},
                   builder: (context, state) {
                     return CustomButton(
-                      text: "Delete",
+                      color: const Color(0xff313846),
+
+                      text: AppLocalizations.of(context)!.delete,
                       action: () {
                         AccountCubit.get(context).deleteAddressInAccount(
                             int.parse(address?.addressId ?? ""));

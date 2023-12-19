@@ -11,6 +11,7 @@ import '../../../../shared_components/custom_input.dart';
 import '../../../data/models/account_address.dart';
 import '../../cubits/account_cubit/cubit.dart';
 import '../../cubits/account_cubit/states.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditAddressScreen extends StatelessWidget {
   AccountAddress? accountAddress;
@@ -30,8 +31,8 @@ class EditAddressScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "EDIT ADDRESS",
+                 Text(
+                  AppLocalizations.of(context)!.edit_address,
                   style: TextStyle(
                       color: Color(0xff313846),
                       fontSize: FontSizes.FONT_SIZE_20,

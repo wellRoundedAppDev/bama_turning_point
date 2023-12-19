@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../shared_components/custom_input.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditAccountInformationScreen extends StatelessWidget {
   const EditAccountInformationScreen({super.key});
@@ -44,9 +45,9 @@ class EditAccountInformationScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                "Edit your account information",
-                                style: TextStyle(
+                               Text(
+                                AppLocalizations.of(context)!.edit_your_account_info,
+                                style: const TextStyle(
                                     color: Color(0xff313846),
                                     fontSize: FontSizes.FONT_SIZE_20,
                                     fontWeight: FontWeight.bold),
@@ -63,13 +64,13 @@ class EditAccountInformationScreen extends StatelessWidget {
                                 height: 24,
                               ),
                               CustomInput(
-                                hintText: "First Name",
-                                label: "First Name",
+                                hintText: AppLocalizations.of(context)!.first_name,
+                                label: AppLocalizations.of(context)!.first_name,
                                 controller:
                                     accountCubit.firstNameEditingController,
                                 validator: (v) {
                                   if (v == null || v.isEmpty) {
-                                    return "Enter first name";
+                                    return AppLocalizations.of(context)!.enter_your_first_name;
                                   }
                                 },
                                 onSaved: (v) =>
@@ -80,13 +81,13 @@ class EditAccountInformationScreen extends StatelessWidget {
                                 height: 16,
                               ),
                               CustomInput(
-                                hintText: "Last Name",
-                                label: "Last Name",
+                                hintText: AppLocalizations.of(context)!.family_name,
+                                label: AppLocalizations.of(context)!.family_name,
                                 controller:
                                     accountCubit.lastNameEditingController,
                                 validator: (v) {
                                   if (v == null || v.isEmpty) {
-                                    return "Enter last name";
+                                    return AppLocalizations.of(context)!.enter_your_family_name;
                                   }
                                 },
                                 onSaved: (v) =>
@@ -186,7 +187,7 @@ class EditAccountInformationScreen extends StatelessWidget {
                               ),
                               CustomButton(
                                   isLoading: state is EditAccountLoadingState,
-                                  text: "Save",
+                                  text: AppLocalizations.of(context)!.save,
                                   action: () {
                                     accountCubit.editAccountDetails();
                                   })

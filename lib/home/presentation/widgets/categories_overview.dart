@@ -23,58 +23,61 @@ class CategoriesOverview extends StatelessWidget {
         CategoriesCubit categoriesCubit = CategoriesCubit.get(context);
         return Container(
           color: Colors.white,
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           height: MediaQuery.of(context).size.height * 0.25,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                      child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                       Text(
-                         AppLocalizations.of(context)!.shop_by_categories,
-                        maxLines: 1,
-                        textDirection: TextDirection.ltr,
-                        overflow: TextOverflow.ellipsis,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                         Text(
+                           AppLocalizations.of(context)!.shop_by_categories,
+                          maxLines: 1,
+                          textDirection: TextDirection.ltr,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontSize: FontSizes.FONT_SIZE_20,
+                              color: Color(0xff313846),
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          width: 40,
+                          height: 3,
+                          color: AppColors.APP_MAIN_COLOR,
+                        )
+                      ],
+                    )),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: BlocProvider.value(
+                                    value: CartCubit.get(context),
+                                    child: CategoriesScreen()),
+                                type: PageTransitionType.leftToRight));
+                      },
+                      child:  Text(
+                        AppLocalizations.of(context)!.view_all,
                         style: const TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_20,
-                            color: Color(0xff313846),
-                            fontWeight: FontWeight.bold),
+                            fontSize: FontSizes.FONT_SIZE_14,
+                            color: Color(0xff8D929D)),
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        width: 40,
-                        height: 3,
-                        color: AppColors.APP_MAIN_COLOR,
-                      )
-                    ],
-                  )),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              child: BlocProvider.value(
-                                  value: CartCubit.get(context),
-                                  child: CategoriesScreen()),
-                              type: PageTransitionType.leftToRight));
-                    },
-                    child:  Text(
-                      AppLocalizations.of(context)!.view_all,
-                      style: const TextStyle(
-                          fontSize: FontSizes.FONT_SIZE_14,
-                          color: Color(0xff8D929D)),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 16,
@@ -87,56 +90,64 @@ class CategoriesOverview extends StatelessWidget {
                       Category category = categories[index];
                       String? categoryName = category.name;
                       String? categoryImageUrl = category.originalImage;
-                      return GestureDetector(
-                        onTap: () {
-                          categoriesCubit.setAllProductsInCategory(category);
-                          Navigator.push(
-                              context,
-                              PageTransition(
-                                  child: BlocProvider.value(
-                                      value: categoriesCubit,
+                      return Row(
+                        children: [
+                          (index == 0)?const SizedBox(width: 16,):Container(),
+
+                          GestureDetector(
+                            onTap: () {
+                              categoriesCubit.setAllProductsInCategory(category);
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
                                       child: BlocProvider.value(
-                                          value: CartCubit.get(context),
-                                          child:
-                                              const ProductsInCategoryScreen())),
-                                  type: PageTransitionType.leftToRight));
-                        },
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          child: Column(
-                            children: [
-                              ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: Image.network(
-                                    categoryImageUrl ?? "",
-                                    errorBuilder:
-                                        (context, object, stackTrace) {
-                                      return const Icon(
-                                        Icons.error,
-                                        size: 150,
-                                        color: AppColors.APP_MAIN_COLOR,
-                                      );
-                                    },
-                                    width: 55,
-                                    height: 55,
-                                    fit: BoxFit.cover,
-                                  )),
-                              const SizedBox(
-                                height: 8,
+                                          value: categoriesCubit,
+                                          child: BlocProvider.value(
+                                              value: CartCubit.get(context),
+                                              child:
+                                                  const ProductsInCategoryScreen())),
+                                      type: PageTransitionType.leftToRight));
+                            },
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              child: Column(
+                                children: [
+                                  ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Image.network(
+                                        categoryImageUrl ?? "",
+                                        errorBuilder:
+                                            (context, object, stackTrace) {
+                                          return const Icon(
+                                            Icons.error,
+                                            size: 150,
+                                            color: AppColors.APP_MAIN_COLOR,
+                                          );
+                                        },
+                                        width: 55,
+                                        height: 55,
+                                        fit: BoxFit.cover,
+                                      )),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    categoryName ?? "-",
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        color: Color(0xff333333),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: FontSizes.FONT_SIZE_12),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                categoryName ?? "-",
-                                textAlign: TextAlign.center,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    color: Color(0xff333333),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: FontSizes.FONT_SIZE_12),
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
+                          (index == categories.length - 1)?const SizedBox(width: 16,):Container(),
+
+                        ],
                       );
                     },
                     separatorBuilder: (context, index) => const SizedBox(

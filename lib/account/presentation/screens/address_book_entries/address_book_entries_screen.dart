@@ -11,6 +11,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../../core/constants/fonts/font_sizes.dart';
 import '../../../data/models/account_address.dart';
 import 'add_address_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddressBookEntriesScreen extends StatelessWidget {
   const AddressBookEntriesScreen({super.key});
@@ -36,8 +37,8 @@ class AddressBookEntriesScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 16),
             child: Row(
               children: [
-                const Text(
-                  "ADD ADDRESS",
+                 Text(
+                 AppLocalizations.of(context)!.add_address ,
                   style: TextStyle(
                       fontSize: FontSizes.FONT_SIZE_16,
                       color: Color(0xff313846)),
@@ -92,9 +93,9 @@ class AddressBookEntriesScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "ADDRESS BOOK ENTRIES",
-                              style: TextStyle(
+                             Text(
+                             AppLocalizations.of(context)!.address_book_entries ,
+                              style: const TextStyle(
                                   color: Color(0xff313846),
                                   fontSize: FontSizes.FONT_SIZE_20,
                                   fontWeight: FontWeight.bold),

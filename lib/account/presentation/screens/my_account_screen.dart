@@ -1,7 +1,5 @@
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
 import 'package:classic_eccomerce/account/presentation/screens/change_password_screen.dart';
-import 'package:classic_eccomerce/account/presentation/screens/register_for_affiliate_account_screen.dart';
-import 'package:classic_eccomerce/account/presentation/screens/reward_points.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/login_screen.dart';
@@ -15,6 +13,7 @@ import '../../../core/constants/fonts/font_sizes.dart';
 import 'address_book_entries/address_book_entries_screen.dart';
 import 'edit_account_info_screen.dart';
 import 'order_history/order_history_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyAccountScreen extends StatelessWidget {
   const MyAccountScreen({super.key});
@@ -49,12 +48,12 @@ class MyAccountScreen extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
-                                  "MY ACCOUNT",
+                                 Text(
+                                  AppLocalizations.of(context)!.my_account.toUpperCase(),
                                   maxLines: 1,
                                   textDirection: TextDirection.ltr,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: FontSizes.FONT_SIZE_20,
                                       color: Color(0xff313846),
                                       fontWeight: FontWeight.bold),
@@ -115,10 +114,10 @@ class MyAccountScreen extends StatelessWidget {
                                     const SizedBox(
                                       height: 4,
                                     ),
-                                    const Text(
-                                      "Edit your account information",
+                                     Text(
+                                      AppLocalizations.of(context)!.edit_your_account_info,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: FontSizes.FONT_SIZE_14,
                                           color: Color(0xff313846)),
                                     )
@@ -168,10 +167,10 @@ class MyAccountScreen extends StatelessWidget {
                                     const SizedBox(
                                       height: 4,
                                     ),
-                                    const Text(
-                                      "Modify your address book entries",
+                                     Text(
+                                      AppLocalizations.of(context)!.modify_your_address_book_entries,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: FontSizes.FONT_SIZE_14,
                                           color: Color(0xff313846)),
                                     )
@@ -224,10 +223,10 @@ class MyAccountScreen extends StatelessWidget {
                                     const SizedBox(
                                       height: 4,
                                     ),
-                                    const Text(
-                                      "Change your password",
+                                     Text(
+                                      AppLocalizations.of(context)!.change_your_password,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: FontSizes.FONT_SIZE_14,
                                           color: Color(0xff313846)),
                                     )
@@ -291,12 +290,12 @@ class MyAccountScreen extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
-                                  "MY ORDERS",
+                                 Text(
+                                  AppLocalizations.of(context)!.my_orders.toUpperCase(),
                                   maxLines: 1,
                                   textDirection: TextDirection.ltr,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: FontSizes.FONT_SIZE_20,
                                       color: Color(0xff313846),
                                       fontWeight: FontWeight.bold),
@@ -358,10 +357,10 @@ class MyAccountScreen extends StatelessWidget {
                                     const SizedBox(
                                       height: 4,
                                     ),
-                                    const Text(
-                                      "View your order history",
+                                     Text(
+                                      AppLocalizations.of(context)!.view_your_orders_history,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: FontSizes.FONT_SIZE_14,
                                           color: Color(0xff313846)),
                                     )
