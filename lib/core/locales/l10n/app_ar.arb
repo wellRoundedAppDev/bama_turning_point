@@ -49,7 +49,6 @@
   "email_optional": "البريد الالكتروني (اختياري)",
   "enter_your_main_address": "ادخل عنوانك الأساسي",
   "address_optional": "العنوان (اختياري)",
-
   "network_connection_failed": "فشل اتصال بلأنترنت",
   "address": "العنوان",
 
@@ -96,6 +95,14 @@
   "shopping_cart": "سلة التسوق",
   "confirm_order": "تأكيد الطلب",
   "subtotal": "المجموع الفرعي",
+  "your_order_has_been_successfully_processed": "لقد تمت معالجة طلبك بنجاح",
+  "thanks_for_shopping_with_us_online": "شكرا للتسوق معنا عبر الإنترنت",
+  "my_account": "حسابي",
+  "edit_your_account_info" : "عدل معلومات حسابك",
+  "modify_your_address_book_entries": "تعديل دفتر العناوين الخاص بك",
+  "change_your_password": "غير كلمة المرور الخاصة بك",
+  "my_orders": "طلباتي",
+  "view_your_orders_history": "عرض تاريخ طلباتك",
 
 
   "welcome_user": "اهلاً بك, {username}"

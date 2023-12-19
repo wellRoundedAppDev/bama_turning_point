@@ -97,7 +97,14 @@
   "shopping_cart": "Shopping Cart",
   "confirm_order": "Confirm order",
   "subtotal": "Subtotal",
-
+  "your_order_has_been_successfully_processed": "Your order has been successfully processed",
+  "thanks_for_shopping_with_us_online": "Thanks for shopping with us online",
+  "my_account": "My account",
+  "edit_your_account_info" : "Edit your account information",
+  "modify_your_address_book_entries": "Modify your address book entries",
+  "change_your_password": "Change your password",
+  "my_orders": "My orders",
+  "view_your_orders_history": "View your orders history",
   "welcome_user": "Welcome {username}",
   "@welcome_user": {
     "placeholders": {
