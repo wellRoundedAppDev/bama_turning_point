@@ -33,7 +33,7 @@ class EditAddressScreen extends StatelessWidget {
               children: [
                  Text(
                   AppLocalizations.of(context)!.edit_address,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Color(0xff313846),
                       fontSize: FontSizes.FONT_SIZE_20,
                       fontWeight: FontWeight.bold),
@@ -54,10 +54,11 @@ class EditAddressScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       CustomInput(
-                        hintText: "First Name",
+                        hintText: AppLocalizations.of(context)!.first_name,
+                        label: AppLocalizations.of(context)!.first_name,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Enter your first name";
+                            return AppLocalizations.of(context)!.enter_your_first_name;
                           }
                         },
                         onSaved: (v) => AccountCubit.get(context)

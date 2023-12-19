@@ -28,6 +28,7 @@ class HomeDrawer extends StatelessWidget {
       child: Column(
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
 
               // InkWell(
@@ -148,12 +149,15 @@ class HomeDrawer extends StatelessWidget {
               //     ),
               //   ),
               // ),
-               Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 12),
-                child: Text(AppLocalizations.of(context)!.settings, style: const TextStyle(
-                  color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: FontSizes.FONT_SIZE_22),),
+                child: Text(AppLocalizations.of(context)!.settings,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+
+                      fontSize: FontSizes.FONT_SIZE_22),),
               ),
               const Divider(thickness: 1,color: Colors.white,),
               InkWell(
@@ -240,24 +244,41 @@ class HomeDrawer extends StatelessWidget {
                 },
                 child:  Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.language,size: 30,color: Colors.white,),
-                      const SizedBox(
-                        width: 24,
+                      Text(
+                        AppLocalizations.of(context)!.the_language,
+                        style: const TextStyle(
+                            fontSize: FontSizes.FONT_SIZE_18,
+                            color: Colors.white),
                       ),
-                      Expanded(
-                        child: Text(
-                          AppLocalizations.of(context)!.language,
-                          style: const TextStyle(
-                              fontSize: FontSizes.FONT_SIZE_18,
-                              color: Colors.white),
-                        ),
-                      )
+                      const SizedBox(height: 4,),
+
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.language,size: 30,color: Colors.white,),
+                          const SizedBox(
+                            width: 24,
+                          ),
+                          Expanded(
+                            child: Text(
+                              AppLocalizations.of(context)!.language,
+                              style: const TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_18,
+                                  color: Colors.white),
+                            ),
+                          )
+                        ],
+                      ),
                     ],
                   ),
                 ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: Divider(thickness: 1,color: Colors.white,),
               ),
               InkWell(
                 onTap: () {
@@ -338,32 +359,43 @@ class HomeDrawer extends StatelessWidget {
                 },
                 child:  Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.currency_exchange_outlined,size: 30,color: Colors.white,),
-                      const SizedBox(
-                        width: 24,
+                      Text(
+                        AppLocalizations.of(context)!.currency,
+                        style: const TextStyle(
+                            fontSize: FontSizes.FONT_SIZE_18,
+                            color: Colors.white),
                       ),
-                      BlocConsumer<AppSettingsCubit,AppSettingsStates>(
-                        listener: (context,state){},
-                        builder: (context,state){
-                          return Expanded(
-                            child: Text(
-                              (AppSettingsCubit.get(context).currencyCode == "USD")?"${AppLocalizations.of(context)!.american_dollar} (USD)":
-                              "${AppLocalizations.of(context)!.iraqi_dinar} (IQD)",
-                              style: const TextStyle(
-                                  fontSize: FontSizes.FONT_SIZE_18,
-                                  color: Colors.white),
-                            ),
-                          );
-                        },
-                      )
+                      const SizedBox(height: 4,),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.currency_exchange_outlined,size: 30,color: Colors.white,),
+                          const SizedBox(
+                            width: 24,
+                          ),
+                          BlocConsumer<AppSettingsCubit,AppSettingsStates>(
+                            listener: (context,state){},
+                            builder: (context,state){
+                              return Expanded(
+                                child: Text(
+                                  (AppSettingsCubit.get(context).currencyCode == "USD")?"${AppLocalizations.of(context)!.american_dollar} (USD)":
+                                  "${AppLocalizations.of(context)!.iraqi_dinar} (IQD)",
+                                  style: const TextStyle(
+                                      fontSize: FontSizes.FONT_SIZE_18,
+                                      color: Colors.white),
+                                ),
+                              );
+                            },
+                          )
+                        ],
+                      ),
                     ],
                   ),
                 ),
               ),
-
               (AuthCubit.get(context).isUserLoggedIn == false)
                   ?Container():
               InkWell(
