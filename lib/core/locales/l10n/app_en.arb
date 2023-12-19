@@ -109,6 +109,7 @@
   "region": "Region",
   "edit": "Edit",
   "delete": "Delete",
+  "edit_address": "Edit address",
 
 
   "welcome_user": "Welcome {username}",

@@ -107,6 +107,7 @@
   "region": "المنطقة",
   "edit": "تعديل",
   "delete": "حذف",
+  "edit_address": "تعديل العنوان",
 
 
   "welcome_user": "اهلاً بك, {username}"
