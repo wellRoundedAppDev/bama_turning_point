@@ -31,7 +31,7 @@ class EditAddressScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 Text(
+                Text(
                   AppLocalizations.of(context)!.edit_address,
                   style: const TextStyle(
                       color: Color(0xff313846),
@@ -58,7 +58,8 @@ class EditAddressScreen extends StatelessWidget {
                         label: AppLocalizations.of(context)!.first_name,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)!.enter_your_first_name;
+                            return AppLocalizations.of(context)!
+                                .enter_your_first_name;
                           }
                         },
                         onSaved: (v) => AccountCubit.get(context)
@@ -70,10 +71,12 @@ class EditAddressScreen extends StatelessWidget {
                         height: 21,
                       ),
                       CustomInput(
-                        hintText: "Last Name",
+                        hintText: AppLocalizations.of(context)!.family_name,
+                        label: AppLocalizations.of(context)!.family_name,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Enter your last name";
+                            return AppLocalizations.of(context)!
+                                .enter_your_family_name;
                           }
                         },
                         onSaved: (v) => AccountCubit.get(context)
@@ -85,10 +88,12 @@ class EditAddressScreen extends StatelessWidget {
                         height: 21,
                       ),
                       CustomInput(
-                        hintText: "Address 1",
+                        hintText: AppLocalizations.of(context)!.address,
+                        label: AppLocalizations.of(context)!.address,
                         validator: (value) {
                           if (value == null || value.length < 4) {
-                            return 'Enter an address of at least 4 characters';
+                            return AppLocalizations.of(context)!
+                                .enter_an_address_of_at_least_four_characters;
                           }
                         },
                         initialValue: accountAddress?.address1 ?? "",
@@ -151,10 +156,12 @@ class EditAddressScreen extends StatelessWidget {
                       //   ),
                       // ),
                       CustomInput(
-                        hintText: "City",
+                        hintText: AppLocalizations.of(context)!.city,
+                        label: AppLocalizations.of(context)!.city,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Enter your city";
+                            return AppLocalizations.of(context)!
+                                .enter_your_city;
                           }
                         },
                         onSaved: (v) => AccountCubit.get(context)
@@ -162,22 +169,23 @@ class EditAddressScreen extends StatelessWidget {
                             .city = v!,
                         initialValue: accountAddress?.city ?? "",
                       ),
-                      const SizedBox(
-                        height: 21,
-                      ),
-                      CustomInput(
-                        hintText: "Postal Code",
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Enter your postal code";
-                          }
-                        },
-                        textInputType: TextInputType.number,
-                        onSaved: (v) => AccountCubit.get(context)
-                            .accountAddressInput
-                            .postalCode = v!,
-                        initialValue: accountAddress?.postcode ?? "",
-                      ),
+                      // const SizedBox(
+                      //   height: 21,
+                      // ),
+                      // CustomInput(
+                      //   hintText: AppLocalizations.of(context)!.city,
+                      //   label: AppLocalizations.of(context)!.city,
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return "Enter your postal code";
+                      //     }
+                      //   },
+                      //   textInputType: TextInputType.number,
+                      //   onSaved: (v) => AccountCubit.get(context)
+                      //       .accountAddressInput
+                      //       .postalCode = v!,
+                      //   initialValue: accountAddress?.postcode ?? "",
+                      // ),
                       const SizedBox(
                         height: 21,
                       ),
@@ -195,15 +203,21 @@ class EditAddressScreen extends StatelessWidget {
                                 // searchAdsCubit.getJobCategories();
                                 return AccountCubit.get(context).getCountries();
                               },
-                              dropdownDecoratorProps:
-                                  const DropDownDecoratorProps(
-                                      dropdownSearchDecoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintStyle: TextStyle(
-                                            fontSize: FontSizes.FONT_SIZE_16,
-                                            color: Color(0xff878787),
-                                          ),
-                                          hintText: "Country")),
+                              dropdownDecoratorProps: DropDownDecoratorProps(
+                                  dropdownSearchDecoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintStyle: const TextStyle(
+                                        fontSize: FontSizes.FONT_SIZE_16,
+                                        color: Color(0xff878787),
+                                      ),
+                                      label: Text(
+                                        AppLocalizations.of(context)!.country,
+                                        style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16,fontWeight: FontWeight.bold,
+                                            color: Color(0xff313846)
+                                        )
+                                      ),
+                                      hintText: AppLocalizations.of(context)!
+                                          .country)),
                               dropdownButtonProps: const DropdownButtonProps(
                                   icon: Icon(
                                 Icons.keyboard_arrow_down,
@@ -230,7 +244,8 @@ class EditAddressScreen extends StatelessWidget {
                                         .accountAddressInput
                                         .country ==
                                     null) {
-                                  return "Select your country";
+                                  return AppLocalizations.of(context)!
+                                      .select_your_country;
                                 }
                               },
                               dropdownBuilder: (context, country) {
@@ -239,7 +254,7 @@ class EditAddressScreen extends StatelessWidget {
                                           .accountAddressInput
                                           .country
                                           ?.name ??
-                                      "Country",
+                                      AppLocalizations.of(context)!.country,
                                   style: const TextStyle(
                                       fontSize: FontSizes.FONT_SIZE_16,
                                       color: Color(0xff878787)),
@@ -267,15 +282,22 @@ class EditAddressScreen extends StatelessWidget {
                                 return await AccountCubit.get(context)
                                     .getRegions();
                               },
-                              dropdownDecoratorProps:
-                                  const DropDownDecoratorProps(
-                                      dropdownSearchDecoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintStyle: TextStyle(
-                                            fontSize: FontSizes.FONT_SIZE_16,
-                                            color: Color(0xff878787),
-                                          ),
-                                          hintText: "Region / State")),
+                              dropdownDecoratorProps: DropDownDecoratorProps(
+                                  dropdownSearchDecoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintStyle: const TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_16,
+                                  color: Color(0xff878787),
+                                ),
+                                label: Text(
+                                  AppLocalizations.of(context)!.region_or_state,
+                                  style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16,fontWeight: FontWeight.bold,
+                                      color: Color(0xff313846)
+                                  ),
+                                ),
+                                hintText: AppLocalizations.of(context)!
+                                    .region_or_state,
+                              )),
                               dropdownButtonProps: const DropdownButtonProps(
                                   icon: Icon(
                                 Icons.keyboard_arrow_down,
@@ -299,7 +321,8 @@ class EditAddressScreen extends StatelessWidget {
                                           .accountAddressInput
                                           .region
                                           ?.name ??
-                                      "Region / State",
+                                      AppLocalizations.of(context)!
+                                          .region_or_state,
                                   style: const TextStyle(
                                       fontSize: FontSizes.FONT_SIZE_16,
                                       color: Color(0xff878787)),
@@ -314,7 +337,8 @@ class EditAddressScreen extends StatelessWidget {
                                         .accountAddressInput
                                         .region ==
                                     null) {
-                                  return "Select your region";
+                                  return AppLocalizations.of(context)!
+                                      .select_your_region_or_state;
                                 }
                               },
                             ),
@@ -327,9 +351,10 @@ class EditAddressScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "Default Address",
-                            style: TextStyle(
+                           Text(
+                             AppLocalizations.of(context)!
+                                 .default_address ,
+                            style: const TextStyle(
                                 color: Color(0xff747982),
                                 fontSize: FontSizes.FONT_SIZE_16),
                           ),
@@ -348,9 +373,10 @@ class EditAddressScreen extends StatelessWidget {
                                         AccountCubit.get(context)
                                             .setAccountDefaultAddress(check!);
                                       },
-                                      title: const Text(
-                                        "Yes",
-                                        style: TextStyle(
+                                      title:  Text(
+                                        AppLocalizations.of(context)!
+                                            .yes,
+                                        style: const TextStyle(
                                             fontSize: FontSizes.FONT_SIZE_16,
                                             fontWeight: FontWeight.w300),
                                       ),
@@ -366,9 +392,10 @@ class EditAddressScreen extends StatelessWidget {
                                         AccountCubit.get(context)
                                             .setAccountDefaultAddress(check!);
                                       },
-                                      title: const Text(
-                                        "No",
-                                        style: TextStyle(
+                                      title:  Text(
+                                        AppLocalizations.of(context)!
+                                            .no,
+                                        style: const TextStyle(
                                             fontSize: FontSizes.FONT_SIZE_16,
                                             fontWeight: FontWeight.w300),
                                       ),
@@ -387,7 +414,8 @@ class EditAddressScreen extends StatelessWidget {
                         listener: (context, state) {},
                         builder: (context, state) {
                           return CustomButton(
-                            text: "Save",
+                            text: AppLocalizations.of(context)!
+                                .save,
                             isLoading: state is EditAddressLoadingState,
                             action: () {
                               AccountCubit.get(context).editAddressInAccount(

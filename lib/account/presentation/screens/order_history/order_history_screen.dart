@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/fonts/font_sizes.dart';
 import '../../../../shared_components/custom_app_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderHistoryScreen extends StatelessWidget {
   const OrderHistoryScreen({super.key});
@@ -47,9 +48,9 @@ class OrderHistoryScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                "ORDER HISTORY",
-                                style: TextStyle(
+                               Text(
+                                AppLocalizations.of(context)!.orders_history,
+                                style: const TextStyle(
                                     color: Color(0xff313846),
                                     fontSize: FontSizes.FONT_SIZE_20,
                                     fontWeight: FontWeight.bold),

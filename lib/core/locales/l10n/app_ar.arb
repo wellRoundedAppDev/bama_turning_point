@@ -101,6 +101,10 @@
   "edit_your_account_info" : "عدل معلومات حسابك",
   "modify_your_address_book_entries": "تعديل دفتر العناوين الخاص بك",
   "change_your_password": "غير كلمة المرور الخاصة بك",
+  "change_password": "غير كلمة المرور",
+  "passwords_dont_match": "كلمات المرور غير متطابقة",
+  "orders_history": "تاريخ طلباتك",
+
   "my_orders": "طلباتي",
   "view_your_orders_history": "عرض تاريخ طلباتك",
   "address_book_entries": "دفتر العناوين",
@@ -108,6 +112,9 @@
   "edit": "تعديل",
   "delete": "حذف",
   "edit_address": "تعديل العنوان",
+  "default_address": "العنوان الافتراضي",
+  "yes": "نعم",
+  "no": "لا",
 
 
   "welcome_user": "اهلاً بك, {username}"
