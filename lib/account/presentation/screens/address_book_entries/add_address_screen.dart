@@ -10,6 +10,7 @@ import '../../../../core/data/models/get_regions_response.dart';
 import '../../../../shared_components/custom_app_bar.dart';
 import '../../../../shared_components/custom_button.dart';
 import '../../../../shared_components/custom_input.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddAddressScreen extends StatelessWidget {
   const AddAddressScreen({super.key});
@@ -29,9 +30,9 @@ class AddAddressScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "ADD ADDRESS",
-                  style: TextStyle(
+                 Text(
+                  AppLocalizations.of(context)!.add_address,
+                  style: const TextStyle(
                       color: Color(0xff313846),
                       fontSize: FontSizes.FONT_SIZE_20,
                       fontWeight: FontWeight.bold),
