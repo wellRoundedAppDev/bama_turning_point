@@ -11,7 +11,8 @@ class ProductDetailsApi {
   static final dioHelper = DioHelper.instance;
 
   static Future<GetProductDetailsResponse?> getProductDetailsById(int id,
-      {String languageCode = "ir_arabic",
+      {
+        String languageCode = "ir_arabic",
         String currencyCode = "IQD"
 
       }

@@ -104,7 +104,7 @@ class SignInScreen extends StatelessWidget {
                         text: AppLocalizations.of(context)!.login,
                         isLoading: state is LoginLoadingState,
                         action: () {
-                          AuthCubit.get(context).login(
+                          AuthCubit.get(context).loginFromLoginForm(
                               isCheckingOut: isCheckingOut,
                               cartCubit: CartCubit.get(context));
                         });
@@ -129,7 +129,9 @@ class SignInScreen extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   PageTransition(
-                                      child: SignUpScreen(),
+                                      child: BlocProvider.value(
+                                          value: CartCubit.get(context),
+                                          child: SignUpScreen()),
                                       type: PageTransitionType.leftToRight));
                             },
                             child:  Text(

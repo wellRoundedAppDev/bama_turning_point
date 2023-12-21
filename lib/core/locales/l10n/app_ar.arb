@@ -115,6 +115,14 @@
   "default_address": "العنوان الافتراضي",
   "yes": "نعم",
   "no": "لا",
+  "order_id": "رقم الطلب",
+  "customer": "العميل",
+  "number_of_products":"عدد المنتجات",
+  "status": "الحالة",
+  "date_added":"تاريخ الإضافة",
+  "view":"عرض",
+  "order_details": "تفاصيل الطلب",
+  "shipping_address": "عنوان الشحن",
 
 
   "welcome_user": "اهلاً بك, {username}"

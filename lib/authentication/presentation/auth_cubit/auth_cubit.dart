@@ -57,7 +57,8 @@ class AuthCubit extends Cubit<AuthStates> {
     guestFormInput.clear();
   }
 
-  login({bool isCheckingOut = false, required CartCubit cartCubit}) async {
+  loginFromLoginForm(
+      {bool isCheckingOut = false, required CartCubit cartCubit}) async {
     if (validateLoginForm() != true) {
       return;
     }
@@ -75,7 +76,8 @@ class AuthCubit extends Cubit<AuthStates> {
     if (response?.success == 1) {
       loginResponse = response;
       isUserLoggedIn = true;
-      cartCubit.numberOfItemsInCart = loginResponse?.loginData?.cartCountProducts??0;
+      cartCubit.numberOfItemsInCart =
+          loginResponse?.loginData?.cartCountProducts ?? 0;
       emit(LoginSuccessState());
 
       if (isCheckingOut) {
@@ -87,7 +89,8 @@ class AuthCubit extends Cubit<AuthStates> {
                     child: BlocProvider(
                         create: (context) => CheckOutCubit()
                           ..setRegisteredUserPaymentAddresses(),
-                        child: const SetBillingAddressForRegisteredUserScreen())),
+                        child:
+                            const SetBillingAddressForRegisteredUserScreen())),
                 type: PageTransitionType.leftToRight));
       }
     } else if (response?.success == 0) {
@@ -103,7 +106,35 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 
-  register() async {
+  login({required dynamic loginInput, required CartCubit cartCubit}) async {
+
+    if (await setAccessToken() == false) {
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      emit(LoginNetworkFailedConnectionState());
+      return;
+    }
+
+    var response = await AuthApis.login(loginInput);
+    if (response?.success == 1) {
+      loginResponse = response;
+      isUserLoggedIn = true;
+      cartCubit.numberOfItemsInCart =
+          loginResponse?.loginData?.cartCountProducts ?? 0;
+      emit(LoginSuccessState());
+    } else if (response?.success == 0) {
+      loginResponse = null;
+      isUserLoggedIn = false;
+      showAppSnackBar(content: response?.error?[0] ?? "");
+      emit(LoginFailedState());
+    } else {
+      loginResponse = null;
+      isUserLoggedIn = false;
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      emit(LoginNetworkFailedConnectionState());
+    }
+  }
+
+  register({required CartCubit cartCubit}) async {
     if (validateRegisterForm() != true) {
       return;
     }
@@ -118,15 +149,19 @@ class AuthCubit extends Cubit<AuthStates> {
 
     var response = await AuthApis.register(registerFormInput.toJsonForApi());
     if (response?.success == true) {
-     // isUserLoggedIn = true;
-      emit(RegisterSuccessState());
+      // isUserLoggedIn = true;
+      await login(loginInput: {
+        "email": registerFormInput.phoneNumber,
+        "password": registerFormInput.password
+      }, cartCubit: cartCubit);
+       emit(RegisterSuccessState());
       Navigator.pop(context);
     } else if (response?.success == false) {
-     // isUserLoggedIn = false;
+      // isUserLoggedIn = false;
       showAppSnackBar(content: response?.errorMsgs?[0] ?? "");
       emit(RegisterFailedState());
     } else {
-     // isUserLoggedIn = false;
+      // isUserLoggedIn = false;
       showAppSnackBar(content: "Check your internet connection, and try again");
       emit(RegisterNetworkFailedConnectionState());
     }

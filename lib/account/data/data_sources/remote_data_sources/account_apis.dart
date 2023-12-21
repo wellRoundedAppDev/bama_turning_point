@@ -16,7 +16,6 @@ import '../../models/get_customer_orders_response.dart';
 class AccountApis {
   static final dioHelper = DioHelper.instance;
 
-
   static Future<Response?> getLanguages() async {
     String endpoint = ApiUrls.GET_SELECT_VALUES_ENDPOINT;
     String? accessToken =
@@ -37,8 +36,6 @@ class AccountApis {
       }
     }
   }
-
-
 
   static Future<GetAccountDetailsResponse?> getAccountDetails() async {
     String endpoint = ApiUrls.ACCOUNT_ENDPOINT;
@@ -124,7 +121,8 @@ class AccountApis {
     }
   }
 
-  static Future<GetAccountAddressResponse?> getAccountAddress(int addressId) async {
+  static Future<GetAccountAddressResponse?> getAccountAddress(
+      int addressId) async {
     String endpoint = ApiUrls.getAccountAddressEndpoint(addressId);
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
@@ -143,7 +141,6 @@ class AccountApis {
       }
     }
   }
-
 
   static Future<SuccessAndErrorResponse?> addAccountAddress(
       Map<String, dynamic> addressInput) async {
@@ -209,7 +206,8 @@ class AccountApis {
     }
   }
 
-  static Future<GetCustomerOrdersResponse?> getCustomerOrders(int page) async {
+  static Future<GetCustomerOrdersResponse?> getCustomerOrders(int page,
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
     String endpoint = ApiUrls.getCustomerOrdersEndpoint(page);
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
@@ -217,7 +215,10 @@ class AccountApis {
     try {
       var response = await dioHelper.get(
           endpoint: endpoint,
-          headers: {"Authorization": "Bearer $accessToken"});
+          headers: {"Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+          });
       if (response == null) {
         return null;
       }
@@ -229,17 +230,21 @@ class AccountApis {
     }
   }
 
-
-  static Future<GetOrderDetailsResponse?> getOrderDetails(int? orderId) async {
-
-    String endpoint = ApiUrls.getCustomerOrderDetailsEndpoint(orderId??0);
+  static Future<GetOrderDetailsResponse?> getOrderDetails(int? orderId,
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
+    String endpoint = ApiUrls.getCustomerOrderDetailsEndpoint(orderId ?? 0);
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {
       var response = await dioHelper.get(
           endpoint: endpoint,
-          headers: {"Authorization": "Bearer $accessToken"});
+          headers: {"Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+
+
+          });
       if (response == null) {
         return null;
       }

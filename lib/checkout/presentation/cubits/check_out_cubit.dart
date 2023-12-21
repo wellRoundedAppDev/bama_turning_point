@@ -237,6 +237,8 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   }
 
   confirmOrder(CartCubit cartCubit) async {
+    AppSettingsCubit appSettingsCubit = AppSettingsCubit.get(context);
+    LocaleCubit localeCubit = LocaleCubit.get(context);
     emit(ConfirmOrderLoadingState());
 
     var setShippingMethodResponse = await setShippingMethodByApi();
@@ -257,10 +259,17 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
       return;
     }
 
-    var isConfirmOrderSuccess = await CheckoutApis.confirmOrder();
+    var isConfirmOrderSuccess = await CheckoutApis.confirmOrder(
+        languageCode: languageCodes[localeCubit.locale.languageCode] ?? "",
+        currencyCode: appSettingsCubit.currencyCode ?? ""
+    );
     if (isConfirmOrderSuccess == true) {
       var isConfirmOrderAndEndSessionSuccess =
-          await CheckoutApis.confirmOrderAndEndSession();
+          await CheckoutApis.confirmOrderAndEndSession(
+              languageCode: languageCodes[localeCubit.locale.languageCode] ?? "",
+              currencyCode: appSettingsCubit.currencyCode ?? ""
+
+          );
       if (isConfirmOrderAndEndSessionSuccess == true) {
         cartCubit.clearCart();
         Navigator.pop(context);

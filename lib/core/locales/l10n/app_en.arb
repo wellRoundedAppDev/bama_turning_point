@@ -117,6 +117,14 @@
   "default_address": "Default Address",
   "yes": "Yes",
   "no": "No",
+  "order_id": "Order ID",
+  "customer": "Customer",
+  "number_of_products":"No. of Products",
+  "status": "Status",
+  "date_added":"Date Added",
+  "view":"View",
+  "order_details": "Order details",
+  "shipping_address": "Shipping address",
 
   "welcome_user": "Welcome {username}",
   "@welcome_user": {
