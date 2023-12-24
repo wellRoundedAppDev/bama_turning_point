@@ -124,6 +124,8 @@
   "order_details": "تفاصيل الطلب",
   "shipping_address": "عنوان الشحن",
   "are_you_sure_you_want_to_logout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+  "notifications": "إشعارات",
+  "no_notifications_found": "لا توجد إشعارات",
 
   "welcome_user": "اهلاً بك, {username}"
 }

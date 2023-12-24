@@ -9,12 +9,9 @@ import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
-import 'package:classic_eccomerce/home/presentation/screens/home_screen.dart';
+import 'package:classic_eccomerce/notifications/presentation/screens/notifications_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../blogs/presentation/screens/blogs_screen.dart';
-import '../../../contact_us/presentation/screens/contact_us_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeDrawer extends StatelessWidget {
@@ -27,409 +24,476 @@ class HomeDrawer extends StatelessWidget {
       backgroundColor: AppColors.APP_MAIN_COLOR,
       child: Column(
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+            
+                // InkWell(
+                //   onTap: () {
+                //     Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                //         const HomeScreen()
+                //     ));
+                //   },
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(24.0),
+                //     child: Row(
+                //       crossAxisAlignment: CrossAxisAlignment.center,
+                //       children: [
+                //         Image.asset(
+                //           IconPaths.HOME_NAV_ICON,
+                //           width: 30,
+                //           height: 30,
+                //         ),
+                //         const SizedBox(
+                //           width: 24,
+                //         ),
+                //         const Text(
+                //           "Home",
+                //           style: TextStyle(
+                //               fontSize: FontSizes.FONT_SIZE_18,
+                //               color: Colors.white),
+                //         )
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // InkWell(
+                //   onTap: () {
+                //     Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                //      CategoriesScreen()
+                //     ));
+                //
+                //   },
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(24.0),
+                //     child: Row(
+                //       crossAxisAlignment: CrossAxisAlignment.center,
+                //       children: [
+                //         Image.asset(
+                //           IconPaths.CATEGORIES_MENU_ICON,
+                //           width: 30,
+                //           height: 30,
+                //         ),
+                //         const SizedBox(
+                //           width: 24,
+                //         ),
+                //         const Text(
+                //           "Categories",
+                //           style: TextStyle(
+                //               fontSize: FontSizes.FONT_SIZE_18,
+                //               color: Colors.white),
+                //         )
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // InkWell(
+                //   onTap: () {
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (context) => const BlogScreen()));
+                //   },
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(24.0),
+                //     child: Row(
+                //       crossAxisAlignment: CrossAxisAlignment.center,
+                //       children: [
+                //         Image.asset(
+                //           IconPaths.BLOG_ICON,
+                //           width: 30,
+                //           height: 30,
+                //         ),
+                //         const SizedBox(
+                //           width: 24,
+                //         ),
+                //         const Text(
+                //           "Blog",
+                //           style: TextStyle(
+                //               fontSize: FontSizes.FONT_SIZE_18,
+                //               color: Colors.white),
+                //         )
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // InkWell(
+                //   onTap: () {
+                //     Navigator.push(context, MaterialPageRoute(builder: (context)
+                //     => const ContactsScreen()
+                //     ));
+                //   },
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(24.0),
+                //     child: Row(
+                //       crossAxisAlignment: CrossAxisAlignment.center,
+                //       children: [
+                //         Image.asset(
+                //           IconPaths.CONTACT_US_ICON,
+                //           width: 30,
+                //           height: 30,
+                //         ),
+                //         const SizedBox(
+                //           width: 24,
+                //         ),
+                //         const Text(
+                //           "Contact Us",
+                //           style: TextStyle(
+                //               fontSize: FontSizes.FONT_SIZE_18,
+                //               color: Colors.white),
+                //         )
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 12),
+                  child: Text(AppLocalizations.of(context)!.settings,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+            
+                        fontSize: FontSizes.FONT_SIZE_22),),
+                ),
+                const Divider(thickness: 1,color: Colors.white,),
+                SingleChildScrollView(
+                  child: Column(
 
-              // InkWell(
-              //   onTap: () {
-              //     Navigator.push(context, MaterialPageRoute(builder: (context) =>
-              //         const HomeScreen()
-              //     ));
-              //   },
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(24.0),
-              //     child: Row(
-              //       crossAxisAlignment: CrossAxisAlignment.center,
-              //       children: [
-              //         Image.asset(
-              //           IconPaths.HOME_NAV_ICON,
-              //           width: 30,
-              //           height: 30,
-              //         ),
-              //         const SizedBox(
-              //           width: 24,
-              //         ),
-              //         const Text(
-              //           "Home",
-              //           style: TextStyle(
-              //               fontSize: FontSizes.FONT_SIZE_18,
-              //               color: Colors.white),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // InkWell(
-              //   onTap: () {
-              //     Navigator.push(context, MaterialPageRoute(builder: (context) =>
-              //      CategoriesScreen()
-              //     ));
-              //
-              //   },
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(24.0),
-              //     child: Row(
-              //       crossAxisAlignment: CrossAxisAlignment.center,
-              //       children: [
-              //         Image.asset(
-              //           IconPaths.CATEGORIES_MENU_ICON,
-              //           width: 30,
-              //           height: 30,
-              //         ),
-              //         const SizedBox(
-              //           width: 24,
-              //         ),
-              //         const Text(
-              //           "Categories",
-              //           style: TextStyle(
-              //               fontSize: FontSizes.FONT_SIZE_18,
-              //               color: Colors.white),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // InkWell(
-              //   onTap: () {
-              //     Navigator.push(
-              //         context,
-              //         MaterialPageRoute(
-              //             builder: (context) => const BlogScreen()));
-              //   },
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(24.0),
-              //     child: Row(
-              //       crossAxisAlignment: CrossAxisAlignment.center,
-              //       children: [
-              //         Image.asset(
-              //           IconPaths.BLOG_ICON,
-              //           width: 30,
-              //           height: 30,
-              //         ),
-              //         const SizedBox(
-              //           width: 24,
-              //         ),
-              //         const Text(
-              //           "Blog",
-              //           style: TextStyle(
-              //               fontSize: FontSizes.FONT_SIZE_18,
-              //               color: Colors.white),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // InkWell(
-              //   onTap: () {
-              //     Navigator.push(context, MaterialPageRoute(builder: (context)
-              //     => const ContactsScreen()
-              //     ));
-              //   },
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(24.0),
-              //     child: Row(
-              //       crossAxisAlignment: CrossAxisAlignment.center,
-              //       children: [
-              //         Image.asset(
-              //           IconPaths.CONTACT_US_ICON,
-              //           width: 30,
-              //           height: 30,
-              //         ),
-              //         const SizedBox(
-              //           width: 24,
-              //         ),
-              //         const Text(
-              //           "Contact Us",
-              //           style: TextStyle(
-              //               fontSize: FontSizes.FONT_SIZE_18,
-              //               color: Colors.white),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 12),
-                child: Text(AppLocalizations.of(context)!.settings,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-
-                      fontSize: FontSizes.FONT_SIZE_22),),
-              ),
-              const Divider(thickness: 1,color: Colors.white,),
-              InkWell(
-                onTap: () {
-                  // AuthCubit.get(context).logOut(CartCubit.get(context)).then((value) {
-                  //   Navigator.pop(context);
-                  // });
-                  HomeCubit homeCubit = HomeCubit.get(context);
-                  LocaleCubit localeCubit = LocaleCubit.get(context);
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title:  Center(
-                              child: Text(
-                                AppLocalizations.of(context)!.the_language,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: FontSizes.FONT_SIZE_22),
-                              )),
-                          content: Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                InkWell(
-                                  onTap: () async {
-                                    // context
-                                    //     .read<LocaleProvider>()
-                                    //     .setLocale(const Locale("ar"));
-                                    // context
-                                    //     .read<LocaleProvider>()
-                                    //     .saveLocaleInSharedPrefs("ar");
-
-                                    localeCubit.setLocale(const Locale('ar'));
-                                    homeCubit.init();
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "العربية",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: FontSizes.FONT_SIZE_18),
-                                    ),
-                                  ),
-                                ),
-                                const Divider(
-                                  thickness: 1,
-                                ),
-                                InkWell(
-                                  onTap: () async {
-                                    // context
-                                    //     .read<LocaleProvider>()
-                                    //     .setLocale(const Locale("en"));
-                                    // context
-                                    //     .read<LocaleProvider>()
-                                    //     .saveLocaleInSharedPrefs("en");
-                                    localeCubit.setLocale(const Locale('en'));
-                                    homeCubit.init();
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          // AuthCubit.get(context).logOut(CartCubit.get(context)).then((value) {
+                          //   Navigator.pop(context);
+                          // });
+                          HomeCubit homeCubit = HomeCubit.get(context);
+                          LocaleCubit localeCubit = LocaleCubit.get(context);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title:  Center(
+                                      child: Text(
+                                        AppLocalizations.of(context)!.the_language,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: FontSizes.FONT_SIZE_22),
+                                      )),
+                                  content: Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Text(
-                                          "English",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: FontSizes.FONT_SIZE_18),
+                                        InkWell(
+                                          onTap: () async {
+                                            // context
+                                            //     .read<LocaleProvider>()
+                                            //     .setLocale(const Locale("ar"));
+                                            // context
+                                            //     .read<LocaleProvider>()
+                                            //     .saveLocaleInSharedPrefs("ar");
+                                  
+                                            localeCubit.setLocale(const Locale('ar'));
+                                            homeCubit.init();
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Text(
+                                              "العربية",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: FontSizes.FONT_SIZE_18),
+                                            ),
+                                          ),
                                         ),
+                                        const Divider(
+                                          thickness: 1,
+                                        ),
+                                        InkWell(
+                                          onTap: () async {
+                                            // context
+                                            //     .read<LocaleProvider>()
+                                            //     .setLocale(const Locale("en"));
+                                            // context
+                                            //     .read<LocaleProvider>()
+                                            //     .saveLocaleInSharedPrefs("en");
+                                            localeCubit.setLocale(const Locale('en'));
+                                            homeCubit.init();
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  "English",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: FontSizes.FONT_SIZE_18),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )
                                       ],
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      });
-                },
-                child:  Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.the_language,
-                        style: const TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_18,
-                            color: Colors.white),
-                      ),
-                      const SizedBox(height: 4,),
-
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.language,size: 30,color: Colors.white,),
-                          const SizedBox(
-                            width: 24,
-                          ),
-                          Expanded(
-                            child: Text(
-                              AppLocalizations.of(context)!.language,
-                              style: const TextStyle(
-                                  fontSize: FontSizes.FONT_SIZE_18,
-                                  color: Colors.white),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                child: Divider(thickness: 1,color: Colors.white,),
-              ),
-              InkWell(
-                onTap: () {
-                  HomeCubit homeCubit = HomeCubit.get(context);
-                  AppSettingsCubit appSettingsCubit = AppSettingsCubit.get(context);
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title:  Center(
-                              child: Text(
-                                AppLocalizations.of(context)!.currency,
-                                // "Currency",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: FontSizes.FONT_SIZE_22),
-                              )),
-                          content: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            mainAxisSize: MainAxisSize.min,
+                                );
+                              });
+                        },
+                        child:  Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              InkWell(
-                                onTap: () async {
-                                  // context
-                                  //     .read<LocaleProvider>()
-                                  //     .setLocale(const Locale("ar"));
-                                  // context
-                                  //     .read<LocaleProvider>()
-                                  //     .saveLocaleInSharedPrefs("ar");
-
-                                  appSettingsCubit.changeCurrency(CurrencyCodes.IQD.name);
-                                  homeCubit.init();
-                                  Navigator.pop(context);
-                                },
-                                child:  Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    "${AppLocalizations.of(context)!.iraqi_dinar} (IQD)",
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: FontSizes.FONT_SIZE_18),
+                              Text(
+                                AppLocalizations.of(context)!.the_language,
+                                style: const TextStyle(
+                                    fontSize: FontSizes.FONT_SIZE_18,
+                                    color: Colors.white),
+                              ),
+                              const SizedBox(height: 4,),
+                                  
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.language,size: 30,color: Colors.white,),
+                                  const SizedBox(
+                                    width: 24,
                                   ),
-                                ),
+                                  Expanded(
+                                    child: Text(
+                                      AppLocalizations.of(context)!.language,
+                                      style: const TextStyle(
+                                          fontSize: FontSizes.FONT_SIZE_18,
+                                          color: Colors.white),
+                                    ),
+                                  )
+                                ],
                               ),
-                              const Divider(
-                                thickness: 1,
-                              ),
-                              InkWell(
-                                onTap: () async {
-                                  // context
-                                  //     .read<LocaleProvider>()
-                                  //     .setLocale(const Locale("en"));
-                                  // context
-                                  //     .read<LocaleProvider>()
-                                  //     .saveLocaleInSharedPrefs("en");
-                                  appSettingsCubit.changeCurrency(CurrencyCodes.USD.name);
-                                  homeCubit.init();
-                                  Navigator.pop(context);
-                                },
-                                child:  Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "${AppLocalizations.of(context)!.american_dollar} (USD)",
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Divider(thickness: 1,color: Colors.white,),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          HomeCubit homeCubit = HomeCubit.get(context);
+                          AppSettingsCubit appSettingsCubit = AppSettingsCubit.get(context);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title:  Center(
+                                      child: Text(
+                                        AppLocalizations.of(context)!.currency,
+                                        // "Currency",
                                         style: const TextStyle(
-                                            color: Colors.black,
-                                            fontSize: FontSizes.FONT_SIZE_18),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: FontSizes.FONT_SIZE_22),
+                                      )),
+                                  content: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      InkWell(
+                                        onTap: () async {
+                                          // context
+                                          //     .read<LocaleProvider>()
+                                          //     .setLocale(const Locale("ar"));
+                                          // context
+                                          //     .read<LocaleProvider>()
+                                          //     .saveLocaleInSharedPrefs("ar");
+                                  
+                                          appSettingsCubit.changeCurrency(CurrencyCodes.IQD.name);
+                                          homeCubit.init();
+                                          Navigator.pop(context);
+                                        },
+                                        child:  Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            "${AppLocalizations.of(context)!.iraqi_dinar} (IQD)",
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: FontSizes.FONT_SIZE_18),
+                                          ),
+                                        ),
                                       ),
+                                      const Divider(
+                                        thickness: 1,
+                                      ),
+                                      InkWell(
+                                        onTap: () async {
+                                          // context
+                                          //     .read<LocaleProvider>()
+                                          //     .setLocale(const Locale("en"));
+                                          // context
+                                          //     .read<LocaleProvider>()
+                                          //     .saveLocaleInSharedPrefs("en");
+                                          appSettingsCubit.changeCurrency(CurrencyCodes.USD.name);
+                                          homeCubit.init();
+                                          Navigator.pop(context);
+                                        },
+                                        child:  Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "${AppLocalizations.of(context)!.american_dollar} (USD)",
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: FontSizes.FONT_SIZE_18),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                  
                                     ],
                                   ),
-                                ),
+                                );
+                              });
+                        },
+                        child:  Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.currency,
+                                style: const TextStyle(
+                                    fontSize: FontSizes.FONT_SIZE_18,
+                                    color: Colors.white),
+                              ),
+                              const SizedBox(height: 4,),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.currency_exchange_outlined,size: 30,color: Colors.white,),
+                                  const SizedBox(
+                                    width: 24,
+                                  ),
+                                  BlocConsumer<AppSettingsCubit,AppSettingsStates>(
+                                    listener: (context,state){},
+                                    builder: (context,state){
+                                      return Expanded(
+                                        child: Text(
+                                          (AppSettingsCubit.get(context).currencyCode == "USD")?"${AppLocalizations.of(context)!.american_dollar} (USD)":
+                                          "${AppLocalizations.of(context)!.iraqi_dinar} (IQD)",
+                                          style: const TextStyle(
+                                              fontSize: FontSizes.FONT_SIZE_18,
+                                              color: Colors.white),
+                                        ),
+                                      );
+                                    },
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Divider(thickness: 1,color: Colors.white,),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Scaffold.of(context).closeDrawer();
+                          Navigator.push(context, MaterialPageRoute(builder: (context){
+                            return const NotificationsScreen();
+                          }));
+                        },
+                        child:  Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.notifications,
+                                style: const TextStyle(
+                                    fontSize: FontSizes.FONT_SIZE_18,
+                                    color: Colors.white),
+                              ),
+                              const SizedBox(height: 4,),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.notifications,size: 30,color: Colors.white,),
+                                  const SizedBox(
+                                    width: 24,
+                                  ),
+                                  BlocConsumer<AppSettingsCubit,AppSettingsStates>(
+                                    listener: (context,state){},
+                                    builder: (context,state){
+                                      return Expanded(
+                                        child: Text(
+                                          AppLocalizations.of(context)!.notifications,
+                                          style: const TextStyle(
+                                              fontSize: FontSizes.FONT_SIZE_18,
+                                              color: Colors.white),
+                                        ),
+                                      );
+                                    },
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Divider(thickness: 1,color: Colors.white,),
+                      ),
+                      (AuthCubit.get(context).isUserLoggedIn == false)
+                          ?Container():
+                      InkWell(
+                        onTap: () {
+                          AuthCubit.get(context).logOut(CartCubit.get(context)).then((value) {
+                            Navigator.pop(context);
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                IconPaths.LOGOUT_ICON,
+                                width: 30,
+                                height: 30,
+                              ),
+                              const SizedBox(
+                                width: 24,
+                              ),
+                              const Text(
+                                "Logout",
+                                style: TextStyle(
+                                    fontSize: FontSizes.FONT_SIZE_18,
+                                    color: Colors.white),
                               )
                             ],
                           ),
-                        );
-                      });
-                },
-                child:  Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.currency,
-                        style: const TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_18,
-                            color: Colors.white),
+                        ),
                       ),
-                      const SizedBox(height: 4,),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.currency_exchange_outlined,size: 30,color: Colors.white,),
-                          const SizedBox(
-                            width: 24,
-                          ),
-                          BlocConsumer<AppSettingsCubit,AppSettingsStates>(
-                            listener: (context,state){},
-                            builder: (context,state){
-                              return Expanded(
-                                child: Text(
-                                  (AppSettingsCubit.get(context).currencyCode == "USD")?"${AppLocalizations.of(context)!.american_dollar} (USD)":
-                                  "${AppLocalizations.of(context)!.iraqi_dinar} (IQD)",
-                                  style: const TextStyle(
-                                      fontSize: FontSizes.FONT_SIZE_18,
-                                      color: Colors.white),
-                                ),
-                              );
-                            },
-                          )
-                        ],
+                                  
+                      const Divider(
+                        thickness: 1,
                       ),
                     ],
                   ),
                 ),
-              ),
-              (AuthCubit.get(context).isUserLoggedIn == false)
-                  ?Container():
-              InkWell(
-                onTap: () {
-                  AuthCubit.get(context).logOut(CartCubit.get(context)).then((value) {
-                    Navigator.pop(context);
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        IconPaths.LOGOUT_ICON,
-                        width: 30,
-                        height: 30,
-                      ),
-                      const SizedBox(
-                        width: 24,
-                      ),
-                      const Text(
-                        "Logout",
-                        style: TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_18,
-                            color: Colors.white),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
+            
+              ],
+            ),
           ),
-          const Spacer(),
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.2,vertical: 8),
             child: Image.asset(ImagePaths.APP_LOGO_2),

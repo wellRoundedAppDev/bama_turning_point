@@ -95,28 +95,46 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.stretch,
                                     children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(5),
-                                        child: Image.network(
-                                          productImageUrl ?? "",
-                                          errorBuilder:
-                                              (context, object, stackTrace) {
-                                            return const Icon(
-                                              Icons.error,
-                                              size: 150,
-                                              color: AppColors.APP_MAIN_COLOR,
-                                            );
-                                          },
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.45,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.2,
-                                          fit: BoxFit.cover,
-                                        ),
+                                      Stack(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(5),
+                                            child: Image.network(
+                                              productImageUrl ?? "",
+                                              errorBuilder:
+                                                  (context, object, stackTrace) {
+                                                return const Icon(
+                                                  Icons.error,
+                                                  size: 150,
+                                                  color: AppColors.APP_MAIN_COLOR,
+                                                );
+                                              },
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.45,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.2,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          Positioned(
+                                              bottom: 4,
+                                              right: 4,
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Colors.white.withOpacity(0.7)),
+                                                  child: const Padding(
+                                                    padding: EdgeInsets.all(2.0),
+                                                    child: Icon(
+                                                      Icons.favorite_border_rounded,
+                                                      color: Colors.black,
+                                                    ),
+                                                  )))
+                                        ],
                                       ),
                                       const SizedBox(
                                         height: 8,
