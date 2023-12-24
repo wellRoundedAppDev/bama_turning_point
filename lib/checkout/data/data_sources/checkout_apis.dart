@@ -48,6 +48,45 @@ class CheckoutApis {
     }
   }
 
+  static setCouponCode({
+    String languageCode = "ir_arabic",
+    String currencyCode = "IQD",
+    required String couponCode
+
+  }) async {
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    String endPoint = ApiUrls.SET_COUPON_CODE_ENDPOINT;
+
+    try {
+      var response = await _dioHelper.post(
+          endPoint: endPoint,
+          body: {
+            "coupon": couponCode
+
+          },
+          headers: {"Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode,
+
+          });
+      if (response == null) {
+        return null;
+      }
+      if (response.data['success'] == 1) {
+        return true;
+      } else if (response.data['success'] == 0) {
+        return false;
+      }
+      return null;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+
   static Future<bool?> confirmOrder({
     String languageCode = "ir_arabic",
     String currencyCode = "IQD"
