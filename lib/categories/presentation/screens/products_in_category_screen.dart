@@ -63,7 +63,7 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               mainAxisExtent:
-                                  MediaQuery.of(context).size.height * 0.3,
+                                  MediaQuery.of(context).size.height * 0.35,
                             ),
                             itemCount: products?.length ?? 0,
                             itemBuilder: (BuildContext context, int index) {
@@ -71,6 +71,9 @@ class ProductsInCategoryScreen extends StatelessWidget {
                               int? productId = product?.productId?.toInt();
                               String? productName = product?.name;
                               String? productImageUrl = product?.productImagePath;
+                              String? priceFormatted = product?.priceFormatted;
+
+
                               return InkWell(
                                 onTap: () {
                                   Navigator.push(
@@ -120,14 +123,45 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         productName ?? "-",
-                                        textAlign: TextAlign.left,
                                         maxLines: 1,
+                                        textAlign: TextAlign.start,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                             fontSize: FontSizes.FONT_SIZE_16,
                                             color: Color(0xff313846),
                                             fontWeight: FontWeight.bold),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Flexible(
+                                              child: Text(
+                                                priceFormatted??"",
+                                                //"\$${productPrice.toString() ?? "-"}",
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                    color: AppColors.APP_MAIN_COLOR,
+                                                    fontWeight: FontWeight.bold),
+                                              )),
+                                          // const SizedBox(
+                                          //   width: 8,
+                                          // ),
+                                          // Flexible(
+                                          //     flex: 2,
+                                          //     child: Text(
+                                          //       "\$17.96",
+                                          //       textAlign: TextAlign.left,
+                                          //       overflow: TextOverflow.ellipsis,
+                                          //       maxLines: 1,
+                                          //       style: TextStyle(
+                                          //         decoration: TextDecoration.lineThrough,
+                                          //         color: const Color(0xff333333)
+                                          //             .withOpacity(0.5),
+                                          //       ),
+                                          //     )),
+                                        ],
                                       )
+
                                     ],
                                   ),
                                 ),

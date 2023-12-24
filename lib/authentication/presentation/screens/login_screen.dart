@@ -40,6 +40,7 @@ class SignInScreen extends StatelessWidget {
                 )),
                 const SizedBox(height: 16,),
                 CustomInput(
+                  label: AppLocalizations.of(context)!.phone_number,
                   hintText: AppLocalizations.of(context)!.phone_number,
                   textInputType: TextInputType.phone,
                   validator: (value) {
@@ -48,12 +49,13 @@ class SignInScreen extends StatelessWidget {
                     }
                   },
                   onSaved: (v) =>
-                      AuthCubit.get(context).loginFormInput.email = v?.trim(),
+                      AuthCubit.get(context).loginFormInput.username = v?.trim(),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
                 CustomInput(
+                  label: AppLocalizations.of(context)!.password,
                   hintText: AppLocalizations.of(context)!.password,
                   validator: (v) {
                     if (v == null || v.length < 6) {

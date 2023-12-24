@@ -55,6 +55,7 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           CustomInput(
+                            label: AppLocalizations.of(context)!.first_name,
                             hintText: AppLocalizations.of(context)!.first_name,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -69,6 +70,7 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                             height: 21,
                           ),
                           CustomInput(
+                            label: AppLocalizations.of(context)!.family_name,
                             hintText: AppLocalizations.of(context)!.family_name,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -83,7 +85,8 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                             height: 21,
                           ),
                           CustomInput(
-                            hintText: "${AppLocalizations.of(context)!.address}",
+                            label: AppLocalizations.of(context)!.address,
+                            hintText: AppLocalizations.of(context)!.address,
                             validator: (value) {
                               if (value == null || value.length < 4) {
                                 return AppLocalizations.of(context)!.enter_an_address_of_at_least_four_characters;
@@ -148,6 +151,7 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                           //   ),
                           // ),
                           CustomInput(
+                            label: AppLocalizations.of(context)!.city,
                             hintText: AppLocalizations.of(context)!.city,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -162,6 +166,7 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                             height: 21,
                           ),
                           CustomInput(
+                            label: AppLocalizations.of(context)!.postal_code,
                             hintText: AppLocalizations.of(context)!.postal_code,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -186,9 +191,16 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                 // searchAdsCubit.getJobCategories();
                                 return CheckOutCubit.get(context).getCountries();
                               },
+
                               dropdownDecoratorProps:  DropDownDecoratorProps(
                                   dropdownSearchDecoration: InputDecoration(
                                       border: InputBorder.none,
+                                      label: Text(AppLocalizations.of(context)!.country,
+                                        style: const TextStyle(
+                                          fontSize: FontSizes.FONT_SIZE_16,
+                                          fontWeight: FontWeight.bold
+                                        ),
+                                      ),
                                       hintStyle: const TextStyle(
                                         fontSize: FontSizes.FONT_SIZE_16,
                                         color: Color(0xff878787),
@@ -253,6 +265,12 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                    DropDownDecoratorProps(
                                       dropdownSearchDecoration: InputDecoration(
                                           border: InputBorder.none,
+                                          label: Text(AppLocalizations.of(context)!.region_or_state,
+                                            style: const TextStyle(
+                                                fontSize: FontSizes.FONT_SIZE_16,
+                                                fontWeight: FontWeight.bold
+                                            ),
+                                          ),
                                           hintStyle: const TextStyle(
                                             fontSize: FontSizes.FONT_SIZE_16,
                                             color: Color(0xff878787),

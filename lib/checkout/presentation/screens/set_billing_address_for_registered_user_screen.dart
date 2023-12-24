@@ -369,9 +369,9 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                                               vertical: 16.0, horizontal: 16),
                                           child: Row(
                                             children: [
-                                              const Text(
-                                                "Full Name : ",
-                                                style: TextStyle(
+                                               Text(
+                                                 "${AppLocalizations.of(context)!.full_name}: ",
+                                                style: const TextStyle(
                                                     fontSize:
                                                         FontSizes.FONT_SIZE_14,
                                                     fontWeight:
@@ -402,9 +402,9 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              const Text(
-                                                "Address : ",
-                                                style: TextStyle(
+                                               Text(
+                                                "${AppLocalizations.of(context)!.address}: ",
+                                                style: const TextStyle(
                                                     fontSize:
                                                         FontSizes.FONT_SIZE_14,
                                                     fontWeight:
@@ -433,9 +433,9 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                                               vertical: 16.0, horizontal: 16),
                                           child: Row(
                                             children: [
-                                              const Text(
-                                                "Post Code : ",
-                                                style: TextStyle(
+                                               Text(
+                                                "${AppLocalizations.of(context)!.postal_code}: ",
+                                                style: const TextStyle(
                                                     fontSize:
                                                         FontSizes.FONT_SIZE_14,
                                                     fontWeight:
@@ -464,9 +464,9 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                                               vertical: 16.0, horizontal: 16),
                                           child: Row(
                                             children: [
-                                              const Text(
-                                                "City : ",
-                                                style: TextStyle(
+                                               Text(
+                                                "${AppLocalizations.of(context)!.city}: ",
+                                                style: const TextStyle(
                                                     fontSize:
                                                         FontSizes.FONT_SIZE_14,
                                                     fontWeight:
@@ -495,9 +495,9 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                                               vertical: 16.0, horizontal: 16),
                                           child: Row(
                                             children: [
-                                              const Text(
-                                                "Country : ",
-                                                style: TextStyle(
+                                               Text(
+                                                "${AppLocalizations.of(context)!.country}: ",
+                                                style: const TextStyle(
                                                     fontSize:
                                                         FontSizes.FONT_SIZE_14,
                                                     fontWeight:
@@ -526,9 +526,9 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                                               vertical: 16.0, horizontal: 16),
                                           child: Row(
                                             children: [
-                                              const Text(
-                                                "Region : ",
-                                                style: TextStyle(
+                                               Text(
+                                                "${AppLocalizations.of(context)!.region_or_state}: ",
+                                                style: const TextStyle(
                                                     fontSize:
                                                         FontSizes.FONT_SIZE_14,
                                                     fontWeight:
@@ -568,8 +568,8 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                                               (address?.addressId ==
                                                       checkOutCubit
                                                           .selectedUserAddressId)
-                                                  ? "Selected Address"
-                                                  : "Select Address",
+                                                  ? AppLocalizations.of(context)!.selected_address
+                                                  : AppLocalizations.of(context)!.select_address,
                                               style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize:

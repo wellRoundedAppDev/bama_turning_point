@@ -52,7 +52,7 @@ class ViewAllProductsScreen extends StatelessWidget {
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisExtent:
-                              MediaQuery.of(context).size.height * 0.32,
+                              MediaQuery.of(context).size.height * 0.35,
                         ),
                         itemCount: products?.length ?? 0,
                         itemBuilder: (BuildContext context, int index) {
@@ -104,14 +104,45 @@ class ViewAllProductsScreen extends StatelessWidget {
                                   ),
                                   Text(
                                     productName ?? "-",
-                                    textAlign: TextAlign.left,
+                                    textAlign: TextAlign.start,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                         fontSize: FontSizes.FONT_SIZE_16,
                                         color: Color(0xff313846),
                                         fontWeight: FontWeight.bold),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Flexible(
+                                          child: Text(
+                                            priceFormatted??"",
+                                            //"\$${productPrice.toString() ?? "-"}",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                color: AppColors.APP_MAIN_COLOR,
+                                                fontWeight: FontWeight.bold),
+                                          )),
+                                      // const SizedBox(
+                                      //   width: 8,
+                                      // ),
+                                      // Flexible(
+                                      //     flex: 2,
+                                      //     child: Text(
+                                      //       "\$17.96",
+                                      //       textAlign: TextAlign.left,
+                                      //       overflow: TextOverflow.ellipsis,
+                                      //       maxLines: 1,
+                                      //       style: TextStyle(
+                                      //         decoration: TextDecoration.lineThrough,
+                                      //         color: const Color(0xff333333)
+                                      //             .withOpacity(0.5),
+                                      //       ),
+                                      //     )),
+                                    ],
                                   )
+
                                 ],
                               ),
                             ),

@@ -125,6 +125,7 @@
   "view":"View",
   "order_details": "Order details",
   "shipping_address": "Shipping address",
+  "are_you_sure_you_want_to_logout": "Are you sure you want to logout?",
 
   "welcome_user": "Welcome {username}",
   "@welcome_user": {

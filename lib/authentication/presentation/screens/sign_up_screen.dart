@@ -43,6 +43,7 @@ class SignUpScreen extends StatelessWidget {
                 const SizedBox(height: 16,),
 
                 CustomInput(
+                  label: AppLocalizations.of(context)!.phone_number,
                   hintText: AppLocalizations.of(context)!.phone_number,
                   textInputType: TextInputType.phone,
                   validator: (value) {
@@ -123,6 +124,7 @@ class SignUpScreen extends StatelessWidget {
                 //   height: 16,
                 // ),
                 CustomInput(
+                  label: AppLocalizations.of(context)!.first_name,
                   hintText: AppLocalizations.of(context)!.first_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -136,6 +138,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
+                  label:AppLocalizations.of(context)!.family_name ,
                   hintText: AppLocalizations.of(context)!.family_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -149,6 +152,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
+                  label: AppLocalizations.of(context)!.password,
                   hintText: AppLocalizations.of(context)!.password,
                   validator: (v) {
                     if (v == null || v.length < 6) {
@@ -162,6 +166,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
+                  label: AppLocalizations.of(context)!.confirm_password,
                   hintText: AppLocalizations.of(context)!.confirm_password,
                   validator: (v) {
                     if (v == null || v.length < 6) {

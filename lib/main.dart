@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'cart/presentation/screens/cart_screen.dart';
 import 'core/bloc_observer.dart';
 import 'core/constants/colors/colors.dart';
@@ -46,6 +47,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => AppSettingsCubit(),
+        ),
+        BlocProvider(create: (context) => CartCubit()
+          //  ..loadCartItems()
         ),
       ],
       child: BlocConsumer<LocaleCubit, LocaleStates>(
