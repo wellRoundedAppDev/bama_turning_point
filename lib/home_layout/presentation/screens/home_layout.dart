@@ -12,6 +12,7 @@ import 'package:move_to_background/move_to_background.dart';
 import '../../../account/presentation/screens/my_account_screen.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../../core/constants/colors/colors.dart';
+import '../../../wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
 import '../cubits/app_cubit/cubit.dart';
 import '../cubits/app_cubit/states.dart';
 
@@ -22,6 +23,7 @@ class HomeLayoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+
         BlocProvider(create: (context) => AppCubit()),
 
       ],

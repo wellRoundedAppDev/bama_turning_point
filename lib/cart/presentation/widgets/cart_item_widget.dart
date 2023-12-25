@@ -15,23 +15,24 @@ class CartItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (){
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) =>
-            ProductDetailsScreen(selectedProductId: int.tryParse(cartItem.productId)??0)));
-      },
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.15,
-        width: MediaQuery.of(context).size.width,
-        margin: const EdgeInsets.only(bottom: 16),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: const Color(0xffDDDDDD), width: 1)),
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8),
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.15,
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: const Color(0xffDDDDDD), width: 1)),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: GestureDetector(
+              onTap: (){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>
+                        ProductDetailsScreen(selectedProductId: int.tryParse(cartItem.productId)??0)));
+
+              },
               child: Image.network(
                 cartItem.imagePath,
                 width: MediaQuery.of(context).size.width * 0.25,
@@ -46,157 +47,157 @@ class CartItemWidget extends StatelessWidget {
                 },
               ),
             ),
-            Container(
-              height: 700,
-              color: const Color(0xffDDDDDD),
-              width: 1,
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    cartItem.name,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontSize: FontSizes.FONT_SIZE_14,
-                        color: Color(0xff333333),
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 3,
-                  ),
-                  Text(
-                    cartItem.priceFormatted??"",
-                   // "\$${cartItem.price.toString()}",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontSize: FontSizes.FONT_SIZE_14,
-                        color: AppColors.APP_MAIN_COLOR,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.25,
-                        height: 25,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: const Color(0xffD0D0D0))),
-                        child: Row(
-                          children: [
-                            Flexible(
-                                flex: 1,
-                                child: InkWell(
-                                  onTap: () {
-                                    CartCubit.get(context)
-                                        .decreaseProductQuantity(
-                                            cartItem.productId,
-                                            cartItem.cartId ?? 0);
-                                  },
-                                  child: const Icon(
-                                    Icons.remove,
-                                    color: AppColors.DELETE_BUTTON_COLOR,
-                                  ),
-                                )),
-                            Container(
-                              height: MediaQuery.of(context).size.height,
-                              width: 1,
-                              color: const Color(0xffD0D0D0),
-                            ),
-                            Flexible(
-                                flex: 2,
-                                child: Center(
-                                  child: Text(
-                                    cartItem.quantity.toString(),
-                                    style: const TextStyle(
-                                        fontSize: FontSizes.FONT_SIZE_12,
-                                        color: Color(0xff313846),
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                )),
-                            Container(
-                              height: MediaQuery.of(context).size.height,
-                              width: 1,
-                              color: const Color(0xffD0D0D0),
-                            ),
-                            Flexible(
-                                flex: 1,
-                                child: Center(
-                                    child: InkWell(
-                                  onTap: () {
-                                    CartCubit.get(context)
-                                        .increaseProductQuantity(
-                                            cartItem.productId,
-                                            cartItem.cartId ?? 0);
-                                  },
-                                  child: const Icon(
-                                    Icons.add,
-                                    color: Color(0xff313846),
-                                  ),
-                                ))),
-                          ],
-                        ),
+          ),
+          Container(
+            height: 700,
+            color: const Color(0xffDDDDDD),
+            width: 1,
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  cartItem.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      fontSize: FontSizes.FONT_SIZE_14,
+                      color: Color(0xff333333),
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 3,
+                ),
+                Text(
+                  cartItem.priceFormatted??"",
+                 // "\$${cartItem.price.toString()}",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      fontSize: FontSizes.FONT_SIZE_14,
+                      color: AppColors.APP_MAIN_COLOR,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.25,
+                      height: 25,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: const Color(0xffD0D0D0))),
+                      child: Row(
+                        children: [
+                          Flexible(
+                              flex: 1,
+                              child: InkWell(
+                                onTap: () {
+                                  CartCubit.get(context)
+                                      .decreaseProductQuantity(
+                                          cartItem.productId,
+                                          cartItem.cartId ?? 0);
+                                },
+                                child: const Icon(
+                                  Icons.remove,
+                                  color: AppColors.DELETE_BUTTON_COLOR,
+                                ),
+                              )),
+                          Container(
+                            height: MediaQuery.of(context).size.height,
+                            width: 1,
+                            color: const Color(0xffD0D0D0),
+                          ),
+                          Flexible(
+                              flex: 2,
+                              child: Center(
+                                child: Text(
+                                  cartItem.quantity.toString(),
+                                  style: const TextStyle(
+                                      fontSize: FontSizes.FONT_SIZE_12,
+                                      color: Color(0xff313846),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )),
+                          Container(
+                            height: MediaQuery.of(context).size.height,
+                            width: 1,
+                            color: const Color(0xffD0D0D0),
+                          ),
+                          Flexible(
+                              flex: 1,
+                              child: Center(
+                                  child: InkWell(
+                                onTap: () {
+                                  CartCubit.get(context)
+                                      .increaseProductQuantity(
+                                          cartItem.productId,
+                                          cartItem.cartId ?? 0);
+                                },
+                                child: const Icon(
+                                  Icons.add,
+                                  color: Color(0xff313846),
+                                ),
+                              ))),
+                        ],
                       ),
-                      // const SizedBox(
-                      //   width: 16,
-                      // ),
-                      // Container(
-                      //   width: 25,
-                      //   height: 25,
-                      //   padding: const EdgeInsets.all(5.0),
-                      //   color: const Color(0xff36BFB1),
-                      //   child: Center(
-                      //       child: Image.asset(
-                      //     IconPaths.COMPARE_ICON,
-                      //     color: Colors.white,
-                      //   )),
-                      // ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          CartCubit.get(context).deleteProductFromSalesCart(
-                              cartItem.productId, cartItem.cartId ?? 0);
+                    ),
+                    // const SizedBox(
+                    //   width: 16,
+                    // ),
+                    // Container(
+                    //   width: 25,
+                    //   height: 25,
+                    //   padding: const EdgeInsets.all(5.0),
+                    //   color: const Color(0xff36BFB1),
+                    //   child: Center(
+                    //       child: Image.asset(
+                    //     IconPaths.COMPARE_ICON,
+                    //     color: Colors.white,
+                    //   )),
+                    // ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        CartCubit.get(context).deleteProductFromSalesCart(
+                            cartItem.productId, cartItem.cartId ?? 0);
+                      },
+                      child: BlocConsumer<CartCubit, CartStates>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          return (state is ItemDeletedFromCartLoadingState &&
+                                  cartItem.productId ==
+                                      CartCubit.get(context)
+                                          .selectedCartProductId)
+                              ? const SizedBox(
+                                  width: 18,
+                                  height: 18,
+                                  child: CircularProgressIndicator())
+                              : Container(
+                                  width: 25,
+                                  height: 25,
+                                  color: AppColors.DELETE_BUTTON_COLOR,
+                                  child: const Icon(
+                                    Icons.clear,
+                                    color: Colors.white,
+                                    size: 18,
+                                  ),
+                                );
                         },
-                        child: BlocConsumer<CartCubit, CartStates>(
-                          listener: (context, state) {},
-                          builder: (context, state) {
-                            return (state is ItemDeletedFromCartLoadingState &&
-                                    cartItem.productId ==
-                                        CartCubit.get(context)
-                                            .selectedCartProductId)
-                                ? const SizedBox(
-                                    width: 18,
-                                    height: 18,
-                                    child: CircularProgressIndicator())
-                                : Container(
-                                    width: 25,
-                                    height: 25,
-                                    color: AppColors.DELETE_BUTTON_COLOR,
-                                    child: const Icon(
-                                      Icons.clear,
-                                      color: Colors.white,
-                                      size: 18,
-                                    ),
-                                  );
-                          },
-                        ),
                       ),
-                    ],
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

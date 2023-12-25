@@ -82,6 +82,8 @@ class AccountCubit extends Cubit<AccountStates> {
       return;
     }
     accountInformationFormKey.currentState?.save();
+    accountInput.email = AuthCubit.get(context).loginResponse?.loginData?.telephone??"";
+    accountInput.phoneNumber = AuthCubit.get(context).loginResponse?.loginData?.telephone??"";
 
     emit(EditAccountLoadingState());
     var response = await AccountApis.editAccountDetails(accountInput.toJson());

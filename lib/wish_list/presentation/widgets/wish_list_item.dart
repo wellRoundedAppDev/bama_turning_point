@@ -4,14 +4,13 @@ import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dar
 import 'package:classic_eccomerce/wish_list/data/models/get_wishlist_response.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/states.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../core/constants/paths/icon_paths.dart';
-import '../../../shared_components/app_snackbar.dart';
+import '../../../product_details/presentation/screens/product_details_screen.dart';
 
 class WishListItemWidget extends StatelessWidget {
   WishlistItem? wishlistItem;
@@ -35,20 +34,33 @@ class WishListItemWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8),
-                child: Image.network(
-                  wishlistItem?.thumb,
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, object, stackTrace) {
-                    return Center(
-                      child: Icon(
-                        Icons.error,
-                        size: MediaQuery.of(context).size.width * 0.25,
-                        color: AppColors.APP_MAIN_COLOR,
-                      ),
-                    );
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Material(
+                                  child: ProductDetailsScreen(
+                                      selectedProductId: int.tryParse(
+                                              wishlistItem?.productId ?? "") ??
+                                          0),
+                                )));
                   },
+                  child: Image.network(
+                    wishlistItem?.thumb,
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, object, stackTrace) {
+                      return Center(
+                        child: Icon(
+                          Icons.error,
+                          size: MediaQuery.of(context).size.width * 0.25,
+                          color: AppColors.APP_MAIN_COLOR,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
               Container(
@@ -81,8 +93,8 @@ class WishListItemWidget extends StatelessWidget {
                     wishlistItem?.price == null
                         ? Container()
                         : Text(
-                      wishlistItem?.price??"",
-                          //  wishlistItem?.price ?? "",
+                            wishlistItem?.price ?? "",
+                            //  wishlistItem?.price ?? "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
