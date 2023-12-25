@@ -93,7 +93,7 @@ class AccountCubit extends Cubit<AccountStates> {
 
       emit(EditAccountSuccessState());
     } else if (response?.success == false) {
-      showAppSnackBar(content: response?.errorMsgs?[0][0] ?? "");
+      showAppSnackBar(content:( response?.errorMsgs?[0][0]) ?? "");
 
       emit(EditAccountFailedState());
     } else {

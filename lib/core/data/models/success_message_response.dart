@@ -1,6 +1,6 @@
 class SuccessAndErrorResponse {
   bool? success;
-  List<dynamic>? errorMsgs;
+ dynamic errorMsgs;
 
   SuccessAndErrorResponse({required this.success, required this.errorMsgs});
 
