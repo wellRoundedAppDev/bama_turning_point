@@ -7,9 +7,12 @@ import 'package:classic_eccomerce/core/locales/locale_cubit/locale_states.dart';
 import 'package:classic_eccomerce/home_layout/presentation/screens/home_layout.dart';
 import 'package:classic_eccomerce/splash/presentation/screens/splash_screen.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'cart/presentation/screens/cart_screen.dart';
@@ -19,16 +22,50 @@ import 'core/constants/fonts/font_families.dart';
 import 'core/locales/l10n/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-void main() {
+FirebaseMessaging messaging = FirebaseMessaging.instance;
+FlutterLocalNotificationsPlugin? fltNotification;
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
 
-  //await Firebase.initializeApp();
-  //await initFirebaseFCM();
+  // await Firebase.initializeApp();
+  // FirebaseMessaging.instance.requestPermission();
+  // listenToFirebaseFCM();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(const MyApp());
   });
+}
+
+listenToFirebaseFCM() {
+  var androiInit = const AndroidInitializationSettings("@mipmap/ic_launcher");
+  var iosInit = const DarwinInitializationSettings();
+  var initSetting = InitializationSettings(android: androiInit, iOS: iosInit);
+  fltNotification = FlutterLocalNotificationsPlugin();
+  fltNotification?.initialize(initSetting);
+  var androidDetails = const AndroidNotificationDetails(
+    "1",
+    "channelName",
+  );
+  var iosDetails = const DarwinNotificationDetails();
+  var generalNotificationDetails =
+      NotificationDetails(android: androidDetails, iOS: iosDetails);
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    RemoteNotification? notification = message.notification;
+    AndroidNotification? android = message.notification?.android;
+    if (notification != null && android != null) {
+      fltNotification?.show(notification.hashCode, notification.title,
+          notification.body, generalNotificationDetails);
+    }
+  });
+
+  // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) {
+  //   String? title = remoteMessage.notification?.title;
+  //   String? description = remoteMessage.notification?.body;
+  //   print(title);
+  //   print(description);
+  // });
 }
 
 class MyApp extends StatelessWidget {
