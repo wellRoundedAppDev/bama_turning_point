@@ -155,7 +155,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                          Padding(
-                                          padding: EdgeInsets.only(left: 16.0),
+                                          padding: const EdgeInsets.only(left: 16.0),
                                           child: Text(
                                             AppLocalizations.of(context)!.payment_method,
                                             style: const TextStyle(

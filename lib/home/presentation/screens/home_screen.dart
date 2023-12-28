@@ -179,7 +179,9 @@ class HomeScreen extends StatelessWidget {
               listener: (context, state) {},
               builder: (context, state) {
                 HomeCubit homeCubit = HomeCubit.get(context);
-                List<BannerAd>? bannerAds = homeCubit.banners;
+                // List<BannerAd>? bannerAds = homeCubit.banners;
+                List<String>? bannerAds = homeCubit.banners;
+
                 List<Category>? categories = homeCubit.categoriesOverview;
 
                 var featuredProducts = homeCubit.featuredProductsOverview;
@@ -210,21 +212,22 @@ class HomeScreen extends StatelessWidget {
                                     onPageChanged: (index, reason) {}),
                                 items: bannerAds
                                     ?.map(
-                                      (e) => Image.network(
-                                        e.imageOriginal ?? "",
+                                      (e) => Image.asset(
+                                     //   e.imageOriginal ?? "",
+                                       e,
                                         width:
                                             MediaQuery.of(context).size.width,
                                         fit: BoxFit.cover,
-                                        errorBuilder:
-                                            (context, object, stackTrace) {
-                                          return const Center(
-                                            child: Icon(
-                                              Icons.error,
-                                              size: 150,
-                                              color: AppColors.APP_MAIN_COLOR,
-                                            ),
-                                          );
-                                        },
+                                        // errorBuilder:
+                                        //     (context, object, stackTrace) {
+                                        //   return const Center(
+                                        //     child: Icon(
+                                        //       Icons.error,
+                                        //       size: 150,
+                                        //       color: AppColors.APP_MAIN_COLOR,
+                                        //     ),
+                                        //   );
+                                        // },
                                       ),
                                     )
                                     .toList(),

@@ -44,8 +44,9 @@ class SignInScreen extends StatelessWidget {
                   hintText: AppLocalizations.of(context)!.phone_number,
                   textInputType: TextInputType.phone,
                   validator: (value) {
-                    if (value == null || value.length != 9) {
-                      return AppLocalizations.of(context)!.enter_a_valid_phone_number;
+                    if (value == null || value.length < 8 || value.length > 13) {
+                      return AppLocalizations.of(context)!
+                          .enter_a_valid_phone_number;
                     }
                   },
                   onSaved: (v) =>

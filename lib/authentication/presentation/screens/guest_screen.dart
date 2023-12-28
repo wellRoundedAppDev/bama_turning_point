@@ -45,7 +45,7 @@ class GuestScreen extends StatelessWidget {
                   hintText: AppLocalizations.of(context)!.phone_number,
                   textInputType: TextInputType.phone,
                   validator: (value) {
-                    if (value == null || value.length != 9) {
+                    if (value == null || value.length < 8 || value.length > 13) {
                       return AppLocalizations.of(context)!
                           .enter_a_valid_phone_number;
                     }
@@ -220,22 +220,22 @@ class GuestScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                CustomInput(
-                  label: AppLocalizations.of(context)!.postal_code,
-                  hintText: AppLocalizations.of(context)!.postal_code,
-                  textInputType: TextInputType.number,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
-                          .enter_your_postal_code;
-                    }
-                  },
-                  onSaved: (v) =>
-                      AuthCubit.get(context).guestFormInput.postalCode = v,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
+                // CustomInput(
+                //   label: AppLocalizations.of(context)!.postal_code,
+                //   hintText: AppLocalizations.of(context)!.postal_code,
+                //   textInputType: TextInputType.number,
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return AppLocalizations.of(context)!
+                //           .enter_your_postal_code;
+                //     }
+                //   },
+                //   onSaved: (v) =>
+                //       AuthCubit.get(context).guestFormInput.postalCode = v,
+                // ),
+                // const SizedBox(
+                //   height: 16,
+                // ),
                 BlocConsumer<AuthCubit, AuthStates>(
                   listener: (context, state) {},
                   builder: (context, state) {

@@ -15,6 +15,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../../app_settings/app_language_codes.dart';
+import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../categories/data/models/get_categories_response.dart';
 import '../../../data/models/get_slide_shows_response.dart';
 
@@ -28,7 +29,13 @@ class HomeCubit extends Cubit<HomeStates> {
   AppSettingsCubit? appSettingsCubit;
 
   //data
-  List<BannerAd>? banners;
+  // List<BannerAd>? banners;
+  List<String> banners = ['assets/images/slider1.jpeg',
+    'assets/images/slider2.jpeg',
+  'assets/images/slider3.jpeg',
+  'assets/images/slider4.jpeg',
+  'assets/images/slider5.jpg',
+  ];
   List<Category>? categoriesOverview;
   List<Category>? allCategories;
   List<Product>? allProducts;
@@ -39,16 +46,16 @@ class HomeCubit extends Cubit<HomeStates> {
   List<BestSeller>? bestSellersProductsOverview;
   //List<BestSeller>? allBestSellersProducts;
 
-  setBanners() async {
-    var response = await GetSlideShowsApi.getSlideShows();
-    if (response?.success == 1) {
-      banners = response?.slideShows?[0].bannerAds;
-    } else if (response?.success == 0) {
-      banners = null;
-    } else {
-      banners = null;
-    }
-  }
+  // setBanners() async {
+  //   var response = await GetSlideShowsApi.getSlideShows();
+  //   if (response?.success == 1) {
+  //     banners = response?.slideShows?[0].bannerAds;
+  //   } else if (response?.success == 0) {
+  //     banners = null;
+  //   } else {
+  //     banners = null;
+  //   }
+  // }
 
   navigateToViewAllProductsScreen(
       String productsListTitle, CartCubit cartCubit) {
@@ -231,7 +238,20 @@ class HomeCubit extends Cubit<HomeStates> {
     localeCubit = LocaleCubit.get(context);
     appSettingsCubit = AppSettingsCubit.get(context);
     emit(FetchingHomeScreenLoadingState());
-    await setBanners();
+
+    bool? isUserLoggedIn =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
+    String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    if (isUserLoggedIn == false && accessToken == null) {
+      var success = await AuthCubit.get(context).setAccessToken();
+      if (!success) {
+        emit(FetchingHomeScreenNetworkFailedState());
+        return;
+      }
+    }
+
+    // await setBanners();
     await setCategoriesOverview();
     await setFeaturedProductsOverview();
     await setNewArrivalsOverview();

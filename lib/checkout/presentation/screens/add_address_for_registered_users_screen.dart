@@ -162,22 +162,22 @@ class AddAddressForRegisteredUserScreen extends StatelessWidget {
                                 .addAddressToOrderInput
                                 .city = v!,
                           ),
-                          const SizedBox(
-                            height: 21,
-                          ),
-                          CustomInput(
-                            label: AppLocalizations.of(context)!.postal_code,
-                            hintText: AppLocalizations.of(context)!.postal_code,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return AppLocalizations.of(context)!.enter_your_postal_code;
-                              }
-                            },
-                            textInputType: TextInputType.number,
-                            onSaved: (v) => CheckOutCubit.get(context)
-                                .addAddressToOrderInput
-                                .postalCode = v!,
-                          ),
+                          // const SizedBox(
+                          //   height: 21,
+                          // ),
+                          // CustomInput(
+                          //   label: AppLocalizations.of(context)!.postal_code,
+                          //   hintText: AppLocalizations.of(context)!.postal_code,
+                          //   validator: (value) {
+                          //     if (value == null || value.isEmpty) {
+                          //       return AppLocalizations.of(context)!.enter_your_postal_code;
+                          //     }
+                          //   },
+                          //   textInputType: TextInputType.number,
+                          //   onSaved: (v) => CheckOutCubit.get(context)
+                          //       .addAddressToOrderInput
+                          //       .postalCode = v!,
+                          // ),
                           const SizedBox(
                             height: 21,
                           ),
