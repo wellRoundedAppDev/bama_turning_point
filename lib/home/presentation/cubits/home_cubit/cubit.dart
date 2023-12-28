@@ -2,7 +2,7 @@ import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_c
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/data/data_sources/remote_data_sources/categories_apis.dart';
 import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
-import 'package:classic_eccomerce/home/data/data_sources/remote_data_sources/get_slide_shows_api.dart';
+import 'package:classic_eccomerce/home/data/data_sources/remote_data_sources/get_brands_api.dart';
 import 'package:classic_eccomerce/home/data/data_sources/remote_data_sources/products_apis.dart';
 import 'package:classic_eccomerce/home/data/models/get_best_sellers_response.dart';
 import 'package:classic_eccomerce/home/data/models/get_featured_products_response.dart';
@@ -17,7 +17,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../../app_settings/app_language_codes.dart';
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../categories/data/models/get_categories_response.dart';
-import '../../../data/models/get_slide_shows_response.dart';
+import '../../../data/models/get_brands_response.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitialState());
@@ -30,12 +30,14 @@ class HomeCubit extends Cubit<HomeStates> {
 
   //data
   // List<BannerAd>? banners;
-  List<String> banners = ['assets/images/slider1.jpeg',
+  List<String> banners = [
+    'assets/images/slider1.jpeg',
     'assets/images/slider2.jpeg',
-  'assets/images/slider3.jpeg',
-  'assets/images/slider4.jpeg',
-  'assets/images/slider5.jpg',
+    'assets/images/slider3.jpeg',
+    'assets/images/slider4.jpeg',
+    'assets/images/slider5.jpg',
   ];
+
   List<Category>? categoriesOverview;
   List<Category>? allCategories;
   List<Product>? allProducts;
@@ -44,6 +46,8 @@ class HomeCubit extends Cubit<HomeStates> {
   List<LatestProduct>? newArrivalsProductsOverview;
   //List<LatestProduct>? allNewArrivals;
   List<BestSeller>? bestSellersProductsOverview;
+  List<Brand>? brands;
+
   //List<BestSeller>? allBestSellersProducts;
 
   // setBanners() async {
@@ -117,9 +121,7 @@ class HomeCubit extends Cubit<HomeStates> {
   setFeaturedProductsOverview() async {
     var response = await ProductsApis.getFeaturedProductsOverview(
         languageCode: languageCodes[localeCubit?.locale.languageCode],
-      currencyCode: appSettingsCubit?.currencyCode??""
-
-    );
+        currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       featuredProductsOverview = response?.data?[0].products;
     } else if (response?.success == 0) {
@@ -132,9 +134,7 @@ class HomeCubit extends Cubit<HomeStates> {
   setNewArrivalsOverview() async {
     var response = await ProductsApis.getNewArrivalsProductsOverview(
         languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode??""
-
-    );
+        currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       newArrivalsProductsOverview = response?.latestProducts;
     } else if (response?.success == 0) {
@@ -147,9 +147,7 @@ class HomeCubit extends Cubit<HomeStates> {
   setBestSellersOverview() async {
     var response = await ProductsApis.getBestSellersOverview(
         languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode??""
-
-    );
+        currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       bestSellersProductsOverview = response?.bestSellers;
     } else if (response?.success == 0) {
@@ -161,18 +159,15 @@ class HomeCubit extends Cubit<HomeStates> {
 
   setCategoriesOverview() async {
     var response = await CategoriesApis.getCategories(
-        1,
-        languageCode: languageCodes[localeCubit?.locale.languageCode],
-
+      1,
+      languageCode: languageCodes[localeCubit?.locale.languageCode],
     );
 
     if (response?.success == 1) {
       categoriesOverview = response?.categories;
-    }
-    else if (response?.success == 0) {
+    } else if (response?.success == 0) {
       categoriesOverview = null;
-    }
-    else {
+    } else {
       categoriesOverview = null;
     }
   }
@@ -181,9 +176,7 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(FetchingAllProductsLoadingState());
     var response = await ProductsApis.getFeaturedProducts(
         languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode??""
-
-    );
+        currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       allProducts = response?.data?[0].products;
       emit(FetchingAllProductsSuccessState());
@@ -200,9 +193,7 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(FetchingAllProductsLoadingState());
     var response = await ProductsApis.getNewArrivalsProducts(
         languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode??""
-
-    );
+        currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       allProducts = response?.latestProducts;
       emit(FetchingAllProductsSuccessState());
@@ -219,9 +210,7 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(FetchingAllProductsLoadingState());
     var response = await ProductsApis.getBestSellersProducts(
         languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode??""
-
-    );
+        currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       allProducts = response?.bestSellers;
       emit(FetchingAllProductsSuccessState());
@@ -234,6 +223,19 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
+  setBrands() async {
+    var response = await GetBrandsApi.getBrands(
+        languageCode: languageCodes[localeCubit?.locale.languageCode],
+        currencyCode: appSettingsCubit?.currencyCode ?? "");
+    if (response?.success == 1) {
+      brands = response?.brands;
+    } else if (response?.success == 0) {
+      brands = null;
+    } else {
+      brands = null;
+    }
+  }
+
   init() async {
     localeCubit = LocaleCubit.get(context);
     appSettingsCubit = AppSettingsCubit.get(context);
@@ -241,7 +243,8 @@ class HomeCubit extends Cubit<HomeStates> {
 
     bool? isUserLoggedIn =
         MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
-    String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     if (isUserLoggedIn == false && accessToken == null) {
       var success = await AuthCubit.get(context).setAccessToken();
@@ -251,7 +254,7 @@ class HomeCubit extends Cubit<HomeStates> {
       }
     }
 
-    // await setBanners();
+    //await setBanners();
     await setCategoriesOverview();
     await setFeaturedProductsOverview();
     await setNewArrivalsOverview();

@@ -12,14 +12,18 @@ import '../../../../main.dart';
 class GetBrandsApi {
   static final dioHelper = DioHelper.instance;
 
-  static Future<GetBrandsResponse?> getBrands() async {
+  static Future<GetBrandsResponse?> getBrands(
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
     String endPoint = ApiUrls.GET_BRANDS_ENDPOINT;
-    String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {
-      var response = await dioHelper.get(endpoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken"}
-      );
+      var response = await dioHelper.get(endpoint: endPoint, headers: {
+        "Authorization": "Bearer $accessToken",
+        "X-Oc-Merchant-Language": languageCode,
+        "X-Oc-Currency": currencyCode
+      });
       if (response == null) {
         return null;
       }
