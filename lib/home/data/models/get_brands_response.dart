@@ -42,7 +42,7 @@ class GetBrandsResponse {
 
 class Brand {
   Brand({
-      this.manufacturerId, 
+      this.brandId, 
       this.name, 
       this.image, 
       this.originalImage, 
@@ -54,10 +54,10 @@ class Brand {
     var image = json['image'];
     var originalImage = json['original_image'];
     var sortOrder = json['sort_order'];
-    return Brand(manufacturerId: manufacturerId,name: name,image: image,originalImage: originalImage,sortOrder: sortOrder);
+    return Brand(brandId: manufacturerId,name: name,image: image,originalImage: originalImage,sortOrder: sortOrder);
 
   }
-  num? manufacturerId;
+  num? brandId;
   String? name;
   String? image;
   String? originalImage;
@@ -65,7 +65,7 @@ class Brand {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['manufacturer_id'] = manufacturerId;
+    map['manufacturer_id'] = brandId;
     map['name'] = name;
     map['image'] = image;
     map['original_image'] = originalImage;

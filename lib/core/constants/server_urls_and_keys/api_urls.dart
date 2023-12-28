@@ -44,6 +44,7 @@ class ApiUrls {
   static const GET_SELECT_VALUES_ENDPOINT = "api/rest/product_classes";
   static const SET_COUPON_CODE_ENDPOINT = "api/rest/coupon";
   static const GET_BRANDS_ENDPOINT = "api/rest/manufacturers";
+  static const GET_PRODUCTS_IN_BRAND_ENDPOINT = "api/rest/products/manufacturer";
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>
       "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";
@@ -73,6 +74,7 @@ class ApiUrls {
       "$ACCOUNT_ADDRESS_ENDPOINT/$addressId";
   static String getSearchByTermEndpoint(String searchTerm) =>
       "$SEARCH_ENDPOINT$searchTerm";
+  static String getProductsInBrandEndpoint(int id) => "$GET_PRODUCTS_IN_BRAND_ENDPOINT{$id}";
 
 
 }

@@ -11,8 +11,10 @@ import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/states.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/search_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/screens/search_and_filter_screen.dart';
+import 'package:classic_eccomerce/home/presentation/widgets/brands_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/categories_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/products_overview.dart';
+import 'package:classic_eccomerce/notifications/presentation/screens/notifications_screen.dart';
 import 'package:classic_eccomerce/shared_components/search_app_bar_custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,6 +64,7 @@ class HomeScreen extends StatelessWidget {
                               size: 25,
                               color: Colors.white,
                             ),
+
                           ),
                           Expanded(child: Container()),
                           Center(
@@ -71,6 +74,10 @@ class HomeScreen extends StatelessWidget {
                             height: MediaQuery.of(context).size.height * 0.05,
                           )),
                           Expanded(child: Container()),
+
+                          IconButton(onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
+                          }, icon: const Icon(Icons.notifications,color: Colors.white,size: 30,),),
 
                           GestureDetector(
                               onTap: () {
@@ -131,6 +138,7 @@ class HomeScreen extends StatelessWidget {
                                   );
                                 },
                               )),
+
                         ],
                       ),
                       const Spacer(),
@@ -189,6 +197,8 @@ class HomeScreen extends StatelessWidget {
                 var newArrivals = homeCubit.newArrivalsProductsOverview;
                 var bestSellers = homeCubit.bestSellersProductsOverview;
 
+                var brands = homeCubit.brands;
+
                 return (state is FetchingHomeScreenLoadingState)
                     ? const Center(
                         child: CircularProgressIndicator(),
@@ -212,7 +222,7 @@ class HomeScreen extends StatelessWidget {
                                     autoPlay: true,
                                     onPageChanged: (index, reason) {}),
                                 items: bannerAds
-                                    ?.map(
+                                    .map(
                                       (e) => Image.asset(
                                      //   e.imageOriginal ?? "",
                                        e,
@@ -240,24 +250,25 @@ class HomeScreen extends StatelessWidget {
                                     const SizedBox(
                                   height: 16,
                                 ),
-                                itemCount: 4,
+                                itemCount: 5,
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (context, index) {
-                                  String productListTitle = (index == 1)
+                                  String productListTitle = (index == 2)
                                       ? AppLocalizations.of(context)!.featured_products
-                                      : (index == 2)
+                                      : (index == 4)
                                           ? AppLocalizations.of(context)!.new_arrivals
-                                          : AppLocalizations.of(context)!.best_sellers;
+                                          : AppLocalizations.of(context)!.offers;
 
-                                  var products = (index == 1)
+                                  var products = (index == 2)
                                       ? featuredProducts
-                                      : (index == 2)
+                                      : (index == 4)
                                           ? newArrivals
                                           : bestSellers;
 
-                                  return (index == 0)
+                                  return (index == 0)?BrandsOverview(brands: brands??[]):(index == 1)
                                       ? CategoriesOverview(
                                           categories: categories ?? [],
+
                                         )
                                       : Container(
                                           color: Colors.white,
