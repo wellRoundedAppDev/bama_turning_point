@@ -399,55 +399,55 @@ class HomeDrawer extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Divider(thickness: 1,color: Colors.white,),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Scaffold.of(context).closeDrawer();
-                          Navigator.push(context, MaterialPageRoute(builder: (context){
-                            return const NotificationsScreen();
-                          }));
-                        },
-                        child:  Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!.notifications,
-                                style: const TextStyle(
-                                    fontSize: FontSizes.FONT_SIZE_18,
-                                    color: Colors.white),
-                              ),
-                              const SizedBox(height: 4,),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Icon(Icons.notifications,size: 30,color: Colors.white,),
-                                  const SizedBox(
-                                    width: 24,
-                                  ),
-                                  BlocConsumer<AppSettingsCubit,AppSettingsStates>(
-                                    listener: (context,state){},
-                                    builder: (context,state){
-                                      return Expanded(
-                                        child: Text(
-                                          AppLocalizations.of(context)!.notifications,
-                                          style: const TextStyle(
-                                              fontSize: FontSizes.FONT_SIZE_18,
-                                              color: Colors.white),
-                                        ),
-                                      );
-                                    },
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      // const Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      //   child: Divider(thickness: 1,color: Colors.white,),
+                      // ),
+                      // InkWell(
+                      //   onTap: () {
+                      //     Scaffold.of(context).closeDrawer();
+                      //     Navigator.push(context, MaterialPageRoute(builder: (context){
+                      //       return const NotificationsScreen();
+                      //     }));
+                      //   },
+                      //   child:  Padding(
+                      //     padding: const EdgeInsets.all(16.0),
+                      //     child: Column(
+                      //       crossAxisAlignment: CrossAxisAlignment.start,
+                      //       children: [
+                      //         Text(
+                      //           AppLocalizations.of(context)!.notifications,
+                      //           style: const TextStyle(
+                      //               fontSize: FontSizes.FONT_SIZE_18,
+                      //               color: Colors.white),
+                      //         ),
+                      //         const SizedBox(height: 4,),
+                      //         Row(
+                      //           crossAxisAlignment: CrossAxisAlignment.center,
+                      //           children: [
+                      //             const Icon(Icons.notifications,size: 30,color: Colors.white,),
+                      //             const SizedBox(
+                      //               width: 24,
+                      //             ),
+                      //             BlocConsumer<AppSettingsCubit,AppSettingsStates>(
+                      //               listener: (context,state){},
+                      //               builder: (context,state){
+                      //                 return Expanded(
+                      //                   child: Text(
+                      //                     AppLocalizations.of(context)!.notifications,
+                      //                     style: const TextStyle(
+                      //                         fontSize: FontSizes.FONT_SIZE_18,
+                      //                         color: Colors.white),
+                      //                   ),
+                      //                 );
+                      //               },
+                      //             )
+                      //           ],
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Divider(thickness: 1,color: Colors.white,),

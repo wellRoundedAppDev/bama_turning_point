@@ -14,7 +14,9 @@ import '../cubits/home_cubit/states.dart';
 
 class ViewAllProductsScreen extends StatelessWidget {
   String productTitle;
-  ViewAllProductsScreen({Key? key, required this.productTitle})
+  bool isBrands;
+  ViewAllProductsScreen(
+      {Key? key, required this.productTitle, this.isBrands = false})
       : super(key: key);
 
   @override
@@ -37,7 +39,8 @@ class ViewAllProductsScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(16),
                       child: NoNetworkRefreshPage(
                         refresh: () {
-                          homeCubit.loadViewAllProductsScreen(productTitle);
+                          homeCubit.loadViewAllProductsScreen(productTitle,
+                              isBrands: isBrands);
 
                           //  homeCubit.setCategories();
                         },
@@ -45,7 +48,8 @@ class ViewAllProductsScreen extends StatelessWidget {
                     )
                   : RefreshIndicator(
                       onRefresh: () async {
-                        await homeCubit.loadViewAllProductsScreen(productTitle);
+                        await homeCubit.loadViewAllProductsScreen(productTitle,
+                            isBrands: isBrands);
                       },
                       child: GridView.builder(
                         padding: const EdgeInsets.symmetric(vertical: 8),
@@ -93,11 +97,14 @@ class ViewAllProductsScreen extends StatelessWidget {
                                               color: AppColors.APP_MAIN_COLOR,
                                             );
                                           },
-                                          width: MediaQuery.of(context).size.width *
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
                                               0.45,
-                                          height:
-                                              MediaQuery.of(context).size.height *
-                                                  0.2,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.2,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -107,7 +114,8 @@ class ViewAllProductsScreen extends StatelessWidget {
                                           child: Container(
                                               decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  color: Colors.white.withOpacity(0.7)),
+                                                  color: Colors.white
+                                                      .withOpacity(0.7)),
                                               child: const Padding(
                                                 padding: EdgeInsets.all(2.0),
                                                 child: Icon(
@@ -134,14 +142,14 @@ class ViewAllProductsScreen extends StatelessWidget {
                                     children: [
                                       Flexible(
                                           child: Text(
-                                            priceFormatted??"",
-                                            //"\$${productPrice.toString() ?? "-"}",
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                color: AppColors.APP_MAIN_COLOR,
-                                                fontWeight: FontWeight.bold),
-                                          )),
+                                        priceFormatted ?? "",
+                                        //"\$${productPrice.toString() ?? "-"}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                            color: AppColors.APP_MAIN_COLOR,
+                                            fontWeight: FontWeight.bold),
+                                      )),
                                       // const SizedBox(
                                       //   width: 8,
                                       // ),
@@ -160,7 +168,6 @@ class ViewAllProductsScreen extends StatelessWidget {
                                       //     )),
                                     ],
                                   )
-
                                 ],
                               ),
                             ),
