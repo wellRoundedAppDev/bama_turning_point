@@ -105,42 +105,25 @@ class BrandsOverview extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Stack(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
-                                      brandImagePath??"",
-                                      height:
-                                      MediaQuery.of(context).size.height * 0.2,
-                                      width: MediaQuery.of(context).size.width,
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  brandImagePath??"",
+                                  height:
+                                  MediaQuery.of(context).size.height * 0.2,
+                                  width: MediaQuery.of(context).size.width,
 
-                                      errorBuilder: (context, object, stackTrace) {
-                                        return const Icon(
-                                          Icons.error,
-                                          size: 150,
-                                          color: AppColors.APP_MAIN_COLOR,
-                                        );
-                                      },
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Positioned(
-                                      bottom: 4,
-                                      right: 4,
-                                      child: Container(
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.white.withOpacity(0.7)),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(2.0),
-                                            child: Icon(
-                                              Icons.favorite_border_rounded,
-                                              color: Colors.black,
-                                            ),
-                                          )))
-                                ],
+                                  errorBuilder: (context, object, stackTrace) {
+                                    return const Icon(
+                                      Icons.error,
+                                      size: 150,
+                                      color: AppColors.APP_MAIN_COLOR,
+                                    );
+                                  },
+                                  fit: BoxFit.cover,
+                                ),
                               ),
+
                               const SizedBox(
                                 height: 3,
                               ),

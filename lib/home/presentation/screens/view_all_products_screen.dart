@@ -110,7 +110,7 @@ class ViewAllProductsScreen extends StatelessWidget {
                                       ),
                                       Positioned(
                                           bottom: 4,
-                                          right: 8,
+                                          right: 4,
                                           child: Container(
                                               decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
