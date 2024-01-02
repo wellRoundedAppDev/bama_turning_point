@@ -39,7 +39,7 @@ class AddressBookEntriesScreen extends StatelessWidget {
               children: [
                  Text(
                  AppLocalizations.of(context)!.add_address ,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: FontSizes.FONT_SIZE_16,
                       color: Color(0xff313846)),
                 ),

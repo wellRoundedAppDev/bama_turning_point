@@ -13,7 +13,6 @@ import '../../../core/constants/paths/image_paths.dart';
 import '../../../shared_components/custom_input.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class GuestScreen extends StatelessWidget {
   const GuestScreen({super.key});
 
@@ -42,11 +41,13 @@ class GuestScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
+                  label: AppLocalizations.of(context)!.phone_number,
                   hintText: AppLocalizations.of(context)!.phone_number,
                   textInputType: TextInputType.phone,
                   validator: (value) {
-                    if (value == null || value.length != 9) {
-                      return AppLocalizations.of(context)!.enter_a_valid_phone_number;
+                    if (value == null || value.length < 8 || value.length > 13) {
+                      return AppLocalizations.of(context)!
+                          .enter_a_valid_phone_number;
                     }
                   },
                   onSaved: (v) =>
@@ -104,10 +105,12 @@ class GuestScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
+                  label: AppLocalizations.of(context)!.first_name,
                   hintText: AppLocalizations.of(context)!.first_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!.enter_your_first_name;
+                      return AppLocalizations.of(context)!
+                          .enter_your_first_name;
                     }
                   },
                   onSaved: (v) =>
@@ -117,10 +120,12 @@ class GuestScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
+                  label: AppLocalizations.of(context)!.family_name,
                   hintText: AppLocalizations.of(context)!.family_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return   AppLocalizations.of(context)!.enter_your_family_name;
+                      return AppLocalizations.of(context)!
+                          .enter_your_family_name;
                     }
                   },
                   onSaved: (v) =>
@@ -129,8 +134,8 @@ class GuestScreen extends StatelessWidget {
                 const SizedBox(
                   height: 24,
                 ),
-                 Text(
-                  AppLocalizations.of(context)!.billing_address ,
+                Text(
+                  AppLocalizations.of(context)!.billing_address,
                   style: const TextStyle(
                       fontSize: FontSizes.FONT_SIZE_16,
                       fontWeight: FontWeight.bold,
@@ -140,11 +145,12 @@ class GuestScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
-                  hintText:                   AppLocalizations.of(context)!.address ,
-
+                  label: AppLocalizations.of(context)!.address,
+                  hintText: AppLocalizations.of(context)!.address,
                   validator: (value) {
                     if (value == null || value.length < 4) {
-                      return AppLocalizations.of(context)!.enter_an_address_of_at_least_four_characters;
+                      return AppLocalizations.of(context)!
+                          .enter_an_address_of_at_least_four_characters;
                     }
                   },
                   onSaved: (v) =>
@@ -200,6 +206,7 @@ class GuestScreen extends StatelessWidget {
                 //   ),
                 // ),
                 CustomInput(
+                  label: AppLocalizations.of(context)!.city,
                   hintText: AppLocalizations.of(context)!.city,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -213,20 +220,22 @@ class GuestScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                CustomInput(
-                  hintText: AppLocalizations.of(context)!.postal_code,
-                  textInputType: TextInputType.number,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!.enter_your_postal_code;
-                    }
-                  },
-                  onSaved: (v) =>
-                      AuthCubit.get(context).guestFormInput.postalCode = v,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
+                // CustomInput(
+                //   label: AppLocalizations.of(context)!.postal_code,
+                //   hintText: AppLocalizations.of(context)!.postal_code,
+                //   textInputType: TextInputType.number,
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return AppLocalizations.of(context)!
+                //           .enter_your_postal_code;
+                //     }
+                //   },
+                //   onSaved: (v) =>
+                //       AuthCubit.get(context).guestFormInput.postalCode = v,
+                // ),
+                // const SizedBox(
+                //   height: 16,
+                // ),
                 BlocConsumer<AuthCubit, AuthStates>(
                   listener: (context, state) {},
                   builder: (context, state) {
@@ -239,14 +248,22 @@ class GuestScreen extends StatelessWidget {
                           // var res =
                           return await AuthCubit.get(context).getCountries();
                         },
-                        dropdownDecoratorProps:  DropDownDecoratorProps(
+                        dropdownDecoratorProps: DropDownDecoratorProps(
                             dropdownSearchDecoration: InputDecoration(
+                                label: Text(
+                                  AppLocalizations.of(context)!.country,
+                                  style: const TextStyle(
+                                      fontSize: FontSizes.FONT_SIZE_16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+
                                 border: InputBorder.none,
                                 hintStyle: const TextStyle(
                                   fontSize: FontSizes.FONT_SIZE_16,
                                   color: Color(0xff878787),
                                 ),
-                                hintText: AppLocalizations.of(context)!.country)),
+                                hintText:
+                                AppLocalizations.of(context)!.country)),
                         dropdownButtonProps: const DropdownButtonProps(
                             icon: Icon(
                           Icons.keyboard_arrow_down,
@@ -282,7 +299,8 @@ class GuestScreen extends StatelessWidget {
                         validator: (Country? country) {
                           if (AuthCubit.get(context).guestFormInput.country ==
                               null) {
-                            return AppLocalizations.of(context)!.select_your_country;
+                            return AppLocalizations.of(context)!
+                                .select_your_country;
                           }
                         },
                       ),
@@ -306,14 +324,21 @@ class GuestScreen extends StatelessWidget {
                           return await AuthCubit.get(context)
                               .getRegionOfGuest();
                         },
-                        dropdownDecoratorProps:  DropDownDecoratorProps(
+                        dropdownDecoratorProps: DropDownDecoratorProps(
                             dropdownSearchDecoration: InputDecoration(
                                 border: InputBorder.none,
+                                label: Text(
+                                  AppLocalizations.of(context)!.region_or_state,
+                                  style: const TextStyle(
+                                      fontSize: FontSizes.FONT_SIZE_16,
+                                      fontWeight: FontWeight.bold),
+                                ),
                                 hintStyle: const TextStyle(
                                   fontSize: FontSizes.FONT_SIZE_16,
                                   color: Color(0xff878787),
                                 ),
-                                hintText: AppLocalizations.of(context)!.region_or_state)),
+                                hintText: AppLocalizations.of(context)!
+                                    .region_or_state)),
                         dropdownButtonProps: const DropdownButtonProps(
                             icon: Icon(
                           Icons.keyboard_arrow_down,
@@ -349,8 +374,8 @@ class GuestScreen extends StatelessWidget {
                         validator: (Region? region) {
                           if (AuthCubit.get(context).guestFormInput.region ==
                               null) {
-                           return AppLocalizations.of(context)!.select_your_region_or_state;
-
+                            return AppLocalizations.of(context)!
+                                .select_your_region_or_state;
                           }
                         },
                       ),

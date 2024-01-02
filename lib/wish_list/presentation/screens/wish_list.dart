@@ -17,54 +17,62 @@ class WishListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit,AuthStates>(
-      listener: (context,state){},
-      builder: (context,state){
+    return BlocConsumer<AuthCubit, AuthStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
         AuthCubit authCubit = AuthCubit.get(context);
         bool isUserLoggedIn = authCubit.isUserLoggedIn;
-        return (isUserLoggedIn == false)?  SignInScreen()
+        return (isUserLoggedIn == false)
+            ? SignInScreen()
             : BlocProvider(
-          create: (context) => WishListCubit()..init(CartCubit.get(context)),
-          child: BlocConsumer<WishListCubit, WishListStates>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              WishListCubit wishListCubit = WishListCubit.get(context);
-              List<WishlistItem>? wishListItems = wishListCubit.wishListItems;
-              return SafeArea(
-                  child: Scaffold(
-                    appBar: CustomAppBar.renderAppBar(
-                        cartCubit: CartCubit.get(context),
-                        title: "My Wish List", showBackButton: false),
-                    body: (state is GetWishListLoadingState)
-                        ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                        : (state is GetWishListNetworkConnectionFailedState)
-                        ? Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: NoNetworkRefreshPage(refresh: () {
-                        wishListCubit.setWishListItems();
-                      }),
-                    )
-                        : RefreshIndicator(
-                      onRefresh: () async {
-                        await wishListCubit.setWishListItems();
-                      },
-                      child: ListView.builder(
-                        padding: const EdgeInsets.only(
-                            right: 16, left: 16, bottom: 16, top: 24),
-                        itemBuilder: (context, index) {
-                          WishlistItem? wishlistItem = wishListItems?[index];
-                          return WishListItemWidget(
-                              wishlistItem: wishlistItem);
-                        },
-                        itemCount: wishListItems?.length ?? 0,
-                      ),
-                    ),
-                  ));
-            },
-          ),
-        );
+                create: (context) =>
+                    WishListCubit()..init(CartCubit.get(context)),
+                child: BlocConsumer<WishListCubit, WishListStates>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    WishListCubit wishListCubit = WishListCubit.get(context);
+                    List<WishlistItem>? wishListItems =
+                        wishListCubit.wishListItems;
+                    return SafeArea(
+                        child: Scaffold(
+                      appBar: CustomAppBar.renderAppBar(
+                          cartCubit: CartCubit.get(context),
+                          title: "My Wish List",
+                          showBackButton: false),
+                      body: (state is GetWishListLoadingState)
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : (state is GetWishListNetworkConnectionFailedState)
+                              ? Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: NoNetworkRefreshPage(refresh: () {
+                                    wishListCubit.setWishListItems();
+                                  }),
+                                )
+                              : RefreshIndicator(
+                                  onRefresh: () async {
+                                    await wishListCubit.setWishListItems();
+                                  },
+                                  child: ListView.builder(
+                                    padding: const EdgeInsets.only(
+                                        right: 16,
+                                        left: 16,
+                                        bottom: 16,
+                                        top: 24),
+                                    itemBuilder: (context, index) {
+                                      WishlistItem? wishlistItem =
+                                          wishListItems?[index];
+                                      return WishListItemWidget(
+                                          wishlistItem: wishlistItem);
+                                    },
+                                    itemCount: wishListItems?.length ?? 0,
+                                  ),
+                                ),
+                    ));
+                  },
+                ),
+              );
       },
     );
   }

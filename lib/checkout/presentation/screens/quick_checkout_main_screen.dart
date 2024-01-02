@@ -1,4 +1,5 @@
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:classic_eccomerce/checkout/data/data_sources/checkout_apis.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_payment_methods_response.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_shipping_methods_response.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
@@ -154,7 +155,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                          Padding(
-                                          padding: EdgeInsets.only(left: 16.0),
+                                          padding: const EdgeInsets.only(left: 16.0),
                                           child: Text(
                                             AppLocalizations.of(context)!.payment_method,
                                             style: const TextStyle(
@@ -243,7 +244,9 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                       SizedBox(
                                           width: 100,
                                           child: CustomButton(
-                                              text: AppLocalizations.of(context)!.submit, action: () {}))
+                                              text: AppLocalizations.of(context)!.submit, action: () {
+                                                CheckoutApis.setCouponCode(couponCode: "1234");
+                                          }))
                                     ],
                                   ),
 
@@ -300,7 +303,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                       children: [
                                          Text(
                                           "${AppLocalizations.of(context)!.subtotal}: ",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: FontSizes.FONT_SIZE_14,
                                               fontWeight: FontWeight.bold),
                                         ),

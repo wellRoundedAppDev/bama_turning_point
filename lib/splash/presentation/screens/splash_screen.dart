@@ -1,3 +1,5 @@
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_families.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
@@ -16,13 +18,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(
-      const Duration(seconds: 3),
-      () => Navigator.pushReplacement(
-          context,
-          PageTransition(
-              child: const HomeLayoutScreen(), type: PageTransitionType.fade)),
-    );
+    AuthCubit.get(context).autoLogin(cartCubit: CartCubit.get(context));
   }
 
   @override

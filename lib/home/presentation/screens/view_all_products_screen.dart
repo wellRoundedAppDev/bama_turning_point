@@ -14,7 +14,9 @@ import '../cubits/home_cubit/states.dart';
 
 class ViewAllProductsScreen extends StatelessWidget {
   String productTitle;
-  ViewAllProductsScreen({Key? key, required this.productTitle})
+  bool isBrands;
+  ViewAllProductsScreen(
+      {Key? key, required this.productTitle, this.isBrands = false})
       : super(key: key);
 
   @override
@@ -37,7 +39,8 @@ class ViewAllProductsScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(16),
                       child: NoNetworkRefreshPage(
                         refresh: () {
-                          homeCubit.loadViewAllProductsScreen(productTitle);
+                          homeCubit.loadViewAllProductsScreen(productTitle,
+                              isBrands: isBrands);
 
                           //  homeCubit.setCategories();
                         },
@@ -45,14 +48,15 @@ class ViewAllProductsScreen extends StatelessWidget {
                     )
                   : RefreshIndicator(
                       onRefresh: () async {
-                        await homeCubit.loadViewAllProductsScreen(productTitle);
+                        await homeCubit.loadViewAllProductsScreen(productTitle,
+                            isBrands: isBrands);
                       },
                       child: GridView.builder(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisExtent:
-                              MediaQuery.of(context).size.height * 0.32,
+                              MediaQuery.of(context).size.height * 0.35,
                         ),
                         itemCount: products?.length ?? 0,
                         itemBuilder: (BuildContext context, int index) {
@@ -79,38 +83,90 @@ class ViewAllProductsScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: Image.network(
-                                      productImageUrl ?? "",
-                                      errorBuilder:
-                                          (context, object, stackTrace) {
-                                        return const Icon(
-                                          Icons.error,
-                                          size: 150,
-                                          color: AppColors.APP_MAIN_COLOR,
-                                        );
-                                      },
-                                      width: MediaQuery.of(context).size.width *
-                                          0.45,
-                                      height:
-                                          MediaQuery.of(context).size.height *
+                                  Stack(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Image.network(
+                                          productImageUrl ?? "",
+                                          errorBuilder:
+                                              (context, object, stackTrace) {
+                                            return const Icon(
+                                              Icons.error,
+                                              size: 150,
+                                              color: AppColors.APP_MAIN_COLOR,
+                                            );
+                                          },
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.45,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
                                               0.2,
-                                      fit: BoxFit.cover,
-                                    ),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Positioned(
+                                          bottom: 4,
+                                          right: 4,
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.white
+                                                      .withOpacity(0.7)),
+                                              child: const Padding(
+                                                padding: EdgeInsets.all(2.0),
+                                                child: Icon(
+                                                  Icons.favorite_border_rounded,
+                                                  color: Colors.black,
+                                                ),
+                                              )))
+                                    ],
                                   ),
                                   const SizedBox(
                                     height: 8,
                                   ),
                                   Text(
                                     productName ?? "-",
-                                    textAlign: TextAlign.left,
+                                    textAlign: TextAlign.start,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                         fontSize: FontSizes.FONT_SIZE_16,
                                         color: Color(0xff313846),
                                         fontWeight: FontWeight.bold),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Flexible(
+                                          child: Text(
+                                        priceFormatted ?? "",
+                                        //"\$${productPrice.toString() ?? "-"}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                            color: AppColors.APP_MAIN_COLOR,
+                                            fontWeight: FontWeight.bold),
+                                      )),
+                                      // const SizedBox(
+                                      //   width: 8,
+                                      // ),
+                                      // Flexible(
+                                      //     flex: 2,
+                                      //     child: Text(
+                                      //       "\$17.96",
+                                      //       textAlign: TextAlign.left,
+                                      //       overflow: TextOverflow.ellipsis,
+                                      //       maxLines: 1,
+                                      //       style: TextStyle(
+                                      //         decoration: TextDecoration.lineThrough,
+                                      //         color: const Color(0xff333333)
+                                      //             .withOpacity(0.5),
+                                      //       ),
+                                      //     )),
+                                    ],
                                   )
                                 ],
                               ),

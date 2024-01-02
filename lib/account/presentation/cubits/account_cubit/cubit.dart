@@ -7,7 +7,10 @@ import 'package:classic_eccomerce/account/data/models/get_account_details_respon
 import 'package:classic_eccomerce/account/data/models/get_customer_orders_response.dart';
 import 'package:classic_eccomerce/account/data/models/get_order_details_response.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
+import 'package:classic_eccomerce/app_settings/app_language_codes.dart';
+import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
+import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,6 +82,8 @@ class AccountCubit extends Cubit<AccountStates> {
       return;
     }
     accountInformationFormKey.currentState?.save();
+    accountInput.email = AuthCubit.get(context).loginResponse?.loginData?.telephone??"";
+    accountInput.phoneNumber = AuthCubit.get(context).loginResponse?.loginData?.telephone??"";
 
     emit(EditAccountLoadingState());
     var response = await AccountApis.editAccountDetails(accountInput.toJson());
@@ -88,7 +93,7 @@ class AccountCubit extends Cubit<AccountStates> {
 
       emit(EditAccountSuccessState());
     } else if (response?.success == false) {
-      showAppSnackBar(content: response?.errorMsgs?[0] ?? "");
+      showAppSnackBar(content:( response?.errorMsgs?[0][0]) ?? "");
 
       emit(EditAccountFailedState());
     } else {
@@ -263,8 +268,13 @@ class AccountCubit extends Cubit<AccountStates> {
   }
 
   setFirstCustomerOrders() async {
+    LocaleCubit localeCubit = LocaleCubit.get(context);
+    AppSettingsCubit appSettingsCubit = AppSettingsCubit.get(context);
     emit(GetFirstCustomerOrdersLoadingState());
-    var response = await AccountApis.getCustomerOrders(1);
+    var response = await AccountApis.getCustomerOrders(1,
+        currencyCode: appSettingsCubit.currencyCode,
+        languageCode: languageCodes[localeCubit.locale.languageCode]
+    );
     if (response?.success == 1) {
       customerOrders.clear();
       var tempCustomerOrders = response?.customerOrders ?? [];
@@ -286,9 +296,15 @@ class AccountCubit extends Cubit<AccountStates> {
   }
 
   addMoreCustomerOrders() async {
+    LocaleCubit localeCubit = LocaleCubit.get(context);
+    AppSettingsCubit appSettingsCubit = AppSettingsCubit.get(context);
     emit(AddMoreCustomerOrdersLoadingState());
     var response =
-        await AccountApis.getCustomerOrders(customerOrdersPageNumber);
+        await AccountApis.getCustomerOrders(customerOrdersPageNumber,
+            currencyCode: appSettingsCubit.currencyCode,
+            languageCode: languageCodes[localeCubit.locale.languageCode]
+
+        );
     if (response?.success == 1) {
       var tempCustomerOrders = response?.customerOrders ?? [];
       if (tempCustomerOrders.isEmpty == true) {
@@ -298,11 +314,9 @@ class AccountCubit extends Cubit<AccountStates> {
       customerOrdersPageNumber++;
       customerOrders.addAll(tempCustomerOrders);
       emit(AddMoreCustomerOrdersSuccessState());
-    }
-    else if (response?.success == 0) {
+    } else if (response?.success == 0) {
       emit(AddMoreCustomerOrdersFailedState());
-    }
-    else {
+    } else {
       emit(AddMoreCustomerOrdersNetworkConnectionFailedState());
     }
   }

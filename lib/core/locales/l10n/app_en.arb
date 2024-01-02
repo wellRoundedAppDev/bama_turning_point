@@ -10,6 +10,8 @@
   "featured_products": "Featured Products",
   "new_arrivals": "New Arrivals",
   "best_sellers": "Best Sellers",
+  "offers": "Offers",
+  "brands": "Brands",
 
   "login": "Login",
   "sign_up": "Sign Up",
@@ -103,6 +105,10 @@
   "edit_your_account_info" : "Edit your account information",
   "modify_your_address_book_entries": "Modify your address book entries",
   "change_your_password": "Change your password",
+  "change_password": "Change password",
+  "passwords_dont_match": "Passwords don't match",
+  "orders_history": "Orders history",
+
   "my_orders": "My orders",
   "view_your_orders_history": "View your orders history",
   "address_book_entries": "Address book entries",
@@ -110,7 +116,20 @@
   "edit": "Edit",
   "delete": "Delete",
   "edit_address": "Edit address",
-
+  "default_address": "Default Address",
+  "yes": "Yes",
+  "no": "No",
+  "order_id": "Order ID",
+  "customer": "Customer",
+  "number_of_products":"No. of Products",
+  "status": "Status",
+  "date_added":"Date Added",
+  "view":"View",
+  "order_details": "Order details",
+  "shipping_address": "Shipping address",
+  "are_you_sure_you_want_to_logout": "Are you sure you want to logout?",
+  "notifications": "Notifications",
+  "no_notifications_found": "No notifications found",
 
   "welcome_user": "Welcome {username}",
   "@welcome_user": {

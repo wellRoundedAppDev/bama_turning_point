@@ -10,6 +10,8 @@
   "featured_products": "منتجات مميزة",
   "new_arrivals": "وصل حديثا",
   "best_sellers": "اكثر مبيعا",
+  "offers": "العروض",
+  "brands": "الماركات",
 
   "login": "تسجيل الدخول",
   "sign_up": "إنشاء حساب",
@@ -101,6 +103,10 @@
   "edit_your_account_info" : "عدل معلومات حسابك",
   "modify_your_address_book_entries": "تعديل دفتر العناوين الخاص بك",
   "change_your_password": "غير كلمة المرور الخاصة بك",
+  "change_password": "غير كلمة المرور",
+  "passwords_dont_match": "كلمات المرور غير متطابقة",
+  "orders_history": "تاريخ طلباتك",
+
   "my_orders": "طلباتي",
   "view_your_orders_history": "عرض تاريخ طلباتك",
   "address_book_entries": "دفتر العناوين",
@@ -108,7 +114,20 @@
   "edit": "تعديل",
   "delete": "حذف",
   "edit_address": "تعديل العنوان",
-
+  "default_address": "العنوان الافتراضي",
+  "yes": "نعم",
+  "no": "لا",
+  "order_id": "رقم الطلب",
+  "customer": "العميل",
+  "number_of_products":"عدد المنتجات",
+  "status": "الحالة",
+  "date_added":"تاريخ الإضافة",
+  "view":"عرض",
+  "order_details": "تفاصيل الطلب",
+  "shipping_address": "عنوان الشحن",
+  "are_you_sure_you_want_to_logout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+  "notifications": "إشعارات",
+  "no_notifications_found": "لا توجد إشعارات",
 
   "welcome_user": "اهلاً بك, {username}"
 }

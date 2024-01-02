@@ -8,6 +8,7 @@ import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../shared_components/custom_app_bar.dart';
 import '../../../shared_components/custom_button.dart';
 import '../../../shared_components/custom_input.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   const ChangePasswordScreen({super.key});
@@ -26,9 +27,10 @@ class ChangePasswordScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Change your password",
-                  style: TextStyle(
+                 Text(
+                  AppLocalizations.of(context)!
+                      .change_password,
+                  style: const TextStyle(
                       color: Color(0xff313846),
                       fontSize: FontSizes.FONT_SIZE_20,
                       fontWeight: FontWeight.bold),
@@ -45,13 +47,18 @@ class ChangePasswordScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
-                  hintText: "Password",
+                  hintText: AppLocalizations.of(context)!
+                      .password,
+                  label:AppLocalizations.of(context)!
+                      .password ,
                   validator: (v) {
                     if (v == null || v.length < 6) {
-                      return "Enter a password of at least 6 characters";
+                      return AppLocalizations.of(context)!
+                          .enter_a_password_of_at_least_six_characters;
                     }
                     if(v != AccountCubit.get(context).changePasswordInput.confirmPassword){
-                      return "Passwords don't match!";
+                      return "${AppLocalizations.of(context)!
+                          .passwords_dont_match}!";
                     }
 
                   },
@@ -61,13 +68,19 @@ class ChangePasswordScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
-                  hintText: "Confirm Password",
+                  label:AppLocalizations.of(context)!
+                      .password ,
+
+                  hintText: AppLocalizations.of(context)!
+                      .confirm_password,
                   validator: (v) {
                     if (v == null || v.length < 6) {
-                      return "Enter a password of at least 6 characters";
+                      return AppLocalizations.of(context)!
+                          .enter_a_password_of_at_least_six_characters;
                     }
                     if(v != AccountCubit.get(context).changePasswordInput.password){
-                      return "Passwords don't match!";
+                      return "${AppLocalizations.of(context)!
+                          .passwords_dont_match}!";
                     }
                   },
                   onSaved: (v) => AccountCubit.get(context).changePasswordInput.confirmPassword = v!,
@@ -80,7 +93,8 @@ class ChangePasswordScreen extends StatelessWidget {
                   builder: (context,state){
                     return CustomButton(
                         isLoading: state is ChangeAccountPasswordLoadingState,
-                        text: "Save", action: () {
+                        text: AppLocalizations.of(context)!
+                            .save, action: () {
                       AccountCubit.get(context).changeAccountPassword();
                     });
                   },

@@ -125,12 +125,12 @@ class ProductDetailsBottomSheet extends StatelessWidget {
 
                         Navigator.push(context,PageTransition(child: BlocProvider.value(
                             value: cartCubit,
-                            child: CartScreen()), type: PageTransitionType.leftToRight));
+                            child: CartScreen(showBackButton: true,)), type: PageTransitionType.leftToRight));
                         return;
                       }
                       Navigator.push(context,PageTransition(child: BlocProvider.value(
                           value: cartCubit,
-                          child: CartScreen()), type: PageTransitionType.leftToRight));
+                          child: CartScreen(showBackButton: true,)), type: PageTransitionType.leftToRight));
 
                     },
                   );

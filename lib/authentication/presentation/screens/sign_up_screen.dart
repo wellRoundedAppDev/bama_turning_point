@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,11 +43,13 @@ class SignUpScreen extends StatelessWidget {
                 const SizedBox(height: 16,),
 
                 CustomInput(
+                  label: AppLocalizations.of(context)!.phone_number,
                   hintText: AppLocalizations.of(context)!.phone_number,
                   textInputType: TextInputType.phone,
                   validator: (value) {
-                    if (value == null || value.length != 9) {
-                      return AppLocalizations.of(context)!.enter_a_valid_phone_number;
+                    if (value == null || value.length < 8 || value.length > 13) {
+                      return AppLocalizations.of(context)!
+                          .enter_a_valid_phone_number;
                     }
                   },
                   onSaved: (v) => AuthCubit.get(context)
@@ -122,6 +125,7 @@ class SignUpScreen extends StatelessWidget {
                 //   height: 16,
                 // ),
                 CustomInput(
+                  label: AppLocalizations.of(context)!.first_name,
                   hintText: AppLocalizations.of(context)!.first_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -135,6 +139,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
+                  label:AppLocalizations.of(context)!.family_name ,
                   hintText: AppLocalizations.of(context)!.family_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -148,6 +153,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
+                  label: AppLocalizations.of(context)!.password,
                   hintText: AppLocalizations.of(context)!.password,
                   validator: (v) {
                     if (v == null || v.length < 6) {
@@ -161,6 +167,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
+                  label: AppLocalizations.of(context)!.confirm_password,
                   hintText: AppLocalizations.of(context)!.confirm_password,
                   validator: (v) {
                     if (v == null || v.length < 6) {
@@ -370,7 +377,7 @@ class SignUpScreen extends StatelessWidget {
                         text:  AppLocalizations.of(context)!.sign_up,
                         isLoading: state is RegisterLoadingState,
                         action: () {
-                          AuthCubit.get(context).register();
+                          AuthCubit.get(context).register(cartCubit: CartCubit.get(context));
                           // Navigator.push(
                           //     context,
                           //     PageTransition(

@@ -66,7 +66,7 @@ class ProductsOverview extends StatelessWidget {
                   },
                   child:  Text(
                     AppLocalizations.of(context)!.view_all,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: FontSizes.FONT_SIZE_14,
                         color: Color(0xff8D929D)),
                   ),
@@ -133,8 +133,8 @@ class ProductsOverview extends StatelessWidget {
                                     ),
                                   ),
                                   Positioned(
-                                      bottom: 8,
-                                      right: 8,
+                                      bottom: 4,
+                                      right: 4,
                                       child: Container(
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,

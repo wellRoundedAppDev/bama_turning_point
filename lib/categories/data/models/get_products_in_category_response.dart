@@ -49,6 +49,7 @@ class ProductInCategory{
         this.price,
         this.description,
         this.productImagePath,
+        this.priceFormatted,
         this.rating});
 
   factory ProductInCategory.fromJson(dynamic json) {
@@ -59,7 +60,7 @@ class ProductInCategory{
     var rating = json['rating'];
     var productImagePath = json['image'];
     var description = json['description'];
-
+    var priceFormatted = json['price_formated'];
     return ProductInCategory(
         price: price,
         quantity: quantity,
@@ -67,6 +68,7 @@ class ProductInCategory{
         name: name,
         productImagePath: productImagePath,
         productId: productId,
+        priceFormatted: priceFormatted,
         rating: rating);
   }
   num? productId;
@@ -76,6 +78,7 @@ class ProductInCategory{
   dynamic rating;
   String? description;
   String? productImagePath;
+  String? priceFormatted;
 
 }
 // class Product {

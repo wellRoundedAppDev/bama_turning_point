@@ -40,20 +40,23 @@ class SignInScreen extends StatelessWidget {
                 )),
                 const SizedBox(height: 16,),
                 CustomInput(
+                  label: AppLocalizations.of(context)!.phone_number,
                   hintText: AppLocalizations.of(context)!.phone_number,
                   textInputType: TextInputType.phone,
                   validator: (value) {
-                    if (value == null || value.length != 9) {
-                      return AppLocalizations.of(context)!.enter_a_valid_phone_number;
+                    if (value == null || value.length < 8 || value.length > 13) {
+                      return AppLocalizations.of(context)!
+                          .enter_a_valid_phone_number;
                     }
                   },
                   onSaved: (v) =>
-                      AuthCubit.get(context).loginFormInput.email = v?.trim(),
+                      AuthCubit.get(context).loginFormInput.username = v?.trim(),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
                 CustomInput(
+                  label: AppLocalizations.of(context)!.password,
                   hintText: AppLocalizations.of(context)!.password,
                   validator: (v) {
                     if (v == null || v.length < 6) {
@@ -104,7 +107,7 @@ class SignInScreen extends StatelessWidget {
                         text: AppLocalizations.of(context)!.login,
                         isLoading: state is LoginLoadingState,
                         action: () {
-                          AuthCubit.get(context).login(
+                          AuthCubit.get(context).loginFromLoginForm(
                               isCheckingOut: isCheckingOut,
                               cartCubit: CartCubit.get(context));
                         });
@@ -129,7 +132,9 @@ class SignInScreen extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   PageTransition(
-                                      child: SignUpScreen(),
+                                      child: BlocProvider.value(
+                                          value: CartCubit.get(context),
+                                          child: SignUpScreen()),
                                       type: PageTransitionType.leftToRight));
                             },
                             child:  Text(

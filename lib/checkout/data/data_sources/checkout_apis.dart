@@ -48,15 +48,28 @@ class CheckoutApis {
     }
   }
 
-  static Future<bool?> confirmOrder() async {
+  static setCouponCode({
+    String languageCode = "ir_arabic",
+    String currencyCode = "IQD",
+    required String couponCode
+
+  }) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
-    String endPoint = ApiUrls.CONFIRM_ORDER_ENDPOINT;
+    String endPoint = ApiUrls.SET_COUPON_CODE_ENDPOINT;
 
     try {
       var response = await _dioHelper.post(
           endPoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken"});
+          body: {
+            "coupon": couponCode
+
+          },
+          headers: {"Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode,
+
+          });
       if (response == null) {
         return null;
       }
@@ -73,7 +86,46 @@ class CheckoutApis {
     }
   }
 
-  static Future<bool?> confirmOrderAndEndSession() async {
+
+  static Future<bool?> confirmOrder({
+    String languageCode = "ir_arabic",
+    String currencyCode = "IQD"
+
+  }) async {
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    String endPoint = ApiUrls.CONFIRM_ORDER_ENDPOINT;
+
+    try {
+      var response = await _dioHelper.post(
+          endPoint: endPoint,
+          headers: {"Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+
+          });
+      if (response == null) {
+        return null;
+      }
+      if (response.data['success'] == 1) {
+        return true;
+      } else if (response.data['success'] == 0) {
+        return false;
+      }
+      return null;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  static Future<bool?> confirmOrderAndEndSession(
+  { String languageCode = "ir_arabic",
+  String currencyCode = "IQD"
+
+}
+      ) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
     String endPoint = ApiUrls.CONFIRM_ORDER_ENDPOINT;
@@ -81,7 +133,11 @@ class CheckoutApis {
     try {
       var response = await _dioHelper.put(
           endPoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken"});
+          headers: {"Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+
+          });
       if (response == null) {
         return null;
       }

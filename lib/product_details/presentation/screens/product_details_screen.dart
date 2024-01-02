@@ -904,10 +904,6 @@ class ProductDetailsScreen extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    // ProductsOverview(
-                                    //   products: const [],
-                                    //   productListTitle: 'You May Also Like',
-                                    // )
                                   ],
                                 ),
                               ),

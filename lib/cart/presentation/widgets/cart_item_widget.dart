@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
+import 'package:classic_eccomerce/product_details/presentation/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,18 +26,26 @@ class CartItemWidget extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(8),
-            child: Image.network(
-              cartItem.imagePath,
-              width: MediaQuery.of(context).size.width * 0.25,
-              height: MediaQuery.of(context).size.height * 0.2,
-              fit: BoxFit.cover,
-              errorBuilder: (context, object, stackTrace) {
-                return Icon(
-                  Icons.error,
-                  size: MediaQuery.of(context).size.width * 0.25,
-                  color: AppColors.APP_MAIN_COLOR,
-                );
+            child: GestureDetector(
+              onTap: (){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>
+                        ProductDetailsScreen(selectedProductId: int.tryParse(cartItem.productId)??0)));
+
               },
+              child: Image.network(
+                cartItem.imagePath,
+                width: MediaQuery.of(context).size.width * 0.25,
+                height: MediaQuery.of(context).size.height * 0.2,
+                fit: BoxFit.cover,
+                errorBuilder: (context, object, stackTrace) {
+                  return Icon(
+                    Icons.error,
+                    size: MediaQuery.of(context).size.width * 0.25,
+                    color: AppColors.APP_MAIN_COLOR,
+                  );
+                },
+              ),
             ),
           ),
           Container(
