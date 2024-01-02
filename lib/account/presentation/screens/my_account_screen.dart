@@ -321,13 +321,13 @@ class MyAccountScreen extends StatelessWidget {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
+
                                         accountCubit.initOrderHistoryScreen();
                                         Navigator.push(
                                             context,
                                             PageTransition(
                                                 child: BlocProvider.value(
-                                                    value: AccountCubit.get(
-                                                        context),
+                                                    value:accountCubit,
                                                     child:
                                                         const OrderHistoryScreen()),
                                                 type: PageTransitionType

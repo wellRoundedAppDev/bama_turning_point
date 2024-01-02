@@ -45,6 +45,8 @@ class ApiUrls {
   static const SET_COUPON_CODE_ENDPOINT = "api/rest/coupon";
   static const GET_BRANDS_ENDPOINT = "api/rest/manufacturers";
   static const GET_PRODUCTS_IN_BRAND_ENDPOINT = "api/rest/products/manufacturer";
+  static const CANCEL_ORDER_ENDPOINT = "index.php?route=api/cancelorder";
+
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>
       "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";

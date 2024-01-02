@@ -213,12 +213,11 @@ class AccountApis {
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {
-      var response = await dioHelper.get(
-          endpoint: endpoint,
-          headers: {"Authorization": "Bearer $accessToken",
-            "X-Oc-Merchant-Language": languageCode,
-            "X-Oc-Currency": currencyCode
-          });
+      var response = await dioHelper.get(endpoint: endpoint, headers: {
+        "Authorization": "Bearer $accessToken",
+        "X-Oc-Merchant-Language": languageCode,
+        "X-Oc-Currency": currencyCode
+      });
       if (response == null) {
         return null;
       }
@@ -237,18 +236,39 @@ class AccountApis {
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {
-      var response = await dioHelper.get(
-          endpoint: endpoint,
-          headers: {"Authorization": "Bearer $accessToken",
-            "X-Oc-Merchant-Language": languageCode,
-            "X-Oc-Currency": currencyCode
-
-
-          });
+      var response = await dioHelper.get(endpoint: endpoint, headers: {
+        "Authorization": "Bearer $accessToken",
+        "X-Oc-Merchant-Language": languageCode,
+        "X-Oc-Currency": currencyCode
+      });
       if (response == null) {
         return null;
       }
       return GetOrderDetailsResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Get order details error api $e");
+      }
+    }
+  }
+
+  static Future<bool?> cancelOrder(
+    int? orderId,
+  ) async {
+    String endpoint = ApiUrls.CANCEL_ORDER_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.delete(endPoint: endpoint, headers: {
+        "Authorization": "Bearer $accessToken",
+      }, body: {
+        "order_id": orderId
+      });
+      if (response == null) {
+        return null;
+      }
+      return response.data['success'] == "Order Has Been Canceled Successfully"?true:false;
     } catch (e) {
       if (kDebugMode) {
         print("Get order details error api $e");

@@ -11,7 +11,7 @@ import '../../../../core/constants/fonts/font_sizes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
-  const OrderDetailsScreen({super.key});
+   OrderDetailsScreen({super.key,  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +50,20 @@ class OrderDetailsScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                               Text(
-                                AppLocalizations.of(context)!.order_details,
-                                style: const TextStyle(
-                                    color: Color(0xff313846),
-                                    fontSize: FontSizes.FONT_SIZE_20,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                               Row(
+                                 children: [
+                                   Expanded(
+                                     child: Text(
+                                      AppLocalizations.of(context)!.order_details,
+                                      style: const TextStyle(
+                                          color: Color(0xff313846),
+                                          fontSize: FontSizes.FONT_SIZE_20,
+                                          fontWeight: FontWeight.bold),
+                                                                   ),
+                                   ),
+
+                                 ],
+                               ),
                               const SizedBox(
                                 height: 5,
                               ),
@@ -617,9 +624,12 @@ class OrderDetailsScreen extends StatelessWidget {
                                         ],
                                       ),
                                     ),
+
                                   ],
                                 ),
                               ),
+                             // const SizedBox(height: 16,),
+
                             ],
                           ),
                         ),

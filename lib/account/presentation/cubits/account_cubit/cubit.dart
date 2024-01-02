@@ -19,6 +19,7 @@ import '../../../../core/data/models/get_countries_response.dart';
 import '../../../../core/data/models/get_regions_response.dart';
 import '../../../../shared_components/app_snackbar.dart';
 import '../../../data/models/account_address.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AccountCubit extends Cubit<AccountStates> {
   AccountCubit() : super(AccountInitialState());
@@ -352,4 +353,22 @@ class AccountCubit extends Cubit<AccountStates> {
       }
     });
   }
+
+
+  cancelOrder(CustomerOrder? customerOrder) async {
+    emit(CancelCustomerOrderLoadingState());
+    var response  =  await AccountApis.cancelOrder(int.tryParse(customerOrder?.orderId??""));
+    if(response == true){
+      customerOrder?.status = LocaleCubit.get(context).locale.countryCode == "en"?"Canceled":"ملغي";
+      emit(CancelCustomerOrderSuccessState());
+    }else if(response == false){
+      showAppSnackBar(content: AppLocalizations.of(context)!.error_occurred_try_again);
+      emit(CancelCustomerOrderFailedState());
+    }else{
+
+      showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
+      emit(CancelCustomerOrderNetworkConnectionFailedState());
+    }
+  }
+
 }

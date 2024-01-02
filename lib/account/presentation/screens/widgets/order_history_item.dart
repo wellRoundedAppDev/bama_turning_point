@@ -1,11 +1,14 @@
 import 'package:classic_eccomerce/account/data/models/get_customer_orders_response.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
+import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../core/constants/fonts/font_sizes.dart';
+import '../../../../shared_components/custom_button.dart';
 import '../order_history/order_history_details_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -28,8 +31,9 @@ class OrderHistoryItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
             child: Row(
-              children: [Text(
-              AppLocalizations.of(context)!.order_id,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.order_id,
                   style: const TextStyle(
                       fontSize: FontSizes.FONT_SIZE_14,
                       fontWeight: FontWeight.bold),
@@ -59,7 +63,7 @@ class OrderHistoryItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
             child: Row(
               children: [
-                 Text(
+                Text(
                   AppLocalizations.of(context)!.customer,
                   style: const TextStyle(
                       fontSize: FontSizes.FONT_SIZE_14,
@@ -68,7 +72,6 @@ class OrderHistoryItem extends StatelessWidget {
                 const SizedBox(
                   width: 4,
                 ),
-
                 Expanded(
                   child: Text(
                     customerOrder?.name ?? "",
@@ -91,7 +94,7 @@ class OrderHistoryItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
             child: Row(
               children: [
-                 Text(
+                Text(
                   AppLocalizations.of(context)!.number_of_products,
                   style: const TextStyle(
                       fontSize: FontSizes.FONT_SIZE_14,
@@ -100,7 +103,6 @@ class OrderHistoryItem extends StatelessWidget {
                 const SizedBox(
                   width: 4,
                 ),
-
                 Expanded(
                   child: Text(
                     customerOrder?.numOfProducts.toString() ?? "",
@@ -123,7 +125,7 @@ class OrderHistoryItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
             child: Row(
               children: [
-                 Text(
+                Text(
                   AppLocalizations.of(context)!.total,
                   style: const TextStyle(
                       fontSize: FontSizes.FONT_SIZE_14,
@@ -134,7 +136,8 @@ class OrderHistoryItem extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    customerOrder?.total??"",
+                    customerOrder?.total ?? "",
+                    textAlign: TextAlign.right,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -153,7 +156,7 @@ class OrderHistoryItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
             child: Row(
               children: [
-                 Text(
+                Text(
                   AppLocalizations.of(context)!.status,
                   style: const TextStyle(
                       fontSize: FontSizes.FONT_SIZE_14,
@@ -162,18 +165,117 @@ class OrderHistoryItem extends StatelessWidget {
                 const SizedBox(
                   width: 4,
                 ),
-
                 Expanded(
                   child: Text(
                     customerOrder?.status ?? "",
-                    textAlign: TextAlign.right,
+                    textAlign: TextAlign.start,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: FontSizes.FONT_SIZE_14,
-                        color: Color(0xff947979)),
+                        color: (customerOrder?.status == "Canceled" ||
+                                customerOrder?.status == "ملغي")
+                            ? Colors.red
+                            : const Color(0xff947979)),
                   ),
-                )
+                ),
+                ((customerOrder?.status == "Canceled" ||
+                        customerOrder?.status == "ملغي"))
+                    ? Container()
+                    : GestureDetector(
+                        onTap: () {
+                          AccountCubit accountCubit = AccountCubit.get(context);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return BlocProvider.value(
+                                  value: accountCubit,
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal:
+                                            MediaQuery.of(context).size.width *
+                                                0.1,
+                                        vertical:
+                                            MediaQuery.of(context).size.height *
+                                                0.38),
+                                    child: Material(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .are_you_sure_you_want_to_cancel_order,
+                                              style: const TextStyle(
+                                                  fontSize:
+                                                      FontSizes.FONT_SIZE_16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            const SizedBox(
+                                              height: 24,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Expanded(
+                                                  child: BlocConsumer<
+                                                      AccountCubit,
+                                                      AccountStates>(
+                                                    listener: (context, state) {
+                                                      // TODO: implement listener
+                                                    },
+                                                    builder: (context, state) {
+                                                      return CustomButton(
+                                                          text: AppLocalizations
+                                                                  .of(context)!
+                                                              .yes,
+                                                          isLoading: state
+                                                              is CancelCustomerOrderLoadingState,
+                                                          action: () async {
+                                                            await AccountCubit
+                                                                    .get(
+                                                                        context)
+                                                                .cancelOrder(
+                                                                    customerOrder);
+                                                            Navigator.pop(
+                                                                context);
+                                                          });
+                                                    },
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 16,
+                                                ),
+                                                Expanded(
+                                                  child: CustomButton(
+                                                      text: AppLocalizations.of(
+                                                              context)!
+                                                          .no,
+                                                      action: () {
+                                                        Navigator.pop(context);
+                                                      }),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              });
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)!.cancel_order ?? "",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: FontSizes.FONT_SIZE_14,
+                              color: Colors.red),
+                        ),
+                      )
               ],
             ),
           ),
@@ -185,7 +287,7 @@ class OrderHistoryItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
             child: Row(
               children: [
-                 Text(
+                Text(
                   AppLocalizations.of(context)!.date_added,
                   style: const TextStyle(
                       fontSize: FontSizes.FONT_SIZE_14,
@@ -194,10 +296,14 @@ class OrderHistoryItem extends StatelessWidget {
                 const SizedBox(
                   width: 4,
                 ),
-
                 Expanded(
                   child: Text(
-                    customerOrder?.dateAdded?.split(",").last.split("+").first ?? "-",
+                    customerOrder?.dateAdded
+                            ?.split(",")
+                            .last
+                            .split("+")
+                            .first ??
+                        "-",
                     textAlign: TextAlign.right,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -219,7 +325,7 @@ class OrderHistoryItem extends StatelessWidget {
                             ..setOrderDetails(
                                 int.tryParse(customerOrder?.orderId ?? "") ??
                                     0),
-                          child: const OrderDetailsScreen()),
+                          child: OrderDetailsScreen()),
                       type: PageTransitionType.leftToRight));
             },
             child: Container(
@@ -230,9 +336,9 @@ class OrderHistoryItem extends StatelessWidget {
                       bottomLeft: Radius.circular(8),
                       bottomRight: Radius.circular(8))),
               padding: const EdgeInsets.symmetric(vertical: 10),
-              child:  Center(
+              child: Center(
                   child: Text(
-                    AppLocalizations.of(context)!.view,
+                AppLocalizations.of(context)!.view,
                 style: const TextStyle(
                     fontSize: FontSizes.FONT_SIZE_14, color: Color(0xff313846)),
               )),
