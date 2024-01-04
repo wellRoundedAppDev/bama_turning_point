@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:classic_eccomerce/cart/presentation/screens/cart_screen.dart';
@@ -7,6 +8,8 @@ import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import '../account/presentation/cubits/account_cubit/cubit.dart';
+import '../account/presentation/cubits/account_cubit/states.dart';
 import '../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../core/constants/colors/colors.dart';
 import '../core/constants/paths/icon_paths.dart';
@@ -41,61 +44,41 @@ class CustomAppBar {
             (showLogoutIcon)
                 ? GestureDetector(
                     onTap: () {
+                      AuthCubit authCubit = AuthCubit.get(context);
+
                       showDialog(
                           context: context,
                           builder: (context) {
-                            return Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.of(context).size.width * 0.1,
-                                  vertical: MediaQuery.of(context).size.height *
-                                      0.38),
-                              child: Material(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        AppLocalizations.of(context)!
-                                            .are_you_sure_you_want_to_logout,
-                                        style: const TextStyle(
-                                            fontSize: FontSizes.FONT_SIZE_16,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      const SizedBox(
-                                        height: 24,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                            child: CustomButton(
-                                                text: AppLocalizations.of(context)!
-                                                    .yes,
-                                                action: () async {
-                                                 await AuthCubit.get(MyApp.navKey
-                                                          .currentState!.context)
-                                                      .logOut(cartCubit);
-                                                 Navigator.pop(context);
-                                                }),
-                                          ),
-                                          const SizedBox(width: 16,),
-                                          Expanded(
-                                            child: CustomButton(
-                                                text: AppLocalizations.of(context)!
-                                                    .no,
-                                                action: () {
-                                                  Navigator.pop(context);
-                                                }),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
+                            return BlocProvider.value(
+                                value: authCubit,
+                                child: AlertDialog(
+                                  title: Text(AppLocalizations.of(context)!
+                                      .are_you_sure_you_want_to_logout),
+                                  actions: [
+                                    BlocConsumer<AuthCubit, AuthStates>(
+                                      listener: (context, state) {},
+                                      builder: (context, state) {
+                                        return CustomButton(
+                                            isLoading:
+                                                state is LogoutLoadingState,
+                                            text: AppLocalizations.of(context)!
+                                                .yes,
+                                            action: () {
+                                              authCubit.logOut(cartCubit);
+                                              Navigator.pop(context);
+                                            });
+                                      },
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    CustomButton(
+                                        text: AppLocalizations.of(context)!.no,
+                                        action: () {
+                                          Navigator.pop(context);
+                                        })
+                                  ],
+                                ));
                           });
                     },
                     child: Image.asset(

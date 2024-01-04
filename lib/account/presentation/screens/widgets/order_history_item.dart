@@ -44,7 +44,7 @@ class OrderHistoryItem extends StatelessWidget {
                 Expanded(
                   child: Text(
                     "#${customerOrder?.orderId ?? ""}",
-                    textAlign: TextAlign.right,
+                    textAlign: TextAlign.start,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -77,7 +77,7 @@ class OrderHistoryItem extends StatelessWidget {
                     customerOrder?.name ?? "",
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    textAlign: TextAlign.right,
+                    textAlign: TextAlign.start,
                     style: const TextStyle(
                         fontSize: FontSizes.FONT_SIZE_14,
                         color: Color(0xff947979)),
@@ -106,7 +106,7 @@ class OrderHistoryItem extends StatelessWidget {
                 Expanded(
                   child: Text(
                     customerOrder?.numOfProducts.toString() ?? "",
-                    textAlign: TextAlign.right,
+                    textAlign: TextAlign.start,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: const TextStyle(
@@ -137,7 +137,7 @@ class OrderHistoryItem extends StatelessWidget {
                 Expanded(
                   child: Text(
                     customerOrder?.total ?? "",
-                    textAlign: TextAlign.right,
+                    textAlign: TextAlign.start,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -190,81 +190,26 @@ class OrderHistoryItem extends StatelessWidget {
                               builder: (context) {
                                 return BlocProvider.value(
                                   value: accountCubit,
-                                  child: Container(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal:
-                                            MediaQuery.of(context).size.width *
-                                                0.1,
-                                        vertical:
-                                            MediaQuery.of(context).size.height *
-                                                0.38),
-                                    child: Material(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(16.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              AppLocalizations.of(context)!
-                                                  .are_you_sure_you_want_to_cancel_order,
-                                              style: const TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_16,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            const SizedBox(
-                                              height: 24,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Expanded(
-                                                  child: BlocConsumer<
-                                                      AccountCubit,
-                                                      AccountStates>(
-                                                    listener: (context, state) {
-                                                      // TODO: implement listener
-                                                    },
-                                                    builder: (context, state) {
-                                                      return CustomButton(
-                                                          text: AppLocalizations
-                                                                  .of(context)!
-                                                              .yes,
-                                                          isLoading: state
-                                                              is CancelCustomerOrderLoadingState,
-                                                          action: () async {
-                                                            await AccountCubit
-                                                                    .get(
-                                                                        context)
-                                                                .cancelOrder(
-                                                                    customerOrder);
-                                                            Navigator.pop(
-                                                                context);
-                                                          });
-                                                    },
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 16,
-                                                ),
-                                                Expanded(
-                                                  child: CustomButton(
-                                                      text: AppLocalizations.of(
-                                                              context)!
-                                                          .no,
-                                                      action: () {
-                                                        Navigator.pop(context);
-                                                      }),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
+                                  child: AlertDialog(
+                                    title: Text(AppLocalizations.of(context)!.are_you_sure_you_want_to_cancel_order),
+                                  actions: [
+                                    BlocConsumer<AccountCubit,AccountStates>(
+                                      listener: (context,state){},
+                                      builder: (context,state){
+                                       return CustomButton(
+                                            isLoading:state is CancelCustomerOrderLoadingState,
+                                            text: AppLocalizations.of(context)!.yes, action: (){
+                                          accountCubit.cancelOrder(customerOrder);
+                                          Navigator.pop(context);
+                                        });
+                                      },
                                     ),
-                                  ),
+                                    const SizedBox(height: 4,),
+                                    CustomButton(text: AppLocalizations.of(context)!.no, action: (){
+                                      Navigator.pop(context);
+                                    })
+                                  ],
+                                  )
                                 );
                               });
                         },
@@ -304,7 +249,7 @@ class OrderHistoryItem extends StatelessWidget {
                             .split("+")
                             .first ??
                         "-",
-                    textAlign: TextAlign.right,
+                    textAlign: TextAlign.start,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
