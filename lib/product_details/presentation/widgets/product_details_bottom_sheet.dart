@@ -37,10 +37,13 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                 BlocConsumer<WishListCubit, WishListStates>(
                   listener: (context, state) {},
                   builder: (context, state) {
+                    int productId =
+                      ProductDetailsCubit.get(context).selectedProductId;
+
+                  bool isProductInWishList = WishListCubit.get(context).wishListItems?.where((element) => element.productId == productId.toString()).isNotEmpty == true;
+
                     return GestureDetector(
                       onTap: () {
-                        int productId =
-                            ProductDetailsCubit.get(context).selectedProductId;
                         WishListCubit.get(context)
                             .addItemToWishlist(productId);
                       },
@@ -52,7 +55,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             )
-                          : Image.asset(
+                          : (isProductInWishList == true)?const Icon(Icons.favorite,color: Colors.red,size: 30,):Image.asset(
                               IconPaths.FAV_ICON,
                               width: 30,
                               height: 30,

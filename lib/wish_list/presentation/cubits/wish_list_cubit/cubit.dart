@@ -119,6 +119,7 @@ class WishListCubit extends Cubit<WishListStates> {
     );
     if (response == true) {
       showAppSnackBar(content: "Product added to wishlist");
+      wishListItems?.add(WishlistItem(productId: productId?.toString()));
       emit(AddItemToFavoritesSuccessState());
     } else if (response == false) {
       showAppSnackBar(content: "Error occurred");

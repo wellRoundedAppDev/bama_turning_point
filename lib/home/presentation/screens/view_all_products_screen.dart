@@ -2,6 +2,8 @@ import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/home/data/models/product.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
+import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
+import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -108,21 +110,28 @@ class ViewAllProductsScreen extends StatelessWidget {
                                           fit: BoxFit.cover,
                                         ),
                                       ),
-                                      Positioned(
-                                          bottom: 4,
-                                          right: 4,
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.white
-                                                      .withOpacity(0.7)),
-                                              child: const Padding(
-                                                padding: EdgeInsets.all(2.0),
-                                                child: Icon(
-                                                  Icons.favorite_border_rounded,
-                                                  color: Colors.black,
-                                                ),
-                                              )))
+                                      BlocConsumer<WishListCubit,WishListStates>(
+                                        listener: (context,state){},
+                                        builder: (context,state){
+                                          bool isProductInWishList = WishListCubit.get(context).wishListItems?.where((element) => element.productId == productId.toString()).isNotEmpty == true;
+
+                                          return Positioned(
+                                              bottom: 4,
+                                              right: 4,
+                                              child:(isProductInWishList == true)?const Icon(Icons.favorite,color: Colors.red,size: 30,): Container(
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Colors.white
+                                                          .withOpacity(0.7)),
+                                                  child: const Padding(
+                                                    padding: EdgeInsets.all(2.0),
+                                                    child: Icon(
+                                                      Icons.favorite_border_rounded,
+                                                      color: Colors.black,
+                                                    ),
+                                                  )));
+                                        },
+                                      )
                                     ],
                                   ),
                                   const SizedBox(
