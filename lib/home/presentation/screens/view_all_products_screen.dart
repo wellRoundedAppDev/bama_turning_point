@@ -110,25 +110,45 @@ class ViewAllProductsScreen extends StatelessWidget {
                                           fit: BoxFit.cover,
                                         ),
                                       ),
-                                      BlocConsumer<WishListCubit,WishListStates>(
-                                        listener: (context,state){},
-                                        builder: (context,state){
-                                          bool isProductInWishList = WishListCubit.get(context).wishListItems?.where((element) => element.productId == productId.toString()).isNotEmpty == true;
+                                      BlocConsumer<WishListCubit,
+                                          WishListStates>(
+                                        listener: (context, state) {},
+                                        builder: (context, state) {
+                                          bool isProductInWishList =
+                                              WishListCubit.get(context)
+                                                      .wishListItems
+                                                      ?.where((element) =>
+                                                          element.productId ==
+                                                          productId.toString())
+                                                      .isNotEmpty ==
+                                                  true;
 
                                           return Positioned(
                                               bottom: 4,
                                               right: 4,
-                                              child:(isProductInWishList == true)?const Icon(Icons.favorite,color: Colors.red,size: 30,): Container(
+                                              child: Container(
                                                   decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
                                                       color: Colors.white
                                                           .withOpacity(0.7)),
-                                                  child: const Padding(
-                                                    padding: EdgeInsets.all(2.0),
-                                                    child: Icon(
-                                                      Icons.favorite_border_rounded,
-                                                      color: Colors.black,
-                                                    ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            2.0),
+                                                    child:
+                                                        (isProductInWishList ==
+                                                                true)
+                                                            ? const Icon(
+                                                                Icons.favorite,
+                                                                color:
+                                                                    Colors.red,
+                                                              )
+                                                            : const Icon(
+                                                                Icons
+                                                                    .favorite_border_rounded,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
                                                   )));
                                         },
                                       )
