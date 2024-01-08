@@ -3,6 +3,8 @@ import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/home/data/models/product.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
+import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
+import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -30,9 +32,8 @@ class ProductsInCategoryScreen extends StatelessWidget {
         String? selectedCategoryName = selectedCategory?.name;
         return Scaffold(
           appBar: CustomAppBar.renderAppBar(
-            title: selectedCategoryName ?? "",
-            cartCubit: CartCubit.get(context)
-          ),
+              title: selectedCategoryName ?? "",
+              cartCubit: CartCubit.get(context)),
           body: BlocConsumer<CategoriesCubit, CategoriesStates>(
             listener: (context, state) {},
             builder: (context, state) {
@@ -54,8 +55,8 @@ class ProductsInCategoryScreen extends StatelessWidget {
                         )
                       : RefreshIndicator(
                           onRefresh: () async {
-                            await categoriesCubit.setAllProductsInCategory(
-                                selectedCategory);
+                            await categoriesCubit
+                                .setAllProductsInCategory(selectedCategory);
                           },
                           child: GridView.builder(
                             padding: const EdgeInsets.symmetric(vertical: 8),
@@ -70,9 +71,9 @@ class ProductsInCategoryScreen extends StatelessWidget {
                               ProductInCategory? product = products?[index];
                               int? productId = product?.productId?.toInt();
                               String? productName = product?.name;
-                              String? productImageUrl = product?.productImagePath;
+                              String? productImageUrl =
+                                  product?.productImagePath;
                               String? priceFormatted = product?.priceFormatted;
-
 
                               return InkWell(
                                 onTap: () {
@@ -98,15 +99,17 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                       Stack(
                                         children: [
                                           ClipRRect(
-                                            borderRadius: BorderRadius.circular(5),
+                                            borderRadius:
+                                                BorderRadius.circular(5),
                                             child: Image.network(
                                               productImageUrl ?? "",
-                                              errorBuilder:
-                                                  (context, object, stackTrace) {
+                                              errorBuilder: (context, object,
+                                                  stackTrace) {
                                                 return const Icon(
                                                   Icons.error,
                                                   size: 150,
-                                                  color: AppColors.APP_MAIN_COLOR,
+                                                  color:
+                                                      AppColors.APP_MAIN_COLOR,
                                                 );
                                               },
                                               width: MediaQuery.of(context)
@@ -123,17 +126,51 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                           Positioned(
                                               bottom: 4,
                                               right: 4,
-                                              child: Container(
-                                                  decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color: Colors.white.withOpacity(0.7)),
-                                                  child: const Padding(
-                                                    padding: EdgeInsets.all(2.0),
-                                                    child: Icon(
-                                                      Icons.favorite_border_rounded,
-                                                      color: Colors.black,
-                                                    ),
-                                                  )))
+                                              child: BlocConsumer<WishListCubit,
+                                                  WishListStates>(
+                                                listener: (context, state) {},
+                                                builder: (context, state) {
+                                                  bool isProductInWishList =
+                                                      WishListCubit.get(context)
+                                                              .wishListItems
+                                                              ?.where((element) =>
+                                                                  element
+                                                                      .productId ==
+                                                                  productId
+                                                                      .toString())
+                                                              .isNotEmpty ==
+                                                          true;
+
+                                                  return Container(
+                                                      decoration: BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: Colors.white
+                                                              .withOpacity(
+                                                                  0.7)),
+                                                      child:
+                                                            Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              2.0),
+                                                                  child:(isProductInWishList ==
+                                                                      true)
+                                                                      ? const Icon(
+                                                                    Icons
+                                                                        .favorite,
+                                                                    color: Colors
+                                                                        .red,
+                                                                  )
+                                                                      : Icon(
+                                                                    Icons
+                                                                        .favorite_border_rounded,
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                                ));
+                                                },
+                                              ))
                                         ],
                                       ),
                                       const SizedBox(
@@ -153,14 +190,14 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                         children: [
                                           Flexible(
                                               child: Text(
-                                                priceFormatted??"",
-                                                //"\$${productPrice.toString() ?? "-"}",
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                    color: AppColors.APP_MAIN_COLOR,
-                                                    fontWeight: FontWeight.bold),
-                                              )),
+                                            priceFormatted ?? "",
+                                            //"\$${productPrice.toString() ?? "-"}",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                color: AppColors.APP_MAIN_COLOR,
+                                                fontWeight: FontWeight.bold),
+                                          )),
                                           // const SizedBox(
                                           //   width: 8,
                                           // ),
@@ -179,7 +216,6 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                           //     )),
                                         ],
                                       )
-
                                     ],
                                   ),
                                 ),

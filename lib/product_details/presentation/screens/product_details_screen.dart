@@ -52,14 +52,16 @@ class ProductDetailsScreen extends StatelessWidget {
                   ),
                 )
               : (state is GetProductDetailsNetworkConnectionFailedState)
-                  ? Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: NoNetworkRefreshPage(
-                        refresh: () {
-                          productDetailsCubit.setProductDetails();
-                        },
+                  ? Material(
+                    child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: NoNetworkRefreshPage(
+                          refresh: () {
+                            productDetailsCubit.setProductDetails();
+                          },
+                        ),
                       ),
-                    )
+                  )
                   : SafeArea(
                       child: Scaffold(
                           backgroundColor: Colors.white,

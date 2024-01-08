@@ -17,13 +17,20 @@ class GetBrandsApi {
     String endPoint = ApiUrls.GET_BRANDS_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
-
+    // final params = {
+    //   'route': endPoint,
+    //   'extended': 1,
+    //   'limit': limit,
+    //   'page': page
+    // };
     try {
-      var response = await dioHelper.get(endpoint: endPoint, headers: {
+      var response = await dioHelper.get(endpoint:
+      endPoint, headers: {
         "Authorization": "Bearer $accessToken",
         "X-Oc-Merchant-Language": languageCode,
         "X-Oc-Currency": currencyCode
-      });
+      }
+      );
       if (response == null) {
         return null;
       }
