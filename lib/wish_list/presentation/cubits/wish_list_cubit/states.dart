@@ -21,6 +21,15 @@ class DeleteItemFromWishListFailedState extends WishListStates{}
 class DeleteItemFromWishListNetworkConnectionFailedState extends WishListStates{}
 
 
+class AddItemToFavoritesLoadingState extends WishListStates{}
+
+class AddItemToFavoritesSuccessState extends WishListStates {}
+
+class AddItemToFavoritesFailedState extends WishListStates {}
+
+class AddItemToFavoritesNetworkConnectionFailedState
+    extends WishListStates {}
+
 // class ItemAddedToCartFromWishListLoadingState extends WishListStates{}
 //
 // class ItemAddedToCartSuccessState extends WishListStates{}

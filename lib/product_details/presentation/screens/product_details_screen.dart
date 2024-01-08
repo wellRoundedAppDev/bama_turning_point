@@ -13,7 +13,6 @@ import '../../../shared_components/no_network_refresh_page.dart';
 import '../../data/models/get_product_details_response.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class ProductDetailsScreen extends StatelessWidget {
   int selectedProductId;
   ProductDetailsScreen({
@@ -39,7 +38,8 @@ class ProductDetailsScreen extends StatelessWidget {
           num? productPrice = productDetails?.price;
           String? priceFormatted = productDetails?.priceFormated;
           num? productPriceExcludingTaxes = productDetails?.priceExcludingTax;
-          String? priceExcludingTaxesFormatted = productDetails?.priceExcludingTaxFormated;
+          String? priceExcludingTaxesFormatted =
+              productDetails?.priceExcludingTaxFormated;
           num? productRating = productDetails?.rating;
           String? stockStatus = productDetails?.stockStatus;
           String? description = productDetails?.description;
@@ -62,7 +62,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     )
                   : SafeArea(
                       child: Scaffold(
-                        backgroundColor: Colors.white,
+                          backgroundColor: Colors.white,
                           bottomSheet: const ProductDetailsBottomSheet(),
                           appBar: CustomAppBar.renderAppBar(
                               title: productName ?? "",
@@ -262,8 +262,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                                   height: 2,
                                                 ),
                                                 Text(
-                                                  priceFormatted??"",
-                                               //   "\$$productPrice",
+                                                  priceFormatted ?? "",
+                                                  //   "\$$productPrice",
                                                   style: const TextStyle(
                                                       color: AppColors
                                                           .APP_MAIN_COLOR,
@@ -281,8 +281,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                           .spaceBetween,
                                                   children: [
                                                     Expanded(
-                                                      child:
-                                                      Text(
+                                                      child: Text(
                                                         "Ex Tax: $priceExcludingTaxesFormatted",
                                                         style: const TextStyle(
                                                             fontSize: FontSizes
@@ -391,7 +390,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                               children: [
                                                 Row(
                                                   children: [
-                                                     Text(
+                                                    Text(
                                                       "${AppLocalizations.of(context)!.stock}:  ",
                                                       style: const TextStyle(
                                                           fontWeight:
@@ -735,8 +734,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                 Text(
-                                                  AppLocalizations.of(context)!.description,
+                                                Text(
+                                                  AppLocalizations.of(context)!
+                                                      .description,
                                                   style: const TextStyle(
                                                       fontSize: FontSizes
                                                           .FONT_SIZE_16,

@@ -4,8 +4,8 @@ import 'package:classic_eccomerce/cart/presentation/screens/cart_screen.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/product_details/presentation/cubits/product_details_cubit/cubit.dart';
-import 'package:classic_eccomerce/product_details/presentation/cubits/product_details_cubit/states.dart';
-import 'package:classic_eccomerce/product_details/presentation/screens/product_comparison_screen.dart';
+import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
+import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -34,14 +34,14 @@ class ProductDetailsBottomSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               children: [
-                BlocConsumer<ProductDetailsCubit, ProductDetailsStates>(
+                BlocConsumer<WishListCubit, WishListStates>(
                   listener: (context, state) {},
                   builder: (context, state) {
                     return GestureDetector(
                       onTap: () {
                         int productId =
                             ProductDetailsCubit.get(context).selectedProductId;
-                        ProductDetailsCubit.get(context)
+                        WishListCubit.get(context)
                             .addItemToWishlist(productId);
                       },
                       child: (state is AddItemToFavoritesLoadingState)

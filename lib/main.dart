@@ -87,6 +87,9 @@ class MyApp extends StatelessWidget {
           create: (context) => AppSettingsCubit(),
         ),
         BlocProvider(create: (context) => CartCubit()),
+        BlocProvider(
+          create: (context) => WishListCubit()..init(CartCubit.get(context)),
+        ),
       ],
       child: BlocConsumer<LocaleCubit, LocaleStates>(
         listener: (context, state) {},

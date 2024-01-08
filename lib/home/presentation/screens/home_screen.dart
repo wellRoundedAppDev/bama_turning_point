@@ -6,7 +6,6 @@ import 'package:classic_eccomerce/core/constants/fonts/font_families.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
-import 'package:classic_eccomerce/home/data/data_sources/remote_data_sources/get_brands_api.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/states.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/search_cubit/cubit.dart';
@@ -21,10 +20,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../cart/presentation/cubits/cart_cubit/states.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
-import '../../data/models/get_slide_shows_response.dart';
 import '../widgets/home_drawer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -35,7 +32,7 @@ class HomeScreen extends StatelessWidget {
         create: (context) => HomeCubit()..init(),
         child: SafeArea(
           child: Scaffold(
-             drawer: const HomeDrawer(),
+            drawer: const HomeDrawer(),
             appBar: AppBar(
               toolbarHeight: MediaQuery.of(context).size.height * 0.17,
               leading: Container(),
@@ -64,7 +61,6 @@ class HomeScreen extends StatelessWidget {
                               size: 25,
                               color: Colors.white,
                             ),
-
                           ),
                           Expanded(child: Container()),
                           Center(
@@ -74,11 +70,20 @@ class HomeScreen extends StatelessWidget {
                             height: MediaQuery.of(context).size.height * 0.05,
                           )),
                           Expanded(child: Container()),
-
-                          IconButton(onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
-                          }, icon: const Icon(Icons.notifications,color: Colors.white,size: 30,),),
-
+                          IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const NotificationsScreen()));
+                            },
+                            icon: const Icon(
+                              Icons.notifications,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                          ),
                           GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -138,7 +143,6 @@ class HomeScreen extends StatelessWidget {
                                   );
                                 },
                               )),
-
                         ],
                       ),
                       const Spacer(),
@@ -149,7 +153,8 @@ class HomeScreen extends StatelessWidget {
                                 const EdgeInsets.symmetric(horizontal: 16.0),
                             child: SearchAppBarCustomInput(
                               filledColor: AppColors.APP_BAR_SEARCH_FIELD,
-                              hintText: AppLocalizations.of(context)!.search_here,
+                              hintText:
+                                  AppLocalizations.of(context)!.search_here,
                               textAlign: TextAlign.start,
                               isFilled: true,
                               readOnly: true,
@@ -224,8 +229,8 @@ class HomeScreen extends StatelessWidget {
                                 items: bannerAds
                                     .map(
                                       (e) => Image.asset(
-                                     //   e.imageOriginal ?? "",
-                                       e,
+                                        //   e.imageOriginal ?? "",
+                                        e,
                                         width:
                                             MediaQuery.of(context).size.width,
                                         fit: BoxFit.cover,
@@ -254,10 +259,13 @@ class HomeScreen extends StatelessWidget {
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (context, index) {
                                   String productListTitle = (index == 2)
-                                      ? AppLocalizations.of(context)!.featured_products
+                                      ? AppLocalizations.of(context)!
+                                          .featured_products
                                       : (index == 4)
-                                          ? AppLocalizations.of(context)!.new_arrivals
-                                          : AppLocalizations.of(context)!.offers;
+                                          ? AppLocalizations.of(context)!
+                                              .new_arrivals
+                                          : AppLocalizations.of(context)!
+                                              .offers;
 
                                   var products = (index == 2)
                                       ? featuredProducts
@@ -265,17 +273,18 @@ class HomeScreen extends StatelessWidget {
                                           ? newArrivals
                                           : bestSellers;
 
-                                  return (index == 0)?BrandsOverview(brands: brands??[]):(index == 1)
-                                      ? CategoriesOverview(
-                                          categories: categories ?? [],
-
-                                        )
-                                      : Container(
-                                          color: Colors.white,
-                                          child: ProductsOverview(
-                                              products: products ?? [],
-                                              productListTitle:
-                                                  productListTitle));
+                                  return (index == 0)
+                                      ? BrandsOverview(brands: brands ?? [])
+                                      : (index == 1)
+                                          ? CategoriesOverview(
+                                              categories: categories ?? [],
+                                            )
+                                          : Container(
+                                              color: Colors.white,
+                                              child: ProductsOverview(
+                                                  products: products ?? [],
+                                                  productListTitle:
+                                                      productListTitle));
                                 },
                               ),
                             ])),

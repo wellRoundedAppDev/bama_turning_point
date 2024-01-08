@@ -24,9 +24,8 @@ class WishListScreen extends StatelessWidget {
         bool isUserLoggedIn = authCubit.isUserLoggedIn;
         return (isUserLoggedIn == false)
             ? SignInScreen()
-            : BlocProvider(
-                create: (context) =>
-                    WishListCubit()..init(CartCubit.get(context)),
+            : BlocProvider.value(
+          value: WishListCubit.get(context)..init(CartCubit.get(context)),
                 child: BlocConsumer<WishListCubit, WishListStates>(
                   listener: (context, state) {},
                   builder: (context, state) {

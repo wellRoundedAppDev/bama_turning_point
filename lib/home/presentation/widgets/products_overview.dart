@@ -1,8 +1,9 @@
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
-import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/cubit.dart';
-import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/product_details/presentation/screens/product_details_screen.dart';
+import 'package:classic_eccomerce/wish_list/data/models/get_wishlist_response.dart';
+import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
+import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -57,14 +58,15 @@ class ProductsOverview extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     HomeCubit homeCubit = HomeCubit.get(context);
-                    homeCubit.navigateToViewAllProductsScreen(productListTitle,CartCubit.get(context));
+                    homeCubit.navigateToViewAllProductsScreen(
+                        productListTitle, CartCubit.get(context));
                     // Navigator.push(
                     //     context,
                     //     PageTransition(
                     //         child: const ProductsInCategoryScreen(),
                     //         type: PageTransitionType.leftToRight));
                   },
-                  child:  Text(
+                  child: Text(
                     AppLocalizations.of(context)!.view_all,
                     style: const TextStyle(
                         fontSize: FontSizes.FONT_SIZE_14,
@@ -87,11 +89,16 @@ class ProductsOverview extends StatelessWidget {
                   String? productTitle = product.name;
                   num? productPrice = product.price;
                   String? priceFormatted = product.priceFormatted;
-                  String? productImagePath = (product.productImagePath??"");
+                  String? productImagePath = (product.productImagePath ?? "");
+
 
                   return Row(
                     children: [
-                      (index == 0)?const SizedBox(width: 16,):Container(),
+                      (index == 0)
+                          ? const SizedBox(
+                              width: 16,
+                            )
+                          : Container(),
                       InkWell(
                         onTap: () {
                           Navigator.push(
@@ -117,12 +124,13 @@ class ProductsOverview extends StatelessWidget {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
                                     child: Image.network(
-                                      productImagePath??"",
+                                      productImagePath ?? "",
                                       height:
-                                          MediaQuery.of(context).size.height * 0.2,
+                                          MediaQuery.of(context).size.height *
+                                              0.2,
                                       width: MediaQuery.of(context).size.width,
-
-                                      errorBuilder: (context, object, stackTrace) {
+                                      errorBuilder:
+                                          (context, object, stackTrace) {
                                         return const Icon(
                                           Icons.error,
                                           size: 150,
@@ -132,20 +140,38 @@ class ProductsOverview extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Positioned(
-                                      bottom: 4,
-                                      right: 4,
-                                      child: Container(
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.white.withOpacity(0.7)),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(2.0),
-                                            child: Icon(
-                                              Icons.favorite_border_rounded,
-                                              color: Colors.black,
-                                            ),
-                                          )))
+                                  BlocConsumer<WishListCubit,WishListStates>(
+                                    listener: (context,state){},
+                                    builder: (context,state){
+                                      bool isItemInWishList = (WishListCubit.get(context)
+                                          .wishListItems
+                                          ?.where((element) =>
+                                      element.productId == productId?.toString()))
+                                          ?.isNotEmpty ==
+                                          true;
+                                      return  Positioned(
+                                          bottom: 4,
+                                          right: 4,
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.white
+                                                      .withOpacity(0.7)),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(2.0),
+                                                child: (isItemInWishList == true)
+                                                    ? const Icon(
+                                                  Icons.favorite,
+                                                  color: Colors.red,
+                                                )
+                                                    : const Icon(
+                                                  Icons
+                                                      .favorite_border_rounded,
+                                                  color: Colors.black,
+                                                ),
+                                              )));
+                                    },
+                                  )
                                 ],
                               ),
                               const SizedBox(
@@ -164,7 +190,7 @@ class ProductsOverview extends StatelessWidget {
                                 children: [
                                   Flexible(
                                       child: Text(
-                                        priceFormatted??"",
+                                    priceFormatted ?? "",
                                     //"\$${productPrice.toString() ?? "-"}",
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -194,8 +220,11 @@ class ProductsOverview extends StatelessWidget {
                           ),
                         ),
                       ),
-                      (index == products.length - 1)?const SizedBox(width: 16,):Container(),
-
+                      (index == products.length - 1)
+                          ? const SizedBox(
+                              width: 16,
+                            )
+                          : Container(),
                     ],
                   );
                 },
