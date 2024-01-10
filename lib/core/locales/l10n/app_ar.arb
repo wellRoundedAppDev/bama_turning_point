@@ -131,6 +131,12 @@
   "cancel_order": "الغاء الطلب",
   "error_occurred_try_again": "حدث خطأ، حاول مرة أخرى",
   "are_you_sure_you_want_to_cancel_order": "هل أنت متأكد أنك تريد إلغاء الطلب؟",
+  "topic": "الموضوع",
+  "message": "الرسالة",
+  "send": "ارسل",
+
+  "contact_us": "تواصل معنا",
+
 
   "welcome_user": "اهلاً بك, {username}"
 }

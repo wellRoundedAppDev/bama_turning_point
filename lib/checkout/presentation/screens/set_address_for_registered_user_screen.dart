@@ -207,7 +207,7 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                                                 Expanded(
                                                   child: Text(
                                                     selectedUserAddress
-                                                            ?.address1 ??
+                                                            .address1 ??
                                                         "-",
                                                     maxLines: 2,
                                                     overflow: TextOverflow

@@ -133,6 +133,11 @@
   "cancel_order": "Cancel order",
   "error_occurred_try_again": "Error occurred, try again",
   "are_you_sure_you_want_to_cancel_order": "Are you sure you want to cancel the order?",
+  "contact_us": "Contact us",
+  "topic": "Topic",
+  "message": "Message",
+
+  "send": "Send",
 
   "welcome_user": "Welcome {username}",
   "@welcome_user": {

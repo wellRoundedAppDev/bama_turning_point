@@ -16,7 +16,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../checkout/presentation/screens/quick_checkout_main_screen.dart';
-import '../../../checkout/presentation/screens/set_billing_address_for_registered_user_screen.dart';
+import '../../../checkout/presentation/screens/set_address_for_registered_user_screen.dart';
 import '../../../core/helpers/dio_helper.dart';
 import '../../../home_layout/presentation/screens/home_layout.dart';
 

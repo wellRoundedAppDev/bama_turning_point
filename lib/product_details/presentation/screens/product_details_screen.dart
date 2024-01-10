@@ -53,7 +53,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 )
               : (state is GetProductDetailsNetworkConnectionFailedState)
                   ? Material(
-                    child: Padding(
+                      child: Padding(
                         padding: const EdgeInsets.all(16),
                         child: NoNetworkRefreshPage(
                           refresh: () {
@@ -61,7 +61,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           },
                         ),
                       ),
-                  )
+                    )
                   : SafeArea(
                       child: Scaffold(
                           backgroundColor: Colors.white,
@@ -729,37 +729,45 @@ class ProductDetailsScreen extends StatelessWidget {
                                           const SizedBox(
                                             height: 8,
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 16.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  AppLocalizations.of(context)!
-                                                      .description,
-                                                  style: const TextStyle(
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_16,
-                                                      color: Color(0xff313846),
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                          (description?.isEmpty == true)
+                                              ? Container()
+                                              : Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 16.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .description,
+                                                        style: const TextStyle(
+                                                            fontSize: FontSizes
+                                                                .FONT_SIZE_16,
+                                                            color: Color(
+                                                                0xff313846),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 8,
+                                                      ),
+                                                      Text(
+                                                        removeHTMLTags(
+                                                            description ?? ""),
+                                                        style: const TextStyle(
+                                                            fontSize: FontSizes
+                                                                .FONT_SIZE_14,
+                                                            color: Color(
+                                                                0xff71757E)),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
-                                                const SizedBox(
-                                                  height: 8,
-                                                ),
-                                                Text(
-                                                  removeHTMLTags(
-                                                      description ?? ""),
-                                                  style: const TextStyle(
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_14,
-                                                      color: Color(0xff71757E)),
-                                                )
-                                              ],
-                                            ),
-                                          ),
                                           const SizedBox(
                                             height: 16,
                                           ),

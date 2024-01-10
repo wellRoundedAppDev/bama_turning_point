@@ -179,7 +179,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
       // emit(SetExistingUserAddressSuccessState());
     } else if (settingPaymentAddressResponse?.success == false ||
         settingShippingAddressResponse?.success == false) {
-      showAppSnackBar(content: "Error occurred");
+      showAppSnackBar(content: settingShippingAddressResponse?.errorMsgs[0]);
       emit(SetExistingUserAddressFailedState());
     } else {
       showAppSnackBar(content: "Check your internet connection, and try again");
