@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "959839220838",
+    "project_id": "buqcha",
+    "storage_bucket": "buqcha.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959839220838:android:71e592fbb761a30f9f69a7",
+        "android_client_info": {
+          "package_name": "com.spark.buqcha"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP8VMqK6SGs0irnSkpaEuGJ028oBHgSkA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
