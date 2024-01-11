@@ -18,7 +18,11 @@ class GetCartResponse {
     //     error?.add(Dynamic.fromJson(v));
     //   });
     // }
-    var data = json['data'].isEmpty == true? null:json['data'] != null ? Data.fromJson(json['data']) : null;
+    var data = json['data'].isEmpty == true
+        ? null
+        : json['data'] != null
+            ? Data.fromJson(json['data'])
+            : null;
 
     return GetCartResponse(data: data, success: success);
   }
@@ -221,7 +225,6 @@ class Total {
 }
 
 class CartItemFromApi {
-
   CartItemFromApi({
     this.key,
     this.thumb,
@@ -229,7 +232,7 @@ class CartItemFromApi {
     this.points,
     this.productId,
     this.model,
-   // this.option,
+    // this.option,
     this.quantity,
     this.recurring,
     this.stock,
@@ -260,7 +263,11 @@ class CartItemFromApi {
 
     var total = json['total'];
     var priceRaw = json['price_raw'];
-    var priceFormatted = (json['price_raw']?.toString()??"" )+( MyApp.navKey.currentState?.context.read<AppSettingsCubit>().currencyCode??"");
+    var priceFormatted = (json['price_raw']?.toString() ?? "") +
+        ((MyApp.navKey.currentState?.context
+            .read<AppSettingsCubit>()
+            .currencyCode ??
+            "") == "USD"?"\$":"IQD");
     var totalRaw = json['total_raw'];
     return CartItemFromApi(
       totalRaw: totalRaw,
@@ -274,7 +281,7 @@ class CartItemFromApi {
       name: name,
       priceFormatted: priceFormatted,
       quantity: quantity,
-     // option: option,
+      // option: option,
       key: key,
       points: points,
       priceRaw: priceRaw,
@@ -288,7 +295,7 @@ class CartItemFromApi {
   num? points;
   String? productId;
   String? model;
- // List<dynamic>? option;
+  // List<dynamic>? option;
   String? quantity;
   String? recurring;
   bool? stock;

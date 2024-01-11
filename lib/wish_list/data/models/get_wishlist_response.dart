@@ -55,10 +55,13 @@ class WishlistItem {
     var name = json['name'];
     var model = json['model'];
     var stock = json['stock'];
-    var price = (json['price']?.toString().split(".")?.first??"") + (MyApp.navKey.currentState?.context
+    var price = (json['price']?.toString().split(".").first??"") +  ((MyApp.navKey.currentState?.context
         .read<AppSettingsCubit>()
         .currencyCode ??
-        "");
+        "") ==
+        "USD"
+        ? "\$"
+        : "IQD");
     var special = json['special'];
     return WishlistItem(
       name: name,

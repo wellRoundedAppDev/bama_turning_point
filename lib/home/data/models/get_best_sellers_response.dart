@@ -32,7 +32,7 @@ class GetBestSellersResponse {
   List<BestSeller>? bestSellers;
 }
 
-class BestSeller extends Product{
+class BestSeller extends Product {
   BestSeller({
     this.productId,
     this.name,
@@ -51,12 +51,21 @@ class BestSeller extends Product{
     var price = json['price'];
     var rating = json['rating'];
     var description = json['description'];
-    var priceFormatted = (json['price']?.toString()??"" )+( MyApp.navKey.currentState?.context.read<AppSettingsCubit>().currencyCode??"");
+    var priceFormatted = (json['price']?.toString() ?? "") +
+        ((MyApp.navKey.currentState?.context
+                .read<AppSettingsCubit>()
+                .currencyCode ??
+            "") == "USD"?"\$":"IQD");
     var productImagePath = json['thumb'];
-    return BestSeller(productId: productId,name: name,
+    return BestSeller(
+        productId: productId,
+        name: name,
         productImagePath: productImagePath,
         priceFormatted: priceFormatted,
-        quantity: quantity,price: price,rating: rating,description: description);
+        quantity: quantity,
+        price: price,
+        rating: rating,
+        description: description);
   }
   num? productId;
   String? name;
@@ -65,7 +74,7 @@ class BestSeller extends Product{
   dynamic rating;
   String? description;
   String? productImagePath;
-String? priceFormatted;
+  String? priceFormatted;
   // Map<String, dynamic> toJson() {
   //   final map = <String, dynamic>{};
   //   map['product_id'] = productId;

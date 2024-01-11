@@ -57,7 +57,11 @@ class LatestProduct extends Product{
     var description = json['description'];
     var productImagePath = json['thumb'];
 
-    var priceFormatted = (json['price']?.toString()??"" )+( MyApp.navKey.currentState?.context.read<AppSettingsCubit>().currencyCode??"");
+    var priceFormatted = (json['price']?.toString() ?? "") +
+        ((MyApp.navKey.currentState?.context
+            .read<AppSettingsCubit>()
+            .currencyCode ??
+            "") == "USD"?"\$":"IQD");
     return LatestProduct(
         price: price,
         priceFormatted: priceFormatted,

@@ -99,7 +99,11 @@ class FeaturedProduct extends Product {
     var price = json['price'];
     var description = json['description'];
     var imagePath= json['thumb'];
-    var priceFormatted = (json['price']?.toString()??"" )+( MyApp.navKey.currentState?.context.read<AppSettingsCubit>().currencyCode??"");
+    var priceFormatted = (json['price']?.toString() ?? "") +
+        ((MyApp.navKey.currentState?.context
+            .read<AppSettingsCubit>()
+            .currencyCode ??
+            "") == "USD"?"\$":"IQD");
 
     return FeaturedProduct(
       name: name,

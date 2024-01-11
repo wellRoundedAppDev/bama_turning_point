@@ -125,14 +125,25 @@ class ProductDetails {
         ? json['original_images'].cast<String>()
         : [];
     var priceExcludingTax = json['price_excluding_tax'];
-    var priceExcludingTaxFormated = (json['price_excluding_tax']?.toString()??"" )+
-        (MyApp.navKey.currentState?.context.read<AppSettingsCubit>().currencyCode??"");
+    var priceExcludingTaxFormated =
+        (json['price_excluding_tax']?.toString() ?? "") +
+            ((MyApp.navKey.currentState?.context
+                            .read<AppSettingsCubit>()
+                            .currencyCode ??
+                        "") ==
+                    "USD"
+                ? "\$"
+                : "IQD");
+
     var price = json['price'];
     var priceFormatted = (json['price']?.toString() ?? "") +
-        (MyApp.navKey.currentState?.context
-                .read<AppSettingsCubit>()
-                .currencyCode ??
-            "");
+        ((MyApp.navKey.currentState?.context
+                        .read<AppSettingsCubit>()
+                        .currencyCode ??
+                    "") ==
+                "USD"
+            ? "\$"
+            : "IQD");
     var rating = json['rating'];
     var description = json['description'];
     // if (json['attribute_groups'] != null) {
