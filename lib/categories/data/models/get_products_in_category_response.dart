@@ -64,7 +64,11 @@ class ProductInCategory{
     var rating = json['rating'];
     var productImagePath = json['image'];
     var description = json['description'];
-    var priceFormatted = (json['price']?.toString()??"" )+( MyApp.navKey.currentState?.context.read<AppSettingsCubit>().currencyCode??"");
+    var priceFormatted = (json['price']?.toString() ?? "") +
+        ((MyApp.navKey.currentState?.context
+            .read<AppSettingsCubit>()
+            .currencyCode ??
+            "") == "USD"?"\$":"IQD");
     return ProductInCategory(
         price: price,
         quantity: quantity,

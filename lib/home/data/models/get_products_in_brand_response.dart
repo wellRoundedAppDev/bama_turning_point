@@ -53,10 +53,10 @@ class ProductsInBrand extends Product {
     var rating = json['rating'];
     var description = json['description'];
     var priceFormatted = (json['price']?.toString() ?? "") +
-        (MyApp.navKey.currentState?.context
-                .read<AppSettingsCubit>()
-                .currencyCode ??
-            "");
+        ((MyApp.navKey.currentState?.context
+            .read<AppSettingsCubit>()
+            .currencyCode ??
+            "") == "USD"?"\$":"IQD");
     var productImagePath = json['image'];
     return ProductsInBrand(
         productId: productId,
