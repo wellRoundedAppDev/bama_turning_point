@@ -7,7 +7,6 @@ import 'package:classic_eccomerce/core/locales/locale_cubit/locale_states.dart';
 import 'package:classic_eccomerce/home_layout/presentation/screens/home_layout.dart';
 import 'package:classic_eccomerce/splash/presentation/screens/splash_screen.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

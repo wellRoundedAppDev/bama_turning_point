@@ -35,6 +35,7 @@ class RegisterFormInput {
         'status': 1,
         // 'cart_count_products': 1,
         'agree': 1,
+
         // "custom_field": {
         //   "account": {"1": "32223"}
 

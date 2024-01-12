@@ -1,3 +1,8 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../app_settings/app_settings_cubit/app_settings_cubit.dart';
+import '../../../main.dart';
+
 class SearchResponse {
   SearchResponse({
     this.success,
@@ -126,7 +131,7 @@ class SearchItem {
     var priceExcludingTax = json['price_excluding_tax'];
     var priceExcludingTaxFormated = json['price_excluding_tax_formated'];
     var price = json['price'];
-    var priceFormated = json['price_formated'];
+    var priceFormatted = (json['price']?.toString()??"" )+( MyApp.navKey.currentState?.context.read<AppSettingsCubit>().currencyCode??"");
     var rating = json['rating'];
     var description = json['description'];
     // if (json['attribute_groups'] != null) {
@@ -214,7 +219,7 @@ class SearchItem {
       originalImage: originalImage,
       priceExcludingTax: priceExcludingTax,
       priceExcludingTaxFormated: priceExcludingTaxFormated,
-      priceFormated: priceFormated,
+      priceFormated: priceFormatted,
       stockStatus: stockStatus,
       reviews: reviews,
       rating: rating,

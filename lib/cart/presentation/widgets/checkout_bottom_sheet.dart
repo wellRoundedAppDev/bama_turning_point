@@ -14,7 +14,6 @@ import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../shared_components/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class CheckOutBottomSheet extends StatelessWidget {
   const CheckOutBottomSheet({super.key});
 
@@ -28,16 +27,11 @@ class CheckOutBottomSheet extends StatelessWidget {
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(
-                 16,
-                16,
-                 16,
-                16
-              ),
+              padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                   Text(
+                  Text(
                     AppLocalizations.of(context)!.total,
                     style: const TextStyle(
                         fontSize: FontSizes.FONT_SIZE_14,
@@ -48,9 +42,10 @@ class CheckOutBottomSheet extends StatelessWidget {
                     child: BlocConsumer<CartCubit, CartStates>(
                       listener: (context, state) {},
                       builder: (context, state) {
-                        AppSettingsCubit appSettingsCubit = AppSettingsCubit.get(context);
+                        AppSettingsCubit appSettingsCubit =
+                            AppSettingsCubit.get(context);
                         CartCubit cartCubit = CartCubit.get(context);
-                        String currencySymbol ="IQD";
+                        String currencySymbol = "IQD";
                         return Text(
                           ": ${cartCubit.totalPrice.toStringAsFixed(2)}$currencySymbol",
                           maxLines: 1,
@@ -69,15 +64,10 @@ class CheckOutBottomSheet extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(
-                right: 8,
-                top: 8,
-                bottom: 8,
-                left: 8
-              ),
+              padding:
+                  const EdgeInsets.only(right: 8, top: 8, bottom: 8, left: 8),
               child: CustomButton(
-                text:                     AppLocalizations.of(context)!.checkout,
-
+                text: AppLocalizations.of(context)!.checkout,
                 height: MediaQuery.of(context).size.height,
                 textFontSize: FontSizes.FONT_SIZE_14,
                 action: () {

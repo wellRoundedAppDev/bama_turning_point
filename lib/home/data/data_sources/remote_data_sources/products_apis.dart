@@ -152,21 +152,21 @@ class ProductsApis {
     }
   }
 
-  static Future<GetProductsInBrandResponse?> getProductsInBrand(int id,
+  static Future<GetProductsInBrandResponse?> getProductsInBrand(int brandId,
       {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
     String endPoint = ApiUrls.GET_PRODUCTS_IN_BRAND_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {
-      var response = await dioHelper.get(endpoint: endPoint, headers: {
-        "Authorization": "Bearer $accessToken",
-        "X-Oc-Merchant-Language": languageCode,
-        "X-Oc-Currency": currencyCode,
-      },queryParameters: {
-        "id":id
-      }
-      );
+      var response = await dioHelper.get(
+          endpoint:
+              "https://buqcha.net/index.php?route=feed/rest_api/products&manufacturer=$brandId",
+          headers: {
+            "Authorization": "Bearer $accessToken",
+            "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode,
+          });
       if (response == null) {
         return null;
       }

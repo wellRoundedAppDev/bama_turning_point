@@ -83,8 +83,10 @@ class AccountCubit extends Cubit<AccountStates> {
       return;
     }
     accountInformationFormKey.currentState?.save();
-    accountInput.email = AuthCubit.get(context).loginResponse?.loginData?.telephone??"";
-    accountInput.phoneNumber = AuthCubit.get(context).loginResponse?.loginData?.telephone??"";
+    accountInput.email =
+        AuthCubit.get(context).loginResponse?.loginData?.telephone ?? "";
+    accountInput.phoneNumber =
+        AuthCubit.get(context).loginResponse?.loginData?.telephone ?? "";
 
     emit(EditAccountLoadingState());
     var response = await AccountApis.editAccountDetails(accountInput.toJson());
@@ -94,7 +96,7 @@ class AccountCubit extends Cubit<AccountStates> {
 
       emit(EditAccountSuccessState());
     } else if (response?.success == false) {
-      showAppSnackBar(content:( response?.errorMsgs?[0][0]) ?? "");
+      showAppSnackBar(content: (response?.errorMsgs?[0][0]) ?? "");
 
       emit(EditAccountFailedState());
     } else {
@@ -274,8 +276,7 @@ class AccountCubit extends Cubit<AccountStates> {
     emit(GetFirstCustomerOrdersLoadingState());
     var response = await AccountApis.getCustomerOrders(1,
         currencyCode: appSettingsCubit.currencyCode,
-        languageCode: languageCodes[localeCubit.locale.languageCode]
-    );
+        languageCode: languageCodes[localeCubit.locale.languageCode]);
     if (response?.success == 1) {
       customerOrders.clear();
       var tempCustomerOrders = response?.customerOrders ?? [];
@@ -300,12 +301,9 @@ class AccountCubit extends Cubit<AccountStates> {
     LocaleCubit localeCubit = LocaleCubit.get(context);
     AppSettingsCubit appSettingsCubit = AppSettingsCubit.get(context);
     emit(AddMoreCustomerOrdersLoadingState());
-    var response =
-        await AccountApis.getCustomerOrders(customerOrdersPageNumber,
-            currencyCode: appSettingsCubit.currencyCode,
-            languageCode: languageCodes[localeCubit.locale.languageCode]
-
-        );
+    var response = await AccountApis.getCustomerOrders(customerOrdersPageNumber,
+        currencyCode: appSettingsCubit.currencyCode,
+        languageCode: languageCodes[localeCubit.locale.languageCode]);
     if (response?.success == 1) {
       var tempCustomerOrders = response?.customerOrders ?? [];
       if (tempCustomerOrders.isEmpty == true) {
@@ -354,21 +352,25 @@ class AccountCubit extends Cubit<AccountStates> {
     });
   }
 
-
   cancelOrder(CustomerOrder? customerOrder) async {
     emit(CancelCustomerOrderLoadingState());
-    var response  =  await AccountApis.cancelOrder(int.tryParse(customerOrder?.orderId??""));
-    if(response == true){
-      customerOrder?.status = LocaleCubit.get(context).locale.countryCode == "en"?"Canceled":"ملغي";
+    var response = await AccountApis.cancelOrder(
+        int.tryParse(customerOrder?.orderId ?? ""));
+    if (response == true) {
+      customerOrder?.status =
+          LocaleCubit.get(context).locale.countryCode == "en"
+              ? "Canceled"
+              : "ملغي";
       emit(CancelCustomerOrderSuccessState());
-    }else if(response == false){
-      showAppSnackBar(content: AppLocalizations.of(context)!.error_occurred_try_again);
+    } else if (response == false) {
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!.error_occurred_try_again);
       emit(CancelCustomerOrderFailedState());
-    }else{
-
-      showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
+    } else {
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!
+              .check_your_internet_connection_and_try_again_later);
       emit(CancelCustomerOrderNetworkConnectionFailedState());
     }
   }
-
 }

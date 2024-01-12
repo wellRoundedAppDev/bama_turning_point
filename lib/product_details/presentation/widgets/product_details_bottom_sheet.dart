@@ -44,10 +44,16 @@ class ProductDetailsBottomSheet extends StatelessWidget {
 
                     return GestureDetector(
                       onTap: () {
-                        WishListCubit.get(context)
-                            .addItemToWishlist(productId);
+                        if(isProductInWishList == false){
+                          WishListCubit.get(context)
+                              .addItemToWishlist(productId);
+                        }else{
+                          WishListCubit.get(context)
+                              .deleteItemFromWishList(productId);
+
+                        }
                       },
-                      child: (state is AddItemToFavoritesLoadingState)
+                      child: (state is AddItemToFavoritesLoadingState  || state is DeleteItemFromWishListLoadingState)
                           ? const SizedBox(
                               width: 30,
                               height: 30,

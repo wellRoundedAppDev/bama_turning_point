@@ -1,3 +1,8 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../app_settings/app_settings_cubit/app_settings_cubit.dart';
+import '../../../main.dart';
+
 class GetCartResponse {
   GetCartResponse({
     this.success,
@@ -255,7 +260,7 @@ class CartItemFromApi {
 
     var total = json['total'];
     var priceRaw = json['price_raw'];
-    var priceFormatted = json['price'];
+    var priceFormatted = (json['price_raw']?.toString()??"" )+( MyApp.navKey.currentState?.context.read<AppSettingsCubit>().currencyCode??"");
     var totalRaw = json['total_raw'];
     return CartItemFromApi(
       totalRaw: totalRaw,

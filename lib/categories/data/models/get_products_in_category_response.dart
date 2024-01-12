@@ -1,4 +1,8 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../app_settings/app_settings_cubit/app_settings_cubit.dart';
 import '../../../home/data/models/product.dart';
+import '../../../main.dart';
 
 class GetProductsInCategoryResponse {
   GetProductsInCategoryResponse({
@@ -60,7 +64,7 @@ class ProductInCategory{
     var rating = json['rating'];
     var productImagePath = json['image'];
     var description = json['description'];
-    var priceFormatted = json['price_formated'];
+    var priceFormatted = (json['price']?.toString()??"" )+( MyApp.navKey.currentState?.context.read<AppSettingsCubit>().currencyCode??"");
     return ProductInCategory(
         price: price,
         quantity: quantity,

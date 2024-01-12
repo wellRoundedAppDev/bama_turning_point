@@ -1,4 +1,8 @@
 import 'package:classic_eccomerce/home/data/models/product.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../app_settings/app_settings_cubit/app_settings_cubit.dart';
+import '../../../main.dart';
 
 class GetProductsInBrandResponse {
   GetProductsInBrandResponse({
@@ -22,13 +26,14 @@ class GetProductsInBrandResponse {
       });
     }
 
-    return GetProductsInBrandResponse(success: success, productsInBrand: productsInBrand);
+    return GetProductsInBrandResponse(
+        success: success, productsInBrand: productsInBrand);
   }
   num? success;
   List<ProductsInBrand>? productsInBrand;
 }
 
-class ProductsInBrand extends Product{
+class ProductsInBrand extends Product {
   ProductsInBrand({
     this.productId,
     this.name,
@@ -47,12 +52,21 @@ class ProductsInBrand extends Product{
     var price = json['price'];
     var rating = json['rating'];
     var description = json['description'];
-    var priceFormatted = json['price_formated'];
+    var priceFormatted = (json['price']?.toString() ?? "") +
+        (MyApp.navKey.currentState?.context
+                .read<AppSettingsCubit>()
+                .currencyCode ??
+            "");
     var productImagePath = json['image'];
-    return ProductsInBrand(productId: productId,name: name,
+    return ProductsInBrand(
+        productId: productId,
+        name: name,
         productImagePath: productImagePath,
         priceFormatted: priceFormatted,
-        quantity: quantity,price: price,rating: rating,description: description);
+        quantity: quantity,
+        price: price,
+        rating: rating,
+        description: description);
   }
   num? productId;
   String? name;

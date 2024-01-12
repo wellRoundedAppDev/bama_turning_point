@@ -1,3 +1,8 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../app_settings/app_settings_cubit/app_settings_cubit.dart';
+import '../../../main.dart';
+
 class GetWishlistResponse {
   GetWishlistResponse({
     this.success,
@@ -50,7 +55,10 @@ class WishlistItem {
     var name = json['name'];
     var model = json['model'];
     var stock = json['stock'];
-    var price = json['price'];
+    var price = (json['price']?.toString().split(".")?.first??"") + (MyApp.navKey.currentState?.context
+        .read<AppSettingsCubit>()
+        .currencyCode ??
+        "");
     var special = json['special'];
     return WishlistItem(
       name: name,

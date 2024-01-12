@@ -47,7 +47,7 @@ class WishListItemWidget extends StatelessWidget {
                                 )));
                   },
                   child: Image.network(
-                    wishlistItem?.thumb,
+                    wishlistItem?.thumb??"",
                     width: MediaQuery.of(context).size.width * 0.25,
                     height: MediaQuery.of(context).size.height * 0.2,
                     fit: BoxFit.cover,

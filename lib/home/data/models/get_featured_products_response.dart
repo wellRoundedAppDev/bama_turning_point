@@ -1,4 +1,8 @@
 import 'package:classic_eccomerce/home/data/models/product.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../app_settings/app_settings_cubit/app_settings_cubit.dart';
+import '../../../main.dart';
 
 class GetFeaturedProductsResponse {
   GetFeaturedProductsResponse({
@@ -95,7 +99,7 @@ class FeaturedProduct extends Product {
     var price = json['price'];
     var description = json['description'];
     var imagePath= json['thumb'];
-    var priceFormatted = json['price_formated'];
+    var priceFormatted = (json['price']?.toString()??"" )+( MyApp.navKey.currentState?.context.read<AppSettingsCubit>().currencyCode??"");
 
     return FeaturedProduct(
       name: name,

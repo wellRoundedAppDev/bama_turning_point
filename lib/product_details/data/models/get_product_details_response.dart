@@ -1,3 +1,8 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../app_settings/app_settings_cubit/app_settings_cubit.dart';
+import '../../../main.dart';
+
 class GetProductDetailsResponse {
   GetProductDetailsResponse({
     this.success,
@@ -39,9 +44,9 @@ class ProductDetails {
     this.id,
     this.productId,
     this.name,
-   // this.manufacturer,
+    // this.manufacturer,
     //this.sku,
-   // this.model,
+    // this.model,
     this.image,
     //  this.images,
     this.originalImage,
@@ -52,52 +57,52 @@ class ProductDetails {
     this.priceFormated,
     this.rating,
     this.description,
-  //  this.attributeGroups,
-  this.special,
+    //  this.attributeGroups,
+    this.special,
     this.specialExcludingTax,
     this.specialExcludingTaxFormated,
     this.specialFormated,
     this.specialStartDate,
     this.specialEndDate,
     //this.discounts,
-   // this.options,
+    // this.options,
     //this.minimum,
-   // this.metaTitle,
+    // this.metaTitle,
     //this.metaDescription,
-   // this.metaKeyword,
-  //  this.seoUrl,
-   // this.tag,
-   // this.upc,
-   // this.ean,
-  //  this.jan,
+    // this.metaKeyword,
+    //  this.seoUrl,
+    // this.tag,
+    // this.upc,
+    // this.ean,
+    //  this.jan,
     //this.isbn,
-   // this.mpn,
-   // this.location,
+    // this.mpn,
+    // this.location,
     this.stockStatus,
     this.stockStatusId,
-   // this.manufacturerId,
-  //  this.taxClassId,
- //   this.dateAvailable,
+    // this.manufacturerId,
+    //  this.taxClassId,
+    //   this.dateAvailable,
     this.weight,
     this.weightClassId,
- //   this.length,
- //   this.width,
-  //  this.height,
- //   this.lengthClassId,
- //   this.subtract,
- //   this.sortOrder,
-   // this.status,
- //   this.dateAdded,
- //   this.dateModified,
- //   this.viewed,
+    //   this.length,
+    //   this.width,
+    //  this.height,
+    //   this.lengthClassId,
+    //   this.subtract,
+    //   this.sortOrder,
+    // this.status,
+    //   this.dateAdded,
+    //   this.dateModified,
+    //   this.viewed,
     this.weightClass,
-   // this.lengthClass,
-   // this.shipping,
-   // this.reward,
-   // this.points,
+    // this.lengthClass,
+    // this.shipping,
+    // this.reward,
+    // this.points,
     this.quantity,
     this.reviews,
-  //  this.recurrings,
+    //  this.recurrings,
   });
 
   factory ProductDetails.fromJson(dynamic json) {
@@ -120,9 +125,14 @@ class ProductDetails {
         ? json['original_images'].cast<String>()
         : [];
     var priceExcludingTax = json['price_excluding_tax'];
-    var priceExcludingTaxFormated = json['price_excluding_tax_formated'];
+    var priceExcludingTaxFormated = (json['price_excluding_tax']?.toString()??"" )+
+        (MyApp.navKey.currentState?.context.read<AppSettingsCubit>().currencyCode??"");
     var price = json['price'];
-    var priceFormated = json['price_formated'];
+    var priceFormatted = (json['price']?.toString() ?? "") +
+        (MyApp.navKey.currentState?.context
+                .read<AppSettingsCubit>()
+                .currencyCode ??
+            "");
     var rating = json['rating'];
     var description = json['description'];
     // if (json['attribute_groups'] != null) {
@@ -149,26 +159,26 @@ class ProductDetails {
     //     options?.add(Dynamic.fromJson(v));
     //   });
     // }
-   // var minimum = json['minimum'];
-   // var metaTitle = json['meta_title'];
-   // var metaDescription = json['meta_description'];
-  //  var metaKeyword = json['meta_keyword'];
-  //  var seoUrl = json['seo_url'];
-  //  var tag = json['tag'];
-  //  var upc = json['upc'];
-  //  var ean = json['ean'];
-   // var jan = json['jan'];
-   // var isbn = json['isbn'];
-  //  var mpn = json['mpn'];
-  //  var location = json['location'];
+    // var minimum = json['minimum'];
+    // var metaTitle = json['meta_title'];
+    // var metaDescription = json['meta_description'];
+    //  var metaKeyword = json['meta_keyword'];
+    //  var seoUrl = json['seo_url'];
+    //  var tag = json['tag'];
+    //  var upc = json['upc'];
+    //  var ean = json['ean'];
+    // var jan = json['jan'];
+    // var isbn = json['isbn'];
+    //  var mpn = json['mpn'];
+    //  var location = json['location'];
     var stockStatus = json['stock_status'];
     var stockStatusId = json['stock_status_id'];
-  //  var manufacturerId = json['manufacturer_id'];
-  //  var taxClassId = json['tax_class_id'];
-  //  var dateAvailable = json['date_available'];
+    //  var manufacturerId = json['manufacturer_id'];
+    //  var taxClassId = json['tax_class_id'];
+    //  var dateAvailable = json['date_available'];
     var weight = json['weight'];
     var weightClassId = json['weight_class_id'];
-   // var length = json['length'];
+    // var length = json['length'];
     //var width = json['width'];
     //var height = json['height'];
     //var lengthClassId = json['length_class_id'];
@@ -179,7 +189,7 @@ class ProductDetails {
     //var dateModified = json['date_modified'];
     //var viewed = json['viewed'];
     var weightClass = json['weight_class'];
-   // var lengthClass = json['length_class'];
+    // var lengthClass = json['length_class'];
     //var shipping = json['shipping'];
     //var reward = json['reward'];
     //var points = json['points'];
@@ -198,12 +208,32 @@ class ProductDetails {
     //     recurrings?.add(Dynamic.fromJson(v));
     //   });
     // }
-    return ProductDetails(id: id,quantity: quantity,image: image,name: name,description: description,
-    rating: rating,reviews: reviews,price: price,productId: productId, specialFormated: specialFormated,specialStartDate: specialStartDate,
-      specialExcludingTaxFormated: specialExcludingTaxFormated,stockStatus: stockStatus,specialExcludingTax: specialExcludingTax,
-      specialEndDate: specialEndDate,special: special,priceFormated: priceFormated,priceExcludingTaxFormated: priceExcludingTaxFormated,
-      priceExcludingTax: priceExcludingTax,originalImage: originalImage,originalImages: originalImages,stockStatusId: stockStatusId,weight: weight,weightClass: weightClass,weightClassId: weightClassId,
-
+    return ProductDetails(
+      id: id,
+      quantity: quantity,
+      image: image,
+      name: name,
+      description: description,
+      rating: rating,
+      reviews: reviews,
+      price: price,
+      productId: productId,
+      specialFormated: specialFormated,
+      specialStartDate: specialStartDate,
+      specialExcludingTaxFormated: specialExcludingTaxFormated,
+      stockStatus: stockStatus,
+      specialExcludingTax: specialExcludingTax,
+      specialEndDate: specialEndDate,
+      special: special,
+      priceFormated: priceFormatted,
+      priceExcludingTaxFormated: priceExcludingTaxFormated,
+      priceExcludingTax: priceExcludingTax,
+      originalImage: originalImage,
+      originalImages: originalImages,
+      stockStatusId: stockStatusId,
+      weight: weight,
+      weightClass: weightClass,
+      weightClassId: weightClassId,
     );
   }
   num? id;
@@ -360,8 +390,8 @@ class Reviews {
   });
 
   factory Reviews.fromJson(dynamic json) {
-   var  reviewTotal = json['review_total'];
-   return Reviews(reviewTotal: reviewTotal);
+    var reviewTotal = json['review_total'];
+    return Reviews(reviewTotal: reviewTotal);
   }
   String? reviewTotal;
 
