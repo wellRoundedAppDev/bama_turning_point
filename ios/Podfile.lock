@@ -51,6 +51,8 @@ PODS:
   - flutter_bcrypt (0.0.1):
     - BCryptSwift (~> 1.1)
     - Flutter
+  - flutter_email_sender (0.0.1):
+    - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
   - fluttertoast (0.0.2):
@@ -100,6 +102,7 @@ DEPENDENCIES:
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
   - flutter_bcrypt (from `.symlinks/plugins/flutter_bcrypt/ios`)
+  - flutter_email_sender (from `.symlinks/plugins/flutter_email_sender/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - move_to_background (from `.symlinks/plugins/move_to_background/ios`)
@@ -135,6 +138,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_bcrypt:
     :path: ".symlinks/plugins/flutter_bcrypt/ios"
+  flutter_email_sender:
+    :path: ".symlinks/plugins/flutter_email_sender/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   fluttertoast:
@@ -160,6 +165,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 9bc34a98d2e0237e1b121915120d4d48ddcf301e
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_bcrypt: 8ae63c682225f69d9981465509cb26b9e93522ef
+  flutter_email_sender: 02d7443217d8c41483223627972bfdc09f74276b
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   fluttertoast: 31b00dabfa7fb7bacd9e7dbee580d7a2ff4bf265
   GoogleDataTransport: 57c22343ab29bc686febbf7cbb13bad167c2d8fe

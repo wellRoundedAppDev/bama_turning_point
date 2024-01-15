@@ -32,7 +32,7 @@ class ContactUsCubit extends Cubit<ContactUsStates> {
             contactUsModel.mobileNumber +
             '\n' +
             contactUsModel.message,
-        recipients: ["ahmedelrazky94@gmail.com"],
+        recipients: ["buqchashop2@gmail.com"],
         isHTML: false);
 
     await FlutterEmailSender.send(email);
