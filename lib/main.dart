@@ -30,7 +30,12 @@ Future<void> main() async {
   Bloc.observer = MyBlocObserver();
 
   await Firebase.initializeApp();
+
   FirebaseMessaging.instance.requestPermission();
+   await FirebaseMessaging.instance.subscribeToTopic('all');
+
+  var x = await FirebaseMessaging.instance.getToken();
+  print(x);
   listenToFirebaseFCM();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
