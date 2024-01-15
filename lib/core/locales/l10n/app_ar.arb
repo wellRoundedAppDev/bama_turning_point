@@ -136,6 +136,9 @@
   "send": "ارسل",
 
   "contact_us": "تواصل معنا",
+  "enter_your_name": "أدخل أسمك",
+  "enter_your_subject": "أدخل الموضوع",
+  "enter_your_message": "أدخل الرسالة",
 
 
   "welcome_user": "اهلاً بك, {username}"

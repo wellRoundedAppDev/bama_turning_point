@@ -431,60 +431,60 @@ class HomeDrawer extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // const Padding(
-                      //   padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      //   child: Divider(
-                      //     thickness: 1,
-                      //     color: Colors.white,
-                      //   ),
-                      // ),
-                      // InkWell(
-                      //   onTap: () {
-                      //     Navigator.push(
-                      //         context,
-                      //         PageTransition(
-                      //             child: const ContactUsScreen(),
-                      //             type: PageTransitionType.leftToRight));
-                      //   },
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.all(16.0),
-                      //     child: Column(
-                      //       crossAxisAlignment: CrossAxisAlignment.start,
-                      //       children: [
-                      //         Text(
-                      //           AppLocalizations.of(context)!.contact_us,
-                      //           style: const TextStyle(
-                      //               fontSize: FontSizes.FONT_SIZE_18,
-                      //               color: Colors.white),
-                      //         ),
-                      //         const SizedBox(
-                      //           height: 4,
-                      //         ),
-                      //         Row(
-                      //           crossAxisAlignment: CrossAxisAlignment.center,
-                      //           children: [
-                      //             const Icon(
-                      //               Icons.email_outlined,
-                      //               size: 30,
-                      //               color: Colors.white,
-                      //             ),
-                      //             const SizedBox(
-                      //               width: 8,
-                      //             ),
-                      //             Expanded(
-                      //               child: Text(
-                      //                 AppLocalizations.of(context)!.contact_us,
-                      //                 style: const TextStyle(
-                      //                     fontSize: FontSizes.FONT_SIZE_18,
-                      //                     color: Colors.white),
-                      //               ),
-                      //             )
-                      //           ],
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Divider(
+                          thickness: 1,
+                          color: Colors.white,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  child: const ContactUsScreen(),
+                                  type: PageTransitionType.leftToRight));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.contact_us,
+                                style: const TextStyle(
+                                    fontSize: FontSizes.FONT_SIZE_18,
+                                    color: Colors.white),
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.email_outlined,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      AppLocalizations.of(context)!.contact_us,
+                                      style: const TextStyle(
+                                          fontSize: FontSizes.FONT_SIZE_18,
+                                          color: Colors.white),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Divider(

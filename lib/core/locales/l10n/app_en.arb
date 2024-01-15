@@ -138,6 +138,9 @@
   "message": "Message",
 
   "send": "Send",
+  "enter_your_name": "Enter your name",
+  "enter_your_subject": "Enter topic",
+  "enter_your_message": "Enter message",
 
   "welcome_user": "Welcome {username}",
   "@welcome_user": {
