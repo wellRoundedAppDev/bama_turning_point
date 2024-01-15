@@ -48,28 +48,22 @@ class CheckoutApis {
     }
   }
 
-  static setCouponCode({
-    String languageCode = "ir_arabic",
-    String currencyCode = "IQD",
-    required String couponCode
-
-  }) async {
+  static setCouponCode(
+      {String languageCode = "ir_arabic",
+      String currencyCode = "IQD",
+      required String couponCode}) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
     String endPoint = ApiUrls.SET_COUPON_CODE_ENDPOINT;
 
     try {
-      var response = await _dioHelper.post(
-          endPoint: endPoint,
-          body: {
-            "coupon": couponCode
-
-          },
-          headers: {"Authorization": "Bearer $accessToken",
-            "X-Oc-Merchant-Language": languageCode,
-            "X-Oc-Currency": currencyCode,
-
-          });
+      var response = await _dioHelper.post(endPoint: endPoint, body: {
+        "coupon": couponCode
+      }, headers: {
+        "Authorization": "Bearer $accessToken",
+        "X-Oc-Merchant-Language": languageCode,
+        "X-Oc-Currency": currencyCode,
+      });
       if (response == null) {
         return null;
       }
@@ -86,24 +80,18 @@ class CheckoutApis {
     }
   }
 
-
-  static Future<bool?> confirmOrder({
-    String languageCode = "ir_arabic",
-    String currencyCode = "IQD"
-
-  }) async {
+  static Future<bool?> confirmOrder(
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
     String endPoint = ApiUrls.CONFIRM_ORDER_ENDPOINT;
 
     try {
-      var response = await _dioHelper.post(
-          endPoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken",
-            "X-Oc-Merchant-Language": languageCode,
-            "X-Oc-Currency": currencyCode
-
-          });
+      var response = await _dioHelper.post(endPoint: endPoint, headers: {
+        "Authorization": "Bearer $accessToken",
+        "X-Oc-Merchant-Language": languageCode,
+        "X-Oc-Currency": currencyCode
+      });
       if (response == null) {
         return null;
       }
@@ -121,23 +109,17 @@ class CheckoutApis {
   }
 
   static Future<bool?> confirmOrderAndEndSession(
-  { String languageCode = "ir_arabic",
-  String currencyCode = "IQD"
-
-}
-      ) async {
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
     String endPoint = ApiUrls.CONFIRM_ORDER_ENDPOINT;
 
     try {
-      var response = await _dioHelper.put(
-          endPoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken",
-            "X-Oc-Merchant-Language": languageCode,
-            "X-Oc-Currency": currencyCode
-
-          });
+      var response = await _dioHelper.put(endPoint: endPoint, headers: {
+        "Authorization": "Bearer $accessToken",
+        "X-Oc-Merchant-Language": languageCode,
+        "X-Oc-Currency": currencyCode
+      });
       if (response == null) {
         return null;
       }
@@ -155,25 +137,17 @@ class CheckoutApis {
   }
 
   static Future<GetShippingMethodsResponse?> getShippingMethods(
-      {String languageCode = "ir_arabic",
-        String currencyCode = "IQD"
-
-      }
-
-      ) async {
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
     String endPoint = ApiUrls.SHIPPING_METHODS_ENDPOINT;
 
     try {
-      var response = await _dioHelper.get(
-          endpoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken",
-
-            "X-Oc-Merchant-Language": languageCode,
-            "X-Oc-Currency": currencyCode
-
-          });
+      var response = await _dioHelper.get(endpoint: endPoint, headers: {
+        "Authorization": "Bearer $accessToken",
+        "X-Oc-Merchant-Language": languageCode,
+        "X-Oc-Currency": currencyCode
+      });
       if (response == null) {
         return null;
       }
@@ -326,7 +300,6 @@ class CheckoutApis {
       }
     }
   }
-
 
   static Future<SuccessAndErrorResponse?> addAddressToOrder(
       Map<String, dynamic> addressInput) async {
