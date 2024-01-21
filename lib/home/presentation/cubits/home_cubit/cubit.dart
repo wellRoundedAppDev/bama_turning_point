@@ -18,6 +18,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../../app_settings/app_language_codes.dart';
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../categories/data/models/get_categories_response.dart';
+import '../../../../contact_us/data/data_sources/remote_data_sources/contact_us_api.dart';
 import '../../../data/models/get_brands_response.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
@@ -287,6 +288,7 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   init() async {
+
     localeCubit = LocaleCubit.get(context);
     appSettingsCubit = AppSettingsCubit.get(context);
     emit(FetchingHomeScreenLoadingState());

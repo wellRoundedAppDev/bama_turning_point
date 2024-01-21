@@ -10,6 +10,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../cart/presentation/cubits/cart_cubit/states.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
+import '../../../contact_us/data/data_sources/remote_data_sources/contact_us_api.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_families.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
@@ -145,7 +146,6 @@ class SearchAndFilterScreen extends StatelessWidget {
                           ),
                         ),
                       )),
-
                 ],
               );
             }),

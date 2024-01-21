@@ -27,11 +27,13 @@ class CartItemWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8),
             child: GestureDetector(
-              onTap: (){
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) =>
-                        ProductDetailsScreen(selectedProductId: int.tryParse(cartItem.productId)??0)));
-
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProductDetailsScreen(
+                            selectedProductId:
+                                int.tryParse(cartItem.productId) ?? 0)));
               },
               child: Image.network(
                 cartItem.imagePath,
@@ -74,8 +76,8 @@ class CartItemWidget extends StatelessWidget {
                   height: 3,
                 ),
                 Text(
-                  cartItem.priceFormatted??"",
-                 // "\$${cartItem.price.toString()}",
+                  cartItem.priceFormatted ?? "",
+                  // "\$${cartItem.price.toString()}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(

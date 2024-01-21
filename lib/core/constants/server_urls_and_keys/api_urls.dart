@@ -47,6 +47,8 @@ class ApiUrls {
   static const GET_PRODUCTS_IN_BRAND_ENDPOINT = "api/rest/products";
   static const CANCEL_ORDER_ENDPOINT = "index.php?route=api/cancelorder";
   static const routeUrl = 'feed/rest_api/';
+  static const CONTACT_US_ENDPOINT = "api/rest/contact";
+
 
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>

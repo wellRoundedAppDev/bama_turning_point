@@ -16,8 +16,6 @@ import '../../../shared_components/custom_button.dart';
 import '../../data/models/get_product_details_response.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
-
 class ProductDetailsBottomSheet extends StatelessWidget {
   const ProductDetailsBottomSheet({
     super.key,
@@ -38,22 +36,27 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                   listener: (context, state) {},
                   builder: (context, state) {
                     int productId =
-                      ProductDetailsCubit.get(context).selectedProductId;
+                        ProductDetailsCubit.get(context).selectedProductId;
 
-                  bool isProductInWishList = WishListCubit.get(context).wishListItems?.where((element) => element.productId == productId.toString()).isNotEmpty == true;
+                    bool isProductInWishList = WishListCubit.get(context)
+                            .wishListItems
+                            ?.where((element) =>
+                                element.productId == productId.toString())
+                            .isNotEmpty ==
+                        true;
 
                     return GestureDetector(
                       onTap: () {
-                        if(isProductInWishList == false){
+                        if (isProductInWishList == false) {
                           WishListCubit.get(context)
                               .addItemToWishlist(productId);
-                        }else{
+                        } else {
                           WishListCubit.get(context)
                               .deleteItemFromWishList(productId);
-
                         }
                       },
-                      child: (state is AddItemToFavoritesLoadingState  || state is DeleteItemFromWishListLoadingState)
+                      child: (state is AddItemToFavoritesLoadingState ||
+                              state is DeleteItemFromWishListLoadingState)
                           ? const SizedBox(
                               width: 30,
                               height: 30,
@@ -61,11 +64,17 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             )
-                          : (isProductInWishList == true)?const Icon(Icons.favorite,color: Colors.red,size: 30,):Image.asset(
-                              IconPaths.FAV_ICON,
-                              width: 30,
-                              height: 30,
-                            ),
+                          : (isProductInWishList == true)
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                  size: 30,
+                                )
+                              : Image.asset(
+                                  IconPaths.FAV_ICON,
+                                  width: 30,
+                                  height: 30,
+                                ),
                     );
                   },
                 ),
@@ -119,28 +128,42 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                       bool isProductInCart = cartCubit.cartItems.containsKey(
                           productDetailsCubit.selectedProductId.toString());
 
-                      if (isProductInCart == false)
-                      {
-                        cartCubit.addItemToCart(CartItem(
+                      if (isProductInCart == false) {
+                        var success = cartCubit.addItemToCart(CartItem(
                             productId:
-                            selectedProductDetails?.productId?.toString() ??
-                                "",
+                                selectedProductDetails?.productId?.toString() ??
+                                    "",
+                            option: productDetailsCubit.selectedOption,
                             name: selectedProductDetails?.name ?? "",
                             imagePath: selectedProductDetails?.originalImage
-                                .toString() ??
+                                    .toString() ??
                                 "",
                             price: selectedProductDetails?.price?.toDouble() ??
                                 -1));
 
-                        Navigator.push(context,PageTransition(child: BlocProvider.value(
-                            value: cartCubit,
-                            child: CartScreen(showBackButton: true,)), type: PageTransitionType.leftToRight));
+                        if (success == true) {
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  child: BlocProvider.value(
+                                      value: cartCubit,
+                                      child: CartScreen(
+                                        showBackButton: true,
+                                      )),
+                                  type: PageTransitionType.leftToRight));
+                        }
+
                         return;
                       }
-                      Navigator.push(context,PageTransition(child: BlocProvider.value(
-                          value: cartCubit,
-                          child: CartScreen(showBackButton: true,)), type: PageTransitionType.leftToRight));
-
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              child: BlocProvider.value(
+                                  value: cartCubit,
+                                  child: CartScreen(
+                                    showBackButton: true,
+                                  )),
+                              type: PageTransitionType.leftToRight));
                     },
                   );
                 },
@@ -149,12 +172,8 @@ class ProductDetailsBottomSheet extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(
-                top: 8.0,
-                right: 8,
-                bottom: 8,
-                left: 8
-              ),
+              padding:
+                  const EdgeInsets.only(top: 8.0, right: 8, bottom: 8, left: 8),
               child: BlocConsumer<CartCubit, CartStates>(
                 listener: (context, state) {},
                 builder: (context, state) {
@@ -165,7 +184,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                       productDetailsCubit.selectedProductId.toString());
 
                   return (isProductInCart)
-                      ?  Center(
+                      ? Center(
                           child: Text(
                             AppLocalizations.of(context)!.added_to_cart,
                             style: const TextStyle(
@@ -194,6 +213,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                                     productId: selectedProductDetails?.productId
                                             ?.toString() ??
                                         "",
+                                    option: productDetailsCubit.selectedOption,
                                     name: selectedProductDetails?.name ?? "",
                                     imagePath: selectedProductDetails
                                             ?.originalImage

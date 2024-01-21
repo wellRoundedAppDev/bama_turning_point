@@ -158,6 +158,7 @@ class WishListItemWidget extends StatelessWidget {
                                                           "",
                                                   name:
                                                       wishlistItem?.name ?? "",
+
                                                   imagePath:
                                                       wishlistItem?.thumb,
                                                   price: double.tryParse(

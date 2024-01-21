@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/cart/data/data_sources/remote_data_sources/cart_apis.dart';
@@ -52,8 +53,7 @@ class CartCubit extends Cubit<CartStates> {
     // }
     var response = await CartApis.getCartItems(
         languageCode: languageCodes[localeCubit?.locale.languageCode] ?? "",
-        currencyCode: appSettingsCubit?.currencyCode ?? ""
-    );
+        currencyCode: appSettingsCubit?.currencyCode ?? "");
 
     if (response?.success == 1) {
       response?.data?.cartItemsFromApi?.forEach((e) {
@@ -90,7 +90,11 @@ class CartCubit extends Cubit<CartStates> {
 
   Future<bool?> addItemsToCart() async {
     var items = cartItems.entries
-        .map((e) => {"product_id": e.key, "quantity": e.value['quantity']})
+        .map((e) => {
+              "product_id": e.key,
+              "quantity": e.value['quantity'],
+              "option": e.value?['option']??{}
+            })
         .toList();
     var response = await CartApis.addItemsToCart(items);
     return response;
@@ -109,13 +113,16 @@ class CartCubit extends Cubit<CartStates> {
       }
     }
     emit(ItemAddedToCartLoadingState());
-    var success = await CartApis.addItemToCart(
-        {"product_id": cartItem.productId, "quantity": 1});
-    if (success == false) {
+    var response = await CartApis.addItemToCart({
+      "product_id": cartItem.productId,
+      "quantity": 1,
+      "option": cartItem.option?['option']??{}
+    });
+    if (response?.success == false) {
       emit(ItemAddedToCartFailedState());
-      showAppSnackBar(content: "Error occured");
+      showAppSnackBar(content: response?.errorMsgs?[0]);
       return false;
-    } else if (success == null) {
+    } else if (response?.success == null) {
       emit(ItemAddedToCartNetworkConnectionFailedState());
       showAppSnackBar(content: "Check your internet connection, and try again");
       return null;
@@ -125,9 +132,7 @@ class CartCubit extends Cubit<CartStates> {
     bool isItemNotInCart = cartItems[id] == null;
     if (isItemNotInCart) {
       cartItems[id] = cartItem.toJson();
-      //showAppSnackBar(content: "Product added to cart");
       increaseProductQuantity(id, 0, SaveInDB: saveInDB);
-      //emit(ItemAddedToCartState());
       return true;
     }
 

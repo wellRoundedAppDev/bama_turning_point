@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/data/models/get_categories_response.dart';
+import 'package:classic_eccomerce/contact_us/data/data_sources/remote_data_sources/contact_us_api.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_families.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
@@ -72,6 +73,7 @@ class HomeScreen extends StatelessWidget {
                           Expanded(child: Container()),
                           IconButton(
                             onPressed: () {
+                             // ContactUsApi.contactUs();
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
