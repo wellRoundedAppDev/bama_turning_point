@@ -16,7 +16,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
   int selectedProductId;
   BuildContext context = MyApp.navKey.currentState!.context;
   LocaleCubit? localeCubit;
-  Map<String, dynamic> selectedOption = {};
+  Map<String, dynamic> selectedOption = {"option": {}};
 
   ProductDetailsCubit({required this.selectedProductId})
       : super(ProductDetailsInitialState());
@@ -86,8 +86,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
   }
 
   setOption(Option? option, OptionValue? optionValue) {
-    selectedOption = {
-      "option": {option?.optionId: optionValue?.optionValueId}
+    selectedOption['option'] = {
+      "${option?.productOptionId}": "${optionValue?.productOptionValueId}"
     };
     emit(SetSelectedOptionState());
   }

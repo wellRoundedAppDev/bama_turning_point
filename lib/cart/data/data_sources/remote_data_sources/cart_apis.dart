@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/cart/data/models/get_cart_response.dart';
 import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
+import 'package:classic_eccomerce/core/data/models/success_message_response.dart';
 import 'package:classic_eccomerce/core/helpers/dio_helper.dart';
 import 'package:classic_eccomerce/wish_list/data/models/get_wishlist_response.dart';
 import 'package:flutter/foundation.dart';
@@ -16,30 +17,24 @@ class CartApis {
   // "quantity": 2
   // }
   static Future<GetCartResponse?> getCartItems(
-      {String languageCode = "ir_arabic",
-        String currencyCode = "IQD"
-
-      }
-
-      ) async {
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
     String endpoint = ApiUrls.CART_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {
       var response = await dioHelper.get(
-          endpoint: endpoint,
-          headers: {
-            "Authorization": "Bearer $accessToken",
-            "X-Oc-Merchant-Language": languageCode,
-            "X-Oc-Currency": currencyCode
-
-          },
+        endpoint: endpoint,
+        headers: {
+          "Authorization": "Bearer $accessToken",
+          "X-Oc-Merchant-Language": languageCode,
+          "X-Oc-Currency": currencyCode
+        },
       );
       if (response == null) {
         return null;
       }
-     return GetCartResponse.fromJson(response.data);
+      return GetCartResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
         print("Get Cart error api $e");
@@ -47,7 +42,8 @@ class CartApis {
     }
   }
 
-  static Future<bool?> addItemToCart(dynamic item) async {
+  static Future<SuccessAndErrorResponse?> addItemToCart(dynamic item) async {
+    print(item);
     String endpoint = ApiUrls.CART_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
@@ -60,13 +56,7 @@ class CartApis {
       if (response == null) {
         return null;
       }
-      if (response.data['success'] == 1) {
-        return true;
-      } else if (response.data['success'] == 0) {
-        return false;
-      } else {
-        return null;
-      }
+      return SuccessAndErrorResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
         print("Add Item To Cart error api $e");
@@ -109,10 +99,7 @@ class CartApis {
     try {
       var response = await dioHelper.delete(
           endPoint: endpoint,
-          body: {
-            "key": cartId
-          },
-
+          body: {"key": cartId},
           headers: {"Authorization": "Bearer $accessToken"});
       if (response == null) {
         return null;
@@ -139,11 +126,7 @@ class CartApis {
     try {
       var response = await dioHelper.put(
           endPoint: endpoint,
-          body: {
-            "key": cartId.toString(),
-            "quantity": quantity
-          },
-
+          body: {"key": cartId.toString(), "quantity": quantity},
           headers: {"Authorization": "Bearer $accessToken"});
       if (response == null) {
         return null;
@@ -161,7 +144,4 @@ class CartApis {
       }
     }
   }
-
-
-
 }
