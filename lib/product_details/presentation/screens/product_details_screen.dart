@@ -38,6 +38,10 @@ class ProductDetailsScreen extends StatelessWidget {
           num? productPrice = productDetails?.price;
           String? priceFormatted = productDetails?.priceFormated;
           num? productPriceExcludingTaxes = productDetails?.priceExcludingTax;
+          List<Option>? options = productDetails?.options;
+          var firstOption = options?.first;
+          int? optionId = firstOption?.optionId;
+          bool isThereOptions = (options != null && options.isNotEmpty);
           String? priceExcludingTaxesFormatted =
               productDetails?.priceExcludingTaxFormated;
           num? productRating = productDetails?.rating;
@@ -370,6 +374,105 @@ class ProductDetailsScreen extends StatelessWidget {
                                                     )
                                                   ],
                                                 ),
+                                                const SizedBox(
+                                                  height: 16,
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      firstOption?.optionName ??
+                                                          "",
+                                                      style: const TextStyle(
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Color(
+                                                              0xff333333)),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 8,
+                                                    ),
+                                                    Expanded(
+                                                      child: SizedBox(
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.04,
+                                                        child:
+                                                            ListView.separated(
+                                                                scrollDirection:
+                                                                    Axis
+                                                                        .horizontal,
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        index) {
+                                                                  var optionValue =
+                                                                      firstOption
+                                                                              ?.optionValues?[
+                                                                          index];
+                                                                  var optionImage =
+                                                                      optionValue
+                                                                          ?.optionImageUrl;
+                                                                  int?
+                                                                      optionValueId =
+                                                                      optionValue
+                                                                          ?.productOptionValueId;
+                                                                  bool
+                                                                      isOptionSelected =
+                                                                      productDetailsCubit.selectedOption['option']
+                                                                              ?[
+                                                                              optionId] ==
+                                                                          optionValueId;
+
+                                                                  return GestureDetector(
+                                                                    onTap: () {
+                                                                      productDetailsCubit.setOption(
+                                                                          firstOption,
+                                                                          optionValue);
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      decoration: BoxDecoration(
+                                                                          border: Border.all(
+                                                                              color: AppColors.APP_MAIN_COLOR,
+                                                                              width: (isOptionSelected == true) ? 1 : 0),
+                                                                          borderRadius: BorderRadius.circular(100)),
+                                                                      child:
+                                                                          ClipRRect(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(300),
+                                                                        child: Image
+                                                                            .network(
+                                                                          optionImage ??
+                                                                              "",
+                                                                          fit: BoxFit
+                                                                              .cover,
+                                                                          width:
+                                                                              30,
+                                                                          height:
+                                                                              25,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                                separatorBuilder:
+                                                                    (context,
+                                                                        index) {
+                                                                  return const SizedBox(
+                                                                    width: 8,
+                                                                  );
+                                                                },
+                                                                itemCount: firstOption
+                                                                        ?.optionValues
+                                                                        ?.length ??
+                                                                    0),
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
                                               ],
                                             ),
                                           ),
@@ -411,6 +514,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                     ),
                                                   ],
                                                 ),
+
                                                 // const SizedBox(
                                                 //   height: 16,
                                                 // ),

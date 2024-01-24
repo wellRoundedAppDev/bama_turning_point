@@ -35,6 +35,7 @@ class ProductDetailsApi {
       if (response == null) {
         return null;
       }
+      print(response.data);
       return GetProductDetailsResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {

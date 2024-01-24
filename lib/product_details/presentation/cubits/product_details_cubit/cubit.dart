@@ -16,6 +16,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
   int selectedProductId;
   BuildContext context = MyApp.navKey.currentState!.context;
   LocaleCubit? localeCubit;
+  Map<String, dynamic> selectedOption = {};
 
   ProductDetailsCubit({required this.selectedProductId})
       : super(ProductDetailsInitialState());
@@ -38,12 +39,10 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
     //   emit(GetProductDetailsNetworkConnectionFailedState());
     //   return;
     // }
-    var response =
-        await ProductDetailsApi.getProductDetailsById(
-            selectedProductId,
-            languageCode: languageCodes[localeCubit?.locale.languageCode??""],
-          currencyCode: AppSettingsCubit.get(context).currencyCode
-        );
+    var response = await ProductDetailsApi.getProductDetailsById(
+        selectedProductId,
+        languageCode: languageCodes[localeCubit?.locale.languageCode ?? ""],
+        currencyCode: AppSettingsCubit.get(context).currencyCode);
     if (response?.success == 1) {
       selectedProductDetails = response?.productDetails;
       emit(GetProductDetailsSuccessState());
@@ -70,8 +69,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
     // }
 
     emit(AddItemToFavoritesLoadingState());
-    var response = await WishListApis.addItemToWishlist(productId,
-
+    var response = await WishListApis.addItemToWishlist(
+      productId,
     );
     if (response == true) {
       showAppSnackBar(content: "Product added to wishlist");
@@ -86,6 +85,12 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
     }
   }
 
+  setOption(Option? option, OptionValue? optionValue) {
+    selectedOption = {
+      "option": {option?.optionId: optionValue?.optionValueId}
+    };
+    emit(SetSelectedOptionState());
+  }
 
   // setRelatedProducts() async {
   //   emit(GetRelatedProductsLoadingState());
@@ -101,5 +106,4 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
   //     emit(GetRelatedProductsNetworkConnectionFailedState());
   //   }
   // }
-
 }

@@ -33,3 +33,5 @@ class GetRelatedProductsFailedState extends ProductDetailsStates {}
 
 class GetRelatedProductsNetworkConnectionFailedState extends ProductDetailsStates {}
 
+class SetSelectedOptionState extends ProductDetailsStates{}
+

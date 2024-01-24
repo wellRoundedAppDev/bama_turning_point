@@ -29,12 +29,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
 
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
 
-  FirebaseMessaging.instance.requestPermission();
-  await FirebaseMessaging.instance.subscribeToTopic('all');
+  //FirebaseMessaging.instance.requestPermission();
+  //await FirebaseMessaging.instance.subscribeToTopic('all');
 
-  listenToFirebaseFCM();
+  //listenToFirebaseFCM();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(const MyApp());
