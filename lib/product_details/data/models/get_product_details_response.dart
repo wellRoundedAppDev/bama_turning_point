@@ -20,6 +20,7 @@ class GetProductDetailsResponse {
     // }
     var data =
         json['data'] != null ? ProductDetails.fromJson(json['data']) : null;
+
     return GetProductDetailsResponse(productDetails: data, success: success);
   }
   num? success;
@@ -65,7 +66,7 @@ class ProductDetails {
     this.specialStartDate,
     this.specialEndDate,
     //this.discounts,
-    // this.options,
+    this.options,
     //this.minimum,
     // this.metaTitle,
     //this.metaDescription,
@@ -164,12 +165,13 @@ class ProductDetails {
     //     discounts?.add(Dynamic.fromJson(v));
     //   });
     // }
-    // if (json['options'] != null) {
-    //   options = [];
-    //   json['options'].forEach((v) {
-    //     options?.add(Dynamic.fromJson(v));
-    //   });
-    // }
+    List<Option>? options;
+    if (json['options'] != null) {
+      options = [];
+      json['options'].forEach((v) {
+        options?.add(Option.fromJson(v));
+      });
+    }
     // var minimum = json['minimum'];
     // var metaTitle = json['meta_title'];
     // var metaDescription = json['meta_description'];
@@ -220,32 +222,32 @@ class ProductDetails {
     //   });
     // }
     return ProductDetails(
-      id: id,
-      quantity: quantity,
-      image: image,
-      name: name,
-      description: description,
-      rating: rating,
-      reviews: reviews,
-      price: price,
-      productId: productId,
-      specialFormated: specialFormated,
-      specialStartDate: specialStartDate,
-      specialExcludingTaxFormated: specialExcludingTaxFormated,
-      stockStatus: stockStatus,
-      specialExcludingTax: specialExcludingTax,
-      specialEndDate: specialEndDate,
-      special: special,
-      priceFormated: priceFormatted,
-      priceExcludingTaxFormated: priceExcludingTaxFormated,
-      priceExcludingTax: priceExcludingTax,
-      originalImage: originalImage,
-      originalImages: originalImages,
-      stockStatusId: stockStatusId,
-      weight: weight,
-      weightClass: weightClass,
-      weightClassId: weightClassId,
-    );
+        id: id,
+        quantity: quantity,
+        image: image,
+        name: name,
+        description: description,
+        rating: rating,
+        reviews: reviews,
+        price: price,
+        productId: productId,
+        specialFormated: specialFormated,
+        specialStartDate: specialStartDate,
+        specialExcludingTaxFormated: specialExcludingTaxFormated,
+        stockStatus: stockStatus,
+        specialExcludingTax: specialExcludingTax,
+        specialEndDate: specialEndDate,
+        special: special,
+        priceFormated: priceFormatted,
+        priceExcludingTaxFormated: priceExcludingTaxFormated,
+        priceExcludingTax: priceExcludingTax,
+        originalImage: originalImage,
+        originalImages: originalImages,
+        stockStatusId: stockStatusId,
+        weight: weight,
+        weightClass: weightClass,
+        weightClassId: weightClassId,
+        options: options);
   }
   num? id;
   num? productId;
@@ -271,7 +273,7 @@ class ProductDetails {
   String? specialStartDate;
   String? specialEndDate;
   // List<dynamic>? discounts;
-  // List<dynamic>? options;
+  List<Option>? options;
   // String? minimum;
   // String? metaTitle;
   // String? metaDescription;
@@ -411,6 +413,60 @@ class Reviews {
   //   map['review_total'] = reviewTotal;
   //   return map;
   // }
+}
+
+class Option {
+  String? optionName;
+  int? productOptionId;
+  int? optionId;
+  String? numberOfRequiredOptions;
+  List<OptionValue>? optionValues;
+
+  Option(
+      {this.optionName,
+      this.optionId,
+      this.productOptionId,
+      this.numberOfRequiredOptions,
+      this.optionValues});
+
+  factory Option.fromJson(dynamic json) {
+    int optionId = json['option_id'];
+    int productOptionId = json['product_option_id'];
+    String numberOfRequiredOptions = json['required'];
+    String optionName = json['name'];
+    List<OptionValue>? optionValues;
+    if (json['option_value'] != null) {
+      optionValues = [];
+      json['option_value'].forEach((v) {
+        optionValues?.add(OptionValue.fromJson(v));
+      });
+    }
+
+    return Option(
+        optionName: optionName,
+        productOptionId: productOptionId,
+        optionId: optionId,
+        optionValues: optionValues,
+        numberOfRequiredOptions: numberOfRequiredOptions);
+  }
+}
+
+class OptionValue {
+  String? optionImageUrl;
+  int? optionValueId;
+  int? productOptionValueId;
+  OptionValue(
+      {this.optionImageUrl, this.optionValueId, this.productOptionValueId});
+
+  factory OptionValue.fromJson(dynamic json) {
+    String imageUrl = json['image'];
+    int productOptionValueId = json['product_option_value_id'];
+    int optionValueId = json['option_value_id'];
+    return OptionValue(
+        optionImageUrl: imageUrl,
+        productOptionValueId: productOptionValueId,
+        optionValueId: optionValueId);
+  }
 }
 
 // class Category {
