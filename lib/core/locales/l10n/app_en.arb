@@ -143,6 +143,7 @@
   "enter_your_message": "Enter message",
   "return_to_home_page": "Return to home page",
   "order": "Order",
+  "call_us": "Call us",
 
   "welcome_user": "Welcome {username}",
   "@welcome_user": {

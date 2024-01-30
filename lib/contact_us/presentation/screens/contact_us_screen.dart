@@ -220,26 +220,31 @@ class ContactUsScreen extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            const Text(
-                              "Call",
-                              style: TextStyle(
+                            Text(
+                              AppLocalizations.of(context)!.call_us,
+                              style: const TextStyle(
                                   fontSize: FontSizes.FONT_SIZE_18,
                                   fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(
                               width: 4,
                             ),
-                            Container(
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColors.APP_MAIN_COLOR),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(
-                                    Icons.call,
-                                    color: Colors.white,
-                                  ),
-                                )),
+                            GestureDetector(
+                              onTap: () {
+                                contactUsCubit.callUs();
+                              },
+                              child: Container(
+                                  decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: AppColors.APP_MAIN_COLOR),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Icon(
+                                      Icons.call,
+                                      color: Colors.white,
+                                    ),
+                                  )),
+                            ),
                           ],
                         ),
                       ],

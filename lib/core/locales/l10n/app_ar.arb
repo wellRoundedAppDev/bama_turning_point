@@ -141,6 +141,7 @@
   "enter_your_message": "أدخل الرسالة",
   "return_to_home_page": "العوده للصفحه الرئيسيه",
   "order": "الطلب",
+  "call_us": "اتصل بنا",
 
   "welcome_user": "اهلاً بك, {username}"
 }

@@ -4,6 +4,7 @@ import 'package:classic_eccomerce/contact_us/presentation/cubit/contact_us_state
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactUsCubit extends Cubit<ContactUsStates> {
   ContactUsCubit() : super(ContactUsInitialState());
@@ -36,5 +37,17 @@ class ContactUsCubit extends Cubit<ContactUsStates> {
         isHTML: false);
 
     await FlutterEmailSender.send(email);
+  }
+
+  callUs() async {
+    String mobileNo = "07755611655";
+
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: mobileNo,
+    );
+    if (!await launchUrl(launchUri)) {
+      throw Exception('Could not launch $launchUri');
+    }
   }
 }
