@@ -459,9 +459,9 @@ class OptionValue {
       {this.optionImageUrl, this.optionValueId, this.productOptionValueId});
 
   factory OptionValue.fromJson(dynamic json) {
-    String imageUrl = json['image'];
-    int productOptionValueId = json['product_option_value_id'];
-    int optionValueId = json['option_value_id'];
+    var imageUrl = json['image'];
+    var productOptionValueId = json['product_option_value_id'];
+    var optionValueId = json['option_value_id'];
     return OptionValue(
         optionImageUrl: imageUrl,
         productOptionValueId: productOptionValueId,

@@ -86,9 +86,12 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
   }
 
   setOption(Option? option, OptionValue? optionValue) {
-    selectedOption['option'] = {
-      "${option?.productOptionId}": "${optionValue?.productOptionValueId}"
-    };
+    selectedOption['option'][option?.productOptionId?.toString()] =
+        optionValue?.productOptionValueId?.toString();
+
+    // {
+    //   "${option?.productOptionId}": "${optionValue?.productOptionValueId}"
+    // };
     emit(SetSelectedOptionState());
   }
 

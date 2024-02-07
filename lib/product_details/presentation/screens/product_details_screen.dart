@@ -40,13 +40,13 @@ class ProductDetailsScreen extends StatelessWidget {
           String? priceFormatted = productDetails?.priceFormated;
           num? productPriceExcludingTaxes = productDetails?.priceExcludingTax;
           List<Option>? options = productDetails?.options;
-          Option? firstOption;
-          int? firstOptionProductId;
-
-          if (options != null && options.isNotEmpty) {
-            firstOption = options.first;
-            firstOptionProductId = firstOption.productOptionId;
-          }
+          // Option? firstOption;
+          // int? firstOptionProductId;
+          //
+          // if (options != null && options.isNotEmpty) {
+          //   firstOption = options.first;
+          //   firstOptionProductId = firstOption.productOptionId;
+          // }
 
           bool isThereOptions = (options != null && options.isNotEmpty);
           String? priceExcludingTaxesFormatted =
@@ -386,100 +386,113 @@ class ProductDetailsScreen extends StatelessWidget {
                                                     : const SizedBox(
                                                         height: 16,
                                                       ),
-                                                (isThereOptions == false)
-                                                    ? Container()
-                                                    : Row(
-                                                        children: [
-                                                          Text(
-                                                            firstOption
-                                                                    ?.optionName ??
-                                                                "",
-                                                            style: const TextStyle(
-                                                                fontSize: FontSizes
-                                                                    .FONT_SIZE_14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Color(
-                                                                    0xff333333)),
-                                                          ),
-                                                          const SizedBox(
-                                                            width: 8,
-                                                          ),
-                                                          Expanded(
-                                                            child: SizedBox(
-                                                              height: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .height *
-                                                                  0.04,
-                                                              child: ListView
-                                                                  .separated(
-                                                                      scrollDirection:
-                                                                          Axis
-                                                                              .horizontal,
-                                                                      itemBuilder:
-                                                                          (context,
-                                                                              index) {
-                                                                        var productOptionValue =
-                                                                            firstOption?.optionValues?[index];
-                                                                        var productOptionImage =
-                                                                            productOptionValue?.optionImageUrl;
-                                                                        int?
-                                                                            productOptionValueId =
-                                                                            productOptionValue?.productOptionValueId;
-                                                                        if (kDebugMode) {
-                                                                          print(
-                                                                              productDetailsCubit.selectedOption['option']);
-                                                                          print(productDetailsCubit.selectedOption['option']
-                                                                              [
-                                                                              firstOptionProductId?.toString()]);
-                                                                          print(
-                                                                              productOptionValueId?.toString());
-                                                                        }
-                                                                        bool
-                                                                            isOptionSelected =
-                                                                            productDetailsCubit.selectedOption['option']?[firstOptionProductId?.toString()] ==
-                                                                                productOptionValueId?.toString();
+                                                ...(options
+                                                        ?.map<Widget>((option) {
+                                                      int? productOptionId =
+                                                          option
+                                                              .productOptionId;
+                                                      String? optionName =
+                                                          option.optionName;
+                                                      return Padding(
+                                                        padding:
+                                                             EdgeInsets
+                                                                .only(
+                                                                bottom: (productOptionId == options.last.productOptionId)?0:16),
+                                                        child: Row(
+                                                          children: [
+                                                            Text(
+                                                              optionName ?? "",
+                                                              style: const TextStyle(
+                                                                  fontSize:
+                                                                      FontSizes
+                                                                          .FONT_SIZE_14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Color(
+                                                                      0xff333333)),
+                                                            ),
+                                                            const SizedBox(
+                                                              width: 8,
+                                                            ),
+                                                            Expanded(
+                                                              child: SizedBox(
+                                                                height: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height *
+                                                                    0.04,
+                                                                child: ListView
+                                                                    .separated(
+                                                                        scrollDirection:
+                                                                            Axis
+                                                                                .horizontal,
+                                                                        itemBuilder:
+                                                                            (context,
+                                                                                index) {
+                                                                          var productOptionValue =
+                                                                              option.optionValues?[index];
+                                                                          var productOptionImage =
+                                                                              productOptionValue?.optionImageUrl;
+                                                                          int?
+                                                                              productOptionValueId =
+                                                                              productOptionValue?.productOptionValueId;
+                                                                          if (kDebugMode) {
+                                                                            print(productDetailsCubit.selectedOption['option']);
+                                                                            print(productDetailsCubit.selectedOption['option'][option.productOptionId?.toString()]);
+                                                                          }
+                                                                          bool
+                                                                              isOptionSelected =
+                                                                              productDetailsCubit.selectedOption['option']?[productOptionId?.toString()] == productOptionValueId.toString();
 
-                                                                        return GestureDetector(
-                                                                          onTap:
-                                                                              () {
-                                                                            productDetailsCubit.setOption(firstOption,
-                                                                                productOptionValue);
-                                                                          },
-                                                                          child:
-                                                                              Container(
-                                                                            decoration:
-                                                                                BoxDecoration(border: Border.all(color: AppColors.APP_MAIN_COLOR, width: (isOptionSelected == true) ? 2 : 0), borderRadius: BorderRadius.circular(100)),
+                                                                          return GestureDetector(
+                                                                            onTap:
+                                                                                () {
+                                                                              productDetailsCubit.setOption(option, productOptionValue);
+                                                                            },
                                                                             child:
-                                                                                ClipRRect(
-                                                                              borderRadius: BorderRadius.circular(300),
-                                                                              child: Image.network(
-                                                                                productOptionImage ?? "",
-                                                                                fit: BoxFit.cover,
-                                                                                width: 30,
-                                                                                height: 25,
+                                                                                Container(
+                                                                                  width: 35,
+                                                                              height: 30,
+                                                                              decoration: BoxDecoration(
+                                                                                  border: Border.all(color: AppColors.APP_MAIN_COLOR, width: (isOptionSelected == true) ? 2 : 0), borderRadius: BorderRadius.circular(100)),
+                                                                              child: ClipRRect(
+                                                                                borderRadius: BorderRadius.circular(300),
+                                                                                child: Image.network(
+                                                                                  productOptionImage ?? "",
+                                                                                  fit: BoxFit.cover,
+                                                                                  errorBuilder: (context, object, stackTrace) {
+                                                                                    return const Center(
+                                                                                      child: Icon(
+                                                                                        Icons.error,
+                                                                                        size: 30,
+                                                                                        color: AppColors.APP_MAIN_COLOR,
+                                                                                      ),
+                                                                                    );
+                                                                                  },
+                                                                                ),
                                                                               ),
                                                                             ),
-                                                                          ),
-                                                                        );
-                                                                      },
-                                                                      separatorBuilder:
-                                                                          (context,
-                                                                              index) {
-                                                                        return const SizedBox(
-                                                                          width:
-                                                                              8,
-                                                                        );
-                                                                      },
-                                                                      itemCount:
-                                                                          firstOption?.optionValues?.length ??
-                                                                              0),
-                                                            ),
-                                                          )
-                                                        ],
-                                                      )
+                                                                          );
+                                                                        },
+                                                                        separatorBuilder:
+                                                                            (context,
+                                                                                index) {
+                                                                          return const SizedBox(
+                                                                            width:
+                                                                                8,
+                                                                          );
+                                                                        },
+                                                                        itemCount:
+                                                                            option.optionValues?.length ??
+                                                                                0),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      );
+                                                    })?.toList()) ??
+                                                    []
                                               ],
                                             ),
                                           ),

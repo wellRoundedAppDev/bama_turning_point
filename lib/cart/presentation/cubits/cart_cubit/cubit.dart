@@ -93,7 +93,7 @@ class CartCubit extends Cubit<CartStates> {
         .map((e) => {
               "product_id": e.key,
               "quantity": e.value['quantity'],
-              "option": e.value?['option']??{}
+              "option": e.value?['option'] ?? {}
             })
         .toList();
     var response = await CartApis.addItemsToCart(items);
@@ -116,7 +116,7 @@ class CartCubit extends Cubit<CartStates> {
     var response = await CartApis.addItemToCart({
       "product_id": cartItem.productId,
       "quantity": 1,
-      "option": cartItem.option?['option']??{}
+      "option": cartItem.option?['option'] ?? {}
     });
     if (response?.success == false) {
       emit(ItemAddedToCartFailedState());
