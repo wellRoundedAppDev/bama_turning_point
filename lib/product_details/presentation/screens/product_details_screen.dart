@@ -394,10 +394,12 @@ class ProductDetailsScreen extends StatelessWidget {
                                                       String? optionName =
                                                           option.optionName;
                                                       return Padding(
-                                                        padding:
-                                                             EdgeInsets
-                                                                .only(
-                                                                bottom: (productOptionId == options.last.productOptionId)?0:16),
+                                                        padding: EdgeInsets.only(
+                                                            bottom: (productOptionId ==
+                                                                    options.last
+                                                                        .productOptionId)
+                                                                ? 0
+                                                                : 16),
                                                         child: Row(
                                                           children: [
                                                             Text(
@@ -434,6 +436,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                               option.optionValues?[index];
                                                                           var productOptionImage =
                                                                               productOptionValue?.optionImageUrl;
+                                                                          var productOptionName =
+                                                                              productOptionValue?.name;
                                                                           int?
                                                                               productOptionValueId =
                                                                               productOptionValue?.productOptionValueId;
@@ -452,26 +456,27 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                             },
                                                                             child:
                                                                                 Container(
-                                                                                  width: 35,
+                                                                              width: 35,
                                                                               height: 30,
-                                                                              decoration: BoxDecoration(
-                                                                                  border: Border.all(color: AppColors.APP_MAIN_COLOR, width: (isOptionSelected == true) ? 2 : 0), borderRadius: BorderRadius.circular(100)),
-                                                                              child: ClipRRect(
-                                                                                borderRadius: BorderRadius.circular(300),
-                                                                                child: Image.network(
-                                                                                  productOptionImage ?? "",
-                                                                                  fit: BoxFit.cover,
-                                                                                  errorBuilder: (context, object, stackTrace) {
-                                                                                    return const Center(
-                                                                                      child: Icon(
-                                                                                        Icons.error,
-                                                                                        size: 30,
-                                                                                        color: AppColors.APP_MAIN_COLOR,
+                                                                              decoration: BoxDecoration(border: Border.all(color: AppColors.APP_MAIN_COLOR, width: (isOptionSelected == true) ? 2 : 0), borderRadius: BorderRadius.circular((productOptionImage == null) ? 0 : 100)),
+                                                                              child: (productOptionImage == null)
+                                                                                  ? Center(child: Text(productOptionName ?? ""))
+                                                                                  : ClipRRect(
+                                                                                      borderRadius: BorderRadius.circular(100),
+                                                                                      child: Image.network(
+                                                                                        productOptionImage ?? "",
+                                                                                        fit: BoxFit.cover,
+                                                                                        errorBuilder: (context, object, stackTrace) {
+                                                                                          return const Center(
+                                                                                            child: Icon(
+                                                                                              Icons.error,
+                                                                                              size: 30,
+                                                                                              color: AppColors.APP_MAIN_COLOR,
+                                                                                            ),
+                                                                                          );
+                                                                                        },
                                                                                       ),
-                                                                                    );
-                                                                                  },
-                                                                                ),
-                                                                              ),
+                                                                                    ),
                                                                             ),
                                                                           );
                                                                         },

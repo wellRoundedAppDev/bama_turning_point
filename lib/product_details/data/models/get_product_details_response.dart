@@ -455,17 +455,21 @@ class OptionValue {
   String? optionImageUrl;
   int? optionValueId;
   int? productOptionValueId;
+  String? name;
   OptionValue(
-      {this.optionImageUrl, this.optionValueId, this.productOptionValueId});
+      {this.optionImageUrl, this.optionValueId, this.productOptionValueId,this.name});
 
   factory OptionValue.fromJson(dynamic json) {
     var imageUrl = json['image'];
     var productOptionValueId = json['product_option_value_id'];
     var optionValueId = json['option_value_id'];
+    var name = json['name'];
     return OptionValue(
         optionImageUrl: imageUrl,
         productOptionValueId: productOptionValueId,
-        optionValueId: optionValueId);
+        optionValueId: optionValueId,
+    name: name
+    );
   }
 }
 
