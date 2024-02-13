@@ -165,6 +165,7 @@ class OrderHistoryItem extends StatelessWidget {
                 const SizedBox(
                   width: 4,
                 ),
+
                 Expanded(
                   child: Text(
                     customerOrder?.status ?? "",
@@ -179,10 +180,13 @@ class OrderHistoryItem extends StatelessWidget {
                             : const Color(0xff947979)),
                   ),
                 ),
+   // قيد الإنتظار//
+                //Pending
                 ((customerOrder?.status == "Canceled" ||
-                        customerOrder?.status == "ملغي"))
+                        customerOrder?.status == "ملغي") )
                     ? Container()
-                    : GestureDetector(
+                    :  (customerOrder?.status != "قيد الإنتظار" &&
+                    customerOrder?.status != "Pending")?Container(): GestureDetector(
                         onTap: () {
                           AccountCubit accountCubit = AccountCubit.get(context);
                           showDialog(
