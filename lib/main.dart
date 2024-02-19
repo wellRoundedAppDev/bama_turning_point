@@ -22,7 +22,7 @@ import 'core/bloc_observer.dart';
 import 'core/constants/colors/colors.dart';
 import 'core/constants/fonts/font_families.dart';
 import 'core/locales/l10n/l10n.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+impo2024rt 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

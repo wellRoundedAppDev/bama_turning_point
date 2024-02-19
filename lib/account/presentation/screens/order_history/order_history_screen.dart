@@ -24,7 +24,8 @@ class OrderHistoryScreen extends StatelessWidget {
         builder: (context, state) {
           AccountCubit accountCubit = AccountCubit.get(context);
           List<CustomerOrder>? customerOrders = accountCubit.customerOrders;
-          ScrollController scrollController = accountCubit.ordersHistoryScrollController;
+          ScrollController scrollController =
+              accountCubit.ordersHistoryScrollController;
           return (state is GetFirstCustomerOrdersLoadingState)
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -48,7 +49,7 @@ class OrderHistoryScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                               Text(
+                              Text(
                                 AppLocalizations.of(context)!.orders_history,
                                 style: const TextStyle(
                                     color: Color(0xff313846),
@@ -61,7 +62,7 @@ class OrderHistoryScreen extends StatelessWidget {
                               Container(
                                 width: 40,
                                 height: 3,
-                                color:AppColors.APP_MAIN_COLOR,
+                                color: AppColors.APP_MAIN_COLOR,
                               ),
                               const SizedBox(
                                 height: 16,
@@ -82,19 +83,20 @@ class OrderHistoryScreen extends StatelessWidget {
                                   itemCount: customerOrders.length ?? 0),
                               (state is AddMoreCustomerOrdersLoadingState)
                                   ? Container(
-                                padding: const EdgeInsets.all(16),
-                                child: const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              )
+                                      padding: const EdgeInsets.all(16),
+                                      child: const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    )
                                   : (state
-                              is AddMoreCustomerOrdersNetworkConnectionFailedState)
-                                  ? NoNetworkRefreshPage(
-                                  refresh: () {
-                                    AccountCubit.get(context).addMoreCustomerOrders();
-                                  },)
-                                  : Container()
-
+                                          is AddMoreCustomerOrdersNetworkConnectionFailedState)
+                                      ? NoNetworkRefreshPage(
+                                          refresh: () {
+                                            AccountCubit.get(context)
+                                                .addMoreCustomerOrders();
+                                          },
+                                        )
+                                      : Container()
                             ],
                           ),
                         ),
