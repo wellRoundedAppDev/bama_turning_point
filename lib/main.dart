@@ -1,6 +1,5 @@
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
-import 'package:classic_eccomerce/contact_us/data/data_sources/remote_data_sources/contact_us_api.dart';
 import 'package:classic_eccomerce/core/constants/paths/routes/routes/routes_ids.dart';
 import 'package:classic_eccomerce/core/constants/strings/strings.dart';
 import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
@@ -10,11 +9,9 @@ import 'package:classic_eccomerce/notifications/presentation/cubit/notifications
 import 'package:classic_eccomerce/splash/presentation/screens/splash_screen.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'cart/presentation/screens/cart_screen.dart';
@@ -22,7 +19,7 @@ import 'core/bloc_observer.dart';
 import 'core/constants/colors/colors.dart';
 import 'core/constants/fonts/font_families.dart';
 import 'core/locales/l10n/l10n.dart';
-impo2024rt 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +42,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-
         BlocProvider(
           create: (context) => AuthCubit(),
         ),
@@ -55,7 +51,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AppSettingsCubit(),
         ),
-
         BlocProvider(create: (context) => CartCubit()),
         BlocProvider(
           create: (context) => WishListCubit()..init(CartCubit.get(context)),

@@ -18,6 +18,8 @@ class SearchApis {
     String endPoint = ApiUrls.getSearchByTermEndpoint(searchTerm);
     String? accessToken = MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
+    print("lang:$languageCode");
+    print("curr:$currencyCode");
     try {
       var response = await dioHelper.get(endpoint: endPoint,
           headers: {"Authorization": "Bearer $accessToken",

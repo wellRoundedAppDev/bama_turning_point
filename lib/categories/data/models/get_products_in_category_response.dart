@@ -45,7 +45,7 @@ class GetProductsInCategoryResponse {
   // }
 
 }
-class ProductInCategory{
+class ProductInCategory extends Product{
   ProductInCategory(
       {this.productId,
         this.name,
