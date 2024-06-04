@@ -45,7 +45,9 @@ class GuestScreen extends StatelessWidget {
                   hintText: AppLocalizations.of(context)!.phone_number,
                   textInputType: TextInputType.phone,
                   validator: (value) {
-                    if (value == null || value.length < 8 || value.length > 13) {
+                    if (value == null ||
+                        value.length < 8 ||
+                        value.length > 13) {
                       return AppLocalizations.of(context)!
                           .enter_a_valid_phone_number;
                     }
@@ -256,14 +258,13 @@ class GuestScreen extends StatelessWidget {
                                       fontSize: FontSizes.FONT_SIZE_16,
                                       fontWeight: FontWeight.bold),
                                 ),
-
                                 border: InputBorder.none,
                                 hintStyle: const TextStyle(
                                   fontSize: FontSizes.FONT_SIZE_16,
                                   color: Color(0xff878787),
                                 ),
                                 hintText:
-                                AppLocalizations.of(context)!.country)),
+                                    AppLocalizations.of(context)!.country)),
                         dropdownButtonProps: const DropdownButtonProps(
                             icon: Icon(
                           Icons.keyboard_arrow_down,

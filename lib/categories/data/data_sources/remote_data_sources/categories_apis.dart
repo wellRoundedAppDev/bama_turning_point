@@ -12,7 +12,9 @@ class CategoriesApis {
   static final _dioHelper = DioHelper.instance;
 
   static Future<GetCategoriesResponse?> getCategories(int page,
-      {String languageCode = "ir_arabic"}
+      {String languageCode = "ir_arabic",
+        String currencyCode = "IQD"
+      }
       ) async
   {
 
@@ -25,7 +27,7 @@ class CategoriesApis {
       var response = await _dioHelper.get(endpoint: endPoint,
       headers: {"Authorization": "Bearer $accessToken",
         "X-Oc-Merchant-Language": languageCode,
-        //"ir_arabic"
+        "X-Oc-Currency": currencyCode
 
       });
       if (response == null) {
@@ -41,7 +43,9 @@ class CategoriesApis {
 
   static Future<GetProductsInCategoryResponse?> getProductsInCategoryById(
       int id,
-      {String languageCode = "ir_arabic"}
+      {String languageCode = "ir_arabic",
+        String currencyCode = "IQD"
+      }
       ) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
@@ -51,6 +55,8 @@ class CategoriesApis {
       var response = await _dioHelper.get(endpoint: endPoint,
           headers: {"Authorization": "Bearer $accessToken",
             "X-Oc-Merchant-Language": languageCode,
+            "X-Oc-Currency": currencyCode
+
           }
       );
 

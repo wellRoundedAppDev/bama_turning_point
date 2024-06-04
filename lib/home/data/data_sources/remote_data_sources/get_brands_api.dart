@@ -24,13 +24,11 @@ class GetBrandsApi {
     //   'page': page
     // };
     try {
-      var response = await dioHelper.get(endpoint:
-      endPoint, headers: {
+      var response = await dioHelper.get(endpoint: endPoint, headers: {
         "Authorization": "Bearer $accessToken",
         "X-Oc-Merchant-Language": languageCode,
         "X-Oc-Currency": currencyCode
-      }
-      );
+      });
       if (response == null) {
         return null;
       }

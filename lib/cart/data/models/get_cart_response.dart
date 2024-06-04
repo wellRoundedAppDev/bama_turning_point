@@ -263,7 +263,7 @@ class CartItemFromApi {
 
     var total = json['total'];
     var priceRaw = json['price_raw'];
-    var priceFormatted = (json['price_raw']?.toString() ?? "") +
+    var priceFormatted = (json['price']?.toString() ?? "") +
         ((MyApp.navKey.currentState?.context
             .read<AppSettingsCubit>()
             .currencyCode ??

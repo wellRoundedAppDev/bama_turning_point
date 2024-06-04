@@ -13,6 +13,7 @@ import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../core/locales/locale_cubit/locale_cubit.dart';
 import '../../../../shared_components/app_snackbar.dart';
 import '../../../data/models/cart_item.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CartCubit extends Cubit<CartStates> {
   CartCubit() : super(InitialCartState()) {
@@ -47,7 +48,7 @@ class CartCubit extends Cubit<CartStates> {
     // if ( AuthCubit.get(context).isUserLoggedIn != true) {
     //   var success = await AuthCubit.get(context).setAccessToken();
     //   if(success != true){
-    //
+    //     showAppSnackBar(content: AppLocalizations.of(context)!.error_occurred_try_again);
     //   }
     //   return;
     // }

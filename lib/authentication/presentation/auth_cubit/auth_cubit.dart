@@ -19,6 +19,7 @@ import '../../../checkout/presentation/screens/quick_checkout_main_screen.dart';
 import '../../../checkout/presentation/screens/set_address_for_registered_user_screen.dart';
 import '../../../core/helpers/dio_helper.dart';
 import '../../../home_layout/presentation/screens/home_layout.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthCubit extends Cubit<AuthStates> {
   AuthCubit() : super(AuthInitialState());
@@ -80,8 +81,9 @@ class AuthCubit extends Cubit<AuthStates> {
       isUserLoggedIn = true;
       cartCubit.numberOfItemsInCart =
           loginResponse?.loginData?.cartCountProducts ?? 0;
-      setLoginCredentialsInSharedPrefs({"username":loginFormInput.username,
-      "password":loginFormInput.password
+      setLoginCredentialsInSharedPrefs({
+        "username": loginFormInput.username,
+        "password": loginFormInput.password
       });
       emit(LoginSuccessState());
 
@@ -112,7 +114,6 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   login({required dynamic loginInput, required CartCubit cartCubit}) async {
-
     if (await setAccessToken() == false) {
       showAppSnackBar(content: "Check your internet connection, and try again");
       emit(LoginNetworkFailedConnectionState());
@@ -125,8 +126,9 @@ class AuthCubit extends Cubit<AuthStates> {
       isUserLoggedIn = true;
       cartCubit.numberOfItemsInCart =
           loginResponse?.loginData?.cartCountProducts ?? 0;
-      setLoginCredentialsInSharedPrefs({"username":loginInput['email'],
-        "password":loginInput['password']
+      setLoginCredentialsInSharedPrefs({
+        "username": loginInput['email'],
+        "password": loginInput['password']
       });
       emit(LoginSuccessState());
     } else if (response?.success == 0) {
@@ -143,19 +145,18 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   autoLogin({required CartCubit cartCubit}) async {
-
     var loggedUser = (await getLoginCredentialsFromSharedPrefs());
-    if(loggedUser == null){
+    if (loggedUser == null) {
       Future.delayed(
         const Duration(seconds: 3),
-            () => Navigator.pushReplacement(
+        () => Navigator.pushReplacement(
             context,
             PageTransition(
-                child: const HomeLayoutScreen(), type: PageTransitionType.fade)),
+                child: const HomeLayoutScreen(),
+                type: PageTransitionType.fade)),
       );
       return;
     }
-
 
     var loginInput = {
       "email": loggedUser['username'],
@@ -193,7 +194,6 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 
-
   register({required CartCubit cartCubit}) async {
     if (validateRegisterForm() != true) {
       return;
@@ -214,7 +214,7 @@ class AuthCubit extends Cubit<AuthStates> {
         "email": registerFormInput.phoneNumber,
         "password": registerFormInput.password
       }, cartCubit: cartCubit);
-       emit(RegisterSuccessState());
+      emit(RegisterSuccessState());
       Navigator.pop(context);
     } else if (response?.success == false) {
       // isUserLoggedIn = false;
@@ -331,12 +331,14 @@ class AuthCubit extends Cubit<AuthStates> {
           emit(CreatingGuestUserSuccessState());
           return true;
         } else if (createGuestUserSuccess == false) {
-          showAppSnackBar(content: "Error occured");
+          showAppSnackBar(
+              content: AppLocalizations.of(context)!.error_occurred_try_again);
           emit(CreatingGuestUserFailedState());
           return false;
         } else {
           showAppSnackBar(
-              content: "Check your internet connection, and try again");
+              content: AppLocalizations.of(context)!
+                  .check_your_internet_connection_and_try_again_later);
           emit(CreatingGuestUserNetworkConnectionFailedState());
           return null;
         }
