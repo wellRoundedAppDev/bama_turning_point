@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/data/models/get_categories_response.dart';
 import 'package:classic_eccomerce/contact_us/data/data_sources/remote_data_sources/contact_us_api.dart';

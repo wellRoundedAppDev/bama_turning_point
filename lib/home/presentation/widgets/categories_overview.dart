@@ -120,7 +120,7 @@ class CategoriesOverview extends StatelessWidget {
                                             (context, object, stackTrace) {
                                           return const Icon(
                                             Icons.error,
-                                            size: 150,
+                                            size: 55,
                                             color: AppColors.APP_MAIN_COLOR,
                                           );
                                         },

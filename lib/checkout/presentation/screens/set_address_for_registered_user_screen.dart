@@ -112,555 +112,553 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                           )
                         : SingleChildScrollView(
                             child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!
-                                        .billing_address,
-                                    maxLines: 1,
-                                    textDirection: TextDirection.ltr,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                        fontSize: FontSizes.FONT_SIZE_20,
-                                        color: Color(0xff313846),
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    width: 40,
-                                    height: 3,
-                                    color: AppColors.APP_MAIN_COLOR,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              (selectedUserAddress == null)
-                                  ? Container()
-                                  : Container(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                        color: const Color(0xffB6BBC6),
-                                      )),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 16.0,
-                                                    horizontal: 16),
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  "${AppLocalizations.of(context)!.full_name}: ",
-                                                  style: const TextStyle(
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    "${selectedUserAddress?.firstname ?? ""} ${selectedUserAddress?.lastname ?? ""}",
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    style: const TextStyle(
-                                                        fontSize: FontSizes
-                                                            .FONT_SIZE_14),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 1,
-                                            color: const Color(0xffB6BBC6),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 16,
-                                                    horizontal: 16),
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "${AppLocalizations.of(context)!.address}: ",
-                                                  style: const TextStyle(
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    selectedUserAddress
-                                                            .address1 ??
-                                                        "-",
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    style: const TextStyle(
-                                                        fontSize: FontSizes
-                                                            .FONT_SIZE_14),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          // Container(
-                                          //   height: 1,
-                                          //   color: const Color(0xffB6BBC6),
-                                          // ),
-                                          // Padding(
-                                          //   padding:
-                                          //       const EdgeInsets.symmetric(
-                                          //           vertical: 16.0,
-                                          //           horizontal: 16),
-                                          //   child: Row(
-                                          //     children: [
-                                          //       Text(
-                                          //         "${AppLocalizations.of(context)!.postal_code}: ",
-                                          //         style: const TextStyle(
-                                          //             fontSize: FontSizes
-                                          //                 .FONT_SIZE_14,
-                                          //             fontWeight:
-                                          //                 FontWeight.bold),
-                                          //       ),
-                                          //       Expanded(
-                                          //         child: Text(
-                                          //           selectedUserAddress
-                                          //                   ?.postcode ??
-                                          //               "",
-                                          //           maxLines: 1,
-                                          //           overflow: TextOverflow
-                                          //               .ellipsis,
-                                          //           style: const TextStyle(
-                                          //               fontSize: FontSizes
-                                          //                   .FONT_SIZE_14),
-                                          //         ),
-                                          //       )
-                                          //     ],
-                                          //   ),
-                                          // ),
-                                          Container(
-                                            height: 1,
-                                            color: const Color(0xffB6BBC6),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 16.0,
-                                                    horizontal: 16),
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  "${AppLocalizations.of(context)!.city}: ",
-                                                  style: const TextStyle(
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    selectedUserAddress
-                                                            ?.city ??
-                                                        "",
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    style: const TextStyle(
-                                                        fontSize: FontSizes
-                                                            .FONT_SIZE_14),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 1,
-                                            color: const Color(0xffB6BBC6),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 16.0,
-                                                    horizontal: 16),
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  "${AppLocalizations.of(context)!.country}: ",
-                                                  style: const TextStyle(
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    selectedUserAddress
-                                                            ?.country ??
-                                                        "",
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    style: const TextStyle(
-                                                        fontSize: FontSizes
-                                                            .FONT_SIZE_14),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 1,
-                                            color: const Color(0xffB6BBC6),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 16.0,
-                                                    horizontal: 16),
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  "${AppLocalizations.of(context)!.region_or_state}: ",
-                                                  style: const TextStyle(
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    selectedUserAddress
-                                                            ?.zone ??
-                                                        "",
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    style: const TextStyle(
-                                                        fontSize: FontSizes
-                                                            .FONT_SIZE_14),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              checkOutCubit
-                                                  .selectExistingUserAddress(
-                                                      selectedUserAddress
-                                                              ?.addressId ??
-                                                          "");
-                                            },
-                                            child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0, vertical: 16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppLocalizations.of(context)!
+                                          .billing_address,
+                                      maxLines: 1,
+                                      textDirection: TextDirection.ltr,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontSize: FontSizes.FONT_SIZE_20,
+                                          color: Color(0xff313846),
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                      width: 40,
+                                      height: 3,
+                                      color: AppColors.APP_MAIN_COLOR,
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                (selectedUserAddress == null)
+                                    ? Container()
+                                    : Container(
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                          color: const Color(0xffB6BBC6),
+                                        )),
+                                        child: Column(
+                                          children: [
+                                            Padding(
                                               padding:
-                                                  const EdgeInsets.all(8),
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              color: (selectedUserAddress
-                                                          ?.addressId ==
-                                                      checkOutCubit
-                                                          .selectedUserAddressId)
-                                                  ? AppColors.APP_MAIN_COLOR
-                                                  : const Color(0xffB6BBC6),
-                                              child: Text(
-                                                (selectedUserAddress
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16.0,
+                                                      horizontal: 16),
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    "${AppLocalizations.of(context)!.full_name}: ",
+                                                    style: const TextStyle(
+                                                        fontSize: FontSizes
+                                                            .FONT_SIZE_14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      "${selectedUserAddress?.firstname ?? ""} ${selectedUserAddress?.lastname ?? ""}",
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              height: 1,
+                                              color: const Color(0xffB6BBC6),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16,
+                                                      horizontal: 16),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "${AppLocalizations.of(context)!.address}: ",
+                                                    style: const TextStyle(
+                                                        fontSize: FontSizes
+                                                            .FONT_SIZE_14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      selectedUserAddress
+                                                              .address1 ??
+                                                          "-",
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            // Container(
+                                            //   height: 1,
+                                            //   color: const Color(0xffB6BBC6),
+                                            // ),
+                                            // Padding(
+                                            //   padding:
+                                            //       const EdgeInsets.symmetric(
+                                            //           vertical: 16.0,
+                                            //           horizontal: 16),
+                                            //   child: Row(
+                                            //     children: [
+                                            //       Text(
+                                            //         "${AppLocalizations.of(context)!.postal_code}: ",
+                                            //         style: const TextStyle(
+                                            //             fontSize: FontSizes
+                                            //                 .FONT_SIZE_14,
+                                            //             fontWeight:
+                                            //                 FontWeight.bold),
+                                            //       ),
+                                            //       Expanded(
+                                            //         child: Text(
+                                            //           selectedUserAddress
+                                            //                   ?.postcode ??
+                                            //               "",
+                                            //           maxLines: 1,
+                                            //           overflow: TextOverflow
+                                            //               .ellipsis,
+                                            //           style: const TextStyle(
+                                            //               fontSize: FontSizes
+                                            //                   .FONT_SIZE_14),
+                                            //         ),
+                                            //       )
+                                            //     ],
+                                            //   ),
+                                            // ),
+                                            Container(
+                                              height: 1,
+                                              color: const Color(0xffB6BBC6),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16.0,
+                                                      horizontal: 16),
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    "${AppLocalizations.of(context)!.city}: ",
+                                                    style: const TextStyle(
+                                                        fontSize: FontSizes
+                                                            .FONT_SIZE_14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      selectedUserAddress
+                                                              ?.city ??
+                                                          "",
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              height: 1,
+                                              color: const Color(0xffB6BBC6),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16.0,
+                                                      horizontal: 16),
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    "${AppLocalizations.of(context)!.country}: ",
+                                                    style: const TextStyle(
+                                                        fontSize: FontSizes
+                                                            .FONT_SIZE_14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      selectedUserAddress
+                                                              ?.country ??
+                                                          "",
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              height: 1,
+                                              color: const Color(0xffB6BBC6),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16.0,
+                                                      horizontal: 16),
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    "${AppLocalizations.of(context)!.region_or_state}: ",
+                                                    style: const TextStyle(
+                                                        fontSize: FontSizes
+                                                            .FONT_SIZE_14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      selectedUserAddress
+                                                              ?.zone ??
+                                                          "",
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                checkOutCubit
+                                                    .selectExistingUserAddress(
+                                                        selectedUserAddress
+                                                                ?.addressId ??
+                                                            "");
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(8),
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                color: (selectedUserAddress
                                                             ?.addressId ==
                                                         checkOutCubit
                                                             .selectedUserAddressId)
-                                                    ? AppLocalizations.of(
-                                                            context)!
-                                                        .selected_address
-                                                    : AppLocalizations.of(
-                                                            context)!
-                                                        .select_address,
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: FontSizes
-                                                        .FONT_SIZE_16),
+                                                    ? AppColors.APP_MAIN_COLOR
+                                                    : const Color(0xffB6BBC6),
+                                                child: Text(
+                                                  (selectedUserAddress
+                                                              ?.addressId ==
+                                                          checkOutCubit
+                                                              .selectedUserAddressId)
+                                                      ? AppLocalizations.of(
+                                                              context)!
+                                                          .selected_address
+                                                      : AppLocalizations.of(
+                                                              context)!
+                                                          .select_address,
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: FontSizes
+                                                          .FONT_SIZE_16),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                ListView.separated(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      var address = userAddresses?[index];
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                          color: const Color(0xffB6BBC6),
+                                        )),
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16.0,
+                                                      horizontal: 16),
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    "${AppLocalizations.of(context)!.full_name}: ",
+                                                    style: const TextStyle(
+                                                        fontSize: FontSizes
+                                                            .FONT_SIZE_14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      "${address?.firstname ?? ""} ${address?.lastname ?? ""}",
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14),
+                                                    ),
+                                                  )
+                                                ],
                                               ),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              ListView.separated(
-                                  shrinkWrap: true,
-                                  physics:
-                                      const NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    var address = userAddresses?[index];
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                        color: const Color(0xffB6BBC6),
-                                      )),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 16.0,
-                                                    horizontal: 16),
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  "${AppLocalizations.of(context)!.full_name}: ",
-                                                  style: const TextStyle(
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    "${address?.firstname ?? ""} ${address?.lastname ?? ""}",
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    style: const TextStyle(
-                                                        fontSize: FontSizes
-                                                            .FONT_SIZE_14),
-                                                  ),
-                                                )
-                                              ],
+                                            Container(
+                                              height: 1,
+                                              color: const Color(0xffB6BBC6),
                                             ),
-                                          ),
-                                          Container(
-                                            height: 1,
-                                            color: const Color(0xffB6BBC6),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 16,
-                                                    horizontal: 16),
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "${AppLocalizations.of(context)!.address}: ",
-                                                  style: const TextStyle(
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    address?.address1 ??
-                                                        "-",
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    style: const TextStyle(
-                                                        fontSize: FontSizes
-                                                            .FONT_SIZE_14),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          // Container(
-                                          //   height: 1,
-                                          //   color: const Color(0xffB6BBC6),
-                                          // ),
-                                          // Padding(
-                                          //   padding:
-                                          //       const EdgeInsets.symmetric(
-                                          //           vertical: 16.0,
-                                          //           horizontal: 16),
-                                          //   child: Row(
-                                          //     children: [
-                                          //       Text(
-                                          //         "${AppLocalizations.of(context)!.postal_code}: ",
-                                          //         style: const TextStyle(
-                                          //             fontSize: FontSizes
-                                          //                 .FONT_SIZE_14,
-                                          //             fontWeight:
-                                          //                 FontWeight.bold),
-                                          //       ),
-                                          //       Expanded(
-                                          //         child: Text(
-                                          //           address?.postcode ?? "",
-                                          //           maxLines: 1,
-                                          //           overflow: TextOverflow
-                                          //               .ellipsis,
-                                          //           style: const TextStyle(
-                                          //               fontSize: FontSizes
-                                          //                   .FONT_SIZE_14),
-                                          //         ),
-                                          //       )
-                                          //     ],
-                                          //   ),
-                                          // ),
-                                          Container(
-                                            height: 1,
-                                            color: const Color(0xffB6BBC6),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 16.0,
-                                                    horizontal: 16),
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  "${AppLocalizations.of(context)!.city}: ",
-                                                  style: const TextStyle(
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    address?.city ?? "",
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    style: const TextStyle(
-                                                        fontSize: FontSizes
-                                                            .FONT_SIZE_14),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 1,
-                                            color: const Color(0xffB6BBC6),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 16.0,
-                                                    horizontal: 16),
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  "${AppLocalizations.of(context)!.country}: ",
-                                                  style: const TextStyle(
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    address?.country ?? "",
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    style: const TextStyle(
-                                                        fontSize: FontSizes
-                                                            .FONT_SIZE_14),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 1,
-                                            color: const Color(0xffB6BBC6),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 16.0,
-                                                    horizontal: 16),
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  "${AppLocalizations.of(context)!.region_or_state}: ",
-                                                  style: const TextStyle(
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    address?.zone ?? "",
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    style: const TextStyle(
-                                                        fontSize: FontSizes
-                                                            .FONT_SIZE_14),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              checkOutCubit
-                                                  .selectExistingUserAddress(
-                                                      address?.addressId ??
-                                                          "");
-                                            },
-                                            child: Container(
+                                            Padding(
                                               padding:
-                                                  const EdgeInsets.all(8),
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              color: (address?.addressId ==
-                                                      checkOutCubit
-                                                          .selectedUserAddressId)
-                                                  ? AppColors.APP_MAIN_COLOR
-                                                  : const Color(0xffB6BBC6),
-                                              child: Text(
-                                                (address?.addressId ==
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16,
+                                                      horizontal: 16),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "${AppLocalizations.of(context)!.address}: ",
+                                                    style: const TextStyle(
+                                                        fontSize: FontSizes
+                                                            .FONT_SIZE_14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      address?.address1 ?? "-",
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            // Container(
+                                            //   height: 1,
+                                            //   color: const Color(0xffB6BBC6),
+                                            // ),
+                                            // Padding(
+                                            //   padding:
+                                            //       const EdgeInsets.symmetric(
+                                            //           vertical: 16.0,
+                                            //           horizontal: 16),
+                                            //   child: Row(
+                                            //     children: [
+                                            //       Text(
+                                            //         "${AppLocalizations.of(context)!.postal_code}: ",
+                                            //         style: const TextStyle(
+                                            //             fontSize: FontSizes
+                                            //                 .FONT_SIZE_14,
+                                            //             fontWeight:
+                                            //                 FontWeight.bold),
+                                            //       ),
+                                            //       Expanded(
+                                            //         child: Text(
+                                            //           address?.postcode ?? "",
+                                            //           maxLines: 1,
+                                            //           overflow: TextOverflow
+                                            //               .ellipsis,
+                                            //           style: const TextStyle(
+                                            //               fontSize: FontSizes
+                                            //                   .FONT_SIZE_14),
+                                            //         ),
+                                            //       )
+                                            //     ],
+                                            //   ),
+                                            // ),
+                                            Container(
+                                              height: 1,
+                                              color: const Color(0xffB6BBC6),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16.0,
+                                                      horizontal: 16),
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    "${AppLocalizations.of(context)!.city}: ",
+                                                    style: const TextStyle(
+                                                        fontSize: FontSizes
+                                                            .FONT_SIZE_14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      address?.city ?? "",
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              height: 1,
+                                              color: const Color(0xffB6BBC6),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16.0,
+                                                      horizontal: 16),
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    "${AppLocalizations.of(context)!.country}: ",
+                                                    style: const TextStyle(
+                                                        fontSize: FontSizes
+                                                            .FONT_SIZE_14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      address?.country ?? "",
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              height: 1,
+                                              color: const Color(0xffB6BBC6),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16.0,
+                                                      horizontal: 16),
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    "${AppLocalizations.of(context)!.region_or_state}: ",
+                                                    style: const TextStyle(
+                                                        fontSize: FontSizes
+                                                            .FONT_SIZE_14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      address?.zone ?? "",
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                checkOutCubit
+                                                    .selectExistingUserAddress(
+                                                        address?.addressId ??
+                                                            "");
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(8),
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                color: (address?.addressId ==
                                                         checkOutCubit
                                                             .selectedUserAddressId)
-                                                    ? AppLocalizations.of(
-                                                            context)!
-                                                        .selected_address
-                                                    : AppLocalizations.of(
-                                                            context)!
-                                                        .select_address,
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: FontSizes
-                                                        .FONT_SIZE_16),
+                                                    ? AppColors.APP_MAIN_COLOR
+                                                    : const Color(0xffB6BBC6),
+                                                child: Text(
+                                                  (address?.addressId ==
+                                                          checkOutCubit
+                                                              .selectedUserAddressId)
+                                                      ? AppLocalizations.of(
+                                                              context)!
+                                                          .selected_address
+                                                      : AppLocalizations.of(
+                                                              context)!
+                                                          .select_address,
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: FontSizes
+                                                          .FONT_SIZE_16),
+                                                ),
                                               ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) =>
-                                      const SizedBox(
-                                        height: 16,
-                                      ),
-                                  itemCount: userAddresses?.length ?? 0)
-                            ],
-                          ),
-                        ))));
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) =>
+                                        const SizedBox(
+                                          height: 16,
+                                        ),
+                                    itemCount: userAddresses?.length ?? 0)
+                              ],
+                            ),
+                          ))));
       },
     );
   }
