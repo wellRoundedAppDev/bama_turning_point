@@ -222,92 +222,75 @@ class ProductDetailsScreen extends StatelessWidget {
                                                           ?.map(
                                                             (e) =>
                                                                 GestureDetector(
-                                                                  onTap: (){
-                                                                    showDialog(
-                                                                        context: context,
-                                                                        builder: (context) {
-                                                                          return AlertDialog(
-                                                                            insetPadding:
-                                                                            EdgeInsets
-                                                                                .zero,
-                                                                            content: Stack(
-                                                                              children: [
-                                                                                Image
-                                                                                    .network(
-                                                                                  e ??
-                                                                                      "",
-                                                                                  height: MediaQuery.of(
-                                                                                      context)
-                                                                                      .size
-                                                                                      .height,
-                                                                                  width: MediaQuery.of(
-                                                                                      context)
-                                                                                      .size
-                                                                                      .width,
-                                                                                  fit: BoxFit
-                                                                                      .cover,
-                                                                                  errorBuilder: (context,
-                                                                                      object,
-                                                                                      stackTrace) {
-                                                                                    return const Center(
-                                                                                      child:
-                                                                                      Icon(
-                                                                                        Icons.error,
-                                                                                        size:
-                                                                                        200,
-                                                                                        color:
-                                                                                        AppColors.APP_MAIN_COLOR,
-                                                                                      ),
-                                                                                    );
-                                                                                  },
-                                                                                ),
-                                                                                Positioned(
-                                                                                  top: 8,
-                                                                                  left: 4,
-                                                                                  child:
-                                                                                  GestureDetector(
-                                                                                    onTap:
-                                                                                        () {
-                                                                                      Navigator.pop(
-                                                                                          context);
-                                                                                    },
-                                                                                    child:
-                                                                                    Icon(
-                                                                                      Icons
-                                                                                          .cancel,
-                                                                                      color:
-                                                                                      AppColors.APP_MAIN_COLOR,
-                                                                                      size:
-                                                                                      50,
-                                                                                    ),
+                                                              onTap: () {
+                                                                showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (context) {
+                                                                      return AlertDialog(
+                                                                        insetPadding:
+                                                                            EdgeInsets.zero,
+                                                                        content:
+                                                                            Stack(
+                                                                          children: [
+                                                                            Image.network(
+                                                                              e ?? "",
+                                                                              height: MediaQuery.of(context).size.height,
+                                                                              width: MediaQuery.of(context).size.width,
+                                                                              fit: BoxFit.cover,
+                                                                              errorBuilder: (context, object, stackTrace) {
+                                                                                return const Center(
+                                                                                  child: Icon(
+                                                                                    Icons.error,
+                                                                                    size: 200,
+                                                                                    color: AppColors.APP_MAIN_COLOR,
                                                                                   ),
-                                                                                )
-                                                                              ],
+                                                                                );
+                                                                              },
                                                                             ),
-                                                                          );
-                                                                        });                                                                  },
-                                                                  child: Image.network(
-                                                                                                                                e ?? "",
-                                                                                                                                width:
-                                                                    MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width,
-                                                                                                                                errorBuilder:
+                                                                            Positioned(
+                                                                              top: 8,
+                                                                              left: 4,
+                                                                              child: GestureDetector(
+                                                                                onTap: () {
+                                                                                  Navigator.pop(context);
+                                                                                },
+                                                                                child: Icon(
+                                                                                  Icons.cancel,
+                                                                                  color: AppColors.APP_MAIN_COLOR,
+                                                                                  size: 50,
+                                                                                ),
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                      );
+                                                                    });
+                                                              },
+                                                              child:
+                                                                  Image.network(
+                                                                e ?? "",
+                                                                width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                                errorBuilder:
                                                                     (context,
                                                                         object,
                                                                         stackTrace) {
                                                                   return const Center(
                                                                     child: Icon(
-                                                                      Icons.error,
+                                                                      Icons
+                                                                          .error,
                                                                       size: 150,
                                                                       color: AppColors
                                                                           .APP_MAIN_COLOR,
                                                                     ),
                                                                   );
-                                                                                                                                },
-                                                                                                                              ),
-                                                                ),
+                                                                },
+                                                              ),
+                                                            ),
                                                           )
                                                           .toList(),
                                                     ),
