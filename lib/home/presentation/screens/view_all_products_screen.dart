@@ -32,6 +32,7 @@ class ViewAllProductsScreen extends StatelessWidget {
         builder: (context, state) {
           HomeCubit homeCubit = HomeCubit.get(context);
           List<Product>? products = homeCubit.allProducts;
+
           return (state is FetchingAllProductsLoadingState)
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -67,6 +68,7 @@ class ViewAllProductsScreen extends StatelessWidget {
                           String? productName = product?.name;
                           String? productImageUrl = product?.productImagePath;
                           String? priceFormatted = product?.priceFormatted;
+
                           return InkWell(
                             onTap: () {
                               Navigator.push(

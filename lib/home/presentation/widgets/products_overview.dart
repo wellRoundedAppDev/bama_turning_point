@@ -91,8 +91,9 @@ class ProductsOverview extends StatelessWidget {
                   num? productPrice = product.price;
                   String? priceFormatted = product.priceFormatted;
                   String? productImagePath = (product.productImagePath ?? "");
+                  String stockStatus = product.stockStatus ?? "";
 
-
+                  print("Stock status $stockStatus");
                   return Row(
                     children: [
                       (index == 0)
@@ -100,127 +101,143 @@ class ProductsOverview extends StatelessWidget {
                               width: 16,
                             )
                           : Container(),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              PageTransition(
-                                  child: BlocProvider.value(
-                                    value: CartCubit.get(context),
-                                    child: ProductDetailsScreen(
-                                      selectedProductId: productId ?? -1,
+                       InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        child: BlocProvider.value(
+                                          value: CartCubit.get(context),
+                                          child: ProductDetailsScreen(
+                                            selectedProductId: productId ?? -1,
+                                          ),
+                                        ),
+                                        type: PageTransitionType.leftToRight));
+                              },
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: Image.network(
+                                            productImagePath ?? "",
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.2,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            errorBuilder:
+                                                (context, object, stackTrace) {
+                                              return const Icon(
+                                                Icons.error,
+                                                size: 150,
+                                                color: AppColors.APP_MAIN_COLOR,
+                                              );
+                                            },
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        BlocConsumer<WishListCubit,
+                                            WishListStates>(
+                                          listener: (context, state) {},
+                                          builder: (context, state) {
+                                            bool isItemInWishList = (WishListCubit
+                                                            .get(context)
+                                                        .wishListItems
+                                                        ?.where((element) =>
+                                                            element.productId ==
+                                                            productId
+                                                                ?.toString()))
+                                                    ?.isNotEmpty ==
+                                                true;
+                                            return Positioned(
+                                                bottom: 4,
+                                                right: 4,
+                                                child: Container(
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: Colors.white
+                                                            .withOpacity(0.7)),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              2.0),
+                                                      child:
+                                                          (isItemInWishList ==
+                                                                  true)
+                                                              ? const Icon(
+                                                                  Icons
+                                                                      .favorite,
+                                                                  color: Colors
+                                                                      .red,
+                                                                )
+                                                              : const Icon(
+                                                                  Icons
+                                                                      .favorite_border_rounded,
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
+                                                    )));
+                                          },
+                                        )
+                                      ],
                                     ),
-                                  ),
-                                  type: PageTransitionType.leftToRight));
-                        },
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Stack(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
-                                      productImagePath ?? "",
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.2,
-                                      width: MediaQuery.of(context).size.width,
-                                      errorBuilder:
-                                          (context, object, stackTrace) {
-                                        return const Icon(
-                                          Icons.error,
-                                          size: 150,
-                                          color: AppColors.APP_MAIN_COLOR,
-                                        );
-                                      },
-                                      fit: BoxFit.cover,
+                                    const SizedBox(
+                                      height: 3,
                                     ),
-                                  ),
-                                  BlocConsumer<WishListCubit,WishListStates>(
-                                    listener: (context,state){},
-                                    builder: (context,state){
-                                      bool isItemInWishList = (WishListCubit.get(context)
-                                          .wishListItems
-                                          ?.where((element) =>
-                                      element.productId == productId?.toString()))
-                                          ?.isNotEmpty ==
-                                          true;
-                                      return  Positioned(
-                                          bottom: 4,
-                                          right: 4,
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.white
-                                                      .withOpacity(0.7)),
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(2.0),
-                                                child: (isItemInWishList == true)
-                                                    ? const Icon(
-                                                  Icons.favorite,
-                                                  color: Colors.red,
-                                                )
-                                                    : const Icon(
-                                                  Icons
-                                                      .favorite_border_rounded,
-                                                  color: Colors.black,
-                                                ),
-                                              )));
-                                    },
-                                  )
-                                ],
+                                    Text(
+                                      productTitle ?? "-",
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          color: Color(0xff333333),
+                                          fontSize: FontSizes.FONT_SIZE_14,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Flexible(
+                                            child: Text(
+                                          priceFormatted ?? "",
+                                          //"\$${productPrice.toString() ?? "-"}",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                              color: AppColors.APP_MAIN_COLOR,
+                                              fontWeight: FontWeight.bold),
+                                        )),
+                                        // const SizedBox(
+                                        //   width: 8,
+                                        // ),
+                                        // Flexible(
+                                        //     flex: 2,
+                                        //     child: Text(
+                                        //       "\$17.96",
+                                        //       textAlign: TextAlign.left,
+                                        //       overflow: TextOverflow.ellipsis,
+                                        //       maxLines: 1,
+                                        //       style: TextStyle(
+                                        //         decoration: TextDecoration.lineThrough,
+                                        //         color: const Color(0xff333333)
+                                        //             .withOpacity(0.5),
+                                        //       ),
+                                        //     )),
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                productTitle ?? "-",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    color: Color(0xff333333),
-                                    fontSize: FontSizes.FONT_SIZE_14,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Row(
-                                children: [
-                                  Flexible(
-                                      child: Text(
-                                    priceFormatted ?? "",
-                                    //"\$${productPrice.toString() ?? "-"}",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                        color: AppColors.APP_MAIN_COLOR,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                                  // const SizedBox(
-                                  //   width: 8,
-                                  // ),
-                                  // Flexible(
-                                  //     flex: 2,
-                                  //     child: Text(
-                                  //       "\$17.96",
-                                  //       textAlign: TextAlign.left,
-                                  //       overflow: TextOverflow.ellipsis,
-                                  //       maxLines: 1,
-                                  //       style: TextStyle(
-                                  //         decoration: TextDecoration.lineThrough,
-                                  //         color: const Color(0xff333333)
-                                  //             .withOpacity(0.5),
-                                  //       ),
-                                  //     )),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
+                            ),
                       (index == products.length - 1)
                           ? const SizedBox(
                               width: 16,

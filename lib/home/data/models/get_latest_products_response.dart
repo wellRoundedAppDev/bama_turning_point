@@ -45,6 +45,7 @@ class LatestProduct extends Product{
       this.price,
       this.description,
         this.productImagePath,
+        this.stockStatus,
         this.priceFormatted,
       this.rating});
 
@@ -62,12 +63,15 @@ class LatestProduct extends Product{
             .read<AppSettingsCubit>()
             .currencyCode ??
             "") == "USD"?"\$":"IQD");
+
+    var stockStatus = json['stock_status'];
     return LatestProduct(
         price: price,
         priceFormatted: priceFormatted,
         quantity: quantity,
         description: description,
         name: name,
+        stockStatus: stockStatus,
         productImagePath: productImagePath,
         productId: productId,
         rating: rating);
@@ -80,6 +84,7 @@ class LatestProduct extends Product{
   String? productImagePath;
   String? description;
   String? priceFormatted;
+  String? stockStatus;
 
   // Map<String, dynamic> toJson() {
   //   final map = <String, dynamic>{};

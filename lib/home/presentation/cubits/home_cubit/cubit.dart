@@ -44,7 +44,7 @@ class HomeCubit extends Cubit<HomeStates> {
   List<Category>? categoriesOverview;
   List<Category>? allCategories;
   List<Product>? allProducts;
- // List<FeaturedProduct>? featuredProductsOverview;
+  // List<FeaturedProduct>? featuredProductsOverview;
   // List<FeaturedProduct>? allFeaturedProducts;
   List<LatestProduct>? newArrivalsProductsOverview;
   //List<LatestProduct>? allNewArrivals;
@@ -171,14 +171,14 @@ class HomeCubit extends Cubit<HomeStates> {
   //   }
   // }
   setFeaturedProductsOverview() async {
-    var response = await CategoriesApis.getProductsInCategoryById(
-      236,
-      languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode ?? ""
-
-    );
+    var response = await CategoriesApis.getProductsInCategoryById(236,
+        languageCode: languageCodes[localeCubit?.locale.languageCode],
+        currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       featuredProductsOverview = response?.products;
+      featuredProductsOverview =
+      featuredProductsOverview?.where((e) => e.stockStatusId != 5)?.toList();
+
     } else if (response?.success == 0) {
       featuredProductsOverview = null;
     } else {
@@ -192,6 +192,9 @@ class HomeCubit extends Cubit<HomeStates> {
         currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       newArrivalsProductsOverview = response?.latestProducts;
+      newArrivalsProductsOverview = newArrivalsProductsOverview?.where((e) => e.stockStatusId != 5)?.toList();
+
+
     } else if (response?.success == 0) {
       newArrivalsProductsOverview = null;
     } else {
@@ -200,13 +203,13 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   setBestSellersOverview() async {
-    var response = await CategoriesApis.getProductsInCategoryById(
-      234,
-      languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode ?? ""
-    );
+    var response = await CategoriesApis.getProductsInCategoryById(234,
+        languageCode: languageCodes[localeCubit?.locale.languageCode],
+        currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       bestSellersProductsOverview = response?.products;
+      bestSellersProductsOverview = bestSellersProductsOverview?.where((e) => e.stockStatusId != 5)?.toList();
+
     } else if (response?.success == 0) {
       bestSellersProductsOverview = null;
     } else {
@@ -215,12 +218,9 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   setCategoriesOverview() async {
-    var response = await CategoriesApis.getCategories(
-      1,
-      languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode ?? ""
-
-    );
+    var response = await CategoriesApis.getCategories(1,
+        languageCode: languageCodes[localeCubit?.locale.languageCode],
+        currencyCode: appSettingsCubit?.currencyCode ?? "");
 
     if (response?.success == 1) {
       categoriesOverview = response?.categories;
@@ -255,6 +255,8 @@ class HomeCubit extends Cubit<HomeStates> {
         currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       allProducts = response?.latestProducts;
+      allProducts = allProducts?.where((e) => e.stockStatusId != 5)?.toList();
+
       emit(FetchingAllProductsSuccessState());
     } else if (response?.success == 0) {
       allProducts = null;
@@ -267,14 +269,13 @@ class HomeCubit extends Cubit<HomeStates> {
 
   setAllBestSellersProducts() async {
     emit(FetchingAllProductsLoadingState());
-    var response = await CategoriesApis.getProductsInCategoryById(
-      234,
-      languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode ?? ""
-
-    );
+    var response = await CategoriesApis.getProductsInCategoryById(234,
+        languageCode: languageCodes[localeCubit?.locale.languageCode],
+        currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       allProducts = response?.products;
+      allProducts = allProducts?.where((e) => e.stockStatusId != 5)?.toList();
+
       emit(FetchingAllProductsSuccessState());
     } else if (response?.success == 0) {
       allProducts = null;
@@ -287,14 +288,13 @@ class HomeCubit extends Cubit<HomeStates> {
 
   setAllFeaturedProducts() async {
     emit(FetchingAllProductsLoadingState());
-    var response = await CategoriesApis.getProductsInCategoryById(
-      236,
-      languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode ?? ""
-
-    );
+    var response = await CategoriesApis.getProductsInCategoryById(236,
+        languageCode: languageCodes[localeCubit?.locale.languageCode],
+        currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       allProducts = response?.products;
+      allProducts = allProducts?.where((e) => e.stockStatusId != 5)?.toList();
+
       emit(FetchingAllProductsSuccessState());
     } else if (response?.success == 0) {
       allProducts = null;
@@ -304,6 +304,7 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(FetchingAllProductsNetworkConnectionFailedState());
     }
   }
+
   setAllProductsInBrand() async {
     emit(FetchingAllProductsLoadingState());
     var response = await ProductsApis.getProductsInBrand(
@@ -312,6 +313,7 @@ class HomeCubit extends Cubit<HomeStates> {
         currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       allProducts = response?.productsInBrand;
+      allProducts = allProducts?.where((e) => e.stockStatusId != 5)?.toList();
       emit(FetchingAllProductsSuccessState());
     } else if (response?.success == 0) {
       allProducts = null;

@@ -1,13 +1,15 @@
 class Product {
   Product(
       {this.productId,
-        this.name,
-        this.quantity,
-        this.price,
-        this.description,
-        this.productImagePath,
-        this.priceFormatted,
-        this.rating});
+      this.name,
+      this.quantity,
+      this.price,
+      this.description,
+      this.productImagePath,
+      this.stockStatus,
+      this.priceFormatted,
+        this.stockStatusId,
+      this.rating});
 
   factory Product.fromJson(dynamic json) {
     var productId = json['product_id'];
@@ -18,12 +20,17 @@ class Product {
     var rating = json['rating'];
     var productImagePath = json['thumb'];
     var description = json['description'];
+    var stockStatus = json['stock_status'];
+    var stockStatusId = json['stock_status_id'];
 
     return Product(
         price: price,
         quantity: quantity,
+        stockStatusId: stockStatusId,
         description: description,
         name: name,
+        stockStatus: stockStatus,
+
         productImagePath: productImagePath,
         productId: productId,
         priceFormatted: priceFormatted,
@@ -37,29 +44,6 @@ class Product {
   String? description;
   String? productImagePath;
   String? priceFormatted;
-
-// Map<String, dynamic> toJson() {
-//   final map = <String, dynamic>{};
-//   map['product_id'] = productId;
-//   map['seo_url'] = seoUrl;
-//   map['thumb'] = thumb;
-//   map['name'] = name;
-//   map['quantity'] = quantity;
-//   map['status'] = status;
-//   map['stock_status'] = stockStatus;
-//   map['price_excluding_tax'] = priceExcludingTax;
-//   map['price_excluding_tax_formated'] = priceExcludingTaxFormated;
-//   map['price'] = price;
-//   map['price_formated'] = priceFormated;
-//   map['special'] = special;
-//   map['special_formated'] = specialFormated;
-//   map['special_excluding_tax'] = specialExcludingTax;
-//   map['special_excluding_tax_formated'] = specialExcludingTaxFormated;
-//   if (discounts != null) {
-//     map['discounts'] = discounts?.map((v) => v.toJson()).toList();
-//   }
-//   map['rating'] = rating;
-//   map['description'] = description;
-//   return map;
-// }
+  String? stockStatus;
+  num? stockStatusId;
 }

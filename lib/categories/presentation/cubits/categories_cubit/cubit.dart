@@ -66,6 +66,8 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
         currencyCode: AppSettingsCubit.get(context).currencyCode ?? "");
     if (response?.success == 1) {
       products = response?.products;
+      products = products?.where((e) => e.stockStatusId != 5).toList();
+
       emit(GetProductsInCategorySuccessState());
     } else if (response?.success == 0) {
       products = null;

@@ -6,9 +6,10 @@ import '../../../main.dart';
 
 class GetProductsInCategoryResponse {
   GetProductsInCategoryResponse({
-      this.success, 
-      // this.error, 
-      this.products,});
+    this.success,
+    // this.error,
+    this.products,
+  });
 
   factory GetProductsInCategoryResponse.fromJson(dynamic json) {
     var success = json['success'];
@@ -18,7 +19,7 @@ class GetProductsInCategoryResponse {
     //     error?.add(Dynamic.fromJson(v));
     //   });
     // }
-    
+
     List<ProductInCategory>? products;
     if (json['data'] != null) {
       products = [];
@@ -26,7 +27,7 @@ class GetProductsInCategoryResponse {
         products?.add(ProductInCategory.fromJson(v));
       });
     }
-    return GetProductsInCategoryResponse(success: success,products: products);
+    return GetProductsInCategoryResponse(success: success, products: products);
   }
   num? success;
   // List<dynamic>? error;
@@ -43,18 +44,20 @@ class GetProductsInCategoryResponse {
   //   }
   //   return map;
   // }
-
 }
-class ProductInCategory extends Product{
+
+class ProductInCategory extends Product {
   ProductInCategory(
       {this.productId,
-        this.name,
-        this.quantity,
-        this.price,
-        this.description,
-        this.productImagePath,
-        this.priceFormatted,
-        this.rating});
+      this.name,
+      this.quantity,
+      this.price,
+      this.description,
+      this.productImagePath,
+      this.priceFormatted,
+        this.stockStatusId,
+      this.stockStatus,
+      this.rating});
 
   factory ProductInCategory.fromJson(dynamic json) {
     var productId = json['product_id'];
@@ -66,15 +69,23 @@ class ProductInCategory extends Product{
     var description = json['description'];
     var priceFormatted = (json['price']?.toString() ?? "") +
         ((MyApp.navKey.currentState?.context
-            .read<AppSettingsCubit>()
-            .currencyCode ??
-            "") == "USD"?"\$":"IQD");
+                        .read<AppSettingsCubit>()
+                        .currencyCode ??
+                    "") ==
+                "USD"
+            ? "\$"
+            : "IQD");
+    var stockStatus = json['stock_status'];
+    var stockStatusId = json['stock_status_id'];
     return ProductInCategory(
         price: price,
+        stockStatusId: stockStatusId,
         quantity: quantity,
         description: description,
         name: name,
         productImagePath: productImagePath,
+        stockStatus: stockStatus,
+
         productId: productId,
         priceFormatted: priceFormatted,
         rating: rating);
@@ -87,72 +98,73 @@ class ProductInCategory extends Product{
   String? description;
   String? productImagePath;
   String? priceFormatted;
-
+  String? stockStatus;
+  num? stockStatusId;
 }
 // class Product {
 //   Product({
-//       this.id, 
-//       this.productId, 
-//       this.name, 
-//       this.manufacturer, 
-//       this.sku, 
-//       this.model, 
-//       this.image, 
-//       this.images, 
-//       this.originalImage, 
-//       this.originalImages, 
-//       this.priceExcludingTax, 
-//       this.priceExcludingTaxFormated, 
-//       this.price, 
-//       this.priceFormated, 
-//       this.rating, 
-//       this.description, 
-//       this.attributeGroups, 
-//       this.special, 
-//       this.specialExcludingTax, 
-//       this.specialExcludingTaxFormated, 
-//       this.specialFormated, 
-//       this.specialStartDate, 
-//       this.specialEndDate, 
-//       this.discounts, 
-//       this.options, 
-//       this.minimum, 
-//       this.metaTitle, 
-//       this.metaDescription, 
-//       this.metaKeyword, 
-//       this.seoUrl, 
-//       this.tag, 
-//       this.upc, 
-//       this.ean, 
-//       this.jan, 
-//       this.isbn, 
-//       this.mpn, 
-//       this.location, 
-//       this.stockStatus, 
-//       this.stockStatusId, 
-//       this.manufacturerId, 
-//       this.taxClassId, 
-//       this.dateAvailable, 
-//       this.weight, 
-//       this.weightClassId, 
-//       this.length, 
-//       this.width, 
-//       this.height, 
-//       this.lengthClassId, 
-//       this.subtract, 
-//       this.sortOrder, 
-//       this.status, 
-//       this.dateAdded, 
-//       this.dateModified, 
-//       this.viewed, 
-//       this.weightClass, 
-//       this.lengthClass, 
-//       this.shipping, 
-//       this.reward, 
-//       this.points, 
-//       this.category, 
-//       this.quantity, 
-//       this.reviews, 
+//       this.id,
+//       this.productId,
+//       this.name,
+//       this.manufacturer,
+//       this.sku,
+//       this.model,
+//       this.image,
+//       this.images,
+//       this.originalImage,
+//       this.originalImages,
+//       this.priceExcludingTax,
+//       this.priceExcludingTaxFormated,
+//       this.price,
+//       this.priceFormated,
+//       this.rating,
+//       this.description,
+//       this.attributeGroups,
+//       this.special,
+//       this.specialExcludingTax,
+//       this.specialExcludingTaxFormated,
+//       this.specialFormated,
+//       this.specialStartDate,
+//       this.specialEndDate,
+//       this.discounts,
+//       this.options,
+//       this.minimum,
+//       this.metaTitle,
+//       this.metaDescription,
+//       this.metaKeyword,
+//       this.seoUrl,
+//       this.tag,
+//       this.upc,
+//       this.ean,
+//       this.jan,
+//       this.isbn,
+//       this.mpn,
+//       this.location,
+//       this.stockStatus,
+//       this.stockStatusId,
+//       this.manufacturerId,
+//       this.taxClassId,
+//       this.dateAvailable,
+//       this.weight,
+//       this.weightClassId,
+//       this.length,
+//       this.width,
+//       this.height,
+//       this.lengthClassId,
+//       this.subtract,
+//       this.sortOrder,
+//       this.status,
+//       this.dateAdded,
+//       this.dateModified,
+//       this.viewed,
+//       this.weightClass,
+//       this.lengthClass,
+//       this.shipping,
+//       this.reward,
+//       this.points,
+//       this.category,
+//       this.quantity,
+//       this.reviews,
 //       this.recurrings,});
 //
 //   Product.fromJson(dynamic json) {
@@ -417,7 +429,7 @@ class ProductInCategory extends Product{
 //
 // class Category {
 //   Category({
-//       this.name, 
+//       this.name,
 //       this.id,});
 //
 //   Category.fromJson(dynamic json) {

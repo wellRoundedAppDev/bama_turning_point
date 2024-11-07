@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/core/constants/paths/routes/routes/routes_ids.dart';
@@ -12,21 +14,22 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'cart/presentation/screens/cart_screen.dart';
 import 'core/bloc_observer.dart';
 import 'core/constants/colors/colors.dart';
 import 'core/constants/fonts/font_families.dart';
 import 'core/locales/l10n/l10n.dart';
+import 'core/locales/l10n/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
 
   await Firebase.initializeApp();
-
+  HttpOverrides.global = MyHttpOverrides();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(const MyApp());
@@ -109,5 +112,14 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

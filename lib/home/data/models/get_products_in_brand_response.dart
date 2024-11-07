@@ -43,6 +43,8 @@ class ProductsInBrand extends Product {
     this.productImagePath,
     this.priceFormatted,
     this.description,
+    this.stockStatus,
+    this.stockStatusId
   });
 
   factory ProductsInBrand.fromJson(dynamic json) {
@@ -58,6 +60,9 @@ class ProductsInBrand extends Product {
             .currencyCode ??
             "") == "USD"?"\$":"IQD");
     var productImagePath = json['image'];
+    var stockStatus = json['stock_status'];
+    var stockStatusId = json['stock_status_id'];
+
     return ProductsInBrand(
         productId: productId,
         name: name,
@@ -65,6 +70,8 @@ class ProductsInBrand extends Product {
         priceFormatted: priceFormatted,
         quantity: quantity,
         price: price,
+        stockStatus: stockStatus,
+        stockStatusId: stockStatusId,
         rating: rating,
         description: description);
   }
@@ -76,6 +83,8 @@ class ProductsInBrand extends Product {
   String? description;
   String? productImagePath;
   String? priceFormatted;
+  String? stockStatus;
+  num? stockStatusId;
 // Map<String, dynamic> toJson() {
 //   final map = <String, dynamic>{};
 //   map['product_id'] = productId;
