@@ -5,6 +5,7 @@ import 'package:classic_eccomerce/product_details/presentation/cubits/product_de
 import 'package:classic_eccomerce/product_details/presentation/cubits/product_details_cubit/states.dart';
 import 'package:classic_eccomerce/product_details/presentation/widgets/product_details_bottom_sheet.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -256,7 +257,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                                 onTap: () {
                                                                                   Navigator.pop(context);
                                                                                 },
-                                                                                child: Icon(
+                                                                                child: const Icon(
                                                                                   Icons.cancel,
                                                                                   color: AppColors.APP_MAIN_COLOR,
                                                                                   size: 50,
@@ -294,27 +295,6 @@ class ProductDetailsScreen extends StatelessWidget {
                                                           )
                                                           .toList(),
                                                     ),
-                                              // Image.network(
-                                              //   productImagePath??"",
-                                              //   errorBuilder:
-                                              //       (context, object, stackTrace) {
-                                              //     return const Center(
-                                              //       child: Icon(
-                                              //         Icons.error,
-                                              //         size: 150,
-                                              //         color: AppColors.APP_MAIN_COLOR,
-                                              //       ),
-                                              //     );
-                                              //   },
-                                              //   width: MediaQuery.of(context)
-                                              //       .size
-                                              //       .width,
-                                              //   height: MediaQuery.of(context)
-                                              //           .size
-                                              //           .height *
-                                              //       0.3,
-                                              //   fit: BoxFit.cover,
-                                              // ),
                                               ((originalImageUrls?.length ??
                                                           0) ==
                                                       0)
@@ -519,101 +499,227 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                 : 16),
                                                         child: Row(
                                                           children: [
-                                                            Text(
-                                                              optionName ?? "",
-                                                              style: const TextStyle(
-                                                                  fontSize:
-                                                                      FontSizes
-                                                                          .FONT_SIZE_14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Color(
-                                                                      0xff333333)),
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 8,
-                                                            ),
-                                                            Expanded(
-                                                              child: SizedBox(
-                                                                height: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .height *
-                                                                    0.04,
-                                                                child: ListView
-                                                                    .separated(
-                                                                        scrollDirection:
-                                                                            Axis
-                                                                                .horizontal,
-                                                                        itemBuilder:
-                                                                            (context,
-                                                                                index) {
-                                                                          var productOptionValue =
-                                                                              option.optionValues?[index];
-                                                                          var productOptionImage =
-                                                                              productOptionValue?.optionImageUrl;
-                                                                          var productOptionName =
-                                                                              productOptionValue?.name;
-                                                                          int?
-                                                                              productOptionValueId =
-                                                                              productOptionValue?.productOptionValueId;
-                                                                          if (kDebugMode) {
-                                                                            print(productDetailsCubit.selectedOption['option']);
-                                                                            print(productDetailsCubit.selectedOption['option'][option.productOptionId?.toString()]);
-                                                                          }
-                                                                          bool
-                                                                              isOptionSelected =
-                                                                              productDetailsCubit.selectedOption['option']?[productOptionId?.toString()] == productOptionValueId.toString();
+                                                            //todo replace original
+                                                            // Text(
+                                                            //   optionName ?? "",
+                                                            //   style: const TextStyle(
+                                                            //       fontSize:
+                                                            //           FontSizes
+                                                            //               .FONT_SIZE_14,
+                                                            //       fontWeight:
+                                                            //           FontWeight
+                                                            //               .bold,
+                                                            //       color: Color(
+                                                            //           0xff333333)),
+                                                            // ),
+                                                            // const SizedBox(
+                                                            //   width: 8,
+                                                            // ),
 
-                                                                          return GestureDetector(
-                                                                            onTap:
-                                                                                () {
-                                                                              productDetailsCubit.setOption(option, productOptionValue);
-                                                                            },
-                                                                            child:
-                                                                                Container(
-                                                                              width: 35,
-                                                                              height: 30,
-                                                                              decoration: BoxDecoration(border: Border.all(color: AppColors.APP_MAIN_COLOR, width: (isOptionSelected == true) ? 2 : 0), borderRadius: BorderRadius.circular((productOptionImage == null) ? 0 : 100)),
-                                                                              child: (productOptionImage == null)
-                                                                                  ? Center(child: Text(productOptionName ?? ""))
-                                                                                  : ClipRRect(
-                                                                                      borderRadius: BorderRadius.circular(100),
-                                                                                      child: Image.network(
-                                                                                        productOptionImage ?? "",
-                                                                                        fit: BoxFit.cover,
-                                                                                        errorBuilder: (context, object, stackTrace) {
-                                                                                          return const Center(
-                                                                                            child: Icon(
-                                                                                              Icons.error,
-                                                                                              size: 30,
-                                                                                              color: AppColors.APP_MAIN_COLOR,
-                                                                                            ),
-                                                                                          );
-                                                                                        },
-                                                                                      ),
-                                                                                    ),
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                        separatorBuilder:
-                                                                            (context,
-                                                                                index) {
-                                                                          return const SizedBox(
+                                                            //todo original circles
+                                                            // Expanded(
+                                                            //   child: SizedBox(
+                                                            //     height: MediaQuery.of(
+                                                            //                 context)
+                                                            //             .size
+                                                            //             .height *
+                                                            //         0.04,
+                                                            //     child: ListView
+                                                            //         .separated(
+                                                            //             scrollDirection:
+                                                            //                 Axis
+                                                            //                     .horizontal,
+                                                            //             itemBuilder:
+                                                            //                 (context,
+                                                            //                     index) {
+                                                            //               var productOptionValue =
+                                                            //                   option.optionValues?[index];
+                                                            //               var productOptionImage =
+                                                            //                   productOptionValue?.optionImageUrl;
+                                                            //               var productOptionName =
+                                                            //                   productOptionValue?.name;
+                                                            //               int?
+                                                            //                   productOptionValueId =
+                                                            //                   productOptionValue?.productOptionValueId;
+                                                            //               if (kDebugMode) {
+                                                            //                 print(productDetailsCubit.selectedOption['option']);
+                                                            //                 print(productDetailsCubit.selectedOption['option'][option.productOptionId?.toString()]);
+                                                            //               }
+                                                            //               bool
+                                                            //                   isOptionSelected =
+                                                            //                   productDetailsCubit.selectedOption['option']?[productOptionId?.toString()] == productOptionValueId.toString();
+                                                            //
+                                                            //               return GestureDetector(
+                                                            //                 onTap:
+                                                            //                     () {
+                                                            //                   productDetailsCubit.setOption(option, productOptionValue);
+                                                            //                 },
+                                                            //                 child:
+                                                            //                     Container(
+                                                            //                   width: 35,
+                                                            //                   height: 30,
+                                                            //                   decoration: BoxDecoration(border: Border.all(color: AppColors.APP_MAIN_COLOR, width: (isOptionSelected == true) ? 2 : 0), borderRadius: BorderRadius.circular((productOptionImage == null) ? 0 : 100)),
+                                                            //                   child: (productOptionImage == null)
+                                                            //                       ? Center(child: Text(productOptionName ?? ""))
+                                                            //                       : ClipRRect(
+                                                            //                           borderRadius: BorderRadius.circular(100),
+                                                            //                           child: Image.network(
+                                                            //                             productOptionImage ?? "",
+                                                            //                             fit: BoxFit.cover,
+                                                            //                             errorBuilder: (context, object, stackTrace) {
+                                                            //                               return const Center(
+                                                            //                                 child: Icon(
+                                                            //                                   Icons.error,
+                                                            //                                   size: 30,
+                                                            //                                   color: AppColors.APP_MAIN_COLOR,
+                                                            //                                 ),
+                                                            //                               );
+                                                            //                             },
+                                                            //                           ),
+                                                            //                         ),
+                                                            //                 ),
+                                                            //               );
+                                                            //             },
+                                                            //             separatorBuilder:
+                                                            //                 (context,
+                                                            //                     index) {
+                                                            //               return const SizedBox(
+                                                            //                 width:
+                                                            //                     8,
+                                                            //               );
+                                                            //             },
+                                                            //             itemCount:
+                                                            //                 option.optionValues?.length ??
+                                                            //                     0),
+                                                            //   ),
+                                                            // )
+
+                                                            Expanded(
+                                                              child: Container(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                        left:
+                                                                            16,
+                                                                        right:
+                                                                            8),
+                                                                decoration: BoxDecoration(
+                                                                    border: Border.all(
+                                                                        color: const Color(
+                                                                            0xff95989A))),
+                                                                child: DropdownSearch<
+                                                                    OptionValue>(
+                                                                  asyncItems:
+                                                                      (String
+                                                                          filter) async {
+                                                                    return [];
+                                                                    // return await AccountCubit.get(context)
+                                                                    //     .getRegions();
+                                                                  },
+                                                                  items: option
+                                                                          .optionValues ??
+                                                                      [],
+                                                                  dropdownDecoratorProps: DropDownDecoratorProps(
+                                                                      dropdownSearchDecoration: InputDecoration(
+                                                                          border: InputBorder.none,
+                                                                          hintStyle: const TextStyle(
+                                                                            fontSize:
+                                                                                FontSizes.FONT_SIZE_16,
+                                                                            color:
+                                                                                Color(0xff878787),
+                                                                          ),
+                                                                          label: Text(
+                                                                            optionName ??
+                                                                                "",
+                                                                            style: const TextStyle(
+                                                                                fontSize: FontSizes.FONT_SIZE_16,
+                                                                                fontWeight: FontWeight.bold,
+                                                                                color: Color(0xff313846)),
+                                                                          ),
+                                                                          hintText: AppLocalizations.of(context)!.region_or_state)),
+                                                                  dropdownButtonProps:
+                                                                      const DropdownButtonProps(
+                                                                          icon:
+                                                                              Icon(
+                                                                    Icons
+                                                                        .keyboard_arrow_down,
+                                                                    color: Color(
+                                                                        0xff696C6E),
+                                                                  )),
+                                                                  popupProps: PopupProps.menu(itemBuilder:
+                                                                      (context,
+                                                                          OptionValue
+                                                                              option,
+                                                                          bool) {
+                                                                    return Padding(
+                                                                      padding: const EdgeInsets
+                                                                          .all(
+                                                                          16.0),
+                                                                      child: Image
+                                                                          .network(
+                                                                        option.optionImageUrl ??
+                                                                            "-",
+                                                                        height: MediaQuery.of(context).size.height *
+                                                                            0.05,
+                                                                        width: double
+                                                                            .infinity,
+                                                                        fit: BoxFit.cover,
+
+                                                                        // style: const TextStyle(
+                                                                        //     fontSize: FontSizes
+                                                                        //         .FONT_SIZE_16,
+                                                                        //     color: Color(
+                                                                        //         0xff878787)),
+                                                                      ),
+                                                                    );
+                                                                  }),
+                                                                  dropdownBuilder:
+                                                                      (context,
+                                                                          option) {
+                                                                    return (option ==
+                                                                            null)
+                                                                        ? Text(optionName ??
+                                                                            "-")
+                                                                        : Image
+                                                                            .network(
+                                                                            option?.optionImageUrl ??
+                                                                                "",
+                                                                            height:
+                                                                                MediaQuery.of(context).size.height * 0.05,
                                                                             width:
-                                                                                8,
+                                                                                double.infinity,
+                                                                            fit:
+                                                                                BoxFit.cover,
+
+                                                                            //AppLocalizations.of(context)!.region_or_state,
+                                                                            // style: const TextStyle(
+                                                                            //     fontSize: FontSizes
+                                                                            //         .FONT_SIZE_16,
+                                                                            //     color: Color(
+                                                                            //         0xff878787)),
                                                                           );
-                                                                        },
-                                                                        itemCount:
-                                                                            option.optionValues?.length ??
-                                                                                0),
+                                                                  },
+                                                                  // onChanged:
+                                                                  //     (Option? option) {
+                                                                  //   // AccountCubit.get(context)
+                                                                  //   //     .setAccountAddressRegion(region!);
+                                                                  // },
+                                                                  // validator:
+                                                                  //     (Option? option) {
+                                                                  //   // if (AccountCubit.get(context)
+                                                                  //   //     .accountAddressInput
+                                                                  //   //     .region ==
+                                                                  //   //     null) {
+                                                                  //   //   return AppLocalizations.of(context)!.select_your_region_or_state;
+                                                                  //   // }
+                                                                  // },
+                                                                ),
                                                               ),
-                                                            )
+                                                            ),
                                                           ],
                                                         ),
                                                       );
-                                                    })?.toList()) ??
+                                                    }).toList()) ??
                                                     []
                                               ],
                                             ),
