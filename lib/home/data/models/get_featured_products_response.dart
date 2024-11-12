@@ -99,7 +99,7 @@ class FeaturedProduct extends Product {
     var price = json['price'];
     var description = json['description'];
     var imagePath= json['thumb'];
-    var priceFormatted = (json['price']?.toString() ?? "") +
+    var priceFormatted = (json['price']?.toString() ?? "").replaceAllMapped(new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},") +
         ((MyApp.navKey.currentState?.context
             .read<AppSettingsCubit>()
             .currencyCode ??

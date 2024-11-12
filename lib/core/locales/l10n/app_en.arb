@@ -144,6 +144,7 @@
   "return_to_home_page": "Return to home page",
   "order": "Order",
   "call_us": "Call us",
+  "select_from_the_available_options": "Select from the available options",
 
   "welcome_user": "Welcome {username}",
   "@welcome_user": {

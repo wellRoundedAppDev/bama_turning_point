@@ -143,5 +143,7 @@
   "order": "الطلب",
   "call_us": "اتصل بنا",
 
+  "select_from_the_available_options": "اختر من الخيارات المتاحة",
+
   "welcome_user": "اهلاً بك, {username}"
 }

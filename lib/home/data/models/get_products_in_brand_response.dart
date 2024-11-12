@@ -34,18 +34,17 @@ class GetProductsInBrandResponse {
 }
 
 class ProductsInBrand extends Product {
-  ProductsInBrand({
-    this.productId,
-    this.name,
-    this.quantity,
-    this.price,
-    this.rating,
-    this.productImagePath,
-    this.priceFormatted,
-    this.description,
-    this.stockStatus,
-    this.stockStatusId
-  });
+  ProductsInBrand(
+      {this.productId,
+      this.name,
+      this.quantity,
+      this.price,
+      this.rating,
+      this.productImagePath,
+      this.priceFormatted,
+      this.description,
+      this.stockStatus,
+      this.stockStatusId});
 
   factory ProductsInBrand.fromJson(dynamic json) {
     var productId = json['product_id'];
@@ -54,11 +53,15 @@ class ProductsInBrand extends Product {
     var price = json['price'];
     var rating = json['rating'];
     var description = json['description'];
-    var priceFormatted = (json['price']?.toString() ?? "") +
+    var priceFormatted = (json['price']?.toString() ?? "").replaceAllMapped(
+            RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},") +
         ((MyApp.navKey.currentState?.context
-            .read<AppSettingsCubit>()
-            .currencyCode ??
-            "") == "USD"?"\$":"IQD");
+                        .read<AppSettingsCubit>()
+                        .currencyCode ??
+                    "") ==
+                "USD"
+            ? "\$"
+            : "IQD");
     var productImagePath = json['image'];
     var stockStatus = json['stock_status'];
     var stockStatusId = json['stock_status_id'];

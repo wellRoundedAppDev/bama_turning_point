@@ -57,8 +57,11 @@ class LatestProduct extends Product{
     var rating = json['rating'];
     var description = json['description'];
     var productImagePath = json['thumb'];
+    // var priceFormatted =
+    //     ( ((json['price_formated']?.toString() ?? "").split(".")?.first)??"")
+    //         + ((json['price_formated']?.toString() ?? "").split(".")?.last??"").replaceAll(from, replace)??"";
 
-    var priceFormatted = (json['price']?.toString() ?? "") +
+    var priceFormatted = (json['price']?.toString() ?? "").replaceAllMapped(new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},") +
         ((MyApp.navKey.currentState?.context
             .read<AppSettingsCubit>()
             .currencyCode ??

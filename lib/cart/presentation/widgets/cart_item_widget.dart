@@ -4,9 +4,11 @@ import 'package:classic_eccomerce/product_details/presentation/screens/product_d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../app_settings/app_settings_cubit/app_settings_cubit.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../core/constants/paths/icon_paths.dart';
+import '../../../main.dart';
 import '../../data/models/cart_item.dart';
 
 class CartItemWidget extends StatelessWidget {
@@ -76,7 +78,16 @@ class CartItemWidget extends StatelessWidget {
                   height: 3,
                 ),
                 Text(
-                  cartItem.priceFormatted ?? "",
+                  cartItem.price.toString().replaceAllMapped(
+                          new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                          (Match m) => "${m[1]},") + ((MyApp.navKey.currentState?.context
+                      .read<AppSettingsCubit>()
+                      .currencyCode ??
+                      "") ==
+                      "USD"
+                      ? "\$"
+                      : "IQD") ??
+                      "",
                   // "\$${cartItem.price.toString()}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

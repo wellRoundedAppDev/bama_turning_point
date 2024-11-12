@@ -10,11 +10,9 @@ import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:classic_eccomerce/shared_components/custom_input.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 class QuickCheckoutMainScreen extends StatelessWidget {
   const QuickCheckoutMainScreen({super.key});
@@ -154,10 +152,12 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                         Padding(
-                                          padding: const EdgeInsets.only(left: 16.0),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 16.0),
                                           child: Text(
-                                            AppLocalizations.of(context)!.payment_method,
+                                            AppLocalizations.of(context)!
+                                                .payment_method,
                                             style: const TextStyle(
                                                 color: Color(0xff1E1B1B),
                                                 fontWeight: FontWeight.bold,
@@ -217,8 +217,8 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                   Text(
-                                AppLocalizations.of(context)!.coupon,
+                                  Text(
+                                    AppLocalizations.of(context)!.coupon,
                                     style: const TextStyle(
                                         fontSize: FontSizes.FONT_SIZE_20,
                                         fontWeight: FontWeight.bold),
@@ -226,8 +226,9 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 4,
                                   ),
-                                    Text(
-                                    AppLocalizations.of(context)!.enter_your_coupon_here,
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .enter_your_coupon_here,
                                     style: const TextStyle(
                                         fontSize: FontSizes.FONT_SIZE_16,
                                         color: Color(0xff878787)),
@@ -244,9 +245,13 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                       SizedBox(
                                           width: 100,
                                           child: CustomButton(
-                                              text: AppLocalizations.of(context)!.submit, action: () {
-                                                CheckoutApis.setCouponCode(couponCode: "1234");
-                                          }))
+                                              text:
+                                                  AppLocalizations.of(context)!
+                                                      .submit,
+                                              action: () {
+                                                CheckoutApis.setCouponCode(
+                                                    couponCode: "1234");
+                                              }))
                                     ],
                                   ),
 
@@ -277,8 +282,8 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                             const SizedBox(
                               height: 16,
                             ),
-                             Text(
-                             AppLocalizations.of(context)!.shopping_cart ,
+                            Text(
+                              AppLocalizations.of(context)!.shopping_cart,
                               style: const TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_20,
                                 fontWeight: FontWeight.bold,
@@ -301,7 +306,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                         vertical: 16.0, horizontal: 16),
                                     child: Row(
                                       children: [
-                                         Text(
+                                        Text(
                                           "${AppLocalizations.of(context)!.subtotal}: ",
                                           style: const TextStyle(
                                               fontSize: FontSizes.FONT_SIZE_14,
@@ -309,7 +314,9 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: Text(
-                                            "${CartCubit.get(context).totalPrice} IQD",
+                                            "${CartCubit.get(context).totalPrice.toString().replaceAllMapped(
+                                                new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                    (Match m) => "${m[1]},")} IQD",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
@@ -340,7 +347,9 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: Text(
-                                            "${selectedShippingMethod?.quote?[0].cost ?? ""} IQD",
+                                            "${selectedShippingMethod?.quote?[0].cost.toString().replaceAllMapped(
+                                                new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                    (Match m) => "${m[1]},") ?? ""} IQD",
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
@@ -361,7 +370,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                         vertical: 16.0, horizontal: 16),
                                     child: Row(
                                       children: [
-                                         Text(
+                                        Text(
                                           "${AppLocalizations.of(context)!.total}: ",
                                           style: const TextStyle(
                                               fontSize: FontSizes.FONT_SIZE_14,
@@ -369,7 +378,9 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: Text(
-                                            "${CartCubit.get(context).totalPrice + (double.tryParse(selectedShippingMethod?.quote?[0].cost ?? "") ?? 0)} IQD",
+                                            "${(CartCubit.get(context).totalPrice + (double.tryParse(selectedShippingMethod?.quote?[0].cost ?? "") ?? 0)).toString().replaceAllMapped(
+                                                new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                    (Match m) => "${m[1]},")} IQD",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
@@ -447,7 +458,8 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                               height: 16,
                             ),
                             CustomButton(
-                                text: AppLocalizations.of(context)!.confirm_order,
+                                text:
+                                    AppLocalizations.of(context)!.confirm_order,
                                 isLoading: state is ConfirmOrderLoadingState,
                                 action: () {
                                   checkOutCubit

@@ -130,8 +130,6 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                               context)
                                                                           .size
                                                                           .width,
-                                                                      fit: BoxFit
-                                                                          .cover,
                                                                       errorBuilder: (context,
                                                                           object,
                                                                           stackTrace) {
@@ -158,7 +156,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                               context);
                                                                         },
                                                                         child:
-                                                                            Icon(
+                                                                            const Icon(
                                                                           Icons
                                                                               .cancel,
                                                                           color:
@@ -239,7 +237,6 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                               e ?? "",
                                                                               height: MediaQuery.of(context).size.height,
                                                                               width: MediaQuery.of(context).size.width,
-                                                                              fit: BoxFit.cover,
                                                                               errorBuilder: (context, object, stackTrace) {
                                                                                 return const Center(
                                                                                   child: Icon(
@@ -483,13 +480,30 @@ class ProductDetailsScreen extends StatelessWidget {
                                                     : const SizedBox(
                                                         height: 16,
                                                       ),
-                                                ...(options
-                                                        ?.map<Widget>((option) {
+                                                (isThereOptions == false)
+                                                    ? Container()
+                                                    : Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .select_from_the_available_options,
+                                                        style: const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Color(
+                                                                0xff313846)),
+                                                      ),
+                                                (isThereOptions == false)
+                                                    ? Container()
+                                                    : const SizedBox(
+                                                        height: 4,
+                                                      ),
+                                                ...(options?.map<Widget>(
+                                                        (optionItem) {
                                                       int? productOptionId =
-                                                          option
+                                                          optionItem
                                                               .productOptionId;
                                                       String? optionName =
-                                                          option.optionName;
+                                                          optionItem.optionName;
                                                       return Padding(
                                                         padding: EdgeInsets.only(
                                                             bottom: (productOptionId ==
@@ -609,14 +623,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                             0xff95989A))),
                                                                 child: DropdownSearch<
                                                                     OptionValue>(
-                                                                  asyncItems:
-                                                                      (String
-                                                                          filter) async {
-                                                                    return [];
-                                                                    // return await AccountCubit.get(context)
-                                                                    //     .getRegions();
-                                                                  },
-                                                                  items: option
+
+                                                                  items: optionItem
                                                                           .optionValues ??
                                                                       [],
                                                                   dropdownDecoratorProps: DropDownDecoratorProps(
@@ -663,13 +671,22 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                             0.05,
                                                                         width: double
                                                                             .infinity,
-                                                                        fit: BoxFit.cover,
-
-                                                                        // style: const TextStyle(
-                                                                        //     fontSize: FontSizes
-                                                                        //         .FONT_SIZE_16,
-                                                                        //     color: Color(
-                                                                        //         0xff878787)),
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                        errorBuilder: (context,
+                                                                            object,
+                                                                            stackTrace) {
+                                                                          return const Center(
+                                                                            child:
+                                                                            Icon(
+                                                                              Icons.error,
+                                                                              size:
+                                                                              40,
+                                                                              color:
+                                                                              AppColors.APP_MAIN_COLOR,
+                                                                            ),
+                                                                          );
+                                                                        },
                                                                       ),
                                                                     );
                                                                   }),
@@ -690,29 +707,29 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                                 double.infinity,
                                                                             fit:
                                                                                 BoxFit.cover,
-
-                                                                            //AppLocalizations.of(context)!.region_or_state,
-                                                                            // style: const TextStyle(
-                                                                            //     fontSize: FontSizes
-                                                                            //         .FONT_SIZE_16,
-                                                                            //     color: Color(
-                                                                            //         0xff878787)),
+                                                                      errorBuilder: (context,
+                                                                          object,
+                                                                          stackTrace) {
+                                                                        return const Center(
+                                                                          child:
+                                                                          Icon(
+                                                                            Icons.error,
+                                                                            size:
+                                                                            40,
+                                                                            color:
+                                                                            AppColors.APP_MAIN_COLOR,
+                                                                          ),
+                                                                        );
+                                                                      },
                                                                           );
                                                                   },
-                                                                  // onChanged:
-                                                                  //     (Option? option) {
-                                                                  //   // AccountCubit.get(context)
-                                                                  //   //     .setAccountAddressRegion(region!);
-                                                                  // },
-                                                                  // validator:
-                                                                  //     (Option? option) {
-                                                                  //   // if (AccountCubit.get(context)
-                                                                  //   //     .accountAddressInput
-                                                                  //   //     .region ==
-                                                                  //   //     null) {
-                                                                  //   //   return AppLocalizations.of(context)!.select_your_region_or_state;
-                                                                  //   // }
-                                                                  // },
+                                                                  onChanged:
+                                                                      (optionValue) {
+                                                                    productDetailsCubit.setOption(
+                                                                        optionItem,
+                                                                        optionValue);
+                                                                  },
+
                                                                 ),
                                                               ),
                                                             ),

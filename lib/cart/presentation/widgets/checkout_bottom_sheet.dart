@@ -47,7 +47,9 @@ class CheckOutBottomSheet extends StatelessWidget {
                         CartCubit cartCubit = CartCubit.get(context);
                         String currencySymbol = "IQD";
                         return Text(
-                          ": ${cartCubit.totalPrice.toStringAsFixed(2)}$currencySymbol",
+                          ": ${cartCubit.totalPrice.toStringAsFixed(2).replaceAllMapped(
+                              new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                  (Match m) => "${m[1]},")}$currencySymbol",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(

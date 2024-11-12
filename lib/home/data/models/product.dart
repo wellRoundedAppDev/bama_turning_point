@@ -16,7 +16,7 @@ class Product {
     var name = json['name'];
     var quantity = json['quantity'];
     var price = json['price'];
-    var priceFormatted = json['price_formated'];
+    var priceFormatted = json['price'].replaceAllMapped(new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
     var rating = json['rating'];
     var productImagePath = json['thumb'];
     var description = json['description'];

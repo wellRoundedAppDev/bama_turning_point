@@ -500,7 +500,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                                           width: 8,
                                                         ),
                                                         Text(
-                                                          "${product.priceRaw ?? ""}${product.currency} x ${product.quantity}",
+                                                          "${product.priceRaw.toString().replaceAllMapped(new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},") ?? ""}${product.currency} x ${product.quantity}",
                                                           maxLines: 1,
                                                           overflow: TextOverflow
                                                               .ellipsis,
@@ -515,7 +515,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                                   ),
                                                   Expanded(
                                                     child: Text(
-                                                      "${product.totalRaw ?? ""}${product.currency}",
+                                                      "${product.totalRaw.toString().replaceAllMapped(new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},") ?? ""}${product.currency}",
                                                       maxLines: 1,
                                                       textAlign: TextAlign.end,
                                                       style: const TextStyle(
@@ -552,11 +552,16 @@ class OrderDetailsScreen extends StatelessWidget {
                                                       ),
                                                     )),
                                                     Text(
-                                                      (double.tryParse(total
-                                                                          .value ??
-                                                                      "")
-                                                                  ?.toString() ??
-                                                              "") +
+                                                      (double.tryParse(total.value ??
+                                                                          "")
+                                                                      ?.toString() ??
+                                                                  "")
+                                                              .toString()
+                                                              .replaceAllMapped(
+                                                                  new RegExp(
+                                                                      r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                                  (Match m) =>
+                                                                      "${m[1]},") +
                                                           AppSettingsCubit.get(
                                                                   context)
                                                               .currencyCode,

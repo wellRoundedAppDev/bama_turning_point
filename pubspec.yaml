@@ -36,7 +36,7 @@ dependencies:
   email_validator: ^2.1.17
   flutter_upayments: ^1.0.2
   firebase_core: ^2.15.0
-  move_to_background: ^1.0.2
+  #move_to_background: ^1.0.2
   firebase_auth: ^4.7.0
   rflutter_alert: ^2.0.7
   provider: ^6.0.5

@@ -127,7 +127,9 @@ class ProductDetails {
         : [];
     var priceExcludingTax = json['price_excluding_tax'];
     var priceExcludingTaxFormated =
-        (json['price_excluding_tax']?.toString() ?? "") +
+        (json['price_excluding_tax']?.toString() ?? "").replaceAllMapped(
+                new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                (Match m) => "${m[1]},") +
             ((MyApp.navKey.currentState?.context
                             .read<AppSettingsCubit>()
                             .currencyCode ??
@@ -137,7 +139,9 @@ class ProductDetails {
                 : "IQD");
 
     var price = json['price'];
-    var priceFormatted = (json['price']?.toString() ?? "") +
+    var priceFormatted = (json['price']?.toString() ?? "").replaceAllMapped(
+            new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+            (Match m) => "${m[1]},") +
         ((MyApp.navKey.currentState?.context
                         .read<AppSettingsCubit>()
                         .currencyCode ??
@@ -457,7 +461,10 @@ class OptionValue {
   int? productOptionValueId;
   String? name;
   OptionValue(
-      {this.optionImageUrl, this.optionValueId, this.productOptionValueId,this.name});
+      {this.optionImageUrl,
+      this.optionValueId,
+      this.productOptionValueId,
+      this.name});
 
   factory OptionValue.fromJson(dynamic json) {
     var imageUrl = json['image'];
@@ -468,8 +475,7 @@ class OptionValue {
         optionImageUrl: imageUrl,
         productOptionValueId: productOptionValueId,
         optionValueId: optionValueId,
-    name: name
-    );
+        name: name);
   }
 }
 
