@@ -8,11 +8,12 @@ import '../../../core/constants/paths/image_paths.dart';
 import '../../../shared_components/custom_input.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class SignUpScreen extends StatelessWidget {
   bool showBackButton;
-  SignUpScreen(
-      {super.key, this.showBackButton = true, });
+  SignUpScreen({
+    super.key,
+    this.showBackButton = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,19 +36,23 @@ class SignUpScreen extends StatelessWidget {
                 Center(
                   child: ClipOval(
                       child: Image.asset(
-                        ImagePaths.APP_LOGO,
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        height: MediaQuery.of(context).size.height * 0.2,
-                      )),
+                    ImagePaths.APP_LOGO,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.2,
+                  )),
                 ),
-                const SizedBox(height: 16,),
+                const SizedBox(
+                  height: 16,
+                ),
 
                 CustomInput(
                   label: AppLocalizations.of(context)!.phone_number,
                   hintText: AppLocalizations.of(context)!.phone_number,
                   textInputType: TextInputType.phone,
                   validator: (value) {
-                    if (value == null || value.length < 8 || value.length > 13) {
+                    if (value == null ||
+                        value.length < 8 ||
+                        value.length > 13) {
                       return AppLocalizations.of(context)!
                           .enter_a_valid_phone_number;
                     }
@@ -129,7 +134,8 @@ class SignUpScreen extends StatelessWidget {
                   hintText: AppLocalizations.of(context)!.first_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!.enter_your_first_name;
+                      return AppLocalizations.of(context)!
+                          .enter_your_first_name;
                     }
                   },
                   onSaved: (v) =>
@@ -139,11 +145,12 @@ class SignUpScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
-                  label:AppLocalizations.of(context)!.family_name ,
+                  label: AppLocalizations.of(context)!.family_name,
                   hintText: AppLocalizations.of(context)!.family_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!.enter_your_family_name;
+                      return AppLocalizations.of(context)!
+                          .enter_your_family_name;
                     }
                   },
                   onSaved: (v) =>
@@ -157,7 +164,8 @@ class SignUpScreen extends StatelessWidget {
                   hintText: AppLocalizations.of(context)!.password,
                   validator: (v) {
                     if (v == null || v.length < 6) {
-                      return AppLocalizations.of(context)!.enter_a_password_of_at_least_six_characters;
+                      return AppLocalizations.of(context)!
+                          .enter_a_password_of_at_least_six_characters;
                     }
                   },
                   onSaved: (v) =>
@@ -171,7 +179,8 @@ class SignUpScreen extends StatelessWidget {
                   hintText: AppLocalizations.of(context)!.confirm_password,
                   validator: (v) {
                     if (v == null || v.length < 6) {
-                      return AppLocalizations.of(context)!.enter_a_password_of_at_least_six_characters;
+                      return AppLocalizations.of(context)!
+                          .enter_a_password_of_at_least_six_characters;
                     }
                   },
                   onSaved: (v) => AuthCubit.get(context)
@@ -374,10 +383,11 @@ class SignUpScreen extends StatelessWidget {
                   listener: (context, state) {},
                   builder: (context, state) {
                     return CustomButton(
-                        text:  AppLocalizations.of(context)!.sign_up,
+                        text: AppLocalizations.of(context)!.sign_up,
                         isLoading: state is RegisterLoadingState,
                         action: () {
-                          AuthCubit.get(context).register(cartCubit: CartCubit.get(context));
+                          AuthCubit.get(context)
+                              .register(cartCubit: CartCubit.get(context));
                           // Navigator.push(
                           //     context,
                           //     PageTransition(

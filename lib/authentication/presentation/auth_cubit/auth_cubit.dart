@@ -303,6 +303,29 @@ class AuthCubit extends Cubit<AuthStates> {
     return false;
   }
 
+  checkIfUserExists(var input) async {
+    if (await setAccessToken() == false) {
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!
+              .check_your_internet_connection_and_try_again_later);
+
+      return false;
+    }
+
+    var response = await AuthApis.login(input);
+    if (response?.success == 1) {
+      return true;
+    } else if (response?.success == 0) {
+      return false;
+    } else {
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!
+              .check_your_internet_connection_and_try_again_later);
+
+      return null;
+    }
+  }
+
   Future<bool?> createGuestUser(
       CartCubit cartCubit, CheckOutCubit checkOutCubit) async {
     if (validateGuestCheckoutForm() == false) {

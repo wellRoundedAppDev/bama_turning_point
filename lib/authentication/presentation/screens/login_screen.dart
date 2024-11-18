@@ -2,6 +2,7 @@ import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cu
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/forget_password_screen.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/sign_up_screen.dart';
+import 'package:classic_eccomerce/contact_us/presentation/screens/contact_us_screen.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,26 +32,33 @@ class SignInScreen extends StatelessWidget {
             key: AuthCubit.get(context).loginFormKey,
             child: Column(
               children: [
-                const SizedBox(height: 16,),
+                const SizedBox(
+                  height: 16,
+                ),
                 ClipOval(
                     child: Image.asset(
                   ImagePaths.APP_LOGO,
                   width: MediaQuery.of(context).size.width * 0.4,
                   height: MediaQuery.of(context).size.height * 0.2,
                 )),
-                const SizedBox(height: 16,),
+                const SizedBox(
+                  height: 16,
+                ),
                 CustomInput(
                   label: AppLocalizations.of(context)!.phone_number,
                   hintText: AppLocalizations.of(context)!.phone_number,
                   textInputType: TextInputType.phone,
                   validator: (value) {
-                    if (value == null || value.length < 8 || value.length > 13) {
+                    if (value == null ||
+                        value.length < 8 ||
+                        value.length > 13) {
                       return AppLocalizations.of(context)!
                           .enter_a_valid_phone_number;
                     }
                   },
-                  onSaved: (v) =>
-                      AuthCubit.get(context).loginFormInput.username = v?.trim(),
+                  onSaved: (v) => AuthCubit.get(context)
+                      .loginFormInput
+                      .username = v?.trim(),
                 ),
                 const SizedBox(
                   height: 16,
@@ -60,12 +68,43 @@ class SignInScreen extends StatelessWidget {
                   hintText: AppLocalizations.of(context)!.password,
                   validator: (v) {
                     if (v == null || v.length < 6) {
-                      return AppLocalizations.of(context)!.enter_a_password_of_at_least_six_characters;
+                      return AppLocalizations.of(context)!
+                          .enter_a_password_of_at_least_six_characters;
                     }
                   },
                   onSaved: (v) => AuthCubit.get(context)
                       .loginFormInput
                       .password = v?.trim(),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      "${AppLocalizations.of(context)!.forgot_password} ",
+                      style: const TextStyle(
+                          fontSize: FontSizes.FONT_SIZE_14,
+                          color: Color(0xff313846)),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: const ContactUsScreen(),
+                                type: PageTransitionType.leftToRight));
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.contact_us,
+                        style: const TextStyle(
+                            fontSize: FontSizes.FONT_SIZE_14,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff313846)),
+                      ),
+                    ),
+                  ],
                 ),
                 // const SizedBox(
                 //   height: 8,
@@ -121,7 +160,7 @@ class SignInScreen extends StatelessWidget {
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                           Text(
+                          Text(
                             "${AppLocalizations.of(context)!.new_here} ",
                             style: const TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_14,
@@ -137,7 +176,7 @@ class SignInScreen extends StatelessWidget {
                                           child: SignUpScreen()),
                                       type: PageTransitionType.leftToRight));
                             },
-                            child:  Text(
+                            child: Text(
                               "${AppLocalizations.of(context)!.sign_up}!",
                               style: const TextStyle(
                                   fontSize: FontSizes.FONT_SIZE_14,

@@ -146,6 +146,9 @@
   "call_us": "Call us",
   "select_from_the_available_options": "Select from the available options",
 
+
+  "forgot_password":"Forgot password?",
+
   "welcome_user": "Welcome {username}",
   "@welcome_user": {
     "placeholders": {
