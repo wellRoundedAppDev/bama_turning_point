@@ -33,8 +33,10 @@ class ApiUrls {
   static const SHIPPING_METHODS_ENDPOINT = "api/rest/shippingmethods";
   static const PAYMENT_METHODS_ENDPOINT = "api/rest/paymentmethods";
   static const CUSTOMER_PAYMENT_ADDRESS_ENDPOINT = "api/rest/paymentaddress";
-  static const SET_EXISTING_CUSTOMER_PAYMENT_ADDRESS_ENDPOINT = "api/rest/paymentaddress/existing";
-  static const SET_EXISTING_CUSTOMER_SHIPPING_ADDRESS_ENDPOINT = "api/rest/shippingaddress/existing";
+  static const SET_EXISTING_CUSTOMER_PAYMENT_ADDRESS_ENDPOINT =
+      "api/rest/paymentaddress/existing";
+  static const SET_EXISTING_CUSTOMER_SHIPPING_ADDRESS_ENDPOINT =
+      "api/rest/shippingaddress/existing";
   static const SHIPPING_ADDRESS_ENDPOINT = "api/rest/shippingaddress";
   static const CHANGE_ACCOUNT_PASSWORD_ENDPOINT = "api/rest/account/password";
   static const ACCOUNT_ADDRESS_ENDPOINT = "api/rest/account/address";
@@ -48,8 +50,6 @@ class ApiUrls {
   static const CANCEL_ORDER_ENDPOINT = "index.php?route=api/cancelorder";
   static const routeUrl = 'feed/rest_api/';
   static const CONTACT_US_ENDPOINT = "api/rest/contact";
-
-
 
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>
       "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";
@@ -79,7 +79,6 @@ class ApiUrls {
       "$ACCOUNT_ADDRESS_ENDPOINT/$addressId";
   static String getSearchByTermEndpoint(String searchTerm) =>
       "$SEARCH_ENDPOINT$searchTerm";
-  static String getProductsInBrandEndpoint(int id) => "$GET_PRODUCTS_IN_BRAND_ENDPOINT{$id}";
-
-
+  static String getProductsInBrandEndpoint(int id) =>
+      "$GET_PRODUCTS_IN_BRAND_ENDPOINT{$id}";
 }
