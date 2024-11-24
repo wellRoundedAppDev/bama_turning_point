@@ -149,6 +149,69 @@
 
   "forgot_password":"Forgot password?",
 
+  "fill_all_fields": "Fill all fields",
+
+
+
+
+  "add_a_product": "Add a product",
+
+
+  "enter_product_name": "Enter product name",
+
+  "enter_product_price": "Enter product price",
+
+
+  "select_category": "Select category",
+
+  "fill_all_fields": "Fill all fields",
+
+  "iraq": "Iraq",
+
+  "seller_pending_approval": "Seller pending approval",
+
+  "product_pending_approval": "Product pending approval",
+
+  "vendor_products": "Vendor products",
+
+  "iraqi_dinar_initials": "IQD",
+
+  "enter_as_vendor": "Enter as vendor",
+
+
+  "upload_image": "Upload image",
+
+  "used": "Used",
+  "enter_motorcycle_name": "Enter motorcycle name",
+
+
+  "enter_motorcycle_price": "Enter motorcycle price",
+
+  "odometer": "Odometer",
+
+  "odometer_in_km": "Odometer in Km",
+
+  "enter_odometer": "Enter odometer",
+
+  "enter_odometer_in_km": "Enter odometer in Km",
+
+  "new_motorcycle_client": "New motorcycle-client",
+
+
+  "used_motorcycle_client": "Used motorcycle-client",
+
+  "km": "Kilometer",
+
+  "enter_address": "Enter address",
+
+
+  "enter_description": "Enter description",
+
+
+  "neww": "New",
+
+
+
   "welcome_user": "Welcome {username}",
   "@welcome_user": {
     "placeholders": {

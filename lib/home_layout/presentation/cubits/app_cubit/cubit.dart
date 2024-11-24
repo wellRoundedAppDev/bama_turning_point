@@ -8,7 +8,7 @@ class AppCubit extends Cubit<CheckOutStates> {
 
   static AppCubit get(BuildContext context) => BlocProvider.of(context);
 
-  int currentNavbarIndex = 4;
+  int currentNavbarIndex = 5;
 
 
   changeNavBarIndex(int index) {

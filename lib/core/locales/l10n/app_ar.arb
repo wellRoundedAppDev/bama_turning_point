@@ -147,5 +147,68 @@
 
   "welcome_user": "اهلاً بك, {username}",
 
-  "forgot_password":"هل نسيت كلمة السر؟"
+  "forgot_password":"هل نسيت كلمة السر؟",
+
+  "fill_all_fields": "املأ جميع الحقول",
+
+
+  "used": "مستعمل",
+
+  "vendor": "بائع",
+  "create_vendor_account": "إنشاء حساب البائع",
+  "add_a_product": "أضف منتج",
+
+  "enter_product_name": "أدخل اسم المنتج",
+
+  "enter_product_price": "أدخل سعر المنتج",
+
+  "select_category": "حدد القسم",
+
+
+
+  "iraq": "العراق",
+
+  "seller_pending_approval": "البائع في انتظار الموافقة",
+
+
+  "product_pending_approval": "المنتج في انتظار الموافقة",
+  "vendor_products": "منتجات البائع",
+
+
+  "iraqi_dinar_initials": "د.ع",
+
+
+  "enter_as_vendor": "أدخل كبائع",
+
+  "upload_image": "تحميل الصورة",
+
+
+  "enter_motorcycle_name": "أدخل اسم الدراجة",
+
+  "enter_motorcycle_price": "أدخل سعر الدراجة",
+
+  "odometer": "عداد المسافه",
+
+  "odometer_in_km": "عداد المسافات بالكيلومتر",
+
+  "enter_odometer": "أدخل عداد المسافات",
+
+  "enter_odometer_in_km": "أدخل عداد المسافات بالكيلومتر",
+
+  "new_motorcycle_client": "دراجة جديدة-عميل",
+
+
+  "used_motorcycle_client": "دراجة مستعملة-عميل",
+
+
+  "km": "كيلومتر",
+
+
+  "enter_address": "أدخل العنوان",
+
+
+  "enter_description": "أدخل الوصف",
+
+
+  "neww": "جديد"
 }
