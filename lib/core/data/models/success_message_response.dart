@@ -1,6 +1,7 @@
 class SuccessAndErrorResponse {
   bool? success;
  dynamic errorMsgs;
+ String? message;
 
   SuccessAndErrorResponse({required this.success, required this.errorMsgs});
 

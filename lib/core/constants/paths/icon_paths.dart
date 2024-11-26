@@ -38,4 +38,9 @@ class IconPaths {
   static const SHIPPING = "assets/icons/shipping.png";
   static const CASH = "assets/icons/cash.png";
 
+  static const USED =  "assets/icons/used_icon.svg";
+
+  static const LEFT_PICTURE_ARROW = "assets/icons/left_picture_arrow.svg";
+  static const RIGHT_PICTURE_ARROW = "assets/icons/right_picture_arrow.svg";
+
 }

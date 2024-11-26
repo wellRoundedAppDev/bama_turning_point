@@ -14,10 +14,10 @@ class NotificationsCubit extends Cubit<NotificationsStates> {
   List<Notification> notifications = [];
 
   init() async {
-    FirebaseMessaging.instance.requestPermission();
-    await FirebaseMessaging.instance.subscribeToTopic('all');
-    //messaging.getToken().then((value) => print("Device token: $value"));
-    listenToFirebaseFCM();
+    // FirebaseMessaging.instance.requestPermission();
+    // await FirebaseMessaging.instance.subscribeToTopic('all');
+    // //messaging.getToken().then((value) => print("Device token: $value"));
+    // listenToFirebaseFCM();
   }
 
   listenToFirebaseFCM() {

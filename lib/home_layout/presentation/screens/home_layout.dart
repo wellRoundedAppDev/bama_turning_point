@@ -9,6 +9,7 @@ import 'package:classic_eccomerce/wish_list/presentation/screens/wish_list.dart'
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../account/presentation/screens/my_account_screen.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../../core/constants/colors/colors.dart';
@@ -58,16 +59,20 @@ class HomeLayoutScreen extends StatelessWidget {
                                     height: 30,
                                   ),
                             (navBarCurrentIndex == 1)
-                                ? Image.asset(
-                                    IconPaths.CLOCK,
+                                ? SvgPicture.asset(
+                                    IconPaths.USED,
                                     width: 30,
                                     height: 30,
+                              color: Colors.white,
                                   )
-                                : Image.asset(
-                                    IconPaths.CLOCK,
+                                : SvgPicture.asset(
+                                    IconPaths.USED,
                                     width: 30,
                                     height: 30,
-                                  ),
+                              color: Colors.white,
+
+
+                            ),
                             BlocConsumer<CartCubit, CartStates>(
                               listener: (context, state) {},
                               builder: (context, state) {

@@ -210,6 +210,16 @@
 
   "neww": "New",
 
+  "model": "Model",
+
+  "enter_model": "Enter model",
+  "motorcycle_name": "Bike name",
+
+  "motorcycle_price": "Bike price",
+
+  "please_add_images_to_product": "Please add images to product",
+
+
 
 
   "welcome_user": "Welcome {username}",

@@ -79,9 +79,21 @@ class DioHelper {
 
   Future<Response?> postFormData(
       {required String endPoint,
-      Map<String, dynamic> formBody = const {}}) async {
+      Map<String, dynamic> formBody = const {},
+        dynamic headers = const {},      }) async {
     try {
-      return await _dio.post(endPoint, data: FormData.fromMap(formBody));
+      return await _dio.post(endPoint, data: FormData.fromMap(formBody),
+          options: Options(
+              headers: headers,
+              validateStatus: (int? status){
+                if(status! >= 200 && status <= 600){
+                  return true;
+                }
+                return false;
+              }
+
+          )
+      );
     } catch (e) {
       if (kDebugMode) {
         print(e);

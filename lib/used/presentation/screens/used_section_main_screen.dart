@@ -1,9 +1,16 @@
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
+import 'package:classic_eccomerce/authentication/presentation/screens/login_screen.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/used/presentation/screens/add_used_product_by_client_screen.dart';
+import 'package:classic_eccomerce/used/presentation/screens/used_products_by_client_screen.dart';
+import 'package:classic_eccomerce/used/presentation/screens/used_products_by_company_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+
+import '../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 
 class UsedSectionMainScreen extends StatelessWidget {
   bool showBackButton;
@@ -44,52 +51,76 @@ class UsedSectionMainScreen extends StatelessWidget {
                 ),
               ),
             ),
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(32.0),
-                  child: Row(
+            body: BlocConsumer<AuthCubit, AuthStates>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                          child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
-                        decoration: const BoxDecoration(
-                          color: AppColors.APP_MAIN_COLOR,
+                      Padding(
+                        padding: const EdgeInsets.all(32.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        child:
+                                            const UsedProductsByCompanyScreen(),
+                                        type: PageTransitionType.leftToRight));
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 8),
+                                decoration: const BoxDecoration(
+                                  color: AppColors.APP_MAIN_COLOR,
+                                ),
+                                child: const Text(
+                                  "من الشركة",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: FontSizes.FONT_SIZE_15,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            )),
+                            const SizedBox(
+                              width: 24,
+                            ),
+                            Expanded(
+                                child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        child:
+                                            const UsedProductsByClientScreen(),
+                                        type: PageTransitionType.leftToRight));
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 8),
+                                decoration: const BoxDecoration(
+                                  color: AppColors.APP_MAIN_COLOR,
+                                ),
+                                child: const Text(
+                                  "من الزبائن",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: FontSizes.FONT_SIZE_15,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ))
+                          ],
                         ),
-                        child: const Text(
-                          "من الشركة",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: FontSizes.FONT_SIZE_15,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      )),
-                      const SizedBox(
-                        width: 24,
-                      ),
-                      Expanded(
-                          child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
-                        decoration: const BoxDecoration(
-                          color: AppColors.APP_MAIN_COLOR,
-                        ),
-                        child: const Text(
-                          "من الزبائن",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: FontSizes.FONT_SIZE_15,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ))
+                      )
                     ],
-                  ),
-                )
-              ],
-            )));
+                  );
+                })));
   }
 }

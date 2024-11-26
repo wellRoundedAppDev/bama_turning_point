@@ -210,5 +210,16 @@
   "enter_description": "أدخل الوصف",
 
 
-  "neww": "جديد"
+  "neww": "جديد",
+
+
+  "model": "الموديل",
+
+  "enter_model": "أدخل الموديل",
+
+
+  "motorcycle_name": "اسم الدراجة",
+
+  "motorcycle_price": "سعر الدراجة",
+  "please_add_images_to_product": "يرجى إضافة الصور إلى المنتج"
 }

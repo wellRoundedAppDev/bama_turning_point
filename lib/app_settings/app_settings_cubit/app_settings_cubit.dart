@@ -23,7 +23,7 @@ class AppSettingsCubit extends Cubit<AppSettingsStates>{
   }
 
   launchApp(){
-    NotificationsCubit.get(context).init();
+    //NotificationsCubit.get(context).init();
     AuthCubit.get(context).autoLogin(cartCubit: CartCubit.get(context));
 
   }

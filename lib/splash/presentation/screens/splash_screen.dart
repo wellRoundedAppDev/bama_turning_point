@@ -26,20 +26,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.black,
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Positioned(
-              top: 0,
-              left: 0,
-              bottom: 0,
-              right: 0,
-              child: Image.asset(
-                ImagePaths.APP_SPLASH,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                fit: BoxFit.cover,
-              )),
+
           Positioned(
               top: MediaQuery.of(context).size.height * 0.2,
               left: 0,
