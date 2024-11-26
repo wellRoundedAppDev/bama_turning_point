@@ -85,11 +85,11 @@ class ApiUrls {
   //used products
 
   static const ADD_USED_PRODUCT_ENDPOINT =
-      "http://noourcaser-001-site1.mtempurl.com/services/api/add-product";
+      "https://noourcaser-001-site1.mtempurl.com/services/api/add-product";
 
   static const GET_USED_PRODUCTS_BY_CLIENTS_ENDPOINT =
-      "http://noourcaser-001-site1.mtempurl.com/services/api/all-products-users?pageNumber=1&pageSize=1000";
+      "https://noourcaser-001-site1.mtempurl.com/services/api/all-products-users?pageNumber=1&pageSize=1000";
 
   static const GET_USED_PRODUCTS_BY_COMPANY_ENDPOINT =
-      "http://noourcaser-001-site1.mtempurl.com/services/api/all-products-admins?pageNumber=1&pageSize=1000";
+      "https://noourcaser-001-site1.mtempurl.com/services/api/all-products-admins?pageNumber=1&pageSize=1000";
 }
