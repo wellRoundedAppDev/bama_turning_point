@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../authentication/presentation/auth_cubit/auth_cubit.dart';
+import '../../../core/constants/paths/image_paths.dart';
 
 class UsedSectionMainScreen extends StatelessWidget {
   bool showBackButton;
@@ -23,33 +24,59 @@ class UsedSectionMainScreen extends StatelessWidget {
         child: Scaffold(
             appBar: CustomAppBar.renderAppBar(
                 title: "", showBackButton: showBackButton, showCartIcon: false),
-            bottomNavigationBar: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    PageTransition(
-                        child: const AddUsedProductByClientScreen(),
-                        type: PageTransitionType.leftToRight));
-              },
-              child: Container(
-                padding: const EdgeInsets.only(bottom: 32, right: 16),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.APP_MAIN_COLOR,
-                      ),
-                      child: const Icon(
-                        Icons.add,
-                        size: 35,
-                        color: Colors.white,
+            bottomNavigationBar: Stack(
+              children: [
+                Container(height: 100,color: Colors.transparent,),
+                Positioned(
+                  right: 50,
+                  top: 16,
+                  child: Container(
+                    padding: EdgeInsets.only(right: 35,left: 40,top: 8,bottom: 8),
+                    decoration: BoxDecoration(
+                    
+                    
+                    color: Color(0xffDBD6D6),
+
+                    borderRadius: BorderRadius.circular(20),
+
+                  ),
+                    child: Text("اضف دراجتك",style: TextStyle(fontSize: FontSizes.FONT_SIZE_12,fontWeight: FontWeight.w500),),
+                  ),
+                ),
+
+                Positioned(
+                  top: 0,
+                  bottom: 0,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              child: const AddUsedProductByClientScreen(),
+                              type: PageTransitionType.leftToRight));
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.only(bottom: 32, right: 16),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.APP_MAIN_COLOR,
+                            ),
+                            child: const Icon(
+                              Icons.add,
+                              size: 35,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
             body: BlocConsumer<AuthCubit, AuthStates>(
                 listener: (context, state) {},
@@ -57,6 +84,16 @@ class UsedSectionMainScreen extends StatelessWidget {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      SizedBox(
+                        height: 24,
+                      ),
+                      ClipOval(
+                          child: Image.asset(
+                        ImagePaths.APP_LOGO,
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        height: MediaQuery.of(context).size.height * 0.2,
+                      )),
+                      Spacer(),
                       Padding(
                         padding: const EdgeInsets.all(32.0),
                         child: Row(
@@ -118,7 +155,8 @@ class UsedSectionMainScreen extends StatelessWidget {
                             ))
                           ],
                         ),
-                      )
+                      ),
+                      Spacer()
                     ],
                   );
                 })));

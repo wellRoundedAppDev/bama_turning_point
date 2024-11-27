@@ -480,6 +480,39 @@ class UsedProductDetailsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+
+
+                    Container(
+                      height: 1,
+                      color: const Color(0xffB6BBC6),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 16),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              AppLocalizations.of(context)!.description,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_14,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              (usedProductItem?.description ?? ""),
+                              textAlign: TextAlign.end,
+                              style: const TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_14,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
