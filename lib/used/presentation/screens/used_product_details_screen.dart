@@ -480,8 +480,6 @@ class UsedProductDetailsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-
-
                     Container(
                       height: 1,
                       color: const Color(0xffB6BBC6),
