@@ -10,6 +10,7 @@ import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../core/constants/paths/icon_paths.dart';
 import '../../../main.dart';
 import '../../data/models/cart_item.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CartItemWidget extends StatelessWidget {
   CartItem cartItem;
@@ -80,14 +81,15 @@ class CartItemWidget extends StatelessWidget {
                 Text(
                   cartItem.price.toString().replaceAllMapped(
                           new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                          (Match m) => "${m[1]},") + ((MyApp.navKey.currentState?.context
+                          (Match m) => "${m[1]},") +
+                      ((MyApp.navKey.currentState?.context
                       .read<AppSettingsCubit>()
                       .currencyCode ??
                       "") ==
                       "USD"
-                      ? "\$"
-                      : "IQD") ??
-                      "",
+                      ?
+                  "${AppLocalizations.of(context)!.dollar}":
+                  "${AppLocalizations.of(context)!.dinar}"),
                   // "\$${cartItem.price.toString()}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

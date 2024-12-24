@@ -149,14 +149,14 @@ class CustomAppBar {
                                     child: Container(
                                       padding: const EdgeInsets.all(3),
                                       decoration: const BoxDecoration(
-                                          color: AppColors.APP_MAIN_COLOR,
+                                          color: Colors.yellow,
                                           shape: BoxShape.circle),
                                       child: Center(
                                         child: Text(
                                           itemsCount.toString(),
                                           style: const TextStyle(
                                               fontSize: FontSizes.FONT_SIZE_8,
-                                              color: Colors.white),
+                                              color: Colors.black),
                                         ),
                                       ),
                                     ),

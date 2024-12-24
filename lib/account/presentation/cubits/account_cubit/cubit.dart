@@ -95,7 +95,7 @@ class AccountCubit extends Cubit<AccountStates> {
           content: "You account information is successfully updated");
 
       emit(EditAccountSuccessState());
-    } else if (response?.success == false) {
+    } else if (response?.success == 0) {
       showAppSnackBar(content: (response?.errorMsgs?[0][0]) ?? "");
 
       emit(EditAccountFailedState());

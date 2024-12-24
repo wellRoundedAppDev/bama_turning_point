@@ -10,6 +10,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../core/constants/paths/icon_paths.dart';
+import '../../../main.dart';
 import '../../../product_details/presentation/screens/product_details_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -80,7 +81,8 @@ class UsedProductItem extends StatelessWidget {
                           AppLocalizations.of(context)!.motorcycle_price +
                               " " +
                               (usedProductItem?.price?.toString() ?? "") +
-                              AppSettingsCubit.get(context).currencyCode,
+
+                              (" ${AppLocalizations.of(context)!.dinar}"),
                           //"\$${searchItem?.price}",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

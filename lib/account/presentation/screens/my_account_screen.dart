@@ -106,6 +106,7 @@ class MyAccountScreen extends StatelessWidget {
                                               IconPaths.EDIT_ICON,
                                               width: 32,
                                               height: 32,
+                                              color: Colors.black,
                                             ),
                                           ),
                                         ),
@@ -159,6 +160,8 @@ class MyAccountScreen extends StatelessWidget {
                                               IconPaths.ADDRESS_BOOK_ICON,
                                               width: 32,
                                               height: 32,
+                                              color: Colors.black,
+
                                             ),
                                           ),
                                         ),
@@ -215,6 +218,8 @@ class MyAccountScreen extends StatelessWidget {
                                               IconPaths.LOCK,
                                               width: 32,
                                               height: 32,
+                                              color: Colors.black,
+
                                             ),
                                           ),
                                         ),
@@ -349,6 +354,8 @@ class MyAccountScreen extends StatelessWidget {
                                               IconPaths.ORDER_HISTORY_ICON,
                                               width: 32,
                                               height: 32,
+                                              color: Colors.black,
+
                                             ),
                                           ),
                                         ),

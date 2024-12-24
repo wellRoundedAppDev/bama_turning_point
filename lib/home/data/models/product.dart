@@ -1,3 +1,8 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../shared_components/custom_alert2.dart';
+
+
 class Product {
   Product(
       {this.productId,
@@ -16,7 +21,15 @@ class Product {
     var name = json['name'];
     var quantity = json['quantity'];
     var price = json['price'];
-    var priceFormatted = json['price'].replaceAllMapped(new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
+    var priceFormatted = json['price']
+        .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},")
+        ==
+        "USD"
+        ?
+    "${AppLocalizations.of(context)!.dollar}":
+    "${AppLocalizations.of(context)!.dinar}";
+
+    ;
     var rating = json['rating'];
     var productImagePath = json['thumb'];
     var description = json['description'];

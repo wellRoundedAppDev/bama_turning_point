@@ -36,9 +36,9 @@ class HomeCubit extends Cubit<HomeStates> {
   List<String> banners = [
     'assets/images/slider1.jpeg',
     'assets/images/slider2.jpeg',
-    'assets/images/slider3.jpeg',
-    'assets/images/slider4.jpeg',
-    'assets/images/slider5.jpg',
+    // 'assets/images/slider3.jpeg',
+    // 'assets/images/slider4.jpeg',
+    // 'assets/images/slider5.jpg',
   ];
 
   List<Category>? categoriesOverview;

@@ -4,10 +4,12 @@ import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/used/presentation/widgets/used_product_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
+import '../../../main.dart';
 import '../../../shared_components/custom_app_bar.dart';
 import '../../data/models/used_products_by_client_response.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -340,7 +342,7 @@ class UsedProductDetailsScreen extends StatelessWidget {
                             flex: 2,
                             child: Text(
                               (usedProductItem?.price?.toString() ?? "") +
-                                  "${AppSettingsCubit.get(context).currencyCode}",
+                                  (" ${AppLocalizations.of(context)!.dinar}"),
                               textAlign: TextAlign.end,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(

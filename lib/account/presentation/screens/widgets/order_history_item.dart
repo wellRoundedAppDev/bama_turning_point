@@ -162,69 +162,69 @@ class OrderHistoryItem extends StatelessWidget {
                       fontSize: FontSizes.FONT_SIZE_14,
                       fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(
-                  width: 4,
-                ),
-
-                Expanded(
-                  child: Text(
-                    customerOrder?.status ?? "",
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: TextStyle(
-                        fontSize: FontSizes.FONT_SIZE_14,
-                        color: (customerOrder?.status == "Canceled" ||
-                                customerOrder?.status == "ملغي")
-                            ? Colors.red
-                            : const Color(0xff947979)),
-                  ),
-                ),
-   // قيد الإنتظار//
-                //Pending
-                ((customerOrder?.status == "Canceled" ||
-                        customerOrder?.status == "ملغي") )
-                    ? Container()
-                    :  (customerOrder?.status != "قيد الإنتظار" &&
-                    customerOrder?.status != "Pending")?Container(): GestureDetector(
-                        onTap: () {
-                          AccountCubit accountCubit = AccountCubit.get(context);
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return BlocProvider.value(
-                                  value: accountCubit,
-                                  child: AlertDialog(
-                                    title: Text(AppLocalizations.of(context)!.are_you_sure_you_want_to_cancel_order),
-                                  actions: [
-                                    BlocConsumer<AccountCubit,AccountStates>(
-                                      listener: (context,state){},
-                                      builder: (context,state){
-                                       return CustomButton(
-                                            isLoading:state is CancelCustomerOrderLoadingState,
-                                            text: AppLocalizations.of(context)!.yes, action: (){
-                                          accountCubit.cancelOrder(customerOrder);
-                                          Navigator.pop(context);
-                                        });
-                                      },
-                                    ),
-                                    const SizedBox(height: 4,),
-                                    CustomButton(text: AppLocalizations.of(context)!.no, action: (){
-                                      Navigator.pop(context);
-                                    })
-                                  ],
-                                  )
-                                );
-                              });
-                        },
-                        child: Text(
-                          AppLocalizations.of(context)!.cancel_order ?? "",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: FontSizes.FONT_SIZE_14,
-                              color: Colors.red),
-                        ),
-                      )
+   //              const SizedBox(
+   //                width: 4,
+   //              ),
+   //
+   //              // Expanded(
+   //              //   child: Text(
+   //              //     customerOrder?.status ?? "",
+   //              //     textAlign: TextAlign.start,
+   //              //     overflow: TextOverflow.ellipsis,
+   //              //     maxLines: 1,
+   //              //     style: TextStyle(
+   //              //         fontSize: FontSizes.FONT_SIZE_14,
+   //              //         color: (customerOrder?.status == "Canceled" ||
+   //              //                 customerOrder?.status == "ملغي")
+   //              //             ? Colors.red
+   //              //             : const Color(0xff947979)),
+   //              //   ),
+   //              // ),
+   // // قيد الإنتظار//
+   //              //Pending
+   //              ((customerOrder?.status == "Canceled" ||
+   //                      customerOrder?.status == "ملغي") )
+   //                  ? Container()
+   //                  :  (customerOrder?.status != "قيد الإنتظار" &&
+   //                  customerOrder?.status != "Pending")?Container(): GestureDetector(
+   //                      onTap: () {
+   //                        AccountCubit accountCubit = AccountCubit.get(context);
+   //                        showDialog(
+   //                            context: context,
+   //                            builder: (context) {
+   //                              return BlocProvider.value(
+   //                                value: accountCubit,
+   //                                child: AlertDialog(
+   //                                  title: Text(AppLocalizations.of(context)!.are_you_sure_you_want_to_cancel_order),
+   //                                actions: [
+   //                                  BlocConsumer<AccountCubit,AccountStates>(
+   //                                    listener: (context,state){},
+   //                                    builder: (context,state){
+   //                                     return CustomButton(
+   //                                          isLoading:state is CancelCustomerOrderLoadingState,
+   //                                          text: AppLocalizations.of(context)!.yes, action: (){
+   //                                        accountCubit.cancelOrder(customerOrder);
+   //                                        Navigator.pop(context);
+   //                                      });
+   //                                    },
+   //                                  ),
+   //                                  const SizedBox(height: 4,),
+   //                                  CustomButton(text: AppLocalizations.of(context)!.no, action: (){
+   //                                    Navigator.pop(context);
+   //                                  })
+   //                                ],
+   //                                )
+   //                              );
+   //                            });
+   //                      },
+   //                      child: Text(
+   //                        AppLocalizations.of(context)!.cancel_order ?? "",
+   //                        style: const TextStyle(
+   //                            fontWeight: FontWeight.bold,
+   //                            fontSize: FontSizes.FONT_SIZE_14,
+   //                            color: Colors.red),
+   //                      ),
+   //                    )
               ],
             ),
           ),
@@ -264,35 +264,35 @@ class OrderHistoryItem extends StatelessWidget {
               ],
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: BlocProvider.value(
-                          value: AccountCubit.get(context)
-                            ..setOrderDetails(
-                                int.tryParse(customerOrder?.orderId ?? "") ??
-                                    0),
-                          child: OrderDetailsScreen()),
-                      type: PageTransitionType.leftToRight));
-            },
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                  color: Color(0xffDBD6D6),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(8),
-                      bottomRight: Radius.circular(8))),
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Center(
-                  child: Text(
-                AppLocalizations.of(context)!.view,
-                style: const TextStyle(
-                    fontSize: FontSizes.FONT_SIZE_14, color: Color(0xff313846)),
-              )),
-            ),
-          )
+          // GestureDetector(
+          //   onTap: () {
+          //     Navigator.push(
+          //         context,
+          //         PageTransition(
+          //             child: BlocProvider.value(
+          //                 value: AccountCubit.get(context)
+          //                   ..setOrderDetails(
+          //                       int.tryParse(customerOrder?.orderId ?? "") ??
+          //                           0),
+          //                 child: OrderDetailsScreen()),
+          //             type: PageTransitionType.leftToRight));
+          //   },
+          //   child: Container(
+          //     width: MediaQuery.of(context).size.width,
+          //     decoration: const BoxDecoration(
+          //         color: Color(0xffDBD6D6),
+          //         borderRadius: BorderRadius.only(
+          //             bottomLeft: Radius.circular(8),
+          //             bottomRight: Radius.circular(8))),
+          //     padding: const EdgeInsets.symmetric(vertical: 10),
+          //     child: Center(
+          //         child: Text(
+          //       AppLocalizations.of(context)!.view,
+          //       style: const TextStyle(
+          //           fontSize: FontSizes.FONT_SIZE_14, color: Color(0xff313846)),
+          //     )),
+          //   ),
+          // )
         ],
       ),
     );

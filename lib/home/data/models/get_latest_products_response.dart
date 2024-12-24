@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../app_settings/app_settings_cubit/app_settings_cubit.dart';
 import '../../../main.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../shared_components/custom_alert2.dart';
 
 class GetLatestProductsResponse {
   GetLatestProductsResponse({
@@ -65,7 +68,8 @@ class LatestProduct extends Product{
         ((MyApp.navKey.currentState?.context
             .read<AppSettingsCubit>()
             .currencyCode ??
-            "") == "USD"?"\$":"IQD");
+            "") == "USD"?"${AppLocalizations.of(context)!.dollar}":
+        "${AppLocalizations.of(context)!.dinar}");
 
     var stockStatus = json['stock_status'];
     return LatestProduct(

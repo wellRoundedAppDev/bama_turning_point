@@ -2,6 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../app_settings/app_settings_cubit/app_settings_cubit.dart';
 import '../../../main.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../shared_components/custom_alert2.dart';
 
 class GetWishlistResponse {
   GetWishlistResponse({
@@ -55,13 +58,14 @@ class WishlistItem {
     var name = json['name'];
     var model = json['model'];
     var stock = json['stock'];
-    var price = (json['price']?.toString().split(".").first??"") +  ((MyApp.navKey.currentState?.context
-        .read<AppSettingsCubit>()
-        .currencyCode ??
-        "") ==
-        "USD"
-        ? "\$"
-        : "IQD");
+    var price = (json['price']?.toString().split(".").first ?? "") +
+        ((MyApp.navKey.currentState?.context
+                        .read<AppSettingsCubit>()
+                        .currencyCode ??
+                    "") ==
+                "USD"
+            ? "${AppLocalizations.of(context)!.dollar}"
+            : "${AppLocalizations.of(context)!.dinar}");
     var special = json['special'];
     return WishlistItem(
       name: name,

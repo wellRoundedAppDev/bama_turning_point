@@ -1,8 +1,10 @@
 import 'package:classic_eccomerce/home/data/models/product.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../app_settings/app_settings_cubit/app_settings_cubit.dart';
 import '../../../main.dart';
+import '../../../shared_components/custom_alert2.dart';
 
 class GetProductsInBrandResponse {
   GetProductsInBrandResponse({
@@ -60,8 +62,9 @@ class ProductsInBrand extends Product {
                         .currencyCode ??
                     "") ==
                 "USD"
-            ? "\$"
-            : "IQD");
+            ?
+        "${AppLocalizations.of(context)!.dollar}":
+        "${AppLocalizations.of(context)!.dinar}");
     var productImagePath = json['image'];
     var stockStatus = json['stock_status'];
     var stockStatusId = json['stock_status_id'];

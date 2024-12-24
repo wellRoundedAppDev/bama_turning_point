@@ -25,7 +25,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.08,
-      color: AppColors.APP_PURPLE,
+      color: AppColors.APP_MAIN_COLOR,
       child: Row(
         children: [
           Padding(
@@ -203,6 +203,9 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                               text: AppLocalizations.of(context)!.add_to_cart,
                               height: MediaQuery.of(context).size.height,
                               textFontSize: FontSizes.FONT_SIZE_14,
+
+                             textColor: Colors.black.value,
+                             color: Colors.yellow,
                               action: () {
                                 CartCubit cartCubit = CartCubit.get(context);
                                 ProductDetails? selectedProductDetails =

@@ -1,7 +1,6 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/data/models/get_categories_response.dart';
-import 'package:classic_eccomerce/contact_us/data/data_sources/remote_data_sources/contact_us_api.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_families.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
@@ -71,21 +70,21 @@ class HomeScreen extends StatelessWidget {
                             height: MediaQuery.of(context).size.height * 0.05,
                           )),
                           Expanded(child: Container()),
-                          IconButton(
-                            onPressed: () {
-                              // ContactUsApi.contactUs();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const NotificationsScreen()));
-                            },
-                            icon: const Icon(
-                              Icons.notifications,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
+                          // IconButton(
+                          //   onPressed: () {
+                          //     // ContactUsApi.contactUs();
+                          //     // Navigator.push(
+                          //     //     context,
+                          //     //     MaterialPageRoute(
+                          //     //         builder: (context) =>
+                          //     //             const NotificationsScreen()));
+                          //   },
+                          //   icon: const Icon(
+                          //     Icons.notifications,
+                          //     color: Colors.white,
+                          //     size: 30,
+                          //   ),
+                          // ),
                           GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -127,8 +126,7 @@ class HomeScreen extends StatelessWidget {
                                                 padding:
                                                     const EdgeInsets.all(3),
                                                 decoration: const BoxDecoration(
-                                                    color: AppColors
-                                                        .APP_MAIN_COLOR,
+                                                    color: Colors.yellow,
                                                     shape: BoxShape.circle),
                                                 child: Center(
                                                   child: Text(
@@ -136,7 +134,7 @@ class HomeScreen extends StatelessWidget {
                                                     style: const TextStyle(
                                                         fontSize: FontSizes
                                                             .FONT_SIZE_8,
-                                                        color: Colors.white),
+                                                        color: Colors.black),
                                                   ),
                                                 ),
                                               ),
@@ -236,16 +234,6 @@ class HomeScreen extends StatelessWidget {
                                         width:
                                             MediaQuery.of(context).size.width,
                                         fit: BoxFit.cover,
-                                        // errorBuilder:
-                                        //     (context, object, stackTrace) {
-                                        //   return const Center(
-                                        //     child: Icon(
-                                        //       Icons.error,
-                                        //       size: 150,
-                                        //       color: AppColors.APP_MAIN_COLOR,
-                                        //     ),
-                                        //   );
-                                        // },
                                       ),
                                     )
                                     .toList(),
@@ -257,23 +245,26 @@ class HomeScreen extends StatelessWidget {
                                     const SizedBox(
                                   height: 16,
                                 ),
-                                itemCount: 5,
+                                itemCount: 3,
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (context, index) {
                                   String productListTitle = (index == 2)
                                       ? AppLocalizations.of(context)!
-                                          .featured_products
-                                      : (index == 4)
-                                          ? AppLocalizations.of(context)!
-                                              .new_arrivals
-                                          : AppLocalizations.of(context)!
-                                              .offers;
+                                          .new_arrivals
+                                      : "";
+                                  // (
+                                  //
+                                  //     index == 4)
+                                  //         ? AppLocalizations.of(context)!
+                                  //             .new_arrivals
+                                  //         : AppLocalizations.of(context)!
+                                  // .offers;
 
-                                  var products = (index == 2)
-                                      ? featuredProducts
-                                      : (index == 4)
-                                          ? newArrivals
-                                          : bestSellers;
+                                  var products =
+                                      (index == 2) ? newArrivals : "";
+                                  // : (index == 4)
+                                  //     ? newArrivals
+                                  //     : bestSellers;
 
                                   return (index == 0)
                                       ? BrandsOverview(brands: brands ?? [])

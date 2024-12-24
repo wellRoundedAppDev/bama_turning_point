@@ -105,17 +105,17 @@ class HomeLayoutScreen extends StatelessWidget {
                                                     padding:
                                                         const EdgeInsets.all(4),
                                                     decoration: const BoxDecoration(
-                                                        color: AppColors
-                                                            .APP_MAIN_COLOR,
+                                                        color: Colors.yellow,
                                                         shape: BoxShape.circle),
                                                     child: Center(
                                                       child: Text(
                                                         itemsCount.toString(),
                                                         style: const TextStyle(
+
                                                             fontSize: FontSizes
                                                                 .FONT_SIZE_10,
                                                             color:
-                                                                Colors.white),
+                                                                Colors.black),
                                                       ),
                                                     ),
                                                   ),

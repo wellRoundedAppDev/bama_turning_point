@@ -24,7 +24,7 @@ class WishListItemWidget extends StatelessWidget {
         WishListCubit wishListCubit = WishListCubit.get(context);
         int? selectedProductId = wishListCubit.selectedProductId;
         return Container(
-          height: MediaQuery.of(context).size.height * 0.15,
+          height: MediaQuery.of(context).size.height * 0.18,
           width: MediaQuery.of(context).size.width,
           margin: const EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
@@ -72,144 +72,147 @@ class WishListItemWidget extends StatelessWidget {
                 width: 8,
               ),
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      wishlistItem?.name ?? "",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: FontSizes.FONT_SIZE_14,
-                          color: Color(0xff333333),
-                          fontWeight: FontWeight.bold),
-                    ),
-                    wishlistItem?.price == null
-                        ? Container()
-                        : const SizedBox(
-                            height: 3,
-                          ),
-                    wishlistItem?.price == null
-                        ? Container()
-                        : Text(
-                            wishlistItem?.price ?? "",
-                            //  wishlistItem?.price ?? "",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_14,
-                                color: AppColors.APP_MAIN_COLOR,
-                                fontWeight: FontWeight.bold),
-                          ),
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          "Stock : ",
-                          style: TextStyle(
-                              fontSize: FontSizes.FONT_SIZE_12,
-                              color: Color(0xff313846)),
-                        ),
-                        Expanded(
-                          child: Text(
-                            wishlistItem?.stock ?? "",
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: const TextStyle(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        wishlistItem?.name ?? "",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: FontSizes.FONT_SIZE_14,
+                            color: Color(0xff333333),
+                            fontWeight: FontWeight.bold),
+                      ),
+                      wishlistItem?.price == null
+                          ? Container()
+                          : const SizedBox(
+                              height: 3,
+                            ),
+                      wishlistItem?.price == null
+                          ? Container()
+                          : Text(
+                              wishlistItem?.price ?? "",
+                              //  wishlistItem?.price ?? "",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_14,
+                                  color: AppColors.APP_MAIN_COLOR,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            "Stock : ",
+                            style: TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_12,
-                                color: Color(0xff2EAF23)),
+                                color: Color(0xff313846)),
                           ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      children: [
-                        BlocConsumer<CartCubit, CartStates>(
-                          listener: (context, state) {},
-                          builder: (context, state) {
-                            return (state is ItemAddedToCartLoadingState &&
-                                    int.tryParse(
-                                            wishlistItem?.productId ?? "") ==
-                                        wishListCubit.selectedProductId)
-                                ? const SizedBox(
-                                    width: 18,
-                                    height: 18,
-                                    child: CircularProgressIndicator(),
-                                  )
-                                : (CartCubit.get(context).isItemInCart(
-                                        wishlistItem?.productId ?? ""))
-                                    ? Container()
-                                    : GestureDetector(
-                                        onTap: () {
-                                          wishListCubit.setSelectedProductId(
-                                              int.tryParse(
-                                                  wishlistItem?.productId ??
-                                                      ""));
-                                          CartCubit.get(context).addItemToCart(
-                                              CartItem(
-                                                  productId:
-                                                      wishlistItem?.productId ??
-                                                          "",
-                                                  name:
-                                                      wishlistItem?.name ?? "",
+                          Expanded(
+                            child: Text(
+                              wishlistItem?.stock ?? "",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                  fontSize: FontSizes.FONT_SIZE_12,
+                                  color: Color(0xff2EAF23)),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        children: [
+                          BlocConsumer<CartCubit, CartStates>(
+                            listener: (context, state) {},
+                            builder: (context, state) {
+                              return (state is ItemAddedToCartLoadingState &&
+                                      int.tryParse(
+                                              wishlistItem?.productId ?? "") ==
+                                          wishListCubit.selectedProductId)
+                                  ? const SizedBox(
+                                      width: 18,
+                                      height: 18,
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : (CartCubit.get(context).isItemInCart(
+                                          wishlistItem?.productId ?? ""))
+                                      ? Container()
+                                      : GestureDetector(
+                                          onTap: () {
+                                            wishListCubit.setSelectedProductId(
+                                                int.tryParse(
+                                                    wishlistItem?.productId ??
+                                                        ""));
+                                            CartCubit.get(context).addItemToCart(
+                                                CartItem(
+                                                    productId:
+                                                        wishlistItem?.productId ??
+                                                            "",
+                                                    name:
+                                                        wishlistItem?.name ?? "",
 
-                                                  imagePath:
-                                                      wishlistItem?.thumb,
-                                                  price: double.tryParse(
-                                                          wishlistItem?.price
-                                                                  ?.replaceAll(
-                                                                      "\$",
-                                                                      "") ??
-                                                              "") ??
-                                                      0));
-                                        },
-                                        child: Container(
-                                          padding: const EdgeInsets.all(5),
-                                          color: AppColors.APP_MAIN_COLOR,
-                                          child: Image.asset(
-                                            IconPaths.CART,
-                                            width: 18,
-                                            height: 18,
+                                                    imagePath:
+                                                        wishlistItem?.thumb,
+                                                    price: double.tryParse(
+                                                            wishlistItem?.price
+                                                                    ?.replaceAll(
+                                                                        "\$",
+                                                                        "") ??
+                                                                "") ??
+                                                        0));
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.all(5),
+                                            color: AppColors.APP_MAIN_COLOR,
+                                            child: Image.asset(
+                                              IconPaths.CART,
+                                              width: 18,
+                                              height: 18,
+                                            ),
                                           ),
-                                        ),
-                                      );
-                          },
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        (state is DeleteItemFromWishListLoadingState &&
-                                selectedProductId ==
-                                    int.tryParse(wishlistItem?.productId ?? ""))
-                            ? const SizedBox(
-                                width: 18,
-                                height: 18,
-                                child: CircularProgressIndicator())
-                            : GestureDetector(
-                                onTap: () {
-                                  WishListCubit.get(context)
-                                      .deleteItemFromWishList(int.tryParse(
-                                          wishlistItem?.productId ?? ""));
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  color: AppColors.DELETE_BUTTON_COLOR,
-                                  child: const Icon(
-                                    Icons.clear,
-                                    color: Colors.white,
-                                    size: 18,
+                                        );
+                            },
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          (state is DeleteItemFromWishListLoadingState &&
+                                  selectedProductId ==
+                                      int.tryParse(wishlistItem?.productId ?? ""))
+                              ? const SizedBox(
+                                  width: 18,
+                                  height: 18,
+                                  child: CircularProgressIndicator())
+                              : GestureDetector(
+                                  onTap: () {
+                                    WishListCubit.get(context)
+                                        .deleteItemFromWishList(int.tryParse(
+                                            wishlistItem?.productId ?? ""));
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    color: AppColors.DELETE_BUTTON_COLOR,
+                                    child: const Icon(
+                                      Icons.clear,
+                                      color: Colors.white,
+                                      size: 18,
+                                    ),
                                   ),
-                                ),
-                              )
-                      ],
-                    )
-                  ],
+                                )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               )
             ],

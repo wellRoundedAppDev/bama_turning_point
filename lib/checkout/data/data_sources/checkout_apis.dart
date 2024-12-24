@@ -238,6 +238,7 @@ class CheckoutApis {
 
   static Future<GetCustomerPaymentAddressesResponse?>
       getCustomerPaymentAddresses() async {
+
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
     String endPoint = ApiUrls.CUSTOMER_PAYMENT_ADDRESS_ENDPOINT;

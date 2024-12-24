@@ -47,7 +47,12 @@ class CustomButton extends StatelessWidget {
               elevation: elevation,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(borderRadius))),
-          onPressed: (isLoading) ? null : action,
+          onPressed:(){
+            if(isLoading){
+              return;
+            }
+            action!();
+          },
           child: (isLoading)
               ? const Center(
                   child: CircularProgressIndicator(

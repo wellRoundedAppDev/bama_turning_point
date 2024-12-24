@@ -4,6 +4,7 @@ import 'package:classic_eccomerce/checkout/data/models/get_payment_methods_respo
 import 'package:classic_eccomerce/checkout/data/models/get_shipping_methods_response.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/states.dart';
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
@@ -143,6 +144,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                     width: 50,
                                     height: 50,
                                     fit: BoxFit.cover,
+                                    color: AppColors.APP_MAIN_COLOR,
                                   ),
                                   const SizedBox(
                                     width: 16,
@@ -316,7 +318,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                           child: Text(
                                             "${CartCubit.get(context).totalPrice.toString().replaceAllMapped(
                                                 new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                                    (Match m) => "${m[1]},")} IQD",
+                                                    (Match m) => "${m[1]},")} ${AppLocalizations.of(context)!.dinar}",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
@@ -349,7 +351,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                           child: Text(
                                             "${selectedShippingMethod?.quote?[0].cost.toString().replaceAllMapped(
                                                 new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                                    (Match m) => "${m[1]},") ?? ""} IQD",
+                                                    (Match m) => "${m[1]},") ?? ""} ${AppLocalizations.of(context)!.dinar}",
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
@@ -380,7 +382,7 @@ class QuickCheckoutMainScreen extends StatelessWidget {
                                           child: Text(
                                             "${(CartCubit.get(context).totalPrice + (double.tryParse(selectedShippingMethod?.quote?[0].cost ?? "") ?? 0)).toString().replaceAllMapped(
                                                 new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                                    (Match m) => "${m[1]},")} IQD",
+                                                    (Match m) => "${m[1]},")} ${AppLocalizations.of(context)!.dinar}",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,

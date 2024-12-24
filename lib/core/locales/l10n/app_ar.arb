@@ -221,5 +221,10 @@
   "motorcycle_name": "اسم الدراجة",
 
   "motorcycle_price": "سعر الدراجة",
-  "please_add_images_to_product": "يرجى إضافة الصور إلى المنتج"
+  "please_add_images_to_product": "يرجى إضافة الصور إلى المنتج",
+
+
+  "dinar": "دينار",
+
+  "dollar": "دولار"
 }

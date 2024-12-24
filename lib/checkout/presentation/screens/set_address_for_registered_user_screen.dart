@@ -84,8 +84,10 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                                             height: MediaQuery.of(context)
                                                 .size
                                                 .height,
+                                            textColor: Colors.black.value,
                                             textFontSize:
                                                 FontSizes.FONT_SIZE_14,
+                                            color: Colors.yellow,
                                             action: () {
                                               CheckOutCubit.get(context)
                                                   .setExistingUserAddress(

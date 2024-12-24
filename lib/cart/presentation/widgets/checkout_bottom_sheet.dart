@@ -21,7 +21,7 @@ class CheckOutBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.08,
-      color: AppColors.APP_PURPLE,
+      color:AppColors.APP_MAIN_COLOR,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -45,7 +45,7 @@ class CheckOutBottomSheet extends StatelessWidget {
                         AppSettingsCubit appSettingsCubit =
                             AppSettingsCubit.get(context);
                         CartCubit cartCubit = CartCubit.get(context);
-                        String currencySymbol = "IQD";
+                        String currencySymbol = AppLocalizations.of(context)!.dinar;
                         return Text(
                           ": ${cartCubit.totalPrice.toStringAsFixed(2).replaceAllMapped(
                               new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
@@ -72,6 +72,8 @@ class CheckOutBottomSheet extends StatelessWidget {
                 text: AppLocalizations.of(context)!.checkout,
                 height: MediaQuery.of(context).size.height,
                 textFontSize: FontSizes.FONT_SIZE_14,
+                color: Colors.yellow,
+                textColor: Colors.black.value,
                 action: () {
                   if (AuthCubit.get(context).isUserLoggedIn) {
                     Navigator.push(
