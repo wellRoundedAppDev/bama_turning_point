@@ -66,7 +66,7 @@ class ProductInCategory extends Product {
     var price = json['price'];
     var rating = json['rating'];
     var productImagePath = json['image'];
-    var description = json['description'];
+   // var description = json['description'];
     var priceFormatted = (json['price']?.toString() ?? "").replaceAllMapped(new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},") +
         ((MyApp.navKey.currentState?.context
                         .read<AppSettingsCubit>()
@@ -81,7 +81,7 @@ class ProductInCategory extends Product {
         price: price,
         stockStatusId: stockStatusId,
         quantity: quantity,
-        description: description,
+      //  description: description,
         name: name,
         productImagePath: productImagePath,
         stockStatus: stockStatus,

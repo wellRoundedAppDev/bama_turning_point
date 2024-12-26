@@ -162,7 +162,7 @@ class OrderDetails {
     // vardateModified = json['date_modified'];
     var dateAdded = json['date_added'];
     // var ip = json['ip'];
-    var paymentAddress = json['payment_address'];
+  //  var paymentAddress = json['payment_address'];
     var shippingAddress = json['shipping_address'];
     List<ProductFromOrder>? products;
     if (json['products'] != null) {
@@ -207,7 +207,7 @@ class OrderDetails {
         orderStatusId: orderStatusId,
         paymentAddress1: paymentAddress1,
         paymentAddress2: paymentAddress2,
-        paymentAddress: paymentAddress,
+       // paymentAddress: paymentAddress,
         paymentAddressFormat: paymentAddressFormat,
         paymentCity: paymentCity,
         paymentCompany: paymentCompany,

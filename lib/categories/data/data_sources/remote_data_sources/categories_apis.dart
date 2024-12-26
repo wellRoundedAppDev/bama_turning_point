@@ -7,28 +7,20 @@ import '../../../../core/helpers/dio_helper.dart';
 import '../../../../main.dart';
 import '../../models/get_categories_response.dart';
 
-
 class CategoriesApis {
   static final _dioHelper = DioHelper.instance;
 
   static Future<GetCategoriesResponse?> getCategories(int page,
-      {String languageCode = "ir_arabic",
-        String currencyCode = "IQD"
-      }
-      ) async
-  {
-
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
 
     String endPoint = ApiUrls.getCategoriesEndpoint(page);
     try {
-
-      var response = await _dioHelper.get(endpoint: endPoint,
-      headers: {"Authorization": "Bearer $accessToken",
+      var response = await _dioHelper.get(endpoint: endPoint, headers: {
+        "Authorization": "Bearer $accessToken",
         "X-Oc-Merchant-Language": languageCode,
         "X-Oc-Currency": currencyCode
-
       });
       if (response == null) {
         return null;
@@ -44,21 +36,17 @@ class CategoriesApis {
   static Future<GetProductsInCategoryResponse?> getProductsInCategoryById(
       int id,
       {String languageCode = "ir_arabic",
-        String currencyCode = "IQD"
-      }
-      ) async {
+      String currencyCode = "IQD"}) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
 
     String endPoint = ApiUrls.getProductsByCategoryIdEndpoint(id);
     try {
-      var response = await _dioHelper.get(endpoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken",
-            "X-Oc-Merchant-Language": languageCode,
-            "X-Oc-Currency": currencyCode
-
-          }
-      );
+      var response = await _dioHelper.get(endpoint: endPoint, headers: {
+        "Authorization": "Bearer $accessToken",
+        "X-Oc-Merchant-Language": languageCode,
+        "X-Oc-Currency": currencyCode
+      });
 
       if (response == null) {
         return null;
