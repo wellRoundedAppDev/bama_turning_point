@@ -95,7 +95,7 @@ class ApiUrls {
       "https://noourcaser-001-site1.mtempurl.com/services/api/all-products-admins?pageNumber=1&pageSize=1000";
 
   static const SEND_EMAIL_ENDPOINT =
-      "https://noourcaser-001-site1.mtempurl.com/services/Api/add-support";
+      "https://noourcaser-001-site1.mtempurl.com/services/Api/add-support?projectId=1";
 
 
 
