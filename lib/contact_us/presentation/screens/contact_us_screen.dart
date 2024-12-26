@@ -88,7 +88,6 @@ class ContactUsScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-
                     const SizedBox(
                       height: 24,
                     ),
@@ -142,7 +141,6 @@ class ContactUsScreen extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-
                     CustomInput(
                       label: AppLocalizations.of(context)!.message,
                       hintText: AppLocalizations.of(context)!.message,
@@ -163,8 +161,9 @@ class ContactUsScreen extends StatelessWidget {
                     ),
                     CustomButton(
                         text: AppLocalizations.of(context)!.send,
+                        isLoading: state is ContactUsLoadingState,
                         action: () async {
-                          await contactUsCubit.sendEmail();
+                          await contactUsCubit.sendToAdmin();
                         }),
                   ],
                 ),

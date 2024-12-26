@@ -9,6 +9,11 @@ import 'package:mailer/mailer.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart' as smtp;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../shared_components/app_snackbar.dart';
+import '../../../shared_components/custom_alert2.dart';
+import '../../data/data_sources/remote_data_sources/contact_us_api.dart';
 
 
 class ContactUsCubit extends Cubit<ContactUsStates> {
@@ -61,6 +66,33 @@ class ContactUsCubit extends Cubit<ContactUsStates> {
       "buqchashop2@gmail.com"
     ]
     ));
+  }
+
+
+  sendToAdmin() async {
+    if (contactUsFormKey?.currentState?.validate() != true) {
+      return;
+    }
+    contactUsFormKey?.currentState?.save();
+
+    emit(ContactUsLoadingState());
+    var response = await ContactUsApi.contactUs(
+        contactUsModel.name,
+        contactUsModel.mobileNumber,
+        contactUsModel.message,
+        contactUsModel.subject);
+
+    if (response == true) {
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!.message_sent_successfully);
+
+      Navigator.pop(context);
+      emit(ContactUsSuccessState());
+    } else {
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!.error_occurred_try_again);
+      emit(ContactUsFailedState());
+    }
   }
 
 

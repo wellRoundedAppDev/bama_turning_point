@@ -226,5 +226,8 @@
 
   "dinar": "دينار",
 
-  "dollar": "دولار"
+  "dollar": "دولار",
+
+
+  "message_sent_successfully": "تم إرسال الرسالة بنجاح"
 }
