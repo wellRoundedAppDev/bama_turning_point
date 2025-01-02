@@ -10,7 +10,6 @@ import 'package:classic_eccomerce/home_layout/presentation/screens/home_layout.d
 import 'package:classic_eccomerce/notifications/presentation/cubit/notifications_cubit.dart';
 import 'package:classic_eccomerce/splash/presentation/screens/splash_screen.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,9 +57,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => WishListCubit()..init(CartCubit.get(context)),
         ),
-        BlocProvider(
-          create: (context) => NotificationsCubit(),
-        ),
+        // BlocProvider(
+        //   create: (context) => NotificationsCubit(),
+        // ),
       ],
       child: BlocConsumer<LocaleCubit, LocaleStates>(
         listener: (context, state) {},

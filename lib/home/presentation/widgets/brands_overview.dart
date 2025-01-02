@@ -59,14 +59,14 @@ class BrandsOverview extends StatelessWidget {
                       ],
                     )),
                 // InkWell(
-                //   onTap: () {
-                //     // HomeCubit homeCubit = HomeCubit.get(context);
-                //     // homeCubit.navigateToViewAllProductsScreen(productListTitle,CartCubit.get(context));
-                //     // Navigator.push(
-                //     //     context,
-                //     //     PageTransition(
-                //     //         child: const ProductsInCategoryScreen(),
-                //     //         type: PageTransitionType.leftToRight));
+                //  onTap: () {
+                //   //   HomeCubit homeCubit = HomeCubit.get(context);
+                //   //   homeCubit.navigateToViewAllProductsScreen(productListTitle,CartCubit.get(context));
+                //   //   Navigator.push(
+                //   //       context,
+                //   //       PageTransition(
+                //   //           child: const ProductsInCategoryScreen(),
+                //   //           type: PageTransitionType.leftToRight));
                 //   },
                 //   child:  Text(
                 //     AppLocalizations.of(context)!.view_all,
