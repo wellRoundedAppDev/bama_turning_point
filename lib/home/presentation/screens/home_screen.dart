@@ -245,10 +245,10 @@ class HomeScreen extends StatelessWidget {
                                     const SizedBox(
                                   height: 16,
                                 ),
-                                itemCount: 3,
+                                itemCount: 2,
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (context, index) {
-                                  String productListTitle = (index == 2)
+                                  String productListTitle = (index == 1)
                                       ? AppLocalizations.of(context)!
                                           .new_arrivals
                                       : "";
@@ -261,14 +261,16 @@ class HomeScreen extends StatelessWidget {
                                   // .offers;
 
                                   var products =
-                                      (index == 2) ? newArrivals : "";
+                                      (index == 1) ? newArrivals : "";
                                   // : (index == 4)
                                   //     ? newArrivals
                                   //     : bestSellers;
 
-                                  return (index == 0)
-                                      ? BrandsOverview(brands: brands ?? [])
-                                      : (index == 1)
+                                  return
+                                    // (index == 0)
+                                    //   ? BrandsOverview(brands: brands ?? [])
+                                    //   :
+                                  (index == 0)
                                           ? CategoriesOverview(
                                               categories: categories ?? [],
                                             )

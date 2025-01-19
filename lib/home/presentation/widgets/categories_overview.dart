@@ -24,7 +24,7 @@ class CategoriesOverview extends StatelessWidget {
         return Container(
           color: Colors.white,
           padding: const EdgeInsets.symmetric(vertical: 16),
-          height: MediaQuery.of(context).size.height * 0.25,
+          height: MediaQuery.of(context).size.height * 0.27,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
