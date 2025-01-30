@@ -86,16 +86,16 @@ class ApiUrls {
   //used products
 
   static const ADD_USED_PRODUCT_ENDPOINT =
-      "https://noourcaser-001-site1.mtempurl.com/services/api/add-product";
+      "https://erp-alnuqta.com/caser/services/api/add-product";
 
   static const GET_USED_PRODUCTS_BY_CLIENTS_ENDPOINT =
-      "https://noourcaser-001-site1.mtempurl.com/services/api/all-products-users?pageNumber=1&pageSize=1000";
+      "https://erp-alnuqta.com/caser/services/api/all-products-users?pageNumber=1&pageSize=1000";
 
   static const GET_USED_PRODUCTS_BY_COMPANY_ENDPOINT =
-      "https://noourcaser-001-site1.mtempurl.com/services/api/all-products-admins?pageNumber=1&pageSize=1000";
+      "https://erp-alnuqta.com/caser/services/api/all-products-admins?pageNumber=1&pageSize=1000";
 
   static const SEND_EMAIL_ENDPOINT =
-      "https://noourcaser-001-site1.mtempurl.com/services/Api/add-support?projectId=1";
+      "https://erp-alnuqta.com/caser/services/Api/add-support?projectId=1";
 
 
 
