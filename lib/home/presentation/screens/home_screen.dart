@@ -183,7 +183,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           )),
-                      // const SizedBox(height: 4,)
+                      const SizedBox(height: 4,)
                     ],
                   );
                 }),

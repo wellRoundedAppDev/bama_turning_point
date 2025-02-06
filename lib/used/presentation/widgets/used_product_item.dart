@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/home/data/models/search_response.dart';
 import 'package:classic_eccomerce/home_layout/presentation/cubits/app_cubit/cubit.dart';
 import 'package:classic_eccomerce/used/data/models/used_products_by_client_response.dart';
@@ -31,7 +32,7 @@ class UsedProductItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8),
             child: Image.network(
-              "http://noourcaser-001-site1.mtempurl.com/" +
+              ApiUrls.USED_PRODUCTS_FEATURE_BASE_URL +
                       (usedProductItem?.images?.first?.url ?? "") ??
                   '',
               errorBuilder: (context, object, stackTrace) {

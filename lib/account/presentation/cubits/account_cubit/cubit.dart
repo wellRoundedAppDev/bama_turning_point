@@ -327,10 +327,8 @@ class AccountCubit extends Cubit<AccountStates> {
 
     emit(GetOrderDetailsLoadingState());
     var response = await AccountApis.getOrderDetails(id,
-
         currencyCode: appSettingsCubit.currencyCode,
-        languageCode: languageCodes[localeCubit.locale.languageCode]
-    );
+        languageCode: languageCodes[localeCubit.locale.languageCode]);
     if (response?.success == 1) {
       selectedOrder = response?.orderDetails;
       emit(GetOrderDetailsSuccessState());

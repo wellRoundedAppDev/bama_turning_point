@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
+import '../../../core/constants/server_urls_and_keys/api_urls.dart';
 import '../../../main.dart';
 import '../../../shared_components/custom_app_bar.dart';
 import '../../data/models/used_products_by_client_response.dart';
@@ -56,7 +57,7 @@ class UsedProductDetailsScreen extends StatelessWidget {
                                             content: Stack(
                                               children: [
                                                 Image.network(
-                                                  "http://noourcaser-001-site1.mtempurl.com/" +
+                                                  ApiUrls.USED_PRODUCTS_FEATURE_BASE_URL +
                                                       (usedProductItem?.images
                                                               ?.first?.url ??
                                                           ""),
@@ -99,7 +100,7 @@ class UsedProductDetailsScreen extends StatelessWidget {
                                         });
                                   },
                                   child: Image.network(
-                                    "http://noourcaser-001-site1.mtempurl.com/" +
+                                    ApiUrls.USED_PRODUCTS_FEATURE_BASE_URL +
                                         (usedProductItem?.images?.first?.url ??
                                             ""),
                                     height: MediaQuery.of(context).size.height *
@@ -147,7 +148,7 @@ class UsedProductDetailsScreen extends StatelessWidget {
                                                     content: Stack(
                                                       children: [
                                                         Image.network(
-                                                          "http://noourcaser-001-site1.mtempurl.com/" +
+                                                          ApiUrls.USED_PRODUCTS_FEATURE_BASE_URL +
                                                               (e.url ?? ""),
                                                           height: MediaQuery.of(
                                                                   context)
@@ -193,7 +194,7 @@ class UsedProductDetailsScreen extends StatelessWidget {
                                                 });
                                           },
                                           child: Image.network(
-                                            "http://noourcaser-001-site1.mtempurl.com/" +
+                                            ApiUrls.USED_PRODUCTS_FEATURE_BASE_URL +
                                                 (e.url ?? ""),
                                             width: MediaQuery.of(context)
                                                 .size

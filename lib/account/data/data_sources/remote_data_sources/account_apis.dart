@@ -235,6 +235,11 @@ class AccountApis {
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
+    print({
+      "Authorization": "Bearer $accessToken",
+      "X-Oc-Merchant-Language": languageCode,
+      "X-Oc-Currency": currencyCode
+    });
     try {
       var response = await dioHelper.get(endpoint: endpoint, headers: {
         "Authorization": "Bearer $accessToken",

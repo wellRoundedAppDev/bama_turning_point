@@ -163,7 +163,7 @@ class OrderDetails {
     var dateAdded = json['date_added'];
     // var ip = json['ip'];
   //  var paymentAddress = json['payment_address'];
-    var shippingAddress = json['shipping_address'];
+  //  var shippingAddress = json['shipping_address'];
     List<ProductFromOrder>? products;
     if (json['products'] != null) {
       products = [];
@@ -221,7 +221,7 @@ class OrderDetails {
         paymentZoneId: paymentZoneId,
         shippingAddress1: shippingAddress1,
         shippingAddress2: shippingAddress2,
-        shippingAddress: shippingAddress,
+       // shippingAddress: shippingAddress,
         shippingAddressFormat: shippingAddressFormat,
         shippingCity: shippingCity,
         shippingCompany: shippingCompany,

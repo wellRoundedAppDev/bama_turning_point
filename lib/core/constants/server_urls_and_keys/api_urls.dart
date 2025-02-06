@@ -97,7 +97,6 @@ class ApiUrls {
   static const SEND_EMAIL_ENDPOINT =
       "https://erp-alnuqta.com/caser/services/Api/add-support?projectId=1";
 
-
-
-
+  static const USED_PRODUCTS_FEATURE_BASE_URL =
+      "https://erp-alnuqta.com/caser/";
 }
