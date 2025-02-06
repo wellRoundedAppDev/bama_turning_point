@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
           child: Scaffold(
             drawer: const HomeDrawer(),
             appBar: AppBar(
-              toolbarHeight: MediaQuery.of(context).size.height * 0.17,
+              toolbarHeight: MediaQuery.of(context).size.height * 0.095,
               leading: Container(),
               flexibleSpace: Container(
                 padding: const EdgeInsets.all(16),
@@ -146,44 +146,44 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                       const Spacer(),
-                      SizedBox(
-                          height: 45,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: SearchAppBarCustomInput(
-                              filledColor: AppColors.APP_BAR_SEARCH_FIELD,
-                              hintText:
-                                  AppLocalizations.of(context)!.search_here,
-                              textAlign: TextAlign.start,
-                              isFilled: true,
-                              readOnly: true,
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        child: BlocProvider.value(
-                                            value: CartCubit.get(context),
-                                            child: BlocProvider(
-                                                create: (context) =>
-                                                    SearchCubit()
-                                                      ..setSearchResults(""),
-                                                child:
-                                                    const SearchAndFilterScreen())),
-                                        type: PageTransitionType.fade));
-                              },
-                              hintTextStyle: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: FontSizes.FONT_SIZE_14,
-                                  fontFamily: FontFamilies.OPEN_SANS),
-                              suffixIcon: const Icon(
-                                Icons.search,
-                                size: 20,
-                                color: Colors.white,
-                              ),
-                            ),
-                          )),
-                      const SizedBox(height: 4,)
+                      // SizedBox(
+                      //     height: 45,
+                      //     child: Padding(
+                      //       padding:
+                      //           const EdgeInsets.symmetric(horizontal: 16.0),
+                      //       child: SearchAppBarCustomInput(
+                      //         filledColor: AppColors.APP_BAR_SEARCH_FIELD,
+                      //         hintText:
+                      //             AppLocalizations.of(context)!.search_here,
+                      //         textAlign: TextAlign.start,
+                      //         isFilled: true,
+                      //         readOnly: true,
+                      //         onTap: () {
+                      //           Navigator.push(
+                      //               context,
+                      //               PageTransition(
+                      //                   child: BlocProvider.value(
+                      //                       value: CartCubit.get(context),
+                      //                       child: BlocProvider(
+                      //                           create: (context) =>
+                      //                               SearchCubit()
+                      //                                 ..setSearchResults(""),
+                      //                           child:
+                      //                               const SearchAndFilterScreen())),
+                      //                   type: PageTransitionType.fade));
+                      //         },
+                      //         hintTextStyle: const TextStyle(
+                      //             color: Colors.white,
+                      //             fontSize: FontSizes.FONT_SIZE_14,
+                      //             fontFamily: FontFamilies.OPEN_SANS),
+                      //         suffixIcon: const Icon(
+                      //           Icons.search,
+                      //           size: 20,
+                      //           color: Colors.white,
+                      //         ),
+                      //       ),
+                      //     )),
+                      // const SizedBox(height: 4,)
                     ],
                   );
                 }),
