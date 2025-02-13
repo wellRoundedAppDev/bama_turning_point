@@ -88,6 +88,7 @@
   "next": "Next",
   "add_address": "Add address",
   "full_name": "Full name",
+  "enter_full_name": "Enter full name",
   "selected_address": "Selected Address",
   "select_address": "Select address",
   "shipping_method": "Shipping Method",

@@ -107,32 +107,55 @@ class GuestScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
-                  label: AppLocalizations.of(context)!.first_name,
-                  hintText: AppLocalizations.of(context)!.first_name,
+                  label: AppLocalizations.of(context)!.full_name,
+                  hintText: AppLocalizations.of(context)!.full_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return AppLocalizations.of(context)!
-                          .enter_your_first_name;
+                          .enter_full_name;
                     }
-                  },
-                  onSaved: (v) =>
-                      AuthCubit.get(context).guestFormInput.firstName = v,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                CustomInput(
-                  label: AppLocalizations.of(context)!.family_name,
-                  hintText: AppLocalizations.of(context)!.family_name,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if((value?.split(" ")?.length ?? 0) == 1 || value?.split(" ")?.last?.isEmpty == true || value?.split(" ")?.last == " "){
                       return AppLocalizations.of(context)!
                           .enter_your_family_name;
+
                     }
                   },
-                  onSaved: (v) =>
-                      AuthCubit.get(context).guestFormInput.lastName = v,
+                  onSaved: (v) {
+                    AuthCubit.get(context).guestFormInput.firstName =
+                        v?.split(" ")?.first;
+                    if ((v?.split(" ")?.length ?? 0) > 1) {
+                      AuthCubit.get(context).guestFormInput.lastName =
+                          v?.split(" ")?.last;
+                    }
+                  },
                 ),
+                // CustomInput(
+                //   label: AppLocalizations.of(context)!.first_name,
+                //   hintText: AppLocalizations.of(context)!.first_name,
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return AppLocalizations.of(context)!
+                //           .enter_your_first_name;
+                //     }
+                //   },
+                //   onSaved: (v) =>
+                //       AuthCubit.get(context).guestFormInput.firstName = v,
+                // ),
+                // const SizedBox(
+                //   height: 16,
+                // ),
+                // CustomInput(
+                //   label: AppLocalizations.of(context)!.family_name,
+                //   hintText: AppLocalizations.of(context)!.family_name,
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return AppLocalizations.of(context)!
+                //           .enter_your_family_name;
+                //     }
+                //   },
+                //   onSaved: (v) =>
+                //       AuthCubit.get(context).guestFormInput.lastName = v,
+                // ),
                 const SizedBox(
                   height: 24,
                 ),
@@ -294,6 +317,7 @@ class GuestScreen extends StatelessWidget {
                                 color: Color(0xff878787)),
                           );
                         },
+
                         onChanged: (Country? country) {
                           AuthCubit.get(context).setCountryOfGuest(country!);
                         },

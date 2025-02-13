@@ -50,6 +50,12 @@ class _QuickCheckoutAuthScreenState extends State<QuickCheckoutAuthScreen>
                     unselectedLabelColor: const Color(0xff313846),
                     tabs:  [
                       Tab(
+                        child: Text(
+                          AppLocalizations.of(context)!.guest,
+                          style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16),
+                        ),
+                      ),
+                      Tab(
                           child: Text(
                         AppLocalizations.of(context)!.login,
                         style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16),
@@ -59,12 +65,7 @@ class _QuickCheckoutAuthScreenState extends State<QuickCheckoutAuthScreen>
                             AppLocalizations.of(context)!.sign_up,
                         style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16),
                       )),
-                      Tab(
-                        child: Text(
-                          AppLocalizations.of(context)!.guest,
-                          style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16),
-                        ),
-                      ),
+
                     ]),
               ),
               Expanded(
@@ -73,6 +74,10 @@ class _QuickCheckoutAuthScreenState extends State<QuickCheckoutAuthScreen>
                   child: TabBarView(
                     controller: CheckOutCubit.get(context).tabController,
                     children: [
+                      const Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: GuestScreen(),
+                      ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: SignInScreen(
@@ -85,10 +90,7 @@ class _QuickCheckoutAuthScreenState extends State<QuickCheckoutAuthScreen>
                           showBackButton: false,
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: GuestScreen(),
-                      ),
+
                     ],
                   ),
                 ),

@@ -18,8 +18,7 @@ class RegisterFormInput {
 
   RegisterFormInput({this.gender = "Male"});
 
-  Map<String, dynamic> toJsonForApi() =>
-      {
+  Map<String, dynamic> toJsonForApi() => {
         'customer_id': 1,
         'customer_group_id': 1,
         'store_id': 1,
@@ -39,9 +38,9 @@ class RegisterFormInput {
         // "custom_field": {
         //   "account": {"1": "32223"}
 
-          "custom_field": {
-            "account": {"1": "+364545454"}
-          }
-       //}
-};
-      }
+        "custom_field": {
+          "account": {"1": "+364545454"}
+        }
+        //}
+      };
+}

@@ -86,6 +86,8 @@
   "billing_address": "عنوان وصول الفواتير",
   "add_address": "اضف عنوان",
   "full_name": "الاسم الكامل",
+  "enter_full_name": "أدخل الاسم الكامل",
+
   "selected_address": "العنوان المحدد",
   "select_address": "حدد العنوان",
   "shipping_method": "طريقة الشحن",
