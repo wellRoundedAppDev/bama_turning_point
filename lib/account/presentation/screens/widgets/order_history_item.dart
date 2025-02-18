@@ -264,35 +264,35 @@ class OrderHistoryItem extends StatelessWidget {
               ],
             ),
           ),
-          // GestureDetector(
-          //   onTap: () {
-          //     Navigator.push(
-          //         context,
-          //         PageTransition(
-          //             child: BlocProvider.value(
-          //                 value: AccountCubit.get(context)
-          //                   ..setOrderDetails(
-          //                       int.tryParse(customerOrder?.orderId ?? "") ??
-          //                           0),
-          //                 child: OrderDetailsScreen()),
-          //             type: PageTransitionType.leftToRight));
-          //   },
-          //   child: Container(
-          //     width: MediaQuery.of(context).size.width,
-          //     decoration: const BoxDecoration(
-          //         color: Color(0xffDBD6D6),
-          //         borderRadius: BorderRadius.only(
-          //             bottomLeft: Radius.circular(8),
-          //             bottomRight: Radius.circular(8))),
-          //     padding: const EdgeInsets.symmetric(vertical: 10),
-          //     child: Center(
-          //         child: Text(
-          //       AppLocalizations.of(context)!.view,
-          //       style: const TextStyle(
-          //           fontSize: FontSizes.FONT_SIZE_14, color: Color(0xff313846)),
-          //     )),
-          //   ),
-          // )
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      child: BlocProvider.value(
+                          value: AccountCubit.get(context)
+                            ..setOrderDetails(
+                                int.tryParse(customerOrder?.orderId ?? "") ??
+                                    0),
+                          child: OrderDetailsScreen()),
+                      type: PageTransitionType.leftToRight));
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                  color: Color(0xffDBD6D6),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(8),
+                      bottomRight: Radius.circular(8))),
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Center(
+                  child: Text(
+                AppLocalizations.of(context)!.view,
+                style: const TextStyle(
+                    fontSize: FontSizes.FONT_SIZE_14, color: Color(0xff313846)),
+              )),
+            ),
+          )
         ],
       ),
     );
