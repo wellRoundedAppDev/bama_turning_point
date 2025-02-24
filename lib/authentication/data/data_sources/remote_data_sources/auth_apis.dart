@@ -31,7 +31,7 @@ class AuthApis {
     String endpoint = ApiUrls.GET_TOKEN_ENDPONT;
     try {
       var response = await dioHelper.post(endPoint: endpoint, headers: {
-        "Authorization": "Basic c2hvcHBpbmdfb2F1dGhfY2xpZW50OnNob3BwaW5nX29hdXRoX3NlY3JldA=="
+        "Authorization": "Basic bS1jZXNhci11c2VyOm0tY2VzYXItc2VjcmV0"
       });
       if (response?.data['success'] == 1) {
         return response?.data['data']['access_token'];
