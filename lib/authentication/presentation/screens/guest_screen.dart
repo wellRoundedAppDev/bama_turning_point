@@ -111,13 +111,13 @@ class GuestScreen extends StatelessWidget {
                   hintText: AppLocalizations.of(context)!.full_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
-                          .enter_full_name;
+                      return AppLocalizations.of(context)!.enter_full_name;
                     }
-                    if((value?.split(" ")?.length ?? 0) == 1 || value?.split(" ")?.last?.isEmpty == true || value?.split(" ")?.last == " "){
+                    if ((value?.split(" ")?.length ?? 0) == 1 ||
+                        value?.split(" ")?.last?.isEmpty == true ||
+                        value?.split(" ")?.last == " ") {
                       return AppLocalizations.of(context)!
-                          .enter_your_family_name;
-
+                          .enter_your_name;
                     }
                   },
                   onSaved: (v) {
@@ -242,9 +242,9 @@ class GuestScreen extends StatelessWidget {
                       AuthCubit.get(context).guestFormInput.cityName = v,
                 ),
 
-                const SizedBox(
-                  height: 16,
-                ),
+                // const SizedBox(
+                //   height: 16,
+                // ),
                 // CustomInput(
                 //   label: AppLocalizations.of(context)!.postal_code,
                 //   hintText: AppLocalizations.of(context)!.postal_code,
@@ -261,77 +261,77 @@ class GuestScreen extends StatelessWidget {
                 // const SizedBox(
                 //   height: 16,
                 // ),
-                BlocConsumer<AuthCubit, AuthStates>(
-                  listener: (context, state) {},
-                  builder: (context, state) {
-                    return Container(
-                      padding: const EdgeInsets.only(left: 16, right: 8),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xff95989A))),
-                      child: DropdownSearch<Country>(
-                        asyncItems: (String filter) async {
-                          // var res =
-                          return await AuthCubit.get(context).getCountries();
-                        },
-                        dropdownDecoratorProps: DropDownDecoratorProps(
-                            dropdownSearchDecoration: InputDecoration(
-                                label: Text(
-                                  AppLocalizations.of(context)!.country,
-                                  style: const TextStyle(
-                                      fontSize: FontSizes.FONT_SIZE_16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                border: InputBorder.none,
-                                hintStyle: const TextStyle(
-                                  fontSize: FontSizes.FONT_SIZE_16,
-                                  color: Color(0xff878787),
-                                ),
-                                hintText:
-                                    AppLocalizations.of(context)!.country)),
-                        dropdownButtonProps: const DropdownButtonProps(
-                            icon: Icon(
-                          Icons.keyboard_arrow_down,
-                          color: Color(0xff696C6E),
-                        )),
-                        popupProps: PopupProps.menu(
-                            itemBuilder: (context, Country country, bool) {
-                          return Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Text(
-                              country.name ?? "-",
-                              style: const TextStyle(
-                                  fontSize: FontSizes.FONT_SIZE_16,
-                                  color: Color(0xff878787)),
-                            ),
-                          );
-                        }),
-                        dropdownBuilder: (context, country) {
-                          return Text(
-                            AuthCubit.get(context)
-                                    .guestFormInput
-                                    .country
-                                    ?.name ??
-                                AppLocalizations.of(context)!.country,
-                            style: const TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_16,
-                                color: Color(0xff878787)),
-                          );
-                        },
-
-                        onChanged: (Country? country) {
-                          AuthCubit.get(context).setCountryOfGuest(country!);
-                        },
-                        validator: (Country? country) {
-                          if (AuthCubit.get(context).guestFormInput.country ==
-                              null) {
-                            return AppLocalizations.of(context)!
-                                .select_your_country;
-                          }
-                        },
-                      ),
-                    );
-                  },
-                ),
+                // BlocConsumer<AuthCubit, AuthStates>(
+                //   listener: (context, state) {},
+                //   builder: (context, state) {
+                //     return Container(
+                //       padding: const EdgeInsets.only(left: 16, right: 8),
+                //       decoration: BoxDecoration(
+                //           border: Border.all(color: const Color(0xff95989A))),
+                //       child: DropdownSearch<Country>(
+                //         asyncItems: (String filter) async {
+                //           // var res =
+                //           return await AuthCubit.get(context).getCountries();
+                //         },
+                //         dropdownDecoratorProps: DropDownDecoratorProps(
+                //             dropdownSearchDecoration: InputDecoration(
+                //                 label: Text(
+                //                   AppLocalizations.of(context)!.country,
+                //                   style: const TextStyle(
+                //                       fontSize: FontSizes.FONT_SIZE_16,
+                //                       fontWeight: FontWeight.bold),
+                //                 ),
+                //                 border: InputBorder.none,
+                //                 hintStyle: const TextStyle(
+                //                   fontSize: FontSizes.FONT_SIZE_16,
+                //                   color: Color(0xff878787),
+                //                 ),
+                //                 hintText:
+                //                     AppLocalizations.of(context)!.country)),
+                //         dropdownButtonProps: const DropdownButtonProps(
+                //             icon: Icon(
+                //           Icons.keyboard_arrow_down,
+                //           color: Color(0xff696C6E),
+                //         )),
+                //         popupProps: PopupProps.menu(
+                //             itemBuilder: (context, Country country, bool) {
+                //           return Padding(
+                //             padding: const EdgeInsets.all(16.0),
+                //             child: Text(
+                //               country.name ?? "-",
+                //               style: const TextStyle(
+                //                   fontSize: FontSizes.FONT_SIZE_16,
+                //                   color: Color(0xff878787)),
+                //             ),
+                //           );
+                //         }),
+                //         dropdownBuilder: (context, country) {
+                //           return Text(
+                //             AuthCubit.get(context)
+                //                     .guestFormInput
+                //                     .country
+                //                     ?.name ??
+                //                 AppLocalizations.of(context)!.country,
+                //             style: const TextStyle(
+                //                 fontSize: FontSizes.FONT_SIZE_16,
+                //                 color: Color(0xff878787)),
+                //           );
+                //         },
+                //
+                //         onChanged: (Country? country) {
+                //           AuthCubit.get(context).setCountryOfGuest(country!);
+                //         },
+                //         validator: (Country? country) {
+                //           if (AuthCubit.get(context).guestFormInput.country ==
+                //               null) {
+                //             return AppLocalizations.of(context)!
+                //                 .select_your_country;
+                //           }
+                //         },
+                //       ),
+                //     );
+                //   },
+                // ),
                 const SizedBox(
                   height: 16,
                 ),

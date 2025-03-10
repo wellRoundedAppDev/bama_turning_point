@@ -9,6 +9,7 @@ import '../../../shared_components/custom_input.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUpScreen extends StatelessWidget {
+
   bool showBackButton;
   SignUpScreen({
     super.key,
@@ -126,33 +127,58 @@ class SignUpScreen extends StatelessWidget {
                 // const SizedBox(
                 //   height: 16,
                 // ),
+
                 CustomInput(
-                  label: AppLocalizations.of(context)!.first_name,
-                  hintText: AppLocalizations.of(context)!.first_name,
+                  label: AppLocalizations.of(context)!.full_name,
+                  hintText: AppLocalizations.of(context)!.full_name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
+                      return AppLocalizations.of(context)!.enter_full_name;
+                    }
+                    if ((value?.split(" ")?.length ?? 0) == 1 ||
+                        value?.split(" ")?.last?.isEmpty == true ||
+                        value?.split(" ")?.last == " ") {
                       return AppLocalizations.of(context)!
-                          .enter_your_first_name;
+                          .enter_your_name;
                     }
                   },
-                  onSaved: (v) =>
-                      AuthCubit.get(context).registerFormInput.firstName = v,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                CustomInput(
-                  label: AppLocalizations.of(context)!.family_name,
-                  hintText: AppLocalizations.of(context)!.family_name,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
-                          .enter_your_family_name;
+                  onSaved: (v) {
+                    AuthCubit.get(context).registerFormInput.firstName =
+                        v?.trim()?.split(" ")?.first;
+                    if ((v?.split(" ")?.length ?? 0) > 1) {
+                      AuthCubit.get(context).registerFormInput.lastName =
+                          v?.trim()?.split(" ")?.last;
                     }
                   },
-                  onSaved: (v) =>
-                      AuthCubit.get(context).registerFormInput.lastName = v,
                 ),
+
+                // CustomInput(
+                //   label: AppLocalizations.of(context)!.first_name,
+                //   hintText: AppLocalizations.of(context)!.first_name,
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return AppLocalizations.of(context)!
+                //           .enter_your_first_name;
+                //     }
+                //   },
+                //   onSaved: (v) =>
+                //       AuthCubit.get(context).registerFormInput.firstName = v,
+                // ),
+                // const SizedBox(
+                //   height: 16,
+                // ),
+                // CustomInput(
+                //   label: AppLocalizations.of(context)!.family_name,
+                //   hintText: AppLocalizations.of(context)!.family_name,
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return AppLocalizations.of(context)!
+                //           .enter_your_family_name;
+                //     }
+                //   },
+                //   onSaved: (v) =>
+                //       AuthCubit.get(context).registerFormInput.lastName = v,
+                // ),
                 const SizedBox(
                   height: 16,
                 ),

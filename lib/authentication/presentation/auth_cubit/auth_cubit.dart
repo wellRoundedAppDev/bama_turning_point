@@ -277,7 +277,7 @@ class AuthCubit extends Cubit<AuthStates> {
 
   Future<List<Region>> getRegionOfGuest() async {
     var response = await GetCountriesAndRegionsApi.getRegionsByCountryId(
-        guestFormInput.country?.countryId?.toInt() ?? 0);
+        guestFormInput.country?.countryId?.toInt() ?? 102);
     if (response?.success == 1) {
       return response?.data?.regions ?? [];
     } else {
@@ -295,9 +295,11 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   validateGuestCheckoutForm() {
-    if (guestFormKey.currentState!.validate() == true &&
-        guestFormInput.country != null &&
-        guestFormInput.region != null) {
+    if (guestFormKey.currentState!.validate() == true
+    //&&
+     //   guestFormInput.country != null &&
+    //    guestFormInput.region != null
+    ) {
       return true;
     }
     return false;
@@ -333,6 +335,9 @@ class AuthCubit extends Cubit<AuthStates> {
     }
 
     guestFormKey.currentState?.save();
+
+
+    guestFormInput?.country = Country(countryId: 102);
 
     emit(CreatingGuestUserLoadingState());
     if (await setAccessToken() == true) {

@@ -1,5 +1,5 @@
 class ApiUrls {
-  static const BASE_URL = "http://m-caesari.com/";
+  static const BASE_URL = "https://m-caesari.com/";
   //"https://buqcha.net/";
   // "https://opencart3-simple.api.opencart-api.com/";
   static const GET_TOKEN_ENDPONT = "api/rest/oauth2/token/client_credentials";

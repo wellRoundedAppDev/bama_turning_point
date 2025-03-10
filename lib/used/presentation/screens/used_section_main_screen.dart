@@ -24,59 +24,62 @@ class UsedSectionMainScreen extends StatelessWidget {
         child: Scaffold(
             appBar: CustomAppBar.renderAppBar(
                 title: "", showBackButton: showBackButton, showCartIcon: false),
-            bottomNavigationBar: Stack(
-              children: [
-                Container(height: 100,color: Colors.transparent,),
-                Positioned(
-                  right: 50,
-                  top: 16,
-                  child: Container(
-                    padding: EdgeInsets.only(right: 35,left: 40,top: 8,bottom: 8),
-                    decoration: BoxDecoration(
-                    
-                    
-                    color: Color(0xffDBD6D6),
-
-                    borderRadius: BorderRadius.circular(20),
-
-                  ),
-                    child: Text("اضف دراجتك",style: TextStyle(fontSize: FontSizes.FONT_SIZE_12,fontWeight: FontWeight.w500),),
-                  ),
-                ),
-
-                Positioned(
-                  top: 0,
-                  bottom: 0,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              child: const AddUsedProductByClientScreen(),
-                              type: PageTransitionType.leftToRight));
-                    },
+            bottomNavigationBar: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Stack(
+                children: [
+                  Container(height: 100,color: Colors.transparent,),
+                  Positioned(
+                    right: 50,
+                    top: 16,
                     child: Container(
-                      padding: const EdgeInsets.only(bottom: 32, right: 16),
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColors.APP_MAIN_COLOR,
+                      padding: EdgeInsets.only(right: 35,left: 40,top: 8,bottom: 8),
+                      decoration: BoxDecoration(
+
+
+                      color: const Color(0xffDBD6D6),
+
+                      borderRadius: BorderRadius.circular(20),
+
+                    ),
+                      child: Text("اضف دراجتك",style: TextStyle(fontSize: FontSizes.FONT_SIZE_12,fontWeight: FontWeight.w500),),
+                    ),
+                  ),
+
+                  Positioned(
+                    top: 0,
+                    bottom: 0,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: const AddUsedProductByClientScreen(),
+                                type: PageTransitionType.leftToRight));
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.only(bottom: 32, right: 16),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.APP_MAIN_COLOR,
+                              ),
+                              child: const Icon(
+                                Icons.add,
+                                size: 35,
+                                color: Colors.white,
+                              ),
                             ),
-                            child: const Icon(
-                              Icons.add,
-                              size: 35,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             body: BlocConsumer<AuthCubit, AuthStates>(
                 listener: (context, state) {},

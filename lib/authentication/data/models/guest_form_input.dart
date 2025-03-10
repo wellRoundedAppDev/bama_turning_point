@@ -49,7 +49,7 @@ class GuestFormInput {
         "address_2": "",
         "country_id": country?.countryId?.toInt(),
         "postcode": postalCode,
-        "zone_id": int.parse(region?.zoneId ?? ""),
+        "zone_id": int.tryParse(region?.zoneId ?? ""),
 
         "custom_field": {
           "account": {"1": "+364545454"}
