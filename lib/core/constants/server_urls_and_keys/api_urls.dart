@@ -86,17 +86,17 @@ class ApiUrls {
   //used products
 
   static const ADD_USED_PRODUCT_ENDPOINT =
-      "https://erp-alnuqta.com/caser/services/api/add-product";
+      "https://taskmanagement.semicolonsys.com/caser/services/api/add-product";
 
   static const GET_USED_PRODUCTS_BY_CLIENTS_ENDPOINT =
-      "https://erp-alnuqta.com/caser/services/api/all-products-users?pageNumber=1&pageSize=1000";
+      "https://taskmanagement.semicolonsys.com/caser/services/api/all-products-users?pageNumber=1&pageSize=1000";
 
   static const GET_USED_PRODUCTS_BY_COMPANY_ENDPOINT =
-      "https://erp-alnuqta.com/caser/services/api/all-products-admins?pageNumber=1&pageSize=1000";
+      "https://taskmanagement.semicolonsys.com/caser/services/api/all-products-admins?pageNumber=1&pageSize=1000";
 
   static const SEND_EMAIL_ENDPOINT =
       "https://erp-alnuqta.com/caser/services/Api/add-support?projectId=1";
 
   static const USED_PRODUCTS_FEATURE_BASE_URL =
-      "https://erp-alnuqta.com/caser/";
+      "https://taskmanagement.semicolonsys.com/caser/";
 }
