@@ -208,7 +208,7 @@ class AuthCubit extends Cubit<AuthStates> {
     }
 
     var response = await AuthApis.register(registerFormInput.toJsonForApi());
-    if (response?.success == true) {
+    if (response?.success == false) {
       // isUserLoggedIn = true;
       await login(loginInput: {
         "email": registerFormInput.phoneNumber,
@@ -218,7 +218,9 @@ class AuthCubit extends Cubit<AuthStates> {
       Navigator.pop(context);
     } else if (response?.success == false) {
       // isUserLoggedIn = false;
-      showAppSnackBar(content: response?.errorMsgs?[0] ?? "");
+      showAppSnackBar(content:
+      response?.errorMsgs == null || response?.errorMsgs == []?
+      (response?.errorMsgs?[0] ?? ""):"");
       emit(RegisterFailedState());
     } else {
       // isUserLoggedIn = false;
