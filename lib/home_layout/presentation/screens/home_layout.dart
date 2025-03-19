@@ -58,27 +58,27 @@ class HomeLayoutScreen extends StatelessWidget {
                                     width: 30,
                                     height: 30,
                                   ),
-                            (navBarCurrentIndex == 1)
-                                ? SvgPicture.asset(
-                                    IconPaths.USED,
-                                    width: 30,
-                                    height: 30,
-                              color: Colors.white,
-                                  )
-                                : SvgPicture.asset(
-                                    IconPaths.USED,
-                                    width: 30,
-                                    height: 30,
-                              color: Colors.white,
-
-
-                            ),
+                            // (navBarCurrentIndex == 1)
+                            //     ? SvgPicture.asset(
+                            //         IconPaths.USED,
+                            //         width: 30,
+                            //         height: 30,
+                            //   color: Colors.white,
+                            //       )
+                            //     : SvgPicture.asset(
+                            //         IconPaths.USED,
+                            //         width: 30,
+                            //         height: 30,
+                            //   color: Colors.white,
+                            //
+                            //
+                            // ),
                             BlocConsumer<CartCubit, CartStates>(
                               listener: (context, state) {},
                               builder: (context, state) {
                                 num itemsCount =
                                     CartCubit.get(context).numberOfItemsInCart;
-                                return (navBarCurrentIndex == 2)
+                                return (navBarCurrentIndex == 1)
                                     ? Image.asset(
                                         IconPaths.CART,
                                         width: 30,
@@ -124,29 +124,29 @@ class HomeLayoutScreen extends StatelessWidget {
                                       );
                               },
                             ),
-                            (navBarCurrentIndex == 3)
-                                ? Image.asset(
-                                    IconPaths.CATEGORIES_NAV_ICON,
-                                    width: 30,
-                                    height: 30,
-                                  )
-                                : Image.asset(
-                                    IconPaths.CATEGORIES_NAV_ICON,
-                                    width: 30,
-                                    height: 30,
-                                  ),
-                            (navBarCurrentIndex == 4)
-                                ? Image.asset(
-                                    IconPaths.FAV_ICON,
-                                    width: 30,
-                                    height: 30,
-                                  )
-                                : Image.asset(
-                                    IconPaths.FAV_ICON,
-                                    width: 30,
-                                    height: 30,
-                                  ),
-                            (navBarCurrentIndex == 5)
+                            // (navBarCurrentIndex == 3)
+                            //     ? Image.asset(
+                            //         IconPaths.CATEGORIES_NAV_ICON,
+                            //         width: 30,
+                            //         height: 30,
+                            //       )
+                            //     : Image.asset(
+                            //         IconPaths.CATEGORIES_NAV_ICON,
+                            //         width: 30,
+                            //         height: 30,
+                            //       ),
+                            // (navBarCurrentIndex == 4)
+                            //     ? Image.asset(
+                            //         IconPaths.FAV_ICON,
+                            //         width: 30,
+                            //         height: 30,
+                            //       )
+                            //     : Image.asset(
+                            //         IconPaths.FAV_ICON,
+                            //         width: 30,
+                            //         height: 30,
+                            //       ),
+                            (navBarCurrentIndex == 2)
                                 ? Image.asset(
                                     IconPaths.HOME_NAV_ICON,
                                     width: 30,
@@ -163,19 +163,18 @@ class HomeLayoutScreen extends StatelessWidget {
                             appCubit.changeNavBarIndex(index);
                           }),
                     ),
-                    body: (navBarCurrentIndex == 5)
-                        ? const HomeScreen()
-                        : (navBarCurrentIndex == 4)
-                            ? const WishListScreen()
-                            : (navBarCurrentIndex == 3)
-                                ? CategoriesScreen(
-                                    showBackButton: false,
-                                  )
-                                : (navBarCurrentIndex == 2)
+                    body: (navBarCurrentIndex == 0)
+                        ? const MyAccountScreen()
+                        // : (navBarCurrentIndex == 4)
+                        //     ? const WishListScreen()
+                        //     : (navBarCurrentIndex == 3)
+                        //         ? CategoriesScreen(
+                        //             showBackButton: false,
+                        //           )
+                          :
+                    (navBarCurrentIndex == 1)
                                     ? CartScreen()
-                                    : (navBarCurrentIndex == 1)
-                                        ? UsedSectionMainScreen()
-                                        : const MyAccountScreen())),
+                                    :const HomeScreen())),
           );
         },
       ),

@@ -43,5 +43,9 @@ class IconPaths {
   static const LEFT_PICTURE_ARROW = "assets/icons/left_picture_arrow.svg";
   static const RIGHT_PICTURE_ARROW = "assets/icons/right_picture_arrow.svg";
 
+  static const NOTIFICATION_ICON = "assets/icons/notifications.svg";
+
+  static const ACCOUNT_ICON = "assets/icons/account.svg";
+
 
 }

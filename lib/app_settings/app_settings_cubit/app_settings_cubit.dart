@@ -27,19 +27,19 @@ class AppSettingsCubit extends Cubit<AppSettingsStates>{
 
   launchApp(){
     //NotificationsCubit.get(context).init();
-
-    player = AudioPlayer();
-
-    // Set the release mode to keep the source after playback has completed.
-    player.setReleaseMode(ReleaseMode.stop);
-
-    // Start the player as soon as the app is displayed.
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await player
-          .setSource(AssetSource(SoundPaths.BIKE_IGNITION));
-      player.resume();
-
-    });
+    //
+    // player = AudioPlayer();
+    //
+    // // Set the release mode to keep the source after playback has completed.
+    // player.setReleaseMode(ReleaseMode.stop);
+    //
+    // // Start the player as soon as the app is displayed.
+    // WidgetsBinding.instance.addPostFrameCallback((_) async {
+    //   await player
+    //       .setSource(AssetSource(SoundPaths.BIKE_IGNITION));
+    //   player.resume();
+    //
+    // });
 
     AuthCubit.get(context).autoLogin(cartCubit: CartCubit.get(context));
 

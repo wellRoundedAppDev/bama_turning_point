@@ -1,4 +1,5 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/data/models/get_categories_response.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
@@ -13,10 +14,12 @@ import 'package:classic_eccomerce/home/presentation/screens/search_and_filter_sc
 import 'package:classic_eccomerce/home/presentation/widgets/brands_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/categories_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/products_overview.dart';
+import 'package:classic_eccomerce/main.dart';
 import 'package:classic_eccomerce/notifications/presentation/screens/notifications_screen.dart';
 import 'package:classic_eccomerce/shared_components/search_app_bar_custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../cart/presentation/cubits/cart_cubit/states.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
@@ -34,7 +37,7 @@ class HomeScreen extends StatelessWidget {
           child: Scaffold(
             drawer: const HomeDrawer(),
             appBar: AppBar(
-              toolbarHeight: MediaQuery.of(context).size.height * 0.095,
+              toolbarHeight: MediaQuery.of(context).size.height * 0.12,
               leading: Container(),
               flexibleSpace: Container(
                 padding: const EdgeInsets.all(16),
@@ -47,143 +50,128 @@ class HomeScreen extends StatelessWidget {
                   0.9
                 ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
                 child: Builder(builder: (context) {
-                  return Column(
+                  String firstName = MyApp.navKey.currentState?.context.read<AuthCubit>().loginResponse?.loginData?.firstname??"";
+                  return
+                    Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Scaffold.of(context).openDrawer();
-                            },
-                            child: const Icon(
-                              Icons.menu_sharp,
-                              size: 25,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Expanded(child: Container()),
-                          Center(
-                              child: Image.asset(
-                            ImagePaths.APP_LOGO_2,
-                            width: MediaQuery.of(context).size.width * 0.3,
-                            height: MediaQuery.of(context).size.height * 0.05,
-                          )),
-                          Expanded(child: Container()),
-                          // IconButton(
-                          //   onPressed: () {
-                          //     // ContactUsApi.contactUs();
-                          //     // Navigator.push(
-                          //     //     context,
-                          //     //     MaterialPageRoute(
-                          //     //         builder: (context) =>
-                          //     //             const NotificationsScreen()));
-                          //   },
-                          //   icon: const Icon(
-                          //     Icons.notifications,
-                          //     color: Colors.white,
-                          //     size: 30,
-                          //   ),
-                          // ),
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        child: BlocProvider.value(
-                                            value: CartCubit.get(context),
-                                            child: CartScreen(
-                                              showBackButton: true,
-                                            )),
-                                        type: PageTransitionType.leftToRight));
-                              },
-                              child: BlocConsumer<CartCubit, CartStates>(
-                                listener: (context, state) {},
-                                builder: (context, state) {
-                                  num itemsCount = CartCubit.get(context)
-                                      .numberOfItemsInCart;
+                      GestureDetector(
+                        onTap: () {
+                          Scaffold.of(context).openDrawer();
 
-                                  return Stack(
-                                    children: [
-                                      Container(
-                                        color: Colors.transparent,
-                                        height: 30,
-                                        width: 30,
-                                      ),
-                                      Center(
-                                        child: Image.asset(
-                                          IconPaths.CART,
-                                          width: 25,
-                                          height: 25,
-                                        ),
-                                      ),
-                                      (itemsCount == 0)
-                                          ? Container()
-                                          : Positioned(
-                                              bottom: 0,
-                                              right: 1,
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(3),
-                                                decoration: const BoxDecoration(
-                                                    color: Colors.yellow,
-                                                    shape: BoxShape.circle),
-                                                child: Center(
-                                                  child: Text(
-                                                    itemsCount.toString(),
-                                                    style: const TextStyle(
-                                                        fontSize: FontSizes
-                                                            .FONT_SIZE_8,
-                                                        color: Colors.black),
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                    ],
-                                  );
-                                },
-                              )),
-                        ],
+                        },
+                        child: SvgPicture.asset(IconPaths.ACCOUNT_ICON,
+                          width: 25,
+                          height: 25,
+                        ),
                       ),
-                      const Spacer(),
-                      // SizedBox(
-                      //     height: 45,
-                      //     child: Padding(
-                      //       padding:
-                      //           const EdgeInsets.symmetric(horizontal: 16.0),
-                      //       child: SearchAppBarCustomInput(
-                      //         filledColor: AppColors.APP_BAR_SEARCH_FIELD,
-                      //         hintText:
-                      //             AppLocalizations.of(context)!.search_here,
-                      //         textAlign: TextAlign.start,
-                      //         isFilled: true,
-                      //         readOnly: true,
-                      //         onTap: () {
-                      //           Navigator.push(
-                      //               context,
-                      //               PageTransition(
-                      //                   child: BlocProvider.value(
-                      //                       value: CartCubit.get(context),
-                      //                       child: BlocProvider(
-                      //                           create: (context) =>
-                      //                               SearchCubit()
-                      //                                 ..setSearchResults(""),
-                      //                           child:
-                      //                               const SearchAndFilterScreen())),
-                      //                   type: PageTransitionType.fade));
-                      //         },
-                      //         hintTextStyle: const TextStyle(
-                      //             color: Colors.white,
-                      //             fontSize: FontSizes.FONT_SIZE_14,
-                      //             fontFamily: FontFamilies.OPEN_SANS),
-                      //         suffixIcon: const Icon(
-                      //           Icons.search,
-                      //           size: 20,
-                      //           color: Colors.white,
-                      //         ),
-                      //       ),
+                      const SizedBox(width: 8,),
+
+                       Expanded(
+                        child: Text(firstName??"",
+                        style: TextStyle(fontSize: FontSizes.FONT_SIZE_16,color: Colors.white,
+                        
+                        ),
+                        ),
+                      ),
+
+                      Center(
+                          child: Image.asset(
+                            ImagePaths.APP_LOGO,
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            height: MediaQuery.of(context).size.height * 0.2,
+
+                          )),
+                      // IconButton(
+                      //   onPressed: () {
+                      //     // ContactUsApi.contactUs();
+                      //     // Navigator.push(
+                      //     //     context,
+                      //     //     MaterialPageRoute(
+                      //     //         builder: (context) =>
+                      //     //             const NotificationsScreen()));
+                      //   },
+                      //   icon: const Icon(
+                      //     Icons.notifications,
+                      //     color: Colors.white,
+                      //     size: 30,
+                      //   ),
+                      // ),
+
+
+
+                      // const SizedBox(width: 16,),
+
+                      Expanded(child: Container()),
+
+                      GestureDetector(
+                        onTap: () {
+                        },
+                        child: SvgPicture.asset(IconPaths.NOTIFICATION_ICON,
+                          width: 25,
+                          height: 25,
+                        ),
+                      ),
+
+
+                      // GestureDetector(
+                      //     onTap: () {
+                      //       Navigator.push(
+                      //           context,
+                      //           PageTransition(
+                      //               child: BlocProvider.value(
+                      //                   value: CartCubit.get(context),
+                      //                   child: CartScreen(
+                      //                     showBackButton: true,
+                      //                   )),
+                      //               type: PageTransitionType.leftToRight));
+                      //     },
+                      //     child: BlocConsumer<CartCubit, CartStates>(
+                      //       listener: (context, state) {},
+                      //       builder: (context, state) {
+                      //         num itemsCount = CartCubit.get(context)
+                      //             .numberOfItemsInCart;
+                      //
+                      //         return Stack(
+                      //           children: [
+                      //             Container(
+                      //               color: Colors.transparent,
+                      //               height: 30,
+                      //               width: 30,
+                      //             ),
+                      //             Center(
+                      //               child: Image.asset(
+                      //                 IconPaths.CART,
+                      //                 width: 25,
+                      //                 height: 25,
+                      //               ),
+                      //             ),
+                      //             (itemsCount == 0)
+                      //                 ? Container()
+                      //                 : Positioned(
+                      //               bottom: 0,
+                      //               right: 1,
+                      //               child: Container(
+                      //                 padding:
+                      //                 const EdgeInsets.all(3),
+                      //                 decoration: const BoxDecoration(
+                      //                     color: Colors.yellow,
+                      //                     shape: BoxShape.circle),
+                      //                 child: Center(
+                      //                   child: Text(
+                      //                     itemsCount.toString(),
+                      //                     style: const TextStyle(
+                      //                         fontSize: FontSizes
+                      //                             .FONT_SIZE_8,
+                      //                         color: Colors.black),
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             )
+                      //           ],
+                      //         );
+                      //       },
                       //     )),
-                      // const SizedBox(height: 4,)
                     ],
                   );
                 }),
