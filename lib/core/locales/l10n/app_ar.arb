@@ -231,5 +231,9 @@
   "dollar": "دولار",
 
 
-  "message_sent_successfully": "تم إرسال الرسالة بنجاح"
+  "message_sent_successfully": "تم إرسال الرسالة بنجاح",
+
+  "phone_number_already_exists": "رقم الجوال موجود بالفعل",
+
+  "wrong_phone_number_or_password": "رقم هاتف أو كلمة مرور خاطئة"
 }

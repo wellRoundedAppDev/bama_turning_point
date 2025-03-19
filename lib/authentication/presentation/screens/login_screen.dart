@@ -45,18 +45,19 @@ class SignInScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomInput(
-                  label: "اسم المستخدم",
-                  hintText: "اسم المستخدم",
+                  label: AppLocalizations.of(context)!.phone_number,
+                  hintText: AppLocalizations.of(context)!.phone_number,
                   validator: (value) {
                     if (
-                    value == null ||
-                    value.isEmpty
-                        // value.length < 8 ||
-                        // value.length > 13
+                    // value == null ||
+                    // value.isEmpty
+                        (value?.length??0) < 8 ||
+                        (value?.length??0) > 13
                     ) {
-                      return "";
+                      return AppLocalizations.of(context)!.enter_a_valid_phone_number;
                     }
                   },
+                  textInputType: TextInputType.phone,
                   onSaved: (v) => AuthCubit.get(context)
                       .loginFormInput
                       .username = v?.trim(),

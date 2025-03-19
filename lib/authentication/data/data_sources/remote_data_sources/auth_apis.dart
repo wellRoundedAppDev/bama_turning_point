@@ -85,7 +85,7 @@ class AuthApis {
       if (response == null) {
         return null;
       }
-      return SuccessAndErrorResponse.fromJson(response.data);
+      return SuccessAndErrorResponse(success: response.data['data']!=null&&  response.data['data'].isNotEmpty,errorMsgs: response.data['error']);
     } catch (e) {
       if (kDebugMode) {
         print("Register error api $e");

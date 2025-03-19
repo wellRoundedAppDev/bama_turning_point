@@ -226,6 +226,12 @@
   "dollar": "Dollar",
 
 
+  "phone_number_already_exists": "Phone number already exists",
+
+  "wrong_phone_number_or_password": "Wrong phone number or password",
+
+
+
   "message_sent_successfully": "Message sent successfully",
   "welcome_user": "Welcome {username}",
   "@welcome_user": {

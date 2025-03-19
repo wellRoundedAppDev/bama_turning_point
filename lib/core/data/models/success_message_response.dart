@@ -12,5 +12,5 @@ class SuccessAndErrorResponse {
               : json['success'] == 0
                   ? false
                   : null,
-          errorMsgs: json['error'].cast<String>());
+          errorMsgs: json['error']);
 }

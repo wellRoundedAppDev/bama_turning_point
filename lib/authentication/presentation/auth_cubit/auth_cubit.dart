@@ -103,7 +103,11 @@ class AuthCubit extends Cubit<AuthStates> {
     } else if (response?.success == 0) {
       loginResponse = null;
       isUserLoggedIn = false;
-      showAppSnackBar(content: response?.error?[0] ?? "");
+      showAppSnackBar(
+          content: response?.error != null && response?.error != [] && response?.error?.first != ""
+              ? (response?.error?.first ?? "") == "تحذير : لا يوجد تطابق مع البريد الإلكتروني و / أو كلمة المرور."?AppLocalizations.of(context)!.wrong_phone_number_or_password:AppLocalizations.of(context)!.error_occurred_try_again
+              : "");
+      print(response?.error?.first);
       emit(LoginFailedState());
     } else {
       loginResponse = null;
@@ -134,7 +138,11 @@ class AuthCubit extends Cubit<AuthStates> {
     } else if (response?.success == 0) {
       loginResponse = null;
       isUserLoggedIn = false;
-      showAppSnackBar(content: response?.error?[0] ?? "");
+      showAppSnackBar(
+          content: response?.error != null && response?.error != [] && response?.error?.first != ""
+              ? (response?.error?.first ?? "") == "تحذير : لا يوجد تطابق مع البريد الإلكتروني و / أو كلمة المرور."?AppLocalizations.of(context)!.wrong_phone_number_or_password:AppLocalizations.of(context)!.error_occurred_try_again
+              : "");
+      print(response?.error?.first);
       emit(LoginFailedState());
     } else {
       loginResponse = null;
@@ -184,7 +192,11 @@ class AuthCubit extends Cubit<AuthStates> {
     } else if (response?.success == 0) {
       loginResponse = null;
       isUserLoggedIn = false;
-      showAppSnackBar(content: response?.error?[0] ?? "");
+      showAppSnackBar(
+          content: response?.error != null && response?.error != [] && response?.error?.first != ""
+              ? (response?.error?.first ?? "") == "تحذير : لا يوجد تطابق مع البريد الإلكتروني و / أو كلمة المرور."?AppLocalizations.of(context)!.wrong_phone_number_or_password:AppLocalizations.of(context)!.error_occurred_try_again
+              : "");
+      print(response?.error?.first);
       emit(LoginFailedState());
     } else {
       loginResponse = null;
@@ -208,7 +220,7 @@ class AuthCubit extends Cubit<AuthStates> {
     }
 
     var response = await AuthApis.register(registerFormInput.toJsonForApi());
-    if (response?.success == false) {
+    if (response?.success == true) {
       // isUserLoggedIn = true;
       await login(loginInput: {
         "email": registerFormInput.phoneNumber,
@@ -218,9 +230,11 @@ class AuthCubit extends Cubit<AuthStates> {
       Navigator.pop(context);
     } else if (response?.success == false) {
       // isUserLoggedIn = false;
-      showAppSnackBar(content:
-      response?.errorMsgs == null || response?.errorMsgs == []?
-      (response?.errorMsgs?[0] ?? ""):"");
+
+      showAppSnackBar(
+          content: response?.errorMsgs != null && response?.errorMsgs != [] && response?.errorMsgs != ""
+              ? (response?.errorMsgs?[0] ?? "") == "Email already exists!"?AppLocalizations.of(context)!.phone_number_already_exists:AppLocalizations.of(context)!.error_occurred_try_again
+              : "");
       emit(RegisterFailedState());
     } else {
       // isUserLoggedIn = false;
@@ -298,10 +312,10 @@ class AuthCubit extends Cubit<AuthStates> {
 
   validateGuestCheckoutForm() {
     if (guestFormKey.currentState!.validate() == true
-    //&&
-     //   guestFormInput.country != null &&
-    //    guestFormInput.region != null
-    ) {
+        //&&
+        //   guestFormInput.country != null &&
+        //    guestFormInput.region != null
+        ) {
       return true;
     }
     return false;
@@ -337,7 +351,6 @@ class AuthCubit extends Cubit<AuthStates> {
     }
 
     guestFormKey.currentState?.save();
-
 
     guestFormInput?.country = Country(countryId: 102);
 
