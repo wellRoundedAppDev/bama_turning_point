@@ -60,6 +60,7 @@ class DioHelper {
     try {
       return await _dio.get(endpoint,
           queryParameters: queryParameters,
+
           options: Options(
             headers: headers,
               validateStatus: (int? status){

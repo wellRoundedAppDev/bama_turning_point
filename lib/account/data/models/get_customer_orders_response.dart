@@ -10,22 +10,18 @@ class GetCustomerOrdersResponse {
 
   factory GetCustomerOrdersResponse.fromJson(dynamic json) {
     var success = json['success'];
-    // if (json['error'] != null) {
-    //   error = [];
-    //   json['error'].forEach((v) {
-    //     error?.add(Dynamic.fromJson(v));
-    //   });
-    // }
     List<CustomerOrder>? data;
+
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
+        print(v);
         data?.add(CustomerOrder.fromJson(v));
       });
     }
     return GetCustomerOrdersResponse(success: success, customerOrders: data);
   }
-  num? success;
+  dynamic? success;
   // List<dynamic>? error;
   List<CustomerOrder>? customerOrders;
 
@@ -77,7 +73,7 @@ class CustomerOrder {
     var products = json['products'];
     var total = json['total'];
     var currencyCode = json['currency_code'];
-    var currencyValue = json['currency_value'];
+    var currencyValue = null;
     var totalRaw = json['total_raw'];
     var timestamp = json['timestamp'];
     // var currency =
@@ -86,7 +82,7 @@ class CustomerOrder {
     return CustomerOrder(
      // currency: currency,
       currencyCode: currencyCode,
-      currencyValue: currencyValue,
+    //  currencyValue: currencyValue,
       dateAdded: dateAdded,
       name: name,
       orderId: orderId,
@@ -97,16 +93,16 @@ class CustomerOrder {
       totalRaw: totalRaw,
     );
   }
-  String? orderId;
-  String? name;
-  String? status;
-  String? dateAdded;
-  num? numOfProducts;
-  String? total;
-  String? currencyCode;
-  String? currencyValue;
-  String? totalRaw;
-  num? timestamp;
+  dynamic? orderId;
+  dynamic? name;
+  dynamic? status;
+  dynamic? dateAdded;
+  dynamic? numOfProducts;
+  dynamic? total;
+  dynamic? currencyCode;
+  dynamic? currencyValue;
+  dynamic? totalRaw;
+  dynamic? timestamp;
   //Currency? currency;
   //
   // Map<String, dynamic> toJson() {

@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
 
                        Expanded(
                         child: Text(firstName??"",
-                        style: TextStyle(fontSize: FontSizes.FONT_SIZE_16,color: Colors.white,
+                        style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16,color: Colors.white,
                         
                         ),
                         ),

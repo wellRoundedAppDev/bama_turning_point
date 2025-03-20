@@ -221,6 +221,7 @@ class AccountApis {
       if (response == null) {
         return null;
       }
+      print(response.data);
       return GetCustomerOrdersResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
