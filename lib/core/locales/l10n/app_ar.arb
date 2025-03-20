@@ -235,5 +235,7 @@
 
   "phone_number_already_exists": "رقم الجوال موجود بالفعل",
 
-  "wrong_phone_number_or_password": "رقم هاتف أو كلمة مرور خاطئة"
+  "wrong_phone_number_or_password": "رقم هاتف أو كلمة مرور خاطئة",
+
+  "groups": "المجموعات"
 }

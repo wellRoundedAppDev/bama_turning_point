@@ -40,7 +40,7 @@ class CategoriesOverview extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                          Text(
-                           AppLocalizations.of(context)!.shop_by_categories,
+                           AppLocalizations.of(context)!.groups,
                           maxLines: 1,
                           textDirection: TextDirection.ltr,
                           overflow: TextOverflow.ellipsis,

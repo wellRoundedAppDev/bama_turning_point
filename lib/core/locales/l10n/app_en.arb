@@ -231,6 +231,9 @@
   "wrong_phone_number_or_password": "Wrong phone number or password",
 
 
+  "groups": "Groups",
+
+
 
   "message_sent_successfully": "Message sent successfully",
   "welcome_user": "Welcome {username}",

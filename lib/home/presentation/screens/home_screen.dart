@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
           child: Scaffold(
             drawer: const HomeDrawer(),
             appBar: AppBar(
-              toolbarHeight: MediaQuery.of(context).size.height * 0.12,
+              toolbarHeight: MediaQuery.of(context).size.height * 0.1,
               leading: Container(),
               flexibleSpace: Container(
                 padding: const EdgeInsets.all(16),
@@ -69,6 +69,7 @@ class HomeScreen extends StatelessWidget {
 
                        Expanded(
                         child: Text(firstName??"",
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16,color: Colors.white,
                         
                         ),
@@ -78,8 +79,8 @@ class HomeScreen extends StatelessWidget {
                       Center(
                           child: Image.asset(
                             ImagePaths.APP_LOGO,
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            height: MediaQuery.of(context).size.height * 0.2,
+                            width: MediaQuery.of(context).size.width * 0.55,
+                            height: MediaQuery.of(context).size.height * 0.22,
 
                           )),
                       // IconButton(

@@ -47,7 +47,7 @@ class HomeLayoutScreen extends StatelessWidget {
                           buttonBackgroundColor: AppColors.APP_MAIN_COLOR,
                           backgroundColor: Colors.transparent,
                           items: <Widget>[
-                            (navBarCurrentIndex == 0)
+                            (navBarCurrentIndex == 2)
                                 ? Image.asset(
                                     IconPaths.PROFILE,
                                     width: 30,
@@ -163,8 +163,8 @@ class HomeLayoutScreen extends StatelessWidget {
                             appCubit.changeNavBarIndex(index);
                           }),
                     ),
-                    body: (navBarCurrentIndex == 0)
-                        ? const MyAccountScreen()
+                    body: (navBarCurrentIndex == 2)
+                        ? const HomeScreen()
                         // : (navBarCurrentIndex == 4)
                         //     ? const WishListScreen()
                         //     : (navBarCurrentIndex == 3)
@@ -174,7 +174,7 @@ class HomeLayoutScreen extends StatelessWidget {
                           :
                     (navBarCurrentIndex == 1)
                                     ? CartScreen()
-                                    :const HomeScreen())),
+                                    :const MyAccountScreen())),
           );
         },
       ),
