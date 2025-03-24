@@ -88,8 +88,8 @@ class CartItemWidget extends StatelessWidget {
                       "") ==
                       "USD"
                       ?
-                  "${AppLocalizations.of(context)!.dollar}":
-                  "${AppLocalizations.of(context)!.dinar}"),
+                  AppLocalizations.of(context)!.dollar:
+                  AppLocalizations.of(context)!.dinar),
                   // "\$${cartItem.price.toString()}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -197,7 +197,7 @@ class CartItemWidget extends StatelessWidget {
                               : Container(
                                   width: 25,
                                   height: 25,
-                                  color: AppColors.DELETE_BUTTON_COLOR,
+                                  color: AppColors.APP_SECONDARY_COLOR,
                                   child: const Icon(
                                     Icons.clear,
                                     color: Colors.white,

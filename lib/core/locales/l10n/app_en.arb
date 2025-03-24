@@ -234,6 +234,15 @@
   "groups": "Groups",
 
 
+  "products": "Products",
+
+  "complains": "Complains",
+
+  "text": "Text",
+
+  "title": "Title",
+
+  "cart": "Cart",
 
   "message_sent_successfully": "Message sent successfully",
   "welcome_user": "Welcome {username}",

@@ -100,7 +100,7 @@ class CustomAppBar {
                 : Container(),
             Expanded(
               child: Image.asset(
-                ImagePaths.APP_LOGO_2,
+                ImagePaths.APP_LOGO,
                 width: MediaQuery.of(context).size.width * 0.3,
                 height: MediaQuery.of(context).size.height * 0.05,
               ),

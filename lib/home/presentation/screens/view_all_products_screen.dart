@@ -59,7 +59,7 @@ class ViewAllProductsScreen extends StatelessWidget {
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisExtent:
-                              MediaQuery.of(context).size.height * 0.35,
+                              MediaQuery.of(context).size.height * 0.4,
                         ),
                         itemCount: products?.length ?? 0,
                         itemBuilder: (BuildContext context, int index) {
@@ -85,120 +85,130 @@ class ViewAllProductsScreen extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Stack(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(5),
-                                        child: Image.network(
-                                          productImageUrl ?? "",
-                                          errorBuilder:
-                                              (context, object, stackTrace) {
-                                            return const Icon(
-                                              Icons.error,
-                                              size: 150,
-                                              color: AppColors.APP_MAIN_COLOR,
-                                            );
-                                          },
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.45,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.2,
-                                          fit: BoxFit.cover,
+                                  Container(
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: BoxDecoration(border: Border.all(color: AppColors.GREY_BORDER_COLOR,
+                                        width: 2
+                                    ),borderRadius: const BorderRadius.all(Radius.circular(12),)),
+                                    child:                                  Stack(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(8),
+                                          child: Image.network(
+                                            productImageUrl ?? "",
+                                            height:
+                                            MediaQuery.of(context).size.height *
+                                                0.18,
+                                            width: MediaQuery.of(context).size.width,
+                                            errorBuilder:
+                                                (context, object, stackTrace) {
+                                              return const Icon(
+                                                Icons.error,
+                                                size: 150,
+                                                color: AppColors.APP_MAIN_COLOR,
+                                              );
+                                            },
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
-                                      ),
-                                      BlocConsumer<WishListCubit,
-                                          WishListStates>(
-                                        listener: (context, state) {},
-                                        builder: (context, state) {
-                                          bool isProductInWishList =
-                                              WishListCubit.get(context)
-                                                      .wishListItems
-                                                      ?.where((element) =>
-                                                          element.productId ==
-                                                          productId.toString())
-                                                      .isNotEmpty ==
-                                                  true;
+                                        BlocConsumer<WishListCubit, WishListStates>(
+                                          listener: (context, state) {},
+                                          builder: (context, state) {
+                                            bool isItemInWishList =
+                                                (WishListCubit.get(context)
+                                                    .wishListItems
+                                                    ?.where((element) =>
+                                                element.productId ==
+                                                    productId
+                                                        ?.toString()))
+                                                    ?.isNotEmpty ==
+                                                    true;
+                                            return Positioned(
+                                                bottom: 4,
+                                                right: 4,
+                                                child: Container(
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: Colors.white
+                                                            .withOpacity(0.7)),
+                                                    child: Padding(
+                                                      padding:
+                                                      const EdgeInsets.all(2.0),
+                                                      child:
+                                                      (isItemInWishList == true)
+                                                          ? const Icon(
+                                                        Icons.favorite,
+                                                        color: Colors.red,
+                                                      )
+                                                          : const Icon(
+                                                        Icons
+                                                            .favorite_border_rounded,
+                                                        color: Colors.black,
+                                                      ),
+                                                    )));
+                                          },
+                                        )
+                                      ],
+                                    ),
 
-                                          return Positioned(
-                                              bottom: 4,
-                                              right: 4,
-                                              child: Container(
-                                                  decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color: Colors.white
-                                                          .withOpacity(0.7)),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            2.0),
-                                                    child:
-                                                        (isProductInWishList ==
-                                                                true)
-                                                            ? const Icon(
-                                                                Icons.favorite,
-                                                                color:
-                                                                    Colors.red,
-                                                              )
-                                                            : const Icon(
-                                                                Icons
-                                                                    .favorite_border_rounded,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                  )));
-                                        },
-                                      )
-                                    ],
                                   ),
+
                                   const SizedBox(
-                                    height: 8,
+                                    height: 4,
                                   ),
                                   Text(
-                                    productName ?? "-",
-                                    textAlign: TextAlign.start,
+                                    productTitle ?? "-",
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
+                                        color: AppColors.GREY_LABEL_COLOR,
                                         fontSize: FontSizes.FONT_SIZE_16,
-                                        color: Color(0xff313846),
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  Row(
-                                    children: [
-                                      Flexible(
-                                          child: Text(
-                                        priceFormatted ?? "",
-                                        //"\$${productPrice.toString() ?? "-"}",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                            color: AppColors.APP_MAIN_COLOR,
-                                            fontWeight: FontWeight.bold),
-                                      )),
-                                      // const SizedBox(
-                                      //   width: 8,
-                                      // ),
-                                      // Flexible(
-                                      //     flex: 2,
-                                      //     child: Text(
-                                      //       "\$17.96",
-                                      //       textAlign: TextAlign.left,
-                                      //       overflow: TextOverflow.ellipsis,
-                                      //       maxLines: 1,
-                                      //       style: TextStyle(
-                                      //         decoration: TextDecoration.lineThrough,
-                                      //         color: const Color(0xff333333)
-                                      //             .withOpacity(0.5),
-                                      //       ),
-                                      //     )),
-                                    ],
-                                  )
+                                  const SizedBox(height: 8,),
+                                  Row(children: [
+                                    Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
+                                    Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
+                                    Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
+                                    Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
+                                    Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
+
+                                  ],),
+                                  Text(priceFormatted??"-",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(color: AppColors.APP_PRICE_COLOR,fontWeight: FontWeight.bold,fontSize: FontSizes.FONT_SIZE_16),)
+                                  // Row(
+                                  //   children: [
+                                  //     Flexible(
+                                  //         child: Text(
+                                  //           priceFormatted ?? "",
+                                  //           //"\$${productPrice.toString() ?? "-"}",
+                                  //           maxLines: 1,
+                                  //           overflow: TextOverflow.ellipsis,
+                                  //           style: const TextStyle(
+                                  //               color: AppColors.APP_MAIN_COLOR,
+                                  //               fontWeight: FontWeight.bold),
+                                  //         )),
+                                  //     // const SizedBox(
+                                  //     //   width: 8,
+                                  //     // ),
+                                  //     // Flexible(
+                                  //     //     flex: 2,
+                                  //     //     child: Text(
+                                  //     //       "\$17.96",
+                                  //     //       textAlign: TextAlign.left,
+                                  //     //       overflow: TextOverflow.ellipsis,
+                                  //     //       maxLines: 1,
+                                  //     //       style: TextStyle(
+                                  //     //         decoration: TextDecoration.lineThrough,
+                                  //     //         color: const Color(0xff333333)
+                                  //     //             .withOpacity(0.5),
+                                  //     //       ),
+                                  //     //     )),
+                                  //   ],
+                                  // )
                                 ],
                               ),
                             ),

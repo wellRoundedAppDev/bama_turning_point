@@ -21,7 +21,7 @@ class CheckOutBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.08,
-      color:AppColors.APP_MAIN_COLOR,
+      color:AppColors.APP_SECONDARY_COLOR,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -72,8 +72,6 @@ class CheckOutBottomSheet extends StatelessWidget {
                 text: AppLocalizations.of(context)!.checkout,
                 height: MediaQuery.of(context).size.height,
                 textFontSize: FontSizes.FONT_SIZE_14,
-                color: Colors.yellow,
-                textColor: Colors.black.value,
                 action: () {
                   if (AuthCubit.get(context).isUserLoggedIn) {
                     Navigator.push(

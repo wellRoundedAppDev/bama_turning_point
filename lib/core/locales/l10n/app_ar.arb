@@ -230,6 +230,7 @@
 
   "dollar": "دولار",
 
+  "cart": "سلة المشتريات",
 
   "message_sent_successfully": "تم إرسال الرسالة بنجاح",
 
@@ -237,5 +238,13 @@
 
   "wrong_phone_number_or_password": "رقم هاتف أو كلمة مرور خاطئة",
 
-  "groups": "المجموعات"
+  "groups": "المجموعات",
+
+  "products": "المنتجات",
+
+  "complains": "الشكاوى",
+
+  "text": "النص",
+  "title": "العنوان"
+
 }

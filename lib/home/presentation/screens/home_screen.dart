@@ -71,6 +71,7 @@ class HomeScreen extends StatelessWidget {
                         child: Text(firstName??"",
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16,color: Colors.white,
+                          fontWeight: FontWeight.bold
                         
                         ),
                         ),
@@ -79,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                       Center(
                           child: Image.asset(
                             ImagePaths.APP_LOGO,
-                            width: MediaQuery.of(context).size.width * 0.55,
+                            width: MediaQuery.of(context).size.width * 0.2,
                             height: MediaQuery.of(context).size.height * 0.22,
 
                           )),
@@ -103,7 +104,18 @@ class HomeScreen extends StatelessWidget {
 
                       // const SizedBox(width: 16,),
 
-                      Expanded(child: Container()),
+                      const Expanded(
+                        child: Text("1575\$"??"",
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.end,
+                          style: TextStyle(fontSize: FontSizes.FONT_SIZE_16,color: Colors.white,
+
+                            fontWeight:FontWeight.bold
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(width: 16,),
 
                       GestureDetector(
                         onTap: () {

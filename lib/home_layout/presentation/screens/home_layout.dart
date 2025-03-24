@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../account/presentation/screens/my_account_screen.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
+import '../../../complain/presentation/screens/complain_screen.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
 import '../cubits/app_cubit/cubit.dart';
@@ -49,12 +50,12 @@ class HomeLayoutScreen extends StatelessWidget {
                           items: <Widget>[
                             (navBarCurrentIndex == 2)
                                 ? Image.asset(
-                                    IconPaths.PROFILE,
+                                    IconPaths.COMPLAIN,
                                     width: 30,
                                     height: 30,
                                   )
                                 : Image.asset(
-                                    IconPaths.PROFILE,
+                                    IconPaths.COMPLAIN,
                                     width: 30,
                                     height: 30,
                                   ),
@@ -100,18 +101,20 @@ class HomeLayoutScreen extends StatelessWidget {
                                               ? Container()
                                               : Positioned(
                                                   bottom: 16,
-                                                  right: 16,
+                                                  right: 40,
                                                   child: Container(
                                                     padding:
                                                         const EdgeInsets.all(4),
-                                                    decoration: const BoxDecoration(
-                                                        color: Colors.yellow,
-                                                        shape: BoxShape.circle),
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                            color:
+                                                                Colors.yellow,
+                                                            shape: BoxShape
+                                                                .circle),
                                                     child: Center(
                                                       child: Text(
                                                         itemsCount.toString(),
                                                         style: const TextStyle(
-
                                                             fontSize: FontSizes
                                                                 .FONT_SIZE_10,
                                                             color:
@@ -171,10 +174,9 @@ class HomeLayoutScreen extends StatelessWidget {
                         //         ? CategoriesScreen(
                         //             showBackButton: false,
                         //           )
-                          :
-                    (navBarCurrentIndex == 1)
-                                    ? CartScreen()
-                                    :const MyAccountScreen())),
+                        : (navBarCurrentIndex == 1)
+                            ? CartScreen()
+                            : const ComplainsScreen())),
           );
         },
       ),

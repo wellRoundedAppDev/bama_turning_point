@@ -47,5 +47,7 @@ class IconPaths {
 
   static const ACCOUNT_ICON = "assets/icons/account.svg";
 
+  static const COMPLAIN =  "assets/icons/complain.png";
+
 
 }

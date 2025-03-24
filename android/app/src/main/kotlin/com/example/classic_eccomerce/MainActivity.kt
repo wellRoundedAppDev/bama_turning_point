@@ -1,4 +1,4 @@
-package com.example.classic_eccomerce
+package com.spark.cesar
 
 import io.flutter.embedding.android.FlutterActivity
 
