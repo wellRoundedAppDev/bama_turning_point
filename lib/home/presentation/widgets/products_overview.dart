@@ -37,7 +37,7 @@ class ProductsOverview extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      productListTitle,
+                      AppLocalizations.of(context)!.product_pending_approval,
                       maxLines: 1,
                       textDirection: TextDirection.ltr,
                       overflow: TextOverflow.ellipsis,

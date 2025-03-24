@@ -76,7 +76,7 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                                     return (state
                                             is SetExistingUserAddressLoadingState)
                                         ? const Center(
-                                            child: CircularProgressIndicator(),
+                                            child: CircularProgressIndicator(color: Colors.white,),
                                           )
                                         : CustomButton(
                                             text: AppLocalizations.of(context)!
