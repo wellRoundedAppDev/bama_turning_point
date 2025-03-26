@@ -59,7 +59,7 @@ class ViewAllProductsScreen extends StatelessWidget {
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisExtent:
-                              MediaQuery.of(context).size.height * 0.4,
+                              MediaQuery.of(context).size.height * 0.43,
                         ),
                         itemCount: products?.length ?? 0,
                         itemBuilder: (BuildContext context, int index) {
@@ -89,19 +89,27 @@ class ViewAllProductsScreen extends StatelessWidget {
                                 children: [
                                   Container(
                                     padding: const EdgeInsets.all(16),
-                                    decoration: BoxDecoration(border: Border.all(color: AppColors.GREY_BORDER_COLOR,
-                                        width: 2
-                                    ),borderRadius: const BorderRadius.all(Radius.circular(12),)),
-                                    child:                                  Stack(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: AppColors.GREY_BORDER_COLOR,
+                                            width: 2),
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(12),
+                                        )),
+                                    child: Stack(
                                       children: [
                                         ClipRRect(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                           child: Image.network(
                                             productImageUrl ?? "",
-                                            height:
-                                            MediaQuery.of(context).size.height *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
                                                 0.18,
-                                            width: MediaQuery.of(context).size.width,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
                                             errorBuilder:
                                                 (context, object, stackTrace) {
                                               return const Icon(
@@ -113,18 +121,19 @@ class ViewAllProductsScreen extends StatelessWidget {
                                             fit: BoxFit.cover,
                                           ),
                                         ),
-                                        BlocConsumer<WishListCubit, WishListStates>(
+                                        BlocConsumer<WishListCubit,
+                                            WishListStates>(
                                           listener: (context, state) {},
                                           builder: (context, state) {
-                                            bool isItemInWishList =
-                                                (WishListCubit.get(context)
-                                                    .wishListItems
-                                                    ?.where((element) =>
-                                                element.productId ==
-                                                    productId
-                                                        ?.toString()))
+                                            bool isItemInWishList = (WishListCubit
+                                                            .get(context)
+                                                        .wishListItems
+                                                        ?.where((element) =>
+                                                            element.productId ==
+                                                            productId
+                                                                ?.toString()))
                                                     ?.isNotEmpty ==
-                                                    true;
+                                                true;
                                             return Positioned(
                                                 bottom: 4,
                                                 right: 4,
@@ -135,24 +144,28 @@ class ViewAllProductsScreen extends StatelessWidget {
                                                             .withOpacity(0.7)),
                                                     child: Padding(
                                                       padding:
-                                                      const EdgeInsets.all(2.0),
+                                                          const EdgeInsets.all(
+                                                              2.0),
                                                       child:
-                                                      (isItemInWishList == true)
-                                                          ? const Icon(
-                                                        Icons.favorite,
-                                                        color: Colors.red,
-                                                      )
-                                                          : const Icon(
-                                                        Icons
-                                                            .favorite_border_rounded,
-                                                        color: Colors.black,
-                                                      ),
+                                                          (isItemInWishList ==
+                                                                  true)
+                                                              ? const Icon(
+                                                                  Icons
+                                                                      .favorite,
+                                                                  color: Colors
+                                                                      .red,
+                                                                )
+                                                              : const Icon(
+                                                                  Icons
+                                                                      .favorite_border_rounded,
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
                                                     )));
                                           },
                                         )
                                       ],
                                     ),
-
                                   ),
 
                                   const SizedBox(
@@ -167,18 +180,56 @@ class ViewAllProductsScreen extends StatelessWidget {
                                         fontSize: FontSizes.FONT_SIZE_16,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  const SizedBox(height: 8,),
-                                  Row(children: [
-                                    Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
-                                    Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
-                                    Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
-                                    Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
-                                    Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
-
-                                  ],),
-                                  Text(priceFormatted??"-",
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        weight:
+                                            MediaQuery.of(context).size.width *
+                                                0.01,
+                                        color: AppColors.STAR_COLOR,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        weight:
+                                            MediaQuery.of(context).size.width *
+                                                0.01,
+                                        color: AppColors.STAR_COLOR,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        weight:
+                                            MediaQuery.of(context).size.width *
+                                                0.01,
+                                        color: AppColors.STAR_COLOR,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        weight:
+                                            MediaQuery.of(context).size.width *
+                                                0.01,
+                                        color: AppColors.STAR_COLOR,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        weight:
+                                            MediaQuery.of(context).size.width *
+                                                0.01,
+                                        color: AppColors.STAR_COLOR,
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    priceFormatted ?? "-",
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(color: AppColors.APP_PRICE_COLOR,fontWeight: FontWeight.bold,fontSize: FontSizes.FONT_SIZE_16),)
+                                    style: const TextStyle(
+                                        color: AppColors.APP_PRICE_COLOR,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: FontSizes.FONT_SIZE_16),
+                                  )
                                   // Row(
                                   //   children: [
                                   //     Flexible(

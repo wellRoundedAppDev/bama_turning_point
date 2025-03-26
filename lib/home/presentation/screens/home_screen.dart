@@ -119,6 +119,9 @@ class HomeScreen extends StatelessWidget {
 
                       GestureDetector(
                         onTap: () {
+                          Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
+                          child: const NotificationsScreen()
+                          ));
                         },
                         child: SvgPicture.asset(IconPaths.NOTIFICATION_ICON,
                           width: 25,

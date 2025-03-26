@@ -21,7 +21,7 @@ class CheckOutBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.08,
-      color:AppColors.APP_SECONDARY_COLOR,
+      color: AppColors.APP_SECONDARY_COLOR,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -45,11 +45,10 @@ class CheckOutBottomSheet extends StatelessWidget {
                         AppSettingsCubit appSettingsCubit =
                             AppSettingsCubit.get(context);
                         CartCubit cartCubit = CartCubit.get(context);
-                        String currencySymbol = AppLocalizations.of(context)!.dinar;
+                        String currencySymbol =
+                            AppLocalizations.of(context)!.dinar;
                         return Text(
-                          ": ${cartCubit.totalPrice.toStringAsFixed(2).replaceAllMapped(
-                              new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                  (Match m) => "${m[1]},")}$currencySymbol",
+                          ": ${cartCubit.totalPrice.toStringAsFixed(2).replaceAllMapped(new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},")}$currencySymbol",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(

@@ -128,7 +128,6 @@
   "order_details": "تفاصيل الطلب",
   "shipping_address": "عنوان الشحن",
   "are_you_sure_you_want_to_logout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
-  "notifications": "إشعارات",
   "no_notifications_found": "لا توجد إشعارات",
   "cancel_order": "الغاء الطلب",
   "error_occurred_try_again": "حدث خطأ، حاول مرة أخرى",
@@ -245,6 +244,8 @@
   "complains": "الشكاوى",
 
   "text": "النص",
-  "title": "العنوان"
+  "title": "العنوان",
+
+  "notifications": "الاشعارات"
 
 }

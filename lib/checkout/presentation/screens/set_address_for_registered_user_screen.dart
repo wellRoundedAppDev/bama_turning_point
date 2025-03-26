@@ -76,7 +76,9 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                                     return (state
                                             is SetExistingUserAddressLoadingState)
                                         ? const Center(
-                                            child: CircularProgressIndicator(color: Colors.white,),
+                                            child: CircularProgressIndicator(
+                                              color: Colors.white,
+                                            ),
                                           )
                                         : CustomButton(
                                             text: AppLocalizations.of(context)!
@@ -87,7 +89,7 @@ class SetBillingAddressForRegisteredUserScreen extends StatelessWidget {
                                             textColor: Colors.black.value,
                                             textFontSize:
                                                 FontSizes.FONT_SIZE_14,
-                                            color: Colors.yellow,
+                                            color: AppColors.APP_MAIN_COLOR,
                                             action: () {
                                               CheckOutCubit.get(context)
                                                   .setExistingUserAddress(
