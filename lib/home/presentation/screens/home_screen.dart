@@ -13,6 +13,7 @@ import 'package:classic_eccomerce/home/presentation/cubits/search_cubit/cubit.da
 import 'package:classic_eccomerce/home/presentation/screens/search_and_filter_screen.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/brands_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/categories_overview.dart';
+import 'package:classic_eccomerce/home/presentation/widgets/filter_drawer.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/products_overview.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:classic_eccomerce/notifications/presentation/screens/notifications_screen.dart';
@@ -23,6 +24,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../cart/presentation/cubits/cart_cubit/states.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
+import '../../data/models/product.dart';
 import '../widgets/home_drawer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -36,10 +38,14 @@ class HomeScreen extends StatelessWidget {
         child: SafeArea(
           child: Scaffold(
             drawer: const HomeDrawer(),
+            endDrawer: const FilterDrawer(),
             appBar: AppBar(
               toolbarHeight: MediaQuery.of(context).size.height * 0.1,
               leading: Container(),
-              flexibleSpace: Container(
+               actions: [
+                 Container()
+               ],
+               flexibleSpace: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: const BoxDecoration(
                     gradient: LinearGradient(colors: [
@@ -50,40 +56,46 @@ class HomeScreen extends StatelessWidget {
                   0.9
                 ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
                 child: Builder(builder: (context) {
-                  String firstName = MyApp.navKey.currentState?.context.read<AuthCubit>().loginResponse?.loginData?.firstname??"";
-                  return
-                    Row(
+                  String firstName = MyApp.navKey.currentState?.context
+                          .read<AuthCubit>()
+                          .loginResponse
+                          ?.loginData
+                          ?.firstname ??
+                      "";
+                  return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
                         onTap: () {
                           Scaffold.of(context).openDrawer();
-
                         },
-                        child: SvgPicture.asset(IconPaths.ACCOUNT_ICON,
+                        child: SvgPicture.asset(
+                          IconPaths.ACCOUNT_ICON,
                           width: 25,
                           height: 25,
                         ),
                       ),
-                      const SizedBox(width: 8,),
+                      const SizedBox(
+                        width: 8,
+                      ),
 
-                       Expanded(
-                        child: Text(firstName??"",
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16,color: Colors.white,
-                          fontWeight: FontWeight.bold
-                        
-                        ),
+                      Expanded(
+                        child: Text(
+                          firstName ?? "",
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontSize: FontSizes.FONT_SIZE_16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
 
                       Center(
                           child: Image.asset(
-                            ImagePaths.APP_LOGO,
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            height: MediaQuery.of(context).size.height * 0.22,
-
-                          )),
+                        ImagePaths.APP_LOGO,
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        height: MediaQuery.of(context).size.height * 0.22,
+                      )),
                       // IconButton(
                       //   onPressed: () {
                       //     // ContactUsApi.contactUs();
@@ -100,35 +112,38 @@ class HomeScreen extends StatelessWidget {
                       //   ),
                       // ),
 
-
-
                       // const SizedBox(width: 16,),
 
                       const Expanded(
-                        child: Text("1575\$"??"",
+                        child: Text(
+                          "1575\$" ?? "",
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.end,
-                          style: TextStyle(fontSize: FontSizes.FONT_SIZE_16,color: Colors.white,
-
-                            fontWeight:FontWeight.bold
-                          ),
+                          style: TextStyle(
+                              fontSize: FontSizes.FONT_SIZE_16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
 
-                      const SizedBox(width: 16,),
+                      const SizedBox(
+                        width: 16,
+                      ),
 
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
-                          child: const NotificationsScreen()
-                          ));
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  type: PageTransitionType.leftToRight,
+                                  child: const NotificationsScreen()));
                         },
-                        child: SvgPicture.asset(IconPaths.NOTIFICATION_ICON,
+                        child: SvgPicture.asset(
+                          IconPaths.NOTIFICATION_ICON,
                           width: 25,
                           height: 25,
                         ),
                       ),
-
 
                       // GestureDetector(
                       //     onTap: () {
@@ -249,7 +264,7 @@ class HomeScreen extends StatelessWidget {
                                     const SizedBox(
                                   height: 16,
                                 ),
-                                itemCount: 2,
+                                itemCount: 3,
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (context, index) {
                                   String productListTitle = (index == 1)
@@ -271,19 +286,228 @@ class HomeScreen extends StatelessWidget {
                                   //     : bestSellers;
 
                                   return
-                                    // (index == 0)
-                                    //   ? BrandsOverview(brands: brands ?? [])
-                                    //   :
-                                  (index == 0)
+                                      // (index == 0)
+                                      //   ? BrandsOverview(brands: brands ?? [])
+                                      //   :
+                                      (index == 0)
                                           ? CategoriesOverview(
-                                              categories: categories ?? [],
+                                              categories: categories ??
+                                                  [
+                                                    Category(
+                                                        categoryId: 1,
+                                                        name: "Cat1"),
+                                                    Category(
+                                                        categoryId: 2,
+                                                        name: "Cat2"),
+                                                    Category(
+                                                        categoryId: 3,
+                                                        name: "Cat3"),
+                                                    Category(
+                                                        categoryId: 4,
+                                                        name: "Cat4"),
+                                                    Category(
+                                                        categoryId: 5,
+                                                        name: "Cat5"),
+                                                  ],
                                             )
-                                          : Container(
-                                              color: Colors.white,
-                                              child: ProductsOverview(
-                                                  products: products ?? [],
-                                                  productListTitle:
-                                                      productListTitle));
+                                          : (index == 1)
+                                              ? Container(
+                                                  color: Colors.white,
+                                                  child: ProductsOverview(
+                                                      products: products ??
+                                                          [
+                                                            Product(
+                                                                name: "P$index",
+                                                                priceFormatted:
+                                                                    "200IQD",
+                                                                price: 200),
+                                                            Product(
+                                                                name: "P$index",
+                                                                priceFormatted:
+                                                                    "200IQD",
+                                                                price: 200),
+                                                            Product(
+                                                                name: "P$index",
+                                                                priceFormatted:
+                                                                    "200IQD",
+                                                                price: 200),
+                                                            Product(
+                                                                name: "P$index",
+                                                                priceFormatted:
+                                                                    "200IQD",
+                                                                price: 200),
+                                                            Product(
+                                                                name: "P$index",
+                                                                priceFormatted:
+                                                                    "200IQD",
+                                                                price: 200),
+                                                          ],
+                                                      productListTitle:
+                                                          productListTitle))
+                                              : Container(
+                                                  color: Colors.white,
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 16),
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.8,
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .stretch,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal:
+                                                                    16.0),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Expanded(
+                                                                child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  AppLocalizations.of(
+                                                                          context)!
+                                                                      .merchants,
+                                                                  maxLines: 1,
+                                                                  textDirection:
+                                                                      TextDirection
+                                                                          .ltr,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  style: const TextStyle(
+                                                                      fontSize:
+                                                                          FontSizes
+                                                                              .FONT_SIZE_18,
+                                                                      color: AppColors
+                                                                          .GREY_LABEL_COLOR,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 5,
+                                                                ),
+                                                                Container(
+                                                                  width: 40,
+                                                                  height: 3,
+                                                                  color: AppColors
+                                                                      .APP_MAIN_COLOR,
+                                                                )
+                                                              ],
+                                                            )),
+                                                            InkWell(
+                                                              onTap: () {},
+                                                              child: Text(
+                                                                AppLocalizations.of(
+                                                                        context)!
+                                                                    .view_all,
+                                                                style: const TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        FontSizes
+                                                                            .FONT_SIZE_14,
+                                                                    color: AppColors
+                                                                        .DARK_KOHLY_COLOR),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 0,
+                                                      ),
+                                                      SizedBox(
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.65,
+                                                        child: GridView.builder(
+                                                          physics:
+                                                              const NeverScrollableScrollPhysics(),
+                                                          shrinkWrap: true,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  vertical: 16,
+                                                                  horizontal:
+                                                                      16),
+                                                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                              crossAxisCount: 4,
+                                                              mainAxisExtent:
+                                                                  MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
+                                                                      0.14,
+
+                                                              mainAxisSpacing:
+                                                                  0,
+                                                              crossAxisSpacing:
+                                                                  16),
+                                                          itemCount: 8,
+                                                          itemBuilder:
+                                                              (BuildContext
+                                                                      context,
+                                                                  int index) {
+                                                            return InkWell(
+                                                              onTap: () {
+                                                                // print(category?.categoryId);
+                                                                // categoriesCubit
+                                                                //     .setAllProductsInCategory(category);
+                                                              },
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Image.asset(
+                                                                    ImagePaths
+                                                                        .APP_LOGO,
+                                                                    height: MediaQuery.of(context)
+                                                                            .size
+                                                                            .height *
+                                                                        0.08,
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    height: 0,
+                                                                  ),
+                                                                  Text(
+                                                                    "fm1",
+                                                                    style: const TextStyle(
+                                                                        color: AppColors
+                                                                            .GREY_LABEL_COLOR,
+                                                                        fontSize: FontSizes
+                                                                            .FONT_SIZE_16,
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
                                 },
                               ),
                             ])),

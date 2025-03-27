@@ -24,7 +24,6 @@ class ProductsOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16),
-
       child: Column(
         children: [
           Padding(
@@ -57,23 +56,23 @@ class ProductsOverview extends StatelessWidget {
                   ],
                 )),
                 InkWell(
-                  onTap: () {
-                    HomeCubit homeCubit = HomeCubit.get(context);
-                    homeCubit.navigateToViewAllProductsScreen(
-                        productListTitle, CartCubit.get(context));
-                    // Navigator.push(
-                    //     context,
-                    //     PageTransition(
-                    //         child: const ProductsInCategoryScreen(),
-                    //         type: PageTransitionType.leftToRight));
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.view_all,
-    style: const TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: FontSizes.FONT_SIZE_14,
-    color: AppColors.DARK_KOHLY_COLOR),
-                )),
+                    onTap: () {
+                      HomeCubit homeCubit = HomeCubit.get(context);
+                      homeCubit.navigateToViewAllProductsScreen(
+                          productListTitle, CartCubit.get(context));
+                      // Navigator.push(
+                      //     context,
+                      //     PageTransition(
+                      //         child: const ProductsInCategoryScreen(),
+                      //         type: PageTransitionType.leftToRight));
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.view_all,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: FontSizes.FONT_SIZE_14,
+                          color: AppColors.DARK_KOHLY_COLOR),
+                    )),
               ],
             ),
           ),
@@ -82,7 +81,6 @@ class ProductsOverview extends StatelessWidget {
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.4,
-
             child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
@@ -118,31 +116,41 @@ class ProductsOverview extends StatelessWidget {
                                   type: PageTransitionType.leftToRight));
                         },
                         child: SizedBox(
-                          width:MediaQuery.of(context).size.width*0.4,
+                          width: MediaQuery.of(context).size.width * 0.4,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
                                 padding: EdgeInsets.all(16),
-                                decoration: BoxDecoration(border: Border.all(color: AppColors.GREY_BORDER_COLOR,
-                                width: 2
-                                ),borderRadius: const BorderRadius.all(Radius.circular(12),)),
-                                child:                                  Stack(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: AppColors.GREY_BORDER_COLOR,
+                                        width: 2),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(12),
+                                    )),
+                                child: Stack(
                                   children: [
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
                                       child: Image.network(
                                         productImagePath ?? "",
                                         height:
-                                        MediaQuery.of(context).size.height *
-                                            0.2,
-                                        width: MediaQuery.of(context).size.width,
+                                            MediaQuery.of(context).size.height *
+                                                0.2,
+                                        width:
+                                            MediaQuery.of(context).size.width,
                                         errorBuilder:
                                             (context, object, stackTrace) {
-                                          return const Icon(
-                                            Icons.error,
-                                            size: 150,
-                                            color: AppColors.APP_MAIN_COLOR,
+                                          return Center(
+                                            child: Icon(
+                                              Icons.error,
+                                              size:
+                                                MediaQuery.of(context).size.height *
+                                                0.2,
+
+                                              color: AppColors.APP_MAIN_COLOR,
+                                            ),
                                           );
                                         },
                                         fit: BoxFit.cover,
@@ -153,12 +161,12 @@ class ProductsOverview extends StatelessWidget {
                                       builder: (context, state) {
                                         bool isItemInWishList =
                                             (WishListCubit.get(context)
-                                                .wishListItems
-                                                ?.where((element) =>
-                                            element.productId ==
-                                                productId
-                                                    ?.toString()))
-                                                ?.isNotEmpty ==
+                                                        .wishListItems
+                                                        ?.where((element) =>
+                                                            element.productId ==
+                                                            productId
+                                                                ?.toString()))
+                                                    ?.isNotEmpty ==
                                                 true;
                                         return Positioned(
                                             bottom: 4,
@@ -170,24 +178,23 @@ class ProductsOverview extends StatelessWidget {
                                                         .withOpacity(0.7)),
                                                 child: Padding(
                                                   padding:
-                                                  const EdgeInsets.all(2.0),
-                                                  child:
-                                                  (isItemInWishList == true)
+                                                      const EdgeInsets.all(2.0),
+                                                  child: (isItemInWishList ==
+                                                          true)
                                                       ? const Icon(
-                                                    Icons.favorite,
-                                                    color: Colors.red,
-                                                  )
+                                                          Icons.favorite,
+                                                          color: Colors.red,
+                                                        )
                                                       : const Icon(
-                                                    Icons
-                                                        .favorite_border_rounded,
-                                                    color: Colors.black,
-                                                  ),
+                                                          Icons
+                                                              .favorite_border_rounded,
+                                                          color: Colors.black,
+                                                        ),
                                                 )));
                                       },
                                     )
                                   ],
                                 ),
-
                               ),
 
                               const SizedBox(
@@ -202,18 +209,51 @@ class ProductsOverview extends StatelessWidget {
                                     fontSize: FontSizes.FONT_SIZE_16,
                                     fontWeight: FontWeight.bold),
                               ),
-                              const SizedBox(height: 8,),
-                              Row(children: [
-                                Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
-                                Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
-                                Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
-                                Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
-                                Icon(Icons.star,weight: MediaQuery.of(context).size.width*0.01,color: AppColors.STAR_COLOR,),
-
-                              ],),
-                              Text(priceFormatted??"-",
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    weight: MediaQuery.of(context).size.width *
+                                        0.01,
+                                    color: AppColors.STAR_COLOR,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    weight: MediaQuery.of(context).size.width *
+                                        0.01,
+                                    color: AppColors.STAR_COLOR,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    weight: MediaQuery.of(context).size.width *
+                                        0.01,
+                                    color: AppColors.STAR_COLOR,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    weight: MediaQuery.of(context).size.width *
+                                        0.01,
+                                    color: AppColors.STAR_COLOR,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    weight: MediaQuery.of(context).size.width *
+                                        0.01,
+                                    color: AppColors.STAR_COLOR,
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                priceFormatted ?? "-",
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(color: AppColors.APP_PRICE_COLOR,fontWeight: FontWeight.bold,fontSize: FontSizes.FONT_SIZE_16),)
+                                style: const TextStyle(
+                                    color: AppColors.APP_PRICE_COLOR,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: FontSizes.FONT_SIZE_16),
+                              )
                               // Row(
                               //   children: [
                               //     Flexible(

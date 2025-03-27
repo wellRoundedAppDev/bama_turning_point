@@ -534,15 +534,15 @@ class HomeDrawer extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.2,
-                vertical: 8),
-            child: Image.asset(ImagePaths.APP_LOGO_2),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(
+          //       horizontal: MediaQuery.of(context).size.width * 0.2,
+          //       vertical: 8),
+          //   child: Image.asset(ImagePaths.APP_LOGO_2),
+          // ),
+          // const SizedBox(
+          //   height: 10,
+          // ),
         ],
       ),
     );

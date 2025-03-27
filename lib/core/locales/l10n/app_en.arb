@@ -246,6 +246,15 @@
 
   "message_sent_successfully": "Message sent successfully",
   "welcome_user": "Welcome {username}",
+
+  "merchants": "Merchants",
+
+  "filter": "Filter",
+
+  "color": "Color",
+
+  "price": "Price",
+
   "@welcome_user": {
     "placeholders": {
       "username": {

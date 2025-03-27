@@ -39,6 +39,13 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
     //   emit(GetProductDetailsNetworkConnectionFailedState());
     //   return;
     // }
+    selectedProductDetails = ProductDetails(name: "P1",price: 200,id: 1,description: "Desc",priceFormated: "200IQD"
+    ,
+    );
+
+    emit(GetProductDetailsSuccessState());
+
+    return;
     var response = await ProductDetailsApi.getProductDetailsById(
         selectedProductId,
         languageCode: languageCodes[localeCubit?.locale.languageCode ?? ""],

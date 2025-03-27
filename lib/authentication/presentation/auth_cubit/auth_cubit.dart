@@ -172,6 +172,11 @@ class AuthCubit extends Cubit<AuthStates> {
     };
 
     if (await setAccessToken() == false) {
+      Navigator.pushReplacement(
+          context,
+          PageTransition(
+              child: const HomeLayoutScreen(),
+              type: PageTransitionType.fade));
       showAppSnackBar(content: "Check your internet connection, and try again");
       emit(LoginNetworkFailedConnectionState());
       return;

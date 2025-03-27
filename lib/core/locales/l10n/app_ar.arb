@@ -246,6 +246,13 @@
   "text": "النص",
   "title": "العنوان",
 
-  "notifications": "الاشعارات"
+  "notifications": "الاشعارات",
 
+  "merchants": "التجار",
+
+  "filter": "فلتر",
+
+  "color": "اللون",
+
+  "price": "السعر"
 }

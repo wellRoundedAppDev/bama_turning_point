@@ -201,7 +201,7 @@ class WishListItemWidget extends StatelessWidget {
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.all(5),
-                                    color: AppColors.DELETE_BUTTON_COLOR,
+                                    color: AppColors.GREY_LABEL_COLOR_1,
                                     child: const Icon(
                                       Icons.clear,
                                       color: Colors.white,

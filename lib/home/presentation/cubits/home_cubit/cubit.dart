@@ -223,7 +223,15 @@ class HomeCubit extends Cubit<HomeStates> {
         currencyCode: appSettingsCubit?.currencyCode ?? "");
 
     if (response?.success == 1) {
-      categoriesOverview = response?.categories;
+      categoriesOverview = response?.categories??[
+        Category(categoryId: 1,name: "Cat1"),
+        Category(categoryId: 2,name: "Cat2"),
+        Category(categoryId: 3,name: "Cat3"),
+        Category(categoryId: 4,name: "Cat4"),
+        Category(categoryId: 5,name: "Cat5"),
+
+      ];
+
     } else if (response?.success == 0) {
       categoriesOverview = null;
     } else {

@@ -119,7 +119,7 @@ class CartItemWidget extends StatelessWidget {
                                 },
                                 child: const Icon(
                                   Icons.remove,
-                                  color: AppColors.DELETE_BUTTON_COLOR,
+                                  color: AppColors.GREY_LABEL_COLOR_1,
                                 ),
                               )),
                           Container(

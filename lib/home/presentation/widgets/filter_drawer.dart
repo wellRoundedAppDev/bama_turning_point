@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:classic_eccomerce/shared_components/custom_input.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../core/constants/paths/icon_paths.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FilterDrawer extends StatelessWidget {
   const FilterDrawer({super.key});
@@ -28,18 +30,20 @@ class FilterDrawer extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                   GestureDetector(
-                       onTap: (){
-                       },
-                       child: Image.asset(IconPaths.TRASH,width: 22,height: 22,)),
+                    GestureDetector(
+                        onTap: () {},
+                        child: Image.asset(
+                          IconPaths.TRASH,
+                          width: 22,
+                          height: 22,
+                        )),
                     const SizedBox(
                       width: 16,
                     ),
                     SizedBox(
                       width: 80,
                       height: 30,
-                      child: CustomButton(text: "Done", action: () {
-                      }),
+                      child: CustomButton(text: "Done", action: () {}),
                     ),
                   ],
                 ),
@@ -51,15 +55,25 @@ class FilterDrawer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Padding(
-                padding:
-                    const EdgeInsets.only(top: 32.0, right: 16, left: 16, bottom: 10),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 16.0, right: 16, left: 16, bottom: 10),
                 child: Row(
                   children: [
+                    Center(
+                      child: Text(
+                        AppLocalizations.of(context)!.filter,
+                        style: const TextStyle(
+                          fontSize: FontSizes.FONT_SIZE_18,
+                          color: AppColors.GREY_LABEL_COLOR_1,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Scaffold.of(context).closeEndDrawer();
-
                       },
                       child: const Icon(
                         Icons.clear,
@@ -67,19 +81,6 @@ class FilterDrawer extends StatelessWidget {
                         size: 20,
                       ),
                     ),
-                    const Spacer(),
-                    const Center(
-                      child: Text(
-                        "Filter",
-                        style: TextStyle(
-                          fontSize: FontSizes.FONT_SIZE_16,
-                          color: Color(
-                            0xff313846,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Spacer()
                   ],
                 ),
               ),
@@ -90,210 +91,7 @@ class FilterDrawer extends StatelessWidget {
               const SizedBox(
                 height: 24,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Price",
-                      style: TextStyle(
-                          fontSize: FontSizes.FONT_SIZE_16,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff313846)),
-                    ),
-                    Spacer(),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: Color(0xff313846),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Slider(
-                value: 1,
-                max: 100,
-                activeColor: const Color(0xff015963),
-                inactiveColor: const Color(0xffE1E1E1),
-                // label: _currentSliderValue.round().toString(),
-                onChanged: (double value) {},
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.arrow_drop_up),
-                        SizedBox(
-                            height: 25,
-                            width: 60,
-                            child: CustomInput(
-                              hintTextStyle:
-                                  const TextStyle(color: Color(0xff313846)),
-                              radius: 0,
-                              borderColor: const Color(0xffDDDDDD),
-                              borderWidth: 1,
-                            )),
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.arrow_drop_up),
-                        SizedBox(
-                            height: 25,
-                            width: 60,
-                            child: CustomInput(
-                              hintTextStyle:
-                                  const TextStyle(color: Color(0xff313846)),
-                              radius: 0,
-                              borderColor: const Color(0xffDDDDDD),
-                              borderWidth: 1,
-                            )),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Container(
-                height: 2,
-                color: const Color(0xffE5E5E5),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  children: [
-                    const Row(
-                      children: [
-                        Text(
-                          "Color",
-                          style: TextStyle(
-                              fontSize: FontSizes.FONT_SIZE_16,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff313846)),
-                        ),
-                        Spacer(),
-                        Icon(
-                          Icons.arrow_drop_down,
-                          color: Color(0xff313846),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: const Color(0xffDDDDDD), width: 2)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 20,
-                                height: 20,
-                                color: const Color(0xff557855),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              const Text(
-                                "green",
-                                style: TextStyle(
-                                    color: Color(0xff313846),
-                                    fontSize: FontSizes.FONT_SIZE_12),
-                              )
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: const Color(0xffDDDDDD), width: 2)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 20,
-                                height: 20,
-                                color: const Color(0xffC37CE5),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              const Text(
-                                "Purple",
-                                style: TextStyle(
-                                    color: Color(0xff313846),
-                                    fontSize: FontSizes.FONT_SIZE_12),
-                              )
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: const Color(0xffDDDDDD), width: 2)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 20,
-                                height: 20,
-                                color: const Color(0xffDE9C4F),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              const Text(
-                                "Orange",
-                                style: TextStyle(
-                                    color: Color(0xff313846),
-                                    fontSize: FontSizes.FONT_SIZE_12),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              Container(
-                height: 2,
-                color: const Color(0xffE5E5E5),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
@@ -356,6 +154,90 @@ class FilterDrawer extends StatelessWidget {
               ),
               const SizedBox(
                 height: 4,
+              ),
+              Container(
+                height: 2,
+                color: const Color(0xffE5E5E5),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.price,
+                      style: const TextStyle(
+                          fontSize: FontSizes.FONT_SIZE_18,
+                          color: AppColors.GREY_LABEL_COLOR_1,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    const Spacer(),
+                    const Icon(
+                      Icons.arrow_drop_down,
+                      color: Color(0xff313846),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Slider(
+                value: 1,
+                max: 100,
+                activeColor: const Color(0xff015963),
+                inactiveColor: const Color(0xffE1E1E1),
+                // label: _currentSliderValue.round().toString(),
+                onChanged: (double value) {},
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(Icons.arrow_drop_up),
+                        SizedBox(
+                            height: 25,
+                            width: 60,
+                            child: CustomInput(
+                              hintTextStyle:
+                              const TextStyle(color: Color(0xff313846)),
+                              radius: 0,
+                              borderColor: const Color(0xffDDDDDD),
+                              borderWidth: 1,
+                            )),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(Icons.arrow_drop_up),
+                        SizedBox(
+                            height: 25,
+                            width: 60,
+                            child: CustomInput(
+                              hintTextStyle:
+                              const TextStyle(color: Color(0xff313846)),
+                              radius: 0,
+                              borderColor: const Color(0xffDDDDDD),
+                              borderWidth: 1,
+                            )),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 16,
               ),
               Container(
                 height: 2,
@@ -475,6 +357,138 @@ class FilterDrawer extends StatelessWidget {
                   ],
                 ),
               ),
+
+              const SizedBox(
+                height: 16,
+              ),
+              Container(
+                height: 2,
+                color: const Color(0xffE5E5E5),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!
+                              .color,
+                          style: const TextStyle(
+                              fontSize: FontSizes.FONT_SIZE_16,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff313846)),
+                        ),
+                        const Spacer(),
+                        const Icon(
+                          Icons.arrow_drop_down,
+                          color: Color(0xff313846),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: const Color(0xffDDDDDD), width: 2)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 20,
+                                height: 20,
+                                color: const Color(0xff557855),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              const Text(
+                                "green",
+                                style: TextStyle(
+                                    color: Color(0xff313846),
+                                    fontSize: FontSizes.FONT_SIZE_12),
+                              )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: const Color(0xffDDDDDD), width: 2)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 20,
+                                height: 20,
+                                color: const Color(0xffC37CE5),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              const Text(
+                                "Purple",
+                                style: TextStyle(
+                                    color: Color(0xff313846),
+                                    fontSize: FontSizes.FONT_SIZE_12),
+                              )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: const Color(0xffDDDDDD), width: 2)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 20,
+                                height: 20,
+                                color: const Color(0xffDE9C4F),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              const Text(
+                                "Orange",
+                                style: TextStyle(
+                                    color: Color(0xff313846),
+                                    fontSize: FontSizes.FONT_SIZE_12),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Container(
+                height: 2,
+                color: const Color(0xffE5E5E5),
+              ),
+
             ],
           ),
         ),
