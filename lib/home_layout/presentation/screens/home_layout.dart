@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../account/presentation/screens/my_account_screen.dart';
+import '../../../authentication/presentation/screens/login_screen.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../../complain/presentation/screens/complain_screen.dart';
 import '../../../core/constants/colors/colors.dart';
@@ -176,7 +177,7 @@ class HomeLayoutScreen extends StatelessWidget {
                         //           )
                         : (navBarCurrentIndex == 1)
                             ? CartScreen()
-                            : const ComplainsScreen())),
+                            :  SignInScreen())),
           );
         },
       ),
