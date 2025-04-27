@@ -49,6 +49,7 @@
   "enter_your_email_to_get_updates": "Enter your email to get updates",
   "email_optional": "Email (optional)",
   "enter_your_main_address": "Enter your main address",
+  "enter_your_main_userName": "Enter your user name",
   "address_optional": "Address (optional)",
 
   "network_connection_failed": "Network connection failed",

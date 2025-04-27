@@ -1,11 +1,11 @@
 class ApiUrls {
   static const BASE_URL =
-      "https://m-caesari.com/";
+      "http://erp-test.net/Api/";
   //"https://buqcha.net/";
   // "https://opencart3-simple.api.opencart-api.com/";
   static const GET_TOKEN_ENDPONT = "api/rest/oauth2/token/client_credentials";
   static const GET_SESSION_ID_ENDPOINT = "api/rest/session";
-  static const LOGIN_ENDPOINT = "api/rest/login";
+  static const LOGIN_ENDPOINT = "Ecommerce/Login";
   static const REGISTER_ENDPOINT = "api/rest/register";
   static const ACCOUNT_ENDPOINT = "api/rest/account";
   static const GET_CATEGORIES_ENDPOINT = "api/rest/categories/extended/";

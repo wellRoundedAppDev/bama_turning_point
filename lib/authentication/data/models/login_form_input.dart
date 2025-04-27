@@ -3,7 +3,7 @@ class LoginFormInput{
   String? password;
 
   Map<String, dynamic> toJson() => {
-    "email": username,
+    "userName": username,
     "password": password
   };
 }

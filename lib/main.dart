@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
+import 'package:classic_eccomerce/authentication/presentation/screens/login_screen.dart';
 import 'package:classic_eccomerce/core/constants/paths/routes/routes/routes_ids.dart';
 import 'package:classic_eccomerce/core/constants/strings/strings.dart';
 import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
@@ -106,7 +107,7 @@ class MyApp extends StatelessWidget {
                 900: const Color(AppColors.APP_MAIN_COLOR_HEX).withOpacity(1),
               }),
             ),
-            home: const SplashScreen(),
+            home: SignInScreen(),
           );
         },
       ),

@@ -46,7 +46,7 @@ class AuthCubit extends Cubit<AuthStates> {
 
   Future<bool> setAccessToken() async {
     var response = await AuthApis.getAccessToken();
-    if (response != null) {
+    if (response == null) {
       accessToken = response;
       // addSessionIdToHeader();
       return true;
@@ -69,45 +69,63 @@ class AuthCubit extends Cubit<AuthStates> {
     loginFormKey.currentState?.save();
     emit(LoginLoadingState());
 
-    if (await setAccessToken() == false) {
-      showAppSnackBar(content: "Check your internet connection, and try again");
-      emit(LoginNetworkFailedConnectionState());
-      return;
-    }
+    // if (await setAccessToken() == false) {
+    //   showAppSnackBar(content: "Check your internet connection, and try again");
+    //   emit(LoginNetworkFailedConnectionState());
+    //   return;
+    // }
 
     var response = await AuthApis.login(loginFormInput.toJson());
-    if (response?.success == 1) {
+    if (response?.success == true) {
       loginResponse = response;
       isUserLoggedIn = true;
+      accessToken=response!.loginData!.token;
+      print('qqqq $accessToken');
       cartCubit.numberOfItemsInCart =
           loginResponse?.loginData?.cartCountProducts ?? 0;
       setLoginCredentialsInSharedPrefs({
-        "username": loginFormInput.username,
+        "userName": loginFormInput.username,
         "password": loginFormInput.password
       });
       emit(LoginSuccessState());
+      Navigator.pushReplacement(
+          context,
+          PageTransition(
+              child: BlocProvider.value(
+                  value: cartCubit!,
+                  child: BlocProvider(
+                      create: (context) => CheckOutCubit()
+                        ..setRegisteredUserPaymentAddresses(),
+                      child:
+                      const SetBillingAddressForRegisteredUserScreen())),
+              type: PageTransitionType.leftToRight));
 
-      if (isCheckingOut) {
-        Navigator.pushReplacement(
-            context,
-            PageTransition(
-                child: BlocProvider.value(
-                    value: cartCubit!,
-                    child: BlocProvider(
-                        create: (context) => CheckOutCubit()
-                          ..setRegisteredUserPaymentAddresses(),
-                        child:
-                            const SetBillingAddressForRegisteredUserScreen())),
-                type: PageTransitionType.leftToRight));
-      }
-    } else if (response?.success == 0) {
+      // if (isCheckingOut) {
+      //   Navigator.pushReplacement(
+      //       context,
+      //       PageTransition(
+      //           child: BlocProvider.value(
+      //               value: cartCubit!,
+      //               child: BlocProvider(
+      //                   create: (context) => CheckOutCubit()
+      //                     ..setRegisteredUserPaymentAddresses(),
+      //                   child:
+      //                       const SetBillingAddressForRegisteredUserScreen())),
+      //           type: PageTransitionType.leftToRight));
+      // }
+
+
+    } else if (response?.success == false) {
       loginResponse = null;
       isUserLoggedIn = false;
       showAppSnackBar(
-          content: response?.error != null && response?.error != [] && response?.error?.first != ""
-              ? (response?.error?.first ?? "") == "تحذير : لا يوجد تطابق مع البريد الإلكتروني و / أو كلمة المرور."?AppLocalizations.of(context)!.wrong_phone_number_or_password:AppLocalizations.of(context)!.error_occurred_try_again
+          content: response?.error != null && response?.error != ""
+              ? (response?.error ?? "") ==
+                      "كلمة المرور أو اسم المستخدم غير صحيح"
+                  ? AppLocalizations.of(context)!.wrong_phone_number_or_password
+                  : AppLocalizations.of(context)!.error_occurred_try_again
               : "");
-      print(response?.error?.first);
+      print(response?.error);
       emit(LoginFailedState());
     } else {
       loginResponse = null;
@@ -139,10 +157,14 @@ class AuthCubit extends Cubit<AuthStates> {
       loginResponse = null;
       isUserLoggedIn = false;
       showAppSnackBar(
-          content: response?.error != null && response?.error != [] && response?.error?.first != ""
-              ? (response?.error?.first ?? "") == "تحذير : لا يوجد تطابق مع البريد الإلكتروني و / أو كلمة المرور."?AppLocalizations.of(context)!.wrong_phone_number_or_password:AppLocalizations.of(context)!.error_occurred_try_again
+          content: response?.error != null  &&
+                  response?.error != ""
+              ? (response?.error ?? "") ==
+               "كلمة المرور أو اسم المستخدم غير صحيح"
+          ? AppLocalizations.of(context)!.wrong_phone_number_or_password
+                  : AppLocalizations.of(context)!.error_occurred_try_again
               : "");
-      print(response?.error?.first);
+      print(response?.error);
       emit(LoginFailedState());
     } else {
       loginResponse = null;
@@ -175,8 +197,7 @@ class AuthCubit extends Cubit<AuthStates> {
       Navigator.pushReplacement(
           context,
           PageTransition(
-              child: const HomeLayoutScreen(),
-              type: PageTransitionType.fade));
+              child: const HomeLayoutScreen(), type: PageTransitionType.fade));
       showAppSnackBar(content: "Check your internet connection, and try again");
       emit(LoginNetworkFailedConnectionState());
       return;
@@ -198,10 +219,14 @@ class AuthCubit extends Cubit<AuthStates> {
       loginResponse = null;
       isUserLoggedIn = false;
       showAppSnackBar(
-          content: response?.error != null && response?.error != [] && response?.error?.first != ""
-              ? (response?.error?.first ?? "") == "تحذير : لا يوجد تطابق مع البريد الإلكتروني و / أو كلمة المرور."?AppLocalizations.of(context)!.wrong_phone_number_or_password:AppLocalizations.of(context)!.error_occurred_try_again
+          content: response?.error != null  &&
+              response?.error != ""
+              ? (response?.error ?? "") ==
+              "كلمة المرور أو اسم المستخدم غير صحيح"
+              ? AppLocalizations.of(context)!.wrong_phone_number_or_password
+              : AppLocalizations.of(context)!.error_occurred_try_again
               : "");
-      print(response?.error?.first);
+      print(response?.error);
       emit(LoginFailedState());
     } else {
       loginResponse = null;
@@ -237,8 +262,12 @@ class AuthCubit extends Cubit<AuthStates> {
       // isUserLoggedIn = false;
 
       showAppSnackBar(
-          content: response?.errorMsgs != null && response?.errorMsgs != [] && response?.errorMsgs != ""
-              ? (response?.errorMsgs?[0] ?? "") == "Email already exists!"?AppLocalizations.of(context)!.phone_number_already_exists:AppLocalizations.of(context)!.error_occurred_try_again
+          content: response?.errorMsgs != null &&
+                  response?.errorMsgs != [] &&
+                  response?.errorMsgs != ""
+              ? (response?.errorMsgs?[0] ?? "") == "Email already exists!"
+                  ? AppLocalizations.of(context)!.phone_number_already_exists
+                  : AppLocalizations.of(context)!.error_occurred_try_again
               : "");
       emit(RegisterFailedState());
     } else {

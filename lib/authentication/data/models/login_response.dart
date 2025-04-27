@@ -8,20 +8,15 @@ class LoginResponse {
   });
 
   factory LoginResponse.fromJson(dynamic json) {
-    var success = json['success'];
-    List<String>? error;
-    if (json['error'] != null) {
-      error = [];
-      json['error'].forEach((v) {
-        error?.add(v);
-      });
-    }
+    var success = json['IsSuccssed'];
+    String? error= json['Message'];
+
     var loginData =
-         json['data'] != null && json['data'].isNotEmpty ? LoginData.fromJson(json['data']) : null;
+         json['Obj'] != null && json['Obj'].isNotEmpty ? LoginData.fromJson(json['Obj']) : null;
     return LoginResponse(error: error, success: success, loginData: loginData);
   }
-  num? success;
-  List<String>? error;
+  bool? success;
+  String? error;
   LoginData? loginData;
 
   // Map<String, dynamic> toJson() {
@@ -37,8 +32,84 @@ class LoginResponse {
   // }
 }
 
+// class LoginData2 {
+//   String? token;
+//   bool? isAuthencated;
+//   String? expiresOn;
+//   Null? role;
+//   User? user;
+//   bool? isPasswordStrong;
+//   Null? message;
+//
+//   LoginData2(
+//       {this.token,
+//         this.isAuthencated,
+//         this.expiresOn,
+//         this.role,
+//         this.user,
+//         this.isPasswordStrong,
+//         this.message});
+//
+//   LoginData2.fromJson(Map<String, dynamic> json) {
+//     token = json['Token'];
+//     isAuthencated = json['IsAuthencated'];
+//     expiresOn = json['ExpiresOn'];
+//     role = json['Role'];
+//     user = json['User'] != null ? new User.fromJson(json['User']) : null;
+//     isPasswordStrong = json['IsPasswordStrong'];
+//     message = json['Message'];
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['Token'] = this.token;
+//     data['IsAuthencated'] = this.isAuthencated;
+//     data['ExpiresOn'] = this.expiresOn;
+//     data['Role'] = this.role;
+//     if (this.user != null) {
+//       data['User'] = this.user!.toJson();
+//     }
+//     data['IsPasswordStrong'] = this.isPasswordStrong;
+//     data['Message'] = this.message;
+//     return data;
+//   }
+// }
+
+class User {
+  String? id;
+  String? fullName;
+  String? typeAccountText;
+  int? typeAccountValue;
+
+  User({this.id, this.fullName, this.typeAccountText, this.typeAccountValue});
+
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['Id'];
+    fullName = json['FullName'];
+    typeAccountText = json['TypeAccountText'];
+    typeAccountValue = json['TypeAccountValue'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['Id'] = this.id;
+    data['FullName'] = this.fullName;
+    data['TypeAccountText'] = this.typeAccountText;
+    data['TypeAccountValue'] = this.typeAccountValue;
+    return data;
+  }
+}
+
 class LoginData {
   LoginData({
+    this.token,
+    this.isAuthencated,
+    this.expiresOn,
+    this.role,
+    this.user,
+    this.isPasswordStrong,
+    this.message,
+    //
     this.customerId,
     this.customerGroupId,
     this.storeId,
@@ -60,9 +131,18 @@ class LoginData {
     // this.accountCustomField,
     this.wishlistTotal,
     this.cartCountProducts,
+
   });
 
   factory LoginData.fromJson(dynamic json) {
+   var token = json['Token'];
+   var isAuthencated = json['IsAuthencated'];
+   var  expiresOn = json['ExpiresOn'];
+   var  role = json['Role'];
+   var  user = json['User'] != null ? new User.fromJson(json['User']) : null;
+   var  isPasswordStrong = json['IsPasswordStrong'];
+   var  message = json['Message'];
+   //
     var customerId = json['customer_id'];
     var customerGroupId = json['customer_group_id'];
     var storeId = json['store_id'];
@@ -72,8 +152,9 @@ class LoginData {
     var email = json['email'];
     var telephone = json['telephone'];
     var fax = json['fax'];
-    var wishlist =
-        json['wishlist'] != null ? json['wishlist'].cast<String>() : [];
+   var wishlist = json['wishlist'] != null
+       ? List<String>.from(json['wishlist'].map((item) => item.toString()))
+       : [];
     var newsletter = json['newsletter'];
     var addressId = json['address_id'];
     var ip = json['ip'];
@@ -91,6 +172,15 @@ class LoginData {
     var wishlistTotal = json['wishlist_total'];
     var cartCountProducts = json['cart_count_products'];
     return LoginData(
+
+      token: token,
+    isAuthencated:isAuthencated,
+    expiresOn:expiresOn,
+    role:role,
+    user:user,
+    isPasswordStrong:isPasswordStrong,
+    message:message,
+      //
       dateAdded: dateAdded,
       email: email,
       telephone: telephone,
@@ -112,6 +202,14 @@ class LoginData {
       status: status,
     );
   }
+  String? token;
+  bool? isAuthencated;
+  String? expiresOn;
+  Null? role;
+  User? user;
+  bool? isPasswordStrong;
+  Null? message;
+  //
   String? customerId;
   String? customerGroupId;
   String? storeId;
@@ -121,7 +219,7 @@ class LoginData {
   String? email;
   String? telephone;
   String? fax;
-  List<String>? wishlist;
+  List<dynamic>? wishlist;
   String? newsletter;
   String? addressId;
   String? ip;
