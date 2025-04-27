@@ -49,12 +49,11 @@ class NotificationsScreen extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Scaffold.of(context).openDrawer();
+                    Navigator.pop(context);
                   },
-                  child: SvgPicture.asset(
-                    IconPaths.ACCOUNT_ICON,
-                    width: 25,
-                    height: 25,
+                  child: const Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(
