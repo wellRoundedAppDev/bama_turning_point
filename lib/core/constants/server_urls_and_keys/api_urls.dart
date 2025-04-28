@@ -6,7 +6,7 @@ class ApiUrls {
   static const GET_TOKEN_ENDPONT = "api/rest/oauth2/token/client_credentials";
   static const GET_SESSION_ID_ENDPOINT = "api/rest/session";
   static const LOGIN_ENDPOINT = "Ecommerce/Login";
-  static const REGISTER_ENDPOINT = "api/rest/register";
+  static const REGISTER_ENDPOINT = "Ecommerce/Create";
   static const ACCOUNT_ENDPOINT = "api/rest/account";
   static const GET_CATEGORIES_ENDPOINT = "api/rest/categories/extended/";
   static const GET_BANNERS_ENDPOINT = "api/rest/banners";

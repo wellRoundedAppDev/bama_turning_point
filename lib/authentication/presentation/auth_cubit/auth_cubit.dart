@@ -143,7 +143,7 @@ class AuthCubit extends Cubit<AuthStates> {
     }
 
     var response = await AuthApis.login(loginInput);
-    if (response?.success == 1) {
+    if (response?.success == true) {
       loginResponse = response;
       isUserLoggedIn = true;
       cartCubit.numberOfItemsInCart =
@@ -152,6 +152,17 @@ class AuthCubit extends Cubit<AuthStates> {
         "username": loginInput['email'],
         "password": loginInput['password']
       });
+      Navigator.pushReplacement(
+          context,
+          PageTransition(
+              child: BlocProvider.value(
+                  value: cartCubit!,
+                  child: BlocProvider(
+                      create: (context) => CheckOutCubit()
+                        ..setRegisteredUserPaymentAddresses(),
+                      child:
+                      const SetBillingAddressForRegisteredUserScreen())),
+              type: PageTransitionType.leftToRight));
       emit(LoginSuccessState());
     } else if (response?.success == 0) {
       loginResponse = null;
@@ -236,6 +247,46 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 
+  // register({required CartCubit cartCubit}) async {
+  //   if (validateRegisterForm() != true) {
+  //     return;
+  //   }
+  //
+  //   registerFormKey.currentState?.save();
+  //   emit(RegisterLoadingState());
+  //   if (await setAccessToken() == false) {
+  //     showAppSnackBar(content: "Check your internet connection, and try again");
+  //     emit(RegisterNetworkFailedConnectionState());
+  //     return;
+  //   }
+  //
+  //   var response = await AuthApis.register(registerFormInput.toJsonForApi());
+  //   if (response?.success == true) {
+  //     // isUserLoggedIn = true;
+  //     await login(loginInput: {
+  //       "email": registerFormInput.phoneNumber,
+  //       "password": registerFormInput.password
+  //     }, cartCubit: cartCubit);
+  //     emit(RegisterSuccessState());
+  //     Navigator.pop(context);
+  //   } else if (response?.success == false) {
+  //     // isUserLoggedIn = false;
+  //
+  //     showAppSnackBar(
+  //         content: response?.errorMsgs != null &&
+  //                 response?.errorMsgs != [] &&
+  //                 response?.errorMsgs != ""
+  //             ? (response?.errorMsgs?[0] ?? "") == "Email already exists!"
+  //                 ? AppLocalizations.of(context)!.phone_number_already_exists
+  //                 : AppLocalizations.of(context)!.error_occurred_try_again
+  //             : "");
+  //     emit(RegisterFailedState());
+  //   } else {
+  //     // isUserLoggedIn = false;
+  //     showAppSnackBar(content: "Check your internet connection, and try again");
+  //     emit(RegisterNetworkFailedConnectionState());
+  //   }
+  // }
   register({required CartCubit cartCubit}) async {
     if (validateRegisterForm() != true) {
       return;
@@ -253,21 +304,17 @@ class AuthCubit extends Cubit<AuthStates> {
     if (response?.success == true) {
       // isUserLoggedIn = true;
       await login(loginInput: {
-        "email": registerFormInput.phoneNumber,
+        "userName": registerFormInput.userName,
         "password": registerFormInput.password
       }, cartCubit: cartCubit);
       emit(RegisterSuccessState());
-      Navigator.pop(context);
+       // Navigator.pop(context);
     } else if (response?.success == false) {
       // isUserLoggedIn = false;
 
       showAppSnackBar(
-          content: response?.errorMsgs != null &&
-                  response?.errorMsgs != [] &&
-                  response?.errorMsgs != ""
-              ? (response?.errorMsgs?[0] ?? "") == "Email already exists!"
-                  ? AppLocalizations.of(context)!.phone_number_already_exists
-                  : AppLocalizations.of(context)!.error_occurred_try_again
+          content: response?.errorMsgs != null && response?.errorMsgs != [] && response?.errorMsgs != ""
+              ? (response?.errorMsgs?[0] ?? "") == "Email already exists!"?AppLocalizations.of(context)!.phone_number_already_exists:AppLocalizations.of(context)!.error_occurred_try_again
               : "");
       emit(RegisterFailedState());
     } else {

@@ -1,6 +1,7 @@
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/forget_password_screen.dart';
+import 'package:classic_eccomerce/authentication/presentation/screens/sign_up_new_screen.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/sign_up_screen.dart';
 import 'package:classic_eccomerce/contact_us/presentation/screens/contact_us_screen.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
