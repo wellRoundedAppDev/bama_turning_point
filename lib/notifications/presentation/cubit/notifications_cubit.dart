@@ -1,58 +1,75 @@
-// import 'package:classic_eccomerce/notifications/data/models/notification.dart';
-// import 'package:classic_eccomerce/notifications/presentation/cubit/notifications_states.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-//
-// class NotificationsCubit extends Cubit<NotificationsStates> {
-//   NotificationsCubit() : super(NotificationsInitialState());
-//
-//   static NotificationsCubit get(context) => BlocProvider.of(context);
-//   //FirebaseMessaging messaging = FirebaseMessaging.instance;
-//   FlutterLocalNotificationsPlugin? fltNotification;
-//
-//   List<Notification> notifications = [];
-//
-//   init() async {
-//     // FirebaseMessaging.instance.requestPermission();
-//     // await FirebaseMessaging.instance.subscribeToTopic('all');
-//     // //messaging.getToken().then((value) => print("Device token: $value"));
-//     // listenToFirebaseFCM();
-//   }
-//
-//   listenToFirebaseFCM() {
-//     var androiInit = const AndroidInitializationSettings("@mipmap/ic_launcher");
-//     var iosInit = const DarwinInitializationSettings();
-//     var initSetting = InitializationSettings(android: androiInit, iOS: iosInit);
-//     fltNotification = FlutterLocalNotificationsPlugin();
-//     fltNotification?.initialize(initSetting);
-//     var androidDetails = const AndroidNotificationDetails(
-//       "1",
-//       "channelName",
-//     );
-//     var iosDetails = const DarwinNotificationDetails();
-//     var generalNotificationDetails =
-//         NotificationDetails(android: androidDetails, iOS: iosDetails);
-//     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-//       RemoteNotification? notification = message.notification;
-//       AndroidNotification? android = message.notification?.android;
-//       if (notification != null && android != null) {
-//         fltNotification?.show(notification.hashCode, notification.title,
-//             notification.body, generalNotificationDetails);
-//         var dateTimeNow = DateTime.now();
-//         String dateTimeNowFormattedString =
-//             "${dateTimeNow.year}/${dateTimeNow.month}/${dateTimeNow.day} ${dateTimeNow.hour}:${dateTimeNow.minute}";
-//         notifications.add(Notification(
-//             title: notification.title,
-//             body: notification.body,
-//             date: dateTimeNowFormattedString));
-//         emit(NotificationsReceivedState());
-//       }
-//     });
-//     // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) {
-//     //   String? title = remoteMessage.notification?.title;
-//     //   String? description = remoteMessage.notification?.body;
-//     //   print(title);
-//     //   print(description);
-//     // });
-//   }
-// }
+import 'package:classic_eccomerce/notifications/data/data_sources/remote_data_source/notifications_apis.dart';
+import 'package:classic_eccomerce/notifications/data/models/notification.dart';
+import 'package:classic_eccomerce/notifications/presentation/cubit/notifications_states.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+class NotificationsCubit extends Cubit<NotificationsStates> {
+  NotificationsCubit() : super(NotificationsInitialState());
+
+  static NotificationsCubit get(context) => BlocProvider.of(context);
+  //FirebaseMessaging messaging = FirebaseMessaging.instance;
+  FlutterLocalNotificationsPlugin? fltNotification;
+
+  List<Notification> notifications = [];
+
+  init() async {
+
+    emit(GetAllNotificationsLoadingState());
+    var response  = await NotificationsApis.getNotifications();
+
+    if(response?.isSuccssed == true){
+      notifications = response?.obj?.notifications?.map((e)=>Notification(title: e.title,body: e.message))?.toList()??[];
+      emit(GetAllNotificationsSuccessState());
+    }else if(response?.isSuccssed == false){
+
+      emit(GetAllNotificationsFailedState());
+    }else{
+
+      emit(GetAllNotificationsNwConnectionFailedState());
+
+    }
+    // FirebaseMessaging.instance.requestPermission();
+    // await FirebaseMessaging.instance.subscribeToTopic('all');
+    // //messaging.getToken().then((value) => print("Device token: $value"));
+    // listenToFirebaseFCM();
+  }
+
+
+  // listenToFirebaseFCM() {
+  //   var androiInit = const AndroidInitializationSettings("@mipmap/ic_launcher");
+  //   var iosInit = const DarwinInitializationSettings();
+  //   var initSetting = InitializationSettings(android: androiInit, iOS: iosInit);
+  //   fltNotification = FlutterLocalNotificationsPlugin();
+  //   fltNotification?.initialize(initSetting);
+  //   var androidDetails = const AndroidNotificationDetails(
+  //     "1",
+  //     "channelName",
+  //   );
+  //   var iosDetails = const DarwinNotificationDetails();
+  //   var generalNotificationDetails =
+  //       NotificationDetails(android: androidDetails, iOS: iosDetails);
+  //   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //     RemoteNotification? notification = message.notification;
+  //     AndroidNotification? android = message.notification?.android;
+  //     if (notification != null && android != null) {
+  //       fltNotification?.show(notification.hashCode, notification.title,
+  //           notification.body, generalNotificationDetails);
+  //       var dateTimeNow = DateTime.now();
+  //       String dateTimeNowFormattedString =
+  //           "${dateTimeNow.year}/${dateTimeNow.month}/${dateTimeNow.day} ${dateTimeNow.hour}:${dateTimeNow.minute}";
+  //       notifications.add(Notification(
+  //           title: notification.title,
+  //           body: notification.body,
+  //           date: dateTimeNowFormattedString));
+  //       emit(NotificationsReceivedState());
+  //     }
+  //   });
+  //   // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) {
+  //   //   String? title = remoteMessage.notification?.title;
+  //   //   String? description = remoteMessage.notification?.body;
+  //   //   print(title);
+  //   //   print(description);
+  //   // });
+  // }
+}
