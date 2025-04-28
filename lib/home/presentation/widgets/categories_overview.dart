@@ -2,17 +2,19 @@ import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/cubit.dart';
 import 'package:classic_eccomerce/categories/presentation/screens/categories_screen.dart';
 import 'package:classic_eccomerce/categories/presentation/screens/products_in_category_screen.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../categories/data/models/get_categories_paginated_response.dart';
 import '../../../categories/data/models/get_categories_response.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoriesOverview extends StatelessWidget {
-  List<Category> categories;
+  List<Category2> categories;
   CategoriesOverview({super.key, required this.categories});
 
   @override
@@ -90,16 +92,16 @@ class CategoriesOverview extends StatelessWidget {
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      Category category = categories[index];
-                      String? categoryName = category.name;
-                      String? categoryImageUrl = category.originalImage;
+                      Category2 category = categories[index];
+                      String? categoryName = category.groupName;
+                      String? categoryImageUrl = ApiUrls.BASE_URL +  (category.fileUrl??"");
                       return Row(
                         children: [
                           (index == 0)?const SizedBox(width: 16,):Container(),
                 
                           GestureDetector(
                             onTap: () {
-                              categoriesCubit.setAllProductsInCategory(category);
+                          //    categoriesCubit.setAllProductsInCategory(category);
                               Navigator.push(
                                   context,
                                   PageTransition(

@@ -24,6 +24,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../cart/presentation/cubits/cart_cubit/states.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
+import '../../../categories/data/models/get_categories_paginated_response.dart';
 import '../../data/models/product.dart';
 import '../widgets/home_drawer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -215,7 +216,7 @@ class HomeScreen extends StatelessWidget {
                 // List<BannerAd>? bannerAds = homeCubit.banners;
                 List<String>? bannerAds = homeCubit.banners;
 
-                List<Category>? categories = homeCubit.categoriesOverview;
+                List<Category2>? categories = homeCubit.categoriesOverview;
 
                 var featuredProducts = homeCubit.featuredProductsOverview;
                 var newArrivals = homeCubit.newArrivalsProductsOverview;
@@ -291,24 +292,7 @@ class HomeScreen extends StatelessWidget {
                                       //   :
                                       (index == 0)
                                           ? CategoriesOverview(
-                                              categories: categories ??
-                                                  [
-                                                    Category(
-                                                        categoryId: 1,
-                                                        name: "Cat1"),
-                                                    Category(
-                                                        categoryId: 2,
-                                                        name: "Cat2"),
-                                                    Category(
-                                                        categoryId: 3,
-                                                        name: "Cat3"),
-                                                    Category(
-                                                        categoryId: 4,
-                                                        name: "Cat4"),
-                                                    Category(
-                                                        categoryId: 5,
-                                                        name: "Cat5"),
-                                                  ],
+                                              categories: categories??[]
                                             )
                                           : (index == 1)
                                               ? Container(

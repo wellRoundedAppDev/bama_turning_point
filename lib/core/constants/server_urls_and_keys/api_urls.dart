@@ -1,6 +1,7 @@
 class ApiUrls {
   static const BASE_URL =
-      "https://m-caesari.com/";
+      "https://erp-test.net/";
+  //  "https://m-caesari.com/";
   //"https://buqcha.net/";
   // "https://opencart3-simple.api.opencart-api.com/";
   static const GET_TOKEN_ENDPONT = "api/rest/oauth2/token/client_credentials";
@@ -8,7 +9,9 @@ class ApiUrls {
   static const LOGIN_ENDPOINT = "api/rest/login";
   static const REGISTER_ENDPOINT = "api/rest/register";
   static const ACCOUNT_ENDPOINT = "api/rest/account";
-  static const GET_CATEGORIES_ENDPOINT = "api/rest/categories/extended/";
+  static const GET_CATEGORIES_ENDPOINT =
+      "api/Stores/Group/GetAllPagenationWithImage";
+      //"api/rest/categories/extended/";
   static const GET_BANNERS_ENDPOINT = "api/rest/banners";
   static const GET_FEATURED_PRODUCTS_ENDPOINT = "api/rest/featured";
   static const GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT =
@@ -57,6 +60,7 @@ class ApiUrls {
       "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";
   static String getCategoriesEndpoint(int page) =>
       "$GET_CATEGORIES_ENDPOINT/limit/100/page/$page";
+
   static String getNewArrivalsProductsWithLimitEndpoint(int limit) =>
       "$GET_NEW_ARRIVALS_LIMIT_ENDPOINT$limit";
   static String getBestSellersWithLimitEndpoint(int limit) =>

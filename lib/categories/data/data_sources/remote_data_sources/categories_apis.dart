@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/categories/data/models/get_categories_paginated_response.dart';
 import 'package:classic_eccomerce/categories/data/models/get_products_in_category_response.dart';
 import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:flutter/foundation.dart';
@@ -32,6 +33,38 @@ class CategoriesApis {
       }
     }
   }
+
+
+  static Future<GetCategoriesPaginatedResponse?> getCategoriesPaginated(int page,
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+
+    String endPoint = ApiUrls.GET_CATEGORIES_ENDPOINT;
+    try {
+      var response = await _dioHelper.get(endpoint: endPoint, headers: {
+        "Authorization": "Bearer $accessToken",
+        "X-Oc-Merchant-Language": languageCode,
+        "X-Oc-Currency": currencyCode
+      },
+      queryParameters: {
+          "page":page,
+        "size":10
+      }
+      );
+      if (response == null) {
+        return null;
+      }
+      return GetCategoriesPaginatedResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+
+
 
   static Future<GetProductsInCategoryResponse?> getProductsInCategoryById(
       int id,

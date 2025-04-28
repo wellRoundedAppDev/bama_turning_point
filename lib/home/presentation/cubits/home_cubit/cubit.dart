@@ -18,6 +18,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../../app_settings/app_language_codes.dart';
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
+import '../../../../categories/data/models/get_categories_paginated_response.dart';
 import '../../../../categories/data/models/get_categories_response.dart';
 import '../../../../contact_us/data/data_sources/remote_data_sources/contact_us_api.dart';
 import '../../../data/models/get_brands_response.dart';
@@ -41,7 +42,10 @@ class HomeCubit extends Cubit<HomeStates> {
     // 'assets/images/slider5.jpg',
   ];
 
-  List<Category>? categoriesOverview;
+
+  List<Category2>? categoriesOverview;
+
+  // List<Category>? categoriesOverview;
   List<Category>? allCategories;
   List<Product>? allProducts;
   // List<FeaturedProduct>? featuredProductsOverview;
@@ -217,27 +221,42 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
+
   setCategoriesOverview() async {
-    var response = await CategoriesApis.getCategories(1,
-        languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode ?? "");
+    var response = await CategoriesApis.getCategoriesPaginated(1);
 
-    if (response?.success == 1) {
-      categoriesOverview = response?.categories??[
-        Category(categoryId: 1,name: "Cat1"),
-        Category(categoryId: 2,name: "Cat2"),
-        Category(categoryId: 3,name: "Cat3"),
-        Category(categoryId: 4,name: "Cat4"),
-        Category(categoryId: 5,name: "Cat5"),
+    if (response?.isSuccssed == true) {
+      categoriesOverview = response?.obj?.dataReturn;
 
-      ];
-
-    } else if (response?.success == 0) {
-      categoriesOverview = null;
+    } else if (response?.isSuccssed == false) {
+      // categoriesOverview = null;
     } else {
-      categoriesOverview = null;
+      // categoriesOverview = null;
     }
   }
+
+
+  // setCategoriesOverview() async {
+  //   var response = await CategoriesApis.getCategories(1,
+  //       languageCode: languageCodes[localeCubit?.locale.languageCode],
+  //       currencyCode: appSettingsCubit?.currencyCode ?? "");
+  //
+  //   if (response?.success == 1) {
+  //     categoriesOverview = response?.categories??[
+  //       Category(categoryId: 1,name: "Cat1"),
+  //       Category(categoryId: 2,name: "Cat2"),
+  //       Category(categoryId: 3,name: "Cat3"),
+  //       Category(categoryId: 4,name: "Cat4"),
+  //       Category(categoryId: 5,name: "Cat5"),
+  //
+  //     ];
+  //
+  //   } else if (response?.success == 0) {
+  //     categoriesOverview = null;
+  //   } else {
+  //     categoriesOverview = null;
+  //   }
+  // }
 
   // setAllFeaturedProducts() async {
   //   emit(FetchingAllProductsLoadingState());

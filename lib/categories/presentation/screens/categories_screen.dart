@@ -4,12 +4,14 @@ import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubi
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/states.dart';
 import 'package:classic_eccomerce/categories/presentation/screens/products_in_category_screen.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../core/constants/colors/colors.dart';
+import '../../data/models/get_categories_paginated_response.dart';
 
 class CategoriesScreen extends StatelessWidget {
   bool showBackButton;
@@ -30,7 +32,7 @@ class CategoriesScreen extends StatelessWidget {
           listener: (context, state) {},
           builder: (context, state) {
             CategoriesCubit categoriesCubit = CategoriesCubit.get(context);
-            List<Category>? categories = categoriesCubit.categories;
+            List<Category2>? categories = categoriesCubit.categories;
             return (state is GetCategoriesLoadingState)
                 ? const Center(
                     child: CircularProgressIndicator(),
@@ -60,15 +62,14 @@ class CategoriesScreen extends StatelessWidget {
                           ),
                           itemCount: categories?.length ?? 0,
                           itemBuilder: (BuildContext context, int index) {
-                            Category? category = categories?[index];
-                            num? categoryId = category?.categoryId;
-                            String? categoryName = category?.name;
-                            String? imageUrl = category?.originalImage;
+                            Category2? category = categories?[index];
+                            num? categoryId = category?.id;
+                            String? categoryName = category?.groupName;
+                            String? imageUrl = ApiUrls.BASE_URL + (category?.fileUrl??"");
                             return InkWell(
                               onTap: () {
-                                print(category?.categoryId);
-                                categoriesCubit
-                                    .setAllProductsInCategory(category);
+                                // categoriesCubit
+                                //     .setAllProductsInCategory(category);
                                 Navigator.push(
                                     context,
                                     PageTransition(

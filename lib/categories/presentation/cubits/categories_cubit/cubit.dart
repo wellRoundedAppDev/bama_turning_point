@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/categories/data/data_sources/remote_data_sources/categories_apis.dart';
+import 'package:classic_eccomerce/categories/data/models/get_categories_paginated_response.dart';
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/states.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,41 +17,94 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
   BuildContext context = MyApp.navKey.currentState!.context;
   static CategoriesCubit get(context) => BlocProvider.of(context);
 
-  List<Category>? categories;
+  // List<Category>? categories;
+  List<Category2>? categories;
+  int currentCategoriesPage = 1;
+
   List<ProductInCategory>? products;
   Category? selectedCategory;
 
+
+
   setCategories() async {
-    emit(GetCategoriesLoadingState());
     LocaleCubit localeCubit = LocaleCubit.get(context);
     bool? isUserLoggedIn =
         MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
-    if (isUserLoggedIn == false && accessToken == null) {
-      var success = await AuthCubit.get(context).setAccessToken();
-      if (!success) {
-        emit(GetCategoriesNetworkFailedState());
-        return;
-      }
-    }
+    emit(GetCategoriesLoadingState());
+    var response = await CategoriesApis.getCategoriesPaginated(currentCategoriesPage);
 
-    var response = await CategoriesApis.getCategories(1,
-        languageCode: languageCodes[localeCubit.locale.languageCode],
-        currencyCode: AppSettingsCubit.get(context)?.currencyCode ?? "");
+    if(response?.isSuccssed == true){
+      categories = response?.obj?.dataReturn;
+      currentCategoriesPage++;
+     emit(GetCategoriesSuccessState());
 
-    if (response?.success == 1) {
-      categories = response?.categories;
-      emit(GetCategoriesSuccessState());
-    } else if (response?.success == 0) {
-      categories = null;
+    }else if(response?.isSuccssed == false){
+
       emit(GetCategoriesFailedState());
-    } else {
-      categories = null;
+    }else{
+
       emit(GetCategoriesNetworkFailedState());
     }
+
+    // if (isUserLoggedIn == false && accessToken == null) {
+    //   var success = await AuthCubit.get(context).setAccessToken();
+    //   if (!success) {
+    //     emit(GetCategoriesNetworkFailedState());
+    //     return;
+    //   }
+   // }
+
+    // var response = await CategoriesApis.getCategories(1,
+    //     languageCode: languageCodes[localeCubit.locale.languageCode],
+    //     currencyCode: AppSettingsCubit.get(context)?.currencyCode ?? "");
+
+    // if (response?.success == 1) {
+    //   categories = response?.categories;
+    //   emit(GetCategoriesSuccessState());
+    // } else if (response?.success == 0) {
+    //   categories = null;
+    //   emit(GetCategoriesFailedState());
+    // } else {
+    //   categories = null;
+    //   emit(GetCategoriesNetworkFailedState());
+    // }
   }
+
+
+  // setCategories() async {
+  //   emit(GetCategoriesLoadingState());
+  //   LocaleCubit localeCubit = LocaleCubit.get(context);
+  //   bool? isUserLoggedIn =
+  //       MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
+  //   String? accessToken =
+  //       MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+  //
+  //   if (isUserLoggedIn == false && accessToken == null) {
+  //     var success = await AuthCubit.get(context).setAccessToken();
+  //     if (!success) {
+  //       emit(GetCategoriesNetworkFailedState());
+  //       return;
+  //     }
+  //   }
+  //
+  //   var response = await CategoriesApis.getCategories(1,
+  //       languageCode: languageCodes[localeCubit.locale.languageCode],
+  //       currencyCode: AppSettingsCubit.get(context)?.currencyCode ?? "");
+  //
+  //   if (response?.success == 1) {
+  //     categories = response?.categories;
+  //     emit(GetCategoriesSuccessState());
+  //   } else if (response?.success == 0) {
+  //     categories = null;
+  //     emit(GetCategoriesFailedState());
+  //   } else {
+  //     categories = null;
+  //     emit(GetCategoriesNetworkFailedState());
+  //   }
+  // }
 
   setSelectedCategory(Category? category) {
     selectedCategory = category;
