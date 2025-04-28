@@ -91,14 +91,8 @@ class AuthCubit extends Cubit<AuthStates> {
       Navigator.pushReplacement(
           context,
           PageTransition(
-              child: BlocProvider.value(
-                  value: cartCubit!,
-                  child: BlocProvider(
-                      create: (context) => CheckOutCubit()
-                        ..setRegisteredUserPaymentAddresses(),
-                      child:
-                      const SetBillingAddressForRegisteredUserScreen())),
-              type: PageTransitionType.leftToRight));
+              child: const HomeLayoutScreen(),
+              type: PageTransitionType.fade));
 
       // if (isCheckingOut) {
       //   Navigator.pushReplacement(
@@ -155,14 +149,8 @@ class AuthCubit extends Cubit<AuthStates> {
       Navigator.pushReplacement(
           context,
           PageTransition(
-              child: BlocProvider.value(
-                  value: cartCubit!,
-                  child: BlocProvider(
-                      create: (context) => CheckOutCubit()
-                        ..setRegisteredUserPaymentAddresses(),
-                      child:
-                      const SetBillingAddressForRegisteredUserScreen())),
-              type: PageTransitionType.leftToRight));
+              child: const HomeLayoutScreen(),
+              type: PageTransitionType.fade));
       emit(LoginSuccessState());
     } else if (response?.success == 0) {
       loginResponse = null;
