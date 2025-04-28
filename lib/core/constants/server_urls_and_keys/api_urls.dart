@@ -88,6 +88,8 @@ class ApiUrls {
   static String getProductsInBrandEndpoint(int id) =>
       "$GET_PRODUCTS_IN_BRAND_ENDPOINT{$id}";
 
+  static const GET_ALL_NOTIFICATIONS_ENDPOINT = "api/SendNotifications/GetAllSelectList";
+
   //used products
 
   static const ADD_USED_PRODUCT_ENDPOINT =
