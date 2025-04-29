@@ -3,6 +3,7 @@ import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart
 import 'package:classic_eccomerce/categories/data/data_sources/remote_data_sources/categories_apis.dart';
 import 'package:classic_eccomerce/categories/data/models/get_products_in_category_response.dart';
 import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
+import 'package:classic_eccomerce/home/data/data_sources/remote_data_sources/banners_apis.dart';
 import 'package:classic_eccomerce/home/data/data_sources/remote_data_sources/get_brands_api.dart';
 import 'package:classic_eccomerce/home/data/data_sources/remote_data_sources/products_apis.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,6 +22,7 @@ import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../categories/data/models/get_categories_paginated_response.dart';
 import '../../../../categories/data/models/get_categories_response.dart';
 import '../../../../contact_us/data/data_sources/remote_data_sources/contact_us_api.dart';
+import '../../../data/models/get_banners_response.dart';
 import '../../../data/models/get_brands_response.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
@@ -34,13 +36,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   //data
   // List<BannerAd>? banners;
-  List<String> banners = [
-    'assets/images/slider1.jpeg',
-    'assets/images/slider2.jpeg',
-    // 'assets/images/slider3.jpeg',
-    // 'assets/images/slider4.jpeg',
-    // 'assets/images/slider5.jpg',
-  ];
+  List<BannerAd> banners = [];
 
 
   List<Category2>? categoriesOverview;
@@ -112,7 +108,8 @@ class HomeCubit extends Cubit<HomeStates> {
                     ),
                   )),
               type: PageTransitionType.leftToRight));
-    } else if (productsListTitle == "New Arrivals") {
+    }
+    else if (productsListTitle == "New Arrivals") {
       loadViewAllProductsScreen(productsListTitle);
       Navigator.push(
           context,
@@ -126,7 +123,8 @@ class HomeCubit extends Cubit<HomeStates> {
                     ),
                   )),
               type: PageTransitionType.leftToRight));
-    } else {
+    }
+    else {
       loadViewAllProductsScreen(productsListTitle);
       Navigator.push(
           context,
@@ -382,12 +380,21 @@ class HomeCubit extends Cubit<HomeStates> {
       }
     }
 
-    //await setBanners();
+    await setBanners();
     await setBrands();
     await setCategoriesOverview();
     await setFeaturedProductsOverview();
     await setNewArrivalsOverview();
     await setBestSellersOverview();
     emit(FetchingHomeScreenDoneState());
+  }
+
+  setBanners() async {
+
+    var response = await BannersApis.getBanners();
+
+    if(response?.isSuccssed == true){
+      banners = response?.banners??[];
+    }
   }
 }

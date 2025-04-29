@@ -12,7 +12,7 @@ class ApiUrls {
   static const GET_CATEGORIES_ENDPOINT =
       "api/Stores/Group/GetAllPagenationWithImage";
       //"api/rest/categories/extended/";
-  static const GET_BANNERS_ENDPOINT = "api/rest/banners";
+  static const GET_BANNERS_ENDPOINT = "api/Banars/GetAllSelectList";
   static const GET_FEATURED_PRODUCTS_ENDPOINT = "api/rest/featured";
   static const GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT =
       "api/rest/featured/limit/";

@@ -7,6 +7,8 @@ import 'package:classic_eccomerce/core/constants/fonts/font_families.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
+import 'package:classic_eccomerce/home/data/models/get_banners_response.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/states.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/search_cubit/cubit.dart';
@@ -18,6 +20,7 @@ import 'package:classic_eccomerce/home/presentation/widgets/products_overview.da
 import 'package:classic_eccomerce/main.dart';
 import 'package:classic_eccomerce/notifications/presentation/screens/notifications_screen.dart';
 import 'package:classic_eccomerce/shared_components/search_app_bar_custom_input.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -214,7 +217,7 @@ class HomeScreen extends StatelessWidget {
               builder: (context, state) {
                 HomeCubit homeCubit = HomeCubit.get(context);
                 // List<BannerAd>? bannerAds = homeCubit.banners;
-                List<String>? bannerAds = homeCubit.banners;
+                List<BannerAd>? bannerAds = homeCubit.banners;
 
                 List<Category2>? categories = homeCubit.categoriesOverview;
 
@@ -248,13 +251,20 @@ class HomeScreen extends StatelessWidget {
                                     onPageChanged: (index, reason) {}),
                                 items: bannerAds
                                     .map(
-                                      (e) => Image.asset(
-                                        //   e.imageOriginal ?? "",
-                                        e,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        fit: BoxFit.cover,
-                                      ),
+                                      (e) {
+                                        if (kDebugMode) {
+                                          print( ApiUrls.BASE_URL +  (e?.fileUrl??""),);
+                                        }
+                                        return Image.network(
+                                          //   e.imageOriginal ?? "",
+                                          ApiUrls.BASE_URL +  (e?.fileUrl??""),
+                                          width:
+                                          MediaQuery.of(context).size.width,
+                                          fit: BoxFit.cover,
+
+
+                                        );
+                                      }
                                     )
                                     .toList(),
                               ),
