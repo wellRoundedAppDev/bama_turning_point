@@ -61,7 +61,7 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   loginFromLoginForm(
-      {bool isCheckingOut = false, required CartCubit cartCubit}) async {
+      {bool isCheckingOut = false, required CartCubit cartCubit,}) async {
     if (validateLoginForm() != true) {
       return;
     }
@@ -88,11 +88,13 @@ class AuthCubit extends Cubit<AuthStates> {
         "password": loginFormInput.password
       });
       emit(LoginSuccessState());
-      Navigator.pushReplacement(
-          context,
-          PageTransition(
-              child: const HomeLayoutScreen(),
-              type: PageTransitionType.fade));
+      Navigator.pop(context);
+
+      // Navigator.pushReplacement(
+      //     context,
+      //     PageTransition(
+      //         child: const HomeLayoutScreen(),
+      //         type: PageTransitionType.fade));
 
       // if (isCheckingOut) {
       //   Navigator.pushReplacement(
@@ -146,11 +148,12 @@ class AuthCubit extends Cubit<AuthStates> {
         "username": loginInput['email'],
         "password": loginInput['password']
       });
-      Navigator.pushReplacement(
-          context,
-          PageTransition(
-              child: const HomeLayoutScreen(),
-              type: PageTransitionType.fade));
+      // Navigator.pushReplacement(
+      //     context,
+      //     PageTransition(
+      //         child: const HomeLayoutScreen(),
+      //         type: PageTransitionType.fade));
+      Navigator.pop(context);
       emit(LoginSuccessState());
     } else if (response?.success == 0) {
       loginResponse = null;
@@ -174,65 +177,74 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   autoLogin({required CartCubit cartCubit}) async {
-    var loggedUser = (await getLoginCredentialsFromSharedPrefs());
-    if (loggedUser == null) {
-      Future.delayed(
-        const Duration(seconds: 3),
-        () => Navigator.pushReplacement(
-            context,
-            PageTransition(
-                child: const HomeLayoutScreen(),
-                type: PageTransitionType.fade)),
-      );
-      return;
-    }
-
-    var loginInput = {
-      "email": loggedUser['username'],
-      "password": loggedUser['password']
-    };
-
-    if (await setAccessToken() == false) {
-      Navigator.pushReplacement(
+    Future.delayed(
+      const Duration(seconds: 3),
+          () => Navigator.pushReplacement(
           context,
           PageTransition(
-              child: const HomeLayoutScreen(), type: PageTransitionType.fade));
-      showAppSnackBar(content: "Check your internet connection, and try again");
-      emit(LoginNetworkFailedConnectionState());
-      return;
-    }
-
-    var response = await AuthApis.login(loginInput);
-    if (response?.success == 1) {
-      loginResponse = response;
-      isUserLoggedIn = true;
-      cartCubit.numberOfItemsInCart =
-          loginResponse?.loginData?.cartCountProducts ?? 0;
-
-      Navigator.pushReplacement(
-          context,
-          PageTransition(
-              child: const HomeLayoutScreen(), type: PageTransitionType.fade));
-      emit(LoginSuccessState());
-    } else if (response?.success == 0) {
-      loginResponse = null;
-      isUserLoggedIn = false;
-      showAppSnackBar(
-          content: response?.error != null  &&
-              response?.error != ""
-              ? (response?.error ?? "") ==
-              "كلمة المرور أو اسم المستخدم غير صحيح"
-              ? AppLocalizations.of(context)!.wrong_phone_number_or_password
-              : AppLocalizations.of(context)!.error_occurred_try_again
-              : "");
-      print(response?.error);
-      emit(LoginFailedState());
-    } else {
-      loginResponse = null;
-      isUserLoggedIn = false;
-      showAppSnackBar(content: "Check your internet connection, and try again");
-      emit(LoginNetworkFailedConnectionState());
-    }
+              child: const HomeLayoutScreen(),
+              type: PageTransitionType.fade)),
+    );
+    //
+    // var loggedUser = (await getLoginCredentialsFromSharedPrefs());
+    // if (loggedUser == null) {
+    //   Future.delayed(
+    //     const Duration(seconds: 3),
+    //     () => Navigator.pushReplacement(
+    //         context,
+    //         PageTransition(
+    //             child: const HomeLayoutScreen(),
+    //             type: PageTransitionType.fade)),
+    //   );
+    //   return;
+    // }
+    //
+    // var loginInput = {
+    //   "email": loggedUser['username'],
+    //   "password": loggedUser['password']
+    // };
+    //
+    // if (await setAccessToken() == false) {
+    //   Navigator.pushReplacement(
+    //       context,
+    //       PageTransition(
+    //           child: const HomeLayoutScreen(), type: PageTransitionType.fade));
+    //   showAppSnackBar(content: "Check your internet connection, and try again");
+    //   emit(LoginNetworkFailedConnectionState());
+    //   return;
+    // }
+    //
+    // var response = await AuthApis.login(loginInput);
+    // if (response?.success == 1) {
+    //   loginResponse = response;
+    //   isUserLoggedIn = true;
+    //   cartCubit.numberOfItemsInCart =
+    //       loginResponse?.loginData?.cartCountProducts ?? 0;
+    //
+    //   Navigator.pushReplacement(
+    //       context,
+    //       PageTransition(
+    //           child: const HomeLayoutScreen(), type: PageTransitionType.fade));
+    //   emit(LoginSuccessState());
+    // } else if (response?.success == 0) {
+    //   loginResponse = null;
+    //   isUserLoggedIn = false;
+    //   showAppSnackBar(
+    //       content: response?.error != null  &&
+    //           response?.error != ""
+    //           ? (response?.error ?? "") ==
+    //           "كلمة المرور أو اسم المستخدم غير صحيح"
+    //           ? AppLocalizations.of(context)!.wrong_phone_number_or_password
+    //           : AppLocalizations.of(context)!.error_occurred_try_again
+    //           : "");
+    //   print(response?.error);
+    //   emit(LoginFailedState());
+    // } else {
+    //   loginResponse = null;
+    //   isUserLoggedIn = false;
+    //   showAppSnackBar(content: "Check your internet connection, and try again");
+    //   emit(LoginNetworkFailedConnectionState());
+    // }
   }
 
   // register({required CartCubit cartCubit}) async {
@@ -302,7 +314,7 @@ class AuthCubit extends Cubit<AuthStates> {
 
       showAppSnackBar(
           content: response?.errorMsgs != null && response?.errorMsgs != [] && response?.errorMsgs != ""
-              ? (response?.errorMsgs?[0] ?? "") == "Email already exists!"?AppLocalizations.of(context)!.phone_number_already_exists:AppLocalizations.of(context)!.error_occurred_try_again
+              ? (response?.errorMsgs?[0] ?? "") == "Email already exists!"?AppLocalizations.of(context)!.email_exist:AppLocalizations.of(context)!.error_occurred_try_again
               : "");
       emit(RegisterFailedState());
     } else {

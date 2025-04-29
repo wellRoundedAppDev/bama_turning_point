@@ -37,7 +37,7 @@ class RegisterFormInput {
     'userName': userName,
     'email': email,
     'password': password,
-    'confirm': confirmPassword,
+    // 'confirm': confirmPassword,
     // 'mobileAppId': 1,
     // 'address_id': 1,
     // 'status': 1,

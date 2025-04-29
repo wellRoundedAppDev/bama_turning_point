@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/authentication/presentation/screens/login_screen.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:classic_eccomerce/categories/presentation/screens/categories_screen.dart';
@@ -11,9 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../account/presentation/screens/my_account_screen.dart';
+import '../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../../complain/presentation/screens/complain_screen.dart';
 import '../../../core/constants/colors/colors.dart';
+import '../../../main.dart';
 import '../../../wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
 import '../cubits/app_cubit/cubit.dart';
 import '../cubits/app_cubit/states.dart';
@@ -163,7 +166,7 @@ class HomeLayoutScreen extends StatelessWidget {
                           ],
                           index: appCubit.currentNavbarIndex,
                           onTap: (index) {
-                            appCubit.changeNavBarIndex(index);
+                            appCubit.changeNavBarIndex(index,context);
                           }),
                     ),
                     body: (navBarCurrentIndex == 2)
@@ -176,7 +179,7 @@ class HomeLayoutScreen extends StatelessWidget {
                         //           )
                         : (navBarCurrentIndex == 1)
                             ? CartScreen()
-                            : const ComplainsScreen())),
+                            :const ComplainsScreen())),
           );
         },
       ),

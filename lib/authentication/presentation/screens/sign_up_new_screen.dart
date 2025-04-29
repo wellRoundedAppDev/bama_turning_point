@@ -51,15 +51,15 @@ class SignUpScreen extends StatelessWidget {
                       label: AppLocalizations.of(context)!.full_name,
                       hintText: AppLocalizations.of(context)!.full_name,
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value!.trim() == null || value.isEmpty) {
                           return AppLocalizations.of(context)!.enter_full_name;
                         }
-                        if ((value?.split(" ")?.length ?? 0) == 1 ||
-                            value?.split(" ")?.last?.isEmpty == true ||
-                            value?.split(" ")?.last == " ") {
-                          return AppLocalizations.of(context)!
-                              .enter_your_name;
-                        }
+                        // if ((value?.split(" ")?.length ?? 0) == 1 ||
+                        //     value?.split(" ")?.last?.isEmpty == true ||
+                        //     value?.split(" ")?.last == " ") {
+                        //   return AppLocalizations.of(context)!
+                        //       .enter_full_name;
+                        // }
                       },
                       onSaved: (v) {
                         // AuthCubit.get(context).registerFormInput.firstName =
@@ -79,7 +79,7 @@ class SignUpScreen extends StatelessWidget {
                       label: AppLocalizations.of(context)!.name_user,
                       hintText: AppLocalizations.of(context)!.name_user,
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value!.trim() == null || value.isEmpty) {
                           return AppLocalizations.of(context)!.enter_name_user;
                         }
                         // if ((value?.split(" ")?.length ?? 0) == 1 ||
@@ -132,9 +132,11 @@ class SignUpScreen extends StatelessWidget {
                       textInputType: TextInputType.emailAddress,
                       validator: (v) {
                         if (v == null || v.isEmpty == true) {
-                          return "Enter your email";
+                          return AppLocalizations.of(context)!
+                              .enter_your_email_to_get_updates;
                         } else if (EmailValidator.validate(v) != true) {
-                          return "Enter a valid email";
+                          return AppLocalizations.of(context)!
+                              .email_valid;
                         }
                       },
                       onSaved: (v) => AuthCubit.get(context)
@@ -242,19 +244,19 @@ class SignUpScreen extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    CustomInput(
-                      label: AppLocalizations.of(context)!.confirm_password,
-                      hintText: AppLocalizations.of(context)!.confirm_password,
-                      validator: (v) {
-                        if (v == null || v.length < 6) {
-                          return AppLocalizations.of(context)!
-                              .enter_a_password_of_at_least_six_characters;
-                        }
-                      },
-                      onSaved: (v) => AuthCubit.get(context)
-                          .registerFormInput
-                          .confirmPassword = v,
-                    ),
+                    // CustomInput(
+                    //   label: AppLocalizations.of(context)!.confirm_password,
+                    //   hintText: AppLocalizations.of(context)!.confirm_password,
+                    //   validator: (v) {
+                    //     if (v == null || v.length < 6) {
+                    //       return AppLocalizations.of(context)!
+                    //           .enter_a_password_of_at_least_six_characters;
+                    //     }
+                    //   },
+                    //   onSaved: (v) => AuthCubit.get(context)
+                    //       .registerFormInput
+                    //       .confirmPassword = v,
+                    // ),
                     // const SizedBox(
                     //   height: 24,
                     // ),
