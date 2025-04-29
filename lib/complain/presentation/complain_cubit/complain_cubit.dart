@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:classic_eccomerce/complain/data/models/complain_form_input.dart';
 import 'package:classic_eccomerce/complain/presentation/complain_cubit/complain_state.dart';
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/data/models/success_message_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,7 +48,7 @@ class ComplainCubit extends Cubit<ComplainStates>{
     if (response?.success == true) {
       print(response?.success);
       showAppSnackBar(
-          content: AppLocalizations.of(context)!.your_complain_has_been_successfully_processed);
+          content: AppLocalizations.of(context)!.your_complain_has_been_successfully_processed,color: AppColors.APP_MAIN_COLOR);
       title.text='';
       description.text='';
       emit(CreateComplainSuccessState());
