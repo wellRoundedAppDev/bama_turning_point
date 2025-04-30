@@ -13,6 +13,7 @@ import '../../../core/constants/colors/colors.dart';
 import '../../../product_details/presentation/screens/product_details_screen.dart';
 import '../cubits/home_cubit/cubit.dart';
 import '../cubits/home_cubit/states.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ViewAllProductsScreen extends StatelessWidget {
   String productTitle;
@@ -67,7 +68,8 @@ class ViewAllProductsScreen extends StatelessWidget {
                           int? productId = product?.productId?.toInt();
                           String? productName = product?.name;
                           String? productImageUrl = product?.productImagePath;
-                          String? priceFormatted = product?.priceFormatted;
+                          String? priceFormatted = "${product?.price?.toStringAsFixed(3)??""} ${AppLocalizations.of(context)!
+                              .iraqi_dinar_initials}";
 
                           return InkWell(
                             onTap: () {
@@ -172,7 +174,7 @@ class ViewAllProductsScreen extends StatelessWidget {
                                     height: 4,
                                   ),
                                   Text(
-                                    productTitle ?? "-",
+                                    productName ?? "-",
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(

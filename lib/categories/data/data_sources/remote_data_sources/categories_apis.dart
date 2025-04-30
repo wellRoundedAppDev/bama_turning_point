@@ -35,8 +35,8 @@ class CategoriesApis {
   }
 
 
-  static Future<GetCategoriesPaginatedResponse?> getCategoriesPaginated(int page,
-      {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
+  static Future<GetCategoriesPaginatedResponse?> getCategoriesPaginated(
+      {int pageNumber = 1, int pageSize = 10}) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
 
@@ -44,12 +44,10 @@ class CategoriesApis {
     try {
       var response = await _dioHelper.get(endpoint: endPoint, headers: {
         "Authorization": "Bearer $accessToken",
-        "X-Oc-Merchant-Language": languageCode,
-        "X-Oc-Currency": currencyCode
       },
       queryParameters: {
-          "page":page,
-        "size":10
+          "page":pageNumber,
+        "size":pageSize
       }
       );
       if (response == null) {

@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/core/helpers/dio_helper.dart';
+import 'package:classic_eccomerce/home/data/models/get_all_products_response.dart';
 import 'package:classic_eccomerce/home/data/models/get_best_sellers_response.dart';
 import 'package:classic_eccomerce/home/data/models/get_featured_products_response.dart';
 import 'package:classic_eccomerce/home/data/models/get_latest_products_response.dart';
@@ -172,6 +173,42 @@ class ProductsApis {
       }
       print(response.data);
       return GetProductsInBrandResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+
+
+  static Future<GetAllProductsResponse?> getAllProducts(
+  {
+    int pageNumber = 1,
+    int pageSize = 10
+}) async {
+    String endPoint = ApiUrls.GET_ALL_PRODUCTS_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.get(
+          endpoint:
+          endPoint,
+          queryParameters: {
+            "pageNumber":pageNumber,
+            "pageSize":pageSize
+          },
+          headers: {
+            "Authorization": "Bearer $accessToken",
+            // "X-Oc-Merchant-Language": languageCode,
+            // "X-Oc-Currency": currencyCode,
+          });
+      if (response == null) {
+        return null;
+      }
+      print(response.data);
+      return GetAllProductsResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
         print(e);

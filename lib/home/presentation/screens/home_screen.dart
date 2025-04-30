@@ -13,6 +13,7 @@ import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/states.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/search_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/screens/search_and_filter_screen.dart';
+import 'package:classic_eccomerce/home/presentation/screens/vendors_screen.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/brands_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/categories_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/filter_drawer.dart';
@@ -227,6 +228,11 @@ class HomeScreen extends StatelessWidget {
 
                 var brands = homeCubit.brands;
 
+
+                var productsOverview = homeCubit.productsOverview;
+
+                var vendorsOverView = homeCubit.vendors;
+
                 return (state is FetchingHomeScreenLoadingState)
                     ? const Center(
                         child: CircularProgressIndicator(),
@@ -280,7 +286,7 @@ class HomeScreen extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   String productListTitle = (index == 1)
                                       ? AppLocalizations.of(context)!
-                                          .new_arrivals
+                                          .products
                                       : "";
                                   // (
                                   //
@@ -291,7 +297,7 @@ class HomeScreen extends StatelessWidget {
                                   // .offers;
 
                                   var products =
-                                      (index == 1) ? newArrivals : "";
+                                      (index == 1) ? productsOverview : [];
                                   // : (index == 4)
                                   //     ? newArrivals
                                   //     : bestSellers;
@@ -308,34 +314,7 @@ class HomeScreen extends StatelessWidget {
                                               ? Container(
                                                   color: Colors.white,
                                                   child: ProductsOverview(
-                                                      products: products ??
-                                                          [
-                                                            Product(
-                                                                name: "P$index",
-                                                                priceFormatted:
-                                                                    "200IQD",
-                                                                price: 200),
-                                                            Product(
-                                                                name: "P$index",
-                                                                priceFormatted:
-                                                                    "200IQD",
-                                                                price: 200),
-                                                            Product(
-                                                                name: "P$index",
-                                                                priceFormatted:
-                                                                    "200IQD",
-                                                                price: 200),
-                                                            Product(
-                                                                name: "P$index",
-                                                                priceFormatted:
-                                                                    "200IQD",
-                                                                price: 200),
-                                                            Product(
-                                                                name: "P$index",
-                                                                priceFormatted:
-                                                                    "200IQD",
-                                                                price: 200),
-                                                          ],
+                                                      products: products,
                                                       productListTitle:
                                                           productListTitle))
                                               : Container(
@@ -405,7 +384,11 @@ class HomeScreen extends StatelessWidget {
                                                               ],
                                                             )),
                                                             InkWell(
-                                                              onTap: () {},
+                                                              onTap: () {
+                                                                Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
+                                                                child: const VendorsScreen()
+                                                                ));
+                                                              },
                                                               child: Text(
                                                                 AppLocalizations.of(
                                                                         context)!
@@ -456,11 +439,17 @@ class HomeScreen extends StatelessWidget {
                                                                   0,
                                                               crossAxisSpacing:
                                                                   16),
-                                                          itemCount: 8,
+                                                          itemCount: vendorsOverView?.length??0,
                                                           itemBuilder:
                                                               (BuildContext
                                                                       context,
                                                                   int index) {
+
+                                                            var vendor = vendorsOverView?[index];
+
+                                                            var vendorId = vendor?.id;
+                                                            var vendorName = vendor?.supplierName;
+
                                                             return InkWell(
                                                               onTap: () {
                                                                 // print(category?.categoryId);
@@ -484,7 +473,7 @@ class HomeScreen extends StatelessWidget {
                                                                     height: 0,
                                                                   ),
                                                                   Text(
-                                                                    "fm1",
+                                                                    vendorName??"",
                                                                     style: const TextStyle(
                                                                         color: AppColors
                                                                             .GREY_LABEL_COLOR,

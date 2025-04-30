@@ -34,7 +34,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     emit(GetCategoriesLoadingState());
-    var response = await CategoriesApis.getCategoriesPaginated(currentCategoriesPage);
+    var response = await CategoriesApis.getCategoriesPaginated(pageSize: 1000,pageNumber: 1);
 
     if(response?.isSuccssed == true){
       categories = response?.obj?.dataReturn;

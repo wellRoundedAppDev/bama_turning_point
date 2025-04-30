@@ -90,7 +90,7 @@ class ProductsOverview extends StatelessWidget {
                   int? productId = product.productId?.toInt();
                   String? productTitle = product.name;
                   num? productPrice = product.price;
-                  String? priceFormatted = product.priceFormatted;
+                  var priceFormatted = (product.price?.toStringAsFixed(3)??"") +" " +  AppLocalizations.of(context)!.iraqi_dinar_initials;
                   String? productImagePath = (product.productImagePath ?? "");
                   String stockStatus = product.stockStatus ?? "";
 

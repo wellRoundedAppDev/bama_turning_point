@@ -10,7 +10,9 @@ class ApiUrls {
   static const REGISTER_ENDPOINT = "api/rest/register";
   static const ACCOUNT_ENDPOINT = "api/rest/account";
   static const GET_CATEGORIES_ENDPOINT =
-      "api/Stores/Group/GetAllPagenationWithImage";
+
+  //"api/Products/GetGroups";
+     "api/Stores/Group/GetAllPagenationWithImage";
       //"api/rest/categories/extended/";
   static const GET_BANNERS_ENDPOINT = "api/Banars/GetAllSelectList";
   static const GET_FEATURED_PRODUCTS_ENDPOINT = "api/rest/featured";
@@ -50,8 +52,21 @@ class ApiUrls {
   static const GET_LANGUAGES_ENDPOINT = "api/rest/languages";
   static const GET_SELECT_VALUES_ENDPOINT = "api/rest/product_classes";
   static const SET_COUPON_CODE_ENDPOINT = "api/rest/coupon";
+
   static const GET_BRANDS_ENDPOINT = "api/rest/manufacturers";
+
+
+
   static const GET_PRODUCTS_IN_BRAND_ENDPOINT = "api/rest/products";
+
+
+  static const GET_ALL_PRODUCTS_ENDPOINT = "api/Products/GetAllProducts";
+
+
+  static const GET_VENDORS_ENDPOINT = "api/Products/GetVendors";
+
+
+
   static const CANCEL_ORDER_ENDPOINT = "index.php?route=api/cancelorder";
   static const routeUrl = 'feed/rest_api/';
   static const CONTACT_US_ENDPOINT = "api/rest/contact";
