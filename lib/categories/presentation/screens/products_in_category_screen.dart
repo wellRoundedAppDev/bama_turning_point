@@ -27,7 +27,7 @@ class ProductsInCategoryScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         CategoriesCubit categoriesCubit = CategoriesCubit.get(context);
-        List<ProductInCategory>? products = categoriesCubit.products;
+        List<Products>? products = categoriesCubit.products;
         Category? selectedCategory = categoriesCubit.selectedCategory;
         String? selectedCategoryName = selectedCategory?.name;
         return Scaffold(
@@ -68,12 +68,12 @@ class ProductsInCategoryScreen extends StatelessWidget {
                             ),
                             itemCount: products?.length ?? 0,
                             itemBuilder: (BuildContext context, int index) {
-                              ProductInCategory? product = products?[index];
-                              int? productId = product?.productId?.toInt();
-                              String? productName = product?.name;
+                              Products? product = products?[index];
+                              int? productId = product?.id;
+                              String? productName = product?.productName;
                               String? productImageUrl =
-                                  product?.productImagePath;
-                              String? priceFormatted = product?.priceFormatted;
+                                  product?.grandUnitName;
+                              String? priceFormatted = product?.middleUnitPrice.toString();
 
                               return InkWell(
                                 onTap: () {

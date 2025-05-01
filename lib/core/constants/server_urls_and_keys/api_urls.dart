@@ -5,8 +5,8 @@ class ApiUrls {
   // "https://opencart3-simple.api.opencart-api.com/";
   static const GET_TOKEN_ENDPONT = "api/rest/oauth2/token/client_credentials";
   static const GET_SESSION_ID_ENDPOINT = "api/rest/session";
-  static const LOGIN_ENDPOINT = "Ecommerce/Login";
-  static const REGISTER_ENDPOINT = "Ecommerce/Create";
+  static const LOGIN_ENDPOINT = "Users/LoginCustomer";
+  static const REGISTER_ENDPOINT = "Users/RegisterCustomer";
   static const Complain_ENDPOINT = "ReceivingComplaints/Create";
   static const ACCOUNT_ENDPOINT = "api/rest/account";
   static const GET_CATEGORIES_ENDPOINT = "api/rest/categories/extended/";
@@ -20,7 +20,7 @@ class ApiUrls {
   static const GET_SLIDE_SHOWS_ENDPOINT = "api/rest/slideshows";
   static const GET_PRODUCT_DETAILS_ENDPOINT = "api/rest/products/";
   static const GET_PRODUCTS_BY_CATEGORY_ID_ENDPOINT =
-      "api/rest/products/category/";
+      "Products/GetAllProductsByGroup";
   static const GUEST_SHIPPING_ENDPOINT = "api/rest/guestshipping";
   static const GET_LIST_OF_COUNTRIES_ENDPOINT = "api/rest/countries";
   static const GET_LIST_OF_REGIONS_BY_COUNTRY_ID_ENDPOINT =
@@ -65,7 +65,7 @@ class ApiUrls {
   static String getProductDetailsByIdEndpoint(int id) =>
       "$GET_PRODUCT_DETAILS_ENDPOINT$id";
   static String getProductsByCategoryIdEndpoint(int id) =>
-      "$GET_PRODUCTS_BY_CATEGORY_ID_ENDPOINT$id";
+      "$GET_PRODUCTS_BY_CATEGORY_ID_ENDPOINT";
   static String getListOfRegionsByCountryIdEndpoint(int id) =>
       "$GET_LIST_OF_REGIONS_BY_COUNTRY_ID_ENDPOINT$id";
   static String getAddItemsToWishlistEndpoint(int id) =>

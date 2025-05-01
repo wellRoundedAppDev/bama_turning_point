@@ -17,7 +17,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
   static CategoriesCubit get(context) => BlocProvider.of(context);
 
   List<Category>? categories;
-  List<ProductInCategory>? products;
+  List<Products>? products;
   Category? selectedCategory;
 
   setCategories() async {
@@ -56,7 +56,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
     selectedCategory = category;
   }
 
-  setAllProductsInCategory(Category? category) async {
+    setAllProductsInCategory(Category? category) async {
     LocaleCubit localeCubit = LocaleCubit.get(context);
     setSelectedCategory(category);
     emit(GetProductsInCategoryLoadingState());
@@ -64,12 +64,12 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
         selectedCategory?.categoryId?.toInt() ?? 0,
         languageCode: languageCodes[localeCubit.locale.languageCode],
         currencyCode: AppSettingsCubit.get(context).currencyCode ?? "");
-    if (response?.success == 1) {
-      products = response?.products;
-      products = products?.where((e) => e.stockStatusId != 5).toList();
+    if (response?.isSuccssed == true) {
+      products = response?.obj!.products;
+       // products = products?.where((e) => e.stockStatusId != 5).toList();
 
       emit(GetProductsInCategorySuccessState());
-    } else if (response?.success == 0) {
+    } else if (response?.isSuccssed == false) {
       products = null;
       emit(GetProductsInCategoryFailedState());
     } else {

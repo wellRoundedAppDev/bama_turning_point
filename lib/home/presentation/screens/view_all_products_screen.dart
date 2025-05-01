@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
+import '../../../categories/data/models/get_products_in_category_response.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../product_details/presentation/screens/product_details_screen.dart';
 import '../cubits/home_cubit/cubit.dart';
@@ -31,7 +32,7 @@ class ViewAllProductsScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           HomeCubit homeCubit = HomeCubit.get(context);
-          List<Product>? products = homeCubit.allProducts;
+          List<Products>? products = homeCubit.allProducts;
 
           return (state is FetchingAllProductsLoadingState)
               ? const Center(
@@ -63,11 +64,11 @@ class ViewAllProductsScreen extends StatelessWidget {
                         ),
                         itemCount: products?.length ?? 0,
                         itemBuilder: (BuildContext context, int index) {
-                          Product? product = products?[index];
-                          int? productId = product?.productId?.toInt();
-                          String? productName = product?.name;
-                          String? productImageUrl = product?.productImagePath;
-                          String? priceFormatted = product?.priceFormatted;
+                          Products? product = products?[index];
+                          int? productId = product?.id?.toInt();
+                          String? productName = product?.productName;
+                          String? productImageUrl = product?.minorUnitName;
+                          String? priceFormatted = product?.grandUnitPrice.toString();
 
                           return InkWell(
                             onTap: () {

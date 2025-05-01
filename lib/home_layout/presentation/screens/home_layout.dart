@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/login_screen.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
@@ -166,7 +167,7 @@ class HomeLayoutScreen extends StatelessWidget {
                           ],
                           index: appCubit.currentNavbarIndex,
                           onTap: (index) {
-                            appCubit.changeNavBarIndex(index,context);
+                            appCubit.changeNavBarIndex(index, context);
                           }),
                     ),
                     body: (navBarCurrentIndex == 2)
@@ -179,7 +180,15 @@ class HomeLayoutScreen extends StatelessWidget {
                         //           )
                         : (navBarCurrentIndex == 1)
                             ? CartScreen()
-                            :const ComplainsScreen())),
+                            : BlocConsumer<AuthCubit, AuthStates>(
+                                builder: (context, state) {
+                                  bool? isUserLoggedIn = AuthCubit.get(context).isUserLoggedIn;
+                                  return isUserLoggedIn == true
+                                        ? const ComplainsScreen()
+                                        : SignInScreen();
+                                },
+                                listener: (context, state) {},
+                              ))),
           );
         },
       ),

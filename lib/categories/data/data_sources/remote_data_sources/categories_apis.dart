@@ -35,23 +35,28 @@ class CategoriesApis {
 
   static Future<GetProductsInCategoryResponse?> getProductsInCategoryById(
       int id,
-      {String languageCode = "ir_arabic",
-      String currencyCode = "IQD"}) async {
+      { int pageNumber=1,
+      int pageSize=10,
+      String languageCode = "ir_arabic",
+      String currencyCode = "IQD",}) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
 
     String endPoint = ApiUrls.getProductsByCategoryIdEndpoint(id);
     try {
       var response = await _dioHelper.get(endpoint: endPoint, headers: {
-        "Authorization": "Bearer $accessToken",
-        "X-Oc-Merchant-Language": languageCode,
-        "X-Oc-Currency": currencyCode
+        "Authorization": "bearer $accessToken",
+        // "X-Oc-Merchant-Language": languageCode,
+        // "X-Oc-Currency": currencyCode
+      },queryParameters: {
+        'groupId':id,
+        'pageNumber':pageNumber,
+        'pageSize':pageSize
       });
 
       if (response == null) {
         return null;
       }
-      print(response.data);
       return GetProductsInCategoryResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {

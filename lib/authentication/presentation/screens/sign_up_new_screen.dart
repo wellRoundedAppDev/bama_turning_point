@@ -124,25 +124,6 @@ class SignUpScreen extends StatelessWidget {
                     // const SizedBox(
                     //   height: 16,
                     // ),
-                    CustomInput(
-                      label: AppLocalizations.of(context)!
-                          .email,
-                      hintText: AppLocalizations.of(context)!
-                          .email,
-                      textInputType: TextInputType.emailAddress,
-                      validator: (v) {
-                        if (v == null || v.isEmpty == true) {
-                          return AppLocalizations.of(context)!
-                              .enter_your_email_to_get_updates;
-                        } else if (EmailValidator.validate(v) != true) {
-                          return AppLocalizations.of(context)!
-                              .email_valid;
-                        }
-                      },
-                      onSaved: (v) => AuthCubit.get(context)
-                          .registerFormInput
-                          .email = v?.trim(),
-                    ),
                     // const SizedBox(
                     //   height: 16,
                     // ),
@@ -226,9 +207,7 @@ class SignUpScreen extends StatelessWidget {
                     // ),
 
 
-                    const SizedBox(
-                      height: 16,
-                    ),
+
                     CustomInput(
                       label: AppLocalizations.of(context)!.password,
                       hintText: AppLocalizations.of(context)!.password,
