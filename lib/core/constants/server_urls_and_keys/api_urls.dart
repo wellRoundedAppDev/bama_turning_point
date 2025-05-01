@@ -8,7 +8,7 @@ class ApiUrls {
   static const GET_SESSION_ID_ENDPOINT = "api/rest/session";
   static const LOGIN_ENDPOINT = "api/Users/LoginCustomer";
   static const REGISTER_ENDPOINT = "api/Users/RegisterCustomer";
-  static const Complain_ENDPOINT = "ReceivingComplaints/Create";
+  static const Complain_ENDPOINT = "api/ReceivingComplaints/Create";
   static const ACCOUNT_ENDPOINT = "api/rest/account";
   static const GET_CATEGORIES_ENDPOINT =
 
