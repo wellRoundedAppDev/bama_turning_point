@@ -18,10 +18,7 @@ class AppCubit extends Cubit<CheckOutStates> {
 
   changeNavBarIndex(int index, context) {
     currentNavbarIndex = index;
-    currentNavbarIndex == 0 && MyApp.navKey.currentState?.context
-        .read<AuthCubit>()
-        .accessToken == null ? Navigator.push(
-        context, MaterialPageRoute(builder: (context) => SignInScreen(),)):null;
+
     emit(AppNavigationChangedState());
   }
 }

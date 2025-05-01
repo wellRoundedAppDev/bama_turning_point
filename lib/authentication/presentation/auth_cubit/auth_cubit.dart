@@ -84,11 +84,11 @@ class AuthCubit extends Cubit<AuthStates> {
       cartCubit.numberOfItemsInCart =
           loginResponse?.loginData?.cartCountProducts ?? 0;
       setLoginCredentialsInSharedPrefs({
-        "userName": loginFormInput.username,
-        "password": loginFormInput.password
+        "UserName": loginFormInput.username,
+        "Password": loginFormInput.password
       });
       emit(LoginSuccessState());
-      Navigator.pop(context);
+      // Navigator.pop(context);
 
       // Navigator.pushReplacement(
       //     context,
@@ -126,6 +126,7 @@ class AuthCubit extends Cubit<AuthStates> {
     } else {
       loginResponse = null;
       isUserLoggedIn = false;
+      print(isUserLoggedIn);
       showAppSnackBar(content: "Check your internet connection, and try again");
       emit(LoginNetworkFailedConnectionState());
     }
@@ -153,7 +154,7 @@ class AuthCubit extends Cubit<AuthStates> {
       //     PageTransition(
       //         child: const HomeLayoutScreen(),
       //         type: PageTransitionType.fade));
-      Navigator.pop(context);
+      // Navigator.pop(context);
       emit(LoginSuccessState());
     } else if (response?.success == 0) {
       loginResponse = null;
@@ -302,13 +303,13 @@ class AuthCubit extends Cubit<AuthStates> {
 
     var response = await AuthApis.register(registerFormInput.toJsonForApi());
     if (response?.success == true) {
-      // isUserLoggedIn = true;
+       isUserLoggedIn = true;
       await login(loginInput: {
         "userName": registerFormInput.userName,
         "password": registerFormInput.password
       }, cartCubit: cartCubit);
-      emit(RegisterSuccessState());
-       // Navigator.pop(context);
+       Navigator.pop(context);
+       emit(RegisterSuccessState());
     } else if (response?.success == false) {
       // isUserLoggedIn = false;
 
