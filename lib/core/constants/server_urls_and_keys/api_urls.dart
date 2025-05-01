@@ -6,8 +6,8 @@ class ApiUrls {
   // "https://opencart3-simple.api.opencart-api.com/";
   static const GET_TOKEN_ENDPONT = "api/rest/oauth2/token/client_credentials";
   static const GET_SESSION_ID_ENDPOINT = "api/rest/session";
-  static const LOGIN_ENDPOINT = "Users/LoginCustomer";
-  static const REGISTER_ENDPOINT = "Users/RegisterCustomer";
+  static const LOGIN_ENDPOINT = "api/Users/LoginCustomer";
+  static const REGISTER_ENDPOINT = "api/Users/RegisterCustomer";
   static const Complain_ENDPOINT = "ReceivingComplaints/Create";
   static const ACCOUNT_ENDPOINT = "api/rest/account";
   static const GET_CATEGORIES_ENDPOINT =

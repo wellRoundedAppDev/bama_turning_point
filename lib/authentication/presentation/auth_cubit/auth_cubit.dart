@@ -80,7 +80,7 @@ class AuthCubit extends Cubit<AuthStates> {
     if (response?.success == true) {
       loginResponse = response;
       isUserLoggedIn = true;
-      accessToken=response!.loginData!.token;
+      accessToken= response?.loginData?.token;
       print('qqqq $accessToken');
       cartCubit.numberOfItemsInCart =
           loginResponse?.loginData?.cartCountProducts ?? 0;
@@ -115,6 +115,8 @@ class AuthCubit extends Cubit<AuthStates> {
     } else if (response?.success == false) {
       loginResponse = null;
       isUserLoggedIn = false;
+      accessToken = null;
+
       showAppSnackBar(
           content: response?.error != null && response?.error != ""
               ? (response?.error ?? "") ==
@@ -127,6 +129,8 @@ class AuthCubit extends Cubit<AuthStates> {
     } else {
       loginResponse = null;
       isUserLoggedIn = false;
+      accessToken = null;
+
       print(isUserLoggedIn);
       showAppSnackBar(content: "Check your internet connection, and try again");
       emit(LoginNetworkFailedConnectionState());
@@ -134,11 +138,11 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   login({required dynamic loginInput, required CartCubit cartCubit}) async {
-    if (await setAccessToken() == false) {
-      showAppSnackBar(content: "Check your internet connection, and try again");
-      emit(LoginNetworkFailedConnectionState());
-      return;
-    }
+    // if (await setAccessToken() == false) {
+    //   showAppSnackBar(content: "Check your internet connection, and try again");
+    //   emit(LoginNetworkFailedConnectionState());
+    //   return;
+    // }
 
     var response = await AuthApis.login(loginInput);
     if (response?.success == true) {
@@ -146,6 +150,8 @@ class AuthCubit extends Cubit<AuthStates> {
       isUserLoggedIn = true;
       cartCubit.numberOfItemsInCart =
           loginResponse?.loginData?.cartCountProducts ?? 0;
+
+      accessToken = response?.loginData?.token;
       setLoginCredentialsInSharedPrefs({
         "username": loginInput['email'],
         "password": loginInput['password']
@@ -157,9 +163,10 @@ class AuthCubit extends Cubit<AuthStates> {
       //         type: PageTransitionType.fade));
       // Navigator.pop(context);
       emit(LoginSuccessState());
-    } else if (response?.success == 0) {
+    } else if (response?.success == false) {
       loginResponse = null;
       isUserLoggedIn = false;
+      accessToken = null;
       showAppSnackBar(
           content: response?.error != null  &&
                   response?.error != ""
@@ -173,6 +180,8 @@ class AuthCubit extends Cubit<AuthStates> {
     } else {
       loginResponse = null;
       isUserLoggedIn = false;
+      accessToken = null;
+
       showAppSnackBar(content: "Check your internet connection, and try again");
       emit(LoginNetworkFailedConnectionState());
     }
@@ -327,6 +336,16 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   Future<void> logOut(CartCubit? cartCubit) async {
+
+
+    isUserLoggedIn = false;
+    cartCubit?.clearCart();
+    clearLoginCredentialsFromSharedPrefs();
+    accessToken = null;
+
+
+    emit(LogoutSuccessState());
+    return;
     // if (await setSessionId() == false) {
     //   showAppSnackBar(content: "Check your internet connection, and try again");
     //   emit(LogoutNetworkFailedConnectionState());
