@@ -36,7 +36,7 @@ class CategoriesApis {
   static Future<GetProductsInCategoryResponse?> getProductsInCategoryById(
       int id,
       { int pageNumber=1,
-      int pageSize=10,
+      int pageSize=100,
       String languageCode = "ir_arabic",
       String currencyCode = "IQD",}) async {
     String? accessToken =
