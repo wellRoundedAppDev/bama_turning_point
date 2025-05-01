@@ -44,11 +44,17 @@
   "your_name": "Your name",
   "first_name": "First name",
  "family_name": "Last name",
+ "name_user": "user name",
+  "enter_name_user": "Enter user name",
   "enter_your_first_name": "Enter your first name",
   "enter_your_family_name": "Enter your last name",
   "enter_your_email_to_get_updates": "Enter your email to get updates",
   "email_optional": "Email (optional)",
+     "email": "Email",
+     "email_valid":"Enter a valid email",
+     "email_exist":"Email already exists",
   "enter_your_main_address": "Enter your main address",
+  "enter_your_main_userName": "Enter your user name",
   "address_optional": "Address (optional)",
 
   "network_connection_failed": "Network connection failed",
@@ -101,6 +107,8 @@
   "confirm_order": "Confirm order",
   "subtotal": "Subtotal",
   "your_order_has_been_successfully_processed": "Your order has been successfully processed",
+   "your_complain_has_been_successfully_processed": "Your complain has been successfully processed",
+
   "thanks_for_shopping_with_us_online": "Thanks for shopping with us online",
   "my_account": "My account",
   "edit_your_account_info" : "Edit your account information",
@@ -228,7 +236,7 @@
 
   "phone_number_already_exists": "Phone number already exists",
 
-  "wrong_phone_number_or_password": "Wrong phone number or password",
+  "wrong_phone_number_or_password": "Wrong user name or password",
 
 
   "groups": "Groups",

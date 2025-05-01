@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
+import '../../../categories/data/models/get_products_in_category_response.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../product_details/presentation/screens/product_details_screen.dart';
 import '../cubits/home_cubit/cubit.dart';
@@ -67,7 +68,7 @@ class ViewAllBrandsScreen extends StatelessWidget {
                     int? productId = product?.productId?.toInt();
                     String? productName = product?.name;
                     String? productImageUrl = product?.productImagePath;
-                    String? priceFormatted = product?.priceFormatted;
+                    String? priceFormatted = product?.price.toString();
 
                     return InkWell(
                       onTap: () {

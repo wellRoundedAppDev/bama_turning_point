@@ -222,9 +222,9 @@ class HomeScreen extends StatelessWidget {
 
                 List<Category2>? categories = homeCubit.categoriesOverview;
 
-                var featuredProducts = homeCubit.featuredProductsOverview;
-                var newArrivals = homeCubit.newArrivalsProductsOverview;
-                var bestSellers = homeCubit.bestSellersProductsOverview;
+                // var featuredProducts = homeCubit.featuredProductsOverview;
+                // var newArrivals = homeCubit.newArrivalsProductsOverview;
+                // var bestSellers = homeCubit.bestSellersProductsOverview;
 
                 var brands = homeCubit.brands;
 

@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
+import '../../../categories/data/models/get_products_in_category_response.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../product_details/presentation/screens/product_details_screen.dart';
 import '../cubits/home_cubit/cubit.dart';
@@ -32,7 +33,10 @@ class ViewAllProductsScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           HomeCubit homeCubit = HomeCubit.get(context);
+
           List<Product>? products = homeCubit.allProducts;
+
+          // List<Products>? products = homeCubit.allProducts;
 
           return (state is FetchingAllProductsLoadingState)
               ? const Center(
@@ -60,7 +64,7 @@ class ViewAllProductsScreen extends StatelessWidget {
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisExtent:
-                              MediaQuery.of(context).size.height * 0.43,
+                              MediaQuery.of(context).size.height * 0.435,
                         ),
                         itemCount: products?.length ?? 0,
                         itemBuilder: (BuildContext context, int index) {
@@ -114,9 +118,12 @@ class ViewAllProductsScreen extends StatelessWidget {
                                                 .width,
                                             errorBuilder:
                                                 (context, object, stackTrace) {
-                                              return const Icon(
+                                              return  Icon(
                                                 Icons.error,
-                                                size: 150,
+                                                size: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                    0.18,
                                                 color: AppColors.APP_MAIN_COLOR,
                                               );
                                             },
@@ -227,6 +234,8 @@ class ViewAllProductsScreen extends StatelessWidget {
                                   Text(
                                     priceFormatted ?? "-",
                                     overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+
                                     style: const TextStyle(
                                         color: AppColors.APP_PRICE_COLOR,
                                         fontWeight: FontWeight.bold,

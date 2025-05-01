@@ -45,11 +45,17 @@
   "your_name": "اسمك",
   "first_name": "اسم الأول",
   "family_name": "اسم العائلة",
+  "name_user": "اسم المستخدم",
+  "enter_name_user": "أدخل اسم المستخدم",
   "enter_your_first_name": "ادخل اسم الأول",
   "enter_your_family_name": "ادخل اسم العائلة",
   "enter_your_email_to_get_updates": "ادخل بريدك الاكتروني لنرسل لك كل جديد",
   "email_optional": "البريد الالكتروني (اختياري)",
+   "email": "البريد الالكتروني ",
+  "email_valid":"أدخل بريدًا إلكترونيًا صالحًا",
+       "email_exist":"الإيميل موجود بالفعل",
   "enter_your_main_address": "ادخل عنوانك الأساسي",
+  "enter_your_main_userName": "ادخل اسم المستخدم",
   "address_optional": "العنوان (اختياري)",
   "network_connection_failed": "فشل اتصال بلأنترنت",
   "address": "العنوان",
@@ -100,6 +106,7 @@
   "confirm_order": "تأكيد الطلب",
   "subtotal": "المجموع الفرعي",
   "your_order_has_been_successfully_processed": "لقد تمت معالجة طلبك بنجاح",
+    "your_complain_has_been_successfully_processed": "لقد تمت إستلام شكواك بنجاح",
   "thanks_for_shopping_with_us_online": "شكرا للتسوق معنا عبر الإنترنت",
   "my_account": "حسابي",
   "edit_your_account_info" : "عدل معلومات حسابك",
@@ -235,7 +242,7 @@
 
   "phone_number_already_exists": "رقم الجوال موجود بالفعل",
 
-  "wrong_phone_number_or_password": "رقم هاتف أو كلمة مرور خاطئة",
+  "wrong_phone_number_or_password": "اسم المستخدم أو كلمة مرور خاطئة",
 
   "groups": "المجموعات",
 

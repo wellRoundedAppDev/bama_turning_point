@@ -68,8 +68,8 @@ class CategoriesScreen extends StatelessWidget {
                             String? imageUrl = ApiUrls.BASE_URL + (category?.fileUrl??"");
                             return InkWell(
                               onTap: () {
-                                // categoriesCubit
-                                //     .setAllProductsInCategory(category);
+                                categoriesCubit
+                                    .setAllProductsInCategory(category);
                                 Navigator.push(
                                     context,
                                     PageTransition(

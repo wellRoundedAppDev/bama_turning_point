@@ -48,12 +48,17 @@ class HomeCubit extends Cubit<HomeStates> {
 
   List<Product>? productsOverview;
 
+  //todo check
+  // List<Products>? allProducts;
+
+
+
   // List<FeaturedProduct>? featuredProductsOverview;
   // List<FeaturedProduct>? allFeaturedProducts;
   List<LatestProduct>? newArrivalsProductsOverview;
   //List<LatestProduct>? allNewArrivals;
-  List<ProductInCategory>? bestSellersProductsOverview;
-  List<ProductInCategory>? featuredProductsOverview;
+  // List<ProductInCategory>? bestSellersProductsOverview;
+  // List<ProductInCategory>? featuredProductsOverview;
 
   List<Brand>? brands;
   List<ProductsInBrand>? productsInBrand;
@@ -152,12 +157,12 @@ class HomeCubit extends Cubit<HomeStates> {
     bool isBrands = false,
   }) {
     if (isBrands == true) {
-      setAllProductsInBrand();
+      // setAllProductsInBrand();
       return;
     }
 
     if (productsListTitle == AppLocalizations.of(context)!.featured_products) {
-      setAllFeaturedProducts();
+      // setAllFeaturedProducts();
     } else if (productsListTitle ==
         AppLocalizations.of(context)!.new_arrivals) {
       setAllNewArrivalsProducts();
@@ -195,21 +200,21 @@ class HomeCubit extends Cubit<HomeStates> {
     } else {}
   }
 
-  setFeaturedProductsOverview() async {
-    var response = await CategoriesApis.getProductsInCategoryById(236,
-        languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode ?? "");
-    if (response?.success == 1) {
-      featuredProductsOverview = response?.products;
-      featuredProductsOverview = featuredProductsOverview
-          ?.where((e) => e.stockStatusId != 5)
-          ?.toList();
-    } else if (response?.success == 0) {
-      featuredProductsOverview = null;
-    } else {
-      featuredProductsOverview = null;
-    }
-  }
+  // setFeaturedProductsOverview() async {
+  //   var response = await CategoriesApis.getProductsInCategoryById(236,
+  //       languageCode: languageCodes[localeCubit?.locale.languageCode],
+  //       currencyCode: appSettingsCubit?.currencyCode ?? "");
+  //   if (response?.isSuccssed == true) {
+  //     featuredProductsOverview = response!.obj!.products;
+  //     // featuredProductsOverview =
+  //     // featuredProductsOverview?.where((e) => e.stockStatusId != 5)?.toList();
+  //
+  //   } else if (response?.isSuccssed == false) {
+  //     featuredProductsOverview = null;
+  //   } else {
+  //     featuredProductsOverview = null;
+  //   }
+  // }
 
   setNewArrivalsOverview() async {
     var response = await ProductsApis.getNewArrivalsProductsOverview(
@@ -217,9 +222,9 @@ class HomeCubit extends Cubit<HomeStates> {
         currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       newArrivalsProductsOverview = response?.latestProducts;
-      newArrivalsProductsOverview = newArrivalsProductsOverview
-          ?.where((e) => e.stockStatusId != 5)
-          ?.toList();
+      newArrivalsProductsOverview = newArrivalsProductsOverview?.where((e) => e.stockStatusId != 5)?.toList();
+
+
     } else if (response?.success == 0) {
       newArrivalsProductsOverview = null;
     } else {
@@ -227,21 +232,20 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  setBestSellersOverview() async {
-    var response = await CategoriesApis.getProductsInCategoryById(234,
-        languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode ?? "");
-    if (response?.success == 1) {
-      bestSellersProductsOverview = response?.products;
-      bestSellersProductsOverview = bestSellersProductsOverview
-          ?.where((e) => e.stockStatusId != 5)
-          ?.toList();
-    } else if (response?.success == 0) {
-      bestSellersProductsOverview = null;
-    } else {
-      bestSellersProductsOverview = null;
-    }
-  }
+  // setBestSellersOverview() async {
+  //   var response = await CategoriesApis.getProductsInCategoryById(234,
+  //       languageCode: languageCodes[localeCubit?.locale.languageCode],
+  //       currencyCode: appSettingsCubit?.currencyCode ?? "");
+  //   if (response?.isSuccssed == true) {
+  //     bestSellersProductsOverview = response!.obj!.products;
+  //     // bestSellersProductsOverview = bestSellersProductsOverview?.where((e) => e.stockStatusId != 5)?.toList();
+  //
+  //   } else if (response?.isSuccssed == false) {
+  //     bestSellersProductsOverview = null;
+  //   } else {
+  //     bestSellersProductsOverview = null;
+  //   }
+  // }
 
   setCategoriesOverview() async {
     var response = await CategoriesApis.getCategoriesPaginated();
@@ -254,28 +258,6 @@ class HomeCubit extends Cubit<HomeStates> {
       // categoriesOverview = null;
     }
   }
-
-  // setCategoriesOverview() async {
-  //   var response = await CategoriesApis.getCategories(1,
-  //       languageCode: languageCodes[localeCubit?.locale.languageCode],
-  //       currencyCode: appSettingsCubit?.currencyCode ?? "");
-  //
-  //   if (response?.success == 1) {
-  //     categoriesOverview = response?.categories??[
-  //       Category(categoryId: 1,name: "Cat1"),
-  //       Category(categoryId: 2,name: "Cat2"),
-  //       Category(categoryId: 3,name: "Cat3"),
-  //       Category(categoryId: 4,name: "Cat4"),
-  //       Category(categoryId: 5,name: "Cat5"),
-  //
-  //     ];
-  //
-  //   } else if (response?.success == 0) {
-  //     categoriesOverview = null;
-  //   } else {
-  //     categoriesOverview = null;
-  //   }
-  // }
 
   // setAllFeaturedProducts() async {
   //   emit(FetchingAllProductsLoadingState());
@@ -326,8 +308,8 @@ class HomeCubit extends Cubit<HomeStates> {
         languageCode: languageCodes[localeCubit?.locale.languageCode],
         currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
-      allProducts = response?.latestProducts;
-      allProducts = allProducts?.where((e) => e.stockStatusId != 5)?.toList();
+      // allProducts = response!.latestProducts;
+      // allProducts = allProducts?.where((e) => e.stockStatusId != 5)?.toList();
 
       emit(FetchingAllProductsSuccessState());
     } else if (response?.success == 0) {
@@ -339,62 +321,62 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  setAllBestSellersProducts() async {
-    emit(FetchingAllProductsLoadingState());
-    var response = await CategoriesApis.getProductsInCategoryById(234,
-        languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode ?? "");
-    if (response?.success == 1) {
-      allProducts = response?.products;
-      allProducts = allProducts?.where((e) => e.stockStatusId != 5)?.toList();
-
-      emit(FetchingAllProductsSuccessState());
-    } else if (response?.success == 0) {
-      allProducts = null;
-      emit(FetchingAllProductsFailedState());
-    } else {
-      allProducts = null;
-      emit(FetchingAllProductsNetworkConnectionFailedState());
-    }
-  }
-
-  setAllFeaturedProducts() async {
-    emit(FetchingAllProductsLoadingState());
-    var response = await CategoriesApis.getProductsInCategoryById(236,
-        languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode ?? "");
-    if (response?.success == 1) {
-      allProducts = response?.products;
-      allProducts = allProducts?.where((e) => e.stockStatusId != 5)?.toList();
-
-      emit(FetchingAllProductsSuccessState());
-    } else if (response?.success == 0) {
-      allProducts = null;
-      emit(FetchingAllProductsFailedState());
-    } else {
-      allProducts = null;
-      emit(FetchingAllProductsNetworkConnectionFailedState());
-    }
-  }
-
-  setAllProductsInBrand() async {
-    emit(FetchingAllProductsLoadingState());
-    var response = await ProductsApis.getProductsInBrand(
-        selectedBrand?.brandId?.toInt() ?? 0,
-        languageCode: languageCodes[localeCubit?.locale.languageCode],
-        currencyCode: appSettingsCubit?.currencyCode ?? "");
-    if (response?.success == 1) {
-      allProducts = response?.productsInBrand;
-      allProducts = allProducts?.where((e) => e.stockStatusId != 5)?.toList();
-      emit(FetchingAllProductsSuccessState());
-    } else if (response?.success == 0) {
-      allProducts = null;
-      emit(FetchingAllProductsFailedState());
-    } else {
-      allProducts = null;
-      emit(FetchingAllProductsNetworkConnectionFailedState());
-    }
-  }
+  // setAllBestSellersProducts() async {
+  //   emit(FetchingAllProductsLoadingState());
+  //   var response = await CategoriesApis.getProductsInCategoryById(234,
+  //       languageCode: languageCodes[localeCubit?.locale.languageCode],
+  //       currencyCode: appSettingsCubit?.currencyCode ?? "");
+  //   if (response?.success == 1) {
+  //     allProducts = response?.products;
+  //     allProducts = allProducts?.where((e) => e.stockStatusId != 5)?.toList();
+  //
+  //     emit(FetchingAllProductsSuccessState());
+  //   } else if (response?.success == 0) {
+  //     allProducts = null;
+  //     emit(FetchingAllProductsFailedState());
+  //   } else {
+  //     allProducts = null;
+  //     emit(FetchingAllProductsNetworkConnectionFailedState());
+  //   }
+  // }
+  //
+  // setAllFeaturedProducts() async {
+  //   emit(FetchingAllProductsLoadingState());
+  //   var response = await CategoriesApis.getProductsInCategoryById(236,
+  //       languageCode: languageCodes[localeCubit?.locale.languageCode],
+  //       currencyCode: appSettingsCubit?.currencyCode ?? "");
+  //   if (response?.success == 1) {
+  //     allProducts = response?.products;
+  //     allProducts = allProducts?.where((e) => e.stockStatusId != 5)?.toList();
+  //
+  //     emit(FetchingAllProductsSuccessState());
+  //   } else if (response?.success == 0) {
+  //     allProducts = null;
+  //     emit(FetchingAllProductsFailedState());
+  //   } else {
+  //     allProducts = null;
+  //     emit(FetchingAllProductsNetworkConnectionFailedState());
+  //   }
+  // }
+  //
+  // setAllProductsInBrand() async {
+  //   emit(FetchingAllProductsLoadingState());
+  //   var response = await ProductsApis.getProductsInBrand(
+  //       selectedBrand?.brandId?.toInt() ?? 0,
+  //       languageCode: languageCodes[localeCubit?.locale.languageCode],
+  //       currencyCode: appSettingsCubit?.currencyCode ?? "");
+  //   if (response?.success == 1) {
+  //     allProducts = response?.productsInBrand;
+  //     allProducts = allProducts?.where((e) => e.stockStatusId != 5)?.toList();
+  //     emit(FetchingAllProductsSuccessState());
+  //   } else if (response?.success == 0) {
+  //     allProducts = null;
+  //     emit(FetchingAllProductsFailedState());
+  //   } else {
+  //     allProducts = null;
+  //     emit(FetchingAllProductsNetworkConnectionFailedState());
+  //   }
+  // }
 
   setBrands() async {
     var response = await GetBrandsApi.getBrands(

@@ -4,6 +4,7 @@ import 'package:classic_eccomerce/authentication/presentation/screens/sign_up_sc
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../authentication/presentation/screens/sign_up_new_screen.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../shared_components/custom_app_bar.dart';
 import '../cubits/check_out_cubit.dart';

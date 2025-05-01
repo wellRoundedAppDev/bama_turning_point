@@ -63,6 +63,7 @@ class CustomInput extends StatelessWidget {
       keyboardType: textInputType,
       obscureText: obscureText,
       onTap: onTap,
+
       readOnly: readOnly,
       initialValue: initialValue,
       decoration: InputDecoration(

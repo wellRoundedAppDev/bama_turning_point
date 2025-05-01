@@ -11,9 +11,11 @@ import 'package:page_transition/page_transition.dart';
 import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../core/constants/colors/colors.dart';
 import '../../../product_details/presentation/screens/product_details_screen.dart';
+import '../../data/models/get_categories_paginated_response.dart';
 import '../../data/models/get_categories_response.dart';
 import '../../data/models/get_products_in_category_response.dart';
 import '../cubits/categories_cubit/states.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductsInCategoryScreen extends StatelessWidget {
   const ProductsInCategoryScreen({
@@ -28,8 +30,8 @@ class ProductsInCategoryScreen extends StatelessWidget {
       builder: (context, state) {
         CategoriesCubit categoriesCubit = CategoriesCubit.get(context);
         List<ProductInCategory>? products = categoriesCubit.products;
-        Category? selectedCategory = categoriesCubit.selectedCategory;
-        String? selectedCategoryName = selectedCategory?.name;
+        Category2? selectedCategory = categoriesCubit.selectedCategory;
+        String? selectedCategoryName = selectedCategory?.groupName;
         return Scaffold(
           appBar: CustomAppBar.renderAppBar(
               title: selectedCategoryName ?? "",
@@ -64,16 +66,16 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               mainAxisExtent:
-                                  MediaQuery.of(context).size.height * 0.43,
+                                  MediaQuery.of(context).size.height * 0.45,
                             ),
                             itemCount: products?.length ?? 0,
                             itemBuilder: (BuildContext context, int index) {
                               ProductInCategory? product = products?[index];
-                              int? productId = product?.productId?.toInt();
-                              String? productName = product?.name;
+                              int? productId = product?.id;
+                              String? productName = product?.productName;
                               String? productImageUrl =
-                                  product?.productImagePath;
-                              String? priceFormatted = product?.priceFormatted;
+                                  product?.grandUnitName;
+                              String? priceFormatted = "${product?.minorUnitPrice?.toString() ??""} ${AppLocalizations.of(context)!.iraqi_dinar_initials}";
 
                               return InkWell(
                                 onTap: () {
@@ -246,6 +248,7 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         priceFormatted ?? "-",
+
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                             color: AppColors.APP_PRICE_COLOR,

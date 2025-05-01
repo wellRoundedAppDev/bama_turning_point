@@ -101,7 +101,7 @@ class CategoriesOverview extends StatelessWidget {
                 
                           GestureDetector(
                             onTap: () {
-                          //    categoriesCubit.setAllProductsInCategory(category);
+                              categoriesCubit.setAllProductsInCategory(category);
                               Navigator.push(
                                   context,
                                   PageTransition(
@@ -114,7 +114,6 @@ class CategoriesOverview extends StatelessWidget {
                                       type: PageTransitionType.leftToRight));
                             },
                             child: Container(
-
                               padding: const EdgeInsets.all(8),
                               decoration: const BoxDecoration(
                                   color: AppColors.SIMON_CONTAINER_COLOR,

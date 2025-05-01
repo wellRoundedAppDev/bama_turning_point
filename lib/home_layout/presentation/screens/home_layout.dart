@@ -11,10 +11,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../account/presentation/screens/my_account_screen.dart';
+import '../../../authentication/presentation/auth_cubit/states.dart';
 import '../../../authentication/presentation/screens/login_screen.dart';
+import '../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../../complain/presentation/screens/complain_screen.dart';
 import '../../../core/constants/colors/colors.dart';
+import '../../../main.dart';
 import '../../../wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
 import '../cubits/app_cubit/cubit.dart';
 import '../cubits/app_cubit/states.dart';
@@ -164,7 +167,7 @@ class HomeLayoutScreen extends StatelessWidget {
                           ],
                           index: appCubit.currentNavbarIndex,
                           onTap: (index) {
-                            appCubit.changeNavBarIndex(index);
+                            appCubit.changeNavBarIndex(index,context);
                           }),
                     ),
                     body: (navBarCurrentIndex == 2)
@@ -177,7 +180,15 @@ class HomeLayoutScreen extends StatelessWidget {
                         //           )
                         : (navBarCurrentIndex == 1)
                             ? CartScreen()
-                            :  SignInScreen())),
+                            : BlocConsumer<AuthCubit, AuthStates>(
+                                builder: (context, state) {
+                                  bool? isUserLoggedIn = AuthCubit.get(context).isUserLoggedIn;
+                                  return isUserLoggedIn == true
+                                        ? const ComplainsScreen()
+                                        : SignInScreen();
+                                },
+                                listener: (context, state) {},
+                              ))),
           );
         },
       ),
