@@ -32,3 +32,13 @@ class FetchingAllProductsFailedState extends HomeStates {}
 
 class FetchingAllProductsNetworkConnectionFailedState extends HomeStates {}
 
+
+
+
+class FetchingAllProductsMoreLoadingState extends HomeStates {}
+
+class FetchingAllProductsMoreSuccessState extends HomeStates {}
+
+class FetchingAllProductsMoreFailedState extends HomeStates {}
+
+class FetchingAllProductsMoreNetworkConnectionFailedState extends HomeStates {}

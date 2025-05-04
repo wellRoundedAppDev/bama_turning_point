@@ -18,6 +18,7 @@ import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../../../account/data/data_sources/remote_data_sources/account_apis.dart';
 import '../../../../app_settings/app_language_codes.dart';
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../categories/data/models/get_categories_paginated_response.dart';
@@ -51,8 +52,6 @@ class HomeCubit extends Cubit<HomeStates> {
   //todo check
   // List<Products>? allProducts;
 
-
-
   // List<FeaturedProduct>? featuredProductsOverview;
   // List<FeaturedProduct>? allFeaturedProducts;
   List<LatestProduct>? newArrivalsProductsOverview;
@@ -64,6 +63,10 @@ class HomeCubit extends Cubit<HomeStates> {
   List<ProductsInBrand>? productsInBrand;
 
   List<Vendor>? vendors;
+
+  int allProductsPageNumber = 1;
+
+  int allProductsPageSize = 10;
 
   //List<BestSeller>? allBestSellersProducts;
 
@@ -222,9 +225,9 @@ class HomeCubit extends Cubit<HomeStates> {
         currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.success == 1) {
       newArrivalsProductsOverview = response?.latestProducts;
-      newArrivalsProductsOverview = newArrivalsProductsOverview?.where((e) => e.stockStatusId != 5)?.toList();
-
-
+      newArrivalsProductsOverview = newArrivalsProductsOverview
+          ?.where((e) => e.stockStatusId != 5)
+          ?.toList();
     } else if (response?.success == 0) {
       newArrivalsProductsOverview = null;
     } else {
@@ -276,11 +279,23 @@ class HomeCubit extends Cubit<HomeStates> {
   //   }
   // }
   //
-  //
+  ScrollController allProductsScrollController = ScrollController();
   setAllProducts() async {
+    allProductsPageNumber = 1;
+    allProductsScrollController.removeListener(() {});
+    allProductsScrollController.addListener(() async {
+      if (allProductsScrollController.position.maxScrollExtent ==
+          allProductsScrollController.offset) {
+        if (state is FetchingAllProductsMoreLoadingState) {
+          return;
+        }
+        await addMoreAllProducts();
+      }
+    });
+
     emit(FetchingAllProductsLoadingState());
-    var response =
-        await ProductsApis.getAllProducts(pageNumber: 1, pageSize: 10000);
+    var response = await ProductsApis.getAllProducts(
+        pageNumber: allProductsPageNumber, pageSize: allProductsPageSize);
     if (response?.isSuccssed == true) {
       allProducts = response?.obj?.products
               ?.map((e) => Product(
@@ -291,7 +306,7 @@ class HomeCubit extends Cubit<HomeStates> {
               ?.toList() ??
           [];
       // allProducts = allProducts?.where((e) => e.stockStatusId != 5)?.toList();
-
+      allProductsPageNumber++;
       emit(FetchingAllProductsSuccessState());
     } else if (response?.isSuccssed == false) {
       allProducts = null;
@@ -301,6 +316,83 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(FetchingAllProductsNetworkConnectionFailedState());
     }
   }
+
+  addMoreAllProducts() async {
+    emit(FetchingAllProductsMoreLoadingState());
+    var response = await ProductsApis.getAllProducts(
+        pageNumber: allProductsPageNumber, pageSize: allProductsPageSize);
+    if (response?.isSuccssed == true) {
+      var tempCustomerOrders = response?.obj?.products
+              ?.map((e) => Product(
+                    productId: e.id,
+                    price: e.minorUnitPrice,
+                    name: e.productName,
+                  ))
+              ?.toList() ??
+          [];
+      if (tempCustomerOrders?.isEmpty == true) {
+        emit(FetchingAllProductsMoreSuccessState());
+        return;
+      }
+      allProductsPageNumber++;
+      allProducts?.addAll(tempCustomerOrders);
+      emit(FetchingAllProductsMoreSuccessState());
+    } else if (response?.isSuccssed == false) {
+      emit(FetchingAllProductsMoreFailedState());
+    } else {
+      emit(FetchingAllProductsMoreNetworkConnectionFailedState());
+    }
+  }
+
+  // setFirstCustomerOrders() async {
+  //   LocaleCubit localeCubit = LocaleCubit.get(context);
+  //   AppSettingsCubit appSettingsCubit = AppSettingsCubit.get(context);
+  //   emit(GetFirstCustomerOrdersLoadingState());
+  //   var response = await AccountApis.getCustomerOrders(1,
+  //       currencyCode: appSettingsCubit.currencyCode,
+  //       languageCode: languageCodes[localeCubit.locale.languageCode]);
+  //   if (response?.success == 1) {
+  //     customerOrders.clear();
+  //     var tempCustomerOrders = response?.customerOrders ?? [];
+  //     if (tempCustomerOrders.isEmpty == true) {
+  //       emit(GetFirstCustomerOrdersSuccessState());
+  //       return;
+  //     }
+  //     customerOrdersPageNumber++;
+  //     customerOrders.addAll(tempCustomerOrders);
+  //
+  //     emit(GetFirstCustomerOrdersSuccessState());
+  //   } else if (response?.success == 0) {
+  //     customerOrders.clear();
+  //     emit(GetFirstCustomerOrdersFailedState());
+  //   } else {
+  //     customerOrders.clear();
+  //     emit(GetFirstCustomerOrdersNetworkConnectionFailedState());
+  //   }
+  // }
+
+  // addMoreCustomerOrders() async {
+  //   LocaleCubit localeCubit = LocaleCubit.get(context);
+  //   AppSettingsCubit appSettingsCubit = AppSettingsCubit.get(context);
+  //   emit(AddMoreCustomerOrdersLoadingState());
+  //   var response = await AccountApis.getCustomerOrders(customerOrdersPageNumber,
+  //       currencyCode: appSettingsCubit.currencyCode,
+  //       languageCode: languageCodes[localeCubit.locale.languageCode]);
+  //   if (response?.success == 1) {
+  //     var tempCustomerOrders = response?.customerOrders ?? [];
+  //     if (tempCustomerOrders.isEmpty == true) {
+  //       emit(AddMoreCustomerOrdersSuccessState());
+  //       return;
+  //     }
+  //     customerOrdersPageNumber++;
+  //     customerOrders.addAll(tempCustomerOrders);
+  //     emit(AddMoreCustomerOrdersSuccessState());
+  //   } else if (response?.success == 0) {
+  //     emit(AddMoreCustomerOrdersFailedState());
+  //   } else {
+  //     emit(AddMoreCustomerOrdersNetworkConnectionFailedState());
+  //   }
+  // }
 
   setAllNewArrivalsProducts() async {
     emit(FetchingAllProductsLoadingState());
@@ -391,18 +483,13 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-
   setVendorsOverview() async {
-    var response = await VendorsApis.getVendors(
-      pageNumber: 1,
-        pageSize: 10);
+    var response = await VendorsApis.getVendors(pageNumber: 1, pageSize: 10);
     if (response?.isSuccssed == true) {
       vendors = response?.vendors;
     } else if (response?.isSuccssed == false) {
-    } else {
-    }
+    } else {}
   }
-
 
   init() async {
     localeCubit = LocaleCubit.get(context);
