@@ -21,6 +21,20 @@ class ApiUrls {
   static const GET_PRODUCT_DETAILS_ENDPOINT = "api/rest/products/";
   static const GET_PRODUCTS_BY_CATEGORY_ID_ENDPOINT =
       "Products/GetAllProductsByGroup";
+  static const GET_Groups_ENDPOINT =
+      "Products/GetGroups";
+  static const GET_Supplier_ENDPOINT =
+      "Products/GetVendors";
+  static const GET_CategoryStore_ENDPOINT =
+      "Stores/CategoryStore/GetAll";
+  static const GET_Colors_ENDPOINT =
+      "Colors/GetAllSelectList";
+  static const GET_ManufacturerCompany_ENDPOINT =
+      "Stores/ManufacturerCompany/GetAll";
+  static const GET_Filter_Home_ENDPOINT =
+      "Products/GetAllProductsDetailedSearch";
+
+
   static const GUEST_SHIPPING_ENDPOINT = "api/rest/guestshipping";
   static const GET_LIST_OF_COUNTRIES_ENDPOINT = "api/rest/countries";
   static const GET_LIST_OF_REGIONS_BY_COUNTRY_ID_ENDPOINT =

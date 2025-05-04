@@ -23,21 +23,18 @@ class ProductsInCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: BlocConsumer<CategoriesCubit, CategoriesStates>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        CategoriesCubit categoriesCubit = CategoriesCubit.get(context);
-        List<Products>? products = categoriesCubit.products;
-        Category? selectedCategory = categoriesCubit.selectedCategory;
-        String? selectedCategoryName = selectedCategory?.name;
-        return Scaffold(
-          appBar: CustomAppBar.renderAppBar(
-              title: selectedCategoryName ?? "",
-              cartCubit: CartCubit.get(context)),
-          body: BlocConsumer<CategoriesCubit, CategoriesStates>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              return (state is GetProductsInCategoryLoadingState)
+      child: BlocConsumer<CategoriesCubit, CategoriesStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          CategoriesCubit categoriesCubit = CategoriesCubit.get(context);
+          List<Products>? products = categoriesCubit.products;
+          Category? selectedCategory = categoriesCubit.selectedCategory;
+          String? selectedCategoryName = selectedCategory?.name;
+          return Scaffold(
+              appBar: CustomAppBar.renderAppBar(
+                  title: selectedCategoryName ?? "",
+                  cartCubit: CartCubit.get(context)),
+              body: (state is GetProductsInCategoryLoadingState)
                   ? const Center(
                       child: CircularProgressIndicator(),
                     )
@@ -71,9 +68,9 @@ class ProductsInCategoryScreen extends StatelessWidget {
                               Products? product = products?[index];
                               int? productId = product?.id;
                               String? productName = product?.productName;
-                              String? productImageUrl =
-                                  product?.grandUnitName;
-                              String? priceFormatted = product?.middleUnitPrice.toString();
+                              String? productImageUrl = product?.grandUnitName;
+                              String? priceFormatted =
+                                  product?.middleUnitPrice.toString();
 
                               return InkWell(
                                 onTap: () {
@@ -288,11 +285,9 @@ class ProductsInCategoryScreen extends StatelessWidget {
                               );
                             },
                           ),
-                        );
-            },
-          ),
-        );
-      },
-    ));
+                        ));
+        },
+      ),
+    );
   }
 }

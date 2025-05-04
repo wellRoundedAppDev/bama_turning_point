@@ -13,7 +13,7 @@ import 'package:classic_eccomerce/home/presentation/cubits/search_cubit/cubit.da
 import 'package:classic_eccomerce/home/presentation/screens/search_and_filter_screen.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/brands_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/categories_overview.dart';
-import 'package:classic_eccomerce/home/presentation/widgets/filter_drawer.dart';
+import 'package:classic_eccomerce/home_filter/presentaion/widget/filter_drawer.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/products_overview.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:classic_eccomerce/notifications/presentation/screens/notifications_screen.dart';
