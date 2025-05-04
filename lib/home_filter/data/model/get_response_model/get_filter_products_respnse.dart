@@ -1,19 +1,15 @@
 class FilterProductResponse {
-  final bool isSuccssed;
-  final String message;
-  final ProductData obj;
+  final bool? isSuccssed;
+  final String? message;
+  final ProductData? obj;
 
-  FilterProductResponse({
-    required this.isSuccssed,
-    required this.message,
-    required this.obj,
-  });
+  FilterProductResponse({this.isSuccssed, this.message, this.obj});
 
   factory FilterProductResponse.fromJson(Map<String, dynamic> json) {
     return FilterProductResponse(
       isSuccssed: json['IsSuccssed'],
       message: json['Message'],
-      obj: ProductData.fromJson(json['Obj']),
+      obj: json['Obj'] != null ? ProductData.fromJson(json['Obj']) : null,
     );
   }
 
@@ -21,29 +17,31 @@ class FilterProductResponse {
     return {
       'IsSuccssed': isSuccssed,
       'Message': message,
-      'Obj': obj.toJson(),
+      'Obj': obj?.toJson(),
     };
   }
 }
 
 class ProductData {
-  final List<Product> products;
-  final int totalProducts;
-  final int totalPages;
-  final int pageNumber;
-  final int pageSize;
+  final List<Product>? products;
+  final int? totalProducts;
+  final int? totalPages;
+  final int? pageNumber;
+  final int? pageSize;
 
   ProductData({
-    required this.products,
-    required this.totalProducts,
-    required this.totalPages,
-    required this.pageNumber,
-    required this.pageSize,
+    this.products,
+    this.totalProducts,
+    this.totalPages,
+    this.pageNumber,
+    this.pageSize,
   });
 
   factory ProductData.fromJson(Map<String, dynamic> json) {
     return ProductData(
-      products: List<Product>.from(json['Products'].map((x) => Product.fromJson(x))),
+      products: json['Products'] != null
+          ? List<Product>.from(json['Products'].map((x) => Product.fromJson(x)))
+          : null,
       totalProducts: json['TotalProducts'],
       totalPages: json['TotalPages'],
       pageNumber: json['PageNumber'],
@@ -53,7 +51,7 @@ class ProductData {
 
   Map<String, dynamic> toJson() {
     return {
-      'Products': products.map((x) => x.toJson()).toList(),
+      'Products': products?.map((x) => x.toJson()).toList(),
       'TotalProducts': totalProducts,
       'TotalPages': totalPages,
       'PageNumber': pageNumber,
@@ -63,48 +61,48 @@ class ProductData {
 }
 
 class Product {
-  final int id;
-  final String productName;
+  final int? id;
+  final String? productName;
   final String? notes;
-  final int source;
-  final int groupId;
-  final String groupName;
-  final int minorUnitId;
+  final int? source;
+  final int? groupId;
+  final String? groupName;
+  final int? minorUnitId;
   final String? minorUnitName;
-  final int minorUnitPrice;
-  final int middleUnitId;
+  final int? minorUnitPrice;
+  final int? middleUnitId;
   final String? middleUnitName;
-  final int middleUnitPrice;
-  final int grandUnitId;
+  final int? middleUnitPrice;
+  final int? grandUnitId;
   final String? grandUnitName;
-  final int grandUnitPrice;
-  final int categoryId;
+  final int? grandUnitPrice;
+  final int? categoryId;
   final String? categoryName;
-  final List<BrandSupplier> brandSuppliers;
+  final List<BrandSupplier>? brandSuppliers;
   final dynamic colors;
-  final int manufactureCompanyId;
+  final int? manufactureCompanyId;
 
   Product({
-    required this.id,
-    required this.productName,
+    this.id,
+    this.productName,
     this.notes,
-    required this.source,
-    required this.groupId,
-    required this.groupName,
-    required this.minorUnitId,
+    this.source,
+    this.groupId,
+    this.groupName,
+    this.minorUnitId,
     this.minorUnitName,
-    required this.minorUnitPrice,
-    required this.middleUnitId,
+    this.minorUnitPrice,
+    this.middleUnitId,
     this.middleUnitName,
-    required this.middleUnitPrice,
-    required this.grandUnitId,
+    this.middleUnitPrice,
+    this.grandUnitId,
     this.grandUnitName,
-    required this.grandUnitPrice,
-    required this.categoryId,
+    this.grandUnitPrice,
+    this.categoryId,
     this.categoryName,
-    required this.brandSuppliers,
+    this.brandSuppliers,
     this.colors,
-    required this.manufactureCompanyId,
+    this.manufactureCompanyId,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -126,8 +124,9 @@ class Product {
       grandUnitPrice: json['GrandUnitPrice'],
       categoryId: json['CategoryId'],
       categoryName: json['CategoryName'],
-      brandSuppliers: List<BrandSupplier>.from(
-          json['BrandSuppliers'].map((x) => BrandSupplier.fromJson(x))),
+      brandSuppliers: json['BrandSuppliers'] != null
+          ? List<BrandSupplier>.from(json['BrandSuppliers'].map((x) => BrandSupplier.fromJson(x)))
+          : null,
       colors: json['Colors'],
       manufactureCompanyId: json['ManufactureCompanyId'],
     );
@@ -152,7 +151,7 @@ class Product {
       'GrandUnitPrice': grandUnitPrice,
       'CategoryId': categoryId,
       'CategoryName': categoryName,
-      'BrandSuppliers': brandSuppliers.map((x) => x.toJson()).toList(),
+      'BrandSuppliers': brandSuppliers?.map((x) => x.toJson()).toList(),
       'Colors': colors,
       'ManufactureCompanyId': manufactureCompanyId,
     };
@@ -160,15 +159,15 @@ class Product {
 }
 
 class BrandSupplier {
-  final int id;
-  final String idGuid;
-  final int supplierId;
+  final int? id;
+  final String? idGuid;
+  final int? supplierId;
   final String? supplierName;
 
   BrandSupplier({
-    required this.id,
-    required this.idGuid,
-    required this.supplierId,
+    this.id,
+    this.idGuid,
+    this.supplierId,
     this.supplierName,
   });
 

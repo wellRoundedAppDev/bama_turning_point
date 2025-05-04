@@ -9,21 +9,16 @@ class GetSupplierResponse {
     isSuccssed = json['IsSuccssed'];
     message = json['Message'];
     if (json['Obj'] != null) {
-      obj = <SupplierAD>[];
-      json['Obj'].forEach((v) {
-        obj!.add(new SupplierAD.fromJson(v));
-      });
+      obj = List<SupplierAD>.from(json['Obj'].map((v) => SupplierAD.fromJson(v)));
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['IsSuccssed'] = this.isSuccssed;
-    data['Message'] = this.message;
-    if (this.obj != null) {
-      data['Obj'] = this.obj!.map((v) => v.toJson()).toList();
-    }
-    return data;
+    return {
+      'IsSuccssed': isSuccssed,
+      'Message': message,
+      'Obj': obj?.map((v) => v.toJson()).toList(),
+    };
   }
 }
 
@@ -39,9 +34,9 @@ class SupplierAD {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Id'] = this.id;
-    data['SupplierName'] = this.supplierName;
-    return data;
+    return {
+      'Id': id,
+      'SupplierName': supplierName,
+    };
   }
 }
