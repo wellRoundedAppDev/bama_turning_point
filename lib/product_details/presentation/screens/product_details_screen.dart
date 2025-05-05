@@ -11,15 +11,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../core/constants/colors/colors.dart';
+import '../../../home/data/models/product.dart';
 import '../../../shared_components/no_network_refresh_page.dart';
 import '../../data/models/get_product_details_response.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
+ // Product product;
   int selectedProductId;
   ProductDetailsScreen({
     super.key,
     required this.selectedProductId,
+    //required this.product
   });
 
   @override

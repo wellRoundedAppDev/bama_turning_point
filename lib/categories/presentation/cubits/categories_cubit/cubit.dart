@@ -1,12 +1,14 @@
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/categories/data/data_sources/remote_data_sources/categories_apis.dart';
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/states.dart';
+import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/states.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../app_settings/app_language_codes.dart';
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../core/locales/locale_cubit/locale_cubit.dart';
+import '../../../../home/data/data_sources/remote_data_sources/products_apis.dart';
 import '../../../data/models/get_categories_paginated_response.dart';
 import '../../../data/models/get_categories_response.dart';
 import '../../../data/models/get_products_in_category_response.dart';
@@ -20,16 +22,29 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
   //todo check
   // List<Category>? categories;
   List<Category2>? categories;
-  int currentCategoriesPage = 1;
+  int currentCategoriesPageNumber = 1;
+  int categoriesPageSize = 10;
 
   // List<ProductInCategory>? products;
   // List<Category>? categories;
   List<ProductInCategory>? products;
   Category2? selectedCategory;
 
-
+  ScrollController categoriesScrollController = ScrollController();
 
   setCategories() async {
+    currentCategoriesPageNumber = 1;
+    categoriesScrollController.removeListener(() {});
+    categoriesScrollController.addListener(() async {
+      if (categoriesScrollController.position.maxScrollExtent ==
+          categoriesScrollController.offset) {
+        if (state is GetMoreCategoriesLoadingState) {
+          return;
+        }
+        addMoreCategories();
+      }
+    });
+
     emit(GetCategoriesLoadingState());
     LocaleCubit localeCubit = LocaleCubit.get(context);
     bool? isUserLoggedIn =
@@ -38,18 +53,16 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     emit(GetCategoriesLoadingState());
-    var response = await CategoriesApis.getCategoriesPaginated(pageSize: 1000,pageNumber: 1);
+    var response = await CategoriesApis.getCategoriesPaginated(
+        pageSize: categoriesPageSize, pageNumber: currentCategoriesPageNumber);
 
-    if(response?.isSuccssed == true){
+    if (response?.isSuccssed == true) {
       categories = response?.obj?.dataReturn;
-      currentCategoriesPage++;
-     emit(GetCategoriesSuccessState());
-
-    }else if(response?.isSuccssed == false){
-
+      currentCategoriesPageNumber++;
+      emit(GetCategoriesSuccessState());
+    } else if (response?.isSuccssed == false) {
       emit(GetCategoriesFailedState());
-    }else{
-
+    } else {
       emit(GetCategoriesNetworkFailedState());
     }
 
@@ -59,7 +72,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
     //     emit(GetCategoriesNetworkFailedState());
     //     return;
     //   }
-   // }
+    // }
 
     // var response = await CategoriesApis.getCategories(1,
     //     languageCode: languageCodes[localeCubit.locale.languageCode],
@@ -77,6 +90,25 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
     // }
   }
 
+  addMoreCategories() async {
+    emit(GetMoreCategoriesLoadingState());
+    var response = await CategoriesApis.getCategoriesPaginated(
+        pageSize: categoriesPageSize, pageNumber: currentCategoriesPageNumber);
+    if (response?.isSuccssed == true) {
+      var tempCustomerOrders = response?.obj?.dataReturn?.toList() ?? [];
+      if (tempCustomerOrders?.isEmpty == true) {
+        emit(GetMoreCategoriesSuccessState());
+        return;
+      }
+      currentCategoriesPageNumber++;
+      categories?.addAll(tempCustomerOrders);
+      emit(GetMoreCategoriesSuccessState());
+    } else if (response?.isSuccssed == false) {
+      emit(GetCategoriesFailedState());
+    } else {
+      emit(GetMoreCategoriesNetworkFailedState());
+    }
+  }
 
   // setCategories() async {
   //   emit(GetCategoriesLoadingState());
@@ -114,7 +146,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
     selectedCategory = category;
   }
 
-    setAllProductsInCategory(Category2? category) async {
+  setAllProductsInCategory(Category2? category) async {
     LocaleCubit localeCubit = LocaleCubit.get(context);
     setSelectedCategory(category);
     emit(GetProductsInCategoryLoadingState());
@@ -126,7 +158,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
         currencyCode: AppSettingsCubit.get(context).currencyCode ?? "");
     if (response?.isSuccssed == true) {
       products = response?.obj!.products;
-       // products = products?.where((e) => e.stockStatusId != 5).toList();
+      // products = products?.where((e) => e.stockStatusId != 5).toList();
 
       emit(GetProductsInCategorySuccessState());
     } else if (response?.isSuccssed == false) {

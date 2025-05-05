@@ -33,6 +33,8 @@ class CategoriesScreen extends StatelessWidget {
           builder: (context, state) {
             CategoriesCubit categoriesCubit = CategoriesCubit.get(context);
             List<Category2>? categories = categoriesCubit.categories;
+
+            ScrollController scrollController = categoriesCubit.categoriesScrollController;
             return (state is GetCategoriesLoadingState)
                 ? const Center(
                     child: CircularProgressIndicator(),
@@ -50,88 +52,114 @@ class CategoriesScreen extends StatelessWidget {
                         onRefresh: () async {
                           categoriesCubit.setCategories();
                         },
-                        child: GridView.builder(
-                          padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 16),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisExtent:
-                                MediaQuery.of(context).size.height * 0.2,
-                                mainAxisSpacing: 24,
-                                crossAxisSpacing: 16
-                          ),
-                          itemCount: categories?.length ?? 0,
-                          itemBuilder: (BuildContext context, int index) {
-                            Category2? category = categories?[index];
-                            num? categoryId = category?.id;
-                            String? categoryName = category?.groupName;
-                            String? imageUrl = ApiUrls.BASE_URL + (category?.fileUrl??"");
-                            return InkWell(
-                              onTap: () {
-                                categoriesCubit
-                                    .setAllProductsInCategory(category);
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        child: BlocProvider.value(
-                                          value: categoriesCubit,
-                                          child:
-                                              BlocProvider.value(
-                                                  value: CartCubit.get(context),
-                                                  child
-                                                  : const ProductsInCategoryScreen()),
-                                        ),
-                                        type: PageTransitionType.leftToRight));
-                              },
-                              child:                           Container(
-
-                                padding: const EdgeInsets.all(8),
-                                decoration: const BoxDecoration(
-                                    color: AppColors.SIMON_CONTAINER_COLOR,
-                                    borderRadius: BorderRadius.all(Radius.circular(18))),
-                                height: MediaQuery.of(context).size.height * 0.2,
-
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-
-                                    Text(
-                                      categoryName ?? "-",
-                                      textAlign: TextAlign.center,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                          color: AppColors.APP_ORANGE_LABEL_COLOR,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: FontSizes.FONT_SIZE_14),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    ClipRRect(
-                                        borderRadius: BorderRadius.circular(100),
-                                        child: Image.network(
-                                          imageUrl ?? "",
-                                          errorBuilder:
-                                              (context, object, stackTrace) {
-                                            return const Icon(
-                                              Icons.error,
-                                              size: 55,
-                                              color: AppColors.APP_MAIN_COLOR,
-                                            );
-                                          },
-                                          width: MediaQuery.of(context).size.width * 0.17,
-                                          height: MediaQuery.of(context).size.height * 0.08,
-                                          fit: BoxFit.cover,
-                                        )),
-
-                                  ],
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: GridView.builder(
+                                controller: scrollController,
+                                padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 16),
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisExtent:
+                                      MediaQuery.of(context).size.height * 0.2,
+                                      mainAxisSpacing: 24,
+                                      crossAxisSpacing: 16
                                 ),
+                                itemCount: categories?.length ?? 0,
+                                itemBuilder: (BuildContext context, int index) {
+                                  Category2? category = categories?[index];
+                                  num? categoryId = category?.id;
+                                  String? categoryName = category?.groupName;
+                                  String? imageUrl = ApiUrls.BASE_URL + (category?.fileUrl??"");
+                                  return InkWell(
+                                    onTap: () {
+                                      categoriesCubit
+                                          .setAllProductsInCategory(category);
+                                      Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              child: BlocProvider.value(
+                                                value: categoriesCubit,
+                                                child:
+                                                    BlocProvider.value(
+                                                        value: CartCubit.get(context),
+                                                        child
+                                                        : const ProductsInCategoryScreen()),
+                                              ),
+                                              type: PageTransitionType.leftToRight));
+                                    },
+                                    child:                           Container(
+                              
+                                      padding: const EdgeInsets.all(8),
+                                      decoration: const BoxDecoration(
+                                          color: AppColors.SIMON_CONTAINER_COLOR,
+                                          borderRadius: BorderRadius.all(Radius.circular(18))),
+                                      height: MediaQuery.of(context).size.height * 0.2,
+                              
+                                      width: MediaQuery.of(context).size.width * 0.3,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                              
+                                          Text(
+                                            categoryName ?? "-",
+                                            textAlign: TextAlign.center,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                color: AppColors.APP_ORANGE_LABEL_COLOR,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: FontSizes.FONT_SIZE_14),
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          ClipRRect(
+                                              borderRadius: BorderRadius.circular(100),
+                                              child: Image.network(
+                                                imageUrl ?? "",
+                                                errorBuilder:
+                                                    (context, object, stackTrace) {
+                                                  return const Icon(
+                                                    Icons.error,
+                                                    size: 55,
+                                                    color: AppColors.APP_MAIN_COLOR,
+                                                  );
+                                                },
+                                                width: MediaQuery.of(context).size.width * 0.17,
+                                                height: MediaQuery.of(context).size.height * 0.08,
+                                                fit: BoxFit.cover,
+                                              )),
+                              
+                                        ],
+                                      ),
+                                    ),
+                              
+                                  );
+                                },
                               ),
+                            ),
 
-                            );
-                          },
+                            (state is GetMoreCategoriesLoadingState)
+                                ? Container(
+                              padding: const EdgeInsets.all(16),
+                              child: const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            )
+                                : (state
+                            is GetMoreCategoriesNetworkFailedState)
+                                ? Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: NoNetworkRefreshPage(
+                                refresh: () {
+                                  categoriesCubit.addMoreCategories();
+                                },
+                              ),
+                            )
+                                : Container()
+                          ],
                         ),
                       );
           },
