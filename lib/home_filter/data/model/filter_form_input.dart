@@ -16,7 +16,7 @@ class FilterFormInput {
         "categoryId": categoryId??0,
         "supplierId": supplierId??0,
         "sellingPriceMinimum": sellingPriceMinimum??0,
-        "sellingPriceMinimumMaximum": sellingPriceMinimumMaximum??150000,
+        "sellingPriceMinimumMaximum": sellingPriceMinimumMaximum??15000,
         "size": size??"",
         "colors": colors != null
             ? [
