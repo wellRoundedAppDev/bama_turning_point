@@ -1,20 +1,20 @@
-class GetCategoryResponse {
+class GetManufactureCompanyResponse {
   final bool isSuccssed;
   final String message;
-  final List<CategoryAD> obj;
+  final List<BrandAD> obj;
 
-  GetCategoryResponse({
+  GetManufactureCompanyResponse({
     required this.isSuccssed,
     required this.message,
     required this.obj,
   });
 
-  factory GetCategoryResponse.fromJson(Map<String, dynamic> json) {
-    return GetCategoryResponse(
+  factory GetManufactureCompanyResponse.fromJson(Map<String, dynamic> json) {
+    return GetManufactureCompanyResponse(
       isSuccssed: json['IsSuccssed'] ?? false,
       message: json['Message'] ?? '',
       obj: (json['Obj'] as List<dynamic>?)
-          ?.map((e) => CategoryAD.fromJson(e))
+          ?.map((e) => BrandAD.fromJson(e))
           .toList() ??
           [],
     );
@@ -29,26 +29,26 @@ class GetCategoryResponse {
   }
 }
 
-class CategoryAD {
+class BrandAD {
   final int id;
-  final String categoryStoreName;
+  final String name;
 
-  CategoryAD({
+  BrandAD({
     required this.id,
-    required this.categoryStoreName,
+    required this.name,
   });
 
-  factory CategoryAD.fromJson(Map<String, dynamic> json) {
-    return CategoryAD(
+  factory BrandAD.fromJson(Map<String, dynamic> json) {
+    return BrandAD(
       id: json['Id'] ?? 0,
-      categoryStoreName: json['CategoryStoreName'] ?? '',
+      name: json['Name'] ?? '',
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'Id': id,
-      'CategoryStoreName': categoryStoreName,
+      'Name': name,
     };
   }
 }

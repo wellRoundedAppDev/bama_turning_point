@@ -26,11 +26,11 @@ class ApiUrls {
   static const GET_Supplier_ENDPOINT =
       "Products/GetVendors";
   static const GET_CategoryStore_ENDPOINT =
-      "Stores/CategoryStore/GetAll";
+      "Stores/CategoryStore/GetAllSelectList";
   static const GET_Colors_ENDPOINT =
       "Colors/GetAllSelectList";
   static const GET_ManufacturerCompany_ENDPOINT =
-      "Stores/ManufacturerCompany/GetAll";
+      "Stores/ManufacturerCompany/GetAllSelectList";
   static const GET_Filter_Home_ENDPOINT =
       "Products/GetAllProductsDetailedSearch";
 

@@ -26,6 +26,9 @@ class FilterDrawer extends StatelessWidget {
         builder: (context, state) {
           FilterCubit filterCubit = FilterCubit.get(context);
           var groups = filterCubit.groups;
+          var manufacture = filterCubit.manufacture;
+          var category = filterCubit.category;
+
           var colors = filterCubit.colors;
           var suppliers = filterCubit.suppliers;
 
@@ -49,7 +52,9 @@ class FilterDrawer extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               GestureDetector(
-                                  onTap: () {},
+                                  onTap:
+                                  () => filterCubit.deleteValue()
+                                  ,
                                   child: Image.asset(
                                     IconPaths.TRASH,
                                     width: 22,
@@ -61,20 +66,25 @@ class FilterDrawer extends StatelessWidget {
                               SizedBox(
                                 width: 80,
                                 height: 30,
-                                child: CustomButton(
-                                    text: "Done",
-                                    action: () async {
-                                      await filterCubit.createFilter(context);
-                                      if (filterCubit.result!.isNotEmpty) {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ViewProductsFilterScreen(
-                                                      filterCubit.result),
-                                            ));
-                                      }
-                                    }),
+                                child: state is CreateFilterLoadingState
+                                    ? const Center(
+                                        child: CircularProgressIndicator(),
+                                      )
+                                    : CustomButton(
+                                        text: "Done",
+                                        action: () async {
+                                          await filterCubit
+                                              .createFilter(context);
+                                          if (filterCubit.result!.isNotEmpty) {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ViewProductsFilterScreen(
+                                                          filterCubit.result),
+                                                ));
+                                          }
+                                        }),
                               ),
                             ],
                           ),
@@ -204,40 +214,31 @@ class FilterDrawer extends StatelessWidget {
                                   const SizedBox(
                                     height: 16,
                                   ),
-                                  Row(
-                                    children: [
-                                      Checkbox(
-                                          activeColor: const Color(0xff878787),
-                                          value: false,
-                                          onChanged: (isCheck) {}),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      const Text(
-                                        "in Stock",
-                                        style: TextStyle(
-                                            fontSize: FontSizes.FONT_SIZE_16,
-                                            color: Color(0xff878787)),
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Checkbox(
-                                          activeColor: const Color(0xff015963),
-                                          value: true,
-                                          onChanged: (isCheck) {}),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      const Text(
-                                        "out Stock",
-                                        style: TextStyle(
-                                            fontSize: FontSizes.FONT_SIZE_16,
-                                            color: Color(0xff015963)),
-                                      )
-                                    ],
-                                  )
+                                  ListView.builder(
+                                      itemBuilder: (context, index) =>
+                                          RadioListTile(
+                                            groupValue: filterCubit
+                                                .filterFormInput.categoryId,
+                                            activeColor:
+                                                const Color(0xff878787),
+                                            value:
+                                                filterCubit.category[index].id,
+                                            onChanged: (value) => filterCubit
+                                                .radioFunctionCategory(value),
+                                            title: Text(
+                                              category[index]
+                                                      .categoryStoreName ??
+                                                  '',
+                                              style: const TextStyle(
+                                                  fontSize:
+                                                      FontSizes.FONT_SIZE_16,
+                                                  color: Color(0xff878787)),
+                                            ),
+                                          ),
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount: category.length),
                                 ],
                               ),
                             )
@@ -298,6 +299,66 @@ class FilterDrawer extends StatelessWidget {
                                       physics:
                                           const NeverScrollableScrollPhysics(),
                                       itemCount: suppliers.length),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        Container(
+                          height: 2,
+                          color: const Color(0xffE5E5E5),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+
+                        //manufacture
+                        ExpansionTile(
+                          title: const Text(
+                            "Manufacture",
+                            style: TextStyle(
+                                fontSize: FontSizes.FONT_SIZE_16,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff313846)),
+                          ),
+                          trailing: const Icon(
+                            Icons.arrow_drop_down,
+                            color: Color(0xff313846),
+                          ),
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  ListView.builder(
+                                      itemBuilder: (context, index) =>
+                                          RadioListTile(
+                                            groupValue: filterCubit
+                                                .filterFormInput
+                                                .manufactureCompanyId,
+                                            activeColor:
+                                                const Color(0xff878787),
+                                            value: filterCubit
+                                                .manufacture[index].id,
+                                            onChanged: (value) => filterCubit
+                                                .radioFunctionManufacture(
+                                                    value),
+                                            title: Text(
+                                              manufacture[index].name ?? '',
+                                              style: const TextStyle(
+                                                  fontSize:
+                                                      FontSizes.FONT_SIZE_16,
+                                                  color: Color(0xff878787)),
+                                            ),
+                                          ),
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount: manufacture.length),
                                 ],
                               ),
                             )
@@ -571,7 +632,8 @@ class FilterDrawer extends StatelessWidget {
                                               onTap: () {
                                                 filterCubit.selectFunctionColor(
                                                     colors[index].colorValue);
-                                                filterCubit.filterFormInput.colors=colors[index];
+                                                filterCubit.filterFormInput
+                                                    .colors = colors[index];
                                               },
                                               child: Container(
                                                 padding:
