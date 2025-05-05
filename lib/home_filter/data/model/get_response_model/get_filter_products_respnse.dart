@@ -125,7 +125,8 @@ class Product {
       categoryId: json['CategoryId'],
       categoryName: json['CategoryName'],
       brandSuppliers: json['BrandSuppliers'] != null
-          ? List<BrandSupplier>.from(json['BrandSuppliers'].map((x) => BrandSupplier.fromJson(x)))
+          ? List<BrandSupplier>.from(
+              json['BrandSuppliers'].map((x) => BrandSupplier.fromJson(x)))
           : null,
       colors: json['Colors'],
       manufactureCompanyId: json['ManufactureCompanyId'],
