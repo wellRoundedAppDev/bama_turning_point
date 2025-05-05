@@ -337,7 +337,7 @@ class FilterDrawer extends StatelessWidget {
                                 RangeSlider(
                                     values: filterCubit.rangeValues,
                                     min: 0,
-                                    max: 15000,
+                                    max: 150000,
                                     divisions: 100,
                                     activeColor: Colors.teal[800],
                                     inactiveColor: Colors.grey[300],

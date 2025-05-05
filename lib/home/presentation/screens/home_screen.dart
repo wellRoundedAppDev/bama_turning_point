@@ -37,8 +37,8 @@ class HomeScreen extends StatelessWidget {
         create: (context) => HomeCubit()..init(),
         child: SafeArea(
           child: Scaffold(
-            drawer: const HomeDrawer(),
-            endDrawer: const FilterDrawer(),
+            endDrawer: const HomeDrawer(),
+            drawer: const FilterDrawer(),
             appBar: AppBar(
               toolbarHeight: MediaQuery.of(context).size.height * 0.1,
               leading: Container(),

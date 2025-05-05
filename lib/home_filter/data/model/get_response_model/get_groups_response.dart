@@ -9,19 +9,16 @@ class GetGroupsResponse {
     isSuccssed = json['IsSuccssed'];
     message = json['Message'];
     if (json['Obj'] != null) {
-      obj = <GroupsAD>[];
-      json['Obj'].forEach((v) {
-        obj!.add(new GroupsAD.fromJson(v));
-      });
+      obj = List<GroupsAD>.from(json['Obj'].map((v) => GroupsAD.fromJson(v)));
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['IsSuccssed'] = this.isSuccssed;
-    data['Message'] = this.message;
-    if (this.obj != null) {
-      data['Obj'] = this.obj!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = {};
+    data['IsSuccssed'] = isSuccssed;
+    data['Message'] = message;
+    if (obj != null) {
+      data['Obj'] = obj!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -39,9 +36,9 @@ class GroupsAD {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Id'] = this.id;
-    data['GroupName'] = this.groupName;
-    return data;
+    return {
+      'Id': id,
+      'GroupName': groupName,
+    };
   }
 }
