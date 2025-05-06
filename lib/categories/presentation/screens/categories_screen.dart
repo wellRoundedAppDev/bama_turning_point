@@ -34,7 +34,7 @@ class CategoriesScreen extends StatelessWidget {
             CategoriesCubit categoriesCubit = CategoriesCubit.get(context);
             List<Category2>? categories = categoriesCubit.categories;
 
-            ScrollController scrollController = categoriesCubit.categoriesScrollController;
+           // ScrollController scrollController = categoriesCubit.categoriesScrollController;
             return (state is GetCategoriesLoadingState)
                 ? const Center(
                     child: CircularProgressIndicator(),
@@ -56,7 +56,7 @@ class CategoriesScreen extends StatelessWidget {
                           children: [
                             Expanded(
                               child: GridView.builder(
-                                controller: scrollController,
+                            //    controller: scrollController,
                                 padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 16),
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
@@ -141,24 +141,24 @@ class CategoriesScreen extends StatelessWidget {
                               ),
                             ),
 
-                            (state is GetMoreCategoriesLoadingState)
-                                ? Container(
-                              padding: const EdgeInsets.all(16),
-                              child: const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            )
-                                : (state
-                            is GetMoreCategoriesNetworkFailedState)
-                                ? Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: NoNetworkRefreshPage(
-                                refresh: () {
-                                  categoriesCubit.addMoreCategories();
-                                },
-                              ),
-                            )
-                                : Container()
+                            // (state is GetMoreCategoriesLoadingState)
+                            //     ? Container(
+                            //   padding: const EdgeInsets.all(16),
+                            //   child: const Center(
+                            //     child: CircularProgressIndicator(),
+                            //   ),
+                            // )
+                            //     : (state
+                            // is GetMoreCategoriesNetworkFailedState)
+                            //     ? Padding(
+                            //   padding: const EdgeInsets.all(16.0),
+                            //   child: NoNetworkRefreshPage(
+                            //     refresh: () {
+                            //       categoriesCubit.addMoreCategories();
+                            //     },
+                            //   ),
+                            // )
+                            //     : Container()
                           ],
                         ),
                       );

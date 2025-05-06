@@ -24,6 +24,7 @@ import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../categories/data/models/get_categories_paginated_response.dart';
 import '../../../../categories/data/models/get_categories_response.dart';
 import '../../../../contact_us/data/data_sources/remote_data_sources/contact_us_api.dart';
+import '../../../../vendors/data/data_sources/vendor_apis.dart';
 import '../../../data/models/get_banners_response.dart';
 import '../../../data/models/get_brands_response.dart';
 import '../../../data/models/get_vendors_response.dart';
@@ -108,6 +109,7 @@ class HomeCubit extends Cubit<HomeStates> {
               type: PageTransitionType.leftToRight));
       return;
     }
+
     // if (productsListTitle == "Featured Products") {
     //   loadViewAllProductsScreen(productsListTitle);
     //   Navigator.push(
@@ -254,7 +256,7 @@ class HomeCubit extends Cubit<HomeStates> {
     var response = await CategoriesApis.getCategoriesPaginated();
 
     if (response?.isSuccssed == true) {
-      categoriesOverview = response?.obj?.dataReturn;
+      categoriesOverview = response?.obj;
     } else if (response?.isSuccssed == false) {
       // categoriesOverview = null;
     } else {

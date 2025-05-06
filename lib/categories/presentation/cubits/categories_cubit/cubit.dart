@@ -23,7 +23,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
   // List<Category>? categories;
   List<Category2>? categories;
   int currentCategoriesPageNumber = 1;
-  int categoriesPageSize = 10;
+  int categoriesPageSize = 10000;
 
   // List<ProductInCategory>? products;
   // List<Category>? categories;
@@ -34,16 +34,16 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
 
   setCategories() async {
     currentCategoriesPageNumber = 1;
-    categoriesScrollController.removeListener(() {});
-    categoriesScrollController.addListener(() async {
-      if (categoriesScrollController.position.maxScrollExtent ==
-          categoriesScrollController.offset) {
-        if (state is GetMoreCategoriesLoadingState) {
-          return;
-        }
-        addMoreCategories();
-      }
-    });
+    // categoriesScrollController.removeListener(() {});
+    // categoriesScrollController.addListener(() async {
+    //   if (categoriesScrollController.position.maxScrollExtent ==
+    //       categoriesScrollController.offset) {
+    //     if (state is GetMoreCategoriesLoadingState) {
+    //       return;
+    //     }
+    //     addMoreCategories();
+    //   }
+    // });
 
     emit(GetCategoriesLoadingState());
     LocaleCubit localeCubit = LocaleCubit.get(context);
@@ -57,7 +57,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
         pageSize: categoriesPageSize, pageNumber: currentCategoriesPageNumber);
 
     if (response?.isSuccssed == true) {
-      categories = response?.obj?.dataReturn;
+      categories = response?.obj;
       currentCategoriesPageNumber++;
       emit(GetCategoriesSuccessState());
     } else if (response?.isSuccssed == false) {
@@ -95,7 +95,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
     var response = await CategoriesApis.getCategoriesPaginated(
         pageSize: categoriesPageSize, pageNumber: currentCategoriesPageNumber);
     if (response?.isSuccssed == true) {
-      var tempCustomerOrders = response?.obj?.dataReturn?.toList() ?? [];
+      var tempCustomerOrders = response?.obj?.toList() ?? [];
       if (tempCustomerOrders?.isEmpty == true) {
         emit(GetMoreCategoriesSuccessState());
         return;

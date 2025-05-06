@@ -207,7 +207,9 @@ class ProductsApis {
       if (response == null) {
         return null;
       }
-      print(response.data);
+      if (kDebugMode) {
+        print(response.data);
+      }
       return GetAllProductsResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {

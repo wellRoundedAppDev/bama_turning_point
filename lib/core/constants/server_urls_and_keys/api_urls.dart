@@ -12,8 +12,9 @@ class ApiUrls {
   static const ACCOUNT_ENDPOINT = "api/rest/account";
   static const GET_CATEGORIES_ENDPOINT =
 
+  "api/Products/GetGroups";
   //"api/Products/GetGroups";
-     "api/Stores/Group/GetAllPagenationWithImage";
+    // "api/Stores/Group/GetAllPagenationWithImage";
       //"api/rest/categories/extended/";
   static const GET_BANNERS_ENDPOINT = "api/Banars/GetAllSelectList";
   static const GET_FEATURED_PRODUCTS_ENDPOINT = "api/rest/featured";
@@ -57,10 +58,19 @@ class ApiUrls {
   static const GET_PRODUCTS_IN_BRAND_ENDPOINT = "api/rest/products";
 
 
-  static const GET_ALL_PRODUCTS_ENDPOINT = "api/Products/GetAllProducts";
+  static const GET_ALL_PRODUCTS_ENDPOINT =
+
+      "api/Products/GetAllCompanyProducts";
+      //"api/Products/GetAllProducts";
 
 
   static const GET_VENDORS_ENDPOINT = "api/Products/GetVendors";
+
+
+
+  static const GET_PRODUCTS_BY_VENDOR_ENDPOINT
+
+  = "api/Products/GetAllVendorProductsByVendorId";
 
 
 

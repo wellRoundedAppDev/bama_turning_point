@@ -21,6 +21,7 @@ import 'package:classic_eccomerce/home/presentation/widgets/products_overview.da
 import 'package:classic_eccomerce/main.dart';
 import 'package:classic_eccomerce/notifications/presentation/screens/notifications_screen.dart';
 import 'package:classic_eccomerce/shared_components/search_app_bar_custom_input.dart';
+import 'package:classic_eccomerce/vendors/presentation/screens/all_products_in_vendor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -452,6 +453,9 @@ class HomeScreen extends StatelessWidget {
 
                                                             return InkWell(
                                                               onTap: () {
+                                                                Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
+                                                                child: ViewAllProductsByVendorScreen( vendorId: vendorId?.toInt()??0)
+                                                                ));
                                                                 // print(category?.categoryId);
                                                                 // categoriesCubit
                                                                 //     .setAllProductsInCategory(category);

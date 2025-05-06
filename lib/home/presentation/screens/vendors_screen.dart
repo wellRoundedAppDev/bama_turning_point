@@ -32,6 +32,8 @@ import '../../../cart/presentation/cubits/cart_cubit/states.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../../categories/data/models/get_categories_paginated_response.dart';
 import '../../../shared_components/custom_app_bar.dart';
+import '../../../vendors/presentation/cubit/vendor_cubit.dart';
+import '../../../vendors/presentation/cubit/vendor_states.dart';
 import '../../data/models/product.dart';
 import '../widgets/home_drawer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -48,9 +50,10 @@ class VendorsScreen extends StatelessWidget {
             appBar: CustomAppBar.renderAppBar(
                 title:   "",
                 cartCubit: CartCubit.get(context)),
-            body: BlocConsumer<VendorsCubit, VendorStates>(
+            body: BlocConsumer<VendorsCubit, VendorsStates>(
               listener: (context, state) {},
               builder: (context, state) {
+
                 VendorsCubit vendorsCubit = VendorsCubit.get(context);
                 // List<BannerAd>? bannerAds = homeCubit.banners;
                 // List<BannerAd>? bannerAds = homeCubit.banners;
