@@ -18,7 +18,7 @@ class VendorsCubit extends Cubit<VendorsStates> {
 
   int allProductsPageNumber = 1;
 
-  int allProductsPageSize = 10;
+  int allProductsPageSize = 100000;
 
     List<Vendor>? vendors;
 
@@ -63,6 +63,7 @@ class VendorsCubit extends Cubit<VendorsStates> {
         productId: e.id,
         price: e.price,
         name: e.productName,
+        productSource: e.source?.toInt()
       ))
           ?.toList() ??
           [];

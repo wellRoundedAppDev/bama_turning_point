@@ -66,7 +66,7 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               mainAxisExtent:
-                                  MediaQuery.of(context).size.height * 0.42,
+                                  MediaQuery.of(context).size.height * 0.35,
                             ),
                             itemCount: products?.length ?? 0,
                             itemBuilder: (BuildContext context, int index) {
@@ -76,6 +76,8 @@ class ProductsInCategoryScreen extends StatelessWidget {
                               String? productImageUrl =
                                   product?.grandUnitName;
                               String? priceFormatted = "${product?.minorUnitPrice?.toString() ??""} ${AppLocalizations.of(context)!.iraqi_dinar_initials}";
+
+                              int? productType = product?.source;
 
                               return InkWell(
                                 onTap: () {
@@ -124,9 +126,12 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                                     .width,
                                                 errorBuilder: (context, object,
                                                     stackTrace) {
-                                                  return const Icon(
+                                                  return  Icon(
                                                     Icons.error,
-                                                    size: 150,
+                                                    size: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                        0.18,
                                                     color: AppColors
                                                         .APP_MAIN_COLOR,
                                                   );
@@ -151,35 +156,40 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                                 return Positioned(
                                                     bottom: 4,
                                                     right: 4,
-                                                    child: Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                shape: BoxShape
-                                                                    .circle,
-                                                                color: Colors
-                                                                    .white
-                                                                    .withOpacity(
-                                                                        0.7)),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(2.0),
-                                                          child:
-                                                              (isItemInWishList ==
-                                                                      true)
-                                                                  ? const Icon(
-                                                                      Icons
-                                                                          .favorite,
-                                                                      color: Colors
-                                                                          .red,
-                                                                    )
-                                                                  : const Icon(
-                                                                      Icons
-                                                                          .favorite_border_rounded,
-                                                                      color: Colors
-                                                                          .black,
-                                                                    ),
-                                                        )));
+                                                    child: GestureDetector(
+                                                      onTap: (){
+                                                        WishListCubit.get(context).addItemToWishlist(productId?.toInt()??0, productType?.toInt()??0);
+                                                      },
+                                                      child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                  color: Colors
+                                                                      .white
+                                                                      .withOpacity(
+                                                                          0.7)),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(2.0),
+                                                            child:
+                                                                (isItemInWishList ==
+                                                                        true)
+                                                                    ? const Icon(
+                                                                        Icons
+                                                                            .favorite,
+                                                                        color: Colors
+                                                                            .red,
+                                                                      )
+                                                                    : const Icon(
+                                                                        Icons
+                                                                            .favorite_border_rounded,
+                                                                        color: Colors
+                                                                            .black,
+                                                                      ),
+                                                          )),
+                                                    ));
                                               },
                                             )
                                           ],
@@ -191,7 +201,7 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         productName ?? "-",
-                                        maxLines: 2,
+                                        maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                             color: AppColors.GREY_LABEL_COLOR,

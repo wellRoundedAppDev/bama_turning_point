@@ -263,6 +263,9 @@
 
   "price": "Price",
 
+  "product_added_to_favorites": "Product added to favorites",
+
+
   "@welcome_user": {
     "placeholders": {
       "username": {

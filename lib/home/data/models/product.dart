@@ -9,8 +9,10 @@ class Product {
       this.name,
       this.quantity,
       this.price,
+        this.productSource,
       this.description,
       this.productImagePath,
+
       this.stockStatus,
       this.priceFormatted,
         this.stockStatusId,
@@ -36,6 +38,7 @@ class Product {
     var stockStatus = json['stock_status'];
     var stockStatusId = json['stock_status_id'];
 
+
     return Product(
         price: price,
         quantity: quantity,
@@ -59,4 +62,5 @@ class Product {
   String? priceFormatted;
   String? stockStatus;
   num? stockStatusId;
+  int? productSource;
 }

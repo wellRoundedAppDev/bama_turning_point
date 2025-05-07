@@ -261,5 +261,7 @@
 
   "color": "اللون",
 
-  "price": "السعر"
+  "price": "السعر",
+
+  "product_added_to_favorites": "تم إضافة المنتج إلى المفضلة"
 }

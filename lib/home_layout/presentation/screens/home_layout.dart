@@ -52,7 +52,7 @@ class HomeLayoutScreen extends StatelessWidget {
                           buttonBackgroundColor: AppColors.APP_MAIN_COLOR,
                           backgroundColor: Colors.transparent,
                           items: <Widget>[
-                            (navBarCurrentIndex == 2)
+                            (navBarCurrentIndex == 0)
                                 ? Image.asset(
                                     IconPaths.COMPLAIN,
                                     width: 30,
@@ -142,18 +142,18 @@ class HomeLayoutScreen extends StatelessWidget {
                             //         width: 30,
                             //         height: 30,
                             //       ),
-                            // (navBarCurrentIndex == 4)
-                            //     ? Image.asset(
-                            //         IconPaths.FAV_ICON,
-                            //         width: 30,
-                            //         height: 30,
-                            //       )
-                            //     : Image.asset(
-                            //         IconPaths.FAV_ICON,
-                            //         width: 30,
-                            //         height: 30,
-                            //       ),
                             (navBarCurrentIndex == 2)
+                                ? Image.asset(
+                                    IconPaths.FAV_ICON,
+                                    width: 30,
+                                    height: 30,
+                                  )
+                                : Image.asset(
+                                    IconPaths.FAV_ICON,
+                                    width: 30,
+                                    height: 30,
+                                  ),
+                            (navBarCurrentIndex == 3)
                                 ? Image.asset(
                                     IconPaths.HOME_NAV_ICON,
                                     width: 30,
@@ -170,10 +170,10 @@ class HomeLayoutScreen extends StatelessWidget {
                             appCubit.changeNavBarIndex(index,context);
                           }),
                     ),
-                    body: (navBarCurrentIndex == 2)
+                    body: (navBarCurrentIndex == 3)
                         ? const HomeScreen()
-                        // : (navBarCurrentIndex == 4)
-                        //     ? const WishListScreen()
+                        : (navBarCurrentIndex == 2)
+                            ? const WishListScreen()
                         //     : (navBarCurrentIndex == 3)
                         //         ? CategoriesScreen(
                         //             showBackButton: false,

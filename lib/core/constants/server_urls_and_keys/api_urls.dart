@@ -34,8 +34,11 @@ class ApiUrls {
   static const CART_ENDPOINT = "api/rest/cart";
   static const ADD_ITEMS_TO_CART_ENDPOINT = "api/rest/cart_bulk";
   static const CREATE_GUEST_USER_ENDPOINT = 'api/rest/guest';
-  static const GET_WISH_LIST_ENDPOINT = "api/rest/wishlist";
-  static const ADD_TO_WISH_LIST_ENDPOINT = "api/rest/wishlist/";
+  static const GET_WISH_LIST_ENDPOINT = "api/UserFavouriteProduct/GetFavorites";
+      //"api/rest/wishlist";
+  static const ADD_TO_WISH_LIST_ENDPOINT =
+      "api/UserFavouriteProduct/AddToFavorites";
+      //"api/rest/wishlist/";
   static const LOGOUT_ENDPOINT = "api/rest/logout";
   static const CONFIRM_ORDER_ENDPOINT = "api/rest/confirm";
   static const GUEST_CHECKOUT_ENDPOINT = "api/rest/guestshipping";
@@ -73,6 +76,9 @@ class ApiUrls {
   = "api/Products/GetAllVendorProductsByVendorId";
 
 
+  static const ADD_TO_FAVORITES =  "api/UserFavouriteProduct/AddToFavorites";
+
+
 
   static const CANCEL_ORDER_ENDPOINT = "index.php?route=api/cancelorder";
   static const routeUrl = 'feed/rest_api/';
@@ -94,8 +100,8 @@ class ApiUrls {
       "$GET_LIST_OF_REGIONS_BY_COUNTRY_ID_ENDPOINT$id";
   static String getAddItemsToWishlistEndpoint(int id) =>
       "$ADD_TO_WISH_LIST_ENDPOINT$id";
-  static String getDeleteItemsFromWishlistEndpoint(int id) =>
-      "$ADD_TO_WISH_LIST_ENDPOINT$id";
+  static String getDeleteItemsFromWishlistEndpoint() =>
+      "api/UserFavouriteProduct/RemoveFromFavorites";
   static String getEditOrDeleteAccountAddressEndpoint(int id) =>
       "$ACCOUNT_ADDRESS_ENDPOINT/$id";
   static String getCustomerOrdersEndpoint(int page) =>

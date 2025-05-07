@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../app_settings/app_language_codes.dart';
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../core/locales/locale_cubit/locale_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
   int selectedProductId;
@@ -62,7 +63,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
     }
   }
 
-  addItemToWishlist(int productId) async {
+  addItemToWishlist(int productId, int productSource) async {
     bool? isUserLoggedIn =
         MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
     if (isUserLoggedIn == false) {
@@ -78,16 +79,17 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
     emit(AddItemToFavoritesLoadingState());
     var response = await WishListApis.addItemToWishlist(
       productId,
+      productSource
     );
-    if (response == true) {
-      showAppSnackBar(content: "Product added to wishlist");
+    if (response?.success == true) {
+      showAppSnackBar(content: AppLocalizations.of(context)!.product_added_to_favorites);
       emit(AddItemToFavoritesSuccessState());
-    } else if (response == false) {
-      showAppSnackBar(content: "Error occurred");
+    } else if (response?.success ==  false) {
+      showAppSnackBar(content: response?.message??"");
 
       emit(AddItemToFavoritesFailedState());
     } else {
-      showAppSnackBar(content: "Check your internet connection, and try again");
+      showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
       emit(AddItemToFavoritesNetworkConnectionFailedState());
     }
   }

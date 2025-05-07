@@ -10,6 +10,7 @@ import '../../../../app_settings/app_language_codes.dart';
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../shared_components/app_snackbar.dart';
 import '../../../data/models/get_wishlist_response.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WishListCubit extends Cubit<WishListStates> {
   WishListCubit() : super(WishListInitialState());
@@ -39,11 +40,15 @@ class WishListCubit extends Cubit<WishListStates> {
         languageCode: languageCodes[LocaleCubit.get(context).locale.languageCode]
         ,currencyCode: appSettingsCubit?.currencyCode??""
     );
-    if (response?.success == 1) {
-      wishListItems = response?.wishListItems;
+    if (response?.isSuccssed == true) {
+      wishListItems = response?.obj?.products?.map((e)=>WishlistItem(
+        productId: e?.brandId?.toString(),
+        name: e?.brandName,
+        sourceId: e?.source?.toInt()
+      ))?.toList()??[];
 
       emit(GetWishListSuccessState());
-    } else if (response?.success == 0) {
+    } else if (response?.isSuccssed == false) {
       wishListItems = null;
       emit(GetWishListFailedState());
     } else {
@@ -80,27 +85,27 @@ class WishListCubit extends Cubit<WishListStates> {
   //   }
   // }
 
-  deleteItemFromWishList(int? productId) async {
+  deleteItemFromWishList(int? productId, int? sourceId) async {
     setSelectedProductId(productId);
     if (productId == null) {
-      showAppSnackBar(content: "Error occured");
+      showAppSnackBar(content: AppLocalizations.of(context)!.error_occurred_try_again);
       return;
     }
     emit(DeleteItemFromWishListLoadingState());
-    var response = await WishListApis.deleteItemFromWishlist(productId);
-    if (response == true) {
+    var response = await WishListApis.deleteItemFromWishlist(productId,sourceId?.toInt()??0);
+    if (response?.success == true) {
       showAppSnackBar(content: "Product removed from wishlist");
       setWishListItems();
-    } else if (response == false) {
-      showAppSnackBar(content: "Error occured");
+    } else if (response?.success == false) {
+      showAppSnackBar(content:response?.message??"" );
       emit(DeleteItemFromWishListFailedState());
     } else {
-      showAppSnackBar(content: "Check your internet connection, and try again");
+      showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
       emit(DeleteItemFromWishListNetworkConnectionFailedState());
     }
   }
 
-  addItemToWishlist(int productId) async {
+  addItemToWishlist(int productId, int productType) async {
     bool? isUserLoggedIn =
         MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
     if (isUserLoggedIn == false) {
@@ -115,18 +120,18 @@ class WishListCubit extends Cubit<WishListStates> {
 
     emit(AddItemToFavoritesLoadingState());
     var response = await WishListApis.addItemToWishlist(productId,
-
+      productType
     );
-    if (response == true) {
-      showAppSnackBar(content: "Product added to wishlist");
+    if (response?.success == true) {
+      showAppSnackBar(content: AppLocalizations.of(context)!.product_added_to_favorites);
       wishListItems?.add(WishlistItem(productId: productId?.toString()));
       emit(AddItemToFavoritesSuccessState());
-    } else if (response == false) {
-      showAppSnackBar(content: "Error occurred");
+    } else if (response?.success == false) {
+      showAppSnackBar(content: response?.message??"");
 
       emit(AddItemToFavoritesFailedState());
     } else {
-      showAppSnackBar(content: "Check your internet connection, and try again");
+      showAppSnackBar(content:AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
       emit(AddItemToFavoritesNetworkConnectionFailedState());
     }
   }

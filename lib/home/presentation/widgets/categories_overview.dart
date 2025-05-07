@@ -144,9 +144,9 @@ class CategoriesOverview extends StatelessWidget {
                                         categoryImageUrl ?? "",
                                         errorBuilder:
                                             (context, object, stackTrace) {
-                                          return const Icon(
+                                          return  Icon(
                                             Icons.error,
-                                            size: 55,
+                                            size: MediaQuery.of(context).size.height * 0.08,
                                             color: AppColors.APP_MAIN_COLOR,
                                           );
                                         },

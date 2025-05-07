@@ -82,6 +82,8 @@ class ViewAllProductsByVendorScreen extends StatelessWidget {
                     String? priceFormatted =
                         "${product?.price?.toStringAsFixed(3) ?? ""} ${AppLocalizations.of(context)!.iraqi_dinar_initials}";
 
+                    var productType = product?.productSource;
+
                     return InkWell(
                       onTap: () {
                         Navigator.push(
@@ -160,34 +162,39 @@ class ViewAllProductsByVendorScreen extends StatelessWidget {
                                       return Positioned(
                                           bottom: 4,
                                           right: 4,
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape
-                                                      .circle,
-                                                  color: Colors
-                                                      .white
-                                                      .withOpacity(
-                                                      0.7)),
-                                              child: Padding(
-                                                padding:
-                                                const EdgeInsets
-                                                    .all(2.0),
-                                                child:
-                                                (isItemInWishList ==
-                                                    true)
-                                                    ? const Icon(
-                                                  Icons
-                                                      .favorite,
-                                                  color: Colors
-                                                      .red,
-                                                )
-                                                    : const Icon(
-                                                  Icons
-                                                      .favorite_border_rounded,
-                                                  color: Colors
-                                                      .black,
-                                                ),
-                                              )));
+                                          child: GestureDetector(
+                                            onTap: (){
+                                              WishListCubit.get(context).addItemToWishlist(productId?.toInt()??0, productType?.toInt()??0);
+                                            },
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape
+                                                        .circle,
+                                                    color: Colors
+                                                        .white
+                                                        .withOpacity(
+                                                        0.7)),
+                                                child: Padding(
+                                                  padding:
+                                                  const EdgeInsets
+                                                      .all(2.0),
+                                                  child:
+                                                  (isItemInWishList ==
+                                                      true)
+                                                      ? const Icon(
+                                                    Icons
+                                                        .favorite,
+                                                    color: Colors
+                                                        .red,
+                                                  )
+                                                      : const Icon(
+                                                    Icons
+                                                        .favorite_border_rounded,
+                                                    color: Colors
+                                                        .black,
+                                                  ),
+                                                )),
+                                          ));
                                     },
                                   )
                                 ],
@@ -199,7 +206,7 @@ class ViewAllProductsByVendorScreen extends StatelessWidget {
                             ),
                             Text(
                               productName ?? "-",
-                              maxLines: 2,
+                              maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   color: AppColors.GREY_LABEL_COLOR,

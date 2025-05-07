@@ -94,6 +94,8 @@ class ProductsOverview extends StatelessWidget {
                   String? productImagePath = (product.productImagePath ?? "");
                   String stockStatus = product.stockStatus ?? "";
 
+                  int? productType = product.productSource;
+
                   print("Stock status $stockStatus");
                   return Row(
                     children: [
@@ -169,29 +171,35 @@ class ProductsOverview extends StatelessWidget {
                                                                 ?.toString()))
                                                     ?.isNotEmpty ==
                                                 true;
+
                                         return Positioned(
                                             bottom: 4,
                                             right: 4,
-                                            child: Container(
-                                                decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Colors.white
-                                                        .withOpacity(0.7)),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(2.0),
-                                                  child: (isItemInWishList ==
-                                                          true)
-                                                      ? const Icon(
-                                                          Icons.favorite,
-                                                          color: Colors.red,
-                                                        )
-                                                      : const Icon(
-                                                          Icons
-                                                              .favorite_border_rounded,
-                                                          color: Colors.black,
-                                                        ),
-                                                )));
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                WishListCubit.get(context).addItemToWishlist(productId??0, productType??0);
+                                              },
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Colors.white
+                                                          .withOpacity(0.7)),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(2.0),
+                                                    child: (isItemInWishList ==
+                                                            true)
+                                                        ? const Icon(
+                                                            Icons.favorite,
+                                                            color: Colors.red,
+                                                          )
+                                                        : const Icon(
+                                                            Icons
+                                                                .favorite_border_rounded,
+                                                            color: Colors.black,
+                                                          ),
+                                                  )),
+                                            ));
                                       },
                                     )
                                   ],

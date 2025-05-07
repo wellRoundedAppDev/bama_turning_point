@@ -117,6 +117,7 @@ class DioHelper {
   Future<Response?> post({
     required String endPoint,
     dynamic body = const {},
+    Map<String, dynamic>?  queryParameters ,
     Map<String, dynamic> headers = const {}
   }) async {
     // String? accessToken =
@@ -130,6 +131,7 @@ class DioHelper {
       return await _dio.post(
         endPoint,
         data: body,
+        queryParameters: queryParameters,
         options: Options(
           headers: headers,
           validateStatus: (int? status){

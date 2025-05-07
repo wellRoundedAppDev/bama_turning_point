@@ -49,6 +49,7 @@ class WishlistItem {
     this.stock,
     this.price,
     this.special,
+    this.sourceId
   });
 
   factory WishlistItem.fromJson(dynamic json) {
@@ -86,6 +87,7 @@ class WishlistItem {
   String? stock;
   String? price;
   dynamic special;
+  int? sourceId;
 
   // Map<String, dynamic> toJson() {
   //   final map = <String, dynamic>{};

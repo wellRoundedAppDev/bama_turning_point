@@ -198,6 +198,7 @@ class HomeCubit extends Cubit<HomeStates> {
                     productId: e.id,
                     name: e.productName,
                     price: e.minorUnitPrice,
+        productSource: e?.source?.toInt()
                   ))
               ?.toList() ??
           [];
@@ -299,11 +300,13 @@ class HomeCubit extends Cubit<HomeStates> {
     var response = await ProductsApis.getAllProducts(
         pageNumber: allProductsPageNumber, pageSize: allProductsPageSize);
     if (response?.isSuccssed == true) {
+      print("sss${response?.obj?.products?.first?.source}");
       allProducts = response?.obj?.products
               ?.map((e) => Product(
                     name: e.productName,
                     price: e.minorUnitPrice,
                     productId: e.id,
+        productSource: e.source?.toInt()??0
                   ))
               ?.toList() ??
           [];
@@ -329,7 +332,9 @@ class HomeCubit extends Cubit<HomeStates> {
                     productId: e.id,
                     price: e.minorUnitPrice,
                     name: e.productName,
-                  ))
+          productSource: e.source?.toInt()??0
+
+      ))
               ?.toList() ??
           [];
       if (tempCustomerOrders?.isEmpty == true) {

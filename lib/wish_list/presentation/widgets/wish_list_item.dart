@@ -197,7 +197,7 @@ class WishListItemWidget extends StatelessWidget {
                                   onTap: () {
                                     WishListCubit.get(context)
                                         .deleteItemFromWishList(int.tryParse(
-                                            wishlistItem?.productId ?? ""));
+                                            wishlistItem?.productId ?? ""),wishlistItem?.sourceId);
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.all(5),
