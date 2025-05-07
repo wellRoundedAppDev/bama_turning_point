@@ -1,10 +1,16 @@
+import 'package:classic_eccomerce/authentication/data/models/get_place_governorate_response/get_governorate.dart';
+import 'package:classic_eccomerce/authentication/data/models/get_place_governorate_response/get_judiciary.dart';
+import 'package:classic_eccomerce/authentication/data/models/get_place_governorate_response/get_way_by_Judiciary.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
+import 'package:classic_eccomerce/authentication/presentation/get_place_cubit/get_place_cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../core/constants/paths/image_paths.dart';
 import '../../../shared_components/custom_input.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,6 +18,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SignUpScreen extends StatelessWidget {
 
   bool showBackButton;
+
   SignUpScreen({
     super.key,
     this.showBackButton = true,
@@ -26,7 +33,9 @@ class SignUpScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Form(
-                key: AuthCubit.get(context).registerFormKey,
+                key: AuthCubit
+                    .get(context)
+                    .registerFormKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 5,
@@ -40,8 +49,14 @@ class SignUpScreen extends StatelessWidget {
                       child: ClipOval(
                           child: Image.asset(
                             ImagePaths.APP_LOGO,
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            height: MediaQuery.of(context).size.height * 0.2,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.4,
+                            height: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.2,
                           )),
                     ),
                     const SizedBox(
@@ -68,7 +83,10 @@ class SignUpScreen extends StatelessWidget {
                         //   AuthCubit.get(context).registerFormInput.lastName =
                         //       v?.trim()?.split(" ")?.last;
                         // }
-                        AuthCubit.get(context).registerFormInput.name=v!.trim();
+                        AuthCubit
+                            .get(context)
+                            .registerFormInput
+                            .name = v!.trim();
                       },
                     ),
 
@@ -96,7 +114,10 @@ class SignUpScreen extends StatelessWidget {
                         //   AuthCubit.get(context).registerFormInput.lastName =
                         //       v?.trim()?.split(" ")?.last;
                         // }
-                        AuthCubit.get(context).registerFormInput.userName =v!.trim();
+                        AuthCubit
+                            .get(context)
+                            .registerFormInput
+                            .userName = v!.trim();
                       },
                     ),
                     const SizedBox(
@@ -127,85 +148,193 @@ class SignUpScreen extends StatelessWidget {
                     // const SizedBox(
                     //   height: 16,
                     // ),
-                    // Container(
-                    //   padding: const EdgeInsets.only(left: 16, right: 8),
-                    //   decoration: BoxDecoration(
-                    //       border: Border.all(color: const Color(0xff95989A))),
-                    //   child: DropdownSearch<String>(
-                    //     asyncItems: (String filter) async {
-                    //       // var res =
-                    //       // searchAdsCubit.getJobCategories();
-                    //       return ["ss"];
-                    //     },
-                    //     dropdownDecoratorProps: const DropDownDecoratorProps(
-                    //         dropdownSearchDecoration: InputDecoration(
-                    //             border: InputBorder.none,
-                    //             hintStyle: TextStyle(
-                    //               fontSize: FontSizes.FONT_SIZE_16,
-                    //               color: Color(0xff878787),
-                    //             ),
-                    //             hintText: "Gender")),
-                    //     dropdownButtonProps: const DropdownButtonProps(
-                    //         icon: Icon(
-                    //       Icons.keyboard_arrow_down,
-                    //       color: Color(0xff696C6E),
-                    //     )),
-                    //     popupProps: PopupProps.menu(
-                    //         itemBuilder: (context, String sort, bool) {
-                    //       return const Padding(
-                    //         padding: EdgeInsets.all(16.0),
-                    //         child: Text(
-                    //           "Gender",
-                    //           style: TextStyle(
-                    //               fontSize: FontSizes.FONT_SIZE_16,
-                    //               color: Color(0xff878787)),
-                    //         ),
-                    //       );
-                    //     }),
-                    //     dropdownBuilder: (context, sort) {
-                    //       return const Text(
-                    //         "Gender",
-                    //         style: TextStyle(
-                    //             fontSize: FontSizes.FONT_SIZE_16,
-                    //             color: Color(0xff878787)),
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
-                    // const SizedBox(
-                    //   height: 16,
-                    // ),
+                    BlocProvider(
+                      create: (context) =>
+                      GetPlaceCubit()
+                        ..setGovernorate(),
+                      child: BlocConsumer<GetPlaceCubit, GetPlaceState>(
+                        listener: (context, state) {
+                          // TODO: implement listener
+                        },
+                        builder: (context, state) {
+                          var placeCubit = GetPlaceCubit.get(context);
+                          return Column(
+                            spacing: 16,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.only(
+                                    left: 16, right: 8),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: const Color(0xff95989A))),
+                                child: DropdownSearch<GovernorateAD>(
+                                  items: placeCubit.governorate,
+                                  validator: (value) {
+                                    if (value == null || value.id == null || value.id == 0) {
+                                      return AppLocalizations.of(context)!.enter_judiciary;
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (value) {
+                                    print(value!.id);
+                                    placeCubit.selectedGovernorate(
+                                        value!.id ?? 0);
+                                    AuthCubit
+                                        .get(context)
+                                        .registerFormInput
+                                        .governorateId = value!.id;
+                                    placeCubit.setJudiciary();
+                                  },
+                                  dropdownDecoratorProps:  DropDownDecoratorProps(
+                                    dropdownSearchDecoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      label: Text(AppLocalizations.of(context)!
+                                          .governorate_user),
+                                      hintText: AppLocalizations.of(context)!
+                                          .governorate_user,
+                                    ),
+                                  ),
+                                  popupProps: PopupProps.menu(
+                                    itemBuilder: (context, GovernorateAD item,
+                                        bool selected) {
+                                      return state is GetGovernorateLoadingState
+                                          ? Center(
+                                        child: CircularProgressIndicator(),)
+                                          : Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Text(
+                                          item.governorateName ?? 'Unknown',
+                                          style: const TextStyle(fontSize: 16,
+                                              color: Color(0xff878787)),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  dropdownBuilder: (context, selectedItem) {
+                                    return Text(
+                                      selectedItem?.governorateName ??
+                                          AppLocalizations.of(context)!
+                                              .governorate_user,
+                                      style: const TextStyle(fontSize: 16,
+                                          color: Color(0xff878787)),
+                                    );
+                                  },
+                                ),
+                              ),
 
+                              Container(
+                                padding: const EdgeInsets.only(
+                                    left: 16, right: 8),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: const Color(0xff95989A))),
+                                child: DropdownSearch<JudiciaryAD>(
+                                  items: placeCubit.judiciary,
+                                  validator: (value) {
+                                    if (value == null || value.id == null || value.id == 0) {
+                                      return AppLocalizations.of(context)!.enter_judiciary;
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (value) {
+                                    print(value!.id);
+                                    placeCubit.selectedJudiciary(
+                                        value!.id ?? 0);
+                                    AuthCubit
+                                        .get(context)
+                                        .registerFormInput
+                                        .judiciaryId = value!.id;
+                                    placeCubit.setWay();
+                                  },
+                                  dropdownDecoratorProps:  DropDownDecoratorProps(
+                                    dropdownSearchDecoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      label: Text(AppLocalizations.of(context)!.judiciary_user),
+                                      hintText: AppLocalizations.of(context)!.judiciary_user,
+                                    ),
+                                  ),
+                                  popupProps: PopupProps.menu(
+                                    itemBuilder: (context, JudiciaryAD item,
+                                        bool selected) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Text(
+                                          item.judiciaryName ?? 'Unknown',
+                                          style: const TextStyle(fontSize: 16,
+                                              color: Color(0xff878787)),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  dropdownBuilder: (context, selectedItem) {
+                                    return Text(
+                                      selectedItem?.judiciaryName ??
+                                          AppLocalizations.of(context)!.judiciary_user,
+                                      style: const TextStyle(fontSize: 16,
+                                          color: Color(0xff878787)),
+                                    );
+                                  },
+                                ),
+                              ),
 
+                              Container(
+                                padding: const EdgeInsets.only(
+                                    left: 16, right: 8),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: const Color(0xff95989A))),
+                                child: DropdownSearch<WayAD>(
+                                  items: placeCubit.way,
+                                  validator: (value) {
+                                    if (value == null || value.id == null || value.id == 0) {
+                                      return AppLocalizations.of(context)!.enter_judiciary;
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (value) {
+                                    print(value!.id);
+                                    AuthCubit
+                                        .get(context)
+                                        .registerFormInput
+                                        .wayId = value!.id;
+                                    placeCubit.selectedWay(value!.id ?? 0);
+                                  },
+                                  dropdownDecoratorProps:  DropDownDecoratorProps(
+                                    dropdownSearchDecoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      label: Text(AppLocalizations.of(context)!.way_user),
+                                      hintText: AppLocalizations.of(context)!.way_user,
+                                    ),
+                                  ),
+                                  popupProps: PopupProps.menu(
+                                    itemBuilder: (context, WayAD item,
+                                        bool selected) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Text(
+                                          item.wayName ?? 'Unknown',
+                                          style: const TextStyle(fontSize: 16,
+                                              color: Color(0xff878787)),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  dropdownBuilder: (context, selectedItem) {
+                                    return Text(
+                                      selectedItem?.wayName ?? AppLocalizations.of(context)!.way_user,
+                                      style: const TextStyle(fontSize: 16,
+                                          color: Color(0xff878787)),
+                                    );
+                                  },
+                                ),
+                              ),
 
-                    // CustomInput(
-                    //   label: AppLocalizations.of(context)!.first_name,
-                    //   hintText: AppLocalizations.of(context)!.first_name,
-                    //   validator: (value) {
-                    //     if (value == null || value.isEmpty) {
-                    //       return AppLocalizations.of(context)!
-                    //           .enter_your_first_name;
-                    //     }
-                    //   },
-                    //   onSaved: (v) =>
-                    //       AuthCubit.get(context).registerFormInput.firstName = v,
-                    // ),
-                    // const SizedBox(
-                    //   height: 16,
-                    // ),
-                    // CustomInput(
-                    //   label: AppLocalizations.of(context)!.family_name,
-                    //   hintText: AppLocalizations.of(context)!.family_name,
-                    //   validator: (value) {
-                    //     if (value == null || value.isEmpty) {
-                    //       return AppLocalizations.of(context)!
-                    //           .enter_your_family_name;
-                    //     }
-                    //   },
-                    //   onSaved: (v) =>
-                    //       AuthCubit.get(context).registerFormInput.lastName = v,
-                    // ),
-
+                              SizedBox(height: 16,)
+                            ],
+                          );
+                        },
+                      ),
+                    ),
 
 
                     CustomInput(
@@ -218,213 +347,15 @@ class SignUpScreen extends StatelessWidget {
                         }
                       },
                       onSaved: (v) =>
-                      AuthCubit.get(context).registerFormInput.password = v,
+                      AuthCubit
+                          .get(context)
+                          .registerFormInput
+                          .password = v,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
-                    // CustomInput(
-                    //   label: AppLocalizations.of(context)!.confirm_password,
-                    //   hintText: AppLocalizations.of(context)!.confirm_password,
-                    //   validator: (v) {
-                    //     if (v == null || v.length < 6) {
-                    //       return AppLocalizations.of(context)!
-                    //           .enter_a_password_of_at_least_six_characters;
-                    //     }
-                    //   },
-                    //   onSaved: (v) => AuthCubit.get(context)
-                    //       .registerFormInput
-                    //       .confirmPassword = v,
-                    // ),
-                    // const SizedBox(
-                    //   height: 24,
-                    // ),
 
-                    // const Text(
-                    //   "Billing Address",
-                    //   style: TextStyle(
-                    //       fontSize: FontSizes.FONT_SIZE_16,
-                    //       fontWeight: FontWeight.bold,
-                    //       color: Color(0xff313846)),
-                    // ),
-                    // const SizedBox(
-                    //   height: 16,
-                    // ),
-                    // CustomInput(
-                    //   hintText: "Address 1",
-                    //   textInputType: TextInputType.phone,
-                    // ),
-                    // const SizedBox(
-                    //   height: 16,
-                    // ),
-                    // Container(
-                    //   padding: const EdgeInsets.only(left: 16, right: 8),
-                    //   decoration: BoxDecoration(
-                    //       border: Border.all(color: const Color(0xff95989A))),
-                    //   child: DropdownSearch<String>(
-                    //     asyncItems: (String filter) async {
-                    //       // var res =
-                    //       // searchAdsCubit.getJobCategories();
-                    //       return ["ss"];
-                    //     },
-                    //     dropdownDecoratorProps: const DropDownDecoratorProps(
-                    //         dropdownSearchDecoration: InputDecoration(
-                    //             border: InputBorder.none,
-                    //             hintStyle: TextStyle(
-                    //               fontSize: FontSizes.FONT_SIZE_16,
-                    //               color: Color(0xff878787),
-                    //             ),
-                    //             hintText: "City")),
-                    //     dropdownButtonProps: const DropdownButtonProps(
-                    //         icon: Icon(
-                    //       Icons.keyboard_arrow_down,
-                    //       color: Color(0xff696C6E),
-                    //     )),
-                    //     popupProps: PopupProps.menu(
-                    //         itemBuilder: (context, String sort, bool) {
-                    //       return const Padding(
-                    //         padding: EdgeInsets.all(16.0),
-                    //         child: Text(
-                    //           "City",
-                    //           style: TextStyle(
-                    //               fontSize: FontSizes.FONT_SIZE_16,
-                    //               color: Color(0xff878787)),
-                    //         ),
-                    //       );
-                    //     }),
-                    //     dropdownBuilder: (context, sort) {
-                    //       return const Text(
-                    //         "City",
-                    //         style: TextStyle(
-                    //             fontSize: FontSizes.FONT_SIZE_16,
-                    //             color: Color(0xff878787)),
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
-                    // const SizedBox(
-                    //   height: 16,
-                    // ),
-                    // CustomInput(
-                    //   hintText: "Postal Code",
-                    //   textInputType: TextInputType.phone,
-                    // ),
-                    // const SizedBox(
-                    //   height: 16,
-                    // ),
-                    // Container(
-                    //   padding: const EdgeInsets.only(left: 16, right: 8),
-                    //   decoration: BoxDecoration(
-                    //       border: Border.all(color: const Color(0xff95989A))),
-                    //   child: DropdownSearch<String>(
-                    //     asyncItems: (String filter) async {
-                    //       // var res =
-                    //       // searchAdsCubit.getJobCategories();
-                    //       return ["ss"];
-                    //     },
-                    //     dropdownDecoratorProps: const DropDownDecoratorProps(
-                    //         dropdownSearchDecoration: InputDecoration(
-                    //             border: InputBorder.none,
-                    //             hintStyle: TextStyle(
-                    //               fontSize: FontSizes.FONT_SIZE_16,
-                    //               color: Color(0xff878787),
-                    //             ),
-                    //             hintText: "Country")),
-                    //     dropdownButtonProps: const DropdownButtonProps(
-                    //         icon: Icon(
-                    //       Icons.keyboard_arrow_down,
-                    //       color: Color(0xff696C6E),
-                    //     )),
-                    //     popupProps: PopupProps.menu(
-                    //         itemBuilder: (context, String sort, bool) {
-                    //       return const Padding(
-                    //         padding: EdgeInsets.all(16.0),
-                    //         child: Text(
-                    //           "Country",
-                    //           style: TextStyle(
-                    //               fontSize: FontSizes.FONT_SIZE_16,
-                    //               color: Color(0xff878787)),
-                    //         ),
-                    //       );
-                    //     }),
-                    //     dropdownBuilder: (context, sort) {
-                    //       return const Text(
-                    //         "Country",
-                    //         style: TextStyle(
-                    //             fontSize: FontSizes.FONT_SIZE_16,
-                    //             color: Color(0xff878787)),
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
-                    // const SizedBox(
-                    //   height: 16,
-                    // ),
-                    // Container(
-                    //   padding: const EdgeInsets.only(left: 16, right: 8),
-                    //   decoration: BoxDecoration(
-                    //       border: Border.all(color: const Color(0xff95989A))),
-                    //   child: DropdownSearch<String>(
-                    //     asyncItems: (String filter) async {
-                    //       // var res =
-                    //       // searchAdsCubit.getJobCategories();
-                    //       return ["ss"];
-                    //     },
-                    //     dropdownDecoratorProps: const DropDownDecoratorProps(
-                    //         dropdownSearchDecoration: InputDecoration(
-                    //             border: InputBorder.none,
-                    //             hintStyle: TextStyle(
-                    //               fontSize: FontSizes.FONT_SIZE_16,
-                    //               color: Color(0xff878787),
-                    //             ),
-                    //             hintText: "Region / State")),
-                    //     dropdownButtonProps: const DropdownButtonProps(
-                    //         icon: Icon(
-                    //       Icons.keyboard_arrow_down,
-                    //       color: Color(0xff696C6E),
-                    //     )),
-                    //     popupProps: PopupProps.menu(
-                    //         itemBuilder: (context, String sort, bool) {
-                    //       return const Padding(
-                    //         padding: EdgeInsets.all(16.0),
-                    //         child: Text(
-                    //           "Region / State",
-                    //           style: TextStyle(
-                    //               fontSize: FontSizes.FONT_SIZE_16,
-                    //               color: Color(0xff878787)),
-                    //         ),
-                    //       );
-                    //     }),
-                    //     dropdownBuilder: (context, sort) {
-                    //       return const Text(
-                    //         "Region / State",
-                    //         style: TextStyle(
-                    //             fontSize: FontSizes.FONT_SIZE_16,
-                    //             color: Color(0xff878787)),
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
-                    // const SizedBox(
-                    //   height: 8,
-                    // ),
-                    // Row(
-                    //   crossAxisAlignment: CrossAxisAlignment.center,
-                    //   children: [
-                    //     Checkbox(value: true, onChanged: (check) {}),
-                    //     const SizedBox(
-                    //       width: 8,
-                    //     ),
-                    //     const Expanded(
-                    //       child: Text(
-                    //         "My delivery and billing addresses are the same.",
-                    //         style: TextStyle(
-                    //             fontSize: FontSizes.FONT_SIZE_14,
-                    //             color: Color(0xff747982)),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                     const SizedBox(
                       height: 24,
                     ),

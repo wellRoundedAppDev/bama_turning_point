@@ -32,7 +32,7 @@ class ViewAllBrandsScreen extends StatelessWidget {
             listener: (context, state) {},
             builder: (context, state) {
               HomeCubit homeCubit = HomeCubit.get(context);
-              List<Products>? products = homeCubit.allProducts;
+              List<ProductInCategory>? products = homeCubit.allProducts;
 
               return (state is FetchingAllProductsLoadingState)
                   ? const Center(
@@ -64,7 +64,7 @@ class ViewAllBrandsScreen extends StatelessWidget {
                   ),
                   itemCount: products?.length ?? 0,
                   itemBuilder: (BuildContext context, int index) {
-                    Products? product = products?[index];
+                    ProductInCategory? product = products?[index];
                     int? productId = product?.id?.toInt();
                     String? productName = product?.productName;
                     String? productImageUrl = product?.minorUnitName;

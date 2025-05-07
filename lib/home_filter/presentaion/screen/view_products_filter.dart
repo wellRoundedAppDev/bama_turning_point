@@ -15,7 +15,7 @@ import '../../../wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
 import '../../../wish_list/presentation/cubits/wish_list_cubit/states.dart';
 
 class ViewProductsFilterScreen extends StatelessWidget {
-  List<Products>?result;
+  List<ProductInCategory>? result;
 
 
   ViewProductsFilterScreen(this.result);
@@ -65,7 +65,7 @@ class ViewProductsFilterScreen extends StatelessWidget {
                   ),
                   itemCount: cubit.products?.length ?? 0,
                   itemBuilder: (BuildContext context, int index) {
-                    Products? product = cubit.products?[index];
+                    var product = cubit.products?[index];
                     int? productId = product?.id?.toInt();
                     String? productName = product?.productName;
                     String? productImageUrl = product?.minorUnitName;

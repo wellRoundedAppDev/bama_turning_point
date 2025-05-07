@@ -24,6 +24,7 @@ final class FilterNetworkFailedConnectionState extends FilterState {}
 
 final class FetchingPriceFilterState extends FilterState {}
 
+final class SelectedRadioCompany extends FilterState {}
 final class SelectedRadioGroup extends FilterState {}
 final class SelectedRadioCategory extends FilterState {}
 final class SelectedRadioSuppliers extends FilterState {}

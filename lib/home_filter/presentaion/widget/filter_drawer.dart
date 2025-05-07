@@ -26,11 +26,9 @@ class FilterDrawer extends StatelessWidget {
         builder: (context, state) {
           FilterCubit filterCubit = FilterCubit.get(context);
           var groups = filterCubit.groups;
-          var manufacture = filterCubit.manufacture;
-          var category = filterCubit.category;
 
+          var size = filterCubit.size;
           var colors = filterCubit.colors;
-          var suppliers = filterCubit.suppliers;
 
           return state is FetchingFilterLoadingState
               ? const Center(
@@ -132,6 +130,40 @@ class FilterDrawer extends StatelessWidget {
                           height: 24,
                         ),
 
+                        Column(
+                          children: [
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Padding(
+                              padding:
+                              const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                Expanded(
+                                  child: CustomButton(text: 'vendor', action: () {
+                                    filterCubit
+                                        .radioFunctionIsCompany(false);
+                                  },borderRadius: 12,color:filterCubit.isCompany?Colors.black12:AppColors.APP_MAIN_COLOR,textColor:filterCubit.isCompany?0xff153B87 :0xffffffff,),
+                                ),
+                                SizedBox(width: 10,),
+                                Expanded(
+                                  child: CustomButton(text: 'community', action: () {
+                                    filterCubit
+                                        .radioFunctionIsCompany(true);
+                                  },borderRadius: 12,color:filterCubit.isCompany==false?Colors.black12:AppColors.APP_MAIN_COLOR,textColor:filterCubit.isCompany==false?0xff153B87 :0xffffffff,),
+                                )
+                              ],),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                          ],
+                        ),
+
+                        // CustomInput()
+
                         //group
                         ExpansionTile(
                           title: const Text(
@@ -192,185 +224,10 @@ class FilterDrawer extends StatelessWidget {
                           height: 16,
                         ),
 
-                        //category
-                        ExpansionTile(
-                          title: const Text(
-                            "Category",
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_16,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff313846)),
-                          ),
-                          trailing: const Icon(
-                            Icons.arrow_drop_down,
-                            color: Color(0xff313846),
-                          ),
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  ListView.builder(
-                                      itemBuilder: (context, index) =>
-                                          RadioListTile(
-                                            groupValue: filterCubit
-                                                .filterFormInput.categoryId,
-                                            activeColor:
-                                                const Color(0xff878787),
-                                            value:
-                                                filterCubit.category[index].id,
-                                            onChanged: (value) => filterCubit
-                                                .radioFunctionCategory(value),
-                                            title: Text(
-                                              category[index]
-                                                      .categoryStoreName ??
-                                                  '',
-                                              style: const TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_16,
-                                                  color: Color(0xff878787)),
-                                            ),
-                                          ),
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: category.length),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        Container(
-                          height: 2,
-                          color: const Color(0xffE5E5E5),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
 
-                        //supplier
-                        ExpansionTile(
-                          title: const Text(
-                            "Supplier",
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_16,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff313846)),
-                          ),
-                          trailing: const Icon(
-                            Icons.arrow_drop_down,
-                            color: Color(0xff313846),
-                          ),
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  ListView.builder(
-                                      itemBuilder: (context, index) =>
-                                          RadioListTile(
-                                            groupValue: filterCubit
-                                                .filterFormInput.supplierId,
-                                            activeColor:
-                                                const Color(0xff878787),
-                                            value:
-                                                filterCubit.suppliers[index].id,
-                                            onChanged: (isCheck) => filterCubit
-                                                .radioFunctionSuppliers(
-                                                    isCheck),
-                                            title: Text(
-                                              suppliers[index].supplierName ??
-                                                  '',
-                                              style: const TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_16,
-                                                  color: Color(0xff878787)),
-                                            ),
-                                          ),
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: suppliers.length),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        Container(
-                          height: 2,
-                          color: const Color(0xffE5E5E5),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
 
-                        //manufacture
-                        ExpansionTile(
-                          title: const Text(
-                            "Manufacture",
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_16,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff313846)),
-                          ),
-                          trailing: const Icon(
-                            Icons.arrow_drop_down,
-                            color: Color(0xff313846),
-                          ),
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  ListView.builder(
-                                      itemBuilder: (context, index) =>
-                                          RadioListTile(
-                                            groupValue: filterCubit
-                                                .filterFormInput
-                                                .manufactureCompanyId,
-                                            activeColor:
-                                                const Color(0xff878787),
-                                            value: filterCubit
-                                                .manufacture[index].id,
-                                            onChanged: (value) => filterCubit
-                                                .radioFunctionManufacture(
-                                                    value),
-                                            title: Text(
-                                              manufacture[index].name ?? '',
-                                              style: const TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_16,
-                                                  color: Color(0xff878787)),
-                                            ),
-                                          ),
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: manufacture.length),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        Container(
-                          height: 2,
-                          color: const Color(0xffE5E5E5),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
+
+
 
                         //price
                         ExpansionTile(
@@ -395,14 +252,22 @@ class FilterDrawer extends StatelessWidget {
                                   '${filterCubit.rangeValues.start.toInt()} جنيه - ${filterCubit.rangeValues.end.toInt()}+ جنيه',
                                   style: const TextStyle(fontSize: 16),
                                 ),
-                                RangeSlider(
-                                    values: filterCubit.rangeValues,
-                                    min: 0,
-                                    max: 150000,
-                                    divisions: 100,
-                                    activeColor: Colors.teal[800],
-                                    inactiveColor: Colors.grey[300],
-                                    onChanged: filterCubit.fetchPrice),
+
+                                BlocBuilder<FilterCubit, FilterState>(
+                                  // buildWhen: (prev, curr) => prev.rangeValues != curr.rangeValues,
+                                  builder: (context, state) {
+                                    final cubit = context.read<FilterCubit>();
+                                    return  RangeSlider(
+                                        values: filterCubit.rangeValues,
+                                        min: 0,
+                                        max: 100000,
+                                        divisions: 1000,
+                                        activeColor: Colors.teal[800],
+                                        inactiveColor: Colors.grey[300],
+                                        onChanged: filterCubit.fetchPrice);
+                                  },
+                                ),
+
                                 // Slider(
                                 //   value: 50,
                                 //   min: 0,
@@ -413,59 +278,60 @@ class FilterDrawer extends StatelessWidget {
                                 //   // label: _currentSliderValue.round().toString(),
                                 //   onChanged: (double value) {},
                                 // ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Icon(Icons.arrow_drop_up),
-                                          SizedBox(
-                                              height: 25,
-                                              width: 60,
-                                              child: CustomInput(
-                                                controller:
-                                                    filterCubit.endPrice,
-                                                hintTextStyle: const TextStyle(
-                                                    color: Color(0xff313846)),
-                                                radius: 0,
-                                                borderColor:
-                                                    const Color(0xffDDDDDD),
-                                                borderWidth: 1,
-                                              )),
-                                        ],
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Icon(Icons.arrow_drop_up),
-                                          SizedBox(
-                                              height: 25,
-                                              width: 60,
-                                              child: CustomInput(
-                                                controller:
-                                                    filterCubit.startPrice,
-                                                hintTextStyle: const TextStyle(
-                                                    color: Color(0xff313846)),
-                                                radius: 0,
-                                                borderColor:
-                                                    const Color(0xffDDDDDD),
-                                                borderWidth: 1,
-                                              )),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
+
+                                // const SizedBox(
+                                //   height: 8,
+                                // ),
+                                // Padding(
+                                //   padding: const EdgeInsets.symmetric(
+                                //       horizontal: 16.0),
+                                //   child: Row(
+                                //     mainAxisAlignment:
+                                //         MainAxisAlignment.spaceBetween,
+                                //     children: [
+                                //       Row(
+                                //         crossAxisAlignment:
+                                //             CrossAxisAlignment.start,
+                                //         children: [
+                                //           const Icon(Icons.arrow_drop_up),
+                                //           SizedBox(
+                                //               height: 25,
+                                //               width: 60,
+                                //               child: CustomInput(
+                                //                 controller:
+                                //                     filterCubit.endPrice,
+                                //                 hintTextStyle: const TextStyle(
+                                //                     color: Color(0xff313846)),
+                                //                 radius: 0,
+                                //                 borderColor:
+                                //                     const Color(0xffDDDDDD),
+                                //                 borderWidth: 1,
+                                //               )),
+                                //         ],
+                                //       ),
+                                //       Row(
+                                //         crossAxisAlignment:
+                                //             CrossAxisAlignment.start,
+                                //         children: [
+                                //           const Icon(Icons.arrow_drop_up),
+                                //           SizedBox(
+                                //               height: 25,
+                                //               width: 60,
+                                //               child: CustomInput(
+                                //                 controller:
+                                //                     filterCubit.startPrice,
+                                //                 hintTextStyle: const TextStyle(
+                                //                     color: Color(0xff313846)),
+                                //                 radius: 0,
+                                //                 borderColor:
+                                //                     const Color(0xffDDDDDD),
+                                //                 borderWidth: 1,
+                                //               )),
+                                //         ],
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
                                 const SizedBox(
                                   height: 16,
                                 ),
@@ -497,100 +363,40 @@ class FilterDrawer extends StatelessWidget {
                           children: [
                             Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              const EdgeInsets.symmetric(horizontal: 16.0),
                               child: Column(
                                 children: [
                                   const SizedBox(
                                     height: 16,
                                   ),
-                                  Row(
-                                    children: [
-                                      Checkbox(
-                                          activeColor: const Color(0xff015963),
-                                          value: true,
-                                          onChanged: (isCheck) {}),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      const Text(
-                                        "xs",
-                                        style: TextStyle(
-                                            fontSize: FontSizes.FONT_SIZE_16,
-                                            color: Color(0xff015963)),
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Checkbox(
-                                          activeColor: const Color(0xff015963),
-                                          value: false,
-                                          onChanged: (isCheck) {}),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      const Text(
-                                        "sm",
-                                        style: TextStyle(
-                                            fontSize: FontSizes.FONT_SIZE_16,
-                                            color: Color(0xff015963)),
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Checkbox(
-                                          activeColor: const Color(0xff015963),
-                                          value: true,
-                                          onChanged: (isCheck) {}),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      const Text(
-                                        "lg",
-                                        style: TextStyle(
-                                            fontSize: FontSizes.FONT_SIZE_16,
-                                            color: Color(0xff015963)),
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Checkbox(
-                                          activeColor: const Color(0xff015963),
-                                          value: false,
-                                          onChanged: (isCheck) {}),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      const Text(
-                                        "xl",
-                                        style: TextStyle(
-                                            fontSize: FontSizes.FONT_SIZE_16,
-                                            color: Color(0xff015963)),
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Checkbox(
-                                          activeColor: const Color(0xff015963),
-                                          value: false,
-                                          onChanged: (isCheck) {}),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      const Text(
-                                        "xxl",
-                                        style: TextStyle(
-                                            fontSize: FontSizes.FONT_SIZE_16,
-                                            color: Color(0xff015963)),
-                                      )
-                                    ],
-                                  ),
+                                  ListView.builder(
+                                      itemBuilder: (context, index) =>
+                                          RadioListTile(
+                                            groupValue: filterCubit
+                                                .filterFormInput
+                                                .size,
+                                            activeColor:
+                                            const Color(0xff878787),
+                                            value: filterCubit
+                                                .size[index].id,
+                                            onChanged: (value) => filterCubit
+                                                .radioFunctionSize(
+                                                value),
+                                            title: Text(
+                                              size[index].nameEn ?? '',
+                                              style: const TextStyle(
+                                                  fontSize:
+                                                  FontSizes.FONT_SIZE_16,
+                                                  color: Color(0xff878787)),
+                                            ),
+                                          ),
+                                      shrinkWrap: true,
+                                      physics:
+                                      const NeverScrollableScrollPhysics(),
+                                      itemCount: size.length),
                                 ],
                               ),
-                            ),
+                            )
                           ],
                         ),
                         Container(

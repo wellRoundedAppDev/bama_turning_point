@@ -7,7 +7,12 @@ class ApiUrls {
   static const GET_SESSION_ID_ENDPOINT = "api/rest/session";
   static const LOGIN_ENDPOINT = "Users/LoginCustomer";
   static const REGISTER_ENDPOINT = "Users/RegisterCustomer";
+  static const GET_Governorate_ENDPOINT = "Users/GetGovernorate";
+  static const GET_Judiciary_ENDPOINT = "Users/GetJudiciaryByGovernorateId";
+  static const GET_Way_By_Judiciary_ENDPOINT = "Users/GetWayByJudiciaryId";
   static const Complain_ENDPOINT = "ReceivingComplaints/Create";
+
+
   static const ACCOUNT_ENDPOINT = "api/rest/account";
   static const GET_CATEGORIES_ENDPOINT = "api/rest/categories/extended/";
   static const GET_BANNERS_ENDPOINT = "api/rest/banners";
@@ -29,10 +34,14 @@ class ApiUrls {
       "Stores/CategoryStore/GetAllSelectList";
   static const GET_Colors_ENDPOINT =
       "Colors/GetAllSelectList";
+  static const GET_SIZE_ENDPOINT =
+      "/Sizes/GetAllSelectList";
   static const GET_ManufacturerCompany_ENDPOINT =
       "Stores/ManufacturerCompany/GetAllSelectList";
-  static const GET_Filter_Home_ENDPOINT =
-      "Products/GetAllProductsDetailedSearch";
+  static const GET_Filter_COMPANY_ENDPOINT =
+      "Products/SearchCompanyProducts";
+  static const GET_Filter_VENDOR_ENDPOINT =
+      "Products/SearchVendorProducts";
 
 
   static const GUEST_SHIPPING_ENDPOINT = "api/rest/guestshipping";

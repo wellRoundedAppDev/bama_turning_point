@@ -9,6 +9,6 @@ part 'product_filter_state.dart';
 class ProductFilterCubit extends Cubit<ProductFilterState> {
   ProductFilterCubit() : super(ProductFilterInitial());
   static ProductFilterCubit get( context)=> BlocProvider.of(context);
-  List<Products>? products=[];
+  List<ProductInCategory>? products=[];
 
 }

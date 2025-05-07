@@ -43,13 +43,13 @@ class HomeCubit extends Cubit<HomeStates> {
 
   List<Category>? categoriesOverview;
   List<Category>? allCategories;
-  List<Products>? allProducts;
+  List<ProductInCategory>? allProducts;
   // List<FeaturedProduct>? featuredProductsOverview;
   // List<FeaturedProduct>? allFeaturedProducts;
   List<LatestProduct>? newArrivalsProductsOverview;
   //List<LatestProduct>? allNewArrivals;
-  List<Products>? bestSellersProductsOverview;
-  List<Products>? featuredProductsOverview;
+  List<ProductInCategory>? bestSellersProductsOverview;
+  List<ProductInCategory>? featuredProductsOverview;
 
   List<Brand>? brands;
   List<ProductsInBrand>? productsInBrand;

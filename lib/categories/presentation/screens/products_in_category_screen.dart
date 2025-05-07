@@ -27,7 +27,7 @@ class ProductsInCategoryScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           CategoriesCubit categoriesCubit = CategoriesCubit.get(context);
-          List<Products>? products = categoriesCubit.products;
+          List<ProductInCategory>? products = categoriesCubit.products;
           Category? selectedCategory = categoriesCubit.selectedCategory;
           String? selectedCategoryName = selectedCategory?.name;
           return Scaffold(
@@ -65,7 +65,7 @@ class ProductsInCategoryScreen extends StatelessWidget {
                             ),
                             itemCount: products?.length ?? 0,
                             itemBuilder: (BuildContext context, int index) {
-                              Products? product = products?[index];
+                              ProductInCategory? product = products?[index];
                               int? productId = product?.id;
                               String? productName = product?.productName;
                               String? productImageUrl = product?.grandUnitName;
@@ -181,7 +181,6 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-
                                       const SizedBox(
                                         height: 4,
                                       ),
