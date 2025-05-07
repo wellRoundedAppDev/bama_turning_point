@@ -11,21 +11,24 @@ class GetProductsInCategoryResponse {
 
   GetProductsInCategoryResponse({this.isSuccssed, this.message, this.obj});
 
-  GetProductsInCategoryResponse.fromJson(Map<String, dynamic> json) {
-    isSuccssed = json['IsSuccssed'];
-    message = json['Message'];
-    obj = json['Obj'] != null ? new Obj.fromJson(json['Obj']) : null;
+  factory GetProductsInCategoryResponse.fromJson(Map<String, dynamic> json) {
+    var isSuccssed = json['IsSuccssed'];
+    var message = json['Message'];
+    var obj = json['Obj'] != null ? Obj.fromJson(json['Obj']) : null;
+
+    return GetProductsInCategoryResponse(
+        isSuccssed: isSuccssed, message: message, obj: obj);
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['IsSuccssed'] = this.isSuccssed;
-    data['Message'] = this.message;
-    if (this.obj != null) {
-      data['Obj'] = this.obj!.toJson();
-    }
-    return data;
-  }
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data =  Map<String, dynamic>();
+  //   data['IsSuccssed'] = this.isSuccssed;
+  //   data['Message'] = this.message;
+  //   if (this.obj != null) {
+  //     data['Obj'] = this.obj!.toJson();
+  //   }
+  //   return data;
+  // }
 }
 
 class Obj {
@@ -37,22 +40,31 @@ class Obj {
 
   Obj(
       {this.products,
-        this.totalProducts,
-        this.totalPages,
-        this.pageNumber,
-        this.pageSize});
+      this.totalProducts,
+      this.totalPages,
+      this.pageNumber,
+      this.pageSize});
 
-  Obj.fromJson(Map<String, dynamic> json) {
+  factory Obj.fromJson(Map<String, dynamic> json) {
+    List<ProductInCategory>? products;
     if (json['Products'] != null) {
       products = <ProductInCategory>[];
       json['Products'].forEach((v) {
-        products!.add(new ProductInCategory.fromJson(v));
+        products?.add(ProductInCategory.fromJson(v));
       });
     }
-    totalProducts = json['TotalProducts'];
-    totalPages = json['TotalPages'];
-    pageNumber = json['PageNumber'];
-    pageSize = json['PageSize'];
+    var totalProducts = json['TotalProducts'];
+    var totalPages = json['TotalPages'];
+    var pageNumber = json['PageNumber'];
+    var pageSize = json['PageSize'];
+
+    return Obj(
+      pageNumber: pageNumber,
+      pageSize: pageSize,
+      totalPages: totalPages,
+      totalProducts: totalProducts,
+      products: products,
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -87,37 +99,55 @@ class ProductInCategory {
 
   ProductInCategory(
       {this.id,
-        this.productName,
-        this.notes,
-        this.source,
-        this.groupId,
-        this.groupName,
-        this.minorUnitId,
-        this.minorUnitName,
-        this.minorUnitPrice,
-        this.middleUnitId,
-        this.middleUnitName,
-        this.middleUnitPrice,
-        this.grandUnitId,
-        this.grandUnitName,
-        this.grandUnitPrice});
+      this.productName,
+      this.notes,
+      this.source,
+      this.groupId,
+      this.groupName,
+      this.minorUnitId,
+      this.minorUnitName,
+      this.minorUnitPrice,
+      this.middleUnitId,
+      this.middleUnitName,
+      this.middleUnitPrice,
+      this.grandUnitId,
+      this.grandUnitName,
+      this.grandUnitPrice});
 
-  ProductInCategory.fromJson(Map<String, dynamic> json) {
-    id = json['Id'];
-    productName = json['ProductName'];
-    notes = json['Notes'];
-    source = json['Source'];
-    groupId = json['GroupId'];
-    groupName = json['GroupName'];
-    minorUnitId = json['MinorUnitId'];
-    minorUnitName = json['MinorUnitName'];
-    minorUnitPrice = json['MinorUnitPrice'];
-    middleUnitId = json['MiddleUnitId'];
-    middleUnitName = json['MiddleUnitName'];
-    middleUnitPrice = json['MiddleUnitPrice'];
-    grandUnitId = json['GrandUnitId'];
-    grandUnitName = json['GrandUnitName'];
-    grandUnitPrice = json['GrandUnitPrice'];
+  factory ProductInCategory.fromJson(Map<String, dynamic> json) {
+    var id = json['Id'];
+    var productName = json['ProductName'];
+    var notes = json['Notes'];
+    var source = json['Source'];
+    var groupId = json['GroupId'];
+    var groupName = json['GroupName'];
+    var minorUnitId = json['MinorUnitId'];
+    var minorUnitName = json['MinorUnitName'];
+    var minorUnitPrice = json['MinorUnitPrice'];
+    var middleUnitId = json['MiddleUnitId'];
+    var middleUnitName = json['MiddleUnitName'];
+    var middleUnitPrice = json['MiddleUnitPrice'];
+    var grandUnitId = json['GrandUnitId'];
+    var grandUnitName = json['GrandUnitName'];
+    var grandUnitPrice = json['GrandUnitPrice'];
+
+    return ProductInCategory(
+        groupName: groupName,
+        id: id,
+        productName: productName,
+        notes: notes,
+        minorUnitPrice: minorUnitPrice,
+        minorUnitName: minorUnitName,
+        minorUnitId: minorUnitId,
+        middleUnitPrice: middleUnitPrice,
+        middleUnitName: middleUnitName,
+        middleUnitId: middleUnitId,
+        groupId: groupId,
+        grandUnitPrice: grandUnitPrice,
+
+        grandUnitName: grandUnitName,
+        grandUnitId: grandUnitId,
+        source: source);
   }
 
   Map<String, dynamic> toJson() {

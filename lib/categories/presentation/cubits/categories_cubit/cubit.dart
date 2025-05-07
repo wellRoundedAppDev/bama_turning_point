@@ -150,7 +150,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
     LocaleCubit localeCubit = LocaleCubit.get(context);
     setSelectedCategory(category);
     emit(GetProductsInCategoryLoadingState());
-    var response = await CategoriesApis.getProductsInCategoryById(
+    var response = await CategoriesApis.getProductsByCategoryId(
         selectedCategory?.id?.toInt() ?? 0,
         pageNumber: 1,
         pageSize: 1000,

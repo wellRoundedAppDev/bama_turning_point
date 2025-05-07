@@ -121,7 +121,6 @@ class ProductsOverview extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                padding: EdgeInsets.all(16),
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                         color: AppColors.GREY_BORDER_COLOR,
@@ -131,29 +130,31 @@ class ProductsOverview extends StatelessWidget {
                                     )),
                                 child: Stack(
                                   children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Image.network(
-                                        productImagePath ?? "",
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.2,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        errorBuilder:
-                                            (context, object, stackTrace) {
-                                          return Center(
-                                            child: Icon(
-                                              Icons.error,
-                                              size:
-                                                MediaQuery.of(context).size.height *
-                                                0.2,
+                                    Center(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.network(
+                                          productImagePath ?? "",
+                                          height:
+                                              MediaQuery.of(context).size.height *
+                                                  0.2,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          errorBuilder:
+                                              (context, object, stackTrace) {
+                                            return Center(
+                                              child: Icon(
+                                                Icons.error,
+                                                size:
+                                                  MediaQuery.of(context).size.height *
+                                                  0.2,
 
-                                              color: AppColors.APP_MAIN_COLOR,
-                                            ),
-                                          );
-                                        },
-                                        fit: BoxFit.cover,
+                                                color: AppColors.APP_MAIN_COLOR,
+                                              ),
+                                            );
+                                          },
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
                                     BlocConsumer<WishListCubit, WishListStates>(

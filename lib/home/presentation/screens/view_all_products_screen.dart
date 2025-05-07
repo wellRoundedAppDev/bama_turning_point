@@ -73,7 +73,7 @@ class ViewAllProductsScreen extends StatelessWidget {
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 mainAxisExtent:
-                                    MediaQuery.of(context).size.height * 0.435,
+                                    MediaQuery.of(context).size.height * 0.35,
                               ),
                               itemCount: products?.length ?? 0,
                               itemBuilder: (BuildContext context, int index) {
@@ -107,7 +107,6 @@ class ViewAllProductsScreen extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          padding: const EdgeInsets.all(16),
                                           decoration: BoxDecoration(
                                               border: Border.all(
                                                   color: AppColors
@@ -119,32 +118,34 @@ class ViewAllProductsScreen extends StatelessWidget {
                                               )),
                                           child: Stack(
                                             children: [
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                child: Image.network(
-                                                  productImageUrl ?? "",
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.18,
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  errorBuilder: (context,
-                                                      object, stackTrace) {
-                                                    return Icon(
-                                                      Icons.error,
-                                                      size:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.18,
-                                                      color: AppColors
-                                                          .APP_MAIN_COLOR,
-                                                    );
-                                                  },
-                                                  fit: BoxFit.cover,
+                                              Center(
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  child: Image.network(
+                                                    productImageUrl ?? "",
+                                                    height: MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                        0.18,
+                                                    width: MediaQuery.of(context)
+                                                        .size
+                                                        .width,
+                                                    errorBuilder: (context,
+                                                        object, stackTrace) {
+                                                      return Icon(
+                                                        Icons.error,
+                                                        size:
+                                                            MediaQuery.of(context)
+                                                                    .size
+                                                                    .height *
+                                                                0.18,
+                                                        color: AppColors
+                                                            .APP_MAIN_COLOR,
+                                                      );
+                                                    },
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
                                               ),
                                               BlocConsumer<WishListCubit,

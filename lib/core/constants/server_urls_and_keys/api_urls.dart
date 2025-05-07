@@ -26,7 +26,7 @@ class ApiUrls {
   static const GET_SLIDE_SHOWS_ENDPOINT = "api/rest/slideshows";
   static const GET_PRODUCT_DETAILS_ENDPOINT = "api/rest/products/";
   static const GET_PRODUCTS_BY_CATEGORY_ID_ENDPOINT =
-      "api/Products/GetAllProductsByGroup";
+      "api/Products/GetAllCompanyProductsByGroup";
   static const GUEST_SHIPPING_ENDPOINT = "api/rest/guestshipping";
   static const GET_LIST_OF_COUNTRIES_ENDPOINT = "api/rest/countries";
   static const GET_LIST_OF_REGIONS_BY_COUNTRY_ID_ENDPOINT =

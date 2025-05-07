@@ -70,7 +70,7 @@ class ViewAllProductsByVendorScreen extends StatelessWidget {
                   SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisExtent:
-                    MediaQuery.of(context).size.height * 0.435,
+                    MediaQuery.of(context).size.height * 0.35,
                   ),
                   itemCount: products?.length ?? 0,
                   itemBuilder: (BuildContext context, int index) {
@@ -104,7 +104,6 @@ class ViewAllProductsByVendorScreen extends StatelessWidget {
                           CrossAxisAlignment.start,
                           children: [
                             Container(
-                              padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       color: AppColors

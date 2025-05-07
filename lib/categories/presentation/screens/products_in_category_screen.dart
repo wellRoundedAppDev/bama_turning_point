@@ -61,12 +61,12 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                 .setAllProductsInCategory(selectedCategory);
                           },
                           child: GridView.builder(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            padding: const EdgeInsets.symmetric(vertical: 8,),
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               mainAxisExtent:
-                                  MediaQuery.of(context).size.height * 0.45,
+                                  MediaQuery.of(context).size.height * 0.42,
                             ),
                             itemCount: products?.length ?? 0,
                             itemBuilder: (BuildContext context, int index) {
@@ -99,7 +99,6 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        padding: const EdgeInsets.all(16),
                                         decoration: BoxDecoration(
                                             border: Border.all(
                                                 color:

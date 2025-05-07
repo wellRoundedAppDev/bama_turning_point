@@ -13,7 +13,7 @@ import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/states.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/search_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/screens/search_and_filter_screen.dart';
-import 'package:classic_eccomerce/home/presentation/screens/vendors_screen.dart';
+import 'package:classic_eccomerce/vendors/presentation/screens/vendors_screen.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/brands_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/categories_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/filter_drawer.dart';
@@ -48,10 +48,8 @@ class HomeScreen extends StatelessWidget {
             appBar: AppBar(
               toolbarHeight: MediaQuery.of(context).size.height * 0.1,
               leading: Container(),
-               actions: [
-                 Container()
-               ],
-               flexibleSpace: Container(
+              actions: [Container()],
+              flexibleSpace: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: const BoxDecoration(
                     gradient: LinearGradient(colors: [
@@ -229,7 +227,6 @@ class HomeScreen extends StatelessWidget {
 
                 var brands = homeCubit.brands;
 
-
                 var productsOverview = homeCubit.productsOverview;
 
                 var vendorsOverView = homeCubit.vendors;
@@ -256,24 +253,19 @@ class HomeScreen extends StatelessWidget {
                                     viewportFraction: 1,
                                     autoPlay: true,
                                     onPageChanged: (index, reason) {}),
-                                items: bannerAds
-                                    .map(
-                                      (e) {
-                                        if (kDebugMode) {
-                                          print( ApiUrls.BASE_URL +  (e?.fileUrl??""),);
-                                        }
-                                        return Image.network(
-                                          //   e.imageOriginal ?? "",
-                                          ApiUrls.BASE_URL +  (e?.fileUrl??""),
-                                          width:
-                                          MediaQuery.of(context).size.width,
-                                          fit: BoxFit.cover,
-
-
-                                        );
-                                      }
-                                    )
-                                    .toList(),
+                                items: bannerAds.map((e) {
+                                  if (kDebugMode) {
+                                    print(
+                                      ApiUrls.BASE_URL + (e?.fileUrl ?? ""),
+                                    );
+                                  }
+                                  return Image.network(
+                                    //   e.imageOriginal ?? "",
+                                    ApiUrls.BASE_URL + (e?.fileUrl ?? ""),
+                                    width: MediaQuery.of(context).size.width,
+                                    fit: BoxFit.cover,
+                                  );
+                                }).toList(),
                               ),
                               ListView.separated(
                                 shrinkWrap: true,
@@ -286,8 +278,7 @@ class HomeScreen extends StatelessWidget {
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (context, index) {
                                   String productListTitle = (index == 1)
-                                      ? AppLocalizations.of(context)!
-                                          .products
+                                      ? AppLocalizations.of(context)!.products
                                       : "";
                                   // (
                                   //
@@ -309,8 +300,7 @@ class HomeScreen extends StatelessWidget {
                                       //   :
                                       (index == 0)
                                           ? CategoriesOverview(
-                                              categories: categories??[]
-                                            )
+                                              categories: categories ?? [])
                                           : (index == 1)
                                               ? Container(
                                                   color: Colors.white,
@@ -386,9 +376,13 @@ class HomeScreen extends StatelessWidget {
                                                             )),
                                                             InkWell(
                                                               onTap: () {
-                                                                Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
-                                                                child: const VendorsScreen()
-                                                                ));
+                                                                Navigator.push(
+                                                                    context,
+                                                                    PageTransition(
+                                                                        type: PageTransitionType
+                                                                            .leftToRight,
+                                                                        child:
+                                                                            const VendorsScreen()));
                                                               },
                                                               child: Text(
                                                                 AppLocalizations.of(
@@ -435,27 +429,37 @@ class HomeScreen extends StatelessWidget {
                                                                           .size
                                                                           .height *
                                                                       0.14,
-
                                                               mainAxisSpacing:
                                                                   0,
                                                               crossAxisSpacing:
                                                                   16),
-                                                          itemCount: vendorsOverView?.length??0,
+                                                          itemCount:
+                                                              vendorsOverView
+                                                                      ?.length ??
+                                                                  0,
                                                           itemBuilder:
                                                               (BuildContext
                                                                       context,
                                                                   int index) {
+                                                            var vendor =
+                                                                vendorsOverView?[
+                                                                    index];
 
-                                                            var vendor = vendorsOverView?[index];
-
-                                                            var vendorId = vendor?.id;
-                                                            var vendorName = vendor?.supplierName;
+                                                            var vendorId =
+                                                                vendor?.id;
+                                                            var vendorName = vendor
+                                                                ?.supplierName;
 
                                                             return InkWell(
                                                               onTap: () {
-                                                                Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
-                                                                child: ViewAllProductsByVendorScreen( vendorId: vendorId?.toInt()??0)
-                                                                ));
+                                                                Navigator.push(
+                                                                    context,
+                                                                    PageTransition(
+                                                                        type: PageTransitionType
+                                                                            .leftToRight,
+                                                                        child: ViewAllProductsByVendorScreen(
+                                                                            vendorId:
+                                                                                vendorId?.toInt() ?? 0)));
                                                                 // print(category?.categoryId);
                                                                 // categoriesCubit
                                                                 //     .setAllProductsInCategory(category);
@@ -477,12 +481,14 @@ class HomeScreen extends StatelessWidget {
                                                                     height: 0,
                                                                   ),
                                                                   Text(
-                                                                    vendorName??"",
+                                                                    vendorName ??
+                                                                        "",
                                                                     style: const TextStyle(
                                                                         color: AppColors
                                                                             .GREY_LABEL_COLOR,
-                                                                        fontSize: FontSizes
-                                                                            .FONT_SIZE_16,
+                                                                        fontSize:
+                                                                            FontSizes
+                                                                                .FONT_SIZE_16,
                                                                         fontWeight:
                                                                             FontWeight.bold),
                                                                   )

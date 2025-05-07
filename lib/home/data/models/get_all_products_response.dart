@@ -94,6 +94,7 @@ class ProductFromApi {
     this.grandUnitId,
     this.grandUnitName,
     this.grandUnitPrice,
+    this.price
   });
 
   factory ProductFromApi.fromJson(dynamic json) {
@@ -112,11 +113,13 @@ class ProductFromApi {
     var grandUnitId = json['GrandUnitId'];
     var grandUnitName = json['GrandUnitName'];
     var grandUnitPrice = json['GrandUnitPrice'];
+    var price = json['Price'];
 
     return ProductFromApi(
       id: id,
       productName: productName,
       notes: notes,
+      price: price,
       source: source,
       groupName: groupName,
       grandUnitId: grandUnitId,
@@ -133,6 +136,7 @@ class ProductFromApi {
   }
   num? id;
   String? productName;
+  num? price;
   dynamic notes;
   num? source;
   num? groupId;

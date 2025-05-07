@@ -64,7 +64,7 @@ class CategoriesApis {
 
 
 
-  static Future<GetProductsInCategoryResponse?> getProductsInCategoryById(
+  static Future<GetProductsInCategoryResponse?> getProductsByCategoryId(
       int id,
       { int pageNumber=1,
       int pageSize=10,
@@ -73,7 +73,7 @@ class CategoriesApis {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
 
-    String endPoint = ApiUrls.getProductsByCategoryIdEndpoint(id);
+    String endPoint = ApiUrls.GET_PRODUCTS_BY_CATEGORY_ID_ENDPOINT;
     try {
       var response = await _dioHelper.get(endpoint: endPoint, headers: {
         "Authorization": "bearer $accessToken",
