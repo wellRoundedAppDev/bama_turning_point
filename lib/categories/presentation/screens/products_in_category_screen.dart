@@ -40,6 +40,18 @@ class ProductsInCategoryScreen extends StatelessWidget {
             listener: (context, state) {},
             builder: (context, state) {
               return (state is GetProductsInCategoryLoadingState)
+      child: BlocConsumer<CategoriesCubit, CategoriesStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          CategoriesCubit categoriesCubit = CategoriesCubit.get(context);
+          List<ProductInCategory>? products = categoriesCubit.products;
+          Category? selectedCategory = categoriesCubit.selectedCategory;
+          String? selectedCategoryName = selectedCategory?.name;
+          return Scaffold(
+              appBar: CustomAppBar.renderAppBar(
+                  title: selectedCategoryName ?? "",
+                  cartCubit: CartCubit.get(context)),
+              body: (state is GetProductsInCategoryLoadingState)
                   ? const Center(
                       child: CircularProgressIndicator(),
                     )
@@ -78,6 +90,9 @@ class ProductsInCategoryScreen extends StatelessWidget {
                               String? priceFormatted = "${product?.minorUnitPrice?.toString() ??""} ${AppLocalizations.of(context)!.iraqi_dinar_initials}";
 
                               int? productType = product?.source;
+                              // String? productImageUrl = product?.grandUnitName;
+                              // String? priceFormatted =
+                              //     product?.middleUnitPrice.toString();
 
                               return InkWell(
                                 onTap: () {
@@ -195,7 +210,6 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-
                                       const SizedBox(
                                         height: 4,
                                       ),
@@ -300,11 +314,9 @@ class ProductsInCategoryScreen extends StatelessWidget {
                               );
                             },
                           ),
-                        );
-            },
-          ),
-        );
-      },
-    ));
+                        ));
+        },
+      ),
+    );
   }
 }

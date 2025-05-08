@@ -53,10 +53,13 @@ class HomeCubit extends Cubit<HomeStates> {
   //todo check
   // List<Products>? allProducts;
 
+  List<ProductInCategory>? allProducts;
   // List<FeaturedProduct>? featuredProductsOverview;
   // List<FeaturedProduct>? allFeaturedProducts;
   List<LatestProduct>? newArrivalsProductsOverview;
   //List<LatestProduct>? allNewArrivals;
+  // List<ProductInCategory>? bestSellersProductsOverview;
+  // List<ProductInCategory>? featuredProductsOverview;
   // List<ProductInCategory>? bestSellersProductsOverview;
   // List<ProductInCategory>? featuredProductsOverview;
 
@@ -517,7 +520,7 @@ class HomeCubit extends Cubit<HomeStates> {
     }
 
     await setBanners();
-    await setBrands();
+    // await setBrands();
     await setCategoriesOverview();
     await setProductsOverview();
     await setVendorsOverview();

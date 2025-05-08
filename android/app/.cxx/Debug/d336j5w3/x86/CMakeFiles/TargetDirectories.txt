@@ -1,0 +1,2 @@
+D:/north_grass/android/app/.cxx/Debug/d336j5w3/x86/CMakeFiles/edit_cache.dir
+D:/north_grass/android/app/.cxx/Debug/d336j5w3/x86/CMakeFiles/rebuild_cache.dir

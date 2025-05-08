@@ -33,6 +33,7 @@ class ViewAllBrandsScreen extends StatelessWidget {
             builder: (context, state) {
               HomeCubit homeCubit = HomeCubit.get(context);
               List<Product>? products = homeCubit.allProducts;
+            //  List<ProductInCategory>? products = homeCubit.allProducts;
 
               return (state is FetchingAllProductsLoadingState)
                   ? const Center(
@@ -69,6 +70,11 @@ class ViewAllBrandsScreen extends StatelessWidget {
                     String? productName = product?.name;
                     String? productImageUrl = product?.productImagePath;
                     String? priceFormatted = product?.price.toString();
+                    // ProductInCategory? product = products?[index];
+                    // int? productId = product?.id?.toInt();
+                    // String? productName = product?.productName;
+                    // String? productImageUrl = product?.minorUnitName;
+                    // String? priceFormatted = product?.grandUnitPrice.toString();
 
                     return InkWell(
                       onTap: () {

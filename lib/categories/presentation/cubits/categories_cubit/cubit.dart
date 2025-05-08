@@ -31,6 +31,9 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
   Category2? selectedCategory;
 
   ScrollController categoriesScrollController = ScrollController();
+  List<Category>? categories;
+  List<ProductInCategory>? products;
+  Category? selectedCategory;
 
   setCategories() async {
     currentCategoriesPageNumber = 1;

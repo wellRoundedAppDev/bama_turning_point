@@ -57,15 +57,22 @@ class DioHelper {
     }
 
     print("headers $headers");
+
+
     try {
       return await _dio.get(endpoint,
-          queryParameters: queryParameters,
+          queryParameters:
+
+
+          queryParameters,
 
           options:
           Options(
             headers:
             accessToken == null?null:
             headers,
+          options: Options(
+            headers: accessToken == null?null: headers,
               validateStatus: (int? status){
                 if(status! >= 200 && status <= 600){
                   return true;
@@ -121,6 +128,7 @@ class DioHelper {
     required String endPoint,
     dynamic body = const {},
     Map<String, dynamic>?  queryParameters ,
+ // Map<String, dynamic>? queryParameters,
     Map<String, dynamic> headers = const {}
   }) async {
     String? accessToken =
@@ -135,9 +143,13 @@ class DioHelper {
         endPoint,
         data: body,
         queryParameters: queryParameters,
+        // queryParameters:
+        // queryParameters,
         options: Options(
-          headers:
-          accessToken==null?null:
+          // headers:
+          // accessToken==null?null:
+          // headers,
+          headers:        accessToken == null?null:
           headers,
           validateStatus: (int? status){
             if(status! >= 200 && status <= 600){

@@ -16,7 +16,7 @@ import 'package:classic_eccomerce/home/presentation/screens/search_and_filter_sc
 import 'package:classic_eccomerce/vendors/presentation/screens/vendors_screen.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/brands_overview.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/categories_overview.dart';
-import 'package:classic_eccomerce/home/presentation/widgets/filter_drawer.dart';
+import 'package:classic_eccomerce/home_filter/presentaion/widget/filter_drawer.dart';
 import 'package:classic_eccomerce/home/presentation/widgets/products_overview.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:classic_eccomerce/notifications/presentation/screens/notifications_screen.dart';
@@ -43,8 +43,8 @@ class HomeScreen extends StatelessWidget {
         create: (context) => HomeCubit()..init(),
         child: SafeArea(
           child: Scaffold(
-            drawer: const HomeDrawer(),
-            endDrawer: const FilterDrawer(),
+            endDrawer: const HomeDrawer(),
+            drawer: const FilterDrawer(),
             appBar: AppBar(
               toolbarHeight: MediaQuery.of(context).size.height * 0.1,
               leading: Container(),

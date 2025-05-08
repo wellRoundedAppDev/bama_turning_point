@@ -1,0 +1,2 @@
+D:/north_grass/android/app/.cxx/RelWithDebInfo/3z3g263s/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/north_grass/android/app/.cxx/RelWithDebInfo/3z3g263s/armeabi-v7a/CMakeFiles/rebuild_cache.dir
