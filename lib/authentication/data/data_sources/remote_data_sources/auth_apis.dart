@@ -57,7 +57,7 @@ class AuthApis {
       var response = await dioHelper.post(
           endPoint: endpoint,
           body: loginInput,
-          headers: {"Authorization": "Bearer $accessToken"});
+      );
       if (response == null) {
         return null;
       }
