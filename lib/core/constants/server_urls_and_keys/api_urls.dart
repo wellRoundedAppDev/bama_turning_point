@@ -13,10 +13,10 @@ class ApiUrls {
   static const GET_Way_By_Judiciary_ENDPOINT = "Users/GetWayByJudiciaryId";
   static const Complain_ENDPOINT = "ReceivingComplaints/Create";
 
-
-  static const LOGIN_ENDPOINT = "api/Users/LoginCustomer";
-  static const REGISTER_ENDPOINT = "api/Users/RegisterCustomer";
-  static const Complain_ENDPOINT = "api/ReceivingComplaints/Create";
+  //
+  // static const LOGIN_ENDPOINT = "api/Users/LoginCustomer";
+  // static const REGISTER_ENDPOINT = "api/Users/RegisterCustomer";
+  // static const Complain_ENDPOINT = "api/ReceivingComplaints/Create";
   static const ACCOUNT_ENDPOINT = "api/rest/account";
   static const GET_CATEGORIES_ENDPOINT =
 

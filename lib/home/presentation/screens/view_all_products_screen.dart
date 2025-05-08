@@ -87,20 +87,6 @@ class ViewAllProductsScreen extends StatelessWidget {
                                     "${product?.price?.toStringAsFixed(3) ?? ""} ${AppLocalizations.of(context)!.iraqi_dinar_initials}";
 
                                 int? productType = product?.productSource;
-                      child: GridView.builder(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisExtent:
-                              MediaQuery.of(context).size.height * 0.43,
-                        ),
-                        itemCount: products?.length ?? 0,
-                        itemBuilder: (BuildContext context, int index) {
-                          ProductInCategory? product = products?[index];
-                          int? productId = product?.id?.toInt();
-                          String? productName = product?.productName;
-                          String? productImageUrl = product?.minorUnitName;
-                          String? priceFormatted = product?.grandUnitPrice.toString();
 
                                 return InkWell(
                                   onTap: () {

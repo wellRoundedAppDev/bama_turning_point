@@ -53,7 +53,7 @@ class HomeCubit extends Cubit<HomeStates> {
   //todo check
   // List<Products>? allProducts;
 
-  List<ProductInCategory>? allProducts;
+  // List<ProductInCategory>? allProducts;
   // List<FeaturedProduct>? featuredProductsOverview;
   // List<FeaturedProduct>? allFeaturedProducts;
   List<LatestProduct>? newArrivalsProductsOverview;

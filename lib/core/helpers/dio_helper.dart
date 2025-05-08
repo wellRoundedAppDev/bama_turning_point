@@ -66,11 +66,7 @@ class DioHelper {
 
           queryParameters,
 
-          options:
-          Options(
-            headers:
-            accessToken == null?null:
-            headers,
+
           options: Options(
             headers: accessToken == null?null: headers,
               validateStatus: (int? status){

@@ -9,6 +9,7 @@ import '../../../../app_settings/app_language_codes.dart';
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../core/locales/locale_cubit/locale_cubit.dart';
 import '../../../../home/data/data_sources/remote_data_sources/products_apis.dart';
+import '../../../../home/data/models/product.dart';
 import '../../../data/models/get_categories_paginated_response.dart';
 import '../../../data/models/get_categories_response.dart';
 import '../../../data/models/get_products_in_category_response.dart';
@@ -27,13 +28,13 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
 
   // List<ProductInCategory>? products;
   // List<Category>? categories;
-  List<ProductInCategory>? products;
+  // List<ProductInCategory>? products;
   Category2? selectedCategory;
 
   ScrollController categoriesScrollController = ScrollController();
-  List<Category>? categories;
+  // List<Category>? categories;
   List<ProductInCategory>? products;
-  Category? selectedCategory;
+  //Category? selectedCategory;
 
   setCategories() async {
     currentCategoriesPageNumber = 1;
@@ -160,7 +161,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
         languageCode: languageCodes[localeCubit.locale.languageCode],
         currencyCode: AppSettingsCubit.get(context).currencyCode ?? "");
     if (response?.isSuccssed == true) {
-      products = response?.obj!.products;
+      products = response?.obj?.products;
       // products = products?.where((e) => e.stockStatusId != 5).toList();
 
       emit(GetProductsInCategorySuccessState());
