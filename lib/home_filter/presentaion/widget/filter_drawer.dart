@@ -50,9 +50,7 @@ class FilterDrawer extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               GestureDetector(
-                                  onTap:
-                                  () => filterCubit.deleteValue()
-                                  ,
+                                  onTap: () => filterCubit.deleteValue(),
                                   child: Image.asset(
                                     IconPaths.TRASH,
                                     width: 22,
@@ -137,24 +135,48 @@ class FilterDrawer extends StatelessWidget {
                             ),
                             Padding(
                               padding:
-                              const EdgeInsets.symmetric(horizontal: 16.0),
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
-                                Expanded(
-                                  child: CustomButton(text: 'vendor', action: () {
-                                    filterCubit
-                                        .radioFunctionIsCompany(false);
-                                  },borderRadius: 12,color:filterCubit.isCompany?Colors.black12:AppColors.APP_MAIN_COLOR,textColor:filterCubit.isCompany?0xff153B87 :0xffffffff,),
-                                ),
-                                SizedBox(width: 10,),
-                                Expanded(
-                                  child: CustomButton(text: 'community', action: () {
-                                    filterCubit
-                                        .radioFunctionIsCompany(true);
-                                  },borderRadius: 12,color:filterCubit.isCompany==false?Colors.black12:AppColors.APP_MAIN_COLOR,textColor:filterCubit.isCompany==false?0xff153B87 :0xffffffff,),
-                                )
-                              ],),
+                                  Expanded(
+                                    child: CustomButton(
+                                      text: 'vendor',
+                                      action: () {
+                                        filterCubit
+                                            .radioFunctionIsCompany(false);
+                                      },
+                                      borderRadius: 12,
+                                      color: filterCubit.isCompany
+                                          ? Colors.black12
+                                          : AppColors.APP_MAIN_COLOR,
+                                      textColor: filterCubit.isCompany
+                                          ? 0xff153B87
+                                          : 0xffffffff,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: CustomButton(
+                                      text: 'community',
+                                      action: () {
+                                        filterCubit
+                                            .radioFunctionIsCompany(true);
+                                      },
+                                      borderRadius: 12,
+                                      color: filterCubit.isCompany == false
+                                          ? Colors.black12
+                                          : AppColors.APP_MAIN_COLOR,
+                                      textColor: filterCubit.isCompany == false
+                                          ? 0xff153B87
+                                          : 0xffffffff,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                             const SizedBox(
                               height: 16,
@@ -224,11 +246,6 @@ class FilterDrawer extends StatelessWidget {
                           height: 16,
                         ),
 
-
-
-
-
-
                         //price
                         ExpansionTile(
                           title: Text(
@@ -257,7 +274,7 @@ class FilterDrawer extends StatelessWidget {
                                   // buildWhen: (prev, curr) => prev.rangeValues != curr.rangeValues,
                                   builder: (context, state) {
                                     final cubit = context.read<FilterCubit>();
-                                    return  RangeSlider(
+                                    return RangeSlider(
                                         values: filterCubit.rangeValues,
                                         min: 0,
                                         max: 100000,
@@ -363,7 +380,7 @@ class FilterDrawer extends StatelessWidget {
                           children: [
                             Padding(
                               padding:
-                              const EdgeInsets.symmetric(horizontal: 16.0),
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
                               child: Column(
                                 children: [
                                   const SizedBox(
@@ -373,26 +390,23 @@ class FilterDrawer extends StatelessWidget {
                                       itemBuilder: (context, index) =>
                                           RadioListTile(
                                             groupValue: filterCubit
-                                                .filterFormInput
-                                                .size,
+                                                .filterFormInput.size,
                                             activeColor:
-                                            const Color(0xff878787),
-                                            value: filterCubit
-                                                .size[index].id,
+                                                const Color(0xff878787),
+                                            value: filterCubit.size[index].id,
                                             onChanged: (value) => filterCubit
-                                                .radioFunctionSize(
-                                                value),
+                                                .radioFunctionSize(value),
                                             title: Text(
                                               size[index].nameEn ?? '',
                                               style: const TextStyle(
                                                   fontSize:
-                                                  FontSizes.FONT_SIZE_16,
+                                                      FontSizes.FONT_SIZE_16,
                                                   color: Color(0xff878787)),
                                             ),
                                           ),
                                       shrinkWrap: true,
                                       physics:
-                                      const NeverScrollableScrollPhysics(),
+                                          const NeverScrollableScrollPhysics(),
                                       itemCount: size.length),
                                 ],
                               ),
