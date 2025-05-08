@@ -12,53 +12,76 @@ part 'get_place_state.dart';
 class GetPlaceCubit extends Cubit<GetPlaceState> {
   GetPlaceCubit() : super(GetPlaceInitial());
   static GetPlaceCubit get(context)=>BlocProvider.of(context);
-  List<GovernorateAD> governorate= [];
-  List<JudiciaryAD> judiciary= [];
-  List<WayAD> way= [];
+
   PlaceFormInput placeFormInput=PlaceFormInput();
+  GovernorateAD? selectedGovernorateItem;
+  JudiciaryAD? selectedJudiciaryItem;
+  WayAD? selectedWayItem;
 
 
-
-  setGovernorate()async  {
+  Future<List<GovernorateAD>> fetchGovernorates() async {
     emit(GetGovernorateLoadingState());
     var response = await GetPlaceApis.getGovernorate();
     print(response?.message);
     if (response?.isSuccssed == true) {
-      governorate = response?.obj ?? [];
       emit(GetGovernorateSuccessfulState());
+      return response?.obj ?? [];
+    } else if (response?.isSuccssed == 0) {
+      emit(GetGovernorateFailedState());
+      return [];
+    } else {
+      emit(FetchingGovernorateScreenNetworkFailedState());
+      return [];
     }
   }
   selectedGovernorate(int governorateId)async  {
+    selectedJudiciaryItem = null;
+    selectedWayItem = null;
+    placeFormInput.judiciaryId = null;
+    placeFormInput.wayId = null;
+
     placeFormInput.governorateId=governorateId;
+
     emit(SelectedGovernorateState());
   }
 
 
-  setJudiciary()async  {
-    print('object');
+  Future<List<JudiciaryAD>> fetchJudiciaries() async {
     emit(GetJudiciaryLoadingState());
-    var response = await GetPlaceApis.getJudiciary(placeFormInput.governorateId??0);
+    var response = await GetPlaceApis.getJudiciary(placeFormInput.governorateId ?? 0);
     print(response?.message);
     if (response?.isSuccssed == true) {
-      judiciary = response?.obj ?? [];
       emit(GetJudiciarySuccessfulState());
+      return response?.obj ?? [];
+    } else if (response?.isSuccssed == 0) {
+      emit(GetGovernorateFailedState());
+      return [];
+    } else {
+      emit(FetchingJudiciaryScreenNetworkFailedState());
+      return [];
     }
   }
   selectedJudiciary(int judiciaryId)async  {
+    selectedWayItem = null;
+    placeFormInput.wayId = null;
     placeFormInput.judiciaryId=judiciaryId;
     emit(SelectedJudiciaryState());
   }
 
 
-  setWay()async  {
-    print('object');
+  Future<List<WayAD>> fetchWays() async {
     emit(GetWayLoadingState());
-
-    var response = await GetPlaceApis.getWay(placeFormInput.judiciaryId??0);
+    var response = await GetPlaceApis.getWay(placeFormInput.judiciaryId ?? 0);
     print(response?.message);
     if (response?.isSuccssed == true) {
-      way = response?.obj ?? [];
       emit(GetWaySuccessfulState());
+      return response?.obj ?? [];
+    } else if (response?.isSuccssed == 0) {
+      emit(GetWayFailedState());
+      return [];
+    } else {
+      emit(FetchingWayScreenNetworkFailedState());
+      return [];
     }
   }
   selectedWay(int wayId)async  {

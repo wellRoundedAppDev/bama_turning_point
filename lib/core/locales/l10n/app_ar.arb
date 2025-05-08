@@ -29,7 +29,8 @@
   "confirm_password": "تأكيد كلمة المرور",
   "did_you_forget_password": "هل نسيت كلمة المرور؟",
   "password": "كلمة المرور",
-
+ "checkGovernorate": "تحقق من اختيار المحافظة",
+  "checkJudiciary": "تحقق من اختيار القضاء",
   "enter_a_password_of_at_least_six_characters": "ادخل كلمة مرور لا تقل عن 6 احرف",
   "dont_have_an_account": "ليس لديك حساب؟",
   "please_enable_your_gps_and_try_again": "الرجاء تمكين نظام تحديد المواقع الخاص بك وحاول مرة أخرى",
