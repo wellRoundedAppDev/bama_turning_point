@@ -17,7 +17,7 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
   static CategoriesCubit get(context) => BlocProvider.of(context);
 
   List<Category>? categories;
-  List<Products>? products;
+  List<ProductInCategory>? products;
   Category? selectedCategory;
 
   setCategories() async {

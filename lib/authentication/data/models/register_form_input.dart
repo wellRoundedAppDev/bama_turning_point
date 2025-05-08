@@ -21,6 +21,9 @@ class RegisterFormInput {
   String? nationalId;
   String? storeUserName;
   String? occupation;
+  int? governorateId;
+  int? judiciaryId;
+  int? wayId;
 
   RegisterFormInput({this.gender = "Male"});
 
@@ -37,6 +40,9 @@ class RegisterFormInput {
     'UserName': userName,
     // 'email': email,
     'Password': password,
+    "governorateId": governorateId??0,
+    "judiciaryId": judiciaryId??0,
+    "wayId": wayId??0,
     // 'confirm': confirmPassword,
     // 'mobileAppId': 1,
     // 'address_id': 1,

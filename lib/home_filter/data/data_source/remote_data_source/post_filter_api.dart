@@ -13,8 +13,8 @@ import '../../model/filter_form_input.dart';
 class FilterApi {
   static final dioHelper = DioHelper.instance;
 
-  static Future<GetProductsInCategoryResponse?> getFilterHome(Map map) async {
-    String endPoint = ApiUrls.GET_Filter_Home_ENDPOINT;
+  static Future<GetProductsInCategoryResponse?> getFilterHome(Map map,bool isCompany) async {
+    String endPoint =isCompany==true? ApiUrls.GET_Filter_COMPANY_ENDPOINT:ApiUrls.GET_Filter_VENDOR_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 

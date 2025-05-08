@@ -1,35 +1,33 @@
 import 'get_response_model/get_color_response.dart';
 
-class FilterFormInput {
+class FilterFormInput{
   int? groupId;
-  int? categoryId;
+  int? vendorId;
   int? supplierId;
   double? sellingPriceMinimum;
   double? sellingPriceMinimumMaximum;
-  String? size;
+  int? size;
   ColorAD? colors;
-  int? manufactureCompanyId;
 
   Map<String, dynamic> toJson() => {
-         'id': 0,
-        "groupId": groupId??0,
-        "categoryId": categoryId??0,
-        "supplierId": supplierId??0,
-        "sellingPriceMinimum": sellingPriceMinimum??0,
-        "sellingPriceMinimumMaximum": sellingPriceMinimumMaximum??15000,
-        "size": size??"",
-        "colors": colors != null
-            ? [
-          {
-            "id": colors!.id ?? 0,
-            "idGuid": colors!.idGuid ?? "00000000-0000-0000-0000-000000000000",
-            "colorExtraPrice": 0,
-            "colorName": colors!.colorName ?? "",
-          }
-        ]
-            : [],
-        "manufactureCompanyId": 0
-      };
+    'id': 0,
+    "vendorId": vendorId??0,
+    "productName": "",
+    "groupId": groupId??0,
+    "supplierId": supplierId??0,
+    "sellingPriceMinimum": sellingPriceMinimum??0,
+    "sellingPriceMinimumMaximum": sellingPriceMinimumMaximum??100000,
+    "sizeId": size??0,
+    "colors": colors != null
+        ? [
+      {
+        "colorId": colors!.id ,
+      }
+    ]
+        : [{
+      "colorId": 0 ,
+    }],
+  };
 }
 
 // "id": 0,
