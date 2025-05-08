@@ -3,7 +3,7 @@ class SuccessAndErrorResponse {
  dynamic errorMsgs;
  String? message;
 
-  SuccessAndErrorResponse({required this.success, required this.errorMsgs});
+  SuccessAndErrorResponse({required this.success, required this.errorMsgs,this.message});
 
   factory SuccessAndErrorResponse.fromJson(Map<String, dynamic> json) =>
       // SuccessAndErrorResponse(
@@ -14,6 +14,8 @@ class SuccessAndErrorResponse {
       //             : null,
       //     errorMsgs: json['error']);
   SuccessAndErrorResponse(
+
+   message:  json['Message'],
       success: json['IsSuccssed'],
       errorMsgs: json['Message']);
 }

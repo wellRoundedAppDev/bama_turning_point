@@ -39,7 +39,6 @@ class GetPlaceCubit extends Cubit<GetPlaceState> {
     selectedWayItem = null;
     placeFormInput.judiciaryId = null;
     placeFormInput.wayId = null;
-
     placeFormInput.governorateId=governorateId;
 
     emit(SelectedGovernorateState());

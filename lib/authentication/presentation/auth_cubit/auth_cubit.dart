@@ -127,7 +127,7 @@ class AuthCubit extends Cubit<AuthStates> {
       loginResponse = null;
       isUserLoggedIn = false;
       print(isUserLoggedIn);
-      showAppSnackBar(content: "Check your internet connection, and try again");
+      showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
       emit(LoginNetworkFailedConnectionState());
     }
   }
@@ -314,13 +314,12 @@ class AuthCubit extends Cubit<AuthStates> {
       // isUserLoggedIn = false;
 
       showAppSnackBar(
-          content: response?.errorMsgs != null && response?.errorMsgs != [] && response?.errorMsgs != ""
-              ? (response?.errorMsgs?[0] ?? "") == "Email already exists!"?AppLocalizations.of(context)!.email_exist:AppLocalizations.of(context)!.error_occurred_try_again
-              : "");
+          content:
+               (response?.message??""));
       emit(RegisterFailedState());
     } else {
       // isUserLoggedIn = false;
-      showAppSnackBar(content: "Check your internet connection, and try again");
+      showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
       emit(RegisterNetworkFailedConnectionState());
     }
   }
