@@ -8,10 +8,8 @@ import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart
 import 'package:classic_eccomerce/shared_components/app_snackbar.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../core/constants/paths/image_paths.dart';
 import '../../../shared_components/custom_input.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -143,7 +141,7 @@ class SignUpScreen extends StatelessWidget {
                                 print(value!.id);
                                 placeCubit.selectedGovernorateItem = value;
                                 placeCubit.selectedGovernorate(value!.id ?? 0);
-
+                                AuthCubit.get(context).registerFormInput.governorateId=placeCubit.placeFormInput.governorateId;
                               },
                               dropdownDecoratorProps: DropDownDecoratorProps(
                                 dropdownSearchDecoration: InputDecoration(
@@ -203,6 +201,7 @@ class SignUpScreen extends StatelessWidget {
                                 print(value!.id);
                                 placeCubit.selectedJudiciaryItem=value;
                                 placeCubit.selectedJudiciary(value!.id ?? 0);
+                                AuthCubit.get(context).registerFormInput.judiciaryId=placeCubit.placeFormInput.judiciaryId;
                               },
                               dropdownDecoratorProps: DropDownDecoratorProps(
                                 dropdownSearchDecoration: InputDecoration(
@@ -264,6 +263,7 @@ class SignUpScreen extends StatelessWidget {
                                 print(value!.id);
                                 placeCubit.selectedWayItem=value;
                                 placeCubit.selectedWay(value!.id ?? 0);
+                                AuthCubit.get(context).registerFormInput.wayId=placeCubit.placeFormInput.wayId;
                               },
                               dropdownDecoratorProps: DropDownDecoratorProps(
                                 dropdownSearchDecoration: InputDecoration(
