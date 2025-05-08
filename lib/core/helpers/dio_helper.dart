@@ -63,11 +63,11 @@ class DioHelper {
       return await _dio.get(endpoint,
           queryParameters:
 
-          accessToken == null?null:
+
           queryParameters,
 
           options: Options(
-            headers: headers,
+            headers: accessToken == null?null: headers,
               validateStatus: (int? status){
                 if(status! >= 200 && status <= 600){
                   return true;
@@ -137,10 +137,10 @@ class DioHelper {
         endPoint,
         data: body,
         queryParameters:
-        accessToken == null?null:
         queryParameters,
         options: Options(
-          headers: headers,
+          headers:        accessToken == null?null:
+          headers,
           validateStatus: (int? status){
             if(status! >= 200 && status <= 600){
               return true;

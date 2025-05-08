@@ -21,11 +21,11 @@ class GetPlaceApis {
     // print("curr:$currencyCode");
     try {
       var response = await dioHelper.post(endPoint: endPoint,
-          headers: {
-            "Authorization": "Bearer $accessToken",
-            // "X-Oc-Merchant-Language": languageCode,
-            // "X-Oc-Currency": currencyCode
-          }
+          // headers: {
+          //   "Authorization": "Bearer $accessToken",
+          //   // "X-Oc-Merchant-Language": languageCode,
+          //   // "X-Oc-Currency": currencyCode
+          // }
       );
       if (response == null) {
         return null;
@@ -47,11 +47,11 @@ class GetPlaceApis {
     // print("curr:$currencyCode");
     try {
       var response = await dioHelper.post(endPoint: endPoint,
-          headers: {
-            "Authorization": "Bearer $accessToken",
-            // "X-Oc-Merchant-Language": languageCode,
-            // "X-Oc-Currency": currencyCode
-          },
+          // headers: {
+          //   "Authorization": "Bearer $accessToken",
+          //   // "X-Oc-Merchant-Language": languageCode,
+          //   // "X-Oc-Currency": currencyCode
+          // },
 
           queryParameters: {
           "governorateId":governorateId
@@ -79,11 +79,13 @@ class GetPlaceApis {
     // print("curr:$currencyCode");
     try {
       var response = await dioHelper.post(endPoint: endPoint,
-          headers: {
-            "Authorization": "Bearer $accessToken",
-            // "X-Oc-Merchant-Language": languageCode,
-            // "X-Oc-Currency": currencyCode
-          },queryParameters: {
+          // headers: {
+          //   "Authorization": "Bearer $accessToken",
+          //   // "X-Oc-Merchant-Language": languageCode,
+          //   // "X-Oc-Currency": currencyCode
+          // }
+          // ,
+          queryParameters: {
           "judiciaryId":judiciaryId
           }
       );
