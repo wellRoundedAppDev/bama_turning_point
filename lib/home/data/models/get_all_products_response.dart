@@ -1,3 +1,5 @@
+import 'package:classic_eccomerce/vendors/data/models/get_products_by_vendor_response.dart';
+
 class GetAllProductsResponse {
   GetAllProductsResponse({
     this.isSuccssed,
@@ -78,24 +80,24 @@ class Obj {
 }
 
 class ProductFromApi {
-  ProductFromApi({
-    this.id,
-    this.productName,
-    this.notes,
-    this.source,
-    this.groupId,
-    this.groupName,
-    this.minorUnitId,
-    this.minorUnitName,
-    this.minorUnitPrice,
-    this.middleUnitId,
-    this.middleUnitName,
-    this.middleUnitPrice,
-    this.grandUnitId,
-    this.grandUnitName,
-    this.grandUnitPrice,
-    this.price
-  });
+  ProductFromApi(
+      {this.id,
+      this.productName,
+      this.notes,
+      this.source,
+      this.groupId,
+      this.groupName,
+      this.minorUnitId,
+      this.minorUnitName,
+      this.minorUnitPrice,
+      this.middleUnitId,
+      this.middleUnitName,
+      this.middleUnitPrice,
+      this.grandUnitId,
+      this.grandUnitName,
+      this.grandUnitPrice,
+      this.price,
+      this.file});
 
   factory ProductFromApi.fromJson(dynamic json) {
     var id = json['Id'];
@@ -115,10 +117,19 @@ class ProductFromApi {
     var grandUnitPrice = json['GrandUnitPrice'];
     var price = json['Price'];
 
+    var file = json['Files']?.map((e) => File.fromJson(e))?.toList() == null ||
+            json['Files']?.map((e) => File.fromJson(e))?.toList()?.isEmpty ==
+                true
+    ?null:
+         json['Files']?.map<File>((e) => File.fromJson(e))?.toList()?.first;
+
+    print("xor${file}");
+
     return ProductFromApi(
       id: id,
       productName: productName,
       notes: notes,
+      file: file,
       price: price,
       source: source,
       groupName: groupName,
@@ -151,6 +162,8 @@ class ProductFromApi {
   dynamic grandUnitName;
   num? grandUnitPrice;
 
+  File? file;
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['Id'] = id;
@@ -168,6 +181,77 @@ class ProductFromApi {
     map['GrandUnitId'] = grandUnitId;
     map['GrandUnitName'] = grandUnitName;
     map['GrandUnitPrice'] = grandUnitPrice;
+    return map;
+  }
+}
+
+
+class File {
+  File({
+    this.fileUrl,
+  });
+
+  factory File.fromJson(dynamic json) {
+    var fileUrl = json['FileUrl'];
+
+    return File(fileUrl: fileUrl);
+  }
+  String? fileUrl;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['FileUrl'] = fileUrl;
+    return map;
+  }
+}
+
+class Size {
+  Size({
+    this.sizeId,
+    this.sizeName,
+  });
+
+  factory Size.fromJson(dynamic json) {
+    var sizeId = json['SizeId'];
+    var sizeName = json['SizeName'];
+
+    return Size(sizeId: sizeId, sizeName: sizeName);
+  }
+  num? sizeId;
+  String? sizeName;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['SizeId'] = sizeId;
+    map['SizeName'] = sizeName;
+    return map;
+  }
+}
+
+class Color {
+  Color({
+    this.colorId,
+    this.colorName,
+    this.colorValue,
+  });
+
+  factory Color.fromJson(dynamic json) {
+    var colorId = json['ColorId'];
+    var colorName = json['ColorName'];
+    var colorValue = json['ColorValue'];
+
+    return Color(
+        colorId: colorId, colorName: colorName, colorValue: colorValue);
+  }
+  num? colorId;
+  String? colorName;
+  String? colorValue;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['ColorId'] = colorId;
+    map['ColorName'] = colorName;
+    map['ColorValue'] = colorValue;
     return map;
   }
 }

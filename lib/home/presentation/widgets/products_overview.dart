@@ -308,7 +308,7 @@ class ProductsOverview extends StatelessWidget {
                 separatorBuilder: (context, index) => const SizedBox(
                       width: 8,
                     ),
-                itemCount: products.length),
+                itemCount: products?.length??0),
           ),
         ],
       ),

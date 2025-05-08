@@ -40,25 +40,23 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
     //   emit(GetProductDetailsNetworkConnectionFailedState());
     //   return;
     // }
-    selectedProductDetails = ProductDetails(name: "P1",price: 200,id: 1,description: "Desc",priceFormated: "200IQD"
-    ,
-    );
-
-    emit(GetProductDetailsSuccessState());
-
-    return;
+    // selectedProductDetails = ProductDetails(name: "P1",price: 200,id: 1,description: "Desc",priceFormated: "200IQD"
+    // ,
+    // );
+    //
+    // emit(GetProductDetailsSuccessState());
+    //
+    // return;
     var response = await ProductDetailsApi.getProductDetailsById(
         selectedProductId,
         languageCode: languageCodes[localeCubit?.locale.languageCode ?? ""],
         currencyCode: AppSettingsCubit.get(context).currencyCode);
-    if (response?.success == 1) {
+    if (response?.success == true) {
       selectedProductDetails = response?.productDetails;
       emit(GetProductDetailsSuccessState());
-    } else if (response?.success == 0) {
-      selectedProductDetails = null;
+    } else if (response?.success == false) {
       emit(GetProductDetailsFailedState());
     } else {
-      selectedProductDetails = null;
       emit(GetProductDetailsNetworkConnectionFailedState());
     }
   }

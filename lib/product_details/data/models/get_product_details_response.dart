@@ -10,23 +10,28 @@ class GetProductDetailsResponse {
   GetProductDetailsResponse({
     this.success,
     // this.error,
+    this.message,
     this.productDetails,
   });
 
   factory GetProductDetailsResponse.fromJson(dynamic json) {
-    var success = json['success'];
+    var success = json['IsSuccssed'];
     // if (json['error'] != null) {
     //   error = [];
     //   json['error'].forEach((v) {
     //     error?.add(Dynamic.fromJson(v));
     //   });
     // }
+    var message = json['Message'];
     var data =
-        json['data'] != null ? ProductDetails.fromJson(json['data']) : null;
+        json['Obj'] != null ? ProductDetails.fromJson(json['Obj']) : null;
 
-    return GetProductDetailsResponse(productDetails: data, success: success);
+    return GetProductDetailsResponse(productDetails: data, success: success,
+    message: message
+    );
   }
-  num? success;
+  bool? success;
+  String? message;
   // List<dynamic>? error;
   ProductDetails? productDetails;
 

@@ -119,7 +119,7 @@ class ViewAllProductsByVendorScreen extends StatelessWidget {
                                 children: [
                                   ClipRRect(
                                     borderRadius:
-                                    BorderRadius.circular(8),
+                                    BorderRadius.circular(14),
                                     child: Image.network(
                                       productImageUrl ?? "",
                                       height: MediaQuery.of(context)

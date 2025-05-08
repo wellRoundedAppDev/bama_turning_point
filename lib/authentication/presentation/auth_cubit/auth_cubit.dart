@@ -27,7 +27,7 @@ class AuthCubit extends Cubit<AuthStates> {
   BuildContext context = MyApp.navKey.currentState!.context;
   final dioHelper = DioHelper.instance;
   String? sessionId;
-  String? accessToken ="";
+  String? accessToken ;
   LoginResponse? loginResponse;
 
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();

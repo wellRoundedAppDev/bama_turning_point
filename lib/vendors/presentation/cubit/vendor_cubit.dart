@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/vendors/presentation/cubit/vendor_states.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:classic_eccomerce/main.dart';
@@ -58,11 +59,14 @@ class VendorsCubit extends Cubit<VendorsStates> {
       vendorId: vendorId,
         pageNumber: allProductsPageNumber, pageSize: allProductsPageSize);
     if (response?.isSuccssed == true) {
+
+
       var tempCustomerOrders = response?.obj?.products
           ?.map((e) => Product(
         productId: e.id,
         price: e.price,
         name: e.productName,
+        productImagePath: (ApiUrls.BASE_URL?.replaceAll("\\", "")??"") +( e.file?.fileUrl??""),
         productSource: e.source?.toInt()
       ))
           ?.toList() ??
@@ -71,6 +75,7 @@ class VendorsCubit extends Cubit<VendorsStates> {
         emit(FetchingAllVendorProductsSuccessState());
         return;
       }
+      print(tempCustomerOrders?.first?.productImagePath);
      // allProductsPageNumber++;
       products = (tempCustomerOrders);
       emit(FetchingAllVendorProductsSuccessState());

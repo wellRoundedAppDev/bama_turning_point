@@ -50,19 +50,22 @@ class DioHelper {
       {required String endpoint,
         dynamic headers = const {},
         Map<String, dynamic> queryParameters = const {}}) async {
-    // String? accessToken =
-    //     MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
-    // if (kDebugMode) {
-    //   print("Access token: $accessToken");
-    // }
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    if (kDebugMode) {
+      print("Access token: $accessToken");
+    }
 
     print("headers $headers");
     try {
       return await _dio.get(endpoint,
           queryParameters: queryParameters,
 
-          options: Options(
-            headers: headers,
+          options:
+          Options(
+            headers:
+            accessToken == null?null:
+            headers,
               validateStatus: (int? status){
                 if(status! >= 200 && status <= 600){
                   return true;
@@ -120,11 +123,11 @@ class DioHelper {
     Map<String, dynamic>?  queryParameters ,
     Map<String, dynamic> headers = const {}
   }) async {
-    // String? accessToken =
-    //     MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
-    // if (kDebugMode) {
-    //   print("Access token: $accessToken");
-    // }
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    if (kDebugMode) {
+      print("Access token: $accessToken");
+    }
     print("headers $headers");
 
     try {
@@ -133,7 +136,9 @@ class DioHelper {
         data: body,
         queryParameters: queryParameters,
         options: Options(
-          headers: headers,
+          headers:
+          accessToken==null?null:
+          headers,
           validateStatus: (int? status){
             if(status! >= 200 && status <= 600){
               return true;

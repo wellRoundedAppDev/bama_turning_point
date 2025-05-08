@@ -11,31 +11,25 @@ class ProductDetailsApi {
   static final dioHelper = DioHelper.instance;
 
   static Future<GetProductDetailsResponse?> getProductDetailsById(int id,
-      {
-        String languageCode = "ir_arabic",
-        String currencyCode = "IQD"
-
-      }
-
-      ) async {
-    String endPoint = ApiUrls.getProductDetailsByIdEndpoint(id);
+      {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
+    String endPoint = ApiUrls.GET_COMPANY_PRODUCT_DETAILS_BY_ID_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
 
     try {
-      var response = await dioHelper.get(endpoint: endPoint,
-          headers: {"Authorization": "Bearer $accessToken",
-            "X-Oc-Merchant-Language": languageCode,
-            "X-Oc-Currency": currencyCode
-
-
-          }
-
-      );
+      var response = await dioHelper.get(endpoint: endPoint, headers: {
+        "Authorization": "Bearer $accessToken",
+        "X-Oc-Merchant-Language": languageCode,
+        "X-Oc-Currency": currencyCode
+      }, queryParameters: {
+        "productId": id
+      });
       if (response == null) {
         return null;
       }
-      print(response.data);
+      if (kDebugMode) {
+        print(response.data);
+      }
       return GetProductDetailsResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
