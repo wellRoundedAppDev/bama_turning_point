@@ -480,7 +480,7 @@ class FilterDrawer extends StatelessWidget {
                                                       width: 20,
                                                       height: 20,
                                                       color: Color(int.parse(
-                                                          '0xff${colors[index].colorValue ?? '000000'}')),
+                                                          '0xff${colors[index].colorValue?.replaceAll("#", "") ?? '000000'}')),
                                                     ),
                                                     const SizedBox(
                                                       width: 5,

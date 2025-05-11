@@ -104,7 +104,7 @@ class ProductInCategory {
   String? middleUnitName;
   double? middleUnitPrice;
   int? grandUnitId;
-  Null? grandUnitName;
+  dynamic? grandUnitName;
   double? grandUnitPrice;
 
   ProductInCategory(

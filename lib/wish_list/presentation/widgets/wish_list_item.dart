@@ -21,6 +21,7 @@ class WishListItemWidget extends StatelessWidget {
     return BlocConsumer<WishListCubit, WishListStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        print(wishlistItem?.thumb);
         WishListCubit wishListCubit = WishListCubit.get(context);
         int? selectedProductId = wishListCubit.selectedProductId;
         return Container(

@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:classic_eccomerce/wish_list/data/data_sources/remote_data_sources/wish_list_apis.dart';
@@ -24,28 +25,34 @@ class WishListCubit extends Cubit<WishListStates> {
   int? selectedProductId;
   CartCubit? cartCubit;
 
-  init(CartCubit cartCubit)
-    {
-      localeCubit = LocaleCubit.get(context);
-      appSettingsCubit = AppSettingsCubit.get(context);
-      this.cartCubit = cartCubit;
+  init(CartCubit cartCubit) {
+    localeCubit = LocaleCubit.get(context);
+    appSettingsCubit = AppSettingsCubit.get(context);
+    this.cartCubit = cartCubit;
 
-      setWishListItems();
-    }
+    setWishListItems();
+  }
 
   setWishListItems() async {
-
     emit(GetWishListLoadingState());
     var response = await WishListApis.getWishlist(
-        languageCode: languageCodes[LocaleCubit.get(context).locale.languageCode]
-        ,currencyCode: appSettingsCubit?.currencyCode??""
-    );
+        languageCode:
+            languageCodes[LocaleCubit.get(context).locale.languageCode],
+        currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.isSuccssed == true) {
-      wishListItems = response?.obj?.products?.map((e)=>WishlistItem(
-        productId: e?.brandId?.toString(),
-        name: e?.brandName,
-        sourceId: e?.source?.toInt()
-      ))?.toList()??[];
+      wishListItems = response?.obj?.products?.map((e) {
+
+            return WishlistItem(
+                productId: e?.brandId?.toString(),
+                name: e?.brandName,
+                sourceId: e?.source?.toInt(),
+                thumb:
+
+                e?.files == null || e?.files?.isEmpty == true? null:
+                (ApiUrls.BASE_URL +
+                    (e?.files?.first?.fileUrl?.replaceFirst("\\", "") ?? "")));
+          })?.toList() ??
+          [];
 
       emit(GetWishListSuccessState());
     } else if (response?.isSuccssed == false) {
@@ -88,19 +95,23 @@ class WishListCubit extends Cubit<WishListStates> {
   deleteItemFromWishList(int? productId, int? sourceId) async {
     setSelectedProductId(productId);
     if (productId == null) {
-      showAppSnackBar(content: AppLocalizations.of(context)!.error_occurred_try_again);
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!.error_occurred_try_again);
       return;
     }
     emit(DeleteItemFromWishListLoadingState());
-    var response = await WishListApis.deleteItemFromWishlist(productId,sourceId?.toInt()??0);
+    var response = await WishListApis.deleteItemFromWishlist(
+        productId, sourceId?.toInt() ?? 0);
     if (response?.success == true) {
       showAppSnackBar(content: "Product removed from wishlist");
       setWishListItems();
     } else if (response?.success == false) {
-      showAppSnackBar(content:response?.message??"" );
+      showAppSnackBar(content: response?.message ?? "");
       emit(DeleteItemFromWishListFailedState());
     } else {
-      showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!
+              .check_your_internet_connection_and_try_again_later);
       emit(DeleteItemFromWishListNetworkConnectionFailedState());
     }
   }
@@ -119,21 +130,21 @@ class WishListCubit extends Cubit<WishListStates> {
     // }
 
     emit(AddItemToFavoritesLoadingState());
-    var response = await WishListApis.addItemToWishlist(productId,
-      productType
-    );
+    var response = await WishListApis.addItemToWishlist(productId, productType);
     if (response?.success == true) {
-      showAppSnackBar(content: AppLocalizations.of(context)!.product_added_to_favorites);
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!.product_added_to_favorites);
       wishListItems?.add(WishlistItem(productId: productId?.toString()));
       emit(AddItemToFavoritesSuccessState());
     } else if (response?.success == false) {
-      showAppSnackBar(content: response?.message??"");
+      showAppSnackBar(content: response?.message ?? "");
 
       emit(AddItemToFavoritesFailedState());
     } else {
-      showAppSnackBar(content:AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!
+              .check_your_internet_connection_and_try_again_later);
       emit(AddItemToFavoritesNetworkConnectionFailedState());
     }
   }
-
 }

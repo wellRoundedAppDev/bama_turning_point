@@ -1,3 +1,6 @@
+
+import '../../../home/data/models/get_all_products_response.dart';
+
 class GetFavoritesResponse {
   GetFavoritesResponse({
       this.isSuccssed, 
@@ -77,7 +80,8 @@ class FavoriteItem {
   FavoriteItem({
       this.userId, 
       this.brandId, 
-      this.brandVendorId, 
+      this.brandVendorId,
+    this.files,
       this.brandName, 
       this.source,});
 
@@ -87,9 +91,14 @@ class FavoriteItem {
     var   brandVendorId = json['BrandVendorId'];
     var   brandName = json['BrandName'];
     var   source = json['Source'];
+    List<File>? files;
+    if(json['Files'] != null){
+      files = json['Files']?.map<File>((e)=>File.fromJson(e))?.toList()??[];
+    }
 
     return FavoriteItem(userId: userId,brandId: brandId, brandName: brandName,
         source: source,
+        files: files,
         brandVendorId: brandVendorId);
   }
   String? userId;
@@ -97,6 +106,7 @@ class FavoriteItem {
   dynamic brandVendorId;
   String? brandName;
   num? source;
+  List<File>? files;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
