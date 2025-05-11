@@ -58,7 +58,7 @@ class ProductDetailsScreen extends StatelessWidget {
           num? productRating = productDetails?.rating;
           String? stockStatus = productDetails?.stockStatus;
           String? description = productDetails?.description;
-          List<String>? originalImageUrls = productDetails?.originalImages;
+          var originalImageUrls = productDetails?.originalImages;
           return (state is GetProductDetailsLoadingState)
               ? const Material(
                   color: Colors.white,

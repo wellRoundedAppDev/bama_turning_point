@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/cart/data/models/cart_item.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/product_details/presentation/screens/product_details_screen.dart';
@@ -106,16 +107,21 @@ class ProductsOverview extends StatelessWidget {
                           : Container(),
                       InkWell(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              PageTransition(
-                                  child: BlocProvider.value(
-                                    value: CartCubit.get(context),
-                                    child: ProductDetailsScreen(
-                                      selectedProductId: productId ?? -1,
-                                    ),
-                                  ),
-                                  type: PageTransitionType.leftToRight));
+
+                          CartCubit.get(context).addItemToCart(
+                            CartItem(productId: productId?.toString()??"", name:
+                            productTitle??"", price: productPrice?.toDouble()??0)
+                          );
+                          // Navigator.push(
+                          //     context,
+                          //     PageTransition(
+                          //         child: BlocProvider.value(
+                          //           value: CartCubit.get(context),
+                          //           child: ProductDetailsScreen(
+                          //             selectedProductId: productId ?? -1,
+                          //           ),
+                          //         ),
+                          //         type: PageTransitionType.leftToRight));
                         },
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.4,

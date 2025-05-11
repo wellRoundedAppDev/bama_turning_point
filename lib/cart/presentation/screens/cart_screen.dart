@@ -24,16 +24,19 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: CartCubit.get(context)..loadCartItems(),
+      value: CartCubit.get(context),
       child: BlocConsumer<CartCubit, CartStates>(
         listener: (context, state) {},
         builder: (context, state) {
           CartCubit cartCubit = CartCubit.get(context);
+
+
           List<CartItem> cartItems = cartCubit.cartItems.entries
               .map((e) => CartItem(
                   productId: e.key,
                   quantity: e.value['quantity'],
                   name: e.value['name'],
+
                   price: e.value['price']?.toDouble(),
                   priceFormatted: e.value['priceFormatted'],
                   option: e.value['option'],

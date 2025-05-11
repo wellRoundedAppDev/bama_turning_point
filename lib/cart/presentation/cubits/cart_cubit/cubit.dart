@@ -44,45 +44,46 @@ class CartCubit extends Cubit<CartStates> {
     localeCubit = LocaleCubit.get(context);
     appSettingsCubit = AppSettingsCubit.get(context);
     cartItems.clear();
-    emit(LoadCartLoadingState());
-    // if ( AuthCubit.get(context).isUserLoggedIn != true) {
-    //   var success = await AuthCubit.get(context).setAccessToken();
-    //   if(success != true){
-    //     showAppSnackBar(content: AppLocalizations.of(context)!.error_occurred_try_again);
-    //   }
-    //   return;
-    // }
-    var response = await CartApis.getCartItems(
-        languageCode: languageCodes[localeCubit?.locale.languageCode] ?? "",
-        currencyCode: appSettingsCubit?.currencyCode ?? "");
 
-    if (response?.success == 1) {
-      response?.data?.cartItemsFromApi?.forEach((e) {
-        if (e.productId != null) {
-          cartItems[e.productId ?? ""] = {
-            "id": e.productId,
-            "name": e.name,
-            "quantity": int.tryParse(e.quantity ?? ""),
-            "price": e.priceRaw,
-            "imagePath": e.thumb,
-            "cartId": int.tryParse(e.key ?? ""),
-            "priceFormatted": e.priceFormatted
-          };
-          // totalPrice + (double.tryParse(e.price?.replaceAll("\$", "") ?? "")??0 *
-          // (int.tryParse(e.quantity ?? "")??0));
-        }
-      });
-      // totalPrice = (cartItems.isNotEmpty == true)?cartItems.entries
-      //     .map((e) => (double.tryParse(e.value['priceFormatted'].toString().replaceAll("\$", "").replaceAll("IQD", "")??"")??0 )* e.value['quantity'])
-      //     .toList()
-      //     .reduce((value, element) => value + element).toDouble():0;
-      totalPrice = response?.data?.totalRaw?.toDouble() ?? 0;
-      emit(LoadCartSuccessState());
-    } else if (response?.success == 0) {
-      emit(LoadCartFailedState());
-    } else {
-      emit(LoadCartNetworkConnectionFailedState());
-    }
+    // emit(LoadCartLoadingState());
+    // // if ( AuthCubit.get(context).isUserLoggedIn != true) {
+    // //   var success = await AuthCubit.get(context).setAccessToken();
+    // //   if(success != true){
+    // //     showAppSnackBar(content: AppLocalizations.of(context)!.error_occurred_try_again);
+    // //   }
+    // //   return;
+    // // }
+    // var response = await CartApis.getCartItems(
+    //     languageCode: languageCodes[localeCubit?.locale.languageCode] ?? "",
+    //     currencyCode: appSettingsCubit?.currencyCode ?? "");
+    //
+    // if (response?.success == 1) {
+    //   response?.data?.cartItemsFromApi?.forEach((e) {
+    //     if (e.productId != null) {
+    //       cartItems[e.productId ?? ""] = {
+    //         "id": e.productId,
+    //         "name": e.name,
+    //         "quantity": int.tryParse(e.quantity ?? ""),
+    //         "price": e.priceRaw,
+    //         "imagePath": e.thumb,
+    //         "cartId": int.tryParse(e.key ?? ""),
+    //         "priceFormatted": e.priceFormatted
+    //       };
+    //       // totalPrice + (double.tryParse(e.price?.replaceAll("\$", "") ?? "")??0 *
+    //       // (int.tryParse(e.quantity ?? "")??0));
+    //     }
+    //   });
+    //   // totalPrice = (cartItems.isNotEmpty == true)?cartItems.entries
+    //   //     .map((e) => (double.tryParse(e.value['priceFormatted'].toString().replaceAll("\$", "").replaceAll("IQD", "")??"")??0 )* e.value['quantity'])
+    //   //     .toList()
+    //   //     .reduce((value, element) => value + element).toDouble():0;
+    //   totalPrice = response?.data?.totalRaw?.toDouble() ?? 0;
+    //   emit(LoadCartSuccessState());
+    // } else if (response?.success == 0) {
+    //   emit(LoadCartFailedState());
+    // } else {
+    //   emit(LoadCartNetworkConnectionFailedState());
+    // }
   }
 
   isItemInCart(String id) {
@@ -102,32 +103,32 @@ class CartCubit extends Cubit<CartStates> {
   }
 
   addItemToCart(CartItem cartItem, {bool saveInDB = true}) async {
-    bool? isUserLoggedIn =
-        MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
-    String? accessToken =
-        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
-    if (isUserLoggedIn == false && accessToken == null) {
-      var success = await AuthCubit.get(context).setAccessToken();
-      if (!success) {
-        emit(ItemAddedToCartNetworkConnectionFailedState());
-        return;
-      }
-    }
-    emit(ItemAddedToCartLoadingState());
-    var response = await CartApis.addItemToCart({
-      "product_id": cartItem.productId,
-      "quantity": 1,
-      "option": cartItem.option?['option'] ?? {}
-    });
-    if (response?.success == false) {
-      emit(ItemAddedToCartFailedState());
-      showAppSnackBar(content: response?.errorMsgs?[0]);
-      return false;
-    } else if (response?.success == null) {
-      emit(ItemAddedToCartNetworkConnectionFailedState());
-      showAppSnackBar(content: "Check your internet connection, and try again");
-      return null;
-    }
+    // bool? isUserLoggedIn =
+    //     MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
+    // String? accessToken =
+    //     MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+    // if (isUserLoggedIn == false && accessToken == null) {
+    //   var success = await AuthCubit.get(context).setAccessToken();
+    //   if (!success) {
+    //     emit(ItemAddedToCartNetworkConnectionFailedState());
+    //     return;
+    //   }
+    // }
+    // emit(ItemAddedToCartLoadingState());
+    // var response = await CartApis.addItemToCart({
+    //   "product_id": cartItem.productId,
+    //   "quantity": 1,
+    //   "option": cartItem.option?['option'] ?? {}
+    // });
+    // if (response?.success == false) {
+    //   emit(ItemAddedToCartFailedState());
+    //   showAppSnackBar(content: response?.errorMsgs?[0]);
+    //   return false;
+    // } else if (response?.success == null) {
+    //   emit(ItemAddedToCartNetworkConnectionFailedState());
+    //   showAppSnackBar(content: "Check your internet connection, and try again");
+    //   return null;
+    // }
 
     String id = cartItem.productId;
     bool isItemNotInCart = cartItems[id] == null;
@@ -144,30 +145,30 @@ class CartCubit extends Cubit<CartStates> {
 
   deleteProductFromSalesCart(String id, int cartId) async {
     selectedCartProductId = id;
-    emit(ItemDeletedFromCartLoadingState());
-    bool? isUserLoggedIn =
-        MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
-    String? accessToken =
-        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
-    if (isUserLoggedIn == false && accessToken == null) {
-      var success = await AuthCubit.get(context).setAccessToken();
-      if (!success) {
-        showAppSnackBar(
-            content: "Check your internet connection, and try again");
-        emit(ItemDeletedFromCartNetworkConnectionFailedState());
-        return;
-      }
-    }
-    var success = await CartApis.deleteCartItem(cartId);
-    if (success == false) {
-      emit(ItemDeletedFromCartFailedState());
-      showAppSnackBar(content: "Error occured");
-      return false;
-    } else if (success == null) {
-      emit(ItemDeletedFromCartNetworkConnectionFailedState());
-      showAppSnackBar(content: "Check your internet connection, and try again");
-      return null;
-    }
+    // emit(ItemDeletedFromCartLoadingState());
+    // bool? isUserLoggedIn =
+    //     MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
+    // String? accessToken =
+    //     MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+    // if (isUserLoggedIn == false && accessToken == null) {
+    //   var success = await AuthCubit.get(context).setAccessToken();
+    //   if (!success) {
+    //     showAppSnackBar(
+    //         content: "Check your internet connection, and try again");
+    //     emit(ItemDeletedFromCartNetworkConnectionFailedState());
+    //     return;
+    //   }
+    // }
+    // var success = await CartApis.deleteCartItem(cartId);
+    // if (success == false) {
+    //   emit(ItemDeletedFromCartFailedState());
+    //   showAppSnackBar(content: "Error occured");
+    //   return false;
+    // } else if (success == null) {
+    //   emit(ItemDeletedFromCartNetworkConnectionFailedState());
+    //   showAppSnackBar(content: "Check your internet connection, and try again");
+    //   return null;
+    // }
 
     int quantity = cartItems[id]["quantity"];
     double? price = double.tryParse(cartItems[id]["price"]?.toString() ?? "");
@@ -180,42 +181,42 @@ class CartCubit extends Cubit<CartStates> {
   }
 
   increaseProductQuantity(String id, int cartId, {bool SaveInDB = true}) async {
-    if (state is UpdateCartItemQuantityLoadingState) {
-      return;
-    }
-    emit(UpdateCartItemQuantityLoadingState());
-    bool? isUserLoggedIn =
-        MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
-    String? accessToken =
-        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
-    if (isUserLoggedIn == false && accessToken == null) {
-      var success = await AuthCubit.get(context).setAccessToken();
-      if (!success) {
-        showAppSnackBar(
-            content: "Check your internet connection, and try again");
-        emit(UpdateCartItemQuantityNetworkConnectionFailedState());
-        return;
-      }
-    }
-    var success = await CartApis.updateCartItemQuantity(
-        cartId, cartItems[id]['quantity'] + 1);
-    if (success == false) {
-      emit(UpdateCartItemQuantityFailedState());
-      showAppSnackBar(content: "Error occurred");
-      return false;
-    } else if (success == null) {
-      emit(UpdateCartItemQuantityNetworkConnectionFailedState());
-      showAppSnackBar(content: "Check your internet connection, and try again");
-      return null;
-    }
-
+    // if (state is UpdateCartItemQuantityLoadingState) {
+    //   return;
+    // }
+    // emit(UpdateCartItemQuantityLoadingState());
+    // bool? isUserLoggedIn =
+    //     MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
+    // String? accessToken =
+    //     MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+    // if (isUserLoggedIn == false && accessToken == null) {
+    //   var success = await AuthCubit.get(context).setAccessToken();
+    //   if (!success) {
+    //     showAppSnackBar(
+    //         content: "Check your internet connection, and try again");
+    //     emit(UpdateCartItemQuantityNetworkConnectionFailedState());
+    //     return;
+    //   }
+    // }
+    // var success = await CartApis.updateCartItemQuantity(
+    //     cartId, cartItems[id]['quantity'] + 1);
+    // if (success == false) {
+    //   emit(UpdateCartItemQuantityFailedState());
+    //   showAppSnackBar(content: "Error occurred");
+    //   return false;
+    // } else if (success == null) {
+    //   emit(UpdateCartItemQuantityNetworkConnectionFailedState());
+    //   showAppSnackBar(content: "Check your internet connection, and try again");
+    //   return null;
+    // }
+    //
     //String id = selectedProduct?["id"]??"";
     cartItems[id]['quantity'] = cartItems[id]['quantity'] + 1;
     numberOfItemsInCart = numberOfItemsInCart + 1;
 
-    double Price = cartItems[id]['price']?.toDouble();
+    double price = cartItems[id]['price']?.toDouble();
 
-    totalPrice = totalPrice + Price;
+    totalPrice = totalPrice + price;
     if (SaveInDB) {
       // SaveCartInDB();
     }
@@ -224,38 +225,35 @@ class CartCubit extends Cubit<CartStates> {
 
   //
   decreaseProductQuantity(String id, int cartId) async {
-    int quantity = cartItems[id]['quantity'];
-    double price = cartItems[id]['price']?.toDouble();
-
-    if (state is UpdateCartItemQuantityLoadingState || quantity == 1) {
-      return;
-    }
-
-    emit(UpdateCartItemQuantityLoadingState());
-    bool? isUserLoggedIn =
-        MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
-    String? accessToken =
-        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
-    if (isUserLoggedIn == false && accessToken == null) {
-      var success = await AuthCubit.get(context).setAccessToken();
-      if (!success) {
-        showAppSnackBar(
-            content: "Check your internet connection, and try again");
-        emit(UpdateCartItemQuantityNetworkConnectionFailedState());
-        return;
-      }
-    }
-    var success = await CartApis.updateCartItemQuantity(
-        cartId, cartItems[id]['quantity'] - 1);
-    if (success == false) {
-      emit(UpdateCartItemQuantityFailedState());
-      showAppSnackBar(content: "Error occurred");
-      return false;
-    } else if (success == null) {
-      emit(UpdateCartItemQuantityNetworkConnectionFailedState());
-      showAppSnackBar(content: "Check your internet connection, and try again");
-      return null;
-    }
+    // if (state is UpdateCartItemQuantityLoadingState || quantity == 1) {
+    //   return;
+    // }
+    //
+    // emit(UpdateCartItemQuantityLoadingState());
+    // bool? isUserLoggedIn =
+    //     MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
+    // String? accessToken =
+    //     MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+    // if (isUserLoggedIn == false && accessToken == null) {
+    //   var success = await AuthCubit.get(context).setAccessToken();
+    //   if (!success) {
+    //     showAppSnackBar(
+    //         content: "Check your internet connection, and try again");
+    //     emit(UpdateCartItemQuantityNetworkConnectionFailedState());
+    //     return;
+    //   }
+    // }
+    // var success = await CartApis.updateCartItemQuantity(
+    //     cartId, cartItems[id]['quantity'] - 1);
+    // if (success == false) {
+    //   emit(UpdateCartItemQuantityFailedState());
+    //   showAppSnackBar(content: "Error occurred");
+    //   return false;
+    // } else if (success == null) {
+    //   emit(UpdateCartItemQuantityNetworkConnectionFailedState());
+    //   showAppSnackBar(content: "Check your internet connection, and try again");
+    //   return null;
+    // }
 
     // String id = selectedProduct?["id"]??"";
 
@@ -264,6 +262,10 @@ class CartCubit extends Cubit<CartStates> {
     //
     //   return;
     // }
+
+    int quantity = cartItems[id]['quantity'];
+    double price = cartItems[id]['price']?.toDouble();
+
     cartItems[id]['quantity'] = quantity - 1;
     numberOfItemsInCart = numberOfItemsInCart - 1;
 

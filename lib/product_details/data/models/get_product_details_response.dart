@@ -115,7 +115,7 @@ class ProductDetails {
   });
 
   factory ProductDetails.fromJson(dynamic json) {
-    var id = json['id'];
+    var id = json['Id'];
     var productId = json['product_id'];
     var name = json['name'];
     var manufacturer = json['manufacturer'];
@@ -271,7 +271,7 @@ class ProductDetails {
   dynamic image;
   List<String>? images;
   String? originalImage;
-  List<String>? originalImages;
+  List<dynamic>? originalImages;
   num? priceExcludingTax;
   String? priceExcludingTaxFormated;
   num? price;
