@@ -48,6 +48,17 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   Address? selectedUserAddress;
   List<Address>? userAddresses;
 
+
+
+  createOrder(){
+
+
+
+  }
+
+
+
+
   setShippingMethod(int index) {
     selectedShippingMethod = shippingMethods?[index];
     //emit(ShippingMethodSelected());
@@ -262,6 +273,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     var isConfirmOrderSuccess = await CheckoutApis.confirmOrder(
         languageCode: languageCodes[localeCubit.locale.languageCode] ?? "",
         currencyCode: appSettingsCubit.currencyCode ?? ""
+
     );
     if (isConfirmOrderSuccess == true) {
       var isConfirmOrderAndEndSessionSuccess =

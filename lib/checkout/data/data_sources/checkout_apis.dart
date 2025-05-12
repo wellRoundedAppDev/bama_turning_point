@@ -80,8 +80,10 @@ class CheckoutApis {
     }
   }
 
-  static Future<bool?> confirmOrder(
-      {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
+  static Future<bool?> createOrder(
+      {String languageCode = "ir_arabic", String currencyCode = "IQD",
+        var items
+      }) async {
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
     String endPoint = ApiUrls.CONFIRM_ORDER_ENDPOINT;
@@ -89,9 +91,48 @@ class CheckoutApis {
     try {
       var response = await _dioHelper.post(endPoint: endPoint, headers: {
         "Authorization": "Bearer $accessToken",
-        "X-Oc-Merchant-Language": languageCode,
-        "X-Oc-Currency": currencyCode
-      });
+        // "X-Oc-Merchant-Language": languageCode,
+        // "X-Oc-Currency": currencyCode
+      },
+          body: {
+            "purchaseRequestDetails": items
+          }
+      );
+      if (response == null) {
+        return null;
+      }
+      if (response.data['success'] == 1) {
+        return true;
+      } else if (response.data['success'] == 0) {
+        return false;
+      }
+      return null;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+
+  static Future<bool?> confirmOrder(
+      {String languageCode = "ir_arabic", String currencyCode = "IQD",
+      var items
+      }) async {
+    String? accessToken =
+        MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
+    String endPoint = ApiUrls.CONFIRM_ORDER_ENDPOINT;
+
+    try {
+      var response = await _dioHelper.post(endPoint: endPoint, headers: {
+        "Authorization": "Bearer $accessToken",
+        // "X-Oc-Merchant-Language": languageCode,
+        // "X-Oc-Currency": currencyCode
+      },
+      body: {
+        "purchaseRequestDetails": items
+      }
+      );
       if (response == null) {
         return null;
       }

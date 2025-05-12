@@ -111,6 +111,8 @@ class ApiUrls {
   static const routeUrl = 'feed/rest_api/';
   static const CONTACT_US_ENDPOINT = "api/rest/contact";
 
+  static const CREATE_ORDER_ENDPOINT = "api/PurchaseRequest/CreatePurchaseRequest";
+
   static String getFeaturedProductsWithLimitEndpoint(int limit) =>
       "$GET_FEATURED_PRODUCTS_LIMIT_ENDPOINT$limit";
   static String getCategoriesEndpoint(int page) =>
