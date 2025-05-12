@@ -41,16 +41,17 @@ class WishListCubit extends Cubit<WishListStates> {
         currencyCode: appSettingsCubit?.currencyCode ?? "");
     if (response?.isSuccssed == true) {
       wishListItems = response?.obj?.products?.map((e) {
-
             return WishlistItem(
-                productId: e?.brandId?.toString(),
+                productId:
+                    e?.source == 1 ? e?.brandId?.toString() : e?.brandVendorId?.toString(),
+
                 name: e?.brandName,
                 sourceId: e?.source?.toInt(),
-                thumb:
-
-                e?.files == null || e?.files?.isEmpty == true? null:
-                (ApiUrls.BASE_URL +
-                    (e?.files?.first?.fileUrl?.replaceFirst("\\", "") ?? "")));
+                thumb: e?.files == null || e?.files?.isEmpty == true
+                    ? null
+                    : (ApiUrls.BASE_URL +
+                        (e?.files?.first?.fileUrl?.replaceFirst("\\", "") ??
+                            "")));
           })?.toList() ??
           [];
 
@@ -93,6 +94,7 @@ class WishListCubit extends Cubit<WishListStates> {
   // }
 
   deleteItemFromWishList(int? productId, int? sourceId) async {
+    print(productId);
     setSelectedProductId(productId);
     if (productId == null) {
       showAppSnackBar(

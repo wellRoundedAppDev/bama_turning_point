@@ -106,87 +106,88 @@ class WishListItemWidget extends StatelessWidget {
                                   fontWeight: FontWeight.bold),
                             ),
                       const SizedBox(
-                        height: 3,
+                        height: 16,
                       ),
+                      // Row(
+                      //   children: [
+                      //     const Text(
+                      //       "Stock : ",
+                      //       style: TextStyle(
+                      //           fontSize: FontSizes.FONT_SIZE_12,
+                      //           color: Color(0xff313846)),
+                      //     ),
+                      //     Expanded(
+                      //       child: Text(
+                      //         wishlistItem?.stock ?? "",
+                      //         overflow: TextOverflow.ellipsis,
+                      //         maxLines: 1,
+                      //         style: const TextStyle(
+                      //             fontSize: FontSizes.FONT_SIZE_12,
+                      //             color: Color(0xff2EAF23)),
+                      //       ),
+                      //     )
+                      //   ],
+                      // ),
+                      // const SizedBox(
+                      //   height: 8,
+                      // ),
                       Row(
                         children: [
-                          const Text(
-                            "Stock : ",
-                            style: TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_12,
-                                color: Color(0xff313846)),
-                          ),
-                          Expanded(
-                            child: Text(
-                              wishlistItem?.stock ?? "",
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: const TextStyle(
-                                  fontSize: FontSizes.FONT_SIZE_12,
-                                  color: Color(0xff2EAF23)),
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: [
-                          BlocConsumer<CartCubit, CartStates>(
-                            listener: (context, state) {},
-                            builder: (context, state) {
-                              return (state is ItemAddedToCartLoadingState &&
-                                      int.tryParse(
-                                              wishlistItem?.productId ?? "") ==
-                                          wishListCubit.selectedProductId)
-                                  ? const SizedBox(
-                                      width: 18,
-                                      height: 18,
-                                      child: CircularProgressIndicator(),
-                                    )
-                                  : (CartCubit.get(context).isItemInCart(
-                                          wishlistItem?.productId ?? ""))
-                                      ? Container()
-                                      : GestureDetector(
-                                          onTap: () {
-                                            wishListCubit.setSelectedProductId(
-                                                int.tryParse(
-                                                    wishlistItem?.productId ??
-                                                        ""));
-                                            CartCubit.get(context).addItemToCart(
-                                                CartItem(
-                                                    productId:
-                                                        wishlistItem?.productId ??
-                                                            "",
-                                                    name:
-                                                        wishlistItem?.name ?? "",
-
-                                                    imagePath:
-                                                        wishlistItem?.thumb,
-                                                    price: double.tryParse(
-                                                            wishlistItem?.price
-                                                                    ?.replaceAll(
-                                                                        "\$",
-                                                                        "") ??
-                                                                "") ??
-                                                        0));
-                                          },
-                                          child: Container(
-                                            padding: const EdgeInsets.all(5),
-                                            color: AppColors.APP_MAIN_COLOR,
-                                            child: Image.asset(
-                                              IconPaths.CART,
-                                              width: 18,
-                                              height: 18,
-                                            ),
-                                          ),
-                                        );
-                            },
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
+                          // BlocConsumer<CartCubit, CartStates>(
+                          //   listener: (context, state) {},
+                          //   builder: (context, state) {
+                          //     return
+                          //       (state is ItemAddedToCartLoadingState &&
+                          //             int.tryParse(
+                          //                     wishlistItem?.productId ?? "") ==
+                          //                 wishListCubit.selectedProductId)
+                          //         ? const SizedBox(
+                          //             width: 18,
+                          //             height: 18,
+                          //             child: CircularProgressIndicator(),
+                          //           )
+                          //         : (CartCubit.get(context).isItemInCart(
+                          //                 wishlistItem?.productId ?? ""))
+                          //             ? Container()
+                          //             : GestureDetector(
+                          //                 onTap: () {
+                          //                   wishListCubit.setSelectedProductId(
+                          //                       int.tryParse(
+                          //                           wishlistItem?.productId ??
+                          //                               ""));
+                          //                   CartCubit.get(context).addItemToCart(
+                          //                       CartItem(
+                          //                           productId:
+                          //                               wishlistItem?.productId ??
+                          //                                   "",
+                          //                           name:
+                          //                               wishlistItem?.name ?? "",
+                          //
+                          //                           imagePath:
+                          //                               wishlistItem?.thumb,
+                          //                           price: double.tryParse(
+                          //                                   wishlistItem?.price
+                          //                                           ?.replaceAll(
+                          //                                               "\$",
+                          //                                               "") ??
+                          //                                       "") ??
+                          //                               0));
+                          //                 },
+                          //                 child: Container(
+                          //                   padding: const EdgeInsets.all(5),
+                          //                   color: AppColors.APP_MAIN_COLOR,
+                          //                   child: Image.asset(
+                          //                     IconPaths.CART,
+                          //                     width: 18,
+                          //                     height: 18,
+                          //                   ),
+                          //                 ),
+                          //               );
+                          //   },
+                          // ),
+                          // const SizedBox(
+                          //   width: 8,
+                          // ),
                           (state is DeleteItemFromWishListLoadingState &&
                                   selectedProductId ==
                                       int.tryParse(wishlistItem?.productId ?? ""))

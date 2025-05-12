@@ -43,12 +43,13 @@ class HomeScreen extends StatelessWidget {
         create: (context) => HomeCubit()..init(),
         child: SafeArea(
           child: Scaffold(
-            endDrawer: const HomeDrawer(),
-            drawer: const FilterDrawer(),
+            drawer: const HomeDrawer(),
+            endDrawer: FilterDrawer(),
             appBar: AppBar(
               toolbarHeight: MediaQuery.of(context).size.height * 0.1,
               leading: Container(),
               actions: [Container()],
+
               flexibleSpace: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: const BoxDecoration(
@@ -94,12 +95,16 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
 
+                      Expanded(child: Container()),
+
                       Center(
                           child: Image.asset(
                         ImagePaths.APP_LOGO,
                         width: MediaQuery.of(context).size.width * 0.2,
                         height: MediaQuery.of(context).size.height * 0.22,
                       )),
+                      Expanded(child: Container()),
+
                       // IconButton(
                       //   onPressed: () {
                       //     // ContactUsApi.contactUs();
@@ -118,17 +123,11 @@ class HomeScreen extends StatelessWidget {
 
                       // const SizedBox(width: 16,),
 
-                      const Expanded(
-                        child: Text(
-                          "1575\$" ?? "",
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                              fontSize: FontSizes.FONT_SIZE_16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
+                      GestureDetector(
+                          onTap: (){
+                            Scaffold.of(context).openEndDrawer();
+                          },
+                          child: const Icon(Icons.filter_alt_rounded,color: Colors.white,)),
 
                       const SizedBox(
                         width: 16,

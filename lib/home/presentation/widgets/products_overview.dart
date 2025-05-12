@@ -108,20 +108,16 @@ class ProductsOverview extends StatelessWidget {
                       InkWell(
                         onTap: () {
 
-                          CartCubit.get(context).addItemToCart(
-                            CartItem(productId: productId?.toString()??"", name:
-                            productTitle??"", price: productPrice?.toDouble()??0)
-                          );
-                          // Navigator.push(
-                          //     context,
-                          //     PageTransition(
-                          //         child: BlocProvider.value(
-                          //           value: CartCubit.get(context),
-                          //           child: ProductDetailsScreen(
-                          //             selectedProductId: productId ?? -1,
-                          //           ),
-                          //         ),
-                          //         type: PageTransitionType.leftToRight));
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  child: BlocProvider.value(
+                                    value: CartCubit.get(context),
+                                    child: ProductDetailsScreen(
+                                      selectedProductId: productId ?? -1,
+                                    ),
+                                  ),
+                                  type: PageTransitionType.leftToRight));
                         },
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.4,

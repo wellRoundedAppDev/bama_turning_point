@@ -151,7 +151,7 @@ class HomeDrawer extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 16.0, vertical: 12),
                   child: Text(
-                    AppLocalizations.of(context)!.settings,
+                    AppLocalizations.of(context)!.my_account,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                         color: Colors.white,
@@ -299,199 +299,199 @@ class HomeDrawer extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          HomeCubit homeCubit = HomeCubit.get(context);
-                          AppSettingsCubit appSettingsCubit =
-                              AppSettingsCubit.get(context);
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Center(
-                                      child: Text(
-                                    AppLocalizations.of(context)!.currency,
-                                    // "Currency",
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: FontSizes.FONT_SIZE_22),
-                                  )),
-                                  content: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      InkWell(
-                                        onTap: () async {
-                                          // context
-                                          //     .read<LocaleProvider>()
-                                          //     .setLocale(const Locale("ar"));
-                                          // context
-                                          //     .read<LocaleProvider>()
-                                          //     .saveLocaleInSharedPrefs("ar");
-
-                                          appSettingsCubit.changeCurrency(
-                                              CurrencyCodes.IQD.name);
-                                          homeCubit.init();
-                                          Navigator.pop(context);
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            "${AppLocalizations.of(context)!.iraqi_dinar} (IQD)",
-                                            style: const TextStyle(
-                                                color: Colors.black,
-                                                fontSize:
-                                                    FontSizes.FONT_SIZE_18),
-                                          ),
-                                        ),
-                                      ),
-                                      const Divider(
-                                        thickness: 1,
-                                      ),
-                                      InkWell(
-                                        onTap: () async {
-                                          // context
-                                          //     .read<LocaleProvider>()
-                                          //     .setLocale(const Locale("en"));
-                                          // context
-                                          //     .read<LocaleProvider>()
-                                          //     .saveLocaleInSharedPrefs("en");
-                                          appSettingsCubit.changeCurrency(
-                                              CurrencyCodes.USD.name);
-                                          homeCubit.init();
-                                          Navigator.pop(context);
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                "${AppLocalizations.of(context)!.american_dollar} (USD)",
-                                                style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize:
-                                                        FontSizes.FONT_SIZE_18),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              });
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!.currency,
-                                style: const TextStyle(
-                                    fontSize: FontSizes.FONT_SIZE_18,
-                                    color: Colors.white),
-                              ),
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    Icons.currency_exchange_outlined,
-                                    size: 30,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  BlocConsumer<AppSettingsCubit,
-                                      AppSettingsStates>(
-                                    listener: (context, state) {},
-                                    builder: (context, state) {
-                                      return Expanded(
-                                        child: Text(
-                                          (AppSettingsCubit.get(context)
-                                                      .currencyCode ==
-                                                  "USD")
-                                              ? "${AppLocalizations.of(context)!.american_dollar} (USD)"
-                                              : "${AppLocalizations.of(context)!.iraqi_dinar} (IQD)",
-                                          style: const TextStyle(
-                                              fontSize: FontSizes.FONT_SIZE_18,
-                                              color: Colors.white),
-                                        ),
-                                      );
-                                    },
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Divider(
-                          thickness: 1,
-                          color: Colors.white,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              PageTransition(
-                                  child: const ContactUsScreen(),
-                                  type: PageTransitionType.leftToRight));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!.contact_us,
-                                style: const TextStyle(
-                                    fontSize: FontSizes.FONT_SIZE_18,
-                                    color: Colors.white),
-                              ),
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    Icons.email_outlined,
-                                    size: 30,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      AppLocalizations.of(context)!.contact_us,
-                                      style: const TextStyle(
-                                          fontSize: FontSizes.FONT_SIZE_18,
-                                          color: Colors.white),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Divider(
-                          thickness: 1,
-                          color: Colors.white,
-                        ),
-                      ),
+                      // InkWell(
+                      //   onTap: () {
+                      //     HomeCubit homeCubit = HomeCubit.get(context);
+                      //     AppSettingsCubit appSettingsCubit =
+                      //         AppSettingsCubit.get(context);
+                      //     showDialog(
+                      //         context: context,
+                      //         builder: (context) {
+                      //           return AlertDialog(
+                      //             title: Center(
+                      //                 child: Text(
+                      //               AppLocalizations.of(context)!.currency,
+                      //               // "Currency",
+                      //               style: const TextStyle(
+                      //                   fontWeight: FontWeight.bold,
+                      //                   fontSize: FontSizes.FONT_SIZE_22),
+                      //             )),
+                      //             content: Column(
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.stretch,
+                      //               mainAxisSize: MainAxisSize.min,
+                      //               children: [
+                      //                 InkWell(
+                      //                   onTap: () async {
+                      //                     // context
+                      //                     //     .read<LocaleProvider>()
+                      //                     //     .setLocale(const Locale("ar"));
+                      //                     // context
+                      //                     //     .read<LocaleProvider>()
+                      //                     //     .saveLocaleInSharedPrefs("ar");
+                      //
+                      //                     appSettingsCubit.changeCurrency(
+                      //                         CurrencyCodes.IQD.name);
+                      //                     homeCubit.init();
+                      //                     Navigator.pop(context);
+                      //                   },
+                      //                   child: Padding(
+                      //                     padding: const EdgeInsets.all(8.0),
+                      //                     child: Text(
+                      //                       "${AppLocalizations.of(context)!.iraqi_dinar} (IQD)",
+                      //                       style: const TextStyle(
+                      //                           color: Colors.black,
+                      //                           fontSize:
+                      //                               FontSizes.FONT_SIZE_18),
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //                 const Divider(
+                      //                   thickness: 1,
+                      //                 ),
+                      //                 InkWell(
+                      //                   onTap: () async {
+                      //                     // context
+                      //                     //     .read<LocaleProvider>()
+                      //                     //     .setLocale(const Locale("en"));
+                      //                     // context
+                      //                     //     .read<LocaleProvider>()
+                      //                     //     .saveLocaleInSharedPrefs("en");
+                      //                     appSettingsCubit.changeCurrency(
+                      //                         CurrencyCodes.USD.name);
+                      //                     homeCubit.init();
+                      //                     Navigator.pop(context);
+                      //                   },
+                      //                   child: Padding(
+                      //                     padding: const EdgeInsets.all(8.0),
+                      //                     child: Row(
+                      //                       children: [
+                      //                         Text(
+                      //                           "${AppLocalizations.of(context)!.american_dollar} (USD)",
+                      //                           style: const TextStyle(
+                      //                               color: Colors.black,
+                      //                               fontSize:
+                      //                                   FontSizes.FONT_SIZE_18),
+                      //                         ),
+                      //                       ],
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           );
+                      //         });
+                      //   },
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.all(16.0),
+                      //     child: Column(
+                      //       crossAxisAlignment: CrossAxisAlignment.start,
+                      //       children: [
+                      //         Text(
+                      //           AppLocalizations.of(context)!.currency,
+                      //           style: const TextStyle(
+                      //               fontSize: FontSizes.FONT_SIZE_18,
+                      //               color: Colors.white),
+                      //         ),
+                      //         const SizedBox(
+                      //           height: 4,
+                      //         ),
+                      //         Row(
+                      //           crossAxisAlignment: CrossAxisAlignment.center,
+                      //           children: [
+                      //             const Icon(
+                      //               Icons.currency_exchange_outlined,
+                      //               size: 30,
+                      //               color: Colors.white,
+                      //             ),
+                      //             const SizedBox(
+                      //               width: 8,
+                      //             ),
+                      //             BlocConsumer<AppSettingsCubit,
+                      //                 AppSettingsStates>(
+                      //               listener: (context, state) {},
+                      //               builder: (context, state) {
+                      //                 return Expanded(
+                      //                   child: Text(
+                      //                     (AppSettingsCubit.get(context)
+                      //                                 .currencyCode ==
+                      //                             "USD")
+                      //                         ? "${AppLocalizations.of(context)!.american_dollar} (USD)"
+                      //                         : "${AppLocalizations.of(context)!.iraqi_dinar} (IQD)",
+                      //                     style: const TextStyle(
+                      //                         fontSize: FontSizes.FONT_SIZE_18,
+                      //                         color: Colors.white),
+                      //                   ),
+                      //                 );
+                      //               },
+                      //             )
+                      //           ],
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // const Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      //   child: Divider(
+                      //     thickness: 1,
+                      //     color: Colors.white,
+                      //   ),
+                      // ),
+                      // InkWell(
+                      //   onTap: () {
+                      //     Navigator.push(
+                      //         context,
+                      //         PageTransition(
+                      //             child: const ContactUsScreen(),
+                      //             type: PageTransitionType.leftToRight));
+                      //   },
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.all(16.0),
+                      //     child: Column(
+                      //       crossAxisAlignment: CrossAxisAlignment.start,
+                      //       children: [
+                      //         Text(
+                      //           AppLocalizations.of(context)!.contact_us,
+                      //           style: const TextStyle(
+                      //               fontSize: FontSizes.FONT_SIZE_18,
+                      //               color: Colors.white),
+                      //         ),
+                      //         const SizedBox(
+                      //           height: 4,
+                      //         ),
+                      //         Row(
+                      //           crossAxisAlignment: CrossAxisAlignment.center,
+                      //           children: [
+                      //             const Icon(
+                      //               Icons.email_outlined,
+                      //               size: 30,
+                      //               color: Colors.white,
+                      //             ),
+                      //             const SizedBox(
+                      //               width: 8,
+                      //             ),
+                      //             Expanded(
+                      //               child: Text(
+                      //                 AppLocalizations.of(context)!.contact_us,
+                      //                 style: const TextStyle(
+                      //                     fontSize: FontSizes.FONT_SIZE_18,
+                      //                     color: Colors.white),
+                      //               ),
+                      //             )
+                      //           ],
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // const Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      //   child: Divider(
+                      //     thickness: 1,
+                      //     color: Colors.white,
+                      //   ),
+                      // ),
                       (AuthCubit.get(context).isUserLoggedIn == false)
                           ? Container()
                           : InkWell(

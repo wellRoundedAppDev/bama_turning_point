@@ -145,6 +145,8 @@ class CartCubit extends Cubit<CartStates> {
 
   deleteProductFromSalesCart(String id, int cartId) async {
     selectedCartProductId = id;
+
+    print(selectedCartProductId);
     // emit(ItemDeletedFromCartLoadingState());
     // bool? isUserLoggedIn =
     //     MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;

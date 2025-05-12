@@ -84,6 +84,9 @@ class ViewAllProductsByVendorScreen extends StatelessWidget {
 
                     var productType = product?.productSource;
 
+                    print(productId);
+                    print(productType);
+
                     return InkWell(
                       onTap: () {
                         Navigator.push(
