@@ -15,21 +15,43 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
   int selectedProductId;
+  bool isCompany;
   BuildContext context = MyApp.navKey.currentState!.context;
   LocaleCubit? localeCubit;
   Map<String, dynamic> selectedOption = {"option": {}};
+   int? selectSizeID;
+   int? selectColorID;
 
-  ProductDetailsCubit({required this.selectedProductId})
+  ProductDetailsCubit(
+      {required this.selectedProductId,  this.isCompany = true})
       : super(ProductDetailsInitialState());
 
   static ProductDetailsCubit get(context) => BlocProvider.of(context);
 
-  ProductDetails? selectedProductDetails;
+  ProductModel? selectedProductDetails;
   int slideCurrentIndex = 0;
 
   setSliderCurrentIndex(int index) {
     slideCurrentIndex = index;
     emit(ChangeSliderCurrentIndexState());
+  }
+
+  void setColorID(int id) {
+    if(selectColorID==id) {
+      selectColorID=null;
+    } else {
+      selectColorID = id;
+    }
+    emit(SetColorIDState());
+  }
+
+  void setSizeID(int id) {
+    if(selectSizeID==id) {
+      selectSizeID=null;
+    } else {
+      selectSizeID = id;
+    }
+    emit(SetSizeIDState());
   }
 
   setProductDetails() async {
@@ -48,7 +70,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
     //
     // return;
     var response = await ProductDetailsApi.getProductDetailsById(
-        selectedProductId,
+        selectedProductId, isCompany,
         languageCode: languageCodes[localeCubit?.locale.languageCode ?? ""],
         currencyCode: AppSettingsCubit.get(context).currencyCode);
     if (response?.success == true) {
@@ -75,19 +97,20 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
     // }
 
     emit(AddItemToFavoritesLoadingState());
-    var response = await WishListApis.addItemToWishlist(
-      productId,
-      productSource
-    );
+    var response =
+        await WishListApis.addItemToWishlist(productId, productSource);
     if (response?.success == true) {
-      showAppSnackBar(content: AppLocalizations.of(context)!.product_added_to_favorites);
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!.product_added_to_favorites);
       emit(AddItemToFavoritesSuccessState());
-    } else if (response?.success ==  false) {
-      showAppSnackBar(content: response?.message??"");
+    } else if (response?.success == false) {
+      showAppSnackBar(content: response?.message ?? "");
 
       emit(AddItemToFavoritesFailedState());
     } else {
-      showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!
+              .check_your_internet_connection_and_try_again_later);
       emit(AddItemToFavoritesNetworkConnectionFailedState());
     }
   }
@@ -102,18 +125,18 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
     emit(SetSelectedOptionState());
   }
 
-  // setRelatedProducts() async {
-  //   emit(GetRelatedProductsLoadingState());
-  //   var response = await ProductsApis.getFeaturedProducts();
-  //   if (response?.success == 1) {
-  //     allProducts = response?.data?[0].products;
-  //     emit(FetchingAllProductsSuccessState());
-  //   } else if (response?.success == 0) {
-  //     allProducts = null;
-  //     emit(GetRelatedProductsFailedState());
-  //   } else {
-  //     allProducts = null;
-  //     emit(GetRelatedProductsNetworkConnectionFailedState());
-  //   }
-  // }
+// setRelatedProducts() async {
+//   emit(GetRelatedProductsLoadingState());
+//   var response = await ProductsApis.getFeaturedProducts();
+//   if (response?.success == 1) {
+//     allProducts = response?.data?[0].products;
+//     emit(FetchingAllProductsSuccessState());
+//   } else if (response?.success == 0) {
+//     allProducts = null;
+//     emit(GetRelatedProductsFailedState());
+//   } else {
+//     allProducts = null;
+//     emit(GetRelatedProductsNetworkConnectionFailedState());
+//   }
+// }
 }

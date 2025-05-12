@@ -93,6 +93,7 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                 child: ProductDetailsScreen(
                                   selectedProductId:
                                   productId ?? -1,
+
                                 ),
                               ),
                               type:

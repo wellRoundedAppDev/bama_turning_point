@@ -36,7 +36,7 @@ class CartItemWidget extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => ProductDetailsScreen(
                             selectedProductId:
-                                int.tryParse(cartItem.productId) ?? 0)));
+                                int.tryParse(cartItem.productId) ?? 0,)));
               },
               child: Image.network(
                 cartItem.imagePath,

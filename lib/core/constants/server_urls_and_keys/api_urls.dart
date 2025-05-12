@@ -67,7 +67,7 @@ class ApiUrls {
       "api/UserFavouriteProduct/AddToFavorites";
       //"api/rest/wishlist/";
   static const LOGOUT_ENDPOINT = "api/rest/logout";
-  static const CONFIRM_ORDER_ENDPOINT = "api/rest/confirm";
+  static const CONFIRM_ORDER_ENDPOINT = "api/PurchaseRequest/CreatePurchaseRequest";
   static const GUEST_CHECKOUT_ENDPOINT = "api/rest/guestshipping";
   static const SHIPPING_METHODS_ENDPOINT = "api/rest/shippingmethods";
   static const PAYMENT_METHODS_ENDPOINT = "api/rest/paymentmethods";
@@ -105,7 +105,12 @@ class ApiUrls {
 
   static const ADD_TO_FAVORITES =  "api/UserFavouriteProduct/AddToFavorites";
 
-
+  static const GET_COMPANY_PRODUCT_DETAILS_BY_ID_ENDPOINT = "api/Products/GetCompanyProduct";
+  static String getCustomerOrdersEndpoint =
+      "api/PurchaseRequest/GetAllPurchaseRequests";
+  static String getCustomerOrderDetailsEndpoint=
+      "api/PurchaseRequest/GetPurchaseRequestDetails";
+  static const GET_VENDOR_PRODUCT_DETAILS_BY_ID_ENDPOINT = "api/Products/GetVendorProduct";
 
   static const CANCEL_ORDER_ENDPOINT = "index.php?route=api/cancelorder";
   static const routeUrl = 'feed/rest_api/';
@@ -133,10 +138,10 @@ class ApiUrls {
       "api/UserFavouriteProduct/RemoveFromFavorites";
   static String getEditOrDeleteAccountAddressEndpoint(int id) =>
       "$ACCOUNT_ADDRESS_ENDPOINT/$id";
-  static String getCustomerOrdersEndpoint(int page) =>
-      "${GET_CUSTOMER_ORDERS_ENDPOINT}limit/10/page/$page";
-  static String getCustomerOrderDetailsEndpoint(int orderId) =>
-      "$GET_CUSTOMER_ORDERS_ENDPOINT$orderId";
+  // static String getCustomerOrdersEndpoint(int page) =>
+  //     "${GET_CUSTOMER_ORDERS_ENDPOINT}limit/10/page/$page";
+  // static String getCustomerOrderDetailsEndpoint(int orderId) =>
+  //     "$GET_CUSTOMER_ORDERS_ENDPOINT$orderId";
   static String getAccountAddressEndpoint(int addressId) =>
       "$ACCOUNT_ADDRESS_ENDPOINT/$addressId";
   static String getSearchByTermEndpoint(String searchTerm) =>
@@ -145,7 +150,7 @@ class ApiUrls {
       "$GET_PRODUCTS_IN_BRAND_ENDPOINT{$id}";
 
 
-  static const GET_COMPANY_PRODUCT_DETAILS_BY_ID_ENDPOINT = "api/Products/GetCompanyProduct";
+  // static const GET_COMPANY_PRODUCT_DETAILS_BY_ID_ENDPOINT = "api/Products/GetCompanyProduct";
 
   static const GET_ALL_NOTIFICATIONS_ENDPOINT = "api/SendNotifications/GetAllSelectList";
 

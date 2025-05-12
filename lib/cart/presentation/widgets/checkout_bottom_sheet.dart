@@ -3,8 +3,10 @@ import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cu
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
+import 'package:classic_eccomerce/checkout/presentation/cubits/states.dart';
 import 'package:classic_eccomerce/checkout/presentation/screens/quick_checkout_auth_screen.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
+import 'package:classic_eccomerce/shared_components/app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -23,6 +25,7 @@ class CheckOutBottomSheet extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.08,
       color: AppColors.APP_SECONDARY_COLOR,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
@@ -63,41 +66,55 @@ class CheckOutBottomSheet extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(right: 8, top: 8, bottom: 8, left: 8),
+          BlocProvider(
+          create: (context) => CheckOutCubit(),
+          child: BlocConsumer<CheckOutCubit, CheckOutStates>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            CheckOutCubit cubit = CheckOutCubit.get(context);
+            return Padding(
+           padding:    const EdgeInsets.only(right: 8, top: 8, bottom: 8, left: 8),
               child: CustomButton(
-                text: AppLocalizations.of(context)!.checkout,
-                height: MediaQuery.of(context).size.height,
-                textFontSize: FontSizes.FONT_SIZE_14,
-                action: () {
-                  if (AuthCubit.get(context).isUserLoggedIn) {
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            child: BlocProvider.value(
-                                value: CartCubit.get(context),
-                                child: BlocProvider(
-                                    create: (context) => CheckOutCubit()
-                                      ..setRegisteredUserPaymentAddresses(),
-                                    child:
-                                        const SetBillingAddressForRegisteredUserScreen())),
-                            type: PageTransitionType.leftToRight));
-                    return;
-                  }
+              text: AppLocalizations.of(context)!.checkout,
+              height: MediaQuery.of(context).size.height,
+              isLoading:  state is ConfirmOrderLoadingState,
+              textFontSize: FontSizes.FONT_SIZE_14,
+              action: () {
+                if (AuthCubit.get(context).isUserLoggedIn) {
 
-                  Navigator.push(
-                      context,
-                      PageTransition(
-                          child: BlocProvider.value(
-                              value: CartCubit.get(context),
-                              child: const QuickCheckoutAuthScreen()),
-                          type: PageTransitionType.leftToRight));
-                },
-              ),
-            ),
-          )
+                  cubit.createOrder(CartCubit.get(context));
+                  // Navigator.push(
+                  //     context,
+                  //     PageTransition(
+                  //         child: BlocProvider.value(
+                  //             value: CartCubit.get(context),
+                  //             child: BlocProvider(
+                  //                 create: (context) => CheckOutCubit()
+                  //                   ..setRegisteredUserPaymentAddresses(),
+                  //                 child:
+                  //                     const SetBillingAddressForRegisteredUserScreen())),
+                  //         type: PageTransitionType.leftToRight));
+                  // return;
+                }else{
+
+                  showAppSnackBar(content: AppLocalizations.of(context)!.login);
+                }
+
+                // Navigator.push(
+                //     context,
+                //     PageTransition(
+                //         child: BlocProvider.value(
+                //             value: CartCubit.get(context),
+                //             child: const QuickCheckoutAuthScreen()),
+                //         type: PageTransitionType.leftToRight));
+              },
+                        ),
+            );
+          },
+                    ),
+                    )
         ],
       ),
     );

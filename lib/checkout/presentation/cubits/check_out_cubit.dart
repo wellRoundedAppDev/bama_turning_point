@@ -50,9 +50,33 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
 
 
 
-  createOrder(){
+  createOrder(CartCubit cartCubit){
 
+          // [
+          //   {
+          //     "Id": 5,
+          //     "RequestDate": "2025-05-11T12:52:44.3784731",
+          //     "RequestNumber": "20250511125244",
+          //     "CustomerName": "ss22",
+          //     "Status": 1
+          //   }
+          // ]
+        var items =  cartCubit.cartItems?.entries.map((e)=>
+        {
+          "productSource": 1,
+          "unitId": 5,
+          "unitName": "قطعة",
+          "productId": e.value["id"],
+          "productName": e.value['name'],
+          "qty": e.value['quantity']
+        }
+        )?.toList();
 
+        print(items);
+
+        emit(ConfirmOrderLoadingState());
+        var response = CheckoutApis.createOrder(items: items);
+        emit(ConfirmOrderSuccessState());
 
   }
 

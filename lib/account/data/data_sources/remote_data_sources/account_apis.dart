@@ -206,9 +206,9 @@ class AccountApis {
     }
   }
 
-  static Future<GetCustomerOrdersResponse?> getCustomerOrders(int page,
+  static Future<PurchaseRequestsResponse?> getCustomerOrders(int page,
       {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
-    String endpoint = ApiUrls.getCustomerOrdersEndpoint(page);
+    String endpoint = ApiUrls.getCustomerOrdersEndpoint;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
@@ -217,12 +217,15 @@ class AccountApis {
         "Authorization": "Bearer $accessToken",
         "X-Oc-Merchant-Language": languageCode,
         "X-Oc-Currency": currencyCode
+      },queryParameters: {
+        "pageNumber":page,
+        "pageSize":10000
       });
       if (response == null) {
         return null;
       }
       print(response.data);
-      return GetCustomerOrdersResponse.fromJson(response.data);
+      return PurchaseRequestsResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
         print("Get customer orders error api $e");
@@ -230,9 +233,9 @@ class AccountApis {
     }
   }
 
-  static Future<GetOrderDetailsResponse?> getOrderDetails(int? orderId,
+  static Future<PurchaseRequestDetailsResponse?> getOrderDetails(int? orderId,
       {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
-    String endpoint = ApiUrls.getCustomerOrderDetailsEndpoint(orderId ?? 0);
+    String endpoint = ApiUrls.getCustomerOrderDetailsEndpoint;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
@@ -246,12 +249,14 @@ class AccountApis {
         "Authorization": "Bearer $accessToken",
         "X-Oc-Merchant-Language": languageCode,
         "X-Oc-Currency": currencyCode
+      },queryParameters: {
+        "requestId":orderId
       });
 
       if (response == null) {
         return null;
       }
-      return GetOrderDetailsResponse.fromJson(response.data);
+      return PurchaseRequestDetailsResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
         print("Get order details error api $e");

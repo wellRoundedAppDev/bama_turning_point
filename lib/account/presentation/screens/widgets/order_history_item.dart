@@ -5,6 +5,7 @@ import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_c
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../core/constants/fonts/font_sizes.dart';
@@ -13,7 +14,8 @@ import '../order_history/order_history_details_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderHistoryItem extends StatelessWidget {
-  CustomerOrder? customerOrder;
+  PurchaseRequest? customerOrder;
+
   OrderHistoryItem({super.key, required this.customerOrder});
 
   @override
@@ -43,7 +45,7 @@ class OrderHistoryItem extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    "#${customerOrder?.orderId ?? ""}",
+                    "#${customerOrder?.requestNumber ?? ""}",
                     textAlign: TextAlign.start,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -74,72 +76,10 @@ class OrderHistoryItem extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    customerOrder?.name ?? "",
+                    customerOrder?.customerName ?? "",
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     textAlign: TextAlign.start,
-                    style: const TextStyle(
-                        fontSize: FontSizes.FONT_SIZE_14,
-                        color: Color(0xff947979)),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Container(
-            height: 1,
-            color: const Color(0xffB6BBC6),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
-            child: Row(
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.number_of_products,
-                  style: const TextStyle(
-                      fontSize: FontSizes.FONT_SIZE_14,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                Expanded(
-                  child: Text(
-                    customerOrder?.numOfProducts.toString() ?? "",
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: const TextStyle(
-                        fontSize: FontSizes.FONT_SIZE_14,
-                        color: Color(0xff947979)),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Container(
-            height: 1,
-            color: const Color(0xffB6BBC6),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
-            child: Row(
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.total,
-                  style: const TextStyle(
-                      fontSize: FontSizes.FONT_SIZE_14,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                Expanded(
-                  child: Text(
-                    customerOrder?.total ?? "",
-                    textAlign: TextAlign.start,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         fontSize: FontSizes.FONT_SIZE_14,
                         color: Color(0xff947979)),
@@ -162,6 +102,26 @@ class OrderHistoryItem extends StatelessWidget {
                       fontSize: FontSizes.FONT_SIZE_14,
                       fontWeight: FontWeight.bold),
                 ),
+                const SizedBox(
+                  width: 4,
+                ),
+                Expanded(
+                  child: Text(
+                    customerOrder?.status == 1
+                        ? AppLocalizations.of(context)!.hanging
+                        : customerOrder?.status == 2
+                            ? AppLocalizations.of(context)!.accepted
+                            : customerOrder?.status == 3
+                                ? AppLocalizations.of(context)!.unacceptable
+                                : AppLocalizations.of(context)!.complete,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(
+                        fontSize: FontSizes.FONT_SIZE_14,
+                        color: Color(0xff947979)),
+                  ),
+                )
                 //              const SizedBox(
                 //                width: 4,
                 //              ),
@@ -247,7 +207,8 @@ class OrderHistoryItem extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    customerOrder?.dateAdded
+                    DateFormat('yyyy-MM-dd')
+                            .format(customerOrder!.requestDate)
                             ?.split(",")
                             .last
                             .split("+")
@@ -272,7 +233,7 @@ class OrderHistoryItem extends StatelessWidget {
                       child: BlocProvider.value(
                           value: AccountCubit.get(context)
                             ..setOrderDetails(
-                                int.tryParse(customerOrder?.orderId ?? "") ??
+                                int.tryParse("${customerOrder?.id ?? ''}") ??
                                     0),
                           child: OrderDetailsScreen()),
                       type: PageTransitionType.leftToRight));

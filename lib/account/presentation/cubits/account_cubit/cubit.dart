@@ -51,9 +51,9 @@ class AccountCubit extends Cubit<AccountStates> {
       isDefaultAddress: null,
       postalCode: "");
   int? selectedAddressId;
-  List<CustomerOrder> customerOrders = [];
+  List<PurchaseRequest?> customerOrders = [];
   int? selectedOrderId;
-  OrderDetails? selectedOrder;
+  PurchaseRequestDetailData? selectedOrder;
   int customerOrdersPageNumber = 1;
 
   ScrollController ordersHistoryScrollController = ScrollController();
@@ -277,9 +277,9 @@ class AccountCubit extends Cubit<AccountStates> {
     var response = await AccountApis.getCustomerOrders(1,
         currencyCode: appSettingsCubit.currencyCode,
         languageCode: languageCodes[localeCubit.locale.languageCode]);
-    if (response?.success == 1) {
+    if (response?.isSucceeded == true) {
       customerOrders.clear();
-      var tempCustomerOrders = response?.customerOrders ?? [];
+      var tempCustomerOrders = response?.obj?.purchaseRequests ?? [];
       if (tempCustomerOrders.isEmpty == true) {
         emit(GetFirstCustomerOrdersSuccessState());
         return;
@@ -288,7 +288,7 @@ class AccountCubit extends Cubit<AccountStates> {
       customerOrders.addAll(tempCustomerOrders);
 
       emit(GetFirstCustomerOrdersSuccessState());
-    } else if (response?.success == 0) {
+    } else if (response?.isSucceeded == false) {
       customerOrders.clear();
       emit(GetFirstCustomerOrdersFailedState());
     } else {
@@ -304,8 +304,8 @@ class AccountCubit extends Cubit<AccountStates> {
     var response = await AccountApis.getCustomerOrders(customerOrdersPageNumber,
         currencyCode: appSettingsCubit.currencyCode,
         languageCode: languageCodes[localeCubit.locale.languageCode]);
-    if (response?.success == 1) {
-      var tempCustomerOrders = response?.customerOrders ?? [];
+    if (response?.isSucceeded == true) {
+      var tempCustomerOrders = response?.obj?.purchaseRequests ?? [];
       if (tempCustomerOrders.isEmpty == true) {
         emit(AddMoreCustomerOrdersSuccessState());
         return;
@@ -313,7 +313,7 @@ class AccountCubit extends Cubit<AccountStates> {
       customerOrdersPageNumber++;
       customerOrders.addAll(tempCustomerOrders);
       emit(AddMoreCustomerOrdersSuccessState());
-    } else if (response?.success == 0) {
+    } else if (response?.isSucceeded == false) {
       emit(AddMoreCustomerOrdersFailedState());
     } else {
       emit(AddMoreCustomerOrdersNetworkConnectionFailedState());
@@ -324,15 +324,14 @@ class AccountCubit extends Cubit<AccountStates> {
     selectedOrderId = id;
     LocaleCubit localeCubit = LocaleCubit.get(context);
     AppSettingsCubit appSettingsCubit = AppSettingsCubit.get(context);
-
     emit(GetOrderDetailsLoadingState());
     var response = await AccountApis.getOrderDetails(id,
         currencyCode: appSettingsCubit.currencyCode,
         languageCode: languageCodes[localeCubit.locale.languageCode]);
-    if (response?.success == 1) {
-      selectedOrder = response?.orderDetails;
+    if (response?.isSucceeded == true) {
+      selectedOrder = response?.obj;
       emit(GetOrderDetailsSuccessState());
-    } else if (response?.success == 0) {
+    } else if (response?.isSucceeded == false) {
       selectedOrder = null;
       emit(GetOrderDetailsFailedState());
     } else {

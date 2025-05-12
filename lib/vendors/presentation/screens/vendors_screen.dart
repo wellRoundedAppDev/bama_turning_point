@@ -85,6 +85,7 @@ class VendorsScreen extends StatelessWidget {
                                                 PageTransitionType.leftToRight,
                                             child:
                                                 ViewAllProductsByVendorScreen(
+
                                                     vendorId:
                                                         vendorId?.toInt() ??
                                                             0)));

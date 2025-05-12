@@ -12,7 +12,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderHistoryScreen extends StatelessWidget {
   const OrderHistoryScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,7 +22,7 @@ class OrderHistoryScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           AccountCubit accountCubit = AccountCubit.get(context);
-          List<CustomerOrder>? customerOrders = accountCubit.customerOrders;
+          List<PurchaseRequest?> customerOrders = accountCubit.customerOrders;
           ScrollController scrollController =
               accountCubit.ordersHistoryScrollController;
           return (state is GetFirstCustomerOrdersLoadingState)
@@ -71,7 +70,7 @@ class OrderHistoryScreen extends StatelessWidget {
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
-                                    var customerOrder = customerOrders[index];
+                                    var customerOrder = customerOrders?[index];
                                     return OrderHistoryItem(
                                       customerOrder: customerOrder,
                                     );
@@ -80,7 +79,7 @@ class OrderHistoryScreen extends StatelessWidget {
                                       const SizedBox(
                                         height: 24,
                                       ),
-                                  itemCount: customerOrders.length ?? 0),
+                                  itemCount: customerOrders?.length ?? 0),
                               (state is AddMoreCustomerOrdersLoadingState)
                                   ? Container(
                                       padding: const EdgeInsets.all(16),

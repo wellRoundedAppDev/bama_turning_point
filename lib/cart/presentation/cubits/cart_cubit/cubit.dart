@@ -259,15 +259,16 @@ class CartCubit extends Cubit<CartStates> {
 
     // String id = selectedProduct?["id"]??"";
 
-    // if (Quantity == 1) {
-    //   // context.read<CategoriesAndProductsProvider>().setSelectedProduct(Product(name: name, id: id, price: price,imagePath: imagePath,quantity: quantity));
-    //
-    //   return;
-    // }
+
 
     int quantity = cartItems[id]['quantity'];
     double price = cartItems[id]['price']?.toDouble();
 
+    if (quantity == 1) {
+      // context.read<CategoriesAndProductsProvider>().setSelectedProduct(Product(name: name, id: id, price: price,imagePath: imagePath,quantity: quantity));
+
+      return;
+    }
     cartItems[id]['quantity'] = quantity - 1;
     numberOfItemsInCart = numberOfItemsInCart - 1;
 

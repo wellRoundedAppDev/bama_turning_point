@@ -10,9 +10,9 @@ import '../../../../main.dart';
 class ProductDetailsApi {
   static final dioHelper = DioHelper.instance;
 
-  static Future<GetProductDetailsResponse?> getProductDetailsById(int id,
+  static Future<GetProductDetailsResponse?> getProductDetailsById(int id,bool isCompany,
       {String languageCode = "ir_arabic", String currencyCode = "IQD"}) async {
-    String endPoint = ApiUrls.GET_COMPANY_PRODUCT_DETAILS_BY_ID_ENDPOINT;
+    String endPoint =isCompany? ApiUrls.GET_COMPANY_PRODUCT_DETAILS_BY_ID_ENDPOINT: ApiUrls.GET_VENDOR_PRODUCT_DETAILS_BY_ID_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState!.context.read<AuthCubit>().accessToken;
 

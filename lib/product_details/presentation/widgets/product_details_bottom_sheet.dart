@@ -3,6 +3,7 @@ import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dar
 import 'package:classic_eccomerce/cart/presentation/screens/cart_screen.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/paths/icon_paths.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/product_details/presentation/cubits/product_details_cubit/cubit.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/states.dart';
@@ -205,20 +206,22 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                               textFontSize: FontSizes.FONT_SIZE_14,
                               action: () {
                                 CartCubit cartCubit = CartCubit.get(context);
-                                ProductDetails? selectedProductDetails =
+                                ProductModel? selectedProductDetails =
                                     ProductDetailsCubit.get(context)
                                         .selectedProductDetails;
 
                                 cartCubit.addItemToCart(CartItem(
-                                    productId: selectedProductDetails?.productId
+                                    productId: selectedProductDetails?.id
                                             ?.toString() ??
                                         "",
                                     option: productDetailsCubit.selectedOption,
-                                    name: selectedProductDetails?.name ?? "",
-                                    imagePath: selectedProductDetails
-                                            ?.originalImage
+                                    name: selectedProductDetails?.productName ?? "",
+                                    imagePath:
+                                    selectedProductDetails?.files == null || selectedProductDetails?.files?.isEmpty == true?"":
+                                   ApiUrls.BASE_URL +  (selectedProductDetails
+                                            ?.files?[0].fileUrl
                                             .toString() ??
-                                        "",
+                                        ""),
                                     price: selectedProductDetails?.price
                                             ?.toDouble() ??
                                         -1));

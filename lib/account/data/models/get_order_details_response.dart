@@ -1,5 +1,87 @@
 import '../../../home/data/models/product.dart';
 
+class PurchaseRequestDetailsResponse {
+  final bool isSucceeded;
+  final String message;
+  final PurchaseRequestDetailData? obj;
+
+  PurchaseRequestDetailsResponse({
+    required this.isSucceeded,
+    required this.message,
+    required this.obj,
+  });
+
+  factory PurchaseRequestDetailsResponse.fromJson(Map<String, dynamic> json) {
+    return PurchaseRequestDetailsResponse(
+      isSucceeded: json['IsSuccssed'] as bool,
+      message: json['Message'] as String,
+      obj: json['Obj'] != null
+          ? PurchaseRequestDetailData.fromJson(json['Obj'])
+          : null,
+    );
+  }
+}
+
+class PurchaseRequestDetailData {
+  final int? id;
+  final DateTime requestDate;
+  final String? requestNumber;
+  final String? customerName;
+  final int? status;
+  final List<PurchaseRequestDetail?> purchaseRequestDetails;
+
+  PurchaseRequestDetailData({
+    required this.id,
+    required this.requestDate,
+    required this.requestNumber,
+    required this.customerName,
+    required this.status,
+    required this.purchaseRequestDetails,
+  });
+
+  factory PurchaseRequestDetailData.fromJson(Map<String, dynamic> json) {
+    return PurchaseRequestDetailData(
+      id: json['Id'] as int?,
+      requestDate: DateTime.parse(json['RequestDate']),
+      requestNumber: json['RequestNumber'] as String?,
+      customerName: json['CustomerName'] as String?,
+      status: json['Status'] as int,
+      purchaseRequestDetails: (json['PurchaseRequestDetails'] as List)
+          .map((e) => PurchaseRequestDetail.fromJson(e))
+          .toList(),
+    );
+  }
+}
+
+class PurchaseRequestDetail {
+  final String? productName;
+  final double? qty;
+  final String? unitName;
+  final int? productSource;
+  final int? productId;
+
+  PurchaseRequestDetail({
+    required this.productName,
+    required this.qty,
+    required this.unitName,
+    required this.productSource,
+    required this.productId,
+  });
+
+  factory PurchaseRequestDetail.fromJson(Map<String, dynamic> json) {
+    return PurchaseRequestDetail(
+      productName: json['ProductName'] as String?,
+      qty: json['Qty'] as double?,
+      unitName: json['UnitName'] as String?,
+      productSource: json['ProductSource'] as int?,
+      productId: json['ProductId'] as int?,
+    );
+  }
+}
+
+
+
+
 class GetOrderDetailsResponse {
   GetOrderDetailsResponse({
     this.success,

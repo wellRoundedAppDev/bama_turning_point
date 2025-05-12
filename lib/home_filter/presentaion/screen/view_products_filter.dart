@@ -14,8 +14,9 @@ import '../../../wish_list/presentation/cubits/wish_list_cubit/states.dart';
 
 class ViewProductsFilterScreen extends StatelessWidget {
   List<ProductInCategory>? result;
+  bool isCompany;
 
-  ViewProductsFilterScreen(this.result);
+  ViewProductsFilterScreen(this.result,this.isCompany);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,7 @@ class ViewProductsFilterScreen extends StatelessWidget {
                               child: BlocProvider.value(
                                 value: CartCubit.get(context),
                                 child: ProductDetailsScreen(
-                                  selectedProductId: productId ?? -1,
+                                  selectedProductId: productId ?? -1,isCompany: isCompany,
                                 ),
                               ),
                               type: PageTransitionType.leftToRight));

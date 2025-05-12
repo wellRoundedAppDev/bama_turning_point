@@ -1,27 +1,29 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/core/helpers/remove_html_tags_from_string.dart';
 import 'package:classic_eccomerce/product_details/presentation/cubits/product_details_cubit/cubit.dart';
 import 'package:classic_eccomerce/product_details/presentation/cubits/product_details_cubit/states.dart';
 import 'package:classic_eccomerce/product_details/presentation/widgets/product_details_bottom_sheet.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
-import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../core/constants/colors/colors.dart';
-import '../../../home/data/models/product.dart';
 import '../../../shared_components/no_network_refresh_page.dart';
 import '../../data/models/get_product_details_response.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
- // Product product;
+  // Product product;
   int selectedProductId;
+  bool isCompany;
+
   ProductDetailsScreen({
     super.key,
     required this.selectedProductId,
+     this.isCompany = true,
     //required this.product
   });
 
@@ -29,21 +31,29 @@ class ProductDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ProductDetailsCubit(
-        selectedProductId: selectedProductId,
-      )..setProductDetails(),
+          selectedProductId: selectedProductId, isCompany: isCompany)
+        ..setProductDetails(),
       child: BlocConsumer<ProductDetailsCubit, ProductDetailsStates>(
         listener: (context, state) {},
         builder: (context, state) {
           ProductDetailsCubit productDetailsCubit =
               ProductDetailsCubit.get(context);
-          ProductDetails? productDetails =
+          ProductModel? productDetails =
               productDetailsCubit.selectedProductDetails;
-          String? productImagePath = productDetails?.originalImage;
-          String? productName = productDetails?.name;
-          num? productPrice = productDetails?.price;
-          String? priceFormatted = productDetails?.priceFormated;
-          num? productPriceExcludingTaxes = productDetails?.priceExcludingTax;
-          List<Option>? options = productDetails?.options;
+          // String? productImagePath = productDetails?.files?[0].fileUrl;
+          String? productName = productDetails?.productName;
+          num? productPrice = productDetails?.minorUnitPrice;
+          String? priceFormatted =
+          productDetails?.source == 2?
+
+              productDetails?.price?.toString() :
+
+          productDetails?.minorUnitPrice.toString();
+          num? productPriceExcludingTaxes = productDetails?.minorUnitPrice;
+          List<ProductColor>? colorProduct = productDetails?.colors;
+          List<ProductSize>? sizeProduct = productDetails?.sizes;
+
+          // List<Option>? options = productDetails?.options;
           // Option? firstOption;
           // int? firstOptionProductId;
           //
@@ -52,13 +62,12 @@ class ProductDetailsScreen extends StatelessWidget {
           //   firstOptionProductId = firstOption.productOptionId;
           // }
 
-          bool isThereOptions = (options != null && options.isNotEmpty);
+          // bool isThereOptions = (options != null && options.isNotEmpty);
           String? priceExcludingTaxesFormatted =
-              productDetails?.priceExcludingTaxFormated;
-          num? productRating = productDetails?.rating;
-          String? stockStatus = productDetails?.stockStatus;
-          String? description = productDetails?.description;
-          var originalImageUrls = productDetails?.originalImages;
+              productDetails?.grandUnitPrice.toString();
+          num? productRating = productDetails?.ratingCount;
+          String? description = productDetails?.notes;
+          List<ProductFile>? originalImageUrls = productDetails?.files;
           return (state is GetProductDetailsLoadingState)
               ? const Material(
                   color: Colors.white,
@@ -110,191 +119,226 @@ class ProductDetailsScreen extends StatelessWidget {
                                               ((originalImageUrls?.length ??
                                                           0) ==
                                                       0)
-                                                  ? GestureDetector(
-                                                      onTap: () {
-                                                        showDialog(
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return AlertDialog(
-                                                                insetPadding:
-                                                                    EdgeInsets
-                                                                        .zero,
-                                                                content: Stack(
-                                                                  children: [
-                                                                    Image
-                                                                        .network(
-                                                                      productImagePath ??
-                                                                          "",
-                                                                      height: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .height,
-                                                                      width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width,
-                                                                      errorBuilder: (context,
-                                                                          object,
-                                                                          stackTrace) {
-                                                                        return const Center(
-                                                                          child:
-                                                                              Icon(
-                                                                            Icons.error,
-                                                                            size:
-                                                                                200,
-                                                                            color:
-                                                                                AppColors.APP_MAIN_COLOR,
-                                                                          ),
-                                                                        );
-                                                                      },
-                                                                    ),
-                                                                    Positioned(
-                                                                      top: 8,
-                                                                      left: 4,
-                                                                      child:
-                                                                          GestureDetector(
-                                                                        onTap:
-                                                                            () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                        child:
-                                                                            const Icon(
-                                                                          Icons
-                                                                              .cancel,
-                                                                          color:
-                                                                              AppColors.APP_MAIN_COLOR,
-                                                                          size:
-                                                                              50,
-                                                                        ),
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              );
-                                                            });
-                                                      },
+                                                  ? Container(
+                                                      alignment:
+                                                          Alignment.center,
                                                       child: Image.network(
-                                                        productImagePath ?? "",
+                                                        "",
                                                         height: MediaQuery.of(
                                                                     context)
                                                                 .size
                                                                 .height *
-                                                            0.3,
+                                                            0.4,
                                                         width: MediaQuery.of(
                                                                 context)
                                                             .size
                                                             .width,
-                                                        fit: BoxFit.cover,
+                                                        fit: BoxFit.contain,
                                                         errorBuilder: (context,
                                                             object,
                                                             stackTrace) {
-                                                          return const Center(
-                                                            child: Icon(
-                                                              Icons.error,
-                                                              size: 150,
-                                                              color: AppColors
-                                                                  .APP_MAIN_COLOR,
-                                                            ),
+                                                          return Icon(
+                                                            Icons.error,
+                                                            size: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.18,
+                                                            color: AppColors
+                                                                .APP_MAIN_COLOR,
                                                           );
                                                         },
                                                       ),
                                                     )
-                                                  : CarouselSlider(
-                                                      options: CarouselOptions(
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
-                                                              0.3,
-                                                          enlargeCenterPage:
-                                                              true,
-                                                          enableInfiniteScroll:
-                                                              true,
-                                                          initialPage: 0,
-                                                          autoPlay: true,
-                                                          viewportFraction: 1,
-                                                          onPageChanged:
-                                                              (index, reason) {
-                                                            productDetailsCubit
-                                                                .setSliderCurrentIndex(
-                                                                    index);
-                                                          }),
-                                                      items: originalImageUrls
-                                                          ?.map(
-                                                            (e) =>
-                                                                GestureDetector(
-                                                              onTap: () {
-                                                                showDialog(
-                                                                    context:
-                                                                        context,
-                                                                    builder:
-                                                                        (context) {
-                                                                      return AlertDialog(
-                                                                        insetPadding:
-                                                                            EdgeInsets.zero,
-                                                                        content:
-                                                                            Stack(
-                                                                          children: [
-                                                                            Image.network(
-                                                                              e ?? "",
-                                                                              height: MediaQuery.of(context).size.height,
-                                                                              width: MediaQuery.of(context).size.width,
-                                                                              errorBuilder: (context, object, stackTrace) {
-                                                                                return const Center(
-                                                                                  child: Icon(
-                                                                                    Icons.error,
-                                                                                    size: 200,
-                                                                                    color: AppColors.APP_MAIN_COLOR,
-                                                                                  ),
-                                                                                );
-                                                                              },
-                                                                            ),
-                                                                            Positioned(
-                                                                              top: 8,
-                                                                              left: 4,
-                                                                              child: GestureDetector(
-                                                                                onTap: () {
-                                                                                  Navigator.pop(context);
-                                                                                },
-                                                                                child: const Icon(
-                                                                                  Icons.cancel,
-                                                                                  color: AppColors.APP_MAIN_COLOR,
-                                                                                  size: 50,
-                                                                                ),
+                                                  : ((originalImageUrls
+                                                                  ?.length ??
+                                                              0) ==
+                                                          1)
+                                                      ? GestureDetector(
+                                                          onTap: () {
+                                                            showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) {
+                                                                  return AlertDialog(
+                                                                    insetPadding:
+                                                                        EdgeInsets
+                                                                            .zero,
+                                                                    content:
+                                                                        Stack(
+                                                                      children: [
+                                                                        Image
+                                                                            .network(
+                                                                          "${ApiUrls.BASE_URL}${originalImageUrls?[0].fileUrl}" ??"",
+                                                                          height: MediaQuery.of(context)
+                                                                              .size
+                                                                              .height,
+                                                                          width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width,
+                                                                          errorBuilder: (context,
+                                                                              object,
+                                                                              stackTrace) {
+                                                                            return const Center(
+                                                                              child: Icon(
+                                                                                Icons.error,
+                                                                                size: 200,
+                                                                                color: AppColors.APP_MAIN_COLOR,
                                                                               ),
-                                                                            )
-                                                                          ],
+                                                                            );
+                                                                          },
                                                                         ),
-                                                                      );
-                                                                    });
-                                                              },
-                                                              child:
-                                                                  Image.network(
-                                                                e ?? "",
-                                                                width: MediaQuery.of(
+                                                                        Positioned(
+                                                                          top:
+                                                                              8,
+                                                                          left:
+                                                                              4,
+                                                                          child:
+                                                                              GestureDetector(
+                                                                            onTap:
+                                                                                () {
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                            child:
+                                                                                const Icon(
+                                                                              Icons.cancel,
+                                                                              color: AppColors.APP_MAIN_COLOR,
+                                                                              size: 50,
+                                                                            ),
+                                                                          ),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                });
+                                                          },
+                                                          child: Image.network(
+                                                            "${ApiUrls.BASE_URL}${originalImageUrls?[0].fileUrl}" ??
+                                                                "",
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.4,
+                                                            width:
+                                                                MediaQuery.of(
                                                                         context)
                                                                     .size
                                                                     .width,
-                                                                errorBuilder:
-                                                                    (context,
-                                                                        object,
-                                                                        stackTrace) {
-                                                                  return const Center(
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .error,
-                                                                      size: 150,
-                                                                      color: AppColors
-                                                                          .APP_MAIN_COLOR,
+                                                            fit: BoxFit.contain,
+                                                            errorBuilder:
+                                                                (context,
+                                                                    object,
+                                                                    stackTrace) {
+                                                              return const Center(
+                                                                child: Icon(
+                                                                  Icons.error,
+                                                                  size: 150,
+                                                                  color: AppColors
+                                                                      .APP_MAIN_COLOR,
+                                                                ),
+                                                              );
+                                                            },
+                                                          ),
+                                                        )
+                                                      : CarouselSlider(
+                                                          options:
+                                                              CarouselOptions(
+                                                                  height: MediaQuery.of(context)
+                                                                          .size
+                                                                          .height *
+                                                                      0.3,
+                                                                  enlargeCenterPage:
+                                                                      true,
+                                                                  enableInfiniteScroll:
+                                                                      true,
+                                                                  initialPage:
+                                                                      0,
+                                                                  autoPlay:
+                                                                      true,
+                                                                  viewportFraction:
+                                                                      1,
+                                                                  onPageChanged:
+                                                                      (index,
+                                                                          reason) {
+                                                                    productDetailsCubit
+                                                                        .setSliderCurrentIndex(
+                                                                            index);
+                                                                  }),
+                                                          items:
+                                                              originalImageUrls
+                                                                  ?.map(
+                                                                    (e) =>
+                                                                        GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        showDialog(
+                                                                            context:
+                                                                                context,
+                                                                            builder:
+                                                                                (context) {
+                                                                              return AlertDialog(
+                                                                                insetPadding: EdgeInsets.zero,
+                                                                                content: Stack(
+                                                                                  children: [
+                                                                                    Image.network(
+                                                                                      e.fileUrl ?? "",
+                                                                                      height: MediaQuery.of(context).size.height,
+                                                                                      width: MediaQuery.of(context).size.width,
+                                                                                      errorBuilder: (context, object, stackTrace) {
+                                                                                        return const Center(
+                                                                                          child: Icon(
+                                                                                            Icons.error,
+                                                                                            size: 200,
+                                                                                            color: AppColors.APP_MAIN_COLOR,
+                                                                                          ),
+                                                                                        );
+                                                                                      },
+                                                                                    ),
+                                                                                    Positioned(
+                                                                                      top: 8,
+                                                                                      left: 4,
+                                                                                      child: GestureDetector(
+                                                                                        onTap: () {
+                                                                                          Navigator.pop(context);
+                                                                                        },
+                                                                                        child: const Icon(
+                                                                                          Icons.cancel,
+                                                                                          color: AppColors.APP_MAIN_COLOR,
+                                                                                          size: 50,
+                                                                                        ),
+                                                                                      ),
+                                                                                    )
+                                                                                  ],
+                                                                                ),
+                                                                              );
+                                                                            });
+                                                                      },
+                                                                      child: Image
+                                                                          .network(
+                                                                        e.fileUrl ??
+                                                                            "",
+                                                                        width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width,
+                                                                        errorBuilder: (context,
+                                                                            object,
+                                                                            stackTrace) {
+                                                                          return const Center(
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.error,
+                                                                              size: 150,
+                                                                              color: AppColors.APP_MAIN_COLOR,
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                      ),
                                                                     ),
-                                                                  );
-                                                                },
-                                                              ),
-                                                            ),
-                                                          )
-                                                          .toList(),
-                                                    ),
+                                                                  )
+                                                                  .toList(),
+                                                        ),
                                               ((originalImageUrls?.length ??
                                                           0) ==
                                                       0)
@@ -355,742 +399,399 @@ class ProductDetailsScreen extends StatelessWidget {
                                           Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 16),
-                                            child: Column(
+                                            child: Row(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.center,
                                               children: [
-                                                Text(
-                                                  productName ?? "-",
-                                                  style: const TextStyle(
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_14,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Color(0xff333333)),
-                                                ),
-                                                const SizedBox(
-                                                  height: 2,
-                                                ),
-                                                Text(
-                                                  priceFormatted ?? "",
-                                                  //   "\$$productPrice",
-                                                  style: const TextStyle(
-                                                      color: AppColors
-                                                          .APP_MAIN_COLOR,
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_18,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                const SizedBox(
-                                                  height: 8,
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Expanded(
-                                                      child: Text(
-                                                        "Ex Tax: $priceExcludingTaxesFormatted",
-                                                        style: const TextStyle(
-                                                            fontSize: FontSizes
-                                                                .FONT_SIZE_14,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Color(
-                                                                0xff999999)),
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        (1 <=
-                                                                (productRating ??
-                                                                    0))
-                                                            ? const Icon(
-                                                                Icons.star,
-                                                                color: Colors
-                                                                    .black,
-                                                              )
-                                                            : const Icon(
-                                                                Icons
-                                                                    .star_outline,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                        (2 <=
-                                                                (productRating ??
-                                                                    0))
-                                                            ? const Icon(
-                                                                Icons.star,
-                                                                color: Colors
-                                                                    .black,
-                                                              )
-                                                            : const Icon(
-                                                                Icons
-                                                                    .star_outline,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                        (3 <=
-                                                                (productRating ??
-                                                                    0))
-                                                            ? const Icon(
-                                                                Icons.star,
-                                                                color: Colors
-                                                                    .black,
-                                                              )
-                                                            : const Icon(
-                                                                Icons
-                                                                    .star_outline,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                        (4 <=
-                                                                (productRating ??
-                                                                    0))
-                                                            ? const Icon(
-                                                                Icons.star,
-                                                                color: Colors
-                                                                    .black,
-                                                              )
-                                                            : const Icon(
-                                                                Icons
-                                                                    .star_outline,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                        (5 <=
-                                                                (productRating ??
-                                                                    0))
-                                                            ? const Icon(
-                                                                Icons.star,
-                                                                color: Colors
-                                                                    .black,
-                                                              )
-                                                            : const Icon(
-                                                                Icons
-                                                                    .star_outline,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                                (isThereOptions == false)
-                                                    ? Container()
-                                                    : const SizedBox(
-                                                        height: 16,
-                                                      ),
-                                                (isThereOptions == false)
-                                                    ? Container()
-                                                    : Text(
-                                                        AppLocalizations.of(
-                                                                context)!
-                                                            .select_from_the_available_options,
-                                                        style: const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Color(
-                                                                0xff313846)),
-                                                      ),
-                                                (isThereOptions == false)
-                                                    ? Container()
-                                                    : const SizedBox(
-                                                        height: 4,
-                                                      ),
-                                                ...(options?.map<Widget>(
-                                                        (optionItem) {
-                                                      int? productOptionId =
-                                                          optionItem
-                                                              .productOptionId;
-                                                      String? optionName =
-                                                          optionItem.optionName;
-                                                      return Padding(
-                                                        padding: EdgeInsets.only(
-                                                            bottom: (productOptionId ==
-                                                                    options.last
-                                                                        .productOptionId)
-                                                                ? 0
-                                                                : 16),
-                                                        child: Row(
-                                                          children: [
-                                                            //todo replace original
-                                                            // Text(
-                                                            //   optionName ?? "",
-                                                            //   style: const TextStyle(
-                                                            //       fontSize:
-                                                            //           FontSizes
-                                                            //               .FONT_SIZE_14,
-                                                            //       fontWeight:
-                                                            //           FontWeight
-                                                            //               .bold,
-                                                            //       color: Color(
-                                                            //           0xff333333)),
-                                                            // ),
-                                                            // const SizedBox(
-                                                            //   width: 8,
-                                                            // ),
-
-                                                            //todo original circles
-                                                            // Expanded(
-                                                            //   child: SizedBox(
-                                                            //     height: MediaQuery.of(
-                                                            //                 context)
-                                                            //             .size
-                                                            //             .height *
-                                                            //         0.04,
-                                                            //     child: ListView
-                                                            //         .separated(
-                                                            //             scrollDirection:
-                                                            //                 Axis
-                                                            //                     .horizontal,
-                                                            //             itemBuilder:
-                                                            //                 (context,
-                                                            //                     index) {
-                                                            //               var productOptionValue =
-                                                            //                   option.optionValues?[index];
-                                                            //               var productOptionImage =
-                                                            //                   productOptionValue?.optionImageUrl;
-                                                            //               var productOptionName =
-                                                            //                   productOptionValue?.name;
-                                                            //               int?
-                                                            //                   productOptionValueId =
-                                                            //                   productOptionValue?.productOptionValueId;
-                                                            //               if (kDebugMode) {
-                                                            //                 print(productDetailsCubit.selectedOption['option']);
-                                                            //                 print(productDetailsCubit.selectedOption['option'][option.productOptionId?.toString()]);
-                                                            //               }
-                                                            //               bool
-                                                            //                   isOptionSelected =
-                                                            //                   productDetailsCubit.selectedOption['option']?[productOptionId?.toString()] == productOptionValueId.toString();
-                                                            //
-                                                            //               return GestureDetector(
-                                                            //                 onTap:
-                                                            //                     () {
-                                                            //                   productDetailsCubit.setOption(option, productOptionValue);
-                                                            //                 },
-                                                            //                 child:
-                                                            //                     Container(
-                                                            //                   width: 35,
-                                                            //                   height: 30,
-                                                            //                   decoration: BoxDecoration(border: Border.all(color: AppColors.APP_MAIN_COLOR, width: (isOptionSelected == true) ? 2 : 0), borderRadius: BorderRadius.circular((productOptionImage == null) ? 0 : 100)),
-                                                            //                   child: (productOptionImage == null)
-                                                            //                       ? Center(child: Text(productOptionName ?? ""))
-                                                            //                       : ClipRRect(
-                                                            //                           borderRadius: BorderRadius.circular(100),
-                                                            //                           child: Image.network(
-                                                            //                             productOptionImage ?? "",
-                                                            //                             fit: BoxFit.cover,
-                                                            //                             errorBuilder: (context, object, stackTrace) {
-                                                            //                               return const Center(
-                                                            //                                 child: Icon(
-                                                            //                                   Icons.error,
-                                                            //                                   size: 30,
-                                                            //                                   color: AppColors.APP_MAIN_COLOR,
-                                                            //                                 ),
-                                                            //                               );
-                                                            //                             },
-                                                            //                           ),
-                                                            //                         ),
-                                                            //                 ),
-                                                            //               );
-                                                            //             },
-                                                            //             separatorBuilder:
-                                                            //                 (context,
-                                                            //                     index) {
-                                                            //               return const SizedBox(
-                                                            //                 width:
-                                                            //                     8,
-                                                            //               );
-                                                            //             },
-                                                            //             itemCount:
-                                                            //                 option.optionValues?.length ??
-                                                            //                     0),
-                                                            //   ),
-                                                            // )
-
-                                                            Expanded(
-                                                              child: Container(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .only(
-                                                                        left:
-                                                                            16,
-                                                                        right:
-                                                                            8),
-                                                                decoration: BoxDecoration(
-                                                                    border: Border.all(
-                                                                        color: const Color(
-                                                                            0xff95989A))),
-                                                                child: DropdownSearch<
-                                                                    OptionValue>(
-
-                                                                  items: optionItem
-                                                                          .optionValues ??
-                                                                      [],
-                                                                  dropdownDecoratorProps: DropDownDecoratorProps(
-                                                                      dropdownSearchDecoration: InputDecoration(
-                                                                          border: InputBorder.none,
-                                                                          hintStyle: const TextStyle(
-                                                                            fontSize:
-                                                                                FontSizes.FONT_SIZE_16,
-                                                                            color:
-                                                                                Color(0xff878787),
-                                                                          ),
-                                                                          label: Text(
-                                                                            optionName ??
-                                                                                "",
-                                                                            style: const TextStyle(
-                                                                                fontSize: FontSizes.FONT_SIZE_16,
-                                                                                fontWeight: FontWeight.bold,
-                                                                                color: Color(0xff313846)),
-                                                                          ),
-                                                                          hintText: AppLocalizations.of(context)!.region_or_state)),
-                                                                  dropdownButtonProps:
-                                                                      const DropdownButtonProps(
-                                                                          icon:
-                                                                              Icon(
-                                                                    Icons
-                                                                        .keyboard_arrow_down,
-                                                                    color: Color(
-                                                                        0xff696C6E),
-                                                                  )),
-                                                                  popupProps: PopupProps.menu(itemBuilder:
-                                                                      (context,
-                                                                          OptionValue
-                                                                              option,
-                                                                          bool) {
-                                                                    return Padding(
-                                                                      padding: const EdgeInsets
-                                                                          .all(
-                                                                          16.0),
-                                                                      child: Image
-                                                                          .network(
-                                                                        option.optionImageUrl ??
-                                                                            "-",
-                                                                        height: MediaQuery.of(context).size.height *
-                                                                            0.05,
-                                                                        width: double
-                                                                            .infinity,
-                                                                        fit: BoxFit
-                                                                            .cover,
-                                                                        errorBuilder: (context,
-                                                                            object,
-                                                                            stackTrace) {
-                                                                          return const Center(
-                                                                            child:
-                                                                            Icon(
-                                                                              Icons.error,
-                                                                              size:
-                                                                              40,
-                                                                              color:
-                                                                              AppColors.APP_MAIN_COLOR,
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                      ),
-                                                                    );
-                                                                  }),
-                                                                  dropdownBuilder:
-                                                                      (context,
-                                                                          option) {
-                                                                    return (option ==
-                                                                            null)
-                                                                        ? Text(optionName ??
-                                                                            "-")
-                                                                        : Image
-                                                                            .network(
-                                                                            option?.optionImageUrl ??
-                                                                                "",
-                                                                            height:
-                                                                                MediaQuery.of(context).size.height * 0.05,
-                                                                            width:
-                                                                                double.infinity,
-                                                                            fit:
-                                                                                BoxFit.cover,
-                                                                      errorBuilder: (context,
-                                                                          object,
-                                                                          stackTrace) {
-                                                                        return const Center(
-                                                                          child:
-                                                                          Icon(
-                                                                            Icons.error,
-                                                                            size:
-                                                                            40,
-                                                                            color:
-                                                                            AppColors.APP_MAIN_COLOR,
-                                                                          ),
-                                                                        );
-                                                                      },
-                                                                          );
-                                                                  },
-                                                                  onChanged:
-                                                                      (optionValue) {
-                                                                    productDetailsCubit.setOption(
-                                                                        optionItem,
-                                                                        optionValue);
-                                                                  },
-
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      );
-                                                    }).toList()) ??
-                                                    []
-                                              ],
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 16,
-                                          ),
-                                          const Divider(
-                                            thickness: 2,
-                                            color: Color(0xffE5E5E5),
-                                          ),
-                                          const SizedBox(
-                                            height: 8,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 16.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      "${AppLocalizations.of(context)!.stock}:  ",
+                                                      productName ?? "-",
                                                       style: const TextStyle(
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           color: Color(
-                                                              0xff313846)),
+                                                              0xff333333)),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 2,
                                                     ),
                                                     Text(
-                                                      stockStatus ?? "",
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              (stockStatus ==
-                                                                      "Out Of Stock")
-                                                                  ? 0xffE7284D
-                                                                  : 0xff1D9F40)),
+                                                      "${priceFormatted  ?? ""} ${AppLocalizations.of(context)!.dinar}",
+
+                                                      //   "\$$productPrice",
+                                                      style: const TextStyle(
+                                                          color: AppColors
+                                                              .APP_MAIN_COLOR,
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_18,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
+                                                    const SizedBox(
+                                                      height: 8,
+                                                    ),
+
+                                                    // (isThereOptions == false)
+                                                    //     ? Container()
+                                                    //     : const SizedBox(
+                                                    //         height: 16,
+                                                    //       ),
+                                                    // (isThereOptions == false)
+                                                    //     ? Container()
+                                                    //     : Text(
+                                                    //         AppLocalizations.of(
+                                                    //                 context)!
+                                                    //             .select_from_the_available_options,
+                                                    //         style: const TextStyle(
+                                                    //             fontWeight:
+                                                    //                 FontWeight.bold,
+                                                    //             color: Color(
+                                                    //                 0xff313846)),
+                                                    //       ),
+                                                    // (isThereOptions == false)
+                                                    //     ? Container()
+                                                    //     : const SizedBox(
+                                                    //         height: 4,
+                                                    //       ),
+                                                    // ...(options?.map<Widget>(
+                                                    //         (optionItem) {
+                                                    //       int? productOptionId =
+                                                    //           optionItem
+                                                    //               .productOptionId;
+                                                    //       String? optionName =
+                                                    //           optionItem.optionName;
+                                                    //       return Padding(
+                                                    //         padding: EdgeInsets.only(
+                                                    //             bottom: (productOptionId ==
+                                                    //                     options.last
+                                                    //                         .productOptionId)
+                                                    //                 ? 0
+                                                    //                 : 16),
+                                                    //         child: Row(
+                                                    //           children: [
+                                                    //             //todo replace original
+                                                    //             // Text(
+                                                    //             //   optionName ?? "",
+                                                    //             //   style: const TextStyle(
+                                                    //             //       fontSize:
+                                                    //             //           FontSizes
+                                                    //             //               .FONT_SIZE_14,
+                                                    //             //       fontWeight:
+                                                    //             //           FontWeight
+                                                    //             //               .bold,
+                                                    //             //       color: Color(
+                                                    //             //           0xff333333)),
+                                                    //             // ),
+                                                    //             // const SizedBox(
+                                                    //             //   width: 8,
+                                                    //             // ),
+                                                    //
+                                                    //             //todo original circles
+                                                    //             // Expanded(
+                                                    //             //   child: SizedBox(
+                                                    //             //     height: MediaQuery.of(
+                                                    //             //                 context)
+                                                    //             //             .size
+                                                    //             //             .height *
+                                                    //             //         0.04,
+                                                    //             //     child: ListView
+                                                    //             //         .separated(
+                                                    //             //             scrollDirection:
+                                                    //             //                 Axis
+                                                    //             //                     .horizontal,
+                                                    //             //             itemBuilder:
+                                                    //             //                 (context,
+                                                    //             //                     index) {
+                                                    //             //               var productOptionValue =
+                                                    //             //                   option.optionValues?[index];
+                                                    //             //               var productOptionImage =
+                                                    //             //                   productOptionValue?.optionImageUrl;
+                                                    //             //               var productOptionName =
+                                                    //             //                   productOptionValue?.name;
+                                                    //             //               int?
+                                                    //             //                   productOptionValueId =
+                                                    //             //                   productOptionValue?.productOptionValueId;
+                                                    //             //               if (kDebugMode) {
+                                                    //             //                 print(productDetailsCubit.selectedOption['option']);
+                                                    //             //                 print(productDetailsCubit.selectedOption['option'][option.productOptionId?.toString()]);
+                                                    //             //               }
+                                                    //             //               bool
+                                                    //             //                   isOptionSelected =
+                                                    //             //                   productDetailsCubit.selectedOption['option']?[productOptionId?.toString()] == productOptionValueId.toString();
+                                                    //             //
+                                                    //             //               return GestureDetector(
+                                                    //             //                 onTap:
+                                                    //             //                     () {
+                                                    //             //                   productDetailsCubit.setOption(option, productOptionValue);
+                                                    //             //                 },
+                                                    //             //                 child:
+                                                    //             //                     Container(
+                                                    //             //                   width: 35,
+                                                    //             //                   height: 30,
+                                                    //             //                   decoration: BoxDecoration(border: Border.all(color: AppColors.APP_MAIN_COLOR, width: (isOptionSelected == true) ? 2 : 0), borderRadius: BorderRadius.circular((productOptionImage == null) ? 0 : 100)),
+                                                    //             //                   child: (productOptionImage == null)
+                                                    //             //                       ? Center(child: Text(productOptionName ?? ""))
+                                                    //             //                       : ClipRRect(
+                                                    //             //                           borderRadius: BorderRadius.circular(100),
+                                                    //             //                           child: Image.network(
+                                                    //             //                             productOptionImage ?? "",
+                                                    //             //                             fit: BoxFit.cover,
+                                                    //             //                             errorBuilder: (context, object, stackTrace) {
+                                                    //             //                               return const Center(
+                                                    //             //                                 child: Icon(
+                                                    //             //                                   Icons.error,
+                                                    //             //                                   size: 30,
+                                                    //             //                                   color: AppColors.APP_MAIN_COLOR,
+                                                    //             //                                 ),
+                                                    //             //                               );
+                                                    //             //                             },
+                                                    //             //                           ),
+                                                    //             //                         ),
+                                                    //             //                 ),
+                                                    //             //               );
+                                                    //             //             },
+                                                    //             //             separatorBuilder:
+                                                    //             //                 (context,
+                                                    //             //                     index) {
+                                                    //             //               return const SizedBox(
+                                                    //             //                 width:
+                                                    //             //                     8,
+                                                    //             //               );
+                                                    //             //             },
+                                                    //             //             itemCount:
+                                                    //             //                 option.optionValues?.length ??
+                                                    //             //                     0),
+                                                    //             //   ),
+                                                    //             // )
+                                                    //
+                                                    //             Expanded(
+                                                    //               child: Container(
+                                                    //                 padding:
+                                                    //                     const EdgeInsets
+                                                    //                         .only(
+                                                    //                         left:
+                                                    //                             16,
+                                                    //                         right:
+                                                    //                             8),
+                                                    //                 decoration: BoxDecoration(
+                                                    //                     border: Border.all(
+                                                    //                         color: const Color(
+                                                    //                             0xff95989A))),
+                                                    //                 child: DropdownSearch<
+                                                    //                     OptionValue>(
+                                                    //
+                                                    //                   items: optionItem
+                                                    //                           .optionValues ??
+                                                    //                       [],
+                                                    //                   dropdownDecoratorProps: DropDownDecoratorProps(
+                                                    //                       dropdownSearchDecoration: InputDecoration(
+                                                    //                           border: InputBorder.none,
+                                                    //                           hintStyle: const TextStyle(
+                                                    //                             fontSize:
+                                                    //                                 FontSizes.FONT_SIZE_16,
+                                                    //                             color:
+                                                    //                                 Color(0xff878787),
+                                                    //                           ),
+                                                    //                           label: Text(
+                                                    //                             optionName ??
+                                                    //                                 "",
+                                                    //                             style: const TextStyle(
+                                                    //                                 fontSize: FontSizes.FONT_SIZE_16,
+                                                    //                                 fontWeight: FontWeight.bold,
+                                                    //                                 color: Color(0xff313846)),
+                                                    //                           ),
+                                                    //                           hintText: AppLocalizations.of(context)!.region_or_state)),
+                                                    //                   dropdownButtonProps:
+                                                    //                       const DropdownButtonProps(
+                                                    //                           icon:
+                                                    //                               Icon(
+                                                    //                     Icons
+                                                    //                         .keyboard_arrow_down,
+                                                    //                     color: Color(
+                                                    //                         0xff696C6E),
+                                                    //                   )),
+                                                    //                   popupProps: PopupProps.menu(itemBuilder:
+                                                    //                       (context,
+                                                    //                           OptionValue
+                                                    //                               option,
+                                                    //                           bool) {
+                                                    //                     return Padding(
+                                                    //                       padding: const EdgeInsets
+                                                    //                           .all(
+                                                    //                           16.0),
+                                                    //                       child: Image
+                                                    //                           .network(
+                                                    //                         option.optionImageUrl ??
+                                                    //                             "-",
+                                                    //                         height: MediaQuery.of(context).size.height *
+                                                    //                             0.05,
+                                                    //                         width: double
+                                                    //                             .infinity,
+                                                    //                         fit: BoxFit
+                                                    //                             .cover,
+                                                    //                         errorBuilder: (context,
+                                                    //                             object,
+                                                    //                             stackTrace) {
+                                                    //                           return const Center(
+                                                    //                             child:
+                                                    //                             Icon(
+                                                    //                               Icons.error,
+                                                    //                               size:
+                                                    //                               40,
+                                                    //                               color:
+                                                    //                               AppColors.APP_MAIN_COLOR,
+                                                    //                             ),
+                                                    //                           );
+                                                    //                         },
+                                                    //                       ),
+                                                    //                     );
+                                                    //                   }),
+                                                    //                   dropdownBuilder:
+                                                    //                       (context,
+                                                    //                           option) {
+                                                    //                     return (option ==
+                                                    //                             null)
+                                                    //                         ? Text(optionName ??
+                                                    //                             "-")
+                                                    //                         : Image
+                                                    //                             .network(
+                                                    //                             option?.optionImageUrl ??
+                                                    //                                 "",
+                                                    //                             height:
+                                                    //                                 MediaQuery.of(context).size.height * 0.05,
+                                                    //                             width:
+                                                    //                                 double.infinity,
+                                                    //                             fit:
+                                                    //                                 BoxFit.cover,
+                                                    //                       errorBuilder: (context,
+                                                    //                           object,
+                                                    //                           stackTrace) {
+                                                    //                         return const Center(
+                                                    //                           child:
+                                                    //                           Icon(
+                                                    //                             Icons.error,
+                                                    //                             size:
+                                                    //                             40,
+                                                    //                             color:
+                                                    //                             AppColors.APP_MAIN_COLOR,
+                                                    //                           ),
+                                                    //                         );
+                                                    //                       },
+                                                    //                           );
+                                                    //                   },
+                                                    //                   onChanged:
+                                                    //                       (optionValue) {
+                                                    //                     productDetailsCubit.setOption(
+                                                    //                         optionItem,
+                                                    //                         optionValue);
+                                                    //                   },
+                                                    //
+                                                    //                 ),
+                                                    //               ),
+                                                    //             ),
+                                                    //           ],
+                                                    //         ),
+                                                    //       );
+                                                    //     }).toList()) ??
+                                                    //   []
                                                   ],
                                                 ),
-
-                                                // const SizedBox(
-                                                //   height: 16,
+                                                // Spacer(),
+                                                // Padding(
+                                                //   padding: const EdgeInsets
+                                                //       .symmetric(
+                                                //       horizontal: 16),
+                                                //   child: Row(
+                                                //     mainAxisAlignment:
+                                                //         MainAxisAlignment
+                                                //             .spaceBetween,
+                                                //     children: [
+                                                //       Row(
+                                                //         children: [
+                                                //           (1 <=
+                                                //                   (productRating ??
+                                                //                       0))
+                                                //               ? const Icon(
+                                                //                   Icons.star,
+                                                //                   color: Colors
+                                                //                       .black,
+                                                //                 )
+                                                //               : const Icon(
+                                                //                   Icons
+                                                //                       .star_outline,
+                                                //                   color: Colors
+                                                //                       .black,
+                                                //                 ),
+                                                //           (2 <=
+                                                //                   (productRating ??
+                                                //                       0))
+                                                //               ? const Icon(
+                                                //                   Icons.star,
+                                                //                   color: Colors
+                                                //                       .black,
+                                                //                 )
+                                                //               : const Icon(
+                                                //                   Icons
+                                                //                       .star_outline,
+                                                //                   color: Colors
+                                                //                       .black,
+                                                //                 ),
+                                                //           (3 <=
+                                                //                   (productRating ??
+                                                //                       0))
+                                                //               ? const Icon(
+                                                //                   Icons.star,
+                                                //                   color: Colors
+                                                //                       .black,
+                                                //                 )
+                                                //               : const Icon(
+                                                //                   Icons
+                                                //                       .star_outline,
+                                                //                   color: Colors
+                                                //                       .black,
+                                                //                 ),
+                                                //           (4 <=
+                                                //                   (productRating ??
+                                                //                       0))
+                                                //               ? const Icon(
+                                                //                   Icons.star,
+                                                //                   color: Colors
+                                                //                       .black,
+                                                //                 )
+                                                //               : const Icon(
+                                                //                   Icons
+                                                //                       .star_outline,
+                                                //                   color: Colors
+                                                //                       .black,
+                                                //                 ),
+                                                //           (5 <=
+                                                //                   (productRating ??
+                                                //                       0))
+                                                //               ? const Icon(
+                                                //                   Icons.star,
+                                                //                   color: Colors
+                                                //                       .black,
+                                                //                 )
+                                                //               : const Icon(
+                                                //                   Icons
+                                                //                       .star_outline,
+                                                //                   color: Colors
+                                                //                       .black,
+                                                //                 ),
+                                                //         ],
+                                                //       )
+                                                //     ],
+                                                //   ),
                                                 // ),
-                                                // Row(
-                                                //   children: [
-                                                //     const Text(
-                                                //       "Size : ",
-                                                //       style: TextStyle(
-                                                //           fontWeight:
-                                                //               FontWeight.bold,
-                                                //           fontSize: FontSizes
-                                                //               .FONT_SIZE_14,
-                                                //           color: Color(
-                                                //               0xfff313846)),
-                                                //     ),
-                                                //     Container(
-                                                //       decoration:
-                                                //           BoxDecoration(
-                                                //               border:
-                                                //                   Border.all(
-                                                //                 color: const Color(
-                                                //                     0xffD0D0D0),
-                                                //                 width: 1,
-                                                //               ),
-                                                //               borderRadius:
-                                                //                   BorderRadius
-                                                //                       .circular(
-                                                //                           2)),
-                                                //       child: const Padding(
-                                                //         padding: EdgeInsets
-                                                //             .symmetric(
-                                                //                 horizontal:
-                                                //                     8.0,
-                                                //                 vertical: 5),
-                                                //         child: Text(
-                                                //           "xs",
-                                                //           style: TextStyle(
-                                                //               fontSize: FontSizes
-                                                //                   .FONT_SIZE_14,
-                                                //               fontWeight:
-                                                //                   FontWeight
-                                                //                       .w500,
-                                                //               color: Color(
-                                                //                   0xff313846)),
-                                                //         ),
-                                                //       ),
-                                                //     ),
-                                                //     const SizedBox(
-                                                //       width: 8,
-                                                //     ),
-                                                //     Container(
-                                                //       decoration:
-                                                //           BoxDecoration(
-                                                //               border:
-                                                //                   Border.all(
-                                                //                 color: const Color(
-                                                //                     0xffD0D0D0),
-                                                //                 width: 1,
-                                                //               ),
-                                                //               borderRadius:
-                                                //                   BorderRadius
-                                                //                       .circular(
-                                                //                           2)),
-                                                //       child: const Padding(
-                                                //         padding: EdgeInsets
-                                                //             .symmetric(
-                                                //                 horizontal:
-                                                //                     8.0,
-                                                //                 vertical: 5),
-                                                //         child: Text(
-                                                //           "sm",
-                                                //           style: TextStyle(
-                                                //               fontSize: FontSizes
-                                                //                   .FONT_SIZE_14,
-                                                //               fontWeight:
-                                                //                   FontWeight
-                                                //                       .w500,
-                                                //               color: Color(
-                                                //                   0xff313846)),
-                                                //         ),
-                                                //       ),
-                                                //     ),
-                                                //     const SizedBox(
-                                                //       width: 8,
-                                                //     ),
-                                                //     Container(
-                                                //       decoration:
-                                                //           BoxDecoration(
-                                                //               border:
-                                                //                   Border.all(
-                                                //                 color: const Color(
-                                                //                     0xffD0D0D0),
-                                                //                 width: 1,
-                                                //               ),
-                                                //               borderRadius:
-                                                //                   BorderRadius
-                                                //                       .circular(
-                                                //                           2)),
-                                                //       child: const Padding(
-                                                //         padding: EdgeInsets
-                                                //             .symmetric(
-                                                //                 horizontal:
-                                                //                     8.0,
-                                                //                 vertical: 5),
-                                                //         child: Text(
-                                                //           "lg",
-                                                //           style: TextStyle(
-                                                //               fontSize: FontSizes
-                                                //                   .FONT_SIZE_14,
-                                                //               fontWeight:
-                                                //                   FontWeight
-                                                //                       .w500,
-                                                //               color: Color(
-                                                //                   0xff313846)),
-                                                //         ),
-                                                //       ),
-                                                //     ),
-                                                //     const SizedBox(
-                                                //       width: 8,
-                                                //     ),
-                                                //     Container(
-                                                //       decoration:
-                                                //           BoxDecoration(
-                                                //               border:
-                                                //                   Border.all(
-                                                //                 color: const Color(
-                                                //                     0xffD0D0D0),
-                                                //                 width: 1,
-                                                //               ),
-                                                //               borderRadius:
-                                                //                   BorderRadius
-                                                //                       .circular(
-                                                //                           2)),
-                                                //       child: const Padding(
-                                                //         padding: EdgeInsets
-                                                //             .symmetric(
-                                                //                 horizontal:
-                                                //                     8.0,
-                                                //                 vertical: 5),
-                                                //         child: Text(
-                                                //           "lg",
-                                                //           style: TextStyle(
-                                                //               fontSize: FontSizes
-                                                //                   .FONT_SIZE_14,
-                                                //               fontWeight:
-                                                //                   FontWeight
-                                                //                       .w500,
-                                                //               color: Color(
-                                                //                   0xff313846)),
-                                                //         ),
-                                                //       ),
-                                                //     ),
-                                                //     const SizedBox(
-                                                //       width: 8,
-                                                //     ),
-                                                //     Container(
-                                                //       decoration:
-                                                //           BoxDecoration(
-                                                //               border:
-                                                //                   Border.all(
-                                                //                 color: const Color(
-                                                //                     0xffD0D0D0),
-                                                //                 width: 1,
-                                                //               ),
-                                                //               borderRadius:
-                                                //                   BorderRadius
-                                                //                       .circular(
-                                                //                           2)),
-                                                //       child: const Padding(
-                                                //         padding: EdgeInsets
-                                                //             .symmetric(
-                                                //                 horizontal:
-                                                //                     8.0,
-                                                //                 vertical: 5),
-                                                //         child: Text(
-                                                //           "lg",
-                                                //           style: TextStyle(
-                                                //               fontSize: FontSizes
-                                                //                   .FONT_SIZE_14,
-                                                //               fontWeight:
-                                                //                   FontWeight
-                                                //                       .w500,
-                                                //               color: Color(
-                                                //                   0xff313846)),
-                                                //         ),
-                                                //       ),
-                                                //     ),
-                                                //   ],
-                                                // ),
-                                                // BlocConsumer<CartCubit,
-                                                //     CartStates>(
-                                                //   listener:
-                                                //       (context, state) {},
-                                                //   builder: (context, state) {
-                                                //     CartCubit cartCubit =
-                                                //         CartCubit.get(
-                                                //             context);
-                                                //     bool isProductInCart = cartCubit
-                                                //         .cartItems
-                                                //         .containsKey(
-                                                //             selectedProductId
-                                                //                 .toString());
-                                                //
-                                                //     int quantity = 0;
-                                                //     if (isProductInCart) {
-                                                //       quantity = cartCubit
-                                                //                   .cartItems[
-                                                //               selectedProductId
-                                                //                   .toString()]
-                                                //           ['quantity'];
-                                                //     }
-                                                //     // return (isProductInCart)
-                                                //     //     ? Column(
-                                                //     //         crossAxisAlignment:
-                                                //     //             CrossAxisAlignment
-                                                //     //                 .start,
-                                                //     //         children: [
-                                                //     //           const SizedBox(
-                                                //     //             height: 20,
-                                                //     //           ),
-                                                //               // Row(
-                                                //               //   children: [
-                                                //               //     const Text(
-                                                //               //       "QTY",
-                                                //               //       style: TextStyle(
-                                                //               //           fontSize: FontSizes
-                                                //               //               .FONT_SIZE_16,
-                                                //               //           color: Color(
-                                                //               //               0xff313846),
-                                                //               //           fontWeight:
-                                                //               //               FontWeight.bold),
-                                                //               //     ),
-                                                //               //     const SizedBox(
-                                                //               //       width: 16,
-                                                //               //     ),
-                                                //               //     Container(
-                                                //               //       width: MediaQuery.of(context)
-                                                //               //               .size
-                                                //               //               .width *
-                                                //               //           0.25,
-                                                //               //       height:
-                                                //               //           25,
-                                                //               //       decoration:
-                                                //               //           BoxDecoration(
-                                                //               //               border: Border.all(color: const Color(0xffD0D0D0))),
-                                                //               //       child:
-                                                //               //           Row(
-                                                //               //         children: [
-                                                //               //           Flexible(
-                                                //               //               flex: 1,
-                                                //               //               child: GestureDetector(
-                                                //               //                 onTap: () {
-                                                //               //                   cartCubit.decreaseProductQuantity(selectedProductId.toString(),0);
-                                                //               //                 },
-                                                //               //                 child: const Icon(
-                                                //               //                   Icons.remove,
-                                                //               //                   color: Color(0xff313846),
-                                                //               //                 ),
-                                                //               //               )),
-                                                //               //           Container(
-                                                //               //             height:
-                                                //               //                 MediaQuery.of(context).size.height,
-                                                //               //             width:
-                                                //               //                 1,
-                                                //               //             color:
-                                                //               //                 const Color(0xffD0D0D0),
-                                                //               //           ),
-                                                //               //           Flexible(
-                                                //               //               flex: 2,
-                                                //               //               child: Center(
-                                                //               //                 child: Text(
-                                                //               //                   quantity.toString(),
-                                                //               //                   style: const TextStyle(fontSize: FontSizes.FONT_SIZE_12, color: Color(0xff313846), fontWeight: FontWeight.bold),
-                                                //               //                 ),
-                                                //               //               )),
-                                                //               //           Container(
-                                                //               //             height:
-                                                //               //                 MediaQuery.of(context).size.height,
-                                                //               //             width:
-                                                //               //                 1,
-                                                //               //             color:
-                                                //               //                 const Color(0xffD0D0D0),
-                                                //               //           ),
-                                                //               //           Flexible(
-                                                //               //               flex: 1,
-                                                //               //               child: Center(
-                                                //               //                   child: GestureDetector(
-                                                //               //                 onTap: () {
-                                                //               //                   cartCubit.increaseProductQuantity(selectedProductId.toString(),0);
-                                                //               //                 },
-                                                //               //                 child: const Icon(
-                                                //               //                   Icons.add,
-                                                //               //                   color: Color(0xff313846),
-                                                //               //                 ),
-                                                //               //               ))),
-                                                //               //         ],
-                                                //               //       ),
-                                                //               //     ),
-                                                //               //   ],
-                                                //               // )
-                                                //            // ],
-                                                //          // )
-                                                //        // : Container();
-                                                //   },
-                                                // )
                                               ],
                                             ),
                                           ),
+
                                           const SizedBox(
                                             height: 16,
                                           ),
@@ -1143,146 +844,206 @@ class ProductDetailsScreen extends StatelessWidget {
                                           const SizedBox(
                                             height: 16,
                                           ),
-                                          // const SizedBox(
-                                          //   height: 8,
-                                          // ),
-                                          // Padding(
-                                          //   padding:
-                                          //       const EdgeInsets.symmetric(
-                                          //           horizontal: 16.0),
-                                          //   child: Container(
-                                          //     padding:
-                                          //         const EdgeInsets.symmetric(
-                                          //             horizontal: 16,
-                                          //             vertical: 8),
-                                          //     color: const Color(0xffF5F5F5),
-                                          //     child: Row(
-                                          //       mainAxisAlignment:
-                                          //           MainAxisAlignment.start,
-                                          //       children: [
-                                          //         Text(
-                                          //           productRating
-                                          //                   .toString() ??
-                                          //               "",
-                                          //           style: const TextStyle(
-                                          //               color:
-                                          //                   Color(0xff313846),
-                                          //               fontWeight:
-                                          //                   FontWeight.bold,
-                                          //               fontSize: FontSizes
-                                          //                   .FONT_SIZE_16),
-                                          //         ),
-                                          //         const SizedBox(
-                                          //           width: 16,
-                                          //         ),
-                                          //         Row(
-                                          //           children: [
-                                          //             ((productRating ?? 0) >=
-                                          //                     1)
-                                          //                 ? const Icon(
-                                          //                     Icons.star,
-                                          //                     color: Color(
-                                          //                         0xffFFAB16),
-                                          //                   )
-                                          //                 : const Icon(
-                                          //                     Icons
-                                          //                         .star_outline_sharp,
-                                          //                     color: Color(
-                                          //                         0xffFFAB16),
-                                          //                   ),
-                                          //             ((productRating ?? 0) >=
-                                          //                     2)
-                                          //                 ? const Icon(
-                                          //                     Icons.star,
-                                          //                     color: Color(
-                                          //                         0xffFFAB16),
-                                          //                   )
-                                          //                 : const Icon(
-                                          //                     Icons
-                                          //                         .star_outline_sharp,
-                                          //                     color: Color(
-                                          //                         0xffFFAB16)),
-                                          //             ((productRating ?? 0) >=
-                                          //                     3)
-                                          //                 ? const Icon(
-                                          //                     Icons.star,
-                                          //                     color: Color(
-                                          //                         0xffFFAB16),
-                                          //                   )
-                                          //                 : const Icon(
-                                          //                     Icons
-                                          //                         .star_outline_sharp,
-                                          //                     color: Color(
-                                          //                         0xffFFAB16)),
-                                          //             ((productRating ?? 0) >=
-                                          //                     4)
-                                          //                 ? const Icon(
-                                          //                     Icons.star,
-                                          //                     color: Color(
-                                          //                         0xffFFAB16),
-                                          //                   )
-                                          //                 : const Icon(
-                                          //                     Icons
-                                          //                         .star_outline_sharp,
-                                          //                     color: Color(
-                                          //                         0xffFFAB16)),
-                                          //             ((productRating ?? 0) >=
-                                          //                     5)
-                                          //                 ? const Icon(
-                                          //                     Icons.star,
-                                          //                     color: Color(
-                                          //                         0xffFFAB16),
-                                          //                   )
-                                          //                 : const Icon(
-                                          //                     Icons
-                                          //                         .star_outline_sharp,
-                                          //                     color: Color(
-                                          //                         0xffFFAB16))
-                                          //           ],
-                                          //         )
-                                          //       ],
-                                          //     ),
-                                          //   ),
-                                          // ),
-                                          // const SizedBox(
-                                          //   height: 16,
-                                          // ),
-                                          //   ListView.separated(
-                                          //       separatorBuilder:
-                                          //           (context, index) => Column(
-                                          //                 children: [
-                                          //                   (index == 2)
-                                          //                       ? Container()
-                                          //                       : const Divider(
-                                          //                           thickness:
-                                          //                               1,
-                                          //                           color: Color(
-                                          //                               0xffE5E5E5),
-                                          //                         ),
-                                          //                 ],
-                                          //               ),
-                                          //       shrinkWrap: true,
-                                          //       physics:
-                                          //           const NeverScrollableScrollPhysics(),
-                                          //       itemCount: 3,
-                                          //       itemBuilder: (context, index) {
-                                          //         return const Padding(
-                                          //           padding:
-                                          //               EdgeInsets.symmetric(
-                                          //                   horizontal: 16.0,
-                                          //                   vertical: 8),
-                                          //           child: Comment(),
-                                          //         );
-                                          //       }),
-                                          //   Padding(
-                                          //     padding: const EdgeInsets.only(
-                                          //         top: 8.0),
-                                          //     child: Container(
-                                          //       height: 1,
-                                          //       color: const Color(0xffE5E5E5),
-                                          //     ),
-                                          //   )
-                                          //
+                                          const Divider(
+                                            thickness: 2,
+                                            color: Color(0xffE5E5E5),
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          colorProduct?.length!=0 && colorProduct!=null?
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 16.0),
+                                                child: Text(
+                                                  "${AppLocalizations.of(context)!.color}  ",
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Color(
+                                                          0xff313846)),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 16,
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 16.0),
+                                                child: SizedBox(
+                                                  height: 50,
+                                                  child: ListView.builder(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      itemBuilder:
+                                                          (context, index) =>
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  productDetailsCubit
+                                                                      .setColorID(
+                                                                          colorProduct?[index].colorId ??
+                                                                              0);
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
+                                                                          16),
+                                                                  margin: const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
+                                                                          5),
+                                                                  decoration: BoxDecoration(
+                                                                      border: Border.all(
+                                                                          color: productDetailsCubit.selectColorID == colorProduct?[index].colorId
+                                                                              ? AppColors.APP_ORANGE_LABEL_COLOR
+                                                                              : const Color(0xffDDDDDD),
+                                                                          width: 2)),
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Container(
+                                                                        width:
+                                                                            20,
+                                                                        height:
+                                                                            20,
+                                                                        color: Color(
+                                                                            int.parse('0xff${colorProduct?[index].colorValue?.replaceAll("#", "") ?? '000000'}')),
+                                                                      ),
+                                                                      const SizedBox(
+                                                                        width:
+                                                                            5,
+                                                                      ),
+                                                                      Text(
+                                                                        colorProduct?[index].colorName ??
+                                                                            '',
+                                                                        style: const TextStyle(
+                                                                            color:
+                                                                                Color(0xff313846),
+                                                                            fontSize: FontSizes.FONT_SIZE_12),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                      shrinkWrap: true,
+                                                      itemCount:
+                                                          colorProduct?.length),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 16,
+                                              ),
+                                              const Divider(
+                                                thickness: 2,
+                                                color: Color(0xffE5E5E5),
+                                              ),
+                                              const SizedBox(
+                                                height: 8,
+                                              ),
+                                            ],
+                                          ):Container(width: 0,height: 0,),
+
+                                          sizeProduct?.length!=0 && sizeProduct!=null?
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(
+                                                    horizontal: 16.0),
+                                                child: Text(
+                                                  "${AppLocalizations.of(context)!.size}  ",
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Color(0xff313846)),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 16,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(
+                                                    horizontal: 16.0),
+                                                child: SizedBox(
+                                                  height: 50,
+                                                  child: ListView.builder(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      itemBuilder:
+                                                          (context, index) =>
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  productDetailsCubit
+                                                                      .setSizeID(
+                                                                          sizeProduct?[index]
+                                                                                  .sizeId ??
+                                                                              0);
+                                                                },
+                                                                child: Container(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .symmetric(
+                                                                          horizontal:
+                                                                              16),
+                                                                  margin:
+                                                                      const EdgeInsets
+                                                                          .symmetric(
+                                                                          horizontal:
+                                                                              5),
+                                                                  decoration: BoxDecoration(
+                                                                      border: Border.all(
+                                                                          color: productDetailsCubit.selectSizeID ==
+                                                                                  sizeProduct?[index]
+                                                                                      .sizeId
+                                                                              ? AppColors
+                                                                                  .APP_ORANGE_LABEL_COLOR
+                                                                              : const Color(
+                                                                                  0xffDDDDDD),
+                                                                          width:
+                                                                              2)),
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      const SizedBox(
+                                                                        width: 5,
+                                                                      ),
+                                                                      Text(
+                                                                        sizeProduct?[index]
+                                                                                .sizeName ??
+                                                                            '',
+                                                                        style: const TextStyle(
+                                                                            color: Color(
+                                                                                0xff313846),
+                                                                            fontSize:
+                                                                                FontSizes.FONT_SIZE_12),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                      shrinkWrap: true,
+                                                      itemCount:
+                                                          colorProduct?.length),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 16,
+                                              ),
+                                            ],
+                                          ):Container(width: 0,height: 0,),
+
                                         ],
                                       ),
                                     ),

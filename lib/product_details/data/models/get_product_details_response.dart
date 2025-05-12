@@ -24,7 +24,7 @@ class GetProductDetailsResponse {
     // }
     var message = json['Message'];
     var data =
-        json['Obj'] != null ? ProductDetails.fromJson(json['Obj']) : null;
+        json['Obj'] != null ? ProductModel.fromJson(json['Obj']) : null;
 
     return GetProductDetailsResponse(productDetails: data, success: success,
     message: message
@@ -33,7 +33,7 @@ class GetProductDetailsResponse {
   bool? success;
   String? message;
   // List<dynamic>? error;
-  ProductDetails? productDetails;
+  ProductModel? productDetails;
 
   // Map<String, dynamic> toJson() {
   //   final map = <String, dynamic>{};
@@ -115,7 +115,7 @@ class ProductDetails {
   });
 
   factory ProductDetails.fromJson(dynamic json) {
-    var id = json['Id'];
+    var id = json['id'];
     var productId = json['product_id'];
     var name = json['name'];
     var manufacturer = json['manufacturer'];
@@ -271,7 +271,7 @@ class ProductDetails {
   dynamic image;
   List<String>? images;
   String? originalImage;
-  List<dynamic>? originalImages;
+  List<String>? originalImages;
   num? priceExcludingTax;
   String? priceExcludingTaxFormated;
   num? price;
@@ -454,7 +454,6 @@ class Option {
         optionValues?.add(OptionValue.fromJson(v));
       });
     }
-
     return Option(
         optionName: optionName,
         productOptionId: productOptionId,
@@ -487,7 +486,6 @@ class OptionValue {
         name: name);
   }
 }
-
 // class Category {
 //   Category({
 //     this.name,
@@ -508,3 +506,193 @@ class OptionValue {
 //   //   return map;
 //   // }
 // }
+
+
+
+class ProductModel {
+  final int? id;
+  final String? productName;
+  final String? notes;
+  final int? source;
+  final int? groupId;
+  final String? groupName;
+  final int? minorUnitId;
+  final String? minorUnitName;
+  final double? minorUnitPrice;
+  final int? middleUnitId;
+  final String? middleUnitName;
+  final double? middleUnitPrice;
+  final int? grandUnitId;
+  final String? grandUnitName;
+  final double? grandUnitPrice;
+  final int? unitId;
+  final String? unitName;
+  final double? price;
+  final int? vendorId;
+  final String? vendorName;
+  final List<ProductColor>? colors;
+  final List<ProductSize>? sizes;
+  final List<ProductFile>? files;
+  final double? ratingAverage;
+  final int? ratingCount;
+  final bool? isAddedToFavorites;
+
+  ProductModel({
+    required this.id,
+    required this.productName,
+    this.notes,
+    required this.source,
+    required this.groupId,
+    required this.groupName,
+    this.minorUnitId,
+    this.minorUnitName,
+    this.minorUnitPrice,
+    this.middleUnitId,
+    this.middleUnitName,
+    this.middleUnitPrice,
+    this.grandUnitId,
+    this.grandUnitName,
+    this.grandUnitPrice,
+    this.unitId,
+    this.unitName,
+    this.price,
+    this.vendorId,
+    this.vendorName,
+    this.colors,
+    this.sizes,
+    required this.files,
+    required this.ratingAverage,
+    required this.ratingCount,
+    this.isAddedToFavorites,
+  });
+
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
+      id: json['Id'],
+      productName: json['ProductName'],
+      notes: json['Notes'],
+      source: json['Source'],
+      groupId: json['GroupId'],
+      groupName: json['GroupName'],
+      minorUnitId: json['MinorUnitId'],
+      minorUnitName: json['MinorUnitName'],
+      minorUnitPrice: (json['MinorUnitPrice'] as num?)?.toDouble(),
+      middleUnitId: json['MiddleUnitId'],
+      middleUnitName: json['MiddleUnitName'],
+      middleUnitPrice: (json['MiddleUnitPrice'] as num?)?.toDouble(),
+      grandUnitId: json['GrandUnitId'],
+      grandUnitName: json['GrandUnitName'],
+      grandUnitPrice: (json['GrandUnitPrice'] as num?)?.toDouble(),
+      unitId: json['UnitId'],
+      unitName: json['UnitName'],
+      price: (json['Price'] as num?)?.toDouble(),
+      vendorId: json['VendorId'],
+      vendorName: json['VendorName'],
+      colors: (json['Colors'] as List?)
+          ?.map((e) => ProductColor.fromJson(e))
+          .toList(),
+      sizes: (json['Sizes'] as List?)
+          ?.map((e) => ProductSize.fromJson(e))
+          .toList(),
+      files: (json['Files'] as List)
+          .map((e) => ProductFile.fromJson(e))
+          .toList(),
+      ratingAverage: (json['RatingAverage'] as num).toDouble(),
+      ratingCount: json['RatingCount'],
+      isAddedToFavorites: json['IsAddedToFavorites'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'Id': id,
+    'ProductName': productName,
+    'Notes': notes,
+    'Source': source,
+    'GroupId': groupId,
+    'GroupName': groupName,
+    'MinorUnitId': minorUnitId,
+    'MinorUnitName': minorUnitName,
+    'MinorUnitPrice': minorUnitPrice,
+    'MiddleUnitId': middleUnitId,
+    'MiddleUnitName': middleUnitName,
+    'MiddleUnitPrice': middleUnitPrice,
+    'GrandUnitId': grandUnitId,
+    'GrandUnitName': grandUnitName,
+    'GrandUnitPrice': grandUnitPrice,
+    'UnitId': unitId,
+    'UnitName': unitName,
+    'Price': price,
+    'VendorId': vendorId,
+    'VendorName': vendorName,
+    'Colors': colors?.map((e) => e.toJson()).toList(),
+    'Sizes': sizes?.map((e) => e.toJson()).toList(),
+    'Files': files?.map((e) => e.toJson()).toList(),
+    'RatingAverage': ratingAverage,
+    'RatingCount': ratingCount,
+    'IsAddedToFavorites': isAddedToFavorites,
+  };
+}
+
+
+class ProductColor {
+  final int? colorId;
+  final String? colorName;
+  final String? colorValue;
+
+  ProductColor({
+    required this.colorId,
+    required this.colorName,
+    required this.colorValue,
+  });
+
+  factory ProductColor.fromJson(Map<String, dynamic> json) {
+    return ProductColor(
+      colorId: json['ColorId'],
+      colorName: json['ColorName'],
+      colorValue: json['ColorValue'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'ColorId': colorId,
+    'ColorName': colorName,
+    'ColorValue': colorValue,
+  };
+}
+
+class ProductSize {
+  final int? sizeId;
+  final String? sizeName;
+
+  ProductSize({
+    required this.sizeId,
+    required this.sizeName,
+  });
+
+  factory ProductSize.fromJson(Map<String, dynamic> json) {
+    return ProductSize(
+      sizeId: json['SizeId'],
+      sizeName: json['SizeName'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'SizeId': sizeId,
+    'SizeName': sizeName,
+  };
+}
+class ProductFile {
+  final String? fileUrl;
+
+  ProductFile({required this.fileUrl});
+
+  factory ProductFile.fromJson(Map<String, dynamic> json) {
+    return ProductFile(
+      fileUrl: json['FileUrl'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'FileUrl': fileUrl,
+  };
+}

@@ -14,6 +14,8 @@ class GetProductDetailsNetworkConnectionFailedState
 class ChangeSliderCurrentIndexState extends ProductDetailsStates {}
 
 
+class SetColorIDState extends ProductDetailsStates {}
+class SetSizeIDState extends ProductDetailsStates {}
 
 class AddItemToFavoritesLoadingState extends ProductDetailsStates {}
 

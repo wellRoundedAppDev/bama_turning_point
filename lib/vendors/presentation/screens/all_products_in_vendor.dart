@@ -97,6 +97,7 @@ class ViewAllProductsByVendorScreen extends StatelessWidget {
                                   child: ProductDetailsScreen(
                                     selectedProductId:
                                     productId ?? -1,
+                                    isCompany: false,
                                   ),
                                 ),
                                 type: PageTransitionType

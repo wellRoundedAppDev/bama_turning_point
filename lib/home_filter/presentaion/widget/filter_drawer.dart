@@ -77,7 +77,7 @@ class FilterDrawer extends StatelessWidget {
                                                 MaterialPageRoute(
                                                   builder: (context) =>
                                                       ViewProductsFilterScreen(
-                                                          filterCubit.result),
+                                                          filterCubit.result,filterCubit.isCompany),
                                                 ));
                                           }
                                         }),
@@ -142,7 +142,7 @@ class FilterDrawer extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: CustomButton(
-                                      text: 'vendor',
+                                      text: AppLocalizations.of(context)!.vendor,
                                       action: () {
                                         filterCubit
                                             .radioFunctionIsCompany(false);
@@ -161,7 +161,7 @@ class FilterDrawer extends StatelessWidget {
                                   ),
                                   Expanded(
                                     child: CustomButton(
-                                      text: 'community',
+                                      text: AppLocalizations.of(context)!.company,
                                       action: () {
                                         filterCubit
                                             .radioFunctionIsCompany(true);
@@ -366,9 +366,9 @@ class FilterDrawer extends StatelessWidget {
 
                         //size
                         ExpansionTile(
-                          title: const Text(
-                            "Size",
-                            style: TextStyle(
+                          title:  Text(
+                            AppLocalizations.of(context)!.size,
+                            style:const TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_16,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xff313846)),
@@ -499,8 +499,6 @@ class FilterDrawer extends StatelessWidget {
                                               ),
                                             ),
                                         shrinkWrap: true,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
                                         itemCount: colors.length),
                                   )
                                 ],

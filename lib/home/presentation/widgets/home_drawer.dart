@@ -1,3 +1,7 @@
+import 'package:classic_eccomerce/account/data/models/get_account_details_response.dart';
+import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
+import 'package:classic_eccomerce/account/presentation/screens/my_account_screen.dart';
+import 'package:classic_eccomerce/account/presentation/screens/order_history/order_history_screen.dart';
 import 'package:classic_eccomerce/app_settings/app_currencies.dart';
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_states.dart';
@@ -246,7 +250,9 @@ class HomeDrawer extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                        )
+                                        ),
+
+
                                       ],
                                     ),
                                   ),
@@ -299,6 +305,48 @@ class HomeDrawer extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
+
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
+                          child: BlocProvider(
+                              create: (context)=>AccountCubit()..setFirstCustomerOrders(),
+                              child: OrderHistoryScreen())
+                          ));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                IconPaths.ORDER_HISTORY_ICON,
+                                width: 30,
+                                height: 30,
+                                color: Colors.white,
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                               Text(
+                                AppLocalizations.of(context)!.my_orders,
+                                style: TextStyle(
+                                    fontSize: FontSizes.FONT_SIZE_18,
+                                    color: Colors.white),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Divider(
+                          thickness: 1,
+                          color: Colors.white,
+                        ),
+                      ),
+
+
                       // InkWell(
                       //   onTap: () {
                       //     HomeCubit homeCubit = HomeCubit.get(context);
@@ -492,9 +540,12 @@ class HomeDrawer extends StatelessWidget {
                       //     color: Colors.white,
                       //   ),
                       // ),
+
+
                       (AuthCubit.get(context).isUserLoggedIn == false)
                           ? Container()
-                          : InkWell(
+                          :
+                      InkWell(
                               onTap: () {
                                 AuthCubit.get(context)
                                     .logOut(CartCubit.get(context))
@@ -525,9 +576,7 @@ class HomeDrawer extends StatelessWidget {
                                 ),
                               ),
                             ),
-                      const Divider(
-                        thickness: 1,
-                      ),
+
                     ],
                   ),
                 ),

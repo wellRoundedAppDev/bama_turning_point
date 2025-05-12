@@ -1,6 +1,82 @@
 /// success : 1
 /// error : []
 /// data : [{"order_id":"35","name":"Demo User","status":"Pending","date_added":"05pm31UTC_f2023Thu, 05 Oct 2023 12:38:28 +000010pm31_28122023Thu, 05 Oct 2023 12:38:28 +000031","products":3,"total":"$2,605.00","currency_code":"USD","currency_value":"1.00000000","total_raw":"2605.0000","timestamp":1696509508,"currency":{"currency_id":"2","symbol_left":"$","symbol_right":"","decimal_place":"2","value":"1.00000000"}},{"order_id":"34","name":"Demo User","status":"Pending","date_added":"05am31UTC_f2023Thu, 05 Oct 2023 10:33:15 +000010am31_15102023Thu, 05 Oct 2023 10:33:15 +000031","products":6,"total":"$8,645.97","currency_code":"USD","currency_value":"1.00000000","total_raw":"8645.9700","timestamp":1696501995,"currency":{"currency_id":"2","symbol_left":"$","symbol_right":"","decimal_place":"2","value":"1.00000000"}}]
+class PurchaseRequestsResponse {
+  final bool? isSucceeded;
+  final String? message;
+  final PurchaseRequestsData? obj;
+
+  PurchaseRequestsResponse({
+    required this.isSucceeded,
+    required this.message,
+    required this.obj,
+  });
+
+  factory PurchaseRequestsResponse.fromJson(Map<String, dynamic> json) {
+    return PurchaseRequestsResponse(
+      isSucceeded: json['IsSuccssed'] as bool?,
+      message: json['Message'] as String?,
+      obj: json['Obj'] != null ? PurchaseRequestsData.fromJson(json['Obj']) : null,
+    );
+  }
+}
+
+class PurchaseRequestsData {
+  final int? totalRequests;
+  final int? totalPages;
+  final int? currentPage;
+  final int? pageSize;
+  final List<PurchaseRequest?> purchaseRequests;
+
+  PurchaseRequestsData({
+    required this.totalRequests,
+    required this.totalPages,
+    required this.currentPage,
+    required this.pageSize,
+    required this.purchaseRequests,
+  });
+
+  factory PurchaseRequestsData.fromJson(Map<String, dynamic> json) {
+    return PurchaseRequestsData(
+      totalRequests: json['TotalRequests'] as int?,
+      totalPages: json['TotalPages'] as int?,
+      currentPage: json['CurrentPage'] as int?,
+      pageSize: json['PageSize'] as int?,
+      purchaseRequests: (json['PurchaseRequests'] as List<dynamic>)
+          .map((e) => PurchaseRequest.fromJson(e))
+          .toList(),
+    );
+  }
+}
+
+class PurchaseRequest {
+  final int? id;
+  final DateTime requestDate;
+  final String? requestNumber;
+  final String? customerName;
+  final int? status;
+
+  PurchaseRequest({
+    required this.id,
+    required this.requestDate,
+    required this.requestNumber,
+    required this.customerName,
+    required this.status,
+  });
+
+  factory PurchaseRequest.fromJson(Map<String, dynamic> json) {
+    return PurchaseRequest(
+      id: json['Id'] as int?,
+      requestDate: DateTime.parse(json['RequestDate']),
+      requestNumber: json['RequestNumber'] as String?,
+      customerName: json['CustomerName'] as String?,
+      status: json['Status'] as int?,
+    );
+  }
+}
+
+
+//
 
 class GetCustomerOrdersResponse {
   GetCustomerOrdersResponse({
