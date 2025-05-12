@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/home/data/models/product.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
@@ -82,7 +83,10 @@ class ViewAllProductsScreen extends StatelessWidget {
                                 int? productId = product?.productId?.toInt();
                                 String? productName = product?.name;
                                 String? productImageUrl =
-                                    product?.productImagePath;
+                                (ApiUrls.BASE_URL??"")+
+                                   (product?.productImagePath??"");
+
+                                print("lll${productImageUrl}");
                                 String? priceFormatted =
                                     "${product?.price?.toStringAsFixed(3) ?? ""} ${AppLocalizations.of(context)!.iraqi_dinar_initials}";
 

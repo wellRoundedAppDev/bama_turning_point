@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/categories/presentation/cubits/categories_cubit/cubit.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/home/data/models/product.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
@@ -71,7 +72,10 @@ class ProductsInCategoryScreen extends StatelessWidget {
                   int? productId = product?.id;
                   String? productName = product?.productName;
                   String? productImageUrl =
-                      product?.grandUnitName;
+
+                      product?.files == null || product?.files?.isEmpty == true? null:
+                  ApiUrls.BASE_URL +
+                      (product?.files?.first?.fileUrl??"");
                   String? priceFormatted = "${product?.minorUnitPrice?.toString() ??""} ${AppLocalizations.of(context)!.iraqi_dinar_initials}";
 
                   int? productType = product?.source;
@@ -115,28 +119,31 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                 ClipRRect(
                                   borderRadius:
                                   BorderRadius.circular(8),
-                                  child: Image.network(
-                                    productImageUrl ?? "",
-                                    height: MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.18,
-                                    width: MediaQuery.of(context)
-                                        .size
-                                        .width,
-                                    errorBuilder: (context, object,
-                                        stackTrace) {
-                                      return  Icon(
-                                        Icons.error,
-                                        size: MediaQuery.of(context)
-                                            .size
-                                            .height *
-                                            0.18,
-                                        color: AppColors
-                                            .APP_MAIN_COLOR,
-                                      );
-                                    },
-                                    fit: BoxFit.cover,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.network(
+                                      productImageUrl ?? "",
+                                      height: MediaQuery.of(context)
+                                          .size
+                                          .height *
+                                          0.18,
+                                      width: MediaQuery.of(context)
+                                          .size
+                                          .width,
+                                      errorBuilder: (context, object,
+                                          stackTrace) {
+                                        return  Icon(
+                                          Icons.error,
+                                          size: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.18,
+                                          color: AppColors
+                                              .APP_MAIN_COLOR,
+                                        );
+                                      },
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 BlocConsumer<WishListCubit,
@@ -208,53 +215,53 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                 fontSize: FontSizes.FONT_SIZE_16,
                                 fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                weight: MediaQuery.of(context)
-                                    .size
-                                    .width *
-                                    0.01,
-                                color: AppColors.STAR_COLOR,
-                              ),
-                              Icon(
-                                Icons.star,
-                                weight: MediaQuery.of(context)
-                                    .size
-                                    .width *
-                                    0.01,
-                                color: AppColors.STAR_COLOR,
-                              ),
-                              Icon(
-                                Icons.star,
-                                weight: MediaQuery.of(context)
-                                    .size
-                                    .width *
-                                    0.01,
-                                color: AppColors.STAR_COLOR,
-                              ),
-                              Icon(
-                                Icons.star,
-                                weight: MediaQuery.of(context)
-                                    .size
-                                    .width *
-                                    0.01,
-                                color: AppColors.STAR_COLOR,
-                              ),
-                              Icon(
-                                Icons.star,
-                                weight: MediaQuery.of(context)
-                                    .size
-                                    .width *
-                                    0.01,
-                                color: AppColors.STAR_COLOR,
-                              ),
-                            ],
-                          ),
+                          // const SizedBox(
+                          //   height: 8,
+                          // ),
+                          // Row(
+                          //   children: [
+                          //     Icon(
+                          //       Icons.star,
+                          //       weight: MediaQuery.of(context)
+                          //           .size
+                          //           .width *
+                          //           0.01,
+                          //       color: AppColors.STAR_COLOR,
+                          //     ),
+                          //     Icon(
+                          //       Icons.star,
+                          //       weight: MediaQuery.of(context)
+                          //           .size
+                          //           .width *
+                          //           0.01,
+                          //       color: AppColors.STAR_COLOR,
+                          //     ),
+                          //     Icon(
+                          //       Icons.star,
+                          //       weight: MediaQuery.of(context)
+                          //           .size
+                          //           .width *
+                          //           0.01,
+                          //       color: AppColors.STAR_COLOR,
+                          //     ),
+                          //     Icon(
+                          //       Icons.star,
+                          //       weight: MediaQuery.of(context)
+                          //           .size
+                          //           .width *
+                          //           0.01,
+                          //       color: AppColors.STAR_COLOR,
+                          //     ),
+                          //     Icon(
+                          //       Icons.star,
+                          //       weight: MediaQuery.of(context)
+                          //           .size
+                          //           .width *
+                          //           0.01,
+                          //       color: AppColors.STAR_COLOR,
+                          //     ),
+                          //   ],
+                          // ),
                           Text(
                             priceFormatted ?? "-",
 

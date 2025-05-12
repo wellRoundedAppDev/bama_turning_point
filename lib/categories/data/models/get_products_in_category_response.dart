@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/home/data/models/get_all_products_response.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../app_settings/app_settings_cubit/app_settings_cubit.dart';
@@ -106,6 +107,7 @@ class ProductInCategory {
   int? grandUnitId;
   dynamic? grandUnitName;
   double? grandUnitPrice;
+  List<File>? files;
 
   ProductInCategory(
       {this.id,
@@ -113,6 +115,7 @@ class ProductInCategory {
         this.notes,
         this.source,
         this.groupId,
+        this.files,
         this.groupName,
         this.minorUnitId,
         this.minorUnitName,
@@ -140,6 +143,7 @@ class ProductInCategory {
     grandUnitId = json['GrandUnitId'];
     grandUnitName = json['GrandUnitName'];
     grandUnitPrice = json['GrandUnitPrice'];
+    files = json['Files']?.map<File>((e)=>File(fileUrl: e['FileUrl']))?.toList();
   }
 
   Map<String, dynamic> toJson() {

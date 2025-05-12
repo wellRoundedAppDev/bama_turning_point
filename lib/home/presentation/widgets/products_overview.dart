@@ -1,5 +1,6 @@
 import 'package:classic_eccomerce/cart/data/models/cart_item.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/home/presentation/cubits/home_cubit/cubit.dart';
 import 'package:classic_eccomerce/product_details/presentation/screens/product_details_screen.dart';
 import 'package:classic_eccomerce/wish_list/data/models/get_wishlist_response.dart';
@@ -81,7 +82,7 @@ class ProductsOverview extends StatelessWidget {
             height: 16,
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.4,
+            height: MediaQuery.of(context).size.height * 0.32,
             child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
@@ -92,7 +93,11 @@ class ProductsOverview extends StatelessWidget {
                   String? productTitle = product.name;
                   num? productPrice = product.price;
                   var priceFormatted = (product.price?.toStringAsFixed(3)??"") +" " +  AppLocalizations.of(context)!.iraqi_dinar_initials;
-                  String? productImagePath = (product.productImagePath ?? "");
+                  String? productImagePath =
+
+                  ApiUrls.BASE_URL +
+                  (product.productImagePath ?? "");
+                  print(productImagePath);
                   String stockStatus = product.stockStatus ?? "";
 
                   int? productType = product.productSource;
@@ -220,43 +225,43 @@ class ProductsOverview extends StatelessWidget {
                                     fontSize: FontSizes.FONT_SIZE_16,
                                     fontWeight: FontWeight.bold),
                               ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    weight: MediaQuery.of(context).size.width *
-                                        0.01,
-                                    color: AppColors.STAR_COLOR,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    weight: MediaQuery.of(context).size.width *
-                                        0.01,
-                                    color: AppColors.STAR_COLOR,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    weight: MediaQuery.of(context).size.width *
-                                        0.01,
-                                    color: AppColors.STAR_COLOR,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    weight: MediaQuery.of(context).size.width *
-                                        0.01,
-                                    color: AppColors.STAR_COLOR,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    weight: MediaQuery.of(context).size.width *
-                                        0.01,
-                                    color: AppColors.STAR_COLOR,
-                                  ),
-                                ],
-                              ),
+                              // const SizedBox(
+                              //   height: 4,
+                              // ),
+                              // Row(
+                              //   children: [
+                              //     Icon(
+                              //       Icons.star,
+                              //       weight: MediaQuery.of(context).size.width *
+                              //           0.01,
+                              //       color: AppColors.STAR_COLOR,
+                              //     ),
+                              //     Icon(
+                              //       Icons.star,
+                              //       weight: MediaQuery.of(context).size.width *
+                              //           0.01,
+                              //       color: AppColors.STAR_COLOR,
+                              //     ),
+                              //     Icon(
+                              //       Icons.star,
+                              //       weight: MediaQuery.of(context).size.width *
+                              //           0.01,
+                              //       color: AppColors.STAR_COLOR,
+                              //     ),
+                              //     Icon(
+                              //       Icons.star,
+                              //       weight: MediaQuery.of(context).size.width *
+                              //           0.01,
+                              //       color: AppColors.STAR_COLOR,
+                              //     ),
+                              //     Icon(
+                              //       Icons.star,
+                              //       weight: MediaQuery.of(context).size.width *
+                              //           0.01,
+                              //       color: AppColors.STAR_COLOR,
+                              //     ),
+                              //   ],
+                              // ),
                               Text(
                                 priceFormatted ?? "-",
                                 overflow: TextOverflow.ellipsis,
