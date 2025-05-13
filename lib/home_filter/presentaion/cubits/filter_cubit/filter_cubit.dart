@@ -23,21 +23,21 @@ import '../../../data/data_source/remote_data_source/post_filter_api.dart';
 import '../../../data/model/get_response_model/get_category_response.dart';
 import '../../../data/model/get_response_model/get_supplier_response.dart';
 
-
-
 part 'filter_state.dart';
 
 class FilterCubit extends Cubit<FilterState> {
   FilterCubit() : super(FilterInitial());
+
   static FilterCubit get(BuildContext context) => BlocProvider.of(context);
-  List<GroupsAD> groups= [];
+  List<GroupsAD> groups = [];
   List<ColorAD> colors = [];
   List<SizeAD> size = [];
+
   // List manufacturerCompany = [];
-  RangeValues rangeValues = RangeValues(0,100000);
-  FilterFormInput filterFormInput=FilterFormInput();
-  List<ProductInCategory>?result=[];
-  bool isCompany=true;
+  RangeValues rangeValues = RangeValues(0, 100000);
+  FilterFormInput filterFormInput = FilterFormInput();
+  List<ProductInCategory?> result = [];
+  bool isCompany = true;
 
   void radioFunctionIsCompany(value) {
     isCompany = value;
@@ -51,12 +51,14 @@ class FilterCubit extends Cubit<FilterState> {
     await setSize();
     emit(FetchingFilterSuccessState());
   }
+
   // String? selectedGroup;
   void radioFunctionGroup(value) {
     filterFormInput.groupId = value;
-     emit(SelectedRadioGroup());
+    emit(SelectedRadioGroup());
   }
-  setGroups()async  {
+
+  setGroups() async {
     print('object');
     var response = await GetGroupsFilterApi.getGroups();
     // response!.obj!.forEach((element) => groupRadioList.add(GroupRadioModel(false, element)),);
@@ -66,18 +68,13 @@ class FilterCubit extends Cubit<FilterState> {
     }
   }
 
-
-
-
-
-
-
-
   String? selectedColor;
-  void selectFunctionColor(value){
+
+  void selectFunctionColor(value) {
     selectedColor = value;
     emit(SelectedRadioColor());
   }
+
   setColors() async {
     var response = await GetColorsApis.getColors();
     print(response?.message);
@@ -91,6 +88,7 @@ class FilterCubit extends Cubit<FilterState> {
     filterFormInput.size = value;
     emit(SelectedRadioManufacture());
   }
+
   setSize() async {
     var response = await GetSizeApis.getSize();
     print(response?.message);
@@ -100,33 +98,42 @@ class FilterCubit extends Cubit<FilterState> {
     }
   }
 
-
-  fetchPrice(RangeValues value){
-    rangeValues=value;
-    filterFormInput.sellingPriceMinimum=rangeValues.start as double;
-    filterFormInput.sellingPriceMinimumMaximum=rangeValues.end as double;
+  fetchPrice(RangeValues value) {
+    rangeValues = value;
+    filterFormInput.sellingPriceMinimum = rangeValues.start as double;
+    filterFormInput.sellingPriceMinimumMaximum = rangeValues.end as double;
     emit(FetchingPriceFilterState());
   }
 
 
-
-
-
-
+  int pageFilter = 1;
+  ScrollController filterController = ScrollController();
 
   Future createFilter(context) async {
+    filterController.addListener(() async {
+      if (filterController.position.maxScrollExtent ==
+          filterController.offset) {
+        if (state is FetchingMoreFilteredLoadingState) {
+          return;
+        }
+        await addMoreFilter(context);
+      }
+    });
+    pageFilter=1;
     emit(CreateFilterLoadingState());
-    var response = await FilterApi.getFilterHome(filterFormInput.toJson(),isCompany);
+    var response = await FilterApi.getFilterHome(
+        filterFormInput.toJson(), isCompany, pageFilter);
     if (response?.isSuccssed == true) {
-      result=response?.obj?.products??[];
-      response?.obj?.products?.isEmpty == true?showAppSnackBar(content: "There is no product"):null;
+      result = response?.obj?.products ?? [];
+      response?.obj?.products?.isEmpty == true
+          ? showAppSnackBar(content: "There is no product")
+          : null;
       emit(CreateFilterSuccessState());
     } else if (response?.isSuccssed == false) {
       print(response?.isSuccssed);
 
       showAppSnackBar(
-          content:AppLocalizations.of(context)!.error_occurred_try_again
-      );
+          content: AppLocalizations.of(context)!.error_occurred_try_again);
       emit(CreateFilterFailedState());
     } else {
       // isUserLoggedIn = false;
@@ -135,15 +142,62 @@ class FilterCubit extends Cubit<FilterState> {
     }
   }
 
-  deleteValue(){
-    filterFormInput.groupId=null;
-    filterFormInput.groupId=null;
-    filterFormInput.colors=null;
-    filterFormInput.supplierId=null;
-    filterFormInput.sellingPriceMinimum=null;
-    filterFormInput.sellingPriceMinimumMaximum=null;
-    filterFormInput.size=null;
-    emit(DeleteSelectedRadio());
+  Future addMoreFilter(context) async {
+    pageFilter++;
+    emit(FetchingMoreFilteredLoadingState());
+    var response = await FilterApi.getFilterHome(
+        filterFormInput.toJson(), isCompany, pageFilter);
+    if (response?.isSuccssed == true) {
+      List<ProductInCategory> list = (response?.obj?.products ?? []).map(
+            (e) {
+          return ProductInCategory(
+            files: e.files,
+            grandUnitId: e.grandUnitId,
+            grandUnitName: e.grandUnitName,
+            grandUnitPrice: e.grandUnitPrice,
+            groupId: e.groupId,
+            groupName: e.groupName,
+            id: e.id,
+            middleUnitId: e.middleUnitId,
+            middleUnitName: e.middleUnitName,
+            middleUnitPrice: e.middleUnitPrice,
+            minorUnitId: e.minorUnitId,
+            minorUnitName: e.minorUnitName,
+            minorUnitPrice: e.minorUnitPrice,
+            notes: e.notes,
+            productName: e.productName,
+            source: e.source,
+          );
+        },
+      ).toList();
+
+      if (list.isEmpty) {
+        pageFilter--;
+        emit(FetchingMoreFilteredSuccessState());
+        return;
+      }
+
+      result?.addAll(list);
+    } else if (response?.isSuccssed == false) {
+      print(response?.isSuccssed);
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!.error_occurred_try_again);
+      emit(FetchingMoreFilteredFailedState());
+    } else {
+      // isUserLoggedIn = false;
+      showAppSnackBar(content: "Check your internet connection, and try again");
+      emit(FilterNetworkFailedConnectionState());
+    }
   }
 
+  deleteValue() {
+    filterFormInput.groupId = null;
+    filterFormInput.groupId = null;
+    filterFormInput.colors = null;
+    filterFormInput.supplierId = null;
+    filterFormInput.sellingPriceMinimum = null;
+    filterFormInput.sellingPriceMinimumMaximum = null;
+    filterFormInput.size = null;
+    emit(DeleteSelectedRadio());
+  }
 }

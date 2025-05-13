@@ -19,7 +19,9 @@ final class CreateFilterFailedState extends FilterState {}
 
 final class FilterNetworkFailedConnectionState extends FilterState {}
 
-
+class FetchingMoreFilteredLoadingState extends FilterState {}
+class FetchingMoreFilteredSuccessState extends FilterState {}
+class FetchingMoreFilteredFailedState extends FilterState {}
 
 
 final class FetchingPriceFilterState extends FilterState {}

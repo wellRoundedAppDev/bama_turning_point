@@ -310,7 +310,7 @@ class HomeDrawer extends StatelessWidget {
                         onTap: () {
                           Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
                           child: BlocProvider(
-                              create: (context)=>AccountCubit()..setFirstCustomerOrders(),
+                              create: (context)=>AccountCubit()..initOrderHistoryScreen(),
                               child: OrderHistoryScreen())
                           ));
                         },

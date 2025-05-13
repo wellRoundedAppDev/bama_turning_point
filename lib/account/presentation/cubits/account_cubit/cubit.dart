@@ -298,6 +298,7 @@ class AccountCubit extends Cubit<AccountStates> {
   }
 
   addMoreCustomerOrders() async {
+    print(customerOrdersPageNumber);
     LocaleCubit localeCubit = LocaleCubit.get(context);
     AppSettingsCubit appSettingsCubit = AppSettingsCubit.get(context);
     emit(AddMoreCustomerOrdersLoadingState());

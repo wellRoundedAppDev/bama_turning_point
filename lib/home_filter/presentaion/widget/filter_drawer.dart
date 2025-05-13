@@ -77,7 +77,7 @@ class FilterDrawer extends StatelessWidget {
                                                 MaterialPageRoute(
                                                   builder: (context) =>
                                                       ViewProductsFilterScreen(
-                                                          filterCubit.result,filterCubit.isCompany),
+                                                          filterCubit.isCompany,filterCubit),
                                                 ));
                                           }
                                         }),
@@ -188,9 +188,9 @@ class FilterDrawer extends StatelessWidget {
 
                         //group
                         ExpansionTile(
-                          title: const Text(
-                            "Group",
-                            style: TextStyle(
+                          title:  Text(
+                            AppLocalizations.of(context)!.group,
+                            style: const TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_16,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xff313846)),
