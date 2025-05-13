@@ -16,8 +16,7 @@ class OrderHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar:
-          CustomAppBar.renderAppBar(title: "My Account", showCartIcon: false),
+      appBar: CustomAppBar.renderAppBar(title: 'Products Result'),
       body: BlocConsumer<AccountCubit, AccountStates>(
         listener: (context, state) {},
         builder: (context, state) {

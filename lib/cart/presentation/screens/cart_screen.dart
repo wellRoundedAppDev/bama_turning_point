@@ -117,22 +117,23 @@ class CartScreen extends StatelessWidget {
 
                       // const SizedBox(width: 16,),
 
-                      const Expanded(
-                        child: Text(
-                          "1575\$" ?? "",
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                              fontSize: FontSizes.FONT_SIZE_16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
+                      // const Expanded(
+                      //   child: Text(
+                      //     "1575\$" ?? "",
+                      //     overflow: TextOverflow.ellipsis,
+                      //     textAlign: TextAlign.end,
+                      //     style: TextStyle(
+                      //         fontSize: FontSizes.FONT_SIZE_16,
+                      //         color: Colors.white,
+                      //         fontWeight: FontWeight.bold),
+                      //   ),
+                      // ),
+                      //
+                      // const SizedBox(
+                      //   width: 16,
+                      // ),
 
-                      const SizedBox(
-                        width: 16,
-                      ),
-
+                      Expanded(child: Container()),
                       GestureDetector(
                         onTap: () {},
                         child: SvgPicture.asset(

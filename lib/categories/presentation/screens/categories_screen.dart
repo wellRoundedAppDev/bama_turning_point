@@ -9,8 +9,13 @@ import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../core/constants/colors/colors.dart';
+import '../../../core/constants/paths/icon_paths.dart';
+import '../../../core/constants/paths/image_paths.dart';
+import '../../../main.dart';
 import '../../data/models/get_categories_paginated_response.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -23,11 +28,8 @@ class CategoriesScreen extends StatelessWidget {
       create: (context) => CategoriesCubit()..setCategories(),
       child: SafeArea(
           child: Scaffold(
-        appBar: CustomAppBar.renderAppBar(
-          title: "Categories",
-          cartCubit: CartCubit.get(context),
-          showBackButton: showBackButton
-        ),
+            appBar: CustomAppBar.renderAppBar(
+                title: "", cartCubit: CartCubit.get(context)),
         body: BlocConsumer<CategoriesCubit, CategoriesStates>(
           listener: (context, state) {},
           builder: (context, state) {

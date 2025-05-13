@@ -8,6 +8,10 @@ class CartItem {
   String? priceFormatted;
   Map<String, dynamic>? option;
 
+  int? unitId;
+  String? unitName;
+  int? productSource;
+
   CartItem(
       {required this.productId,
       required this.name,
@@ -16,7 +20,10 @@ class CartItem {
       this.quantity = 0,
       this.option = const {},
       this.priceFormatted,
-      this.imagePath = ""});
+      this.imagePath = "",
+      this.productSource,
+      this.unitId,
+      this.unitName});
 
   Map<String, dynamic> toJson() => {
         "id": productId,
@@ -26,6 +33,9 @@ class CartItem {
         "price": price,
         "imagePath": imagePath,
         "priceFormatted": priceFormatted,
-        "option": option?['option']
+        "option": option?['option'],
+        "productSource": productSource,
+        "unitId": unitId,
+        "unitName": unitName
       };
 }

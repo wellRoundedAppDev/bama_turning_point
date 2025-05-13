@@ -211,20 +211,29 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                                         .selectedProductDetails;
 
                                 cartCubit.addItemToCart(CartItem(
-                                    productId: selectedProductDetails?.id
-                                            ?.toString() ??
-                                        "",
+                                    productId:
+                                        selectedProductDetails?.id?.toString() ??
+                                            "",
                                     option: productDetailsCubit.selectedOption,
-                                    name: selectedProductDetails?.productName ?? "",
-                                    imagePath:
-                                    selectedProductDetails?.files == null || selectedProductDetails?.files?.isEmpty == true?"":
-                                   ApiUrls.BASE_URL +  (selectedProductDetails
-                                            ?.files?[0].fileUrl
-                                            .toString() ??
-                                        ""),
-                                    price: selectedProductDetails?.price
-                                            ?.toDouble() ??
-                                        -1));
+                                    name: selectedProductDetails?.productName ??
+                                        "",
+                                    imagePath: selectedProductDetails?.files == null ||
+                                            selectedProductDetails?.files?.isEmpty ==
+                                                true
+                                        ? ""
+                                        : ApiUrls.BASE_URL +
+                                            (selectedProductDetails?.files?[0].fileUrl
+                                                    .toString() ??
+                                                ""),
+                                    price: selectedProductDetails?.price == null
+                                        ? (selectedProductDetails?.minorUnitPrice
+                                                ?.toDouble() ??
+                                            0)
+                                        : selectedProductDetails?.price?.toDouble() ?? -1,
+
+                                    productSource: selectedProductDetails?.source,
+                                    unitId: selectedProductDetails?.unitId ?? selectedProductDetails?.minorUnitId,
+                                    unitName: selectedProductDetails?.unitName ?? selectedProductDetails?.minorUnitName));
                               },
                             );
                 },

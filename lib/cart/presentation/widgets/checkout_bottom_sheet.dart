@@ -21,102 +21,114 @@ class CheckOutBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context)=>CheckOutCubit(),
+      child: BlocConsumer<CheckOutCubit, CheckOutStates>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    CheckOutCubit checkOutCubit = CheckOutCubit.get(context);
     return Container(
-      height: MediaQuery.of(context).size.height * 0.08,
-      color: AppColors.APP_SECONDARY_COLOR,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.total,
-                    style: const TextStyle(
-                        fontSize: FontSizes.FONT_SIZE_14,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Expanded(
-                    child: BlocConsumer<CartCubit, CartStates>(
-                      listener: (context, state) {},
-                      builder: (context, state) {
-                        AppSettingsCubit appSettingsCubit =
-                            AppSettingsCubit.get(context);
-                        CartCubit cartCubit = CartCubit.get(context);
-                        String currencySymbol =
-                            AppLocalizations.of(context)!.dinar;
-                        return Text(
-                          ": ${cartCubit.totalPrice.toStringAsFixed(2).replaceAllMapped(new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},")}$currencySymbol",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: FontSizes.FONT_SIZE_12,
-                            color: Colors.white,
-                          ),
-                        );
-                      },
+        height: MediaQuery.of(context).size.height * 0.08,
+        color: AppColors.APP_SECONDARY_COLOR,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.total,
+                      style: const TextStyle(
+                          fontSize: FontSizes.FONT_SIZE_14,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
                     ),
-                  )
-                ],
+                    Expanded(
+                      child: BlocConsumer<CartCubit, CartStates>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          AppSettingsCubit appSettingsCubit =
+                              AppSettingsCubit.get(context);
+                          CartCubit cartCubit = CartCubit.get(context);
+                          String currencySymbol =
+                              AppLocalizations.of(context)!.dinar;
+                          return Text(
+                            ": ${cartCubit.totalPrice.toStringAsFixed(2).replaceAllMapped( RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},")}$currencySymbol",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: FontSizes.FONT_SIZE_12,
+                              color: Colors.white,
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          BlocProvider(
-          create: (context) => CheckOutCubit(),
-          child: BlocConsumer<CheckOutCubit, CheckOutStates>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
-          builder: (context, state) {
-            CheckOutCubit cubit = CheckOutCubit.get(context);
-            return Padding(
-           padding:    const EdgeInsets.only(right: 8, top: 8, bottom: 8, left: 8),
+            Padding(
+              padding:    const EdgeInsets.only(right: 8, top: 8, bottom: 8, left: 8),
               child: CustomButton(
-              text: AppLocalizations.of(context)!.checkout,
-              height: MediaQuery.of(context).size.height,
-              isLoading:  state is ConfirmOrderLoadingState,
-              textFontSize: FontSizes.FONT_SIZE_14,
-              action: () {
-                if (AuthCubit.get(context).isUserLoggedIn) {
-
-                  cubit.createOrder(CartCubit.get(context));
+                text: AppLocalizations.of(context)!.checkout,
+                height: MediaQuery.of(context).size.height,
+                isLoading:  state is ConfirmOrderLoadingState,
+                textFontSize: FontSizes.FONT_SIZE_14,
+                action: () {
+                  if (AuthCubit.get(context).isUserLoggedIn) {
+      
+                    checkOutCubit.createOrder(CartCubit.get(context));
+                    // Navigator.push(
+                    //     context,
+                    //     PageTransition(
+                    //         child: BlocProvider.value(
+                    //             value: CartCubit.get(context),
+                    //             child: BlocProvider(
+                    //                 create: (context) => CheckOutCubit()
+                    //                   ..setRegisteredUserPaymentAddresses(),
+                    //                 child:
+                    //                     const SetBillingAddressForRegisteredUserScreen())),
+                    //         type: PageTransitionType.leftToRight));
+                    // return;
+                  }else{
+      
+                    showAppSnackBar(content: AppLocalizations.of(context)!.login);
+                  }
+      
                   // Navigator.push(
                   //     context,
                   //     PageTransition(
                   //         child: BlocProvider.value(
                   //             value: CartCubit.get(context),
-                  //             child: BlocProvider(
-                  //                 create: (context) => CheckOutCubit()
-                  //                   ..setRegisteredUserPaymentAddresses(),
-                  //                 child:
-                  //                     const SetBillingAddressForRegisteredUserScreen())),
+                  //             child: const QuickCheckoutAuthScreen()),
                   //         type: PageTransitionType.leftToRight));
-                  // return;
-                }else{
-
-                  showAppSnackBar(content: AppLocalizations.of(context)!.login);
-                }
-
-                // Navigator.push(
-                //     context,
-                //     PageTransition(
-                //         child: BlocProvider.value(
-                //             value: CartCubit.get(context),
-                //             child: const QuickCheckoutAuthScreen()),
-                //         type: PageTransitionType.leftToRight));
-              },
-                        ),
-            );
-          },
-                    ),
-                    )
-        ],
-      ),
+                },
+              ),
+            )
+            // BlocProvider(
+            // create: (context) => CheckOutCubit(),
+            // child: BlocConsumer<CheckOutCubit, CheckOutStates>(
+            // listener: (context, state) {
+            //   // TODO: implement listener
+            // },
+            // builder: (context, state) {
+            //   CheckOutCubit cubit = CheckOutCubit.get(context);
+            //   return ;
+            // },
+            //           ),
+            //           )
+          ],
+        ),
+      );
+  },
+),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_c
 import 'package:classic_eccomerce/authentication/data/models/guest_form_input.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/states.dart';
 import 'package:classic_eccomerce/checkout/data/data_sources/checkout_apis.dart';
 import 'package:classic_eccomerce/checkout/data/models/add_address_input.dart';
 import 'package:classic_eccomerce/checkout/data/models/get_customer_payment_address_response.dart';
@@ -11,6 +12,7 @@ import 'package:classic_eccomerce/checkout/presentation/cubits/states.dart';
 import 'package:classic_eccomerce/checkout/presentation/screens/order_success_screen.dart';
 import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
 import 'package:classic_eccomerce/main.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -20,6 +22,7 @@ import '../../../core/data/models/get_countries_response.dart';
 import '../../../core/data/models/get_regions_response.dart';
 import '../../../shared_components/app_snackbar.dart';
 import '../screens/quick_checkout_main_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CheckOutCubit extends Cubit<CheckOutStates> {
   CheckOutCubit() : super(CheckOutInitialState());
@@ -50,7 +53,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
 
 
 
-  createOrder(CartCubit cartCubit){
+  createOrder(CartCubit cartCubit) async {
 
           // [
           //   {
@@ -63,20 +66,36 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
           // ]
         var items =  cartCubit.cartItems?.entries.map((e)=>
         {
-          "productSource": 1,
-          "unitId": 5,
-          "unitName": "قطعة",
+          "productSource": e.value['productSource'],
+          "unitId": e.value['unitId']??"",
+          "unitName": e.value['unitName']??"",
           "productId": e.value["id"],
           "productName": e.value['name'],
           "qty": e.value['quantity']
         }
         )?.toList();
 
-        print(items);
+        if (kDebugMode) {
+          print(items);
+        }
 
         emit(ConfirmOrderLoadingState());
-        var response = CheckoutApis.createOrder(items: items);
-        emit(ConfirmOrderSuccessState());
+        var response =await  CheckoutApis.createOrder(items: items);
+        if(response?.success == true){
+          showAppSnackBar(content: response?.message??"");
+          cartCubit.clearCart();
+          emit(ConfirmOrderSuccessState());
+        }
+        else if(response?.success == false){
+
+          showAppSnackBar(content: response?.message??"");
+          emit(ConfirmOrderFailedState());
+        }
+        else{
+          showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
+          emit(ConfirmOrderNetworkConnectionFailedState());
+        }
+
 
   }
 

@@ -337,7 +337,9 @@ class HomeCubit extends Cubit<HomeStates> {
                     productId: e.id,
                     price: e.minorUnitPrice,
                     name: e.productName,
-          productSource: e.source?.toInt()??0
+          productSource: e.source?.toInt()??0,
+        productImagePath: e.file?.fileUrl,
+
 
       ))
               ?.toList() ??

@@ -37,15 +37,15 @@ class WishListItemWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Material(
-                                  child: ProductDetailsScreen(
-                                      selectedProductId: int.tryParse(
-                                              wishlistItem?.productId ?? "") ??
-                                          0),
-                                )));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => Material(
+                    //               child: ProductDetailsScreen(
+                    //                   selectedProductId: int.tryParse(
+                    //                           wishlistItem?.productId ?? "") ??
+                    //                       0),
+                    //             )));
                   },
                   child: Image.network(
                     wishlistItem?.thumb??"",

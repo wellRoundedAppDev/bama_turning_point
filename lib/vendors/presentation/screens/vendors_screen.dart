@@ -66,7 +66,7 @@ class VendorsScreen extends StatelessWidget {
                                       crossAxisCount: 4,
                                       mainAxisExtent:
                                           MediaQuery.of(context).size.height *
-                                              0.14,
+                                              0.18,
                                       mainAxisSpacing: 0,
                                       crossAxisSpacing: 16),
                               itemCount: vendors?.length ?? 0,

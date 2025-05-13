@@ -421,7 +421,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                       height: 2,
                                                     ),
                                                     Text(
-                                                      "${priceFormatted  ?? ""} ${AppLocalizations.of(context)!.dinar}",
+                                                      "${priceFormatted  ?? ""} ${AppLocalizations.of(context)!.iraqi_dinar_initials}",
 
                                                       //   "\$$productPrice",
                                                       style: const TextStyle(
@@ -885,10 +885,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                                           (context, index) =>
                                                               InkWell(
                                                                 onTap: () {
-                                                                  productDetailsCubit
-                                                                      .setColorID(
-                                                                          colorProduct?[index].colorId ??
-                                                                              0);
+                                                                  // productDetailsCubit
+                                                                  //     .setColorID(
+                                                                  //         colorProduct?[index].colorId ??
+                                                                  //             0);
                                                                 },
                                                                 child:
                                                                     Container(
@@ -983,11 +983,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                                           (context, index) =>
                                                               InkWell(
                                                                 onTap: () {
-                                                                  productDetailsCubit
-                                                                      .setSizeID(
-                                                                          sizeProduct?[index]
-                                                                                  .sizeId ??
-                                                                              0);
+                                                                  // productDetailsCubit
+                                                                  //     .setSizeID(
+                                                                  //         sizeProduct?[index]
+                                                                  //                 .sizeId ??
+                                                                  //             0);
                                                                 },
                                                                 child: Container(
                                                                   padding:

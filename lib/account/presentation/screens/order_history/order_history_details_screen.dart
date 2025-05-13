@@ -8,12 +8,19 @@ import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
+import '../../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../../core/constants/fonts/font_sizes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../core/constants/paths/icon_paths.dart';
+import '../../../../core/constants/paths/image_paths.dart';
+import '../../../../main.dart';
+
 class OrderDetailsScreen extends StatelessWidget {
-  OrderDetailsScreen({
+  const OrderDetailsScreen({
     super.key,
   });
 
@@ -21,8 +28,7 @@ class OrderDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar:
-          CustomAppBar.renderAppBar(title: "MY ACCOUNT", showCartIcon: false),
+          appBar: CustomAppBar.renderAppBar(title: 'Products Result'),
       body: BlocConsumer<AccountCubit, AccountStates>(
         listener: (context, state) {},
         builder: (context, state) {

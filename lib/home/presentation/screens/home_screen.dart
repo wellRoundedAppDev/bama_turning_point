@@ -427,7 +427,7 @@ class HomeScreen extends StatelessWidget {
                                                                               context)
                                                                           .size
                                                                           .height *
-                                                                      0.14,
+                                                                      0.18,
                                                               mainAxisSpacing:
                                                                   0,
                                                               crossAxisSpacing:
@@ -482,6 +482,7 @@ class HomeScreen extends StatelessWidget {
                                                                   Text(
                                                                     vendorName ??
                                                                         "",
+                                                                    maxLines: 2,
                                                                     style: const TextStyle(
                                                                         color: AppColors
                                                                             .GREY_LABEL_COLOR,

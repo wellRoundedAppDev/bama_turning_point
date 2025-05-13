@@ -80,7 +80,7 @@ class CheckoutApis {
     }
   }
 
-  static Future<bool?> createOrder(
+  static Future<SuccessAndErrorResponse?> createOrder(
       {String languageCode = "ir_arabic", String currencyCode = "IQD",
         var items
       }) async {
@@ -101,12 +101,7 @@ class CheckoutApis {
       if (response == null) {
         return null;
       }
-      if (response.data['success'] == 1) {
-        return true;
-      } else if (response.data['success'] == 0) {
-        return false;
-      }
-      return null;
+      return SuccessAndErrorResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
         print(e);

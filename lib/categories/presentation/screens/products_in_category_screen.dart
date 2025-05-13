@@ -8,9 +8,14 @@ import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../core/constants/colors/colors.dart';
+import '../../../core/constants/paths/icon_paths.dart';
+import '../../../core/constants/paths/image_paths.dart';
+import '../../../main.dart';
 import '../../../product_details/presentation/screens/product_details_screen.dart';
 import '../../data/models/get_categories_paginated_response.dart';
 import '../../data/models/get_categories_response.dart';
@@ -34,10 +39,10 @@ class ProductsInCategoryScreen extends StatelessWidget {
         Category2? selectedCategory = categoriesCubit.selectedCategory;
         String? selectedCategoryName = selectedCategory?.groupName;
          return Scaffold(
-            appBar: CustomAppBar.renderAppBar(
-                title: selectedCategoryName ?? "",
-                cartCubit: CartCubit.get(context)),
-            body: (state is GetProductsInCategoryLoadingState)
+             appBar: CustomAppBar.renderAppBar(
+                 title: "", cartCubit: CartCubit.get(context)),
+
+             body: (state is GetProductsInCategoryLoadingState)
                 ? const Center(
               child: CircularProgressIndicator(),
             )
