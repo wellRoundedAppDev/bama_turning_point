@@ -31,6 +31,7 @@ final class SelectedRadioGroup extends FilterState {}
 final class SelectedRadioCategory extends FilterState {}
 final class SelectedRadioSuppliers extends FilterState {}
 final class SelectedRadioManufacture extends FilterState {}
+final class SelectedRadioSize extends FilterState {}
 final class SelectedRadioColor extends FilterState {}
 
 final class DeleteSelectedRadio extends FilterState {}
