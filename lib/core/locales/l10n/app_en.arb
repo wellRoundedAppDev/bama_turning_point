@@ -1,6 +1,8 @@
 {
   "the_language": "Language",
   "language": "English",
+  "english": "English",
+  "arabic": "Arabic",
   "currency": "Currency",
   "american_dollar": "American Dollar",
   "iraqi_dinar": "Iraqi Dinar",
@@ -283,6 +285,8 @@
   "price": "Price",
 
   "product_added_to_favorites": "Product added to favorites",
+
+  "username": "Username",
 
 
   "@welcome_user": {

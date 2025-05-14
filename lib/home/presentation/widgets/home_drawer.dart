@@ -6,6 +6,7 @@ import 'package:classic_eccomerce/app_settings/app_currencies.dart';
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_states.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/contact_us/presentation/screens/contact_us_screen.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
@@ -27,7 +28,15 @@ class HomeDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: AppColors.APP_MAIN_COLOR,
-      child: Column(
+      child: BlocConsumer<AuthCubit, AuthStates>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+
+    AuthCubit authCubit = AuthCubit.get(context);
+    bool isUserLoggedIn = authCubit.isUserLoggedIn;
+    return Column(
         children: [
           Expanded(
             child: Column(
@@ -209,10 +218,10 @@ class HomeDrawer extends StatelessWidget {
                                             homeCubit.init();
                                             Navigator.pop(context);
                                           },
-                                          child: const Padding(
+                                          child:  Padding(
                                             padding: EdgeInsets.all(8.0),
                                             child: Text(
-                                              "العربية",
+                                              AppLocalizations.of(context)!.arabic,
                                               style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize:
@@ -236,13 +245,13 @@ class HomeDrawer extends StatelessWidget {
                                             homeCubit.init();
                                             Navigator.pop(context);
                                           },
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(8.0),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
                                             child: Row(
                                               children: [
                                                 Text(
-                                                  "English",
-                                                  style: TextStyle(
+                                                  AppLocalizations.of(context)!.english,
+                                                  style: const TextStyle(
                                                       color: Colors.black,
                                                       fontSize: FontSizes
                                                           .FONT_SIZE_18),
@@ -306,45 +315,49 @@ class HomeDrawer extends StatelessWidget {
                         ),
                       ),
 
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
-                          child: BlocProvider(
-                              create: (context)=>AccountCubit()..setFirstCustomerOrders(),
-                              child: OrderHistoryScreen())
-                          ));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                IconPaths.ORDER_HISTORY_ICON,
-                                width: 30,
-                                height: 30,
-                                color: Colors.white,
+                  isUserLoggedIn?    Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
+                              child: BlocProvider(
+                                  create: (context)=>AccountCubit()..setFirstCustomerOrders(),
+                                  child: const OrderHistoryScreen())
+                              ));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    IconPaths.ORDER_HISTORY_ICON,
+                                    width: 30,
+                                    height: 30,
+                                    color: Colors.white,
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                   Text(
+                                    AppLocalizations.of(context)!.my_orders,
+                                    style: const TextStyle(
+                                        fontSize: FontSizes.FONT_SIZE_18,
+                                        color: Colors.white),
+                                  )
+                                ],
                               ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                               Text(
-                                AppLocalizations.of(context)!.my_orders,
-                                style: TextStyle(
-                                    fontSize: FontSizes.FONT_SIZE_18,
-                                    color: Colors.white),
-                              )
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Divider(
-                          thickness: 1,
-                          color: Colors.white,
-                        ),
-                      ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Divider(
+                              thickness: 1,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ):Container(),
 
 
                       // InkWell(
@@ -542,7 +555,7 @@ class HomeDrawer extends StatelessWidget {
                       // ),
 
 
-                      (AuthCubit.get(context).isUserLoggedIn == false)
+                      (isUserLoggedIn == false)
                           ? Container()
                           :
                       InkWell(
@@ -593,7 +606,9 @@ class HomeDrawer extends StatelessWidget {
           //   height: 10,
           // ),
         ],
-      ),
+      );
+  },
+),
     );
   }
 }

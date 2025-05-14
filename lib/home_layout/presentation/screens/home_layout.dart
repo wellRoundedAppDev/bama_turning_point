@@ -179,7 +179,7 @@ class HomeLayoutScreen extends StatelessWidget {
                         //             showBackButton: false,
                         //           )
                         : (navBarCurrentIndex == 1)
-                            ? CartScreen()
+                            ? CartScreen(showBackButton: false,)
                             : BlocConsumer<AuthCubit, AuthStates>(
                                 builder: (context, state) {
                                   bool? isUserLoggedIn = AuthCubit.get(context).isUserLoggedIn;

@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/contact_us/presentation/cubit/contact_us_cubit.dart';
 import 'package:classic_eccomerce/contact_us/presentation/cubit/contact_us_states.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
@@ -27,7 +28,7 @@ class NotificationsScreen extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       drawer: const HomeDrawer(),
-          appBar: CustomAppBar.renderAppBar(title: 'Products Result'),
+          appBar: CustomAppBar.renderAppBar(title: 'Products Result',cartCubit: CartCubit.get(context)),
       body: BlocProvider(
         create: (context) => NotificationsCubit()..init(),
         child: BlocConsumer<NotificationsCubit, NotificationsStates>(

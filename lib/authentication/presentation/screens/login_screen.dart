@@ -48,9 +48,9 @@ class SignInScreen extends StatelessWidget {
                     ),
                     CustomInput(
                       label:
-                          AppLocalizations.of(context)!.enter_your_main_userName,
+                          AppLocalizations.of(context)!.username,
                       hintText:
-                          AppLocalizations.of(context)!.enter_your_main_userName,
+                          AppLocalizations.of(context)!.username,
                       validator: (value) {
                         if (value == null || value.isEmpty
                             // (value?.length??0) < 8 ||
@@ -81,36 +81,36 @@ class SignInScreen extends StatelessWidget {
                           .loginFormInput
                           .password = v?.trim(),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "${AppLocalizations.of(context)!.forgot_password} ",
-                          style: const TextStyle(
-                              fontSize: FontSizes.FONT_SIZE_14,
-                              color: Color(0xff313846)),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                PageTransition(
-                                    child: const ContactUsScreen(),
-                                    type: PageTransitionType.leftToRight));
-                          },
-                          child: Text(
-                            AppLocalizations.of(context)!.contact_us,
-                            style: const TextStyle(
-                                fontSize: FontSizes.FONT_SIZE_14,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff313846)),
-                          ),
-                        ),
-                      ],
-                    ),
+                    // const SizedBox(
+                    //   height: 10,
+                    // ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     Text(
+                    //       "${AppLocalizations.of(context)!.forgot_password} ",
+                    //       style: const TextStyle(
+                    //           fontSize: FontSizes.FONT_SIZE_14,
+                    //           color: Color(0xff313846)),
+                    //     ),
+                    //     GestureDetector(
+                    //       onTap: () {
+                    //         Navigator.push(
+                    //             context,
+                    //             PageTransition(
+                    //                 child: const ContactUsScreen(),
+                    //                 type: PageTransitionType.leftToRight));
+                    //       },
+                    //       child: Text(
+                    //         AppLocalizations.of(context)!.contact_us,
+                    //         style: const TextStyle(
+                    //             fontSize: FontSizes.FONT_SIZE_14,
+                    //             fontWeight: FontWeight.bold,
+                    //             color: Color(0xff313846)),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     // const SizedBox(
                     //   height: 8,
                     // ),

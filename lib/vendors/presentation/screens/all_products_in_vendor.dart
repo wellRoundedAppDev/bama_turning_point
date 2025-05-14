@@ -217,53 +217,53 @@ class ViewAllProductsByVendorScreen extends StatelessWidget {
                                   fontSize: FontSizes.FONT_SIZE_16,
                                   fontWeight: FontWeight.bold),
                             ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.star,
-                                  weight: MediaQuery.of(context)
-                                      .size
-                                      .width *
-                                      0.01,
-                                  color: AppColors.STAR_COLOR,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  weight: MediaQuery.of(context)
-                                      .size
-                                      .width *
-                                      0.01,
-                                  color: AppColors.STAR_COLOR,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  weight: MediaQuery.of(context)
-                                      .size
-                                      .width *
-                                      0.01,
-                                  color: AppColors.STAR_COLOR,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  weight: MediaQuery.of(context)
-                                      .size
-                                      .width *
-                                      0.01,
-                                  color: AppColors.STAR_COLOR,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  weight: MediaQuery.of(context)
-                                      .size
-                                      .width *
-                                      0.01,
-                                  color: AppColors.STAR_COLOR,
-                                ),
-                              ],
-                            ),
+                            // const SizedBox(
+                            //   height: 8,
+                            // ),
+                            // Row(
+                            //   children: [
+                            //     Icon(
+                            //       Icons.star,
+                            //       weight: MediaQuery.of(context)
+                            //           .size
+                            //           .width *
+                            //           0.01,
+                            //       color: AppColors.STAR_COLOR,
+                            //     ),
+                            //     Icon(
+                            //       Icons.star,
+                            //       weight: MediaQuery.of(context)
+                            //           .size
+                            //           .width *
+                            //           0.01,
+                            //       color: AppColors.STAR_COLOR,
+                            //     ),
+                            //     Icon(
+                            //       Icons.star,
+                            //       weight: MediaQuery.of(context)
+                            //           .size
+                            //           .width *
+                            //           0.01,
+                            //       color: AppColors.STAR_COLOR,
+                            //     ),
+                            //     Icon(
+                            //       Icons.star,
+                            //       weight: MediaQuery.of(context)
+                            //           .size
+                            //           .width *
+                            //           0.01,
+                            //       color: AppColors.STAR_COLOR,
+                            //     ),
+                            //     Icon(
+                            //       Icons.star,
+                            //       weight: MediaQuery.of(context)
+                            //           .size
+                            //           .width *
+                            //           0.01,
+                            //       color: AppColors.STAR_COLOR,
+                            //     ),
+                            //   ],
+                            // ),
                             Text(
                               priceFormatted ?? "-",
                               overflow: TextOverflow.ellipsis,

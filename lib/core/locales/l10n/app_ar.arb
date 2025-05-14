@@ -1,7 +1,13 @@
 {
  "the_language": "اللغة",
  "language": "عربي",
- "currency": "العملة",
+
+
+  "english": "الإنجليزية",
+  "arabic": "العربية",
+
+
+  "currency": "العملة",
  "american_dollar": "دولار امريكي",
  "iraqi_dinar": "دينار عراقي",
  "settings": "إعدادات",
@@ -83,7 +89,7 @@
  "add_to_cart": "أضف إلى السلة",
  "buy_now": "اشتري الآن",
  "added_to_cart": "في السلة",
- "checkout": "الدفع",
+ "checkout": "إنشاء الطلب",
  "total": "المجموع",
  "guest": "ضيف",
  "enter_an_address_of_at_least_four_characters": "أدخل عنوانًا مكونًا من أربعة أحرف على الأقل",
@@ -280,5 +286,7 @@
 
  "price": "السعر",
 
- "product_added_to_favorites": "تم إضافة المنتج إلى المفضلة"
+ "product_added_to_favorites": "تم إضافة المنتج إلى المفضلة",
+
+ "username": "اسم المستخدم"
 }

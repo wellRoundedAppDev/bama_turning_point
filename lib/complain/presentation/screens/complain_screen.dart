@@ -3,12 +3,14 @@ import 'package:classic_eccomerce/contact_us/presentation/cubit/contact_us_cubit
 import 'package:classic_eccomerce/contact_us/presentation/cubit/contact_us_states.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
+import 'package:classic_eccomerce/notifications/presentation/screens/notifications_screen.dart';
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../core/constants/paths/icon_paths.dart';
@@ -31,7 +33,6 @@ class ComplainsScreen extends StatelessWidget {
           ComplainCubit complainCubit = ComplainCubit.get(context);
           return SafeArea(
               child: Scaffold(
-            drawer: const HomeDrawer(),
             appBar: AppBar(
               toolbarHeight: MediaQuery.of(context).size.height * 0.1,
               leading: Container(),
@@ -55,19 +56,19 @@ class ComplainsScreen extends StatelessWidget {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          Scaffold.of(context).openDrawer();
-                        },
-                        child: SvgPicture.asset(
-                          IconPaths.ACCOUNT_ICON,
-                          width: 25,
-                          height: 25,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     Scaffold.of(context).openDrawer();
+                      //   },
+                      //   child: SvgPicture.asset(
+                      //     IconPaths.ACCOUNT_ICON,
+                      //     width: 25,
+                      //     height: 25,
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   width: 8,
+                      // ),
 
                       Expanded(
                         child: Text(
@@ -120,7 +121,11 @@ class ComplainsScreen extends StatelessWidget {
                       Expanded(child: Container()),
 
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
+                          child: const NotificationsScreen()
+                          ));
+                        },
                         child: SvgPicture.asset(
                           IconPaths.NOTIFICATION_ICON,
                           width: 25,
