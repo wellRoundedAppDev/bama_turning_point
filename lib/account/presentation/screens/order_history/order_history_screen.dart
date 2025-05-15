@@ -2,6 +2,7 @@ import 'package:classic_eccomerce/account/data/models/get_customer_orders_respon
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
 import 'package:classic_eccomerce/account/presentation/screens/widgets/order_history_item.dart';
+import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,9 @@ class OrderHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: CustomAppBar.renderAppBar(title: 'Products Result'),
+      appBar: CustomAppBar.renderAppBar(title: 'Products Result',
+      cartCubit: CartCubit.get(context)
+      ),
       body: BlocConsumer<AccountCubit, AccountStates>(
         listener: (context, state) {},
         builder: (context, state) {

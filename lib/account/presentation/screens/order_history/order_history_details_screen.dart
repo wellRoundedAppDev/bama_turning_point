@@ -9,7 +9,6 @@ import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../../core/constants/fonts/font_sizes.dart';
@@ -28,7 +27,8 @@ class OrderDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: CustomAppBar.renderAppBar(title: 'Products Result'),
+      appBar: CustomAppBar.renderAppBar(
+          title: 'Products Result', cartCubit: CartCubit.get(context)),
       body: BlocConsumer<AccountCubit, AccountStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -522,36 +522,29 @@ class OrderDetailsScreen extends StatelessWidget {
                                   //     [],
 
                                   Padding(
-                                    padding:
-                                    const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment
-                                          .spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          AppLocalizations.of(
-                                              context)!
+                                          AppLocalizations.of(context)!
                                               .order_id,
                                           style: const TextStyle(
-                                              fontSize: FontSizes
-                                                  .FONT_SIZE_14,
-                                              fontWeight:
-                                              FontWeight.bold),
+                                              fontSize: FontSizes.FONT_SIZE_14,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                         Text(
                                           selectedOrder?.requestNumber
-                                              .toString() ??
+                                                  .toString() ??
                                               '',
                                           textAlign: TextAlign.end,
                                           maxLines: 1,
-                                          overflow:
-                                          TextOverflow.ellipsis,
+                                          overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
-                                              fontSize: FontSizes
-                                                  .FONT_SIZE_14,fontWeight: FontWeight.bold,
-                                              color:
-                                              Color(0xff947979)),
+                                              fontSize: FontSizes.FONT_SIZE_14,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xff947979)),
                                         ),
                                       ],
                                     ),
@@ -561,32 +554,31 @@ class OrderDetailsScreen extends StatelessWidget {
                                     color: const Color(0xffB6BBC6),
                                   ),
                                   Padding(
-                                    padding:
-                                    const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          AppLocalizations.of(
-                                              context)!
+                                          AppLocalizations.of(context)!
                                               .date_added,
                                           style: const TextStyle(
-                                              fontSize: FontSizes
-                                                  .FONT_SIZE_14,
-                                              fontWeight:
-                                              FontWeight.bold),
+                                              fontSize: FontSizes.FONT_SIZE_14,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                         Text(
-                                          selectedOrder?.requestDate?.toString()?.split(" ")?.first??"",
+                                          selectedOrder?.requestDate
+                                                  ?.toString()
+                                                  ?.split(" ")
+                                                  ?.first ??
+                                              "",
                                           textAlign: TextAlign.end,
                                           maxLines: 1,
-                                          overflow:
-                                          TextOverflow.ellipsis,
-                                          style:const  TextStyle(
-                                              fontSize: FontSizes
-                                                  .FONT_SIZE_14,fontWeight: FontWeight.bold,
-                                              color:
-                                              Color(0xff947979)),
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                              fontSize: FontSizes.FONT_SIZE_14,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xff947979)),
                                         ),
                                       ],
                                     ),
@@ -595,71 +587,146 @@ class OrderDetailsScreen extends StatelessWidget {
                                     height: 1,
                                     color: const Color(0xffB6BBC6),
                                   ),
-                                  ...selectedOrder?.purchaseRequestDetails
-                                      ?.map((total) => Padding(
-                                    padding:
-                                    const EdgeInsets.all(8.0),
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
-                                        // Column(
-                                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                                        //   children: [
-                                        //     Text(
-                                        //       AppLocalizations.of(
-                                        //           context)!
-                                        //           .products_name,
-                                        //       style: const TextStyle(
-                                        //           fontSize: FontSizes
-                                        //               .FONT_SIZE_14,
-                                        //           fontWeight:
-                                        //           FontWeight.bold),
-                                        //     ),
-                                        //
-                                        //     ...selectedOrder?.purchaseRequestDetails
-                                        //         ?.map((total) => Padding(
-                                        //       padding:
-                                        //       const EdgeInsets.all(8.0),
-                                        //       child: Row(
-                                        //         children: [
-                                        //           Text(
-                                        //             total?.qty?.toString() ??"",
-                                        //             textAlign: TextAlign.end,
-                                        //             maxLines: 1,
-                                        //             overflow:
-                                        //             TextOverflow.ellipsis,
-                                        //             style:const  TextStyle(
-                                        //                 fontSize: FontSizes
-                                        //                     .FONT_SIZE_14,fontWeight: FontWeight.bold,
-                                        //                 color:
-                                        //                 Color(0xff947979)),
-                                        //           ),
-                                        //         ],
-                                        //       ),
-                                        //     ))
-                                        //         .toList() ??
-                                        //         [],
-                                        //   ],
-                                        // ),
                                         Text(
-                                          total?.productName ??"",
-                                          textAlign: TextAlign.end,
-                                          maxLines: 1,
-                                          overflow:
-                                          TextOverflow.ellipsis,
-                                          style:const  TextStyle(
-                                              fontSize: FontSizes
-                                                  .FONT_SIZE_14,fontWeight: FontWeight.bold,
-                                              color:
-                                              Color(0xff947979)),
+                                          AppLocalizations.of(context)!
+                                              .products,
+                                          textAlign: TextAlign.start,
+                                          style: const TextStyle(
+                                              fontSize: FontSizes.FONT_SIZE_14,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                        
-                                        Text( (total?.qty?.toString() ??"") + " pcs")
                                       ],
                                     ),
-                                  ))
-                                      .toList() ??
+                                  ),
+                                  ...selectedOrder?.purchaseRequestDetails
+                                          ?.map((total) => Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    // Column(
+                                                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                                                    //   children: [
+                                                    //     Text(
+                                                    //       AppLocalizations.of(
+                                                    //           context)!
+                                                    //           .products_name,
+                                                    //       style: const TextStyle(
+                                                    //           fontSize: FontSizes
+                                                    //               .FONT_SIZE_14,
+                                                    //           fontWeight:
+                                                    //           FontWeight.bold),
+                                                    //     ),
+                                                    //
+                                                    //     ...selectedOrder?.purchaseRequestDetails
+                                                    //         ?.map((total) => Padding(
+                                                    //       padding:
+                                                    //       const EdgeInsets.all(8.0),
+                                                    //       child: Row(
+                                                    //         children: [
+                                                    //           Text(
+                                                    //             total?.qty?.toString() ??"",
+                                                    //             textAlign: TextAlign.end,
+                                                    //             maxLines: 1,
+                                                    //             overflow:
+                                                    //             TextOverflow.ellipsis,
+                                                    //             style:const  TextStyle(
+                                                    //                 fontSize: FontSizes
+                                                    //                     .FONT_SIZE_14,fontWeight: FontWeight.bold,
+                                                    //                 color:
+                                                    //                 Color(0xff947979)),
+                                                    //           ),
+                                                    //         ],
+                                                    //       ),
+                                                    //     ))
+                                                    //         .toList() ??
+                                                    //         [],
+                                                    //   ],
+                                                    // ),
+                                                    Expanded(
+                                                      child: Text(
+                                                        total?.productName ??
+                                                            "",
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: const TextStyle(
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+
+                                                    Expanded(
+                                                        child: Text(
+                                                      "${total?.qty?.toString() ?? ""} x ${total?.price ?? ""} ${AppLocalizations.of(context)!.dinar}",
+
+                                                          textDirection: TextDirection.ltr,
+                                                          style: const TextStyle(
+                                                          color:
+                                                              Color(0xff947979),
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_14),
+                                                      maxLines: 2,
+                                                      textAlign: TextAlign.start,
+
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ))
+                                                  ],
+                                                ),
+                                              ))
+                                          .toList() ??
                                       [],
+
+                                  Container(
+                                    height: 1,
+                                    color: const Color(0xffB6BBC6),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          AppLocalizations.of(context)!.total,
+                                          style: const TextStyle(
+                                              fontSize: FontSizes.FONT_SIZE_14,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            "${selectedOrder?.purchaseRequestDetails?.map((e) => (e?.price ?? 0) * (e?.qty ?? 0))?.toList()?.reduce((x, y) => x + y).toStringAsFixed(2) ?? ""} ${AppLocalizations.of(context)!.dinar}",
+                                            textAlign: TextAlign.end,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                fontSize:
+                                                    FontSizes.FONT_SIZE_14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color(0xff947979)),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
 
                                   // const Divider(thickness: 1,),
 
@@ -701,7 +768,6 @@ class OrderDetailsScreen extends StatelessWidget {
                                   //             ))
                                   //         .toList() ??
                                   //     [],
-
                                 ]),
                               ),
 

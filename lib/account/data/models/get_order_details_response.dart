@@ -59,6 +59,7 @@ class PurchaseRequestDetail {
   final String? unitName;
   final int? productSource;
   final int? productId;
+  final num? price;
 
   PurchaseRequestDetail({
     required this.productName,
@@ -66,6 +67,7 @@ class PurchaseRequestDetail {
     required this.unitName,
     required this.productSource,
     required this.productId,
+    required this.price
   });
 
   factory PurchaseRequestDetail.fromJson(Map<String, dynamic> json) {
@@ -75,6 +77,7 @@ class PurchaseRequestDetail {
       unitName: json['UnitName'] as String?,
       productSource: json['ProductSource'] as int?,
       productId: json['ProductId'] as int?,
+      price: json['Price']
     );
   }
 }

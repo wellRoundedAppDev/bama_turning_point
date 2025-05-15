@@ -222,7 +222,7 @@ class HomeDrawer extends StatelessWidget {
                                             padding: EdgeInsets.all(8.0),
                                             child: Text(
                                               AppLocalizations.of(context)!.arabic,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize:
                                                       FontSizes.FONT_SIZE_18),
@@ -589,6 +589,8 @@ class HomeDrawer extends StatelessWidget {
                                 ),
                               ),
                             ),
+
+
 
                     ],
                   ),
