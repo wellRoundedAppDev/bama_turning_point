@@ -1,22 +1,14 @@
 import 'package:classic_eccomerce/account/data/models/get_order_details_response.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
-import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_cubit.dart';
-import 'package:classic_eccomerce/core/constants/colors/colors.dart';
-import 'package:classic_eccomerce/core/helpers/remove_html_tags_from_string.dart';
+
 import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../../core/constants/fonts/font_sizes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../../core/constants/paths/icon_paths.dart';
-import '../../../../core/constants/paths/image_paths.dart';
-import '../../../../main.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
   const OrderDetailsScreen({
@@ -24,7 +16,7 @@ class OrderDetailsScreen extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {context
     return SafeArea(
         child: Scaffold(
       appBar: CustomAppBar.renderAppBar(
