@@ -449,6 +449,10 @@ class HomeScreen extends StatelessWidget {
                                                             var vendorName = vendor
                                                                 ?.supplierName;
 
+                                                            var url =
+                                                                ApiUrls.BASE_URL +
+                                                                (vendor?.imageUrl?.replaceFirst("\\", "")??"");
+
                                                             return InkWell(
                                                               onTap: () {
                                                                 Navigator.push(
@@ -468,13 +472,36 @@ class HomeScreen extends StatelessWidget {
                                                                     MainAxisAlignment
                                                                         .start,
                                                                 children: [
-                                                                  Image.asset(
-                                                                    ImagePaths
-                                                                        .APP_LOGO,
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .height *
-                                                                        0.08,
+                                                                  ClipOval(
+                                                                    child: Image.network(
+                                                                      url,
+                                                                      height: MediaQuery.of(context)
+                                                                              .size
+                                                                              .height *
+                                                                          0.08,
+
+                                                                      width:
+                                                                      MediaQuery.of(context)
+                                                                          .size.width
+                                                                      ,
+
+                                                                      fit: BoxFit.cover,
+                                                                    
+                                                                      errorBuilder: (context,
+                                                                          object, stackTrace) {
+                                                                        return Icon(
+                                                                          Icons.error,
+                                                                          size:
+                                                                          MediaQuery.of(context)
+                                                                              .size
+                                                                              .height *
+                                                                              0.08,
+                                                                          color: AppColors
+                                                                              .APP_MAIN_COLOR,
+                                                                        );
+                                                                      },
+                                                                    
+                                                                    ),
                                                                   ),
                                                                   const SizedBox(
                                                                     height: 0,

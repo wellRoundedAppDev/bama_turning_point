@@ -2,6 +2,7 @@ import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:classic_eccomerce/vendors/presentation/screens/all_products_in_vendor.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +76,7 @@ class VendorsScreen extends StatelessWidget {
 
                                 var vendorId = vendor?.id;
                                 var vendorName = vendor?.supplierName;
+                                var imageUrl = ApiUrls.BASE_URL + (vendor?.imageUrl??"");
 
                                 return InkWell(
                                   onTap: () {
@@ -88,7 +90,9 @@ class VendorsScreen extends StatelessWidget {
 
                                                     vendorId:
                                                         vendorId?.toInt() ??
-                                                            0)));
+                                                            0,
+
+                                                )));
                                     // print(category?.categoryId);
                                     // categoriesCubit
                                     //     .setAllProductsInCategory(category);
@@ -96,11 +100,41 @@ class VendorsScreen extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Image.asset(
-                                        ImagePaths.APP_LOGO,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.08,
+                                      ClipOval(
+                                        child: Image.network(
+                                          imageUrl,
+                                          // height:
+                                          //     MediaQuery.of(context).size.height *
+                                          //         0.08,
+                                          // width: MediaQuery.of(context).size.width *
+                                          //     0.17,
+
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.08,
+
+                                          width:
+                                          MediaQuery.of(context)
+                                              .size.width
+                                          ,
+
+                                          fit: BoxFit.cover,
+
+                                          errorBuilder: (context,
+                                              object, stackTrace) {
+                                            return Icon(
+                                              Icons.error,
+                                              size:
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                                  0.08,
+                                              color: AppColors
+                                                  .APP_MAIN_COLOR,
+                                            );
+                                          },
+                                        ),
                                       ),
                                       const SizedBox(
                                         height: 0,

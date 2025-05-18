@@ -38,16 +38,21 @@ class Vendor {
   Vendor({
     this.id,
     this.supplierName,
+    this.imageUrl
   });
 
   factory Vendor.fromJson(dynamic json) {
    var id = json['Id'];
    var supplierName = json['SupplierName'];
+   var imageUrl = json['LogoUrl'];
 
-   return Vendor(id: id,supplierName: supplierName);
+   return Vendor(id: id,supplierName: supplierName,
+
+   imageUrl: imageUrl);
   }
   num? id;
   String? supplierName;
+  String? imageUrl;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
