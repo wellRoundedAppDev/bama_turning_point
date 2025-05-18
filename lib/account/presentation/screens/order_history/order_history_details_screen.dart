@@ -16,8 +16,7 @@ class OrderDetailsScreen extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {context
-    return SafeArea(
+  Widget build(BuildContext context) {    return SafeArea(
         child: Scaffold(
       appBar: CustomAppBar.renderAppBar(
           title: 'Products Result', cartCubit: CartCubit.get(context)),
