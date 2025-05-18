@@ -674,9 +674,9 @@ class OrderDetailsScreen extends StatelessWidget {
                                                     Expanded(
                                                         child: Text(
                                                       "${total?.qty?.toString() ?? ""} x ${total?.price ?? ""} ${AppLocalizations.of(context)!.dinar}",
-
-                                                          textDirection: TextDirection.ltr,
-                                                          style: const TextStyle(
+                                                      textDirection:
+                                                          TextDirection.ltr,
+                                                      style: const TextStyle(
                                                           color:
                                                               Color(0xff947979),
                                                           fontWeight:
@@ -684,8 +684,8 @@ class OrderDetailsScreen extends StatelessWidget {
                                                           fontSize: FontSizes
                                                               .FONT_SIZE_14),
                                                       maxLines: 2,
-                                                      textAlign: TextAlign.start,
-
+                                                      textAlign:
+                                                          TextAlign.start,
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                     ))
