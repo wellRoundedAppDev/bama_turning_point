@@ -13,7 +13,7 @@ import '../../model/filter_form_input.dart';
 class FilterApi {
   static final dioHelper = DioHelper.instance;
 
-  static Future<GetProductsInCategoryResponse?> getFilterHome(Map map,bool isCompany) async {
+  static Future<GetProductsInCategoryResponse?> getFilterHome(Map map,bool isCompany,int pageNumber) async {
     String endPoint =isCompany==true? ApiUrls.GET_Filter_COMPANY_ENDPOINT:ApiUrls.GET_Filter_VENDOR_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
@@ -24,12 +24,15 @@ class FilterApi {
       var response = await dioHelper.post(endPoint: endPoint,
           headers: {
             "Authorization": "Bearer $accessToken",
-          },body: map
+          },body: map,queryParameters: {
+            "pageNumber":pageNumber,
+            "pageSize":10000
+          }
       );
       if (response == null) {
         return null;
       }
-     return GetProductsInCategoryResponse.fromJson(response.data) ;
+      return GetProductsInCategoryResponse.fromJson(response.data) ;
     } catch (e) {
       if (kDebugMode) {
         print(e);

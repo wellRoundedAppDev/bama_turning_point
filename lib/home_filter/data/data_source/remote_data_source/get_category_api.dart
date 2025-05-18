@@ -7,7 +7,7 @@ import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../core/constants/server_urls_and_keys/api_urls.dart';
 import '../../../../core/helpers/dio_helper.dart';
 import '../../../../main.dart';
-import '../../model/get_response_model/get_category_response.dart';
+import '../../model/get_response_model/get_name_product_response.dart';
 
 class GetCategoryFilterApi {
   static final dioHelper = DioHelper.instance;

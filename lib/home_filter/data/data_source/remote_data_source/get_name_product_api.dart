@@ -1,18 +1,19 @@
+
+import 'package:classic_eccomerce/categories/data/models/get_products_in_category_response.dart';
 import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
-import 'package:classic_eccomerce/home_filter/data/model/get_response_model/get_groups_response.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../core/helpers/dio_helper.dart';
+import '../../../../home/data/models/get_all_products_response.dart';
 import '../../../../main.dart';
-import '../../model/get_response_model/get_supplier_response.dart';
 
-class GetSupplierApis {
+class GetNameProduct {
   static final dioHelper = DioHelper.instance;
 
-  static Future<GetSupplierResponse?> getVendor() async {
-    String endPoint = ApiUrls.GET_Supplier_ENDPOINT;
+  static Future<GetAllProductsResponse?> getNameProducts() async {
+    String endPoint = ApiUrls.GET_ALL_PRODUCTS_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
@@ -21,15 +22,17 @@ class GetSupplierApis {
     try {
       var response = await dioHelper.get(endpoint: endPoint,
           headers: {
-        "Authorization": "Bearer $accessToken",
-        // "X-Oc-Merchant-Language": languageCode,
-        // "X-Oc-Currency": currencyCode
-      }
+            "Authorization": "Bearer $accessToken",
+            // "X-Oc-Merchant-Language": languageCode,
+            // "X-Oc-Currency": currencyCode
+          },queryParameters: {
+        "pageSize":10000
+          }
       );
       if (response == null) {
         return null;
       }
-      return GetSupplierResponse.fromJson(response.data);
+      return GetAllProductsResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
         print(e);

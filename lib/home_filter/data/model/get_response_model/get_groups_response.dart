@@ -27,18 +27,22 @@ class GetGroupsResponse {
 class GroupsAD {
   int? id;
   String? groupName;
+  String? FileUrl;
 
-  GroupsAD({this.id, this.groupName});
+
+  GroupsAD({this.id, this.groupName,this.FileUrl});
 
   GroupsAD.fromJson(Map<String, dynamic> json) {
     id = json['Id'];
     groupName = json['GroupName'];
+    FileUrl=json['FileUrl'];
   }
 
   Map<String, dynamic> toJson() {
     return {
       'Id': id,
       'GroupName': groupName,
+      'FileUrl':FileUrl
     };
   }
 }

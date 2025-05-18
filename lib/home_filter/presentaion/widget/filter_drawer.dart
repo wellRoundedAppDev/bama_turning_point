@@ -1,7 +1,11 @@
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
+import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
+import 'package:classic_eccomerce/home_filter/data/model/get_response_model/get_groups_response.dart';
+import 'package:classic_eccomerce/home_filter/data/model/get_response_model/get_supplier_response.dart';
 import 'package:classic_eccomerce/home_filter/presentaion/screen/view_products_filter.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:classic_eccomerce/shared_components/custom_input.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,6 +33,7 @@ class FilterDrawer extends StatelessWidget {
 
           var size = filterCubit.size;
           var colors = filterCubit.colors;
+          var localeCubit = LocaleCubit.get(context);
 
           return state is FetchingFilterLoadingState
               ? const Center(
@@ -36,7 +41,7 @@ class FilterDrawer extends StatelessWidget {
                 )
               : Scaffold(
                   bottomNavigationBar: SizedBox(
-                    height: 55,
+                    height: 50,
                     child: Column(
                       children: [
                         Container(
@@ -77,9 +82,8 @@ class FilterDrawer extends StatelessWidget {
                                                 MaterialPageRoute(
                                                   builder: (context) =>
                                                       ViewProductsFilterScreen(
-                                                          filterCubit.result,
-                                                          filterCubit
-                                                              .isCompany),
+                                                          filterCubit.isCompany,
+                                                          filterCubit),
                                                 ));
                                           }
                                         }),
@@ -187,14 +191,21 @@ class FilterDrawer extends StatelessWidget {
                             ),
                           ],
                         ),
+                        Container(
+                          height: 2,
+                          color: const Color(0xffE5E5E5),
+                        ),
 
+                        const SizedBox(
+                          height: 16,
+                        ),
                         // CustomInput()
 
-                        //group
+                        //nameProduct
                         ExpansionTile(
-                          title: const Text(
-                            "Group",
-                            style: TextStyle(
+                          title: Text(
+                            AppLocalizations.of(context)!.products_name,
+                            style: const TextStyle(
                                 fontSize: FontSizes.FONT_SIZE_16,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xff313846)),
@@ -205,38 +216,162 @@ class FilterDrawer extends StatelessWidget {
                           ),
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  ListView.builder(
-                                      itemBuilder: (context, index) =>
-                                          RadioListTile(
-                                            groupValue: filterCubit
-                                                .filterFormInput.groupId,
-                                            activeColor:
-                                                const Color(0xff878787),
-                                            value: filterCubit.groups[index].id,
-                                            onChanged: (isCheck) => filterCubit
-                                                .radioFunctionGroup(isCheck),
-                                            title: Text(
-                                              groups[index].groupName ?? '',
-                                              style: const TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_16,
-                                                  color: Color(0xff878787)),
-                                            ),
-                                          ),
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: groups.length),
-                                ],
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 15),
+                              child: CustomInput(
+                                controller: filterCubit.search,
                               ),
-                            )
+                            ),
+
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.symmetric(horizontal: 16.0),
+                            //   child: Column(
+                            //     children: [
+                            //       const SizedBox(
+                            //         height: 16,
+                            //       ),
+                            //       ListView.builder(
+                            //           itemBuilder: (context, index) =>
+                            //               RadioListTile(
+                            //                 groupValue: filterCubit
+                            //                     .filterFormInput.groupId,
+                            //                 activeColor:
+                            //                     const Color(0xff878787),
+                            //                 value: filterCubit.groups[index].id,
+                            //                 onChanged: (isCheck) => filterCubit
+                            //                     .radioFunctionGroup(isCheck),
+                            //                 title: Text(
+                            //                   groups[index].groupName ?? '',
+                            //                   style: const TextStyle(
+                            //                       fontSize:
+                            //                           FontSizes.FONT_SIZE_16,
+                            //                       color: Color(0xff878787)),
+                            //                 ),
+                            //               ),
+                            //           shrinkWrap: true,
+                            //           physics:
+                            //               const NeverScrollableScrollPhysics(),
+                            //           itemCount: groups.length),
+                            //     ],
+                            //   ),
+                            // )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Container(
+                          height: 2,
+                          color: const Color(0xffE5E5E5),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+
+                        //group
+                        ExpansionTile(
+                          title: Text(
+                            AppLocalizations.of(context)!.group,
+                            style: const TextStyle(
+                                fontSize: FontSizes.FONT_SIZE_16,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff313846)),
+                          ),
+                          trailing: const Icon(
+                            Icons.arrow_drop_down,
+                            color: Color(0xff313846),
+                          ),
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(left: 5, right: 5),
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.grey.shade200,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: DropdownSearch<GroupsAD?>(
+                                selectedItem: filterCubit.selectedGroup,
+                                asyncItems: (String filter) async {
+                                  await filterCubit.setGroups();
+                                  return filterCubit
+                                      .groups; // 👈 fetch data on tap
+                                },
+                                onChanged: (value) {
+                                  print(value!.id);
+                                  filterCubit.selectedGroup = value;
+                                  filterCubit.radioFunctionGroup(value.id);
+                                  // placeCubit.selectedJudiciary(value!.id ?? 0);
+                                  // AuthCubit.get(context).registerFormInput.judiciaryId=placeCubit.placeFormInput.judiciaryId;
+                                },
+                                dropdownDecoratorProps: DropDownDecoratorProps(
+                                  dropdownSearchDecoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText:
+                                        AppLocalizations.of(context)!.groups,
+                                  ),
+                                ),
+                                popupProps: PopupProps.menu(
+                                  // emptyBuilder: (context, searchEntry) => Center(
+                                  //   child: Text(AppLocalizations.of(context)!.checkGovernorate),
+                                  // ),
+                                  itemBuilder:
+                                      (context, GroupsAD? item, bool selected) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Text(
+                                        item?.groupName ?? 'Unknown',
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Color(0xff878787)),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                dropdownBuilder: (context, selectedItem) {
+                                  return Text(
+                                    selectedItem?.groupName ?? '',
+                                    style: const TextStyle(
+                                        fontSize: 16, color: Color(0xff878787)),
+                                  );
+                                },
+                              ),
+                            ),
+
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.symmetric(horizontal: 16.0),
+                            //   child: Column(
+                            //     children: [
+                            //       const SizedBox(
+                            //         height: 16,
+                            //       ),
+                            //       ListView.builder(
+                            //           itemBuilder: (context, index) =>
+                            //               RadioListTile(
+                            //                 groupValue: filterCubit
+                            //                     .filterFormInput.groupId,
+                            //                 activeColor:
+                            //                     const Color(0xff878787),
+                            //                 value: filterCubit.groups[index].id,
+                            //                 onChanged: (isCheck) => filterCubit
+                            //                     .radioFunctionGroup(isCheck),
+                            //                 title: Text(
+                            //                   groups[index].groupName ?? '',
+                            //                   style: const TextStyle(
+                            //                       fontSize:
+                            //                           FontSizes.FONT_SIZE_16,
+                            //                       color: Color(0xff878787)),
+                            //                 ),
+                            //               ),
+                            //           shrinkWrap: true,
+                            //           physics:
+                            //               const NeverScrollableScrollPhysics(),
+                            //           itemCount: groups.length),
+                            //     ],
+                            //   ),
+                            // )
                           ],
                         ),
                         const SizedBox(
@@ -266,14 +401,6 @@ class FilterDrawer extends StatelessWidget {
                           children: [
                             Column(
                               children: [
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Text(
-                                  '${filterCubit.rangeValues.start.toInt()} جنيه - ${filterCubit.rangeValues.end.toInt()}+ جنيه',
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-
                                 BlocBuilder<FilterCubit, FilterState>(
                                   // buildWhen: (prev, curr) => prev.rangeValues != curr.rangeValues,
                                   builder: (context, state) {
@@ -283,10 +410,73 @@ class FilterDrawer extends StatelessWidget {
                                         min: 0,
                                         max: 100000,
                                         divisions: 1000,
-                                        activeColor: Colors.teal[800],
+                                        activeColor: AppColors.APP_MAIN_COLOR,
                                         inactiveColor: Colors.grey[300],
                                         onChanged: filterCubit.fetchPrice);
                                   },
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          '\$',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.black54),
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 2, horizontal: 4),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.grey.shade400),
+                                              shape: BoxShape.rectangle),
+                                          child: Text(
+                                            '${filterCubit.rangeValues.start.toInt()}',
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black87),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          '\$',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.black54),
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 2, horizontal: 4),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.grey.shade400),
+                                              shape: BoxShape.rectangle),
+                                          child: Text(
+                                            '${filterCubit.rangeValues.end.toInt()}',
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black87),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
                                 ),
 
                                 // Slider(
@@ -382,38 +572,47 @@ class FilterDrawer extends StatelessWidget {
                             color: Color(0xff313846),
                           ),
                           children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  ListView.builder(
-                                      itemBuilder: (context, index) =>
-                                          RadioListTile(
-                                            groupValue: filterCubit
-                                                .filterFormInput.size,
-                                            activeColor:
-                                                const Color(0xff878787),
-                                            value: filterCubit.size[index].id,
-                                            onChanged: (value) => filterCubit
-                                                .radioFunctionSize(value),
-                                            title: Text(
-                                              size[index].nameEn ?? '',
-                                              style: const TextStyle(
-                                                  fontSize:
-                                                      FontSizes.FONT_SIZE_16,
-                                                  color: Color(0xff878787)),
-                                            ),
-                                          ),
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: size.length),
-                                ],
-                              ),
+                            Column(
+                              children: [
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                ListView.builder(
+                                  itemBuilder: (context, index) {
+                                    final sizeId = filterCubit.size[index].id;
+
+                                    final isChecked = filterCubit
+                                        .filterFormInput.size
+                                        .any((element) =>
+                                            element?['sizeId'] == sizeId);
+
+                                    return CheckboxListTile(
+                                      value: isChecked,
+                                      activeColor: Colors.orange,
+                                      onChanged: (bool? value) {
+                                        filterCubit.radioFunctionSize(sizeId!);
+                                      },
+                                      controlAffinity:
+                                          ListTileControlAffinity.leading,
+                                      // 👈 checkbox on the left
+                                      title: Text(
+                                        localeCubit.locale.languageCode == 'en'
+                                            ? filterCubit.size[index].nameEn ??
+                                                ''
+                                            : filterCubit.size[index].nameAr ??
+                                                '',
+                                        style: const TextStyle(
+                                          fontSize: FontSizes.FONT_SIZE_16,
+                                          color: Color(0xff878787),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: filterCubit.size.length,
+                                )
+                              ],
                             )
                           ],
                         ),
@@ -451,26 +650,27 @@ class FilterDrawer extends StatelessWidget {
                                     height: 50,
                                     child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) =>
-                                            InkWell(
+                                        itemBuilder: (context, index) {
+                                          final colorId = filterCubit.colors[index].id;
+
+                                          final isChecked = filterCubit
+                                              .filterFormInput.colors
+                                              .any((element) =>
+                                          element?['colorId'] == colorId);
+                                          return InkWell(
                                               onTap: () {
                                                 filterCubit.selectFunctionColor(
-                                                    colors[index].colorValue);
-                                                filterCubit.filterFormInput
-                                                    .colors = colors[index];
+                                                    colorId);
                                               },
                                               child: Container(
                                                 padding:
-                                                    const EdgeInsets.all(5),
+                                                    const EdgeInsets.symmetric(horizontal: 8),
                                                 margin:
                                                     const EdgeInsets.symmetric(
                                                         horizontal: 5),
                                                 decoration: BoxDecoration(
                                                     border: Border.all(
-                                                        color: filterCubit
-                                                                    .selectedColor ==
-                                                                colors[index]
-                                                                    .colorValue
+                                                        color: isChecked
                                                             ? AppColors
                                                                 .APP_ORANGE_LABEL_COLOR
                                                             : const Color(
@@ -480,28 +680,30 @@ class FilterDrawer extends StatelessWidget {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
+                                                    Text(
+                                                      colors[index].colorName ??
+                                                          '',
+                                                      style: const TextStyle(
+                                                          color:
+                                                          Color(0xff313846),
+                                                          fontSize: FontSizes
+                                                              .FONT_SIZE_12),
+                                                    ),
+
+                                                    const SizedBox(
+                                                      width: 5,
+                                                    ),
                                                     Container(
                                                       width: 20,
                                                       height: 20,
                                                       color: Color(int.parse(
                                                           '0xff${colors[index].colorValue?.replaceAll("#", "") ?? '000000'}')),
                                                     ),
-                                                    const SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Text(
-                                                      colors[index].colorName ??
-                                                          '',
-                                                      style: const TextStyle(
-                                                          color:
-                                                              Color(0xff313846),
-                                                          fontSize: FontSizes
-                                                              .FONT_SIZE_12),
-                                                    )
                                                   ],
                                                 ),
                                               ),
-                                            ),
+                                            );
+                                        },
                                         shrinkWrap: true,
                                         itemCount: colors.length),
                                   )
@@ -512,6 +714,118 @@ class FilterDrawer extends StatelessWidget {
                               height: 16,
                             ),
                           ],
+                        ),
+
+                        Container(
+                          height: 2,
+                          color: const Color(0xffE5E5E5),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+
+                        ExpansionTile(
+                          title: Text(
+                            AppLocalizations.of(context)!.vendor,
+                            style: const TextStyle(
+                                fontSize: FontSizes.FONT_SIZE_16,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff313846)),
+                          ),
+                          trailing: const Icon(
+                            Icons.arrow_drop_down,
+                            color: Color(0xff313846),
+                          ),
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(left: 5, right: 5),
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.grey.shade200,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: DropdownSearch<SupplierAD?>(
+                                selectedItem: filterCubit.selectedVendor,
+                                asyncItems: (String filter) async {
+                                  await filterCubit.setVendor();
+                                  return filterCubit.vendor;
+                                },
+                                onChanged: (value) {
+                                  if (value != null) {
+                                    filterCubit.selectedVendor = value;
+                                    filterCubit.selectVendor(value.id);
+                                  }
+                                },
+                                dropdownDecoratorProps: DropDownDecoratorProps(
+                                  dropdownSearchDecoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText:
+                                        AppLocalizations.of(context)!.vendor,
+                                  ),
+                                ),
+                                popupProps: PopupProps.menu(
+                                  itemBuilder: (context, SupplierAD? item,
+                                      bool selected) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Text(
+                                        item?.supplierName ?? '',
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Color(0xff878787)),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                dropdownBuilder:
+                                    (context, SupplierAD? selectedItem) {
+                                  return Text(
+                                    selectedItem?.supplierName ?? '',
+                                    style: const TextStyle(
+                                        fontSize: 16, color: Color(0xff878787)),
+                                  );
+                                },
+                              ),
+                            ),
+
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.symmetric(horizontal: 16.0),
+                            //   child: Column(
+                            //     children: [
+                            //       const SizedBox(
+                            //         height: 16,
+                            //       ),
+                            //       ListView.builder(
+                            //           itemBuilder: (context, index) =>
+                            //               RadioListTile(
+                            //                 groupValue: filterCubit
+                            //                     .filterFormInput.groupId,
+                            //                 activeColor:
+                            //                     const Color(0xff878787),
+                            //                 value: filterCubit.groups[index].id,
+                            //                 onChanged: (isCheck) => filterCubit
+                            //                     .radioFunctionGroup(isCheck),
+                            //                 title: Text(
+                            //                   groups[index].groupName ?? '',
+                            //                   style: const TextStyle(
+                            //                       fontSize:
+                            //                           FontSizes.FONT_SIZE_16,
+                            //                       color: Color(0xff878787)),
+                            //                 ),
+                            //               ),
+                            //           shrinkWrap: true,
+                            //           physics:
+                            //               const NeverScrollableScrollPhysics(),
+                            //           itemCount: groups.length),
+                            //     ],
+                            //   ),
+                            // )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 4,
                         ),
                       ],
                     ),

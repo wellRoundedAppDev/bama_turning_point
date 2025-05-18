@@ -19,7 +19,9 @@ final class CreateFilterFailedState extends FilterState {}
 
 final class FilterNetworkFailedConnectionState extends FilterState {}
 
-
+class FetchingMoreFilteredLoadingState extends FilterState {}
+class FetchingMoreFilteredSuccessState extends FilterState {}
+class FetchingMoreFilteredFailedState extends FilterState {}
 
 
 final class FetchingPriceFilterState extends FilterState {}
@@ -29,6 +31,7 @@ final class SelectedRadioGroup extends FilterState {}
 final class SelectedRadioCategory extends FilterState {}
 final class SelectedRadioSuppliers extends FilterState {}
 final class SelectedRadioManufacture extends FilterState {}
+final class SelectedRadioSize extends FilterState {}
 final class SelectedRadioColor extends FilterState {}
 
 final class DeleteSelectedRadio extends FilterState {}

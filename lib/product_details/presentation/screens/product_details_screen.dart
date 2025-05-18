@@ -942,7 +942,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                               ),
                                                       shrinkWrap: true,
                                                       itemCount:
-                                                          colorProduct?.length),
+                                                      sizeProduct?.length),
                                                 ),
                                               ),
                                               const SizedBox(
