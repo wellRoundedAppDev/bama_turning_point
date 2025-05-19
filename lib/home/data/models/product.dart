@@ -12,6 +12,7 @@ class Product {
         this.productSource,
       this.description,
       this.productImagePath,
+        this.isInFavorites,
 
       this.stockStatus,
       this.priceFormatted,
@@ -37,6 +38,7 @@ class Product {
     var description = json['description'];
     var stockStatus = json['stock_status'];
     var stockStatusId = json['stock_status_id'];
+    var isInFavorites = json['IsAddedToFavorites'];
 
 
     return Product(
@@ -46,7 +48,7 @@ class Product {
         description: description,
         name: name,
         stockStatus: stockStatus,
-
+        isInFavorites: isInFavorites,
         productImagePath: productImagePath,
         productId: productId,
         priceFormatted: priceFormatted,
@@ -63,4 +65,6 @@ class Product {
   String? stockStatus;
   num? stockStatusId;
   int? productSource;
+
+  bool? isInFavorites;
 }

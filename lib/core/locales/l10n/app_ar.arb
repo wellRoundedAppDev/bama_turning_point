@@ -289,5 +289,7 @@
 
  "product_added_to_favorites": "تم إضافة المنتج إلى المفضلة",
 
- "username": "اسم المستخدم"
+ "username": "اسم المستخدم",
+
+ "product_removed_from_wish_list": "تمت إزالة المنتج من المفضلة"
 }

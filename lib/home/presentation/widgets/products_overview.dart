@@ -92,11 +92,10 @@ class ProductsOverview extends StatelessWidget {
                   int? productId = product.productId?.toInt();
                   String? productTitle = product.name;
                   num? productPrice = product.price;
-                  var priceFormatted = (product.price?.toStringAsFixed(3)??"") +" " +  AppLocalizations.of(context)!.iraqi_dinar_initials;
+                  var priceFormatted =
+                      "${product.price?.toStringAsFixed(3) ?? ""} ${AppLocalizations.of(context)!.iraqi_dinar_initials}";
                   String? productImagePath =
-
-                  ApiUrls.BASE_URL +
-                  (product.productImagePath ?? "");
+                      ApiUrls.BASE_URL + (product.productImagePath ?? "");
                   print(productImagePath);
                   String stockStatus = product.stockStatus ?? "";
 
@@ -112,7 +111,6 @@ class ProductsOverview extends StatelessWidget {
                           : Container(),
                       InkWell(
                         onTap: () {
-
                           Navigator.push(
                               context,
                               PageTransition(
@@ -144,9 +142,10 @@ class ProductsOverview extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(8),
                                         child: Image.network(
                                           productImagePath ?? "",
-                                          height:
-                                              MediaQuery.of(context).size.height *
-                                                  0.2,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.2,
                                           width:
                                               MediaQuery.of(context).size.width,
                                           errorBuilder:
@@ -154,10 +153,10 @@ class ProductsOverview extends StatelessWidget {
                                             return Center(
                                               child: Icon(
                                                 Icons.error,
-                                                size:
-                                                  MediaQuery.of(context).size.height *
-                                                  0.2,
-
+                                                size: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.2,
                                                 color: AppColors.APP_MAIN_COLOR,
                                               ),
                                             );
@@ -183,8 +182,18 @@ class ProductsOverview extends StatelessWidget {
                                             bottom: 4,
                                             right: 4,
                                             child: GestureDetector(
-                                              onTap: (){
-                                                WishListCubit.get(context).addItemToWishlist(productId??0, productType??0);
+                                              onTap: () {
+                                                if (isItemInWishList) {
+                                                  WishListCubit.get(context)
+                                                      .deleteItemFromWishList(
+                                                          productId ?? 0,
+                                                          productType ?? 0);
+                                                } else {
+                                                  WishListCubit.get(context)
+                                                      .addItemToWishlist(
+                                                          productId ?? 0,
+                                                          productType ?? 0);
+                                                }
                                               },
                                               child: Container(
                                                   decoration: BoxDecoration(
@@ -193,7 +202,8 @@ class ProductsOverview extends StatelessWidget {
                                                           .withOpacity(0.7)),
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(2.0),
+                                                        const EdgeInsets.all(
+                                                            2.0),
                                                     child: (isItemInWishList ==
                                                             true)
                                                         ? const Icon(
@@ -315,7 +325,7 @@ class ProductsOverview extends StatelessWidget {
                 separatorBuilder: (context, index) => const SizedBox(
                       width: 8,
                     ),
-                itemCount: products?.length??0),
+                itemCount: products?.length ?? 0),
           ),
         ],
       ),

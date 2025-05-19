@@ -83,10 +83,13 @@ class ViewAllProductsScreen extends StatelessWidget {
                                 int? productId = product?.productId?.toInt();
                                 String? productName = product?.name;
                                 String? productImageUrl =
-                                (ApiUrls.BASE_URL??"")+
-                                   (product?.productImagePath?.replaceAll("\\", "/")?.replaceFirst("/", "")??"");
+                                    (ApiUrls.BASE_URL ?? "") +
+                                        (product?.productImagePath
+                                                ?.replaceAll("\\", "/")
+                                                ?.replaceFirst("/", "") ??
+                                            "");
 
-                                print("sae${product?.productImagePath??""}");
+                                print("sae${product?.productImagePath ?? ""}");
                                 String? priceFormatted =
                                     "${product?.price?.toStringAsFixed(3) ?? ""} ${AppLocalizations.of(context)!.iraqi_dinar_initials}";
 
@@ -131,22 +134,24 @@ class ViewAllProductsScreen extends StatelessWidget {
                                                       BorderRadius.circular(8),
                                                   child: Image.network(
                                                     productImageUrl ?? "",
-                                                    height: MediaQuery.of(context)
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.18,
+                                                    width:
+                                                        MediaQuery.of(context)
                                                             .size
-                                                            .height *
-                                                        0.18,
-                                                    width: MediaQuery.of(context)
-                                                        .size
-                                                        .width,
+                                                            .width,
                                                     errorBuilder: (context,
                                                         object, stackTrace) {
                                                       return Icon(
                                                         Icons.error,
-                                                        size:
-                                                            MediaQuery.of(context)
-                                                                    .size
-                                                                    .height *
-                                                                0.18,
+                                                        size: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.18,
                                                         color: AppColors
                                                             .APP_MAIN_COLOR,
                                                       );
@@ -173,9 +178,28 @@ class ViewAllProductsScreen extends StatelessWidget {
                                                       bottom: 4,
                                                       right: 4,
                                                       child: GestureDetector(
-                                                        onTap: (){
-                                                          WishListCubit.get(context).addItemToWishlist(productId?.toInt()??0,
-                                                              productType?.toInt()??0);
+                                                        onTap: () {
+                                                          if (isItemInWishList) {
+                                                            WishListCubit.get(
+                                                                    context)
+                                                                .deleteItemFromWishList(
+                                                                    productId
+                                                                            ?.toInt() ??
+                                                                        0,
+                                                                    productType
+                                                                            ?.toInt() ??
+                                                                        0);
+                                                          } else {
+                                                            WishListCubit.get(
+                                                                    context)
+                                                                .addItemToWishlist(
+                                                                    productId
+                                                                            ?.toInt() ??
+                                                                        0,
+                                                                    productType
+                                                                            ?.toInt() ??
+                                                                        0);
+                                                          }
                                                         },
                                                         child: Container(
                                                             decoration: BoxDecoration(
@@ -189,21 +213,20 @@ class ViewAllProductsScreen extends StatelessWidget {
                                                               padding:
                                                                   const EdgeInsets
                                                                       .all(2.0),
-                                                              child:
-                                                                  (isItemInWishList ==
-                                                                          true)
-                                                                      ? const Icon(
-                                                                          Icons
-                                                                              .favorite,
-                                                                          color: Colors
-                                                                              .red,
-                                                                        )
-                                                                      : const Icon(
-                                                                          Icons
-                                                                              .favorite_border_rounded,
-                                                                          color: Colors
-                                                                              .black,
-                                                                        ),
+                                                              child: (isItemInWishList ==
+                                                                      true)
+                                                                  ? const Icon(
+                                                                      Icons
+                                                                          .favorite,
+                                                                      color: Colors
+                                                                          .red,
+                                                                    )
+                                                                  : const Icon(
+                                                                      Icons
+                                                                          .favorite_border_rounded,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
                                                             )),
                                                       ));
                                                 },

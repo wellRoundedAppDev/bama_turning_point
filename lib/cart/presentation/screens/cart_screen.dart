@@ -46,7 +46,6 @@ class CartScreen extends StatelessWidget {
 
           return SafeArea(
               child: Scaffold(
-            drawer: const HomeDrawer(),
             appBar: showBackButton == false
                 ? AppBar(
                     toolbarHeight: MediaQuery.of(context).size.height * 0.1,

@@ -289,6 +289,8 @@
 
   "username": "Username",
 
+  "product_removed_from_wish_list": "Product removed from wishlist",
+
 
   "@welcome_user": {
     "placeholders": {
