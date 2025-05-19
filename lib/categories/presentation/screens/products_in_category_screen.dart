@@ -171,7 +171,17 @@ class ProductsInCategoryScreen extends StatelessWidget {
                                         right: 4,
                                         child: GestureDetector(
                                           onTap: (){
-                                            WishListCubit.get(context).addItemToWishlist(productId?.toInt()??0, productType?.toInt()??0);
+                                            if (isItemInWishList) {
+                                              WishListCubit.get(context)
+                                                  .deleteItemFromWishList(
+                                                  productId ?? 0,
+                                                  productType ?? 0);
+                                            } else {
+                                              WishListCubit.get(context)
+                                                  .addItemToWishlist(
+                                                  productId ?? 0,
+                                                  productType ?? 0);
+                                            }
                                           },
                                           child: Container(
                                               decoration:

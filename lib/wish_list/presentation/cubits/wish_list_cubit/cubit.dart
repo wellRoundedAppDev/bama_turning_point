@@ -105,8 +105,9 @@ class WishListCubit extends Cubit<WishListStates> {
     var response = await WishListApis.deleteItemFromWishlist(
         productId, sourceId?.toInt() ?? 0);
     if (response?.success == true) {
-      showAppSnackBar(content: "Product removed from wishlist");
+      showAppSnackBar(content: AppLocalizations.of(context)!.product_removed_from_wish_list);
       setWishListItems();
+
     } else if (response?.success == false) {
       showAppSnackBar(content: response?.message ?? "");
       emit(DeleteItemFromWishListFailedState());
@@ -136,13 +137,16 @@ class WishListCubit extends Cubit<WishListStates> {
     if (response?.success == true) {
       showAppSnackBar(
           content: AppLocalizations.of(context)!.product_added_to_favorites);
-      wishListItems?.add(WishlistItem(productId: productId?.toString()));
-      emit(AddItemToFavoritesSuccessState());
-    } else if (response?.success == false) {
+      wishListItems?.add(WishlistItem(productId: productId.toString()));
+      setWishListItems();
+      // emit(AddItemToFavoritesSuccessState());
+    }
+    else if (response?.success == false) {
       showAppSnackBar(content: response?.message ?? "");
 
       emit(AddItemToFavoritesFailedState());
-    } else {
+    }
+    else {
       showAppSnackBar(
           content: AppLocalizations.of(context)!
               .check_your_internet_connection_and_try_again_later);
