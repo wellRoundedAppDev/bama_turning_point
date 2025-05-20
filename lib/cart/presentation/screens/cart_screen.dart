@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../core/constants/colors/colors.dart';
@@ -18,6 +19,7 @@ import '../../../core/constants/paths/image_paths.dart';
 import '../../../home/presentation/widgets/home_drawer.dart';
 import '../../../main.dart';
 import '../../../notifications/presentation/screens/notifications_screen.dart';
+import '../../../shared_components/app_no_products.dart';
 
 class CartScreen extends StatelessWidget {
   bool showBackButton;
@@ -239,7 +241,7 @@ class CartScreen extends StatelessWidget {
                           cartCubit.loadCartItems();
                         }),
                       )
-                    : Stack(
+                    :cartItems.isNotEmpty? Stack(
                         fit: StackFit.expand,
                         children: [
                           ListView.builder(
@@ -271,7 +273,12 @@ class CartScreen extends StatelessWidget {
                                 )
                               : Container()
                         ],
-                      ),
+                      ):AppNoProductsWidget(
+              title:
+              AppLocalizations.of(context)!.there_isnt_products,
+              subTitle: AppLocalizations.of(context)!
+                  .add_products_to_cart,
+            ),
           ));
         },
       ),

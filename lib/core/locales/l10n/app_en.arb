@@ -3,6 +3,8 @@
   "language": "English",
   "english": "English",
   "arabic": "Arabic",
+  "you_must_login_to_delete_product_to_wish_list":"You must login to delete product to wish list",
+   "you_must_login_to_add_product_to_wish_list":"You must login to add product to wish list",
   "currency": "Currency",
   "american_dollar": "American Dollar",
   "iraqi_dinar": "Iraqi Dinar",
@@ -126,6 +128,9 @@
   "change_password": "Change password",
   "passwords_dont_match": "Passwords don't match",
   "orders_history": "Orders history",
+    "no_orders_history": "No orders history",
+  "add_order": "Add orders",
+
   "checkGovernorate": "Check you select Governorate",
   "checkJudiciary": "Check you select Judiciary",
 
@@ -152,6 +157,7 @@
   "complete": "Completed",
   "company": "Company",
   "vendor": "Vendor",
+    "vendor_will_add_products": "vendor will add product",
   "quantity": "Quantity",
   "date_added":"Date Added",
   "view":"View",
@@ -284,8 +290,11 @@
   "color": "Color",
 
   "price": "Price",
-
+"there_isnt_products": "There aren't any products available.",
   "product_added_to_favorites": "Product added to favorites",
+  "add_products_to_favourite": "add products to favourite",
+
+"add_products_to_cart": "Add products to cart",
 
   "username": "Username",
 

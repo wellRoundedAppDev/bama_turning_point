@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../authentication/presentation/screens/login_screen.dart';
 import '../../../core/constants/colors/colors.dart';
@@ -19,6 +20,7 @@ import '../../../core/constants/paths/icon_paths.dart';
 import '../../../core/constants/paths/image_paths.dart';
 import '../../../home_filter/presentaion/widget/filter_drawer.dart';
 import '../../../main.dart';
+import '../../../shared_components/app_no_products.dart';
 import '../../data/models/get_wishlist_response.dart';
 import '../widgets/wish_list_item.dart';
 
@@ -41,7 +43,7 @@ class WishListScreen extends StatelessWidget {
                   builder: (context, state) {
                     WishListCubit wishListCubit = WishListCubit.get(context);
                     List<WishlistItem>? wishListItems =
-                        wishListCubit.wishListItems;
+                        wishListCubit.wishListItems??[];
                     return SafeArea(
                         child: Scaffold(
                       appBar: AppBar(
@@ -229,7 +231,7 @@ class WishListScreen extends StatelessWidget {
                                     wishListCubit.setWishListItems();
                                   }),
                                 )
-                              : RefreshIndicator(
+                              :wishListItems!.isNotEmpty &&  wishListItems!=null ?  RefreshIndicator(
                                   onRefresh: () async {
                                     await wishListCubit.setWishListItems();
                                   },
@@ -247,7 +249,12 @@ class WishListScreen extends StatelessWidget {
                                     },
                                     itemCount: wishListItems?.length ?? 0,
                                   ),
-                                ),
+                                ):AppNoProductsWidget(
+                        title:
+                        AppLocalizations.of(context)!.there_isnt_products,
+                        subTitle: AppLocalizations.of(context)!
+                            .add_products_to_favourite  ,
+                      ),
                     ));
                   },
                 ),
