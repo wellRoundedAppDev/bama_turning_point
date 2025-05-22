@@ -41,7 +41,7 @@ class FilterDrawer extends StatelessWidget {
                 )
               : Scaffold(
                   bottomNavigationBar: SizedBox(
-                    height: 50,
+                    height: 55,
                     child: Column(
                       children: [
                         Container(
@@ -54,16 +54,16 @@ class FilterDrawer extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              GestureDetector(
-                                  onTap: () => filterCubit.deleteValue(),
-                                  child: Image.asset(
-                                    IconPaths.TRASH,
-                                    width: 22,
-                                    height: 22,
-                                  )),
-                              const SizedBox(
-                                width: 16,
-                              ),
+                              // GestureDetector(
+                              //     onTap: () => filterCubit.deleteValue(),
+                              //     child: Image.asset(
+                              //       IconPaths.TRASH,
+                              //       width: 22,
+                              //       height: 22,
+                              //     )),
+                              // const SizedBox(
+                              //   width: 16,
+                              // ),
                               SizedBox(
                                 width: 80,
                                 height: 30,
@@ -76,7 +76,7 @@ class FilterDrawer extends StatelessWidget {
                                         action: () async {
                                           await filterCubit
                                               .createFilter(context);
-                                          if (filterCubit.result!.isNotEmpty) {
+                                          if (filterCubit.result?.isNotEmpty == true) {
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
@@ -331,7 +331,7 @@ class FilterDrawer extends StatelessWidget {
                                 ),
                                 dropdownBuilder: (context, selectedItem) {
                                   return Text(
-                                    selectedItem?.groupName ?? '',
+                                    selectedItem?.groupName ?? AppLocalizations.of(context)!.group,
                                     style: const TextStyle(
                                         fontSize: 16, color: Color(0xff878787)),
                                   );
@@ -451,17 +451,17 @@ class FilterDrawer extends StatelessWidget {
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           '\$',
                                           style: TextStyle(
                                               fontSize: 18,
                                               color: Colors.black54),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 5,
                                         ),
                                         Container(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               vertical: 2, horizontal: 4),
                                           decoration: BoxDecoration(
                                               border: Border.all(
@@ -469,7 +469,7 @@ class FilterDrawer extends StatelessWidget {
                                               shape: BoxShape.rectangle),
                                           child: Text(
                                             '${filterCubit.rangeValues.end.toInt()}',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 18,
                                                 color: Colors.black87),
                                           ),
@@ -744,7 +744,7 @@ class FilterDrawer extends StatelessWidget {
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade200,
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
+                                      const BorderRadius.all(Radius.circular(10))),
                               child: DropdownSearch<SupplierAD?>(
                                 selectedItem: filterCubit.selectedVendor,
                                 asyncItems: (String filter) async {
@@ -781,7 +781,7 @@ class FilterDrawer extends StatelessWidget {
                                 dropdownBuilder:
                                     (context, SupplierAD? selectedItem) {
                                   return Text(
-                                    selectedItem?.supplierName ?? '',
+                                    selectedItem?.supplierName ?? AppLocalizations.of(context)!.vendor,
                                     style: const TextStyle(
                                         fontSize: 16, color: Color(0xff878787)),
                                   );
@@ -825,7 +825,7 @@ class FilterDrawer extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(
-                          height: 4,
+                          height: 16,
                         ),
                       ],
                     ),

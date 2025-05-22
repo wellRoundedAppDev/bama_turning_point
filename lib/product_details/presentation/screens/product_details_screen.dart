@@ -283,7 +283,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                                 content: Stack(
                                                                                   children: [
                                                                                     Image.network(
-                                                                                      e.fileUrl ?? "",
+                                                                                "${ApiUrls.BASE_URL}${e.fileUrl}" ??"",
                                                                                       height: MediaQuery.of(context).size.height,
                                                                                       width: MediaQuery.of(context).size.width,
                                                                                       errorBuilder: (context, object, stackTrace) {
@@ -317,8 +317,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                       },
                                                                       child: Image
                                                                           .network(
-                                                                        e.fileUrl ??
-                                                                            "",
+                                                                        "${ApiUrls.BASE_URL}${e.fileUrl}" ??"",
+
                                                                         width: MediaQuery.of(context)
                                                                             .size
                                                                             .width,

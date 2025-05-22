@@ -19,7 +19,7 @@ class CartItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.15,
+      height: MediaQuery.of(context).size.height * 0.18,
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
@@ -211,7 +211,8 @@ class CartItemWidget extends StatelessWidget {
                 )
               ],
             ),
-          )
+          ),
+          const SizedBox(width: 8,)
         ],
       ),
     );
