@@ -2,11 +2,14 @@
  "the_language": "اللغة",
  "language": "عربي",
 
-
+"add_products_to_cart": "أضف المنتجات إلى السلة",
   "english": "الإنجليزية",
   "arabic": "العربية",
-
-
+    "there_isnt_products": "لا توجد منتجات متاحة.",
+  "add_products_to_favourite": "أضف المنتجات إلى المفضلة",
+"vendor_will_add_products": "سيقوم البائع بإضافة المنتجات",
+"You_must_login_to_delete_product_to_wish_list": "يجب تسجيل الدخول لحذف المنتج من قائمة الرغبات",
+"You_must_login_to_add_product_to_wish_list": "يجب تسجيل الدخول لإضافة المنتج إلى قائمة الرغبات",
   "currency": "العملة",
  "american_dollar": "دولار امريكي",
  "iraqi_dinar": "دينار عراقي",

@@ -94,6 +94,12 @@ class WishListCubit extends Cubit<WishListStates> {
   // }
 
   deleteItemFromWishList(int? productId, int? sourceId) async {
+    bool? isUserLoggedIn =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
+    if (isUserLoggedIn == false) {
+      showAppSnackBar(content:AppLocalizations.of(context)!.you_must_login_to_delete_product_to_wish_list );
+      return;
+    }
     print(productId);
     setSelectedProductId(productId);
     if (productId == null) {
@@ -123,7 +129,7 @@ class WishListCubit extends Cubit<WishListStates> {
     bool? isUserLoggedIn =
         MyApp.navKey.currentState?.context.read<AuthCubit>().isUserLoggedIn;
     if (isUserLoggedIn == false) {
-      showAppSnackBar(content: "You must login to add product to wish list");
+      showAppSnackBar(content:AppLocalizations.of(context)!.you_must_login_to_add_product_to_wish_list );
       return;
     }
 

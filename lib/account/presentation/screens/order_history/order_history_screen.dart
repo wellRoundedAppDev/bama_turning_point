@@ -8,6 +8,7 @@ import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/fonts/font_sizes.dart';
+import '../../../../shared_components/app_no_products.dart';
 import '../../../../shared_components/custom_app_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -38,7 +39,7 @@ class OrderHistoryScreen extends StatelessWidget {
                         accountCubit.setFirstCustomerOrders();
                       }),
                     )
-                  : RefreshIndicator(
+                  :customerOrders.isNotEmpty? RefreshIndicator(
                       onRefresh: () async {
                         await accountCubit.setFirstCustomerOrders();
                       },
@@ -102,7 +103,12 @@ class OrderHistoryScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    );
+                    ):AppNoProductsWidget(
+            title:
+            AppLocalizations.of(context)!.no_orders_history,
+            subTitle: AppLocalizations.of(context)!
+                .add_order,
+          );
         },
       ),
     ));
