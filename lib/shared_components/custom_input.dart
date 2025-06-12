@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class CustomInput extends StatelessWidget {
     this.label = "",
     this.controller,
     this.prefixIcon,
-    this.isFilled = false,
+    this.isFilled = true,
     this.readOnly = false,
     this.suffixIcon,
     this.textDirection,
@@ -41,13 +42,13 @@ class CustomInput extends StatelessWidget {
     this.textInputType,
     this.borderWidth = 1,
     this.validator,
-    this.filledColor,
+    this.filledColor = AppColors.CUSTOM_INPUT_COLOR,
     this.hintTextStyle = const TextStyle(color: Color(0xff878787),fontSize: FontSizes.FONT_SIZE_16,fontWeight: FontWeight.w300),
     this.onTap,
-    this.borderColor = const Color(0xff95989A),
+    this.borderColor = Colors.transparent,
     this.minLines,
     this.initialValue,
-    this.radius = 0,
+    this.radius = 40,
     this.maxLines = 1,
   }) : super(key: key);
 

@@ -2,6 +2,9 @@ import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:page_transition/page_transition.dart';
+
+import '../../../authentication/presentation/screens/login_screen.dart';
 
 void main() {
   runApp(const TurningPointApp());
@@ -101,8 +104,9 @@ class SplashScreen extends StatelessWidget {
             bottom: 50,
             left: 40,
             right: 40,
-            child: CustomButton(text: AppLocalizations.of(context)!.login, action: (){},
-              borderRadius: 50,
+            child: CustomButton(text: AppLocalizations.of(context)!.login, action: (){
+              Navigator.pushReplacement(context, PageTransition(child: SignInScreen(), type: PageTransitionType.leftToRight));
+            },
             ),
           ),
 

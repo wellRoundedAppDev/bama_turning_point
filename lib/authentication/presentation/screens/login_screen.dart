@@ -43,12 +43,17 @@ class SignInScreen extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.2,
                     )),
+                    const SizedBox(height: 24,),
+
+                    Text(AppLocalizations.of(context)!.login,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: FontSizes.FONT_SIZE_20),),
+
                     const SizedBox(
                       height: 16,
                     ),
                     CustomInput(
                       label:
                           AppLocalizations.of(context)!.username,
+
                       hintText:
                           AppLocalizations.of(context)!.username,
                       validator: (value) {
@@ -157,40 +162,40 @@ class SignInScreen extends StatelessWidget {
                             });
                       },
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    (isCheckingOut == true)
-                        ? Container()
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "${AppLocalizations.of(context)!.new_here} ",
-                                style: const TextStyle(
-                                    fontSize: FontSizes.FONT_SIZE_14,
-                                    color: Color(0xff313846)),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      PageTransition(
-                                          child: BlocProvider.value(
-                                              value: CartCubit.get(context),
-                                              child: SignUpScreen()),
-                                          type: PageTransitionType.leftToRight));
-                                },
-                                child: Text(
-                                  "${AppLocalizations.of(context)!.sign_up}!",
-                                  style: const TextStyle(
-                                      fontSize: FontSizes.FONT_SIZE_14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xff313846)),
-                                ),
-                              ),
-                            ],
-                          ),
+                    // const SizedBox(
+                    //   height: 16,
+                    // ),
+                    // (isCheckingOut == true)
+                    //     ? Container()
+                    //     : Row(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //           Text(
+                    //             "${AppLocalizations.of(context)!.new_here} ",
+                    //             style: const TextStyle(
+                    //                 fontSize: FontSizes.FONT_SIZE_14,
+                    //                 color: Color(0xff313846)),
+                    //           ),
+                    //           GestureDetector(
+                    //             onTap: () {
+                    //               Navigator.push(
+                    //                   context,
+                    //                   PageTransition(
+                    //                       child: BlocProvider.value(
+                    //                           value: CartCubit.get(context),
+                    //                           child: SignUpScreen()),
+                    //                       type: PageTransitionType.leftToRight));
+                    //             },
+                    //             child: Text(
+                    //               "${AppLocalizations.of(context)!.sign_up}!",
+                    //               style: const TextStyle(
+                    //                   fontSize: FontSizes.FONT_SIZE_14,
+                    //                   fontWeight: FontWeight.bold,
+                    //                   color: Color(0xff313846)),
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
                   ],
                 ),
               ),
