@@ -26,15 +26,15 @@ class CustomButton extends StatelessWidget {
       required this.action,
       this.elevation = 0,
       this.color = AppColors.APP_MAIN_COLOR,
-      this.textFontSize = FontSizes.FONT_SIZE_16,
-      this.textColor = 0xff153B87,
+      this.textFontSize = FontSizes.FONT_SIZE_18,
+      this.textColor = 0xfffffffff,
         this.circularProgressIndicatorSize,
       this.borderRadius = 0,
       this.buttonBorderWidthColor = AppColors.APP_MAIN_COLOR,
       this.fontWeight = FontWeight.bold,
       this.isLoading = false,
       this.icon,
-      this.height = 50})
+      this.height = 60})
       : super(key: key);
 
   @override

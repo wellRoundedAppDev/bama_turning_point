@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class AppColors{
-  static const APP_MAIN_COLOR_HEX = 0xffFFB71D;
+  static const APP_MAIN_COLOR_HEX = 0xfff7941d;
   static const APP_MAIN_COLOR = Color(APP_MAIN_COLOR_HEX);
-  static Color  APP_SECONDARY_COLOR = const Color(0xff153B87);
+  static Color  APP_SECONDARY_COLOR = const Color(0xff111f6a);
   static const APP_PURPLE = Color(0xff6F3FA8);
 
   static const APP_PRICE_COLOR = Color(0xffFFB61B);
