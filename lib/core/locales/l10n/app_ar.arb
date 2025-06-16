@@ -132,7 +132,27 @@
  "change_password": "غير كلمة المرور",
  "passwords_dont_match": "كلمات المرور غير متطابقة",
  "orders_history": "تاريخ طلباتك",
-
+   "request_holiday": "طلب إجازة",
+   "holiday_type": "نوع الإجازة",
+"salary": "الراتب",
+  "cost": "التكلفة",
+    "attendance": "الحضور",
+      "last_month_report": "تقرير الشهر الماضي",
+      "departure": "الإنصراف",
+  "deductions": "الاستقطاعات",
+  "entitlements": "الاستحقاقات",
+  "net_salary": "صافي الراتب",
+     "from_date": "التاريخ من",
+     "to_date": "التاريخ إلى",
+     "reason": "السبب",
+     "enter_reason_here": "أدخل السبب هنا",
+       "select_date": "اختر التاريخ",
+       "select_holiday_type": "اختر نوع الإجازة",
+       "installments_count": "عدد الأقساط",
+  "request_advance":"طلب سلفة",
+  "date": "التاريخ",
+ "registration_success": "تم التسجيل بنجاح",
+  "login_time": "تم تسجيل دخولك الساعة",
  "my_orders": "طلباتي",
  "view_your_orders_history": "عرض تاريخ طلباتك",
  "address_book_entries": "دفتر العناوين",
@@ -290,9 +310,20 @@
 
  "price": "السعر",
 
+  "last_month_report": "تقرير الشهر الماضي",
+
+  "break_time": "وقت الاستراحة",
+  "working_hours": "ساعات العمل",
+  "log_out": "تسجيل خروج",
+
  "product_added_to_favorites": "تم إضافة المنتج إلى المفضلة",
 
  "username": "اسم المستخدم",
 
- "product_removed_from_wish_list": "تمت إزالة المنتج من المفضلة"
+ "product_removed_from_wish_list": "تمت إزالة المنتج من المفضلة",
+
+
+ "attendance_and_departure": "الحضور والانصراف",
+  "logout": "خروج",
+  "today_attendance": "حضور اليوم"
 }

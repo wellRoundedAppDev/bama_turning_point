@@ -9,11 +9,15 @@ import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
 import 'package:classic_eccomerce/core/locales/locale_cubit/locale_states.dart';
 import 'package:classic_eccomerce/home_layout/presentation/screens/home_layout.dart';
 import 'package:classic_eccomerce/notifications/presentation/cubit/notifications_cubit.dart';
+import 'package:classic_eccomerce/request_advance/presentaion/screen/request_advance_screen.dart';
+import 'package:classic_eccomerce/request_holiday/presentaion/screen/request_holiday_screen.dart';
+import 'package:classic_eccomerce/revealing_ranks/presentation/screen/revealing_ranks_screen.dart';
 import 'package:classic_eccomerce/splash/presentation/screens/splash_screen.dart';
 import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'Attendance/presentation/screens/Attendance_Departure.dart';
 import 'cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'cart/presentation/screens/cart_screen.dart';
 import 'core/bloc_observer.dart';
@@ -107,7 +111,7 @@ class MyApp extends StatelessWidget {
                 900: const Color(AppColors.APP_MAIN_COLOR_HEX).withOpacity(1),
               }),
             ),
-            home: const SplashScreen(),
+            home:  AttendanceScreen(),
           );
         },
       ),
