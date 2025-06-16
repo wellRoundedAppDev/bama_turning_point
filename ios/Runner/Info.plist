@@ -21,7 +21,21 @@
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>App needs access to photo library for user to upload picture of the product</string>
 
+// This is probably the only one you need. Background location is supported
+// by this -- the caveat is that a blue badge is shown in the status bar
+// when the app is using location service while in the background.
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>App needs access to location even in background to register your attendance</string>
 
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>App needs access to location even in background to register your attendance</string>
+
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>App needs access to location even in background to register your attendance</string>
+
+
+]
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

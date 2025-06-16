@@ -111,7 +111,7 @@ class MyApp extends StatelessWidget {
                 900: const Color(AppColors.APP_MAIN_COLOR_HEX).withOpacity(1),
               }),
             ),
-            home:  AttendanceScreen(),
+            home:  SplashScreen(),
           );
         },
       ),

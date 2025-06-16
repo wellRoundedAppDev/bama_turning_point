@@ -1,9 +1,14 @@
+import 'package:classic_eccomerce/Attendance/presentation/screens/Attendance_Departure.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/employement_details/employment_details_screen.dart';
 import 'package:classic_eccomerce/profile/profile_screen_2.dart';
+import 'package:classic_eccomerce/register_attendance/register_attendance_screen.dart';
+import 'package:classic_eccomerce/request_advance/presentaion/screen/request_advance_screen.dart';
+import 'package:classic_eccomerce/revealing_ranks/presentation/screen/revealing_ranks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../request_holiday/presentaion/screen/request_holiday_screen.dart';
 import '../shared_components/custom_alert2.dart';
 
 
@@ -172,7 +177,24 @@ class PersonalProfileScreen extends StatelessWidget {
                 else if(index == 1){
                   Navigator.push(context, PageTransition(child: const EmploymentDetailsScreen(), type: PageTransitionType.leftToRight));
 
+                }else if(index == 2){
+                  Navigator.push(context, PageTransition(child: const AttendanceScreen(), type: PageTransitionType.leftToRight));
+
+                }else if(index == 3){
+                  Navigator.push(context, PageTransition(child:  RequestHolidayScreen(), type: PageTransitionType.leftToRight));
+
+                }else if(index == 4){
+                  Navigator.push(context, PageTransition(child:   const RevealingRanksScreen(), type: PageTransitionType.leftToRight));
+
                 }
+                else if(index == 5){
+                  Navigator.push(context, PageTransition(child:  const RegisterAttendanceScreen(), type: PageTransitionType.leftToRight));
+
+                }else{
+                  Navigator.push(context, PageTransition(child:  RequestAdvanceScreen(), type: PageTransitionType.leftToRight));
+
+                }
+
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

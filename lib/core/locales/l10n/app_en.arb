@@ -329,6 +329,10 @@
   "today_attendance": "Today's Attendance",
 
 
+  "payroll": "Payroll",
+
+
+
   "@welcome_user": {
     "placeholders": {
       "username": {

@@ -130,11 +130,15 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
           // Tab 1: Personal Data
           _buildPersonalDataTab(),
 
-          // Tab 2: Equivalent Data
-          _buildEquivalentDataTab(),
+          Text("2"),
 
-          // Tab 3: Contact Data
-          _buildContactDataTab(),
+          Text("3"),
+
+          // Tab 2: Equivalent Data
+          // _buildEquivalentDataTab(),
+          //
+          // // Tab 3: Contact Data
+          // _buildContactDataTab(),
         ],
       ),
     );
