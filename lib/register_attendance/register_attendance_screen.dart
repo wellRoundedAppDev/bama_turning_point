@@ -164,7 +164,7 @@ class RegisterAttendanceScreenState extends State<RegisterAttendanceScreen> {
                                       child: Center(
                                         child: Icon(
                                           Icons.login,
-                                          size: 24,
+                                          size: 18,
                                           color: AppColors.APP_MAIN_COLOR,
                                         ),
                                       ),
@@ -172,13 +172,17 @@ class RegisterAttendanceScreenState extends State<RegisterAttendanceScreen> {
                                     const SizedBox(
                                       width: 8,
                                     ),
-                                    Text(
-                                      AppLocalizations.of(context)!.login,
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: FontSizes.FONT_SIZE_14,
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                    Flexible(
+                                      child: Text(
+                                        AppLocalizations.of(context)!.login,
+                                        overflow: TextOverflow.ellipsis,
+                                      
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: FontSizes.FONT_SIZE_14,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -189,18 +193,18 @@ class RegisterAttendanceScreenState extends State<RegisterAttendanceScreen> {
                             ),
                             Expanded(
                               child: Container(
-                                padding: EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     border: Border.all(
                                         color: AppColors.APP_MAIN_COLOR),
-                                    borderRadius: BorderRadius.all(
+                                    borderRadius: const BorderRadius.all(
                                       Radius.circular(100),
                                     )),
                                 child: Row(
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.all(4),
+                                      padding: const EdgeInsets.all(4),
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: AppColors.APP_MAIN_COLOR
@@ -209,7 +213,7 @@ class RegisterAttendanceScreenState extends State<RegisterAttendanceScreen> {
                                       child: const Center(
                                         child: Icon(
                                           Icons.logout,
-                                          size: 24,
+                                          size: 18,
                                           color: AppColors.APP_MAIN_COLOR,
                                         ),
                                       ),
@@ -217,13 +221,16 @@ class RegisterAttendanceScreenState extends State<RegisterAttendanceScreen> {
                                     const SizedBox(
                                       width: 8,
                                     ),
-                                    Text(
-                                      AppLocalizations.of(context)!.log_out,
-                                      style: const TextStyle(
-                                          color: AppColors.APP_MAIN_COLOR,
-                                          fontSize: FontSizes.FONT_SIZE_14,
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                    Flexible(
+                                      child: Text(
+                                        AppLocalizations.of(context)!.log_out,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                            color: AppColors.APP_MAIN_COLOR,
+                                            fontSize: FontSizes.FONT_SIZE_14,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
                                   ],
                                 ),
