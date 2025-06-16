@@ -1,8 +1,5 @@
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/report_last_month/presentaion/screens/report_last_month_screen.dart';
-import 'package:classic_eccomerce/request_advance/presentaion/screen/request_advance_screen.dart';
-import 'package:classic_eccomerce/request_holiday/presentaion/screen/request_holiday_screen.dart';
-import 'package:classic_eccomerce/revealing_ranks/presentation/screen/revealing_ranks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -107,7 +104,7 @@ class AttendanceScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => RevealingRanksScreen(),));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ReportLastMonthScreen(),));
                         },
                         child: Text(
                           AppLocalizations.of(context)!.last_month_report,
