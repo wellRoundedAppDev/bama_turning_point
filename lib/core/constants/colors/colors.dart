@@ -36,6 +36,12 @@ class AppColors{
   static var NAV_BAR_COLOR = APP_SECONDARY_COLOR;
 
 
+  static const APP_LIGHT_MAIN_COLOR = Color(0xfffef2e6);
+
+
+  static const TAB_BAR_GREY_COLOR = Color(0xfffbf7f4);
+
+
 
 
 

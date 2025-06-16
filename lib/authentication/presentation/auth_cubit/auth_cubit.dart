@@ -11,6 +11,7 @@ import 'package:classic_eccomerce/core/data/data_sources/remote_data_sources/get
 import 'package:classic_eccomerce/core/data/models/get_countries_response.dart';
 import 'package:classic_eccomerce/core/data/models/get_regions_response.dart';
 import 'package:classic_eccomerce/main.dart';
+import 'package:classic_eccomerce/profile/profile_screen.dart';
 import 'package:classic_eccomerce/shared_components/app_snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,12 +63,14 @@ class AuthCubit extends Cubit<AuthStates> {
 
   loginFromLoginForm(
       {bool isCheckingOut = false, required CartCubit cartCubit,}) async {
-    if (validateLoginForm() != true) {
-      return;
-    }
+    // if (validateLoginForm() != true) {
+    //   return;
+    // }
 
+    Navigator.push(context, PageTransition(child: PersonalProfileScreen(), type: PageTransitionType.leftToRight));
+    return;
     loginFormKey.currentState?.save();
-    emit(LoginLoadingState());
+  //  emit(LoginLoadingState());
 
     // if (await setAccessToken() == false) {
     //   showAppSnackBar(content: "Check your internet connection, and try again");
@@ -111,7 +114,8 @@ class AuthCubit extends Cubit<AuthStates> {
       // }
 
 
-    } else if (response?.success == false) {
+    }
+    else if (response?.success == false) {
       loginResponse = null;
       isUserLoggedIn = false;
       accessToken = null;

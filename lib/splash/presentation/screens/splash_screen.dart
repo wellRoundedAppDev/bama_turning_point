@@ -105,7 +105,7 @@ class SplashScreen extends StatelessWidget {
             left: 40,
             right: 40,
             child: CustomButton(text: AppLocalizations.of(context)!.login, action: (){
-              Navigator.pushReplacement(context, PageTransition(child: SignInScreen(), type: PageTransitionType.leftToRight));
+              Navigator.push(context, PageTransition(child: SignInScreen(), type: PageTransitionType.leftToRight));
             },
             ),
           ),
