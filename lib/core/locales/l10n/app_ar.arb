@@ -325,5 +325,7 @@
 
  "attendance_and_departure": "الحضور والانصراف",
   "logout": "خروج",
-  "today_attendance": "حضور اليوم"
+  "today_attendance": "حضور اليوم",
+
+        "payroll": "كشف مرتب"
 }

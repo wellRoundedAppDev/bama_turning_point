@@ -9,6 +9,7 @@ import Flutter
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
    // FirebaseApp.configure()
+       GMSServices.provideAPIKey("AIzaSyArJ9dqhIQhdXYzqcEpyqJO2gtV1zsdgaI")
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }

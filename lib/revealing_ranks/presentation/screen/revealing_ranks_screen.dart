@@ -14,7 +14,7 @@ class RevealingRanksScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppbarContainer(
-            title: AppLocalizations.of(context)!.request_advance,
+            title: AppLocalizations.of(context)!.payroll,
           ),
           SizedBox(
             height: 50,
