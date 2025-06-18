@@ -1,8 +1,10 @@
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
+import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:classic_eccomerce/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 
@@ -47,31 +49,75 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
 
             Builder(
                 builder: (context) {
-                  return Container(
-                    height: MediaQuery.of(context)!.size.height * 0.18,
-                    decoration:  BoxDecoration(
-                      color: AppColors.APP_SECONDARY_COLOR, // dark blue
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
+                  return Stack(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context)!.size.height * 0.18,
+                        decoration:  BoxDecoration(
+                          color: AppColors.APP_SECONDARY_COLOR, // dark blue
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(30),
+                            bottomRight: Radius.circular(30),
+                          ),
+                        ),
+                        alignment: Alignment.topCenter,
+                        padding: const EdgeInsets.only(top: 40),
+                        child: Text(
+                          "البيانات الشخصية",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: FontSizes.FONT_SIZE_16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                    alignment: Alignment.topCenter,
-                    padding: EdgeInsets.only(top: 35),
-                    child: Text(
-                      "الملف الشخصي",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: FontSizes.FONT_SIZE_16,
-                        fontWeight: FontWeight.bold,
+
+
+                      const Positioned(
+                          top: 45,
+                          right: 16,
+                          child:
+                          Icon(Icons.notifications,color: Colors.white,)
+                        // ClipPath(
+                        //   clipper: CornerClipper(),
+                        //   child: Container(
+                        //     width: 60,
+                        //     height: 60,
+                        //     color: Colors.orange,
+                        //     child: Center(
+                        //       child: Icon(Icons.notifications, color: Colors.white),
+                        //     ),
+                        //   ),
+                        // ),
                       ),
-                    ),
+                      Positioned(
+                          top: 45,
+                          left: 16,
+                          child:
+                          GestureDetector(
+                              onTap: (){
+                                Navigator.pop(context);
+                              },
+                              child: const Icon(Icons.arrow_forward_ios,color: Colors.white,))
+                        // ClipPath(
+                        //   clipper: CornerClipper(),
+                        //   child: Container(
+                        //     width: 60,
+                        //     height: 60,
+                        //     color: Colors.orange,
+                        //     child: Center(
+                        //       child: Icon(Icons.notifications, color: Colors.white),
+                        //     ),
+                        //   ),
+                        // ),
+                      ),
+                    ],
                   );
                 }
             ),
 
             Positioned(
-              top: MediaQuery.of(context)!.size.height * 0.092,
+              top: MediaQuery.of(context)!.size.height * 0.093,
               left: 0,
               right: 0,
               child: Column(
@@ -80,8 +126,8 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
                     radius: MediaQuery.of(context)!.size.height * 0.075,
                     backgroundImage: NetworkImage("https://i.imgur.com/BoN9kdC.png"),
                   ),
-                  SizedBox(height: 4,),
-                  Text(
+                  const SizedBox(height: 8,),
+                  const Text(
                     "محمد عبد العزيز محمود بسيوني",
                     style: TextStyle(fontSize: FontSizes.FONT_SIZE_16, fontWeight: FontWeight.bold),
                   ),
@@ -89,21 +135,23 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
               ),
             ),
             // Notification icon in orange curved corner
-            Positioned(
-              top: 0,
-              right: 0,
-              child: ClipPath(
-                clipper: CornerClipper(),
-                child: Container(
-                  width: 60,
-                  height: 60,
-                  color: Colors.orange,
-                  child: Center(
-                    child: Icon(Icons.notifications, color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   top: 0,
+            //   right: 0,
+            //   child:
+            //     Image.asset(ImagePaths.ORANGE_CURVY_APPBAR_DECORATION)
+            //   // ClipPath(
+            //   //   clipper: CornerClipper(),
+            //   //   child: Container(
+            //   //     width: 60,
+            //   //     height: 60,
+            //   //     color: Colors.orange,
+            //   //     child: Center(
+            //   //       child: Icon(Icons.notifications, color: Colors.white),
+            //   //     ),
+            //   //   ),
+            //   // ),
+            // ),
 
             // Profile picture and name
           ],
@@ -116,7 +164,10 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
             Tab(text: 'البيانات المكانية'),
             Tab(text: 'بيانات الاتصال'),
           ],
-          labelStyle: const TextStyle(fontWeight: FontWeight.bold,color: AppColors.APP_MAIN_COLOR),
+          labelStyle: const TextStyle(fontWeight: FontWeight.bold,color: AppColors.APP_MAIN_COLOR,
+          fontSize: FontSizes.FONT_SIZE_12,
+
+          ),
           unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
           indicatorColor: AppColors.APP_MAIN_COLOR,
 
@@ -124,21 +175,44 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
           indicatorWeight: 3,
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
+      body: Stack(
         children: [
-          // Tab 1: Personal Data
-          _buildPersonalDataTab(),
+          TabBarView(
+            controller: _tabController,
+            children: [
+              // Tab 1: Personal Data
+              _buildPersonalDataTab(),
 
-          Text("2"),
+              Text("2"),
 
-          Text("3"),
+              Text("3"),
 
-          // Tab 2: Equivalent Data
-          // _buildEquivalentDataTab(),
-          //
-          // // Tab 3: Contact Data
-          // _buildContactDataTab(),
+              // Tab 2: Equivalent Data
+              // _buildEquivalentDataTab(),
+              //
+              // // Tab 3: Contact Data
+              // _buildContactDataTab(),
+            ],
+          ),
+
+          Positioned(
+              bottom: 0,
+              left: 0,
+              child: Image.asset(ImagePaths.GREY_CURVY_DECORATION)),
+
+          Positioned(
+            bottom: 24,
+            right: 24,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(ImagePaths.LOG_OUT_ICON,),
+                const SizedBox(width: 5),
+                Text(AppLocalizations.of(context)!.log_out, style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16)),
+              ],
+            ),
+          )
+
         ],
       ),
     );

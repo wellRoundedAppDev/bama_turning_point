@@ -1,5 +1,7 @@
 import 'package:classic_eccomerce/Attendance/presentation/screens/Attendance_Departure.dart';
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
+import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:classic_eccomerce/employement_details/employment_details_screen.dart';
 import 'package:classic_eccomerce/profile/profile_screen_2.dart';
 import 'package:classic_eccomerce/register_attendance/register_attendance_screen.dart';
@@ -7,6 +9,7 @@ import 'package:classic_eccomerce/request_advance/presentaion/screen/request_adv
 import 'package:classic_eccomerce/revealing_ranks/presentation/screen/revealing_ranks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../request_holiday/presentaion/screen/request_holiday_screen.dart';
 import '../shared_components/custom_alert2.dart';
@@ -14,16 +17,6 @@ import '../shared_components/custom_alert2.dart';
 
 
 class PersonalProfileScreen extends StatelessWidget {
-  final List<_MenuItem> menuItems = [
-    _MenuItem("البيانات الشخصية", Icons.person, isSelected: true),
-    _MenuItem("البيانات الوظيفية", Icons.work),
-    _MenuItem("الحضور والانصراف", Icons.calendar_today),
-    _MenuItem("الاجازات", Icons.warning),
-    _MenuItem("كشف مرتب", Icons.attach_money),
-
-    _MenuItem("الحضور والانصراف باللوكيشن", Icons.location_on),
-    _MenuItem("طلب سلفة", Icons.request_page),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +24,27 @@ class PersonalProfileScreen extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Column(
+        body: Stack(
           children: [
-            _buildCustomAppBar(),
-            Expanded(child: _buildGridMenu()),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Row(
-                children: [
-                  _buildLogoutButton(),
-                ],
-              ),
+            Column(
+              children: [
+                _buildCustomAppBar(),
+                Expanded(child: _buildGridMenu()),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: Row(
+                    children: [
+                      _buildLogoutButton(),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+              ],
             ),
-            SizedBox(height: 10),
+            Positioned(
+                bottom: 0,
+                left: 0,
+                child: Image.asset(ImagePaths.GREY_CURVY_DECORATION))
           ],
         ),
       ),
@@ -79,7 +80,7 @@ class PersonalProfileScreen extends StatelessWidget {
   Widget _buildCustomAppBar() {
     return Stack(
       children: [
-        Container(
+        SizedBox(
         width: double.infinity,
 
         height:MediaQuery.of(context)!.size.height * 0.28,
@@ -90,15 +91,15 @@ class PersonalProfileScreen extends StatelessWidget {
             return Container(
               height: MediaQuery.of(context)!.size.height * 0.17,
               decoration: BoxDecoration(
-                color: Color(0xFF002366), // dark blue
-                borderRadius: BorderRadius.only(
+                color: AppColors.APP_SECONDARY_COLOR, // dark blue
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30),
                 ),
               ),
               alignment: Alignment.topCenter,
-              padding: EdgeInsets.only(top: 35),
-              child: Text(
+              padding: const EdgeInsets.only(top: 40),
+              child: const Text(
                 "الملف الشخصي",
                 style: TextStyle(
                   color: Colors.white,
@@ -111,17 +112,17 @@ class PersonalProfileScreen extends StatelessWidget {
         ),
 
         Positioned(
-          top: MediaQuery.of(context)!.size.height * 0.09,
+          top: MediaQuery.of(context)!.size.height * 0.093,
           left: 0,
           right: 0,
           child: Column(
             children: [
               CircleAvatar(
                 radius: MediaQuery.of(context)!.size.height * 0.075,
-                backgroundImage: NetworkImage("https://i.imgur.com/BoN9kdC.png"),
+                backgroundImage: const NetworkImage("https://i.imgur.com/BoN9kdC.png"),
               ),
-              SizedBox(height: 4,),
-              Text(
+              const SizedBox(height: 8,),
+              const Text(
                 "محمد عبد العزيز محمود بسيوني",
                 style: TextStyle(fontSize: FontSizes.FONT_SIZE_16, fontWeight: FontWeight.bold),
               ),
@@ -129,20 +130,43 @@ class PersonalProfileScreen extends StatelessWidget {
           ),
         ),
         // Notification icon in orange curved corner
+        const Positioned(
+          top: 45,
+          right: 16,
+          child:
+            Icon(Icons.notifications,color: Colors.white,)
+          // ClipPath(
+          //   clipper: CornerClipper(),
+          //   child: Container(
+          //     width: 60,
+          //     height: 60,
+          //     color: Colors.orange,
+          //     child: Center(
+          //       child: Icon(Icons.notifications, color: Colors.white),
+          //     ),
+          //   ),
+          // ),
+        ),
         Positioned(
-          top: 0,
-          right: 0,
-          child: ClipPath(
-            clipper: CornerClipper(),
-            child: Container(
-              width: 60,
-              height: 60,
-              color: Colors.orange,
-              child: Center(
-                child: Icon(Icons.notifications, color: Colors.white),
-              ),
-            ),
-          ),
+            top: 45,
+            left: 16,
+            child:
+            GestureDetector(
+                onTap: (){
+                  Navigator.pop(context);
+                },
+                child: const Icon(Icons.arrow_forward_ios,color: Colors.white,))
+          // ClipPath(
+          //   clipper: CornerClipper(),
+          //   child: Container(
+          //     width: 60,
+          //     height: 60,
+          //     color: Colors.orange,
+          //     child: Center(
+          //       child: Icon(Icons.notifications, color: Colors.white),
+          //     ),
+          //   ),
+          // ),
         ),
 
         // Profile picture and name
@@ -150,6 +174,37 @@ class PersonalProfileScreen extends StatelessWidget {
     );
   }
   Widget _buildGridMenu() {
+    final List<_MenuItem> menuItems = [
+      _MenuItem("البيانات الشخصية", Image.asset(ImagePaths.PERSONAL_INFORMATION_ICON,
+        color: AppColors.APP_MAIN_COLOR,
+
+        fit: BoxFit.cover,
+      ),),
+      _MenuItem("البيانات الوظيفية", Image.asset(ImagePaths.JOB_INFORMATION_ICON,
+        color: AppColors.APP_MAIN_COLOR,
+
+      )),
+      _MenuItem("الحضور والانصراف", Image.asset(ImagePaths.ATTENDANCE_ICON,
+        color: AppColors.APP_MAIN_COLOR,
+
+      )),
+      _MenuItem("الاجازات", Image.asset(ImagePaths.HOLIDAYS_ICON,
+        color: AppColors.APP_MAIN_COLOR,
+
+      )),
+      _MenuItem("كشف مرتب", Image.asset(ImagePaths.PERSONAL_INFORMATION_ICON,
+        color: AppColors.APP_MAIN_COLOR,
+      )),
+
+      _MenuItem("الحضور والانصراف باللوكيشن", Image.asset(ImagePaths.ATTENDANCE_LOCATION_ICON,
+        color: AppColors.APP_MAIN_COLOR,
+      )),
+      _MenuItem("طلب سلفة", Image.asset(ImagePaths.CONTRACT_ICON,
+        color: AppColors.APP_MAIN_COLOR,
+
+      )),
+    ];
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: GridView.builder(
@@ -159,13 +214,14 @@ class PersonalProfileScreen extends StatelessWidget {
           crossAxisCount: 3,
           mainAxisSpacing: 15,
           crossAxisSpacing: 15,
-          childAspectRatio: 0.9,
+          childAspectRatio: 0.8,
         ),
         itemBuilder: (context, index) {
           final item = menuItems[index];
           return Container(
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: item.isSelected ? Colors.orange.shade100 : Colors.white,
+              color:  Colors.white,
               border: Border.all(color: Colors.orange, width: 1),
               borderRadius: BorderRadius.circular(12),
             ),
@@ -199,12 +255,17 @@ class PersonalProfileScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(item.icon, color: Colors.orange),
-                  SizedBox(height: 10),
+                  Flexible(child: item.icon),
+                  const SizedBox(height: 10),
                   Text(
                     item.title,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 12, color: Colors.black),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: FontSizes.FONT_SIZE_12, color: Colors.black,
+                    fontWeight: FontWeight.w500,
+
+                    ),
                   ),
                 ],
               ),
@@ -216,14 +277,14 @@ class PersonalProfileScreen extends StatelessWidget {
   }
 
   Widget _buildLogoutButton() {
-    return const Padding(
-      padding: EdgeInsets.only(bottom: 8.0),
+    return  Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.logout, color: Colors.black),
-          SizedBox(width: 5),
-          Text("خروج", style: TextStyle(fontSize: 16)),
+          Image.asset(ImagePaths.LOG_OUT_ICON,),
+          const SizedBox(width: 5),
+          Text(AppLocalizations.of(context)!.log_out, style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16)),
         ],
       ),
     );
@@ -232,7 +293,7 @@ class PersonalProfileScreen extends StatelessWidget {
 
 class _MenuItem {
   final String title;
-  final IconData icon;
+  final  icon;
   final bool isSelected;
 
   _MenuItem(this.title, this.icon, {this.isSelected = false});
@@ -247,8 +308,8 @@ class CornerClipper extends CustomClipper<Path> {
     path.lineTo(size.width, 0);
     path.lineTo(size.width, size.height);
     path.arcToPoint(
-      Offset(0, 0),
-      radius: Radius.circular(60),
+      const Offset(0, 0),
+      radius: const Radius.circular(60),
       clockwise: false,
     );
     return path;

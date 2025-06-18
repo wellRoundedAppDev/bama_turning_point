@@ -1,3 +1,5 @@
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
+import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -78,16 +80,25 @@ class SplashScreen extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.2,
                     width: MediaQuery.of(context).size.width * 0.35,
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'HUMAN RESOURCE',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      wordSpacing: 2,
-                    ),
+                  const SizedBox(height: 12),
+                  const Text.rich(TextSpan(text: "Human",
+                  style:  TextStyle(
+                    fontSize: FontSizes.FONT_SIZE_20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
                   ),
+                  children: [
+                    TextSpan(text: " Resource",
+                      style:  TextStyle(
+                          fontSize: FontSizes.FONT_SIZE_20,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.APP_MAIN_COLOR
+                      ),
+                    )
+                  ]
+                  ),
+
+                  )
                   // const SizedBox(height: 60),
 
                   // ElevatedButton(

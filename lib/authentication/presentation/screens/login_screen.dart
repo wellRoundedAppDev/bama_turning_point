@@ -26,185 +26,205 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Form(
-            key: AuthCubit.get(context).loginFormKey,
-            child: Column(
-              children: [
-                const SizedBox(height: 16,),
-                Row(children: [
-                  IconButton(onPressed: (){
-                    Navigator.pop(context);
-                  }, icon:
-                  const Icon(Icons.arrow_back)
-                  )
-                ],),
-                const SizedBox(
-                  height: 16,
-                ),
-                ClipOval(
-                    child: Image.asset(
-                  ImagePaths.APP_LOGO,
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  height: MediaQuery.of(context).size.height * 0.2,
-                )),
-                const SizedBox(height: 24,),
+      body: SingleChildScrollView(
+        child: Form(
+          key: AuthCubit.get(context).loginFormKey,
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 60,),
+                    // Row(children: [
+                    //   IconButton(onPressed: (){
+                    //     Navigator.pop(context);
+                    //   }, icon:
+                    //   const Icon(Icons.arrow_back)
+                    //   )
+                    // ],),
+                    // const SizedBox(
+                    //   height: 16,
+                    // ),
+                    ClipOval(
+                        child: Image.asset(
+                      ImagePaths.APP_LOGO,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.2,
+                    )),
+                    const SizedBox(height: 16,),
 
-                Text(AppLocalizations.of(context)!.login,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: FontSizes.FONT_SIZE_20),),
+                    Text(AppLocalizations.of(context)!.login,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: FontSizes.FONT_SIZE_20),),
 
-                const SizedBox(
-                  height: 16,
-                ),
-                CustomInput(
-                  label:
-                      AppLocalizations.of(context)!.username,
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    CustomInput(
+                      label:
+                          AppLocalizations.of(context)!.username,
 
-                  hintText:
-                      AppLocalizations.of(context)!.username,
-                  validator: (value) {
-                    if (value == null || value.isEmpty
-                        // (value?.length??0) < 8 ||
-                        // (value?.length??0) > 13
-                        ) {
-                      return AppLocalizations.of(context)!
-                          .enter_your_main_userName;
-                    }
-                  },
-                  textInputType: TextInputType.name,
-                  onSaved: (v) => AuthCubit.get(context)
-                      .loginFormInput
-                      .username = v?.trim(),
+                      hintText:
+                          AppLocalizations.of(context)!.username,
+                      validator: (value) {
+                        if (value == null || value.isEmpty
+                            // (value?.length??0) < 8 ||
+                            // (value?.length??0) > 13
+                            ) {
+                          return AppLocalizations.of(context)!
+                              .enter_your_main_userName;
+                        }
+                      },
+                      textInputType: TextInputType.name,
+                      onSaved: (v) => AuthCubit.get(context)
+                          .loginFormInput
+                          .username = v?.trim(),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    CustomInput(
+                      label: AppLocalizations.of(context)!.password,
+                      hintText: AppLocalizations.of(context)!.password,
+                      validator: (v) {
+                        if (v == null || v.length < 6) {
+                          return AppLocalizations.of(context)!
+                              .enter_a_password_of_at_least_six_characters;
+                        }
+                      },
+                      onSaved: (v) => AuthCubit.get(context)
+                          .loginFormInput
+                          .password = v?.trim(),
+                    ),
+                    // const SizedBox(
+                    //   height: 10,
+                    // ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     Text(
+                    //       "${AppLocalizations.of(context)!.forgot_password} ",
+                    //       style: const TextStyle(
+                    //           fontSize: FontSizes.FONT_SIZE_14,
+                    //           color: Color(0xff313846)),
+                    //     ),
+                    //     GestureDetector(
+                    //       onTap: () {
+                    //         Navigator.push(
+                    //             context,
+                    //             PageTransition(
+                    //                 child: const ContactUsScreen(),
+                    //                 type: PageTransitionType.leftToRight));
+                    //       },
+                    //       child: Text(
+                    //         AppLocalizations.of(context)!.contact_us,
+                    //         style: const TextStyle(
+                    //             fontSize: FontSizes.FONT_SIZE_14,
+                    //             fontWeight: FontWeight.bold,
+                    //             color: Color(0xff313846)),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //      Text(
+                    //       "${AppLocalizations.of(context)!.did_you_forget_password} ",
+                    //       style: const TextStyle(
+                    //           fontSize: FontSizes.FONT_SIZE_14,
+                    //           color: Color(0xff313846)),
+                    //     ),
+                    //     GestureDetector(
+                    //       onTap: () {
+                    //         Navigator.push(
+                    //             context,
+                    //             PageTransition(
+                    //                 child: const ForgetPasswordScreen(),
+                    //                 type: PageTransitionType.leftToRight));
+                    //       },
+                    //       child: const Text(
+                    //         "GET NEW!",
+                    //         style: TextStyle(
+                    //             fontSize: FontSizes.FONT_SIZE_14,
+                    //             fontWeight: FontWeight.bold,
+                    //             color: Color(0xff313846)),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    BlocConsumer<AuthCubit, AuthStates>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        return CustomButton(
+                            text: AppLocalizations.of(context)!.login,
+                            isLoading: state is LoginLoadingState,
+                            action: () {
+                              AuthCubit.get(context).loginFromLoginForm(
+                                  isCheckingOut: isCheckingOut,
+                                  cartCubit: CartCubit.get(context));
+                            });
+                      },
+                    ),
+                    // const SizedBox(
+                    //   height: 16,
+                    // ),
+                    // (isCheckingOut == true)
+                    //     ? Container()
+                    //     : Row(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //           Text(
+                    //             "${AppLocalizations.of(context)!.new_here} ",
+                    //             style: const TextStyle(
+                    //                 fontSize: FontSizes.FONT_SIZE_14,
+                    //                 color: Color(0xff313846)),
+                    //           ),
+                    //           GestureDetector(
+                    //             onTap: () {
+                    //               Navigator.push(
+                    //                   context,
+                    //                   PageTransition(
+                    //                       child: BlocProvider.value(
+                    //                           value: CartCubit.get(context),
+                    //                           child: SignUpScreen()),
+                    //                       type: PageTransitionType.leftToRight));
+                    //             },
+                    //             child: Text(
+                    //               "${AppLocalizations.of(context)!.sign_up}!",
+                    //               style: const TextStyle(
+                    //                   fontSize: FontSizes.FONT_SIZE_14,
+                    //                   fontWeight: FontWeight.bold,
+                    //                   color: Color(0xff313846)),
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 16,
+              ),
+
+        Positioned(
+          top: 40,
+          left: 0,
+          child: IconButton(onPressed: (){
+            Navigator.pop(context);
+          }, icon: const Icon(Icons.arrow_forward_ios,color: Colors.black,))),
+              Positioned(
+                top: 0,
+                right: 0,
+                bottom: MediaQuery.of(context).size.height * 0.35,
+                child: Image.asset(ImagePaths.ORANGE_CURVY_DECORATION,
+                  fit: BoxFit.cover,
+
                 ),
-                CustomInput(
-                  label: AppLocalizations.of(context)!.password,
-                  hintText: AppLocalizations.of(context)!.password,
-                  validator: (v) {
-                    if (v == null || v.length < 6) {
-                      return AppLocalizations.of(context)!
-                          .enter_a_password_of_at_least_six_characters;
-                    }
-                  },
-                  onSaved: (v) => AuthCubit.get(context)
-                      .loginFormInput
-                      .password = v?.trim(),
-                ),
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.end,
-                //   children: [
-                //     Text(
-                //       "${AppLocalizations.of(context)!.forgot_password} ",
-                //       style: const TextStyle(
-                //           fontSize: FontSizes.FONT_SIZE_14,
-                //           color: Color(0xff313846)),
-                //     ),
-                //     GestureDetector(
-                //       onTap: () {
-                //         Navigator.push(
-                //             context,
-                //             PageTransition(
-                //                 child: const ContactUsScreen(),
-                //                 type: PageTransitionType.leftToRight));
-                //       },
-                //       child: Text(
-                //         AppLocalizations.of(context)!.contact_us,
-                //         style: const TextStyle(
-                //             fontSize: FontSizes.FONT_SIZE_14,
-                //             fontWeight: FontWeight.bold,
-                //             color: Color(0xff313846)),
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                // const SizedBox(
-                //   height: 8,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.end,
-                //   children: [
-                //      Text(
-                //       "${AppLocalizations.of(context)!.did_you_forget_password} ",
-                //       style: const TextStyle(
-                //           fontSize: FontSizes.FONT_SIZE_14,
-                //           color: Color(0xff313846)),
-                //     ),
-                //     GestureDetector(
-                //       onTap: () {
-                //         Navigator.push(
-                //             context,
-                //             PageTransition(
-                //                 child: const ForgetPasswordScreen(),
-                //                 type: PageTransitionType.leftToRight));
-                //       },
-                //       child: const Text(
-                //         "GET NEW!",
-                //         style: TextStyle(
-                //             fontSize: FontSizes.FONT_SIZE_14,
-                //             fontWeight: FontWeight.bold,
-                //             color: Color(0xff313846)),
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                const SizedBox(
-                  height: 32,
-                ),
-                BlocConsumer<AuthCubit, AuthStates>(
-                  listener: (context, state) {},
-                  builder: (context, state) {
-                    return CustomButton(
-                        text: AppLocalizations.of(context)!.login,
-                        isLoading: state is LoginLoadingState,
-                        action: () {
-                          AuthCubit.get(context).loginFromLoginForm(
-                              isCheckingOut: isCheckingOut,
-                              cartCubit: CartCubit.get(context));
-                        });
-                  },
-                ),
-                // const SizedBox(
-                //   height: 16,
-                // ),
-                // (isCheckingOut == true)
-                //     ? Container()
-                //     : Row(
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         children: [
-                //           Text(
-                //             "${AppLocalizations.of(context)!.new_here} ",
-                //             style: const TextStyle(
-                //                 fontSize: FontSizes.FONT_SIZE_14,
-                //                 color: Color(0xff313846)),
-                //           ),
-                //           GestureDetector(
-                //             onTap: () {
-                //               Navigator.push(
-                //                   context,
-                //                   PageTransition(
-                //                       child: BlocProvider.value(
-                //                           value: CartCubit.get(context),
-                //                           child: SignUpScreen()),
-                //                       type: PageTransitionType.leftToRight));
-                //             },
-                //             child: Text(
-                //               "${AppLocalizations.of(context)!.sign_up}!",
-                //               style: const TextStyle(
-                //                   fontSize: FontSizes.FONT_SIZE_14,
-                //                   fontWeight: FontWeight.bold,
-                //                   color: Color(0xff313846)),
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

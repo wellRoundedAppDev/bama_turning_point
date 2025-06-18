@@ -4,6 +4,9 @@ import 'package:classic_eccomerce/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../core/constants/paths/image_paths.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class EmploymentDetailsScreen extends StatefulWidget {
   const EmploymentDetailsScreen({super.key});
 
@@ -139,13 +142,36 @@ class _EmploymentDetailsScreenState extends State<EmploymentDetailsScreen> {
             ],
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ListView(
-            children: [
-              ...functionalData.map((data) => _buildDataRow(data)).toList()
-            ],
-          ),
+        body: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ListView(
+                children: [
+                  ...functionalData.map((data) => _buildDataRow(data)).toList()
+                ],
+              ),
+            ),
+
+
+            Positioned(
+                bottom: 0,
+                left: 0,
+                child: Image.asset(ImagePaths.GREY_CURVY_DECORATION)),
+
+            Positioned(
+              bottom: 24,
+              right: 24,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(ImagePaths.LOG_OUT_ICON,),
+                  const SizedBox(width: 5),
+                  Text(AppLocalizations.of(context)!.log_out, style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16)),
+                ],
+              ),
+            )
+          ],
         ));
   }
 }

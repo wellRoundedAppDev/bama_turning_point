@@ -114,6 +114,9 @@ flutter:
     - family: Open Sans
       fonts:
         - asset: assets/fonts/OpenSans-VariableFont_wdth,wght.ttf
+    - family: GE SS TWO
+      fonts:
+        - asset: assets/fonts/GE_SS_Two_Medium.otf
 
 
 

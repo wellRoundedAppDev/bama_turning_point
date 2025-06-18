@@ -6,4 +6,5 @@ class FontFamilies{
 
   static const OPEN_SANS = "Open Sans";
 
+ static const GE_SS_TWO = "GE SS TWO";
 }

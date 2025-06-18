@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               dividerColor: Colors.transparent,
               primaryColor: AppColors.APP_MAIN_COLOR,
-              fontFamily: FontFamilies.OPEN_SANS,
+              fontFamily: FontFamilies.GE_SS_TWO,
               useMaterial3: false,
               appBarTheme: const AppBarTheme(
                   systemOverlayStyle: SystemUiOverlayStyle(
