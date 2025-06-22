@@ -72,31 +72,77 @@ class _EmploymentDetailsScreenState extends State<EmploymentDetailsScreen> {
               Container(
                 width: double.infinity,
                 color: AppColors.APP_LIGHT_MAIN_COLOR,
-                height: MediaQuery.of(context)!.size.height * 0.32,
+                height:MediaQuery.of(context)!.size.height * 0.32,
+              ),
+              Builder(
+                  builder: (context) {
+                    return Stack(
+                      children: [
+                        Container(
+                          height: MediaQuery.of(context)!.size.height * 0.18,
+                          decoration:  BoxDecoration(
+                            color: AppColors.APP_SECONDARY_COLOR, // dark blue
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(30),
+                              bottomRight: Radius.circular(30),
+                            ),
+                          ),
+                          alignment: Alignment.topCenter,
+                          padding: const EdgeInsets.only(top: 40),
+                          child:  const Text(
+                            "البيانات الوظيفية",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: FontSizes.FONT_SIZE_16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+
+
+                        const Positioned(
+                            top: 45,
+                            right: 16,
+                            child:
+                            Icon(Icons.notifications,color: Colors.white,)
+                          // ClipPath(
+                          //   clipper: CornerClipper(),
+                          //   child: Container(
+                          //     width: 60,
+                          //     height: 60,
+                          //     color: Colors.orange,
+                          //     child: Center(
+                          //       child: Icon(Icons.notifications, color: Colors.white),
+                          //     ),
+                          //   ),
+                          // ),
+                        ),
+                        Positioned(
+                            top: 45,
+                            left: 16,
+                            child:
+                            GestureDetector(
+                                onTap: (){
+                                  Navigator.pop(context);
+                                },
+                                child: const Icon(Icons.arrow_forward_ios,color: Colors.white,))
+                          // ClipPath(
+                          //   clipper: CornerClipper(),
+                          //   child: Container(
+                          //     width: 60,
+                          //     height: 60,
+                          //     color: Colors.orange,
+                          //     child: Center(
+                          //       child: Icon(Icons.notifications, color: Colors.white),
+                          //     ),
+                          //   ),
+                          // ),
+                        ),
+                      ],
+                    );
+                  }
               ),
 
-              Builder(builder: (context) {
-                return Container(
-                  height: MediaQuery.of(context)!.size.height * 0.18,
-                  decoration: BoxDecoration(
-                    color: AppColors.APP_SECONDARY_COLOR, // dark blue
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
-                    ),
-                  ),
-                  alignment: Alignment.topCenter,
-                  padding: const EdgeInsets.only(top: 35),
-                  child: Text(
-                    "البيانات الوظيفية",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: FontSizes.FONT_SIZE_16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                );
-              }),
 
               Positioned(
                 top: MediaQuery.of(context)!.size.height * 0.092,
@@ -121,6 +167,29 @@ class _EmploymentDetailsScreenState extends State<EmploymentDetailsScreen> {
                   ],
                 ),
               ),
+
+              Positioned(
+                  top: 45,
+                  left: 16,
+                  child:
+                  GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: const Icon(Icons.arrow_forward_ios,color: Colors.white,))
+                // ClipPath(
+                //   clipper: CornerClipper(),
+                //   child: Container(
+                //     width: 60,
+                //     height: 60,
+                //     color: Colors.orange,
+                //     child: Center(
+                //       child: Icon(Icons.notifications, color: Colors.white),
+                //     ),
+                //   ),
+                // ),
+              ),
+
               // Notification icon in orange curved corner
               Positioned(
                 top: 0,
