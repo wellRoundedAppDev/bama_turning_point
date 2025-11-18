@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../../core/constants/fonts/font_sizes.dart';
+import '../../../../core/locales/l10n/app_localizations.dart';
 import '../../../../shared_components/custom_button.dart';
 import '../../../data/models/account_address.dart';
 import '../address_book_entries/edit_address_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddressEntryItem extends StatelessWidget {
   AccountAddress? address;

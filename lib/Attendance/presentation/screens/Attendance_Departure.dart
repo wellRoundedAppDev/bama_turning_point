@@ -2,8 +2,8 @@ import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/report_last_month/presentaion/screens/report_last_month_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../core/locales/l10n/app_localizations.dart';
 import '../../../shared_components/yellow_curve.dart';
 import '../widgets/show_model_sheet.dart';
 

@@ -136,70 +136,70 @@ class LoginData {
 
   factory LoginData.fromJson(dynamic json) {
    var token = json['Token'];
-   var isAuthencated = json['IsAuthencated'];
-   var  expiresOn = json['ExpiresOn'];
-   var  role = json['Role'];
-   var  user = json['User'] != null ? new User.fromJson(json['User']) : null;
-   var  isPasswordStrong = json['IsPasswordStrong'];
-   var  message = json['Message'];
-   //
-    var customerId = json['customer_id'];
-    var customerGroupId = json['customer_group_id'];
-    var storeId = json['store_id'];
-    var languageId = json['language_id'];
-    var firstname = json['firstname'];
-    var lastname = json['lastname'];
-    var email = json['email'];
-    var telephone = json['telephone'];
-    var fax = json['fax'];
-   var wishlist = json['wishlist'] != null
-       ? List<String>.from(json['wishlist'].map((item) => item.toString()))
-       : [];
-    var newsletter = json['newsletter'];
-    var addressId = json['address_id'];
-    var ip = json['ip'];
-    var status = json['status'];
-    var safe = json['safe'];
-    var code = json['code'];
-    var dateAdded = json['date_added'];
-    // if (json['custom_fields'] != null) {
-    //   customFields = [];
-    //   json['custom_fields'].forEach((v) {
-    //     customFields?.add(Dynamic.fromJson(v));
-    //   });
-    // }
-    //accountCustomField = json['account_custom_field'] != null ? AccountCustomField.fromJson(json['account_custom_field']) : null;
-    var wishlistTotal = json['wishlist_total'];
-    var cartCountProducts = json['cart_count_products'];
+   // var isAuthencated = json['IsAuthencated'];
+   // var  expiresOn = json['ExpiresOn'];
+   // var  role = json['Role'];
+   // var  user = json['User'] != null ? new User.fromJson(json['User']) : null;
+   // var  isPasswordStrong = json['IsPasswordStrong'];
+   // var  message = json['Message'];
+   // //
+   //  var customerId = json['customer_id'];
+   //  var customerGroupId = json['customer_group_id'];
+   //  var storeId = json['store_id'];
+   //  var languageId = json['language_id'];
+   //  var firstname = json['firstname'];
+   //  var lastname = json['lastname'];
+   //  var email = json['email'];
+   //  var telephone = json['telephone'];
+   //  var fax = json['fax'];
+   // var wishlist = json['wishlist'] != null
+   //     ? List<String>.from(json['wishlist'].map((item) => item.toString()))
+   //     : [];
+   //  var newsletter = json['newsletter'];
+   //  var addressId = json['address_id'];
+   //  var ip = json['ip'];
+   //  var status = json['status'];
+   //  var safe = json['safe'];
+   //  var code = json['code'];
+   //  var dateAdded = json['date_added'];
+   //  // if (json['custom_fields'] != null) {
+   //  //   customFields = [];
+   //  //   json['custom_fields'].forEach((v) {
+   //  //     customFields?.add(Dynamic.fromJson(v));
+   //  //   });
+   //  // }
+   //  //accountCustomField = json['account_custom_field'] != null ? AccountCustomField.fromJson(json['account_custom_field']) : null;
+   //  var wishlistTotal = json['wishlist_total'];
+   //  var cartCountProducts = json['cart_count_products'];
     return LoginData(
 
       token: token,
-    isAuthencated:isAuthencated,
-    expiresOn:expiresOn,
-    role:role,
-    user:user,
-    isPasswordStrong:isPasswordStrong,
-    message:message,
-      //
-      dateAdded: dateAdded,
-      email: email,
-      telephone: telephone,
-      lastname: lastname,
-      firstname: firstname,
-      addressId: addressId,
-      storeId: storeId,
-      languageId: languageId,
-      customerId: customerId,
-      cartCountProducts: cartCountProducts,
-      fax: fax,
-      ip: ip,
-      newsletter: newsletter,
-      safe: safe,
-      wishlist: wishlist,
-      wishlistTotal: wishlistTotal,
-      customerGroupId: customerGroupId,
-      code: code,
-      status: status,
+    // isAuthencated:isAuthencated,
+    // expiresOn:expiresOn,
+    // role:role,
+    // user:user,
+    // isPasswordStrong:isPasswordStrong,
+    // message:message,
+    //   //
+    //   dateAdded: dateAdded,
+    //   email: email,
+    //   telephone: telephone,
+    //   lastname: lastname,
+    //   firstname: firstname,
+    //   addressId: addressId,
+    //   storeId: storeId,
+    //   languageId: languageId,
+    //   customerId: customerId,
+    //   cartCountProducts: cartCountProducts,
+    //   fax: fax,
+    //   ip: ip,
+    //   newsletter: newsletter,
+    //   safe: safe,
+    //   wishlist: wishlist,
+    //   wishlistTotal: wishlistTotal,
+    //   customerGroupId: customerGroupId,
+    //   code: code,
+    //   status: status,
     );
   }
   String? token;

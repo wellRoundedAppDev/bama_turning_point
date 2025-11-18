@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../core/locales/l10n/app_localizations.dart';
 
 class ReportLastMonthScreen extends StatelessWidget {
 

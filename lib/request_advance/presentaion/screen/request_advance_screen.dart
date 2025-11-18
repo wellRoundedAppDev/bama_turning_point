@@ -5,10 +5,10 @@ import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:classic_eccomerce/shared_components/custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
+import '../../../core/locales/l10n/app_localizations.dart';
 import '../../../shared_components/appbar_container.dart';
 import '../../../shared_components/yellow_curve.dart';
 

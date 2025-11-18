@@ -3,12 +3,10 @@ import 'package:bloc/bloc.dart';
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_states.dart';
 import 'package:classic_eccomerce/core/constants/paths/sound_paths.dart';
 import 'package:classic_eccomerce/main.dart';
-import 'package:classic_eccomerce/notifications/presentation/cubit/notifications_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../authentication/presentation/auth_cubit/auth_cubit.dart';
-import '../../cart/presentation/cubits/cart_cubit/cubit.dart';
 
 class AppSettingsCubit extends Cubit<AppSettingsStates>{
   AppSettingsCubit():super(AppSettingsInitialState());
@@ -41,7 +39,7 @@ class AppSettingsCubit extends Cubit<AppSettingsStates>{
     //
     // });
 
-    AuthCubit.get(context).autoLogin(cartCubit: CartCubit.get(context));
+    // AuthCubit.get(context).autoLogin(cartCubit: CartCubit.get(context));
 
   }
 

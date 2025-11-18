@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/constants/fonts/font_sizes.dart';
+import '../../../core/locales/l10n/app_localizations.dart';
 import '../../../shared_components/custom_app_bar.dart';
 import '../../../shared_components/custom_button.dart';
 import '../../../shared_components/custom_input.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   const ChangePasswordScreen({super.key});

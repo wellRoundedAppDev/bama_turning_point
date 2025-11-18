@@ -1,12 +1,14 @@
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../authentication/presentation/screens/login_screen.dart';
+import '../../../core/locales/l10n/app_localizations.dart';
 
 void main() {
   runApp(const TurningPointApp());
@@ -24,9 +26,22 @@ class TurningPointApp extends StatelessWidget {
   }
 }
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
+
   const SplashScreen({super.key});
 
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<AuthCubit>().autoLogin();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,15 +138,15 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
 
-            Positioned(
-              bottom: 50,
-              left: 40,
-              right: 40,
-              child: CustomButton(text: AppLocalizations.of(context)!.login, action: (){
-                Navigator.push(context, PageTransition(child: SignInScreen(), type: PageTransitionType.leftToRight));
-              },
-              ),
-            ),
+            // Positioned(
+            //   bottom: 50,
+            //   left: 40,
+            //   right: 40,
+            //   child: CustomButton(text: AppLocalizations.of(context)!.login, action: (){
+            //     Navigator.push(context, PageTransition(child: SignInScreen(), type: PageTransitionType.leftToRight));
+            //   },
+            //   ),
+            // ),
 
           ],
         ),

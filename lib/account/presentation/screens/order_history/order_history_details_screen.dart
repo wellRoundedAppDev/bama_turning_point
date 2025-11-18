@@ -6,9 +6,8 @@ import 'package:classic_eccomerce/shared_components/custom_app_bar.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../../core/constants/fonts/font_sizes.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../../core/locales/l10n/app_localizations.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
   const OrderDetailsScreen({
@@ -19,7 +18,7 @@ class OrderDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {    return SafeArea(
         child: Scaffold(
       appBar: CustomAppBar.renderAppBar(
-          title: 'Products Result', cartCubit: CartCubit.get(context)),
+          title: 'Products Result', ),
       body: BlocConsumer<AccountCubit, AccountStates>(
         listener: (context, state) {},
         builder: (context, state) {

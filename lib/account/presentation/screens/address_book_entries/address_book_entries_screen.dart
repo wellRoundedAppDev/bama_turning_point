@@ -9,10 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../core/constants/fonts/font_sizes.dart';
+import '../../../../core/locales/l10n/app_localizations.dart';
 import '../../../data/models/account_address.dart';
 import 'add_address_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 class AddressBookEntriesScreen extends StatelessWidget {
   const AddressBookEntriesScreen({super.key});
 

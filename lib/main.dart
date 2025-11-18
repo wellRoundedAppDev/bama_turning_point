@@ -8,24 +8,20 @@ import 'package:classic_eccomerce/core/constants/strings/strings.dart';
 import 'package:classic_eccomerce/core/locales/locale_cubit/locale_cubit.dart';
 import 'package:classic_eccomerce/core/locales/locale_cubit/locale_states.dart';
 import 'package:classic_eccomerce/home_layout/presentation/screens/home_layout.dart';
-import 'package:classic_eccomerce/notifications/presentation/cubit/notifications_cubit.dart';
 import 'package:classic_eccomerce/request_advance/presentaion/screen/request_advance_screen.dart';
 import 'package:classic_eccomerce/request_holiday/presentaion/screen/request_holiday_screen.dart';
 import 'package:classic_eccomerce/revealing_ranks/presentation/screen/revealing_ranks_screen.dart';
 import 'package:classic_eccomerce/splash/presentation/screens/splash_screen.dart';
-import 'package:classic_eccomerce/wish_list/presentation/cubits/wish_list_cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'Attendance/presentation/screens/Attendance_Departure.dart';
-import 'cart/presentation/cubits/cart_cubit/cubit.dart';
-import 'cart/presentation/screens/cart_screen.dart';
 import 'core/bloc_observer.dart';
 import 'core/constants/colors/colors.dart';
 import 'core/constants/fonts/font_families.dart';
+import 'core/locales/l10n/app_localizations.dart';
 import 'core/locales/l10n/l10n.dart';
 import 'core/locales/l10n/l10n.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
@@ -58,10 +54,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AppSettingsCubit(),
         ),
-        BlocProvider(create: (context) => CartCubit()),
-        BlocProvider(
-          create: (context) => WishListCubit()..init(CartCubit.get(context)),
-        ),
+        // BlocProvider(create: (context) => CartCubit()),
+        // BlocProvider(
+        //   create: (context) => WishListCubit()..init(CartCubit.get(context)),
+        // ),
         // BlocProvider(
         //   create: (context) => NotificationsCubit(),
         // ),
@@ -85,9 +81,9 @@ class MyApp extends StatelessWidget {
             routes: {
               RoutesIDs.SPLASH_SCREEN_ROUTE_ID: (context) =>
                   const SplashScreen(),
-              RoutesIDs.CART_SCREEN_ROUTE_ID: (context) => CartScreen(),
-              RoutesIDs.HOME_LAYOUT_SCREEN_ROUTE_ID: (context) =>
-                  const HomeLayoutScreen()
+              // // RoutesIDs.CART_SCREEN_ROUTE_ID: (context) => CartScreen(),
+              // RoutesIDs.HOME_LAYOUT_SCREEN_ROUTE_ID: (context) =>
+              //     const HomeLayoutScreen()
             },
             theme: ThemeData(
               dividerColor: Colors.transparent,
@@ -111,7 +107,7 @@ class MyApp extends StatelessWidget {
                 900: const Color(AppColors.APP_MAIN_COLOR_HEX).withOpacity(1),
               }),
             ),
-            home:  SplashScreen(),
+            home:  const SplashScreen(),
           );
         },
       ),

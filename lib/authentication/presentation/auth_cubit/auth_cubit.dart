@@ -5,22 +5,21 @@ import 'package:classic_eccomerce/authentication/data/models/login_form_input.da
 import 'package:classic_eccomerce/authentication/data/models/login_response.dart';
 import 'package:classic_eccomerce/authentication/data/models/register_form_input.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
-import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
-import 'package:classic_eccomerce/checkout/presentation/cubits/check_out_cubit.dart';
+import 'package:classic_eccomerce/authentication/presentation/screens/login_screen.dart';
 import 'package:classic_eccomerce/core/data/data_sources/remote_data_sources/get_countries_api.dart';
 import 'package:classic_eccomerce/core/data/models/get_countries_response.dart';
 import 'package:classic_eccomerce/core/data/models/get_regions_response.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:classic_eccomerce/profile/profile_screen.dart';
 import 'package:classic_eccomerce/shared_components/app_snackbar.dart';
+import 'package:classic_eccomerce/splash/presentation/screens/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../../checkout/presentation/screens/quick_checkout_main_screen.dart';
-import '../../../checkout/presentation/screens/set_address_for_registered_user_screen.dart';
 import '../../../core/helpers/dio_helper.dart';
+import '../../../core/locales/l10n/app_localizations.dart';
 import '../../../home_layout/presentation/screens/home_layout.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthCubit extends Cubit<AuthStates> {
   AuthCubit() : super(AuthInitialState());
@@ -62,15 +61,14 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   loginFromLoginForm(
-      {bool isCheckingOut = false, required CartCubit cartCubit,}) async {
-    // if (validateLoginForm() != true) {
-    //   return;
-    // }
+      {bool isCheckingOut = false,}) async {
 
-    Navigator.push(context, PageTransition(child: PersonalProfileScreen(), type: PageTransitionType.leftToRight));
-    return;
+
+    if (validateLoginForm() != true) {
+      return;
+    }
+
     loginFormKey.currentState?.save();
-  //  emit(LoginLoadingState());
 
     // if (await setAccessToken() == false) {
     //   showAppSnackBar(content: "Check your internet connection, and try again");
@@ -78,69 +76,53 @@ class AuthCubit extends Cubit<AuthStates> {
     //   return;
     // }
 
+
+    emit(LoginLoadingState());
     var response = await AuthApis.login(loginFormInput.toJson());
     if (response?.success == true) {
       loginResponse = response;
       isUserLoggedIn = true;
-      accessToken= response?.loginData?.token;
-      print('qqqq $accessToken');
-      cartCubit.numberOfItemsInCart =
-          loginResponse?.loginData?.cartCountProducts ?? 0;
+      // cartCubit.numberOfItemsInCart =
+      //     loginResponse?.loginData?.cartCountProducts ?? 0;
+
+      accessToken = response?.loginData?.token;
       setLoginCredentialsInSharedPrefs({
-        "UserName": loginFormInput.username,
-        "Password": loginFormInput.password
+        "userName": loginFormInput.username,
+        "password": loginFormInput.password
       });
       emit(LoginSuccessState());
-      // Navigator.pop(context);
 
+      Navigator.push(context, PageTransition(child: PersonalProfileScreen(), type: PageTransitionType.leftToRight));
+
+
+      print("token:${loginResponse?.loginData?.token}");
       // Navigator.pushReplacement(
       //     context,
       //     PageTransition(
       //         child: const HomeLayoutScreen(),
       //         type: PageTransitionType.fade));
-
-      // if (isCheckingOut) {
-      //   Navigator.pushReplacement(
-      //       context,
-      //       PageTransition(
-      //           child: BlocProvider.value(
-      //               value: cartCubit!,
-      //               child: BlocProvider(
-      //                   create: (context) => CheckOutCubit()
-      //                     ..setRegisteredUserPaymentAddresses(),
-      //                   child:
-      //                       const SetBillingAddressForRegisteredUserScreen())),
-      //           type: PageTransitionType.leftToRight));
-      // }
-
-
-    }
-    else if (response?.success == false) {
+      // Navigator.pop(context);
+    } else if (response?.success == false) {
       loginResponse = null;
       isUserLoggedIn = false;
       accessToken = null;
-
       showAppSnackBar(
-          content: response?.error != null && response?.error != ""
-              ? (response?.error ?? "") ==
-                      "كلمة المرور أو اسم المستخدم غير صحيح"
-                  ? AppLocalizations.of(context)!.wrong_phone_number_or_password
-                  : AppLocalizations.of(context)!.error_occurred_try_again
-              : "");
-      print(response?.error);
+          content: response?.loginData?.message??"");
+      if (kDebugMode) {
+        print(response?.error);
+      }
       emit(LoginFailedState());
     } else {
       loginResponse = null;
       isUserLoggedIn = false;
       accessToken = null;
 
-      print(isUserLoggedIn);
       showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
       emit(LoginNetworkFailedConnectionState());
     }
   }
 
-  login({required dynamic loginInput, required CartCubit cartCubit}) async {
+  login({required dynamic loginInput, }) async {
     // if (await setAccessToken() == false) {
     //   showAppSnackBar(content: "Check your internet connection, and try again");
     //   emit(LoginNetworkFailedConnectionState());
@@ -151,13 +133,13 @@ class AuthCubit extends Cubit<AuthStates> {
     if (response?.success == true) {
       loginResponse = response;
       isUserLoggedIn = true;
-      cartCubit.numberOfItemsInCart =
-          loginResponse?.loginData?.cartCountProducts ?? 0;
+      // cartCubit.numberOfItemsInCart =
+      //     loginResponse?.loginData?.cartCountProducts ?? 0;
 
       accessToken = response?.loginData?.token;
       setLoginCredentialsInSharedPrefs({
-        "UserName": loginInput['UserName'],
-        "Password": loginInput['Password']
+        "userName": loginInput['userName'],
+        "password": loginInput['password']
       });
       // Navigator.pushReplacement(
       //     context,
@@ -171,26 +153,22 @@ class AuthCubit extends Cubit<AuthStates> {
       isUserLoggedIn = false;
       accessToken = null;
       showAppSnackBar(
-          content: response?.error != null  &&
-                  response?.error != ""
-              ? (response?.error ?? "") ==
-               "كلمة المرور أو اسم المستخدم غير صحيح"
-          ? AppLocalizations.of(context)!.wrong_phone_number_or_password
-                  : AppLocalizations.of(context)!.error_occurred_try_again
-              : "");
-      print(response?.error);
+          content: response?.loginData?.message??"");
+      if (kDebugMode) {
+        print(response?.error);
+      }
       emit(LoginFailedState());
     } else {
       loginResponse = null;
       isUserLoggedIn = false;
       accessToken = null;
 
-      showAppSnackBar(content: "Check your internet connection, and try again");
+      showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
       emit(LoginNetworkFailedConnectionState());
     }
   }
 
-  autoLogin({required CartCubit cartCubit}) async {
+  autoLogin() async {
     // Future.delayed(
     //   const Duration(seconds: 3),
     //       () => Navigator.pushReplacement(
@@ -202,20 +180,24 @@ class AuthCubit extends Cubit<AuthStates> {
     //
     var loggedUser = (await getLoginCredentialsFromSharedPrefs());
     if (loggedUser == null) {
+
       Future.delayed(
         const Duration(seconds: 3),
-        () => Navigator.pushReplacement(
+            () => Navigator.pushReplacement(
             context,
             PageTransition(
-                child: const HomeLayoutScreen(),
+                child:  PersonalProfileScreen(),
                 type: PageTransitionType.fade)),
       );
+
+
+
       return;
     }
 
     var loginInput = {
-      "UserName": loggedUser['UserName'],
-      "Password": loggedUser['Password']
+      "UserName": loggedUser['userName'],
+      "Password": loggedUser['password']
     };
 
     // if (await setAccessToken() == false) {
@@ -233,31 +215,25 @@ class AuthCubit extends Cubit<AuthStates> {
       loginResponse = response;
       isUserLoggedIn = true;
       accessToken = loginResponse?.loginData?.token;
-      cartCubit.numberOfItemsInCart =
-          loginResponse?.loginData?.cartCountProducts ?? 0;
+      // cartCubit.numberOfItemsInCart =
+      //     loginResponse?.loginData?.cartCountProducts ?? 0;
 
       Navigator.pushReplacement(
           context,
           PageTransition(
-              child: const HomeLayoutScreen(), type: PageTransitionType.fade));
+              child:  PersonalProfileScreen(), type: PageTransitionType.fade));
       emit(LoginSuccessState());
     } else if (response?.success == false) {
       loginResponse = null;
       isUserLoggedIn = false;
       showAppSnackBar(
-          content: response?.error != null  &&
-              response?.error != ""
-              ? (response?.error ?? "") ==
-              "كلمة المرور أو اسم المستخدم غير صحيح"
-              ? AppLocalizations.of(context)!.wrong_phone_number_or_password
-              : AppLocalizations.of(context)!.error_occurred_try_again
-              : "");
+          content: response?.loginData?.message??"");
       print(response?.error);
       emit(LoginFailedState());
     } else {
       loginResponse = null;
       isUserLoggedIn = false;
-      showAppSnackBar(content: "Check your internet connection, and try again");
+      showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
       emit(LoginNetworkFailedConnectionState());
     }
   }
@@ -302,7 +278,7 @@ class AuthCubit extends Cubit<AuthStates> {
   //     emit(RegisterNetworkFailedConnectionState());
   //   }
   // }
-  register({required CartCubit cartCubit}) async {
+  register() async {
     if (validateRegisterForm() != true) {
       return;
     }
@@ -317,19 +293,19 @@ class AuthCubit extends Cubit<AuthStates> {
 
     var response = await AuthApis.register(registerFormInput.toJsonForApi());
     if (response?.success == true) {
-       isUserLoggedIn = true;
+      isUserLoggedIn = true;
       await login(loginInput: {
         "UserName": registerFormInput.userName,
         "Password": registerFormInput.password
-      }, cartCubit: cartCubit);
-       Navigator.pop(context);
-       emit(RegisterSuccessState());
+      }, );
+      Navigator.pop(context);
+      emit(RegisterSuccessState());
     } else if (response?.success == false) {
       // isUserLoggedIn = false;
 
       showAppSnackBar(
           content:
-               (response?.message??""));
+          (response?.message??""));
       emit(RegisterFailedState());
     } else {
       // isUserLoggedIn = false;
@@ -338,11 +314,11 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 
-  Future<void> logOut(CartCubit? cartCubit) async {
+  Future<void> logOut() async {
 
 
     isUserLoggedIn = false;
-    cartCubit?.clearCart();
+    // cartCubit?.clearCart();
     clearLoginCredentialsFromSharedPrefs();
     accessToken = null;
 
@@ -357,7 +333,7 @@ class AuthCubit extends Cubit<AuthStates> {
     var success = await AuthApis.logOut();
     if (success == true) {
       isUserLoggedIn = false;
-      cartCubit?.clearCart();
+      // cartCubit?.clearCart();
       clearLoginCredentialsFromSharedPrefs();
       emit(LogoutSuccessState());
     } else if (success == false) {
@@ -417,10 +393,10 @@ class AuthCubit extends Cubit<AuthStates> {
 
   validateGuestCheckoutForm() {
     if (guestFormKey.currentState!.validate() == true
-        //&&
-        //   guestFormInput.country != null &&
-        //    guestFormInput.region != null
-        ) {
+    //&&
+    //   guestFormInput.country != null &&
+    //    guestFormInput.region != null
+    ) {
       return true;
     }
     return false;
@@ -449,65 +425,65 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 
-  Future<bool?> createGuestUser(
-      CartCubit cartCubit, CheckOutCubit checkOutCubit) async {
-    if (validateGuestCheckoutForm() == false) {
-      return null;
-    }
-
-    guestFormKey.currentState?.save();
-
-    guestFormInput?.country = Country(countryId: 102);
-
-    emit(CreatingGuestUserLoadingState());
-    if (await setAccessToken() == true) {
-      var addItemsToCartSuccess = await cartCubit.addItemsToCart();
-      if (addItemsToCartSuccess == true) {
-        var createGuestUserSuccess = await AuthApis.createGuestUser(
-            guestFormInput.toJsonForCreateGuestApi());
-        if (createGuestUserSuccess == true) {
-          Navigator.push(
-              context,
-              PageTransition(
-                  child: BlocProvider.value(
-                      value: checkOutCubit..initCheckoutForGuest(),
-                      child: BlocProvider.value(
-                          value: cartCubit,
-                          child: const QuickCheckoutMainScreen())),
-                  type: PageTransitionType.leftToRight));
-          //  MyApp.navKey.currentState!.context.read<AuthCubit>().clearGuest();
-          emit(CreatingGuestUserSuccessState());
-          return true;
-        } else if (createGuestUserSuccess == false) {
-          showAppSnackBar(
-              content: AppLocalizations.of(context)!.error_occurred_try_again);
-          emit(CreatingGuestUserFailedState());
-          return false;
-        } else {
-          showAppSnackBar(
-              content: AppLocalizations.of(context)!
-                  .check_your_internet_connection_and_try_again_later);
-          emit(CreatingGuestUserNetworkConnectionFailedState());
-          return null;
-        }
-      } else if (addItemsToCartSuccess == false) {
-        //todo add snackbar
-        emit(CreatingGuestUserFailedState());
-        showAppSnackBar(content: "Error occured");
-
-        return false;
-      } else {
-        //todo add snackbar
-        emit(CreatingGuestUserNetworkConnectionFailedState());
-        showAppSnackBar(
-            content: "Check your internet connection, and try again");
-
-        return null;
-      }
-    } else {
-      emit(CreatingGuestUserNetworkConnectionFailedState());
-      showAppSnackBar(content: "Check your internet connection, and try again");
-      return null;
-    }
-  }
+// Future<bool?> createGuestUser(
+//     ) async {
+//   if (validateGuestCheckoutForm() == false) {
+//     return null;
+//   }
+//
+//   guestFormKey.currentState?.save();
+//
+//   guestFormInput?.country = Country(countryId: 102);
+//
+//   emit(CreatingGuestUserLoadingState());
+//   if (await setAccessToken() == true) {
+//     var addItemsToCartSuccess = await cartCubit.addItemsToCart();
+//     if (addItemsToCartSuccess == true) {
+//       var createGuestUserSuccess = await AuthApis.createGuestUser(
+//           guestFormInput.toJsonForCreateGuestApi());
+//       if (createGuestUserSuccess == true) {
+//         Navigator.push(
+//             context,
+//             PageTransition(
+//                 child: BlocProvider.value(
+//                     value: checkOutCubit..initCheckoutForGuest(),
+//                     child: BlocProvider.value(
+//                         value: cartCubit,
+//                         child: const QuickCheckoutMainScreen())),
+//                 type: PageTransitionType.leftToRight));
+//         //  MyApp.navKey.currentState!.context.read<AuthCubit>().clearGuest();
+//         emit(CreatingGuestUserSuccessState());
+//         return true;
+//       } else if (createGuestUserSuccess == false) {
+//         showAppSnackBar(
+//             content: AppLocalizations.of(context)!.error_occurred_try_again);
+//         emit(CreatingGuestUserFailedState());
+//         return false;
+//       } else {
+//         showAppSnackBar(
+//             content: AppLocalizations.of(context)!
+//                 .check_your_internet_connection_and_try_again_later);
+//         emit(CreatingGuestUserNetworkConnectionFailedState());
+//         return null;
+//       }
+//     } else if (addItemsToCartSuccess == false) {
+//       //todo add snackbar
+//       emit(CreatingGuestUserFailedState());
+//       showAppSnackBar(content: "Error occured");
+//
+//       return false;
+//     } else {
+//       //todo add snackbar
+//       emit(CreatingGuestUserNetworkConnectionFailedState());
+//       showAppSnackBar(
+//           content: "Check your internet connection, and try again");
+//
+//       return null;
+//     }
+//   } else {
+//     emit(CreatingGuestUserNetworkConnectionFailedState());
+//     showAppSnackBar(content: "Check your internet connection, and try again");
+//     return null;
+//   }
+// }
 }

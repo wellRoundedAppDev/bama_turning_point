@@ -17,9 +17,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/data/data_sources/remote_data_sources/get_countries_api.dart';
 import '../../../../core/data/models/get_countries_response.dart';
 import '../../../../core/data/models/get_regions_response.dart';
+import '../../../../core/locales/l10n/app_localizations.dart';
 import '../../../../shared_components/app_snackbar.dart';
 import '../../../data/models/account_address.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AccountCubit extends Cubit<AccountStates> {
   AccountCubit() : super(AccountInitialState());

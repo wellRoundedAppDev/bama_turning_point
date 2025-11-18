@@ -10,10 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
+import '../../../core/locales/l10n/app_localizations.dart';
 import 'address_book_entries/address_book_entries_screen.dart';
 import 'edit_account_info_screen.dart';
 import 'order_history/order_history_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyAccountScreen extends StatelessWidget {
   const MyAccountScreen({super.key});

@@ -4,7 +4,8 @@ import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:classic_eccomerce/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../core/locales/l10n/app_localizations.dart';
 
 
 

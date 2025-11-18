@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../core/constants/paths/image_paths.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../core/locales/l10n/app_localizations.dart';
 
 class EmploymentDetailsScreen extends StatefulWidget {
   const EmploymentDetailsScreen({super.key});

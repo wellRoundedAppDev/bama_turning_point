@@ -1,9 +1,93 @@
+//plugins {
+//    id "com.android.application"
+//    id "kotlin-android"
+//    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+//    id "dev.flutter.flutter-gradle-plugin"
+//
+//    id "org.jetbrains.kotlin.android"
+//}
+//
+//android {
+//    namespace = "com.nxtLeap.Fixawi"
+//    compileSdk = flutter.compileSdkVersion
+//    ndkVersion = flutter.ndkVersion
+//
+//    compileOptions {
+//        coreLibraryDesugaringEnabled true
+//
+//        sourceCompatibility = JavaVersion.VERSION_1_8
+//        targetCompatibility = JavaVersion.VERSION_1_8
+//    }
+//
+//    kotlinOptions {
+//        jvmTarget = JavaVersion.VERSION_1_8
+//    }
+//
+//
+//    buildFeatures { dataBinding = true }
+//
+//
+//    defaultConfig {
+//        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+//        applicationId = "com.nxtLeap.Fixawi"
+//        // You can update the following values to match your application needs.
+//        // For more information, see: https://flutter.dev/to/review-gradle-config.
+//        minSdk = 26
+//        targetSdk = flutter.targetSdkVersion
+//        versionCode = flutter.versionCode
+//        versionName = flutter.versionName
+//    }
+//
+//
+//    signingConfigs {
+//        release {
+//            storeFile file("D:\\sayyn_1\\upload-keystore.jks") // 🔁 Replace with your keystore path
+//            storePassword "eng\$a7a123"
+//            keyAlias "uploadd"
+//            keyPassword "eng\$a7a123"
+//        }
+//    }
+//
+//
+//    buildTypes {
+//        release {
+//            // TODO: Add your own signing config for the release build.
+//            // Signing with the debug keys for now, so `flutter run --release` works.
+//            signingConfig = signingConfigs.release
+//        }
+//    }
+//}
+//
+//flutter {
+//    source = "../.."
+//}
+//dependencies {
+//   // implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"  // ✅ Use specific Kotlin version
+//
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+//    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'  // ✅ Keep this here
+//
+//    implementation("com.paymob.sdk:Paymob-SDK:1.5.9")//Please change this version number to match the version number of the downloaded sdk
+//
+//}
+//
+
+
+
 plugins {
     id "com.android.application"
     id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
+
+    id "org.jetbrains.kotlin.android"
+
+   // id 'com.google.gms.google-services'
+
+
 }
+
+def kotlin_version = rootProject.ext.kotlin_version // ✅ Added to sync Kotlin version
 
 android {
     namespace = "com.spark.turningPoint"
@@ -11,8 +95,8 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
-
         coreLibraryDesugaringEnabled true
+
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -21,22 +105,36 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8
     }
 
+    buildFeatures {
+        dataBinding = true
+    }
+
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.spark.turningPoint"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        minSdk = 23
+        targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        release {
+            storeFile file("D:\\sayyn_1\\upload-keystore.jks")
+            storePassword "buqcha"
+            keyAlias "buqcha"
+            keyPassword "buqcha"
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+            signingConfig = signingConfigs.release
+
+            minifyEnabled false
+            shrinkResources false
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
         }
     }
 }
@@ -46,6 +144,10 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"  // ✅ Use specific Kotlin version
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'  // ✅ Keep this here
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" // ✅ Synced version
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
+   // implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+
+   // implementation platform('com.google.firebase:firebase-bom:34.4.0')
 }

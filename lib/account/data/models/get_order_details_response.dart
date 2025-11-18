@@ -1,4 +1,3 @@
-import '../../../home/data/models/product.dart';
 
 class PurchaseRequestDetailsResponse {
   final bool isSucceeded;

@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 
 import '../core/constants/fonts/font_sizes.dart';
 import '../core/constants/paths/image_paths.dart';
+import '../core/locales/l10n/app_localizations.dart';
 import 'custom_button.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NoNetworkRefreshPage extends StatelessWidget {
   Function()? refresh;

@@ -4,15 +4,14 @@ import 'package:classic_eccomerce/authentication/data/models/get_place_governora
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/authentication/presentation/get_place_cubit/get_place_cubit.dart';
-import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/shared_components/app_snackbar.dart';
 import 'package:classic_eccomerce/shared_components/custom_button.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/paths/image_paths.dart';
+import '../../../core/locales/l10n/app_localizations.dart';
 import '../../../shared_components/custom_input.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUpScreen extends StatelessWidget {
   bool showBackButton;
@@ -335,7 +334,7 @@ class SignUpScreen extends StatelessWidget {
                         isLoading: state is RegisterLoadingState,
                         action: () {
                           AuthCubit.get(context)
-                              .register(cartCubit: CartCubit.get(context));
+                              .register();
                           // Navigator.push(
                           //     context,
                           //     PageTransition(

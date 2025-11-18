@@ -9,9 +9,9 @@ import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../core/constants/fonts/font_sizes.dart';
+import '../../../../core/locales/l10n/app_localizations.dart';
 import '../../../../shared_components/custom_button.dart';
 import '../order_history/order_history_details_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderHistoryItem extends StatelessWidget {
   PurchaseRequest? customerOrder;

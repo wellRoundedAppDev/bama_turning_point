@@ -4,13 +4,13 @@ import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:classic_eccomerce/employement_details/employment_details_screen.dart';
 import 'package:classic_eccomerce/profile/profile_screen_2.dart';
-import 'package:classic_eccomerce/register_attendance/register_attendance_screen.dart';
 import 'package:classic_eccomerce/request_advance/presentaion/screen/request_advance_screen.dart';
 import 'package:classic_eccomerce/revealing_ranks/presentation/screen/revealing_ranks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../core/locales/l10n/app_localizations.dart';
+import '../register_attendance_by_location/presentation/screens/register_attendance_screen.dart';
 import '../request_holiday/presentaion/screen/request_holiday_screen.dart';
 import '../shared_components/custom_alert2.dart';
 
@@ -147,27 +147,27 @@ class PersonalProfileScreen extends StatelessWidget {
           //   ),
           // ),
         ),
-        Positioned(
-            top: 45,
-            left: 16,
-            child:
-            GestureDetector(
-                onTap: (){
-                  Navigator.pop(context);
-                },
-                child: const Icon(Icons.arrow_forward_ios,color: Colors.white,))
-          // ClipPath(
-          //   clipper: CornerClipper(),
-          //   child: Container(
-          //     width: 60,
-          //     height: 60,
-          //     color: Colors.orange,
-          //     child: Center(
-          //       child: Icon(Icons.notifications, color: Colors.white),
-          //     ),
-          //   ),
-          // ),
-        ),
+        // Positioned(
+        //     top: 45,
+        //     left: 16,
+        //     child:
+        //     GestureDetector(
+        //         onTap: (){
+        //           Navigator.pop(context);
+        //         },
+        //         child: const Icon(Icons.arrow_forward_ios,color: Colors.white,))
+        //   // ClipPath(
+        //   //   clipper: CornerClipper(),
+        //   //   child: Container(
+        //   //     width: 60,
+        //   //     height: 60,
+        //   //     color: Colors.orange,
+        //   //     child: Center(
+        //   //       child: Icon(Icons.notifications, color: Colors.white),
+        //   //     ),
+        //   //   ),
+        //   // ),
+        // ),
 
         // Profile picture and name
       ],
@@ -244,7 +244,7 @@ class PersonalProfileScreen extends StatelessWidget {
 
                 }
                 else if(index == 5){
-                  Navigator.push(context, PageTransition(child:  const RegisterAttendanceScreen(), type: PageTransitionType.leftToRight));
+                  Navigator.push(context, PageTransition(child:  const RegisterAttendanceByLocationScreen(), type: PageTransitionType.leftToRight));
 
                 }else{
                   Navigator.push(context, PageTransition(child:  RequestAdvanceScreen(), type: PageTransitionType.leftToRight));

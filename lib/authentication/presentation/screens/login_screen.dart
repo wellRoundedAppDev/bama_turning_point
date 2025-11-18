@@ -3,16 +3,14 @@ import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.
 import 'package:classic_eccomerce/authentication/presentation/screens/forget_password_screen.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/sign_up_new_screen.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/sign_up_screen.dart';
-import 'package:classic_eccomerce/contact_us/presentation/screens/contact_us_screen.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../../cart/presentation/cubits/cart_cubit/cubit.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
+import '../../../core/locales/l10n/app_localizations.dart';
 import '../../../shared_components/custom_button.dart';
 import '../../../shared_components/custom_input.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignInScreen extends StatelessWidget {
   bool isCheckingOut;
@@ -54,7 +52,7 @@ class SignInScreen extends StatelessWidget {
                     )),
                     const SizedBox(height: 16,),
 
-                    Text(AppLocalizations.of(context)!.login,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: FontSizes.FONT_SIZE_20),),
+                    Text(AppLocalizations.of(context)!.login,style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: FontSizes.FONT_SIZE_20),),
 
                     const SizedBox(
                       height: 32,
@@ -85,6 +83,7 @@ class SignInScreen extends StatelessWidget {
                     CustomInput(
                       label: AppLocalizations.of(context)!.password,
                       hintText: AppLocalizations.of(context)!.password,
+                      obscureText: true,
                       validator: (v) {
                         if (v == null || v.length < 6) {
                           return AppLocalizations.of(context)!
@@ -167,7 +166,7 @@ class SignInScreen extends StatelessWidget {
                             action: () {
                               AuthCubit.get(context).loginFromLoginForm(
                                   isCheckingOut: isCheckingOut,
-                                  cartCubit: CartCubit.get(context));
+                                 );
                             });
                       },
                     ),

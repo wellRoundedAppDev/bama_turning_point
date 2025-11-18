@@ -1,6 +1,7 @@
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../core/locales/l10n/app_localizations.dart';
 
 void showRegistrationSuccessSheet(BuildContext context, String loginTime) {
   showModalBottomSheet(

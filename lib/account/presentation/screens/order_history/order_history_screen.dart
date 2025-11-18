@@ -2,15 +2,14 @@ import 'package:classic_eccomerce/account/data/models/get_customer_orders_respon
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/cubit.dart';
 import 'package:classic_eccomerce/account/presentation/cubits/account_cubit/states.dart';
 import 'package:classic_eccomerce/account/presentation/screens/widgets/order_history_item.dart';
-import 'package:classic_eccomerce/cart/presentation/cubits/cart_cubit/cubit.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/fonts/font_sizes.dart';
+import '../../../../core/locales/l10n/app_localizations.dart';
 import '../../../../shared_components/app_no_products.dart';
 import '../../../../shared_components/custom_app_bar.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderHistoryScreen extends StatelessWidget {
   const OrderHistoryScreen({super.key});
@@ -19,7 +18,6 @@ class OrderHistoryScreen extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       appBar: CustomAppBar.renderAppBar(title: 'Products Result',
-      cartCubit: CartCubit.get(context)
       ),
       body: BlocConsumer<AccountCubit, AccountStates>(
         listener: (context, state) {},

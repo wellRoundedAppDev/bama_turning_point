@@ -1,12 +1,15 @@
 class ApiUrls {
   static const BASE_URL =
-      "https://erp-test.net/";
+  "https://erpapi1.semicolonsys.com/";
+     // "https://erp-test.net/";
   //  "https://m-caesari.com/";
   //"https://buqcha.net/";
   // "https://opencart3-simple.api.opencart-api.com/";
   static const GET_TOKEN_ENDPONT = "api/rest/oauth2/token/client_credentials";
   static const GET_SESSION_ID_ENDPOINT = "api/rest/session";
-  static const LOGIN_ENDPOINT = "api/Users/LoginCustomer";
+
+
+  static const LOGIN_ENDPOINT = "Login";
   static const REGISTER_ENDPOINT = "api/Users/RegisterCustomer";
   static const GET_Governorate_ENDPOINT = "api/Users/GetGovernorate";
   static const GET_Judiciary_ENDPOINT = "api/Users/GetJudiciaryByGovernorateId";
@@ -170,4 +173,12 @@ class ApiUrls {
 
   static const USED_PRODUCTS_FEATURE_BASE_URL =
       "https://taskmanagement.semicolonsys.com/caser/";
+
+
+
+
+  static const GET_GEOFENCES_ENDPOINT = "Geofence/GetAllMop";
+
+
+
 }
