@@ -9,3 +9,17 @@ class AttendanceByLocationLocationLoadingState extends AttendanceByLocationState
 
 
 class ChangeState extends AttendanceByLocationStates{}
+
+
+
+class RegisterAttendanceByLocationLoadingState extends AttendanceByLocationStates{}
+
+
+class RegisterAttendanceByLocationSuccessState extends AttendanceByLocationStates{}
+
+
+
+class RegisterAttendanceByLocationFailedState extends AttendanceByLocationStates{}
+
+
+class RegisterAttendanceByLocationNWConnectionFailedState extends AttendanceByLocationStates{}

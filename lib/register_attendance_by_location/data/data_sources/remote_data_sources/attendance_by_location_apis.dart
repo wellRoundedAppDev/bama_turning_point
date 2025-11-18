@@ -29,4 +29,28 @@ class AttendanceByLocationApis {
   }
 
 
+  static Future<SuccessAndErrorResponse?> registerAttendanceOrDismissal(int employeeId, double lat, double lng, int action) async {
+    String endpoint = ApiUrls.REGISTER_ATTENDANCE_OR_DISMISSALS_BY_LOCATION_ENDPOINT;
+    String? accessToken =
+        MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
+
+    try {
+      var response = await dioHelper.post(endPoint: endpoint,
+          body: {
+            "employeeId": employeeId,
+            "latitude": lat,
+            "longitude": lng,
+            "action": action
+          },
+
+          headers: {"Authorization": "Bearer $accessToken"});
+      return SuccessAndErrorResponse.fromJson(response?.data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("register Attendance Or Dismissal api error api $e");
+      }
+    }
+  }
+
+
 }

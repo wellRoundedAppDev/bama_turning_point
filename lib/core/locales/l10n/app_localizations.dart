@@ -1609,6 +1609,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Payroll'**
   String get payroll;
+
+  /// No description provided for @you_are_out_of_work_range.
+  ///
+  /// In en, this message translates to:
+  /// **'You are out of work range'**
+  String get you_are_out_of_work_range;
 }
 
 class _AppLocalizationsDelegate

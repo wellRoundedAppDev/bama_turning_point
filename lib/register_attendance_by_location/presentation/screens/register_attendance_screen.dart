@@ -131,49 +131,54 @@ class RegisterAttendanceByLocationScreenState
                                   Row(
                                     children: [
                                       Expanded(
-                                        child: Container(
-                                          padding: const EdgeInsets.all(8),
-                                          decoration: const BoxDecoration(
-                                              color: AppColors.APP_MAIN_COLOR,
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(100),
-                                              )),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                padding: EdgeInsets.all(4),
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.white,
-                                                ),
-                                                child: Center(
-                                                  child: Icon(
-                                                    Icons.login,
-                                                    size: 18,
-                                                    color: AppColors
-                                                        .APP_MAIN_COLOR,
+                                        child: GestureDetector(
+                                          onTap: (){
+                                            cubit.registerAttendance();
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.all(8),
+                                            decoration: const BoxDecoration(
+                                                color: AppColors.APP_MAIN_COLOR,
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(100),
+                                                )),
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.all(4),
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Colors.white,
+                                                  ),
+                                                  child: Center(
+                                                    child: Icon(
+                                                      Icons.login,
+                                                      size: 18,
+                                                      color: AppColors
+                                                          .APP_MAIN_COLOR,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              const SizedBox(
-                                                width: 8,
-                                              ),
-                                              Flexible(
-                                                child: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .login,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  textAlign: TextAlign.center,
+                                                const SizedBox(
+                                                  width: 8,
                                                 ),
-                                              ),
-                                            ],
+                                                Flexible(
+                                                  child: Text(
+                                                    AppLocalizations.of(context)!
+                                                        .login,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: FontSizes
+                                                            .FONT_SIZE_14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -181,57 +186,63 @@ class RegisterAttendanceByLocationScreenState
                                         width: 16,
                                       ),
                                       Expanded(
-                                        child: Container(
-                                          padding: const EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              border: Border.all(
-                                                  color:
-                                                      AppColors.APP_MAIN_COLOR),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(100),
-                                              )),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.all(4),
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: AppColors
-                                                      .APP_MAIN_COLOR
-                                                      .withOpacity(0.2),
-                                                ),
-                                                child: const Center(
-                                                  child: Icon(
-                                                    Icons.logout,
-                                                    size: 18,
+                                        child: GestureDetector(
+                                          onTap: (){
+                                            cubit.registerDismissal();
+                                        
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                border: Border.all(
+                                                    color:
+                                                        AppColors.APP_MAIN_COLOR),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(100),
+                                                )),
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.all(4),
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
                                                     color: AppColors
-                                                        .APP_MAIN_COLOR,
+                                                        .APP_MAIN_COLOR
+                                                        .withOpacity(0.2),
                                                   ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 8,
-                                              ),
-                                              Flexible(
-                                                child: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .log_out,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: const TextStyle(
+                                                  child: const Center(
+                                                    child: Icon(
+                                                      Icons.logout,
+                                                      size: 18,
                                                       color: AppColors
                                                           .APP_MAIN_COLOR,
-                                                      fontSize: FontSizes
-                                                          .FONT_SIZE_14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  textAlign: TextAlign.center,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                                const SizedBox(
+                                                  width: 8,
+                                                ),
+                                                Flexible(
+                                                  child: Text(
+                                                    AppLocalizations.of(context)!
+                                                        .log_out,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: const TextStyle(
+                                                        color: AppColors
+                                                            .APP_MAIN_COLOR,
+                                                        fontSize: FontSizes
+                                                            .FONT_SIZE_14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),

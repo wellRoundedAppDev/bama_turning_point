@@ -331,7 +331,7 @@
 
   "payroll": "Payroll",
 
-
+  "you_are_out_of_work_range": "You are out of work range",
 
   "@welcome_user": {
     "placeholders": {

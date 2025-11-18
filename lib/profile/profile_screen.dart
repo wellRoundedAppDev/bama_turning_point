@@ -1,4 +1,5 @@
 import 'package:classic_eccomerce/Attendance/presentation/screens/Attendance_Departure.dart';
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
@@ -7,6 +8,7 @@ import 'package:classic_eccomerce/profile/profile_screen_2.dart';
 import 'package:classic_eccomerce/request_advance/presentaion/screen/request_advance_screen.dart';
 import 'package:classic_eccomerce/revealing_ranks/presentation/screen/revealing_ranks_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../core/locales/l10n/app_localizations.dart';
@@ -279,13 +281,18 @@ class PersonalProfileScreen extends StatelessWidget {
   Widget _buildLogoutButton() {
     return  Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(ImagePaths.LOG_OUT_ICON,),
-          const SizedBox(width: 5),
-          Text(AppLocalizations.of(context)!.log_out, style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16)),
-        ],
+      child: GestureDetector(
+        onTap: (){
+          context.read<AuthCubit>().logOut();
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(ImagePaths.LOG_OUT_ICON,),
+            const SizedBox(width: 5),
+            Text(AppLocalizations.of(context)!.log_out, style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16)),
+          ],
+        ),
       ),
     );
   }

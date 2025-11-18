@@ -780,4 +780,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get payroll => 'Payroll';
+
+  @override
+  String get you_are_out_of_work_range => 'You are out of work range';
 }

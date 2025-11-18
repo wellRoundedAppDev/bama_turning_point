@@ -779,4 +779,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get payroll => 'كشف مرتب';
+
+  @override
+  String get you_are_out_of_work_range => 'أنت خارج نطاق العمل';
 }

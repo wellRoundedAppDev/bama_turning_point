@@ -27,7 +27,7 @@ class AuthCubit extends Cubit<AuthStates> {
   BuildContext context = MyApp.navKey.currentState!.context;
   final dioHelper = DioHelper.instance;
   String? sessionId;
-  String? accessToken ;
+  String? accessToken;
   LoginResponse? loginResponse;
 
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
@@ -60,10 +60,9 @@ class AuthCubit extends Cubit<AuthStates> {
     guestFormInput.clear();
   }
 
-  loginFromLoginForm(
-      {bool isCheckingOut = false,}) async {
-
-
+  loginFromLoginForm({
+    bool isCheckingOut = false,
+  }) async {
     if (validateLoginForm() != true) {
       return;
     }
@@ -75,7 +74,6 @@ class AuthCubit extends Cubit<AuthStates> {
     //   emit(LoginNetworkFailedConnectionState());
     //   return;
     // }
-
 
     emit(LoginLoadingState());
     var response = await AuthApis.login(loginFormInput.toJson());
@@ -92,8 +90,11 @@ class AuthCubit extends Cubit<AuthStates> {
       });
       emit(LoginSuccessState());
 
-      Navigator.push(context, PageTransition(child: PersonalProfileScreen(), type: PageTransitionType.leftToRight));
-
+      Navigator.push(
+          context,
+          PageTransition(
+              child: PersonalProfileScreen(),
+              type: PageTransitionType.leftToRight));
 
       print("token:${loginResponse?.loginData?.token}");
       // Navigator.pushReplacement(
@@ -106,8 +107,7 @@ class AuthCubit extends Cubit<AuthStates> {
       loginResponse = null;
       isUserLoggedIn = false;
       accessToken = null;
-      showAppSnackBar(
-          content: response?.loginData?.message??"");
+      showAppSnackBar(content: response?.loginData?.message ?? "");
       if (kDebugMode) {
         print(response?.error);
       }
@@ -117,12 +117,16 @@ class AuthCubit extends Cubit<AuthStates> {
       isUserLoggedIn = false;
       accessToken = null;
 
-      showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!
+              .check_your_internet_connection_and_try_again_later);
       emit(LoginNetworkFailedConnectionState());
     }
   }
 
-  login({required dynamic loginInput, }) async {
+  login({
+    required dynamic loginInput,
+  }) async {
     // if (await setAccessToken() == false) {
     //   showAppSnackBar(content: "Check your internet connection, and try again");
     //   emit(LoginNetworkFailedConnectionState());
@@ -152,8 +156,7 @@ class AuthCubit extends Cubit<AuthStates> {
       loginResponse = null;
       isUserLoggedIn = false;
       accessToken = null;
-      showAppSnackBar(
-          content: response?.loginData?.message??"");
+      showAppSnackBar(content: response?.loginData?.message ?? "");
       if (kDebugMode) {
         print(response?.error);
       }
@@ -163,7 +166,9 @@ class AuthCubit extends Cubit<AuthStates> {
       isUserLoggedIn = false;
       accessToken = null;
 
-      showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!
+              .check_your_internet_connection_and_try_again_later);
       emit(LoginNetworkFailedConnectionState());
     }
   }
@@ -180,24 +185,20 @@ class AuthCubit extends Cubit<AuthStates> {
     //
     var loggedUser = (await getLoginCredentialsFromSharedPrefs());
     if (loggedUser == null) {
-
       Future.delayed(
         const Duration(seconds: 3),
-            () => Navigator.pushReplacement(
+        () => Navigator.pushReplacement(
             context,
             PageTransition(
-                child:  PersonalProfileScreen(),
-                type: PageTransitionType.fade)),
+                child: SignInScreen(), type: PageTransitionType.fade)),
       );
-
-
 
       return;
     }
 
     var loginInput = {
-      "UserName": loggedUser['userName'],
-      "Password": loggedUser['password']
+      "userName": loggedUser['userName'],
+      "password": loggedUser['password']
     };
 
     // if (await setAccessToken() == false) {
@@ -221,19 +222,20 @@ class AuthCubit extends Cubit<AuthStates> {
       Navigator.pushReplacement(
           context,
           PageTransition(
-              child:  PersonalProfileScreen(), type: PageTransitionType.fade));
+              child: PersonalProfileScreen(), type: PageTransitionType.fade));
       emit(LoginSuccessState());
     } else if (response?.success == false) {
       loginResponse = null;
       isUserLoggedIn = false;
-      showAppSnackBar(
-          content: response?.loginData?.message??"");
+      showAppSnackBar(content: response?.loginData?.message ?? "");
       print(response?.error);
       emit(LoginFailedState());
     } else {
       loginResponse = null;
       isUserLoggedIn = false;
-      showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!
+              .check_your_internet_connection_and_try_again_later);
       emit(LoginNetworkFailedConnectionState());
     }
   }
@@ -294,36 +296,36 @@ class AuthCubit extends Cubit<AuthStates> {
     var response = await AuthApis.register(registerFormInput.toJsonForApi());
     if (response?.success == true) {
       isUserLoggedIn = true;
-      await login(loginInput: {
-        "UserName": registerFormInput.userName,
-        "Password": registerFormInput.password
-      }, );
+      await login(
+        loginInput: {
+          "UserName": registerFormInput.userName,
+          "Password": registerFormInput.password
+        },
+      );
       Navigator.pop(context);
       emit(RegisterSuccessState());
     } else if (response?.success == false) {
       // isUserLoggedIn = false;
 
-      showAppSnackBar(
-          content:
-          (response?.message??""));
+      showAppSnackBar(content: (response?.message ?? ""));
       emit(RegisterFailedState());
     } else {
       // isUserLoggedIn = false;
-      showAppSnackBar(content: AppLocalizations.of(context)!.check_your_internet_connection_and_try_again_later);
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!
+              .check_your_internet_connection_and_try_again_later);
       emit(RegisterNetworkFailedConnectionState());
     }
   }
 
   Future<void> logOut() async {
-
-
     isUserLoggedIn = false;
     // cartCubit?.clearCart();
     clearLoginCredentialsFromSharedPrefs();
     accessToken = null;
 
-
     emit(LogoutSuccessState());
+    Navigator.pushReplacement(context, PageTransition(child: SignInScreen() , type: PageTransitionType.leftToRight));
     return;
     // if (await setSessionId() == false) {
     //   showAppSnackBar(content: "Check your internet connection, and try again");
@@ -393,10 +395,10 @@ class AuthCubit extends Cubit<AuthStates> {
 
   validateGuestCheckoutForm() {
     if (guestFormKey.currentState!.validate() == true
-    //&&
-    //   guestFormInput.country != null &&
-    //    guestFormInput.region != null
-    ) {
+        //&&
+        //   guestFormInput.country != null &&
+        //    guestFormInput.region != null
+        ) {
       return true;
     }
     return false;

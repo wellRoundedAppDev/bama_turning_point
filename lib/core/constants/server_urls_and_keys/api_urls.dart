@@ -178,6 +178,7 @@ class ApiUrls {
 
 
   static const GET_GEOFENCES_ENDPOINT = "Geofence/GetAllMop";
+  static const REGISTER_ATTENDANCE_OR_DISMISSALS_BY_LOCATION_ENDPOINT = "Geofence/MarkMobile";
 
 
 

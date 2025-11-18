@@ -208,12 +208,12 @@ class SignInScreen extends StatelessWidget {
                 ),
               ),
 
-        Positioned(
-          top: 40,
-          left: 0,
-          child: IconButton(onPressed: (){
-            Navigator.pop(context);
-          }, icon: const Icon(Icons.arrow_forward_ios,color: Colors.black,))),
+        // Positioned(
+        //   top: 40,
+        //   left: 0,
+        //   child: IconButton(onPressed: (){
+        //     Navigator.pop(context);
+        //   }, icon: const Icon(Icons.arrow_forward_ios,color: Colors.black,))),
               Positioned(
                 top: 0,
                 right: 0,

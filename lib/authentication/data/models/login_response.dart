@@ -131,11 +131,13 @@ class LoginData {
     // this.accountCustomField,
     this.wishlistTotal,
     this.cartCountProducts,
+    this.employeeId
 
   });
 
   factory LoginData.fromJson(dynamic json) {
    var token = json['Token'];
+   var employeeId = json['EmployeeId'];
    // var isAuthencated = json['IsAuthencated'];
    // var  expiresOn = json['ExpiresOn'];
    // var  role = json['Role'];
@@ -174,6 +176,7 @@ class LoginData {
     return LoginData(
 
       token: token,
+    employeeId: employeeId,
     // isAuthencated:isAuthencated,
     // expiresOn:expiresOn,
     // role:role,
@@ -230,6 +233,7 @@ class LoginData {
   List<dynamic>? customFields;
   String? wishlistTotal;
   num? cartCountProducts;
+  int? employeeId;
   //
   // Map<String, dynamic> toJson() {
   //   final map = <String, dynamic>{};
