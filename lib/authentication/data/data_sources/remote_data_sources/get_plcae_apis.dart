@@ -10,7 +10,7 @@ import '../../models/get_place_governorate_response/get_judiciary.dart';
 import '../../models/get_place_governorate_response/get_way_by_Judiciary.dart';
 
 class GetPlaceApis {
-  static final dioHelper = DioHelper.instance;
+  static final dioHelper = DioHelper()..init(ApiUrls.BASE_URL);
 
   static Future<GovernorateResponse?> getGovernorate() async {
     String endPoint = ApiUrls.GET_Governorate_ENDPOINT;

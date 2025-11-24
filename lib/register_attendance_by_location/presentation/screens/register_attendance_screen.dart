@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class RegisterAttendanceByLocationScreenState
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AttendanceByLocationCubit()..init(),
+      create: (context) => AttendanceByLocationCubit()..init(ApiUrls.BASE_URL),
       child:
           BlocConsumer<AttendanceByLocationCubit, AttendanceByLocationStates>(
         listener: (context, state) {
@@ -47,7 +48,7 @@ class RegisterAttendanceByLocationScreenState
                     ? Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: GPSNotEnabledRefreshPage(refresh: () {
-                          cubit.init();
+                          cubit.init(ApiUrls.BASE_URL);
                         }),
                       )
                     : Stack(
@@ -133,7 +134,7 @@ class RegisterAttendanceByLocationScreenState
                                       Expanded(
                                         child: GestureDetector(
                                           onTap: (){
-                                            cubit.registerAttendance();
+                                            cubit.registerAttendance(ApiUrls.BASE_URL);
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.all(8),
@@ -188,7 +189,7 @@ class RegisterAttendanceByLocationScreenState
                                       Expanded(
                                         child: GestureDetector(
                                           onTap: (){
-                                            cubit.registerDismissal();
+                                            cubit.registerDismissal(ApiUrls.BASE_URL);
                                         
                                           },
                                           child: Container(

@@ -9,15 +9,20 @@ import '../../../../authentication/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../main.dart';
 
 class AttendanceByLocationApis {
-  static final dioHelper = DioHelper.instance;
 
-  static Future<GeoFencesResponse?> getGeoFences() async {
+  static DioHelper? dioHelper;
+
+  AttendanceByLocationApis(DioHelper helper){
+    dioHelper = helper;
+  }
+
+   Future<GeoFencesResponse?> getGeoFences(String baseUrl) async {
     String endpoint = ApiUrls.GET_GEOFENCES_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {
-      var response = await dioHelper.get(endpoint: endpoint,
+      var response = await dioHelper?.get(endpoint: endpoint,
 
           headers: {"Authorization": "Bearer $accessToken"});
       return GeoFencesResponse.fromJson(response?.data);
@@ -29,13 +34,13 @@ class AttendanceByLocationApis {
   }
 
 
-  static Future<SuccessAndErrorResponse?> registerAttendanceOrDismissal(int employeeId, double lat, double lng, int action) async {
+   Future<SuccessAndErrorResponse?> registerAttendanceOrDismissal(int employeeId, double lat, double lng, int action) async {
     String endpoint = ApiUrls.REGISTER_ATTENDANCE_OR_DISMISSALS_BY_LOCATION_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {
-      var response = await dioHelper.post(endPoint: endpoint,
+      var response = await dioHelper?.post(endPoint: endpoint,
           body: {
             "employeeId": employeeId,
             "latitude": lat,

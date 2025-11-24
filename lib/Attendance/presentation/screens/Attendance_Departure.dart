@@ -3,6 +3,7 @@ import 'package:classic_eccomerce/report_last_month/presentaion/screens/report_l
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/constants/paths/image_paths.dart';
 import '../../../core/locales/l10n/app_localizations.dart';
 import '../../../shared_components/yellow_curve.dart';
 import '../widgets/show_model_sheet.dart';
@@ -51,14 +52,13 @@ class AttendanceScreen extends StatelessWidget {
             // Header section
             BigAppbar(title: AppLocalizations.of(context)!
                 .attendance_and_departure,size: size,column: Column(children: [
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 40,
-                backgroundImage: AssetImage(
-                    "assets/avatar.png"), // Replace with actual image
+                backgroundImage: AssetImage(ImagePaths.APP_LOGO), // Replace with actual image
               ),
               const SizedBox(height: 12),
               Text(
-                "محمد عبد العزيز محمود بسيوني",
+                "محمد",
                 style: GoogleFonts.cairo(
                   fontSize: 18,
                   color: Colors.white,

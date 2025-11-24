@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_states.dart';
 import 'package:classic_eccomerce/core/constants/paths/sound_paths.dart';
@@ -16,7 +15,7 @@ class AppSettingsCubit extends Cubit<AppSettingsStates>{
   BuildContext context = MyApp.navKey.currentState!.context;
 
   String currencyCode = "IQD";
-  late AudioPlayer player = AudioPlayer();
+  // late AudioPlayer player = AudioPlayer();
 
   changeCurrency(String currencyCode){
     this.currencyCode = currencyCode;

@@ -19,6 +19,8 @@ import '../shared_components/custom_alert2.dart';
 
 
 class PersonalProfileScreen extends StatelessWidget {
+  const PersonalProfileScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,21 +59,21 @@ class PersonalProfileScreen extends StatelessWidget {
 
   Widget _buildHeader() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      color: Color(0xFF002366),
-      child: Column(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      color: const Color(0xFF002366),
+      child: const Column(
         children: [
-          Align(
-            alignment: Alignment.topLeft,
-            child: Icon(Icons.notifications, color: Colors.orangeAccent),
-          ),
+          // Align(
+          //   alignment: Alignment.topLeft,
+          //   child: Icon(Icons.notifications, color: Colors.orangeAccent),
+          // ),
           CircleAvatar(
             radius: 40,
-            backgroundImage: NetworkImage("https://i.imgur.com/BoN9kdC.png"), // Replace with actual image
+            backgroundImage: AssetImage(ImagePaths.APP_LOGO), // Replace with actual image
           ),
           SizedBox(height: 10),
           Text(
-            "محمد عبد العزيز محمود بسيوني",
+            "محمد",
             style: TextStyle(color: Colors.white, fontSize: 18),
           ),
         ],
@@ -85,13 +87,13 @@ class PersonalProfileScreen extends StatelessWidget {
         SizedBox(
         width: double.infinity,
 
-        height:MediaQuery.of(context)!.size.height * 0.28,
+        height:MediaQuery.of(context)!.size.height * 0.25,
         ),
 
         Builder(
           builder: (context) {
             return Container(
-              height: MediaQuery.of(context)!.size.height * 0.17,
+              height: MediaQuery.of(context)!.size.height * 0.16,
               decoration: BoxDecoration(
                 color: AppColors.APP_SECONDARY_COLOR, // dark blue
                 borderRadius: const BorderRadius.only(
@@ -117,38 +119,43 @@ class PersonalProfileScreen extends StatelessWidget {
           top: MediaQuery.of(context)!.size.height * 0.093,
           left: 0,
           right: 0,
-          child: Column(
+          child: const Column(
             children: [
               CircleAvatar(
-                radius: MediaQuery.of(context)!.size.height * 0.075,
-                backgroundImage: const NetworkImage("https://i.imgur.com/BoN9kdC.png"),
+                radius: 40,
+                backgroundImage: AssetImage(ImagePaths.APP_LOGO), // Replace with actual image
               ),
-              const SizedBox(height: 8,),
-              const Text(
-                "محمد عبد العزيز محمود بسيوني",
+
+              // CircleAvatar(
+              //   radius: MediaQuery.of(context)!.size.height * 0.075,
+              //   backgroundImage: const NetworkImage("https://i.imgur.com/BoN9kdC.png"),
+              // ),
+              SizedBox(height: 8,),
+              Text(
+                "محمد",
                 style: TextStyle(fontSize: FontSizes.FONT_SIZE_16, fontWeight: FontWeight.bold),
               ),
             ],
           ),
         ),
         // Notification icon in orange curved corner
-        const Positioned(
-          top: 45,
-          right: 16,
-          child:
-            Icon(Icons.notifications,color: Colors.white,)
-          // ClipPath(
-          //   clipper: CornerClipper(),
-          //   child: Container(
-          //     width: 60,
-          //     height: 60,
-          //     color: Colors.orange,
-          //     child: Center(
-          //       child: Icon(Icons.notifications, color: Colors.white),
-          //     ),
-          //   ),
-          // ),
-        ),
+        // const Positioned(
+        //   top: 45,
+        //   right: 16,
+        //   child:
+        //     Icon(Icons.notifications,color: Colors.white,)
+        //   // ClipPath(
+        //   //   clipper: CornerClipper(),
+        //   //   child: Container(
+        //   //     width: 60,
+        //   //     height: 60,
+        //   //     color: Colors.orange,
+        //   //     child: Center(
+        //   //       child: Icon(Icons.notifications, color: Colors.white),
+        //   //     ),
+        //   //   ),
+        //   // ),
+        // ),
         // Positioned(
         //     top: 45,
         //     left: 16,
@@ -182,29 +189,30 @@ class PersonalProfileScreen extends StatelessWidget {
 
         fit: BoxFit.cover,
       ),),
-      _MenuItem("البيانات الوظيفية", Image.asset(ImagePaths.JOB_INFORMATION_ICON,
-        color: AppColors.APP_MAIN_COLOR,
+      // _MenuItem("البيانات الوظيفية", Image.asset(ImagePaths.JOB_INFORMATION_ICON,
+      //   color: AppColors.APP_MAIN_COLOR,
+      //
+      // )),
+      // _MenuItem("الحضور والانصراف", Image.asset(ImagePaths.ATTENDANCE_ICON,
+      //   color: AppColors.APP_MAIN_COLOR,
+      //
+      // )),
+      // _MenuItem("الاجازات", Image.asset(ImagePaths.HOLIDAYS_ICON,
+      //   color: AppColors.APP_MAIN_COLOR,
+      //
+      // )),
+      // _MenuItem("كشف الراتب", Image.asset(ImagePaths.PERSONAL_INFORMATION_ICON,
+      //   color: AppColors.APP_MAIN_COLOR,
+      // )),
 
-      )),
-      _MenuItem("الحضور والانصراف", Image.asset(ImagePaths.ATTENDANCE_ICON,
-        color: AppColors.APP_MAIN_COLOR,
-
-      )),
-      _MenuItem("الاجازات", Image.asset(ImagePaths.HOLIDAYS_ICON,
-        color: AppColors.APP_MAIN_COLOR,
-
-      )),
-      _MenuItem("كشف مرتب", Image.asset(ImagePaths.PERSONAL_INFORMATION_ICON,
+      _MenuItem("الحضور والانصراف وفق الموقع", Image.asset(ImagePaths.ATTENDANCE_LOCATION_ICON,
         color: AppColors.APP_MAIN_COLOR,
       )),
 
-      _MenuItem("الحضور والانصراف باللوكيشن", Image.asset(ImagePaths.ATTENDANCE_LOCATION_ICON,
-        color: AppColors.APP_MAIN_COLOR,
-      )),
-      _MenuItem("طلب سلفة", Image.asset(ImagePaths.CONTRACT_ICON,
-        color: AppColors.APP_MAIN_COLOR,
+      // _MenuItem("طلب سلفة", Image.asset(ImagePaths.CONTRACT_ICON,
+      //   color: AppColors.APP_MAIN_COLOR,
+      // )),
 
-      )),
     ];
 
     return Padding(
@@ -233,7 +241,9 @@ class PersonalProfileScreen extends StatelessWidget {
                   Navigator.push(context, PageTransition(child: const PersonalDataScreen(), type: PageTransitionType.leftToRight));
                 }
                 else if(index == 1){
-                  Navigator.push(context, PageTransition(child: const EmploymentDetailsScreen(), type: PageTransitionType.leftToRight));
+                  Navigator.push(context, PageTransition(child:  const RegisterAttendanceByLocationScreen(), type: PageTransitionType.leftToRight));
+
+                  // Navigator.push(context, PageTransition(child: const EmploymentDetailsScreen(), type: PageTransitionType.leftToRight));
 
                 }else if(index == 2){
                   Navigator.push(context, PageTransition(child: const AttendanceScreen(), type: PageTransitionType.leftToRight));

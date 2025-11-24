@@ -9,7 +9,7 @@ import '../../../presentation/auth_cubit/auth_cubit.dart';
 import '../../models/login_response.dart';
 
 class AuthApis {
-  static final dioHelper = DioHelper.instance;
+  static final dioHelper = DioHelper()..init(ApiUrls.BASE_URL);
 
   static Future<String?> getSessionId() async {
     String endpoint = ApiUrls.GET_SESSION_ID_ENDPOINT;
