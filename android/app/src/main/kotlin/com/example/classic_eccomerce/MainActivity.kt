@@ -1,4 +1,4 @@
-package com.spark.turningPoint
+package com.spark.turningPoint2
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity;

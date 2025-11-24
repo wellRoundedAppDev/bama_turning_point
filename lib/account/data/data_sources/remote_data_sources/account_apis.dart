@@ -14,7 +14,7 @@ import '../../models/get_account_addresses_response.dart';
 import '../../models/get_customer_orders_response.dart';
 
 class AccountApis {
-  static final dioHelper = DioHelper.instance;
+  static final dioHelper = DioHelper()..init(ApiUrls.BASE_URL);
 
   static Future<Response?> getLanguages() async {
     String endpoint = ApiUrls.GET_SELECT_VALUES_ENDPOINT;

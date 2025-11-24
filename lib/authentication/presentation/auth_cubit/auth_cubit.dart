@@ -17,6 +17,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../../core/constants/server_urls_and_keys/api_urls.dart';
 import '../../../core/helpers/dio_helper.dart';
 import '../../../core/locales/l10n/app_localizations.dart';
 import '../../../home_layout/presentation/screens/home_layout.dart';
@@ -25,7 +26,7 @@ class AuthCubit extends Cubit<AuthStates> {
   AuthCubit() : super(AuthInitialState());
 
   BuildContext context = MyApp.navKey.currentState!.context;
-  final dioHelper = DioHelper.instance;
+  DioHelper?  dioHelper;
   String? sessionId;
   String? accessToken;
   LoginResponse? loginResponse;
@@ -63,6 +64,9 @@ class AuthCubit extends Cubit<AuthStates> {
   loginFromLoginForm({
     bool isCheckingOut = false,
   }) async {
+
+
+    dioHelper = DioHelper()..init(ApiUrls.BASE_URL);
     if (validateLoginForm() != true) {
       return;
     }
@@ -222,7 +226,7 @@ class AuthCubit extends Cubit<AuthStates> {
       Navigator.pushReplacement(
           context,
           PageTransition(
-              child: PersonalProfileScreen(), type: PageTransitionType.fade));
+              child: const PersonalProfileScreen(), type: PageTransitionType.fade));
       emit(LoginSuccessState());
     } else if (response?.success == false) {
       loginResponse = null;
@@ -356,7 +360,7 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   addSessionIdToHeader() {
-    dioHelper.addHeader("X-Oc-Session", sessionId);
+   // dioHelper.addHeader("X-Oc-Session", sessionId);
   }
 
   Future<List<Country>> getCountries() async {

@@ -31,7 +31,7 @@ class _EmploymentDetailsScreenState extends State<EmploymentDetailsScreen> {
       'value': '3 - 9 - 2010',
     },
     {
-      'label': 'درجة الوظيفة',
+      'label': 'الدرجة الوظيفية',
       'value': 'lll',
     },
     {
@@ -152,15 +152,14 @@ class _EmploymentDetailsScreenState extends State<EmploymentDetailsScreen> {
                 child: Column(
                   children: [
                     CircleAvatar(
-                      radius: MediaQuery.of(context)!.size.height * 0.075,
-                      backgroundImage:
-                          const NetworkImage("https://i.imgur.com/BoN9kdC.png"),
+                      radius: 40,
+                      backgroundImage: AssetImage(ImagePaths.APP_LOGO), // Replace with actual image
                     ),
                     SizedBox(
                       height: 4,
                     ),
                     Text(
-                      "محمد عبد العزيز محمود بسيوني",
+                      "محمد",
                       style: TextStyle(
                           fontSize: FontSizes.FONT_SIZE_16,
                           fontWeight: FontWeight.bold),

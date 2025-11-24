@@ -778,7 +778,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get today_attendance => 'حضور اليوم';
 
   @override
-  String get payroll => 'كشف مرتب';
+  String get payroll => 'كشف الراتب';
 
   @override
   String get you_are_out_of_work_range => 'أنت خارج نطاق العمل';

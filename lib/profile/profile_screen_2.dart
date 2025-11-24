@@ -39,13 +39,13 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
         leading: Container(),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        toolbarHeight: MediaQuery.of(context)!.size.height * 0.3,
+        toolbarHeight: MediaQuery.of(context)!.size.height * 0.24,
         flexibleSpace:  Stack(
           children: [
             Container(
               width: double.infinity,
-              color: AppColors.APP_LIGHT_MAIN_COLOR,
-              height:MediaQuery.of(context)!.size.height * 0.32,
+              color: Colors.transparent,
+              height:MediaQuery.of(context)!.size.height * 0.3,
             ),
 
             Builder(
@@ -53,7 +53,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
                   return Stack(
                     children: [
                       Container(
-                        height: MediaQuery.of(context)!.size.height * 0.18,
+                        height: MediaQuery.of(context).size.height * 0.18,
                         decoration:  BoxDecoration(
                           color: AppColors.APP_SECONDARY_COLOR, // dark blue
                           borderRadius: const BorderRadius.only(
@@ -62,7 +62,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
                           ),
                         ),
                         alignment: Alignment.topCenter,
-                        padding: const EdgeInsets.only(top: 40),
+                        padding: const EdgeInsets.only(top: 50),
                         child: Text(
                           "البيانات الشخصية",
                           style: TextStyle(
@@ -74,25 +74,25 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
                       ),
 
 
-                      const Positioned(
-                          top: 45,
-                          right: 16,
-                          child:
-                          Icon(Icons.notifications,color: Colors.white,)
-                        // ClipPath(
-                        //   clipper: CornerClipper(),
-                        //   child: Container(
-                        //     width: 60,
-                        //     height: 60,
-                        //     color: Colors.orange,
-                        //     child: Center(
-                        //       child: Icon(Icons.notifications, color: Colors.white),
-                        //     ),
-                        //   ),
-                        // ),
-                      ),
+                      // const Positioned(
+                      //     top: 45,
+                      //     right: 16,
+                      //     child:
+                      //     Icon(Icons.notifications,color: Colors.white,)
+                      //   // ClipPath(
+                      //   //   clipper: CornerClipper(),
+                      //   //   child: Container(
+                      //   //     width: 60,
+                      //   //     height: 60,
+                      //   //     color: Colors.orange,
+                      //   //     child: Center(
+                      //   //       child: Icon(Icons.notifications, color: Colors.white),
+                      //   //     ),
+                      //   //   ),
+                      //   // ),
+                      // ),
                       Positioned(
-                          top: 45,
+                          top: 50,
                           left: 16,
                           child:
                           GestureDetector(
@@ -118,18 +118,19 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
             ),
 
             Positioned(
-              top: MediaQuery.of(context)!.size.height * 0.093,
+              top: MediaQuery.of(context).size.height * 0.12,
               left: 0,
               right: 0,
-              child: Column(
+              child: const Column(
                 children: [
                   CircleAvatar(
-                    radius: MediaQuery.of(context)!.size.height * 0.075,
-                    backgroundImage: NetworkImage("https://i.imgur.com/BoN9kdC.png"),
+                    radius: 40,
+                    backgroundImage: AssetImage(ImagePaths.APP_LOGO), // Replace with actual image
                   ),
-                  const SizedBox(height: 8,),
-                  const Text(
-                    "محمد عبد العزيز محمود بسيوني",
+
+                  SizedBox(height: 8,),
+                  Text(
+                    "محمد",
                     style: TextStyle(fontSize: FontSizes.FONT_SIZE_16, fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -157,24 +158,24 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
             // Profile picture and name
           ],
         ),
-        bottom: TabBar(
-
-          controller: _tabController,
-          tabs: const [
-            Tab(text: 'البيانات الشخصية'),
-            Tab(text: 'البيانات المكانية'),
-            Tab(text: 'بيانات الاتصال'),
-          ],
-          labelStyle: const TextStyle(fontWeight: FontWeight.bold,color: AppColors.APP_MAIN_COLOR,
-          fontSize: FontSizes.FONT_SIZE_12,
-
-          ),
-          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
-          indicatorColor: AppColors.APP_MAIN_COLOR,
-
-
-          indicatorWeight: 3,
-        ),
+        // bottom: TabBar(
+        //
+        //   controller: _tabController,
+        //   tabs: const [
+        //     Tab(text: 'البيانات الشخصية'),
+        //     Tab(text: 'البيانات المكانية'),
+        //     Tab(text: 'بيانات الاتصال'),
+        //   ],
+        //   labelStyle: const TextStyle(fontWeight: FontWeight.bold,color: AppColors.APP_MAIN_COLOR,
+        //   fontSize: FontSizes.FONT_SIZE_12,
+        //
+        //   ),
+        //   unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
+        //   indicatorColor: AppColors.APP_MAIN_COLOR,
+        //
+        //
+        //   indicatorWeight: 3,
+        // ),
       ),
       body: Stack(
         children: [
@@ -201,18 +202,18 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
               left: 0,
               child: Image.asset(ImagePaths.GREY_CURVY_DECORATION)),
 
-          Positioned(
-            bottom: 24,
-            right: 24,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(ImagePaths.LOG_OUT_ICON,),
-                const SizedBox(width: 5),
-                Text(AppLocalizations.of(context)!.log_out, style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16)),
-              ],
-            ),
-          )
+          // Positioned(
+          //   bottom: 24,
+          //   right: 24,
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Image.asset(ImagePaths.LOG_OUT_ICON,),
+          //       const SizedBox(width: 5),
+          //       Text(AppLocalizations.of(context)!.log_out, style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16)),
+          //     ],
+          //   ),
+          // )
 
         ],
       ),
@@ -225,7 +226,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
       child: ListView(
         children: [
           const SizedBox(height: 8,),
-          _buildDataRow('الاسم بالكامل', 'محمد عبد العزيز محمد بسيهان'),
+          _buildDataRow('الاسم بالكامل', 'محمد'),
           const SizedBox(height: 16),
           _buildDataRow('تاريخ الميلاد', '٣٣ - ٥- ١٩٨٢'),
           const SizedBox(height: 16),

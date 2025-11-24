@@ -1,5 +1,5 @@
 class ApiUrls {
-  static const BASE_URL =
+  static String BASE_URL =
   "https://erpapi1.semicolonsys.com/";
      // "https://erp-test.net/";
   //  "https://m-caesari.com/";

@@ -3,7 +3,10 @@ import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.
 import 'package:classic_eccomerce/authentication/presentation/screens/forget_password_screen.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/sign_up_new_screen.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/sign_up_screen.dart';
+import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -19,6 +22,8 @@ class SignInScreen extends StatelessWidget {
     super.key,
     this.isCheckingOut = false,
   });
+
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -223,6 +228,47 @@ class SignInScreen extends StatelessWidget {
 
                 ),
               ),
+
+              Positioned(
+
+
+
+
+                  child: GestureDetector(
+                      onTap: (){
+                        if (kDebugMode) {
+                          print("object");
+                        }
+                        showDialog(context: context,builder: (context)=>Material(child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 60,),
+                              SizedBox(
+                                  height: 50,
+                                  child: CustomInput(controller: controller,)),
+
+                              const SizedBox(height: 24,),
+
+                              CustomButton(text: "Submit", action: (){
+
+                                if (kDebugMode) {
+                                  print(controller.text);
+                                }
+                                ApiUrls.BASE_URL = controller.text;
+
+                                if (kDebugMode) {
+                                  print(ApiUrls.BASE_URL);
+                                }
+                                Navigator.pop(context);
+                              })
+                            ],
+                          ),
+                        )));
+                      },
+                      child: Container(color: Colors.transparent,height: 50,width: 50))
+              ),
+
             ],
           ),
         ),

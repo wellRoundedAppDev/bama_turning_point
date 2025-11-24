@@ -9,12 +9,19 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../constants/server_urls_and_keys/api_urls.dart';
 
 class DioHelper {
-  DioHelper._() {
-    // Attach Logger
-    if (kDebugMode) _dio.interceptors.add(_logger);
-  }
 
-  static final DioHelper instance = DioHelper._();
+
+  String url = "";
+
+  init(String baseUrl){
+    ApiUrls.BASE_URL = baseUrl;
+  }
+  //DioHelper._() {
+  //   // Attach Logger
+  //   if (kDebugMode) _dio.interceptors.add(_logger);
+  // }
+
+  // static final DioHelper instance = DioHelper._();
 
   // Http Client
   final Dio _dio = Dio(BaseOptions(

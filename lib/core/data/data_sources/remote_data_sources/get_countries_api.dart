@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GetCountriesAndRegionsApi {
-  static final dioHelper = DioHelper.instance;
+  static final dioHelper = DioHelper()..init(ApiUrls.BASE_URL);
 
   static Future<GetCountriesResponse?> getCountries() async {
 

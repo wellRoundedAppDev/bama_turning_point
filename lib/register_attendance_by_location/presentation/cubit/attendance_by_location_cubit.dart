@@ -1,10 +1,10 @@
 import 'dart:async';
-
-import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_states.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/core/constants/paths/sound_paths.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
+import 'package:classic_eccomerce/core/helpers/dio_helper.dart';
 import 'package:classic_eccomerce/core/locales/l10n/app_localizations.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:classic_eccomerce/register_attendance_by_location/data/data_sources/remote_data_sources/attendance_by_location_apis.dart';
@@ -75,7 +75,11 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
                 ?.toSet() ??
             {});
 
+
         emit(ChangeState());
+
+        break;
+
       } else {
         isInsideAGeoFence = false;
       }
@@ -84,7 +88,9 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
     emit(ChangeState());
   }
 
-  registerAttendance() async {
+  registerAttendance(String baseUrl) async {
+
+    AttendanceByLocationApis apis = AttendanceByLocationApis(DioHelper()..init(baseUrl));
 
     if(isInsideAGeoFence == false){
       showAppSnackBar(content: AppLocalizations.of(context)!.you_are_out_of_work_range);
@@ -114,7 +120,7 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
           var employeeId = MyApp.navKey.currentState?.context.read<AuthCubit>()?.loginResponse?.loginData?.employeeId;
           emit(RegisterAttendanceByLocationLoadingState());
 
-          var response = await AttendanceByLocationApis.registerAttendanceOrDismissal(
+          var response = await apis.registerAttendanceOrDismissal(
               employeeId??0,
               currentUserLocation?.latitude ?? 0,
               currentUserLocation?.longitude ?? 0,
@@ -148,7 +154,8 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
 
   }
 
-  registerDismissal() async {
+  registerDismissal(String baseUrl) async {
+    AttendanceByLocationApis apis = AttendanceByLocationApis(DioHelper()..init(baseUrl));
 
     if(isInsideAGeoFence == false){
       showAppSnackBar(content: AppLocalizations.of(context)!.you_are_out_of_work_range);
@@ -176,7 +183,7 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
           var employeeId = MyApp.navKey.currentState?.context.read<AuthCubit>()?.loginResponse?.loginData?.employeeId;
           emit(RegisterAttendanceByLocationLoadingState());
 
-          var response = await AttendanceByLocationApis.registerAttendanceOrDismissal(
+          var response = await apis.registerAttendanceOrDismissal(
               employeeId??0,
               currentUserLocation?.latitude ?? 0,
               currentUserLocation?.longitude ?? 0,
@@ -231,7 +238,7 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
   //   }
   // }
 
-  init() async {
+  init(String baseUrl) async {
     try {
       setLoadingScreen(true);
 
@@ -249,7 +256,7 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
       }
       await location?.enableBackgroundMode(enable: true);
 
-      await setGeoFences();
+      await setGeoFences(baseUrl);
       listenToLocationChanges();
 
       setLoadingScreen(false);
@@ -266,8 +273,10 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
     }
   }
 
-  setGeoFences() async {
-    var response = await AttendanceByLocationApis.getGeoFences();
+  setGeoFences(String baseUrl) async {
+    AttendanceByLocationApis apis = AttendanceByLocationApis(DioHelper()..init(baseUrl));
+
+    var response = await apis.getGeoFences(baseUrl);
 
     if (response?.isSuccssed == true) {
       geoFences = response?.geofences ?? [];
