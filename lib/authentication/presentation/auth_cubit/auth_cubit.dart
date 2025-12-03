@@ -94,13 +94,15 @@ class AuthCubit extends Cubit<AuthStates> {
       });
       emit(LoginSuccessState());
 
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           PageTransition(
-              child: PersonalProfileScreen(),
+              child: const PersonalProfileScreen(),
               type: PageTransitionType.leftToRight));
 
-      print("token:${loginResponse?.loginData?.token}");
+      if (kDebugMode) {
+        print("token:${loginResponse?.loginData?.token}");
+      }
       // Navigator.pushReplacement(
       //     context,
       //     PageTransition(

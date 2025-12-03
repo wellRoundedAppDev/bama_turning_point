@@ -249,15 +249,17 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
       initialCameraPosition =
           CameraPosition(target: currentUserLocation!, zoom: 14);
       location = Location();
-      location?.changeSettings(interval: 3000);
+      // location?.changeSettings(interval: 3000);
       var permission = await Permission.locationAlways.isGranted;
       if (!permission) {
         var t = await Permission.locationAlways.request();
       }
-      await location?.enableBackgroundMode(enable: true);
+      // await location?.enableBackgroundMode(enable: true);
 
       await setGeoFences(baseUrl);
-      listenToLocationChanges();
+      checkGeoFences();
+
+      // listenToLocationChanges();
 
       setLoadingScreen(false);
     } catch (e) {
