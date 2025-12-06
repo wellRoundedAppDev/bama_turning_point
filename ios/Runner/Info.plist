@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>سيزر</string>
+	<string>Turning Point</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,27 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>سيزر</string>
-
-
-	<key>NSPhotoLibraryUsageDescription</key>
-    <string>App needs access to photo library for user to upload picture of the product</string>
-
-// This is probably the only one you need. Background location is supported
-// by this -- the caveat is that a blue badge is shown in the status bar
-// when the app is using location service while in the background.
-	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>App needs access to location even in background to register your attendance</string>
-
-
-	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>App needs access to location even in background to register your attendance</string>
-
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>App needs access to location even in background to register your attendance</string>
-
-
-]
+	<string>Turning Point</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -53,6 +33,10 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>App needs access to location to register your attendance/dismissal</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App needs access to location to register your attendance/dismissal</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

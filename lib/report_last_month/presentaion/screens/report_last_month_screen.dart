@@ -58,7 +58,7 @@ class ReportLastMonthScreen extends StatelessWidget {
                 ),
               ),
             ],
-          )),
+          ), ),
           Expanded(child: ListView.builder(itemCount: 5,itemBuilder: (context, index) => Container(
             margin: const EdgeInsets.all(20.0),
             padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
