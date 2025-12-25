@@ -103,7 +103,7 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
     bool canCheckBiometrics = await auth.canCheckBiometrics;
     List<BiometricType> availableBiometrics = await auth.getAvailableBiometrics();
 
-    if (availableBiometrics.isNotEmpty) {
+    if (true) {
       // Fingerprint authentication is possible
       try {
         bool authenticated = await auth.authenticate(
@@ -166,7 +166,7 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
     bool canCheckBiometrics = await auth.canCheckBiometrics;
     List<BiometricType> availableBiometrics = await auth.getAvailableBiometrics();
 
-    if (availableBiometrics.isNotEmpty) {
+    if (true) {
       // Fingerprint authentication is possible
       try {
         bool authenticated = await auth.authenticate(
