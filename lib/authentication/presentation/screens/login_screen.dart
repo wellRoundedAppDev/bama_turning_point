@@ -68,6 +68,7 @@ class SignInScreen extends StatelessWidget {
 
                       hintText:
                           AppLocalizations.of(context)!.username,
+
                       validator: (value) {
                         if (value == null || value.isEmpty
                             // (value?.length??0) < 8 ||

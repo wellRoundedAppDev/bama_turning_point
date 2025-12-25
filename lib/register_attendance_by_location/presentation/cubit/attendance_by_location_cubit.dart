@@ -124,7 +124,7 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
               employeeId??0,
               currentUserLocation?.latitude ?? 0,
               currentUserLocation?.longitude ?? 0,
-              1);
+              1,baseUrl);
 
           if (response?.success == true) {
             showAppSnackBar(content: response?.message ?? "");
@@ -187,7 +187,7 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
               employeeId??0,
               currentUserLocation?.latitude ?? 0,
               currentUserLocation?.longitude ?? 0,
-              2);
+              2,baseUrl);
 
           if (response?.success == true) {
             showAppSnackBar(content: response?.message ?? "");

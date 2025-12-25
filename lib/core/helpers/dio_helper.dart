@@ -15,8 +15,10 @@ class DioHelper {
 
   init(String baseUrl){
     ApiUrls.BASE_URL = baseUrl;
+    if (kDebugMode) _dio.interceptors.add(_logger);
+
   }
-  //DioHelper._() {
+  // DioHelper._() {
   //   // Attach Logger
   //   if (kDebugMode) _dio.interceptors.add(_logger);
   // }

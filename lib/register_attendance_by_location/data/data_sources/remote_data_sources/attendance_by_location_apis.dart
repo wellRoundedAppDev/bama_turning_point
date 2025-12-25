@@ -17,7 +17,8 @@ class AttendanceByLocationApis {
   }
 
    Future<GeoFencesResponse?> getGeoFences(String baseUrl) async {
-    String endpoint = ApiUrls.GET_GEOFENCES_ENDPOINT;
+    String endpoint = baseUrl + ApiUrls.GET_GEOFENCES_ENDPOINT;
+    print(endpoint);
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
@@ -34,8 +35,8 @@ class AttendanceByLocationApis {
   }
 
 
-   Future<SuccessAndErrorResponse?> registerAttendanceOrDismissal(int employeeId, double lat, double lng, int action) async {
-    String endpoint = ApiUrls.REGISTER_ATTENDANCE_OR_DISMISSALS_BY_LOCATION_ENDPOINT;
+   Future<SuccessAndErrorResponse?> registerAttendanceOrDismissal(int employeeId, double lat, double lng, int action,String baseUrl) async {
+    String endpoint = baseUrl + ApiUrls.REGISTER_ATTENDANCE_OR_DISMISSALS_BY_LOCATION_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 

@@ -1,6 +1,8 @@
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
+import 'package:classic_eccomerce/profile/data/data_sources/get_employee_profile_apis.dart';
+import 'package:classic_eccomerce/profile/data/model/get_employee_by_id_response.dart';
 import 'package:classic_eccomerce/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,10 +22,36 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
+
+  Employee? employee;
+  bool? isLoading = false;
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    setEmployee();
+
+
+  }
+
+  setEmployee() async {
+    setState(() {
+      isLoading = true;
+    });
+    var response =  await  GetEmployeeProfileApis.getEmployeeById();
+    if(response?.isSuccssed == true){
+      employee = response?.obj;
+
+    }else if(response?.isSuccssed == false){
+
+    }else{
+
+
+    }
+    setState(() {
+isLoading = false;
+    });
   }
 
   @override
@@ -121,7 +149,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
               top: MediaQuery.of(context).size.height * 0.12,
               left: 0,
               right: 0,
-              child: const Column(
+              child:  Column(
                 children: [
                   CircleAvatar(
                     radius: 40,
@@ -130,7 +158,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
 
                   SizedBox(height: 8,),
                   Text(
-                    "محمد",
+                    employee?.fullName??"",
                     style: TextStyle(fontSize: FontSizes.FONT_SIZE_16, fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -183,7 +211,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
             controller: _tabController,
             children: [
               // Tab 1: Personal Data
-              _buildPersonalDataTab(),
+             isLoading == true?Center(child: CircularProgressIndicator(),): _buildPersonalDataTab(),
 
               Text("2"),
 
@@ -226,17 +254,15 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
       child: ListView(
         children: [
           const SizedBox(height: 8,),
-          _buildDataRow('الاسم بالكامل', 'محمد'),
+          _buildDataRow('الاسم بالكامل', employee?.fullName??"-"),
           const SizedBox(height: 16),
-          _buildDataRow('تاريخ الميلاد', '٣٣ - ٥- ١٩٨٢'),
+          _buildDataRow('تاريخ الميلاد', employee?.dateOfBirthEmployee?.toString()??"-"),
           const SizedBox(height: 16),
-          _buildDataRow('اسم الام', 'عبير'),
-
+          _buildDataRow('اسم الام', employee?.MotherNameEmployee?.toString()??"-"),
           const SizedBox(height: 16),
-          _buildDataRow('رقم البطاقة الموحدة', '222332222'),
-
+          _buildDataRow('رقم البطاقة الموحدة', employee?.NationalId?.toString()??""),
           const SizedBox(height: 16),
-          _buildDataRow('التحصيل الدراسي', 'تجارة'),
+          _buildDataRow('التحصيل الدراسي', ""),
 
         ],
       ),

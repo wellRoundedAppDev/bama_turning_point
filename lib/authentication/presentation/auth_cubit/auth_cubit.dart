@@ -189,6 +189,7 @@ class AuthCubit extends Cubit<AuthStates> {
     //           type: PageTransitionType.fade)),
     // );
     //
+
     var loggedUser = (await getLoginCredentialsFromSharedPrefs());
     if (loggedUser == null) {
       Future.delayed(

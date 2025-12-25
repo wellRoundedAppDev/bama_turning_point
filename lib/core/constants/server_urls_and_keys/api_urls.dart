@@ -1,5 +1,6 @@
 class ApiUrls {
   static String BASE_URL =
+ // "https://api.rjb-iq.com/";
   "https://erpapi1.semicolonsys.com/";
      // "https://erp-test.net/";
   //  "https://m-caesari.com/";
@@ -179,6 +180,9 @@ class ApiUrls {
 
   static const GET_GEOFENCES_ENDPOINT = "Geofence/GetAllMop";
   static const REGISTER_ATTENDANCE_OR_DISMISSALS_BY_LOCATION_ENDPOINT = "Geofence/MarkMobile";
+
+
+  static const GET_EMPLOYEE_BY_ID_ENDPOINT = "HR/Employee/Get";
 
 
 
