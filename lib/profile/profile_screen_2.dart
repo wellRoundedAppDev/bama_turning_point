@@ -4,6 +4,7 @@ import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:classic_eccomerce/profile/data/data_sources/get_employee_profile_apis.dart';
 import 'package:classic_eccomerce/profile/data/model/get_employee_by_id_response.dart';
 import 'package:classic_eccomerce/profile/profile_screen.dart';
+import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -25,6 +26,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
 
   Employee? employee;
   bool? isLoading = false;
+  bool? isNwError = false;
 
   @override
   void initState() {
@@ -43,10 +45,13 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
     if(response?.isSuccssed == true){
       employee = response?.obj;
 
+      isNwError = false;
     }else if(response?.isSuccssed == false){
 
+      isNwError = false;
     }else{
 
+      isNwError = true;
 
     }
     setState(() {
@@ -91,7 +96,7 @@ isLoading = false;
                         ),
                         alignment: Alignment.topCenter,
                         padding: const EdgeInsets.only(top: 50),
-                        child: Text(
+                        child: const Text(
                           "البيانات الشخصية",
                           style: TextStyle(
                             color: Colors.white,
@@ -151,15 +156,15 @@ isLoading = false;
               right: 0,
               child:  Column(
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 40,
                     backgroundImage: AssetImage(ImagePaths.APP_LOGO), // Replace with actual image
                   ),
 
-                  SizedBox(height: 8,),
+                  const SizedBox(height: 8,),
                   Text(
                     employee?.fullName??"",
-                    style: TextStyle(fontSize: FontSizes.FONT_SIZE_16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -211,11 +216,22 @@ isLoading = false;
             controller: _tabController,
             children: [
               // Tab 1: Personal Data
-             isLoading == true?Center(child: CircularProgressIndicator(),): _buildPersonalDataTab(),
+             isLoading == true?const Center(child: CircularProgressIndicator(),):
 
-              Text("2"),
+             isNwError == true? Padding(
+               padding: const EdgeInsets.all(24.0),
+               child: NoNetworkRefreshPage(refresh: (){
 
-              Text("3"),
+                 setEmployee();
+               }),
+             ):
+
+
+             _buildPersonalDataTab(),
+
+              const Text("2"),
+
+              const Text("3"),
 
               // Tab 2: Equivalent Data
               // _buildEquivalentDataTab(),
@@ -261,8 +277,8 @@ isLoading = false;
           _buildDataRow('اسم الام', employee?.MotherNameEmployee?.toString()??"-"),
           const SizedBox(height: 16),
           _buildDataRow('رقم البطاقة الموحدة', employee?.NationalId?.toString()??""),
-          const SizedBox(height: 16),
-          _buildDataRow('التحصيل الدراسي', ""),
+          // const SizedBox(height: 16),
+          // _buildDataRow('التحصيل الدراسي', ""),
 
         ],
       ),
