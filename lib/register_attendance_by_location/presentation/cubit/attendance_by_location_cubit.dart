@@ -53,47 +53,80 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
         currentUserLocation?.latitude ?? 0,
         currentUserLocation?.longitude ?? 0,
       );
+      print("$distance  ${geoFence.radiusMeters ?? 0}");
+      // isInsideAGeoFence = true;
 
-      if (distance <= (geoFence.radiusMeters ?? 0)) {
-        print("🚀 User is inside geofence: ");
-        isInsideAGeoFence = true;
+      circles.clear();
+      circles.addAll(geoFences
+              .map<Circle>((e) => Circle(
+                    fillColor:
+                        // geoFence.id == e.id
+                        //     ? Colors.green.withOpacity(0.2)
+                        //     :
 
-        circles.clear();
-        circles.addAll(geoFences
-                ?.map<Circle>((e) => Circle(
-                      fillColor: geoFence.id == e.id
-                          ? Colors.green.withOpacity(0.2)
-                          : AppColors.APP_MAIN_COLOR.withOpacity(0.2),
-                      circleId: CircleId(e.id.toString() ?? ""),
-                      center: LatLng(e.latitude ?? 0, e.longitude ?? 0)!,
-                      radius: e.radiusMeters ?? 0,
-                      strokeColor: geoFence.id == e.id
-                          ? Colors.green
-                          : AppColors.APP_MAIN_COLOR,
-                      strokeWidth: 2,
-                    ))
-                ?.toSet() ??
-            {});
+                        distance <= (e.radiusMeters ?? 0)
+                            ? Colors.green
+                            : AppColors.APP_MAIN_COLOR.withOpacity(0.2),
+                    circleId: CircleId(e.id.toString() ?? ""),
+                    center: LatLng(e.latitude ?? 0, e.longitude ?? 0)!,
+                    radius: e.radiusMeters ?? 0,
+                    strokeColor: distance <= (e.radiusMeters ?? 0)
+                        ? Colors.green
+                        : AppColors.APP_MAIN_COLOR,
+                    strokeWidth: 2,
+                  ))
+              .toSet() ??
+          {});
 
+      emit(ChangeState());
 
-        emit(ChangeState());
+      //  break;
 
-        break;
-
-      } else {
-        isInsideAGeoFence = false;
-      }
+      // if (distance <= (geoFence.radiusMeters ?? 0)) {
+      //   print("🚀 User is inside geofence: ");
+      //   isInsideAGeoFence = true;
+      //
+      //   circles.clear();
+      //   circles.addAll(geoFences
+      //           .map<Circle>((e) => Circle(
+      //                 fillColor:
+      //                 // geoFence.id == e.id
+      //                 //     ? Colors.green.withOpacity(0.2)
+      //                 //     :
+      //                 AppColors.APP_MAIN_COLOR.withOpacity(0.2),
+      //                 circleId: CircleId(e.id.toString() ?? ""),
+      //                 center: LatLng(e.latitude ?? 0, e.longitude ?? 0)!,
+      //                 radius: e.radiusMeters ?? 0,
+      //                 strokeColor:
+      //                 // geoFence.id == e.id
+      //                 //     ? Colors.green
+      //                 //     :
+      //                 AppColors.APP_MAIN_COLOR,
+      //                 strokeWidth: 2,
+      //               ))
+      //           .toSet() ??
+      //       {});
+      //
+      //
+      //   emit(ChangeState());
+      //
+      // //  break;
+      //
+      // } else {
+      //   isInsideAGeoFence = false;
+      // }
     }
 
     emit(ChangeState());
   }
 
   registerAttendance(String baseUrl) async {
+    AttendanceByLocationApis apis =
+        AttendanceByLocationApis(DioHelper()..init(baseUrl));
 
-    AttendanceByLocationApis apis = AttendanceByLocationApis(DioHelper()..init(baseUrl));
-
-    if(isInsideAGeoFence == false){
-      showAppSnackBar(content: AppLocalizations.of(context)!.you_are_out_of_work_range);
+    if (isInsideAGeoFence == false) {
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!.you_are_out_of_work_range);
       return;
     }
 
@@ -101,7 +134,8 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
 
     final LocalAuthentication auth = LocalAuthentication();
     bool canCheckBiometrics = await auth.canCheckBiometrics;
-    List<BiometricType> availableBiometrics = await auth.getAvailableBiometrics();
+    List<BiometricType> availableBiometrics =
+        await auth.getAvailableBiometrics();
 
     if (true) {
       // Fingerprint authentication is possible
@@ -110,31 +144,33 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
           localizedReason: 'Please authenticate to access your account',
           options: const AuthenticationOptions(
             stickyAuth: true,
-
           ),
         );
 
         print(authenticated);
         if (authenticated) {
           // User successfully authenticated
-          var employeeId = MyApp.navKey.currentState?.context.read<AuthCubit>()?.loginResponse?.loginData?.employeeId;
+          var employeeId = MyApp.navKey.currentState?.context
+              .read<AuthCubit>()
+              ?.loginResponse
+              ?.loginData
+              ?.employeeId;
           emit(RegisterAttendanceByLocationLoadingState());
 
           var response = await apis.registerAttendanceOrDismissal(
-              employeeId??0,
+              employeeId ?? 0,
               currentUserLocation?.latitude ?? 0,
               currentUserLocation?.longitude ?? 0,
-              1,baseUrl);
+              1,
+              baseUrl);
 
           if (response?.success == true) {
             showAppSnackBar(content: response?.message ?? "");
             emit(RegisterAttendanceByLocationSuccessState());
-          }
-          else if (response?.success == false) {
+          } else if (response?.success == false) {
             showAppSnackBar(content: response?.message ?? "");
             emit(RegisterAttendanceByLocationFailedState());
-          }
-          else {
+          } else {
             showAppSnackBar(
                 content: AppLocalizations.of(context)!
                     .check_your_internet_connection_and_try_again_later);
@@ -148,23 +184,23 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
         // Handle platform-specific errors
         print(e);
       }
-
-
     }
-
   }
 
   registerDismissal(String baseUrl) async {
-    AttendanceByLocationApis apis = AttendanceByLocationApis(DioHelper()..init(baseUrl));
+    AttendanceByLocationApis apis =
+        AttendanceByLocationApis(DioHelper()..init(baseUrl));
 
-    if(isInsideAGeoFence == false){
-      showAppSnackBar(content: AppLocalizations.of(context)!.you_are_out_of_work_range);
+    if (isInsideAGeoFence == false) {
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!.you_are_out_of_work_range);
       return;
     }
 
     final LocalAuthentication auth = LocalAuthentication();
     bool canCheckBiometrics = await auth.canCheckBiometrics;
-    List<BiometricType> availableBiometrics = await auth.getAvailableBiometrics();
+    List<BiometricType> availableBiometrics =
+        await auth.getAvailableBiometrics();
 
     if (true) {
       // Fingerprint authentication is possible
@@ -173,31 +209,33 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
           localizedReason: 'Please authenticate to access your account',
           options: const AuthenticationOptions(
             stickyAuth: true,
-
           ),
         );
 
         print(authenticated);
         if (authenticated) {
           // User successfully authenticated
-          var employeeId = MyApp.navKey.currentState?.context.read<AuthCubit>()?.loginResponse?.loginData?.employeeId;
+          var employeeId = MyApp.navKey.currentState?.context
+              .read<AuthCubit>()
+              ?.loginResponse
+              ?.loginData
+              ?.employeeId;
           emit(RegisterAttendanceByLocationLoadingState());
 
           var response = await apis.registerAttendanceOrDismissal(
-              employeeId??0,
+              employeeId ?? 0,
               currentUserLocation?.latitude ?? 0,
               currentUserLocation?.longitude ?? 0,
-              2,baseUrl);
+              2,
+              baseUrl);
 
           if (response?.success == true) {
             showAppSnackBar(content: response?.message ?? "");
             emit(RegisterAttendanceByLocationSuccessState());
-          }
-          else if (response?.success == false) {
+          } else if (response?.success == false) {
             showAppSnackBar(content: response?.message ?? "");
             emit(RegisterAttendanceByLocationFailedState());
-          }
-          else {
+          } else {
             showAppSnackBar(
                 content: AppLocalizations.of(context)!
                     .check_your_internet_connection_and_try_again_later);
@@ -211,8 +249,6 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
         // Handle platform-specific errors
         print(e);
       }
-
-
     }
   }
 
@@ -257,7 +293,6 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
       // await location?.enableBackgroundMode(enable: true);
 
       await setGeoFences(baseUrl);
-      checkGeoFences();
 
       // listenToLocationChanges();
 
@@ -276,24 +311,42 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
   }
 
   setGeoFences(String baseUrl) async {
-    AttendanceByLocationApis apis = AttendanceByLocationApis(DioHelper()..init(baseUrl));
+    AttendanceByLocationApis apis =
+        AttendanceByLocationApis(DioHelper()..init(baseUrl));
 
     var response = await apis.getGeoFences(baseUrl);
 
     if (response?.isSuccssed == true) {
       geoFences = response?.geofences ?? [];
+
       circles.clear();
-      circles.addAll(geoFences
-              ?.map<Circle>((e) => Circle(
-                    fillColor: AppColors.APP_MAIN_COLOR.withOpacity(0.2),
-                    circleId: CircleId(e.id.toString() ?? ""),
-                    center: LatLng(e.latitude ?? 0, e.longitude ?? 0)!,
-                    radius: e.radiusMeters ?? 0,
-                    strokeColor: AppColors.APP_MAIN_COLOR,
-                    strokeWidth: 2,
-                  ))
-              ?.toSet() ??
+      circles.addAll(geoFences?.map<Circle>((e) {
+            double distance = Geolocator.distanceBetween(
+              e?.latitude ?? 0,
+              e?.longitude ?? 0,
+              currentUserLocation?.latitude ?? 0,
+              currentUserLocation?.longitude ?? 0,
+            );
+
+            if (distance <= (e.radiusMeters ?? 0)) {
+              isInsideAGeoFence = true;
+            }
+            return Circle(
+              fillColor: distance <= (e.radiusMeters ?? 0)
+                  ? Colors?.green.withOpacity(0.2)
+                  : AppColors.APP_MAIN_COLOR.withOpacity(0.2),
+              circleId: CircleId(e.id.toString() ?? ""),
+              center: LatLng(e.latitude ?? 0, e.longitude ?? 0)!,
+              radius: e.radiusMeters ?? 0,
+              strokeColor: distance <= (e.radiusMeters ?? 0)
+                  ? Colors.green
+                  : AppColors.APP_MAIN_COLOR,
+              strokeWidth: 2,
+            );
+          })?.toSet() ??
           {});
+
+      //checkGeoFences();
     } else if (response?.isSuccssed == false) {
       showAppSnackBar(content: response?.message ?? "");
     } else {
