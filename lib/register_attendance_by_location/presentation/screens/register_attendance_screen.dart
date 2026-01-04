@@ -115,6 +115,7 @@ class RegisterAttendanceByLocationScreenState
                                       topLeft: Radius.circular(40))),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const SizedBox(
                                     height: 16,
@@ -248,7 +249,8 @@ class RegisterAttendanceByLocationScreenState
                                         ),
                                       ),
                                     ],
-                                  )
+                                  ),
+                                  const SizedBox(height: 20,),
                                 ],
                               ),
                             ),
