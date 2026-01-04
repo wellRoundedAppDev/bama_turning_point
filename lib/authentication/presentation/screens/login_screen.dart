@@ -1,3 +1,4 @@
+import 'package:classic_eccomerce/authentication/data/data_sources/local_data_source/login_credentials_store.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/states.dart';
 import 'package:classic_eccomerce/authentication/presentation/screens/forget_password_screen.dart';
@@ -247,16 +248,26 @@ class SignInScreen extends StatelessWidget {
                               const SizedBox(height: 60,),
                               SizedBox(
                                   height: 50,
-                                  child: CustomInput(controller: controller,)),
+                                  child: CustomInput(controller: controller,
+
+                                  borderColor: AppColors.APP_MAIN_COLOR,
+                                  )),
 
                               const SizedBox(height: 24,),
 
-                              CustomButton(text: "Submit", action: (){
+                              CustomButton(text: "Submit", action: () async {
 
-                                if (kDebugMode) {
-                                  print(controller.text);
-                                }
-                                ApiUrls.BASE_URL = controller.text;
+                                // if (kDebugMode) {
+                                //   print(controller.text);
+                                // }
+                                // var saveLoginData = await getLoginCredentialsFromSharedPrefs();
+                                // if(saveLoginData != null){
+                                //   controller.text =  saveLoginData['baseUrl']??"";
+                                // }
+                                ApiUrls.BASE_URL =
+
+
+                                    controller.text;
 
                                 if (kDebugMode) {
                                   print(ApiUrls.BASE_URL);

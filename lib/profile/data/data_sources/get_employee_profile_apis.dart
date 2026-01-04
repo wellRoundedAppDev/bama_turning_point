@@ -12,9 +12,12 @@ import '../../../../core/helpers/dio_helper.dart';
 import '../../../../main.dart';
 
 class GetEmployeeProfileApis {
-  static final dioHelper = DioHelper()..init(ApiUrls.BASE_URL);
+  static DioHelper? dioHelper;
 
-  static Future<GetEmployeeResponse?> getEmployeeById(
+  GetEmployeeProfileApis(DioHelper helper){
+    dioHelper = helper;
+  }
+   Future<GetEmployeeResponse?> getEmployeeById(
       ) async {
     String endpoint = ApiUrls.GET_EMPLOYEE_BY_ID_ENDPOINT;
     String? accessToken =
@@ -23,7 +26,7 @@ class GetEmployeeProfileApis {
     try {
 
       int id = MyApp.navKey.currentState?.context.read<AuthCubit>().loginResponse?.loginData?.employeeId??0;
-      var response = await dioHelper.get(
+      var response = await dioHelper?.get(
         endpoint: endpoint,
         headers: {"Authorization": "Bearer $accessToken"},
         queryParameters: {"Id":id}

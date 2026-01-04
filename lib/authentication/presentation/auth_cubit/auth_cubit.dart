@@ -65,8 +65,11 @@ class AuthCubit extends Cubit<AuthStates> {
     bool isCheckingOut = false,
   }) async {
 
+    AuthApis apis = AuthApis(DioHelper()..init(ApiUrls.BASE_URL));
 
-    dioHelper = DioHelper()..init(ApiUrls.BASE_URL);
+//var response = await apis.getGeoFences(baseUrl);
+
+ //   dioHelper = DioHelper()..init(ApiUrls.BASE_URL);
     if (validateLoginForm() != true) {
       return;
     }
@@ -80,7 +83,7 @@ class AuthCubit extends Cubit<AuthStates> {
     // }
 
     emit(LoginLoadingState());
-    var response = await AuthApis.login(loginFormInput.toJson());
+    var response = await apis?.login(loginFormInput.toJson());
     if (response?.success == true) {
       loginResponse = response;
       isUserLoggedIn = true;
@@ -90,8 +93,11 @@ class AuthCubit extends Cubit<AuthStates> {
       accessToken = response?.loginData?.token;
       setLoginCredentialsInSharedPrefs({
         "userName": loginFormInput.username,
-        "password": loginFormInput.password
+        "password": loginFormInput.password,
+        "baseUrl":ApiUrls.BASE_URL
       });
+
+
       emit(LoginSuccessState());
 
       Navigator.pushReplacement(
@@ -113,7 +119,7 @@ class AuthCubit extends Cubit<AuthStates> {
       loginResponse = null;
       isUserLoggedIn = false;
       accessToken = null;
-      showAppSnackBar(content: response?.loginData?.message ?? "");
+      showAppSnackBar(content: response?.error ?? "");
       if (kDebugMode) {
         print(response?.error);
       }
@@ -139,7 +145,9 @@ class AuthCubit extends Cubit<AuthStates> {
     //   return;
     // }
 
-    var response = await AuthApis.login(loginInput);
+    AuthApis apis = AuthApis(DioHelper()..init(ApiUrls.BASE_URL));
+
+    var response = await apis.login(loginInput);
     if (response?.success == true) {
       loginResponse = response;
       isUserLoggedIn = true;
@@ -149,7 +157,9 @@ class AuthCubit extends Cubit<AuthStates> {
       accessToken = response?.loginData?.token;
       setLoginCredentialsInSharedPrefs({
         "userName": loginInput['userName'],
-        "password": loginInput['password']
+        "password": loginInput['password'],
+        "baseUrl":ApiUrls.BASE_URL
+
       });
       // Navigator.pushReplacement(
       //     context,
@@ -162,7 +172,7 @@ class AuthCubit extends Cubit<AuthStates> {
       loginResponse = null;
       isUserLoggedIn = false;
       accessToken = null;
-      showAppSnackBar(content: response?.loginData?.message ?? "");
+      showAppSnackBar(content: response?.error ?? "");
       if (kDebugMode) {
         print(response?.error);
       }
@@ -205,8 +215,13 @@ class AuthCubit extends Cubit<AuthStates> {
 
     var loginInput = {
       "userName": loggedUser['userName'],
-      "password": loggedUser['password']
+      "password": loggedUser['password'],
+      //"baseUrl":loggedUser['baseUrl'],
+
     };
+
+    ApiUrls.BASE_URL = loggedUser['baseUrl'];
+    AuthApis apis = AuthApis(DioHelper()..init(ApiUrls.BASE_URL));
 
     // if (await setAccessToken() == false) {
     //   Navigator.pushReplacement(
@@ -218,7 +233,7 @@ class AuthCubit extends Cubit<AuthStates> {
     //   return;
     // }
 
-    var response = await AuthApis.login(loginInput);
+    var response = await apis?.login(loginInput);
     if (response?.success == true) {
       loginResponse = response;
       isUserLoggedIn = true;
@@ -234,7 +249,7 @@ class AuthCubit extends Cubit<AuthStates> {
     } else if (response?.success == false) {
       loginResponse = null;
       isUserLoggedIn = false;
-      showAppSnackBar(content: response?.loginData?.message ?? "");
+      showAppSnackBar(content: response?.error ?? "");
       print(response?.error);
       emit(LoginFailedState());
     } else {
@@ -288,6 +303,9 @@ class AuthCubit extends Cubit<AuthStates> {
   //   }
   // }
   register() async {
+
+    AuthApis apis = AuthApis(DioHelper()..init(ApiUrls.BASE_URL));
+
     if (validateRegisterForm() != true) {
       return;
     }
@@ -300,7 +318,7 @@ class AuthCubit extends Cubit<AuthStates> {
       return;
     }
 
-    var response = await AuthApis.register(registerFormInput.toJsonForApi());
+    var response = await apis?.register(registerFormInput.toJsonForApi());
     if (response?.success == true) {
       isUserLoggedIn = true;
       await login(
@@ -339,19 +357,19 @@ class AuthCubit extends Cubit<AuthStates> {
     //   emit(LogoutNetworkFailedConnectionState());
     //   return;
     // }
-    var success = await AuthApis.logOut();
-    if (success == true) {
-      isUserLoggedIn = false;
-      // cartCubit?.clearCart();
-      clearLoginCredentialsFromSharedPrefs();
-      emit(LogoutSuccessState());
-    } else if (success == false) {
-      showAppSnackBar(content: "Error occured");
-      emit(LogoutFailedState());
-    } else {
-      showAppSnackBar(content: "Check your internet connection, and try again");
-      emit(LogoutNetworkFailedConnectionState());
-    }
+    // var success = await AuthApis.logOut();
+    // if (success == true) {
+    //   isUserLoggedIn = false;
+    //   // cartCubit?.clearCart();
+    //   clearLoginCredentialsFromSharedPrefs();
+    //   emit(LogoutSuccessState());
+    // } else if (success == false) {
+    //   showAppSnackBar(content: "Error occured");
+    //   emit(LogoutFailedState());
+    // } else {
+    //   showAppSnackBar(content: "Check your internet connection, and try again");
+    //   emit(LogoutNetworkFailedConnectionState());
+    // }
   }
 
   validateLoginForm() {
@@ -411,28 +429,28 @@ class AuthCubit extends Cubit<AuthStates> {
     return false;
   }
 
-  checkIfUserExists(var input) async {
-    if (await setAccessToken() == false) {
-      showAppSnackBar(
-          content: AppLocalizations.of(context)!
-              .check_your_internet_connection_and_try_again_later);
-
-      return false;
-    }
-
-    var response = await AuthApis.login(input);
-    if (response?.success == 1) {
-      return true;
-    } else if (response?.success == 0) {
-      return false;
-    } else {
-      showAppSnackBar(
-          content: AppLocalizations.of(context)!
-              .check_your_internet_connection_and_try_again_later);
-
-      return null;
-    }
-  }
+  // checkIfUserExists(var input) async {
+  //   if (await setAccessToken() == false) {
+  //     showAppSnackBar(
+  //         content: AppLocalizations.of(context)!
+  //             .check_your_internet_connection_and_try_again_later);
+  //
+  //     return false;
+  //   }
+  //
+  //   var response = await AuthApis.login(input);
+  //   if (response?.success == 1) {
+  //     return true;
+  //   } else if (response?.success == 0) {
+  //     return false;
+  //   } else {
+  //     showAppSnackBar(
+  //         content: AppLocalizations.of(context)!
+  //             .check_your_internet_connection_and_try_again_later);
+  //
+  //     return null;
+  //   }
+  // }
 
 // Future<bool?> createGuestUser(
 //     ) async {

@@ -132,7 +132,7 @@ class PersonalProfileScreen extends StatelessWidget {
               // ),
               SizedBox(height: 8,),
               Text(
-                "محمد",
+                "",
                 style: TextStyle(fontSize: FontSizes.FONT_SIZE_16, fontWeight: FontWeight.bold),
               ),
             ],

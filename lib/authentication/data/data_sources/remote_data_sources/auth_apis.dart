@@ -9,17 +9,21 @@ import '../../../presentation/auth_cubit/auth_cubit.dart';
 import '../../models/login_response.dart';
 
 class AuthApis {
-  static final dioHelper = DioHelper()..init(ApiUrls.BASE_URL);
+ // static final dioHelper = DioHelper()..init(ApiUrls.BASE_URL);
 
 
 
 
+  static DioHelper? dioHelper;
 
+  AuthApis(DioHelper helper){
+    dioHelper = helper;
+  }
 
   static Future<String?> getSessionId() async {
     String endpoint = ApiUrls.GET_SESSION_ID_ENDPOINT;
     try {
-      var response = await dioHelper.post(endPoint: endpoint);
+      var response = await dioHelper?.post(endPoint: endpoint);
       if (response?.data['success'] == 1) {
         return response?.data['data']['session'];
       } else {
@@ -35,7 +39,7 @@ class AuthApis {
   static Future<String?> getAccessToken() async {
     String endpoint = ApiUrls.GET_TOKEN_ENDPONT;
     try {
-      var response = await dioHelper.post(endPoint: endpoint, headers: {
+      var response = await dioHelper?.post(endPoint: endpoint, headers: {
         "Authorization": "Basic c2hvcHBpbmdfb2F1dGhfY2xpZW50OnNob3BwaW5nX29hdXRoX3NlY3JldA=="
             //"bS1jZXNhci11c2VyOm0tY2VzYXItc2VjcmV0"
       });
@@ -51,7 +55,7 @@ class AuthApis {
     }
   }
 
-  static Future<LoginResponse?> login(
+   Future<LoginResponse?> login(
     Map<String, dynamic> loginInput,
   ) async {
     String endpoint = ApiUrls.LOGIN_ENDPOINT;
@@ -59,7 +63,7 @@ class AuthApis {
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {
-      var response = await dioHelper.post(
+      var response = await dioHelper?.post(
           endPoint: endpoint,
           body: loginInput,
       //    headers: {"Authorization": "Bearer $accessToken"}
@@ -78,7 +82,7 @@ class AuthApis {
     }
   }
 
-  static Future<SuccessAndErrorResponse?> register(
+   Future<SuccessAndErrorResponse?> register(
     Map<String, dynamic> registerInput,
   ) async {
     String endpoint = ApiUrls.REGISTER_ENDPOINT;
@@ -86,7 +90,7 @@ class AuthApis {
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {
-      var response = await dioHelper.post(
+      var response = await dioHelper?.post(
           endPoint: endpoint,
           body: registerInput,
           headers: {"Authorization": "Bearer $accessToken"});
@@ -104,13 +108,13 @@ class AuthApis {
     }
   }
 
-  static Future<bool?> logOut() async {
+   Future<bool?> logOut() async {
     String endpoint = ApiUrls.LOGOUT_ENDPOINT;
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
 
     try {
-      var response = await dioHelper.post(
+      var response = await dioHelper?.post(
         headers: {"Authorization": "Bearer $accessToken"},
         endPoint: endpoint,
       );
@@ -131,14 +135,14 @@ class AuthApis {
     }
   }
 
-  static Future<bool?> createGuestUser(
+   Future<bool?> createGuestUser(
     Map<String, dynamic> guestForm,
   ) async {
     String? accessToken =
         MyApp.navKey.currentState?.context.read<AuthCubit>().accessToken;
     String endpoint = ApiUrls.CREATE_GUEST_USER_ENDPOINT;
     try {
-      var response = await dioHelper.post(
+      var response = await dioHelper?.post(
         endPoint: endpoint,
         headers: {"Authorization": "Bearer $accessToken"},
         body: guestForm,

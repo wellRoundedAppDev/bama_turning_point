@@ -1,6 +1,7 @@
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
+import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/profile/data/data_sources/get_employee_profile_apis.dart';
 import 'package:classic_eccomerce/profile/data/model/get_employee_by_id_response.dart';
 import 'package:classic_eccomerce/profile/profile_screen.dart';
@@ -8,6 +9,7 @@ import 'package:classic_eccomerce/shared_components/no_network_refresh_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../core/helpers/dio_helper.dart';
 import '../core/locales/l10n/app_localizations.dart';
 
 
@@ -41,7 +43,11 @@ class _PersonalDataScreenState extends State<PersonalDataScreen>
     setState(() {
       isLoading = true;
     });
-    var response =  await  GetEmployeeProfileApis.getEmployeeById();
+    GetEmployeeProfileApis apis = GetEmployeeProfileApis(DioHelper()..init(ApiUrls.BASE_URL));
+
+
+
+    var response =  await  apis?.getEmployeeById();
     if(response?.isSuccssed == true){
       employee = response?.obj;
 
