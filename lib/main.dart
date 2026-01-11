@@ -70,6 +70,7 @@ class MyApp extends StatelessWidget {
             navigatorKey: navKey,
             title: Strings.APP_NAME,
             supportedLocales: L10n.all,
+
             debugShowCheckedModeBanner: false,
             localizationsDelegates: const [
               AppLocalizations.delegate,

@@ -278,7 +278,7 @@ isLoading = false;
           const SizedBox(height: 8,),
           _buildDataRow('الاسم بالكامل', employee?.fullName??"-"),
           const SizedBox(height: 16),
-          _buildDataRow('تاريخ الميلاد', employee?.dateOfBirthEmployee?.toString()??"-"),
+          _buildDataRow('تاريخ الميلاد', employee?.dateOfBirthEmployee?.toString()?.split(" ")?.first??"-"),
           const SizedBox(height: 16),
           _buildDataRow('اسم الام', employee?.MotherNameEmployee?.toString()??"-"),
           const SizedBox(height: 16),

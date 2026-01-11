@@ -70,6 +70,7 @@ class SignInScreen extends StatelessWidget {
                       hintText:
                           AppLocalizations.of(context)!.username,
 
+                      textDirection: TextDirection.ltr,
                       validator: (value) {
                         if (value == null || value.isEmpty
                             // (value?.length??0) < 8 ||
@@ -79,6 +80,7 @@ class SignInScreen extends StatelessWidget {
                               .enter_your_main_userName;
                         }
                       },
+
                       textInputType: TextInputType.name,
                       onSaved: (v) => AuthCubit.get(context)
                           .loginFormInput

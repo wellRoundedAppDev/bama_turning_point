@@ -2,6 +2,7 @@ import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/fonts/font_sizes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomInput extends StatelessWidget {
 
@@ -90,4 +91,39 @@ class CustomInput extends StatelessWidget {
       ),
     );
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+class EnglishDigitFormatter extends TextInputFormatter {
+  static const arabic = '٠١٢٣٤٥٦٧٨٩';
+  static const english = '0123456789';
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue,
+      TextEditingValue newValue,
+      ) {
+    String text = newValue.text;
+
+    for (int i = 0; i < arabic.length; i++) {
+      text = text.replaceAll(arabic[i], english[i]);
+    }
+
+    return newValue.copyWith(text: text);
+  }
+}
+

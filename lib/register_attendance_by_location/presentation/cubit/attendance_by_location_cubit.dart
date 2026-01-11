@@ -121,6 +121,7 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
   }
 
   registerAttendance(String baseUrl) async {
+
     AttendanceByLocationApis apis =
         AttendanceByLocationApis(DioHelper()..init(baseUrl));
 
@@ -136,6 +137,20 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
     bool canCheckBiometrics = await auth.canCheckBiometrics;
     List<BiometricType> availableBiometrics =
         await auth.getAvailableBiometrics();
+
+
+    bool supportsFace = availableBiometrics.contains(BiometricType.face) ||
+        availableBiometrics.contains(BiometricType.strong);
+
+// 2. Explicitly check if Fingerprint is the ONLY thing available
+    bool onlyFingerprint = availableBiometrics.contains(BiometricType.fingerprint) &&
+        !availableBiometrics.contains(BiometricType.face);
+
+    if (!supportsFace || onlyFingerprint) {
+      showAppSnackBar(content: "الجهاز لا يدعم بصمة الوجه (يدعم بصمة الإصبع فقط أو غير مدعوم)");
+      return;
+    }
+
 
     if (true) {
       // Fingerprint authentication is possible
@@ -178,6 +193,8 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
             emit(RegisterAttendanceByLocationNWConnectionFailedState());
           }
         } else {
+
+          showAppSnackBar(content: "فشل تحقق");
           // User failed to authenticate or canceled
         }
       } on PlatformException catch (e) {
@@ -200,7 +217,20 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
     final LocalAuthentication auth = LocalAuthentication();
     bool canCheckBiometrics = await auth.canCheckBiometrics;
     List<BiometricType> availableBiometrics =
-        await auth.getAvailableBiometrics();
+    await auth.getAvailableBiometrics();
+
+
+    bool supportsFace = availableBiometrics.contains(BiometricType.face) ||
+        availableBiometrics.contains(BiometricType.strong);
+
+// 2. Explicitly check if Fingerprint is the ONLY thing available
+    bool onlyFingerprint = availableBiometrics.contains(BiometricType.fingerprint) &&
+        !availableBiometrics.contains(BiometricType.face);
+
+    if (!supportsFace || onlyFingerprint) {
+      showAppSnackBar(content: "الجهاز لا يدعم بصمة الوجه (يدعم بصمة الإصبع فقط أو غير مدعوم)");
+      return;
+    }
 
     if (true) {
       // Fingerprint authentication is possible
@@ -244,6 +274,9 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
           }
         } else {
           // User failed to authenticate or canceled
+
+          showAppSnackBar(content: "فشل تحقق");
+
         }
       } on PlatformException catch (e) {
         // Handle platform-specific errors
