@@ -19,10 +19,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:location/location.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../core/constants/colors/colors.dart';
 import '../../../core/helpers/location_finder_gps.dart';
+import '../../../face_recogonition/presentation/screens/face_detection_screen.dart';
 import 'attendance_by_location_states.dart';
 
 class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
@@ -131,6 +133,55 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
       return;
     }
 
+
+   var res = await  Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
+    child:  FaceDetectionScreen(isUserRegistering: false,)
+    ));
+
+
+    print(res);
+
+
+
+    if(res['res']==false){
+
+      showAppSnackBar(
+          content: "فشل تحقق");
+
+      return;
+    }
+
+
+
+    var employeeId = MyApp.navKey.currentState?.context
+        .read<AuthCubit>()
+        ?.loginResponse
+        ?.loginData
+        ?.employeeId;
+    emit(RegisterAttendanceByLocationLoadingState());
+
+    var response = await apis.registerAttendanceOrDismissal(
+        employeeId ?? 0,
+        currentUserLocation?.latitude ?? 0,
+        currentUserLocation?.longitude ?? 0,
+        1,
+        baseUrl);
+
+    if (response?.success == true) {
+      showAppSnackBar(content: response?.message ?? "");
+      emit(RegisterAttendanceByLocationSuccessState());
+    } else if (response?.success == false) {
+      showAppSnackBar(content: response?.message ?? "");
+      emit(RegisterAttendanceByLocationFailedState());
+    } else {
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!
+              .check_your_internet_connection_and_try_again_later);
+
+      emit(RegisterAttendanceByLocationNWConnectionFailedState());
+    }
+
+    return;
 // ···
 
     final LocalAuthentication auth = LocalAuthentication();
@@ -156,7 +207,7 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
       // Fingerprint authentication is possible
       try {
         bool authenticated = await auth.authenticate(
-          localizedReason: 'Please authenticate to access your account',
+          localizedReason: 'يرجي التحقق من بصمة وجهك',
           options: const AuthenticationOptions(
             stickyAuth: true,
           ),
@@ -214,6 +265,62 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
       return;
     }
 
+
+
+    var res = await  Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
+        child:  FaceDetectionScreen(isUserRegistering: false,)
+    ));
+
+
+    print(res);
+
+
+
+    if(res['res']==false){
+
+
+      showAppSnackBar(
+          content: "فشل تحقق");
+
+      return;
+    }
+
+
+
+
+
+
+
+    var employeeId = MyApp.navKey.currentState?.context
+        .read<AuthCubit>()
+        ?.loginResponse
+        ?.loginData
+        ?.employeeId;
+    emit(RegisterAttendanceByLocationLoadingState());
+
+    var response = await apis.registerAttendanceOrDismissal(
+        employeeId ?? 0,
+        currentUserLocation?.latitude ?? 0,
+        currentUserLocation?.longitude ?? 0,
+        2,
+        baseUrl);
+
+    if (response?.success == true) {
+      showAppSnackBar(content: response?.message ?? "");
+      emit(RegisterAttendanceByLocationSuccessState());
+    } else if (response?.success == false) {
+      showAppSnackBar(content: response?.message ?? "");
+      emit(RegisterAttendanceByLocationFailedState());
+    } else {
+      showAppSnackBar(
+          content: AppLocalizations.of(context)!
+              .check_your_internet_connection_and_try_again_later);
+
+      emit(RegisterAttendanceByLocationNWConnectionFailedState());
+    }
+
+    return;
+
     final LocalAuthentication auth = LocalAuthentication();
     bool canCheckBiometrics = await auth.canCheckBiometrics;
     List<BiometricType> availableBiometrics =
@@ -236,11 +343,13 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
       // Fingerprint authentication is possible
       try {
         bool authenticated = await auth.authenticate(
-          localizedReason: 'Please authenticate to access your account',
+          localizedReason: 'يرجي التحقق من بصمة وجهك',
           options: const AuthenticationOptions(
             stickyAuth: true,
           ),
         );
+
+
 
         print(authenticated);
         if (authenticated) {

@@ -7,10 +7,12 @@ import 'package:classic_eccomerce/authentication/presentation/screens/sign_up_sc
 import 'package:classic_eccomerce/core/constants/colors/colors.dart';
 import 'package:classic_eccomerce/core/constants/paths/image_paths.dart';
 import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
+import 'package:classic_eccomerce/face_recogonition/presentation/screens/face_detection_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/constants/fonts/font_sizes.dart';
 import '../../../core/locales/l10n/app_localizations.dart';
 import '../../../shared_components/custom_button.dart';
@@ -172,7 +174,19 @@ class SignInScreen extends StatelessWidget {
                         return CustomButton(
                             text: AppLocalizations.of(context)!.login,
                             isLoading: state is LoginLoadingState,
-                            action: () {
+                            action: () async {
+
+                              final prefs = await SharedPreferences.getInstance();
+                              final userJson = prefs.getString("registered_face");
+
+                              if(userJson == null){
+
+                                Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
+
+                                child: FaceDetectionScreen(isUserRegistering: true)));
+                                return;
+
+                              }
                               AuthCubit.get(context).loginFromLoginForm(
                                   isCheckingOut: isCheckingOut,
                                  );
@@ -258,6 +272,9 @@ class SignInScreen extends StatelessWidget {
                               const SizedBox(height: 24,),
 
                               CustomButton(text: "Submit", action: () async {
+
+                               
+
 
                                 // if (kDebugMode) {
                                 //   print(controller.text);
