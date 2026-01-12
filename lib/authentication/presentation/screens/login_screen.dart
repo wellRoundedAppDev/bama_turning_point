@@ -176,17 +176,7 @@ class SignInScreen extends StatelessWidget {
                             isLoading: state is LoginLoadingState,
                             action: () async {
 
-                              final prefs = await SharedPreferences.getInstance();
-                              final userJson = prefs.getString("registered_face");
 
-                              if(userJson == null){
-
-                                Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
-
-                                child: FaceDetectionScreen(isUserRegistering: true)));
-                                return;
-
-                              }
                               AuthCubit.get(context).loginFromLoginForm(
                                   isCheckingOut: isCheckingOut,
                                  );

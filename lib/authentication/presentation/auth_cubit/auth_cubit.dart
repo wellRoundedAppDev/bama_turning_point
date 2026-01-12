@@ -106,6 +106,12 @@ class AuthCubit extends Cubit<AuthStates> {
               child: const PersonalProfileScreen(),
               type: PageTransitionType.leftToRight));
 
+
+
+
+
+
+
       if (kDebugMode) {
         print("token:${loginResponse?.loginData?.token}");
       }

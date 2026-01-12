@@ -10,17 +10,49 @@ import 'package:classic_eccomerce/revealing_ranks/presentation/screen/revealing_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/locales/l10n/app_localizations.dart';
+import '../face_recogonition/presentation/screens/face_detection_screen.dart';
 import '../register_attendance_by_location/presentation/screens/register_attendance_screen.dart';
 import '../request_holiday/presentaion/screen/request_holiday_screen.dart';
 import '../shared_components/custom_alert2.dart';
 
 
 
-class PersonalProfileScreen extends StatelessWidget {
+class PersonalProfileScreen extends StatefulWidget {
   const PersonalProfileScreen({super.key});
 
+  @override
+  State<PersonalProfileScreen> createState() => _PersonalProfileScreenState();
+}
+
+class _PersonalProfileScreenState extends State<PersonalProfileScreen> {
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    setFaceRecognitionScreen();
+
+  }
+
+
+  setFaceRecognitionScreen() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userJson = prefs.getString("registered_face");
+
+    if(userJson == null){
+
+      Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
+
+          child: FaceDetectionScreen(isUserRegistering: true)));
+
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +86,6 @@ class PersonalProfileScreen extends StatelessWidget {
       ),
     );
   }
-
-
 
   Widget _buildHeader() {
     return Container(
@@ -182,6 +212,7 @@ class PersonalProfileScreen extends StatelessWidget {
       ],
     );
   }
+
   Widget _buildGridMenu() {
     final List<_MenuItem> menuItems = [
       _MenuItem("البيانات الشخصية", Image.asset(ImagePaths.PERSONAL_INFORMATION_ICON,

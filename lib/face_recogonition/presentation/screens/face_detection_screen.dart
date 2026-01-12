@@ -44,7 +44,6 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
 
   void pickAndProcess({ImageSource source = ImageSource.camera}) async {
 
-    Navigator.pop(context);
 
     final prefs = await SharedPreferences.getInstance();
     final userJson = prefs.getString("registered_face");
@@ -72,9 +71,12 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
         if (userJson != null) {
           final userMap = json.decode(userJson) as Map<String, dynamic>;
           var registeredUser = FaceRegisteredUser.fromJson(userMap);
-          if(faceDetail?.user.name == registeredUser.name){
+          if(faceDetail?.user.id == registeredUser.id){
 
-            Navigator.pop(context,{"res":true});
+            print(faceDetail?.user.id);
+            print(registeredUser.id);
+
+             Navigator.pop(context,{"res":true});
             return;
 
           }
@@ -174,6 +176,10 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(shape: const RoundedRectangleBorder()),
                     onPressed: () {
+
+                      pickAndProcess();
+
+                      return;
                       showDialog(
                           context: context,
                           builder: (ctx) {
@@ -185,9 +191,11 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
                                   child: ListView(
                                     shrinkWrap: true,
                                     children: [
+
+
                                       ListTile(title: const Text("Camera"), onTap: pickAndProcess),
-                                      const Divider(height: 0),
-                                      ListTile(title: const Text("Album"), onTap: () => pickAndProcess(source: ImageSource.gallery)),
+                                      // const Divider(height: 0),
+                                      // ListTile(title: const Text("Album"), onTap: () => pickAndProcess(source: ImageSource.gallery)),
                                     ],
                                   ),
                                 ),

@@ -143,7 +143,7 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
 
 
 
-    if(res['res']==false){
+    if(res == null || res['res']==false){
 
       showAppSnackBar(
           content: "فشل تحقق");

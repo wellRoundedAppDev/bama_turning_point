@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
 import 'package:classic_eccomerce/face_recogonition/data/models/face_model.dart';
 import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 typedef FaceMatch = ({FaceRegisteredUser user, double difference, Rect boundingRect, bool isRecognized});
@@ -22,10 +24,11 @@ mixin FaceRegistry {
     try {
       final prefs = await SharedPreferences.getInstance();
       final userJson = prefs.getString(_storageKey);
+      print(userJson);
       if (userJson != null) {
         final userMap = json.decode(userJson) as Map<String, dynamic>;
         _registeredUser = FaceRegisteredUser.fromJson(userMap);
-        debugPrint("Loaded registered face: ${_registeredUser?.name}");
+        debugPrint("Loaded registered face: ${_registeredUser?.id}");
       }
     } catch (e) {
       debugPrint("Error loading registered face: $e");
@@ -38,10 +41,12 @@ mixin FaceRegistry {
     try {
       final prefs = await SharedPreferences.getInstance();
       final userJson = json.encode(user.toJson());
+
+      print(userJson);
       await prefs.setString(_storageKey, userJson);
       _registeredUser = user;
       Navigator.pop(MyApp.navKey.currentState!.context);
-      debugPrint("Saved registered face: ${user.name}");
+      debugPrint("Saved registered face: ${user.id}");
     } catch (e) {
       debugPrint("Error saving registered face: $e");
     }
@@ -77,7 +82,7 @@ mixin FaceRegistry {
     }
 
     if (_registeredUser == null || (userMatch?.difference ?? 1) > cutoffThreshold) {
-      return (user: FaceRegisteredUser("Unknown", vectors), difference: 1, boundingRect: boundingRect, isRecognized: false);
+      return (user: FaceRegisteredUser("Unknown", vectors,0), difference: 1, boundingRect: boundingRect, isRecognized: false);
     }
     return userMatch;
   }

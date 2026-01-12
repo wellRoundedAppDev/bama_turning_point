@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:typed_data';
+import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
+import 'package:classic_eccomerce/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image/image.dart' as img;
 
 import '../../data/models/face_model.dart';
@@ -13,6 +16,20 @@ class RegisterFaceDialog extends StatelessWidget {
   const RegisterFaceDialog({super.key, required this.imageBytes, required this.person, required this.context});
 
   Future<void> show() async {
+
+
+    person.name = MyApp.navKey.currentState?.context.read<AuthCubit>().loginResponse?.loginData?.firstname??"";
+    person.id = MyApp.navKey.currentState?.context.read<AuthCubit>().loginResponse?.loginData?.employeeId??0;
+
+
+    print(person.name);
+    print(person.id);
+
+    await FaceRegistry.saveRegisteredFace(person.copyWith());
+    // if (context.mounted) {
+    //   Navigator.pop(context);
+    // }
+    return;
     await showDialog(context: context, builder: (ctx) => RegisterFaceDialog(context: context, imageBytes: imageBytes, person: person));
   }
 
