@@ -42,6 +42,8 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     context.read<AuthCubit>().autoLogin();
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
