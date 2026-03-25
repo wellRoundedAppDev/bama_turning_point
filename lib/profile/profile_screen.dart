@@ -18,8 +18,6 @@ import '../register_attendance_by_location/presentation/screens/register_attenda
 import '../request_holiday/presentaion/screen/request_holiday_screen.dart';
 import '../shared_components/custom_alert2.dart';
 
-
-
 class PersonalProfileScreen extends StatefulWidget {
   const PersonalProfileScreen({super.key});
 
@@ -28,29 +26,24 @@ class PersonalProfileScreen extends StatefulWidget {
 }
 
 class _PersonalProfileScreenState extends State<PersonalProfileScreen> {
-
-
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
     setFaceRecognitionScreen();
-
   }
-
 
   setFaceRecognitionScreen() async {
     final prefs = await SharedPreferences.getInstance();
     final userJson = prefs.getString("registered_face");
 
-    if(userJson == null){
-
-      Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
-
-          child: FaceDetectionScreen(isUserRegistering: true)));
-
+    if (userJson == null) {
+      Navigator.push(
+          context,
+          PageTransition(
+              type: PageTransitionType.leftToRight,
+              child: FaceDetectionScreen(isUserRegistering: true)));
     }
   }
 
@@ -65,16 +58,18 @@ class _PersonalProfileScreenState extends State<PersonalProfileScreen> {
             Column(
               children: [
                 _buildCustomAppBar(),
+
                 Expanded(child: _buildGridMenu()),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Row(
-                    children: [
-                      _buildLogoutButton(),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
+
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                //   child: Row(
+                //     children: [
+                //       _buildLogoutButton(),
+                //     ],
+                //   ),
+                // ),
+                const SizedBox(height: 100),
               ],
             ),
             Positioned(
@@ -99,7 +94,8 @@ class _PersonalProfileScreenState extends State<PersonalProfileScreen> {
           // ),
           CircleAvatar(
             radius: 40,
-            backgroundImage: AssetImage(ImagePaths.APP_LOGO), // Replace with actual image
+            backgroundImage:
+                AssetImage(ImagePaths.APP_LOGO), // Replace with actual image
           ),
           SizedBox(height: 10),
           Text(
@@ -114,36 +110,33 @@ class _PersonalProfileScreenState extends State<PersonalProfileScreen> {
   Widget _buildCustomAppBar() {
     return Stack(
       children: [
-        SizedBox(
-        width: double.infinity,
-
-        height:MediaQuery.of(context)!.size.height * 0.25,
+        Container(
+          width: double.infinity,
+          height: MediaQuery.of(context)!.size.height * 0.25,
         ),
 
-        Builder(
-          builder: (context) {
-            return Container(
-              height: MediaQuery.of(context)!.size.height * 0.16,
-              decoration: BoxDecoration(
-                color: AppColors.APP_SECONDARY_COLOR, // dark blue
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
+        Builder(builder: (context) {
+          return Container(
+            height: MediaQuery.of(context)!.size.height * 0.16,
+            decoration: BoxDecoration(
+              color: AppColors.APP_SECONDARY_COLOR, // dark blue
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
               ),
-              alignment: Alignment.topCenter,
-              padding: const EdgeInsets.only(top: 40),
-              child: const Text(
-                "الملف الشخصي",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: FontSizes.FONT_SIZE_16,
-                  fontWeight: FontWeight.bold,
-                ),
+            ),
+            alignment: Alignment.topCenter,
+            padding: const EdgeInsets.only(top: 40),
+            child: const Text(
+              "الملف الشخصي",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: FontSizes.FONT_SIZE_16,
+                fontWeight: FontWeight.bold,
               ),
-            );
-          }
-        ),
+            ),
+          );
+        }),
 
         Positioned(
           top: MediaQuery.of(context)!.size.height * 0.093,
@@ -153,21 +146,39 @@ class _PersonalProfileScreenState extends State<PersonalProfileScreen> {
             children: [
               CircleAvatar(
                 radius: 40,
-                backgroundImage: AssetImage(ImagePaths.APP_LOGO), // Replace with actual image
+                backgroundImage: AssetImage(
+                    ImagePaths.APP_LOGO), // Replace with actual image
               ),
 
               // CircleAvatar(
               //   radius: MediaQuery.of(context)!.size.height * 0.075,
               //   backgroundImage: const NetworkImage("https://i.imgur.com/BoN9kdC.png"),
               // ),
-              SizedBox(height: 8,),
+              SizedBox(
+                height: 8,
+              ),
               Text(
                 "",
-                style: TextStyle(fontSize: FontSizes.FONT_SIZE_16, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: FontSizes.FONT_SIZE_16,
+                    fontWeight: FontWeight.bold),
               ),
             ],
           ),
         ),
+
+        Positioned(
+            top: MediaQuery.of(context)!.size.height * 0.093,
+            left: 16,
+            child: IconButton(
+                onPressed: () {
+                  context.read<AuthCubit>().logOut();
+                },
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.red,
+                ))),
+
         // Notification icon in orange curved corner
         // const Positioned(
         //   top: 45,
@@ -215,11 +226,14 @@ class _PersonalProfileScreenState extends State<PersonalProfileScreen> {
 
   Widget _buildGridMenu() {
     final List<_MenuItem> menuItems = [
-      _MenuItem("البيانات الشخصية", Image.asset(ImagePaths.PERSONAL_INFORMATION_ICON,
-        color: AppColors.APP_MAIN_COLOR,
-
-        fit: BoxFit.cover,
-      ),),
+      _MenuItem(
+        "البيانات الشخصية",
+        Image.asset(
+          ImagePaths.PERSONAL_INFORMATION_ICON,
+          color: AppColors.APP_MAIN_COLOR,
+          fit: BoxFit.cover,
+        ),
+      ),
       // _MenuItem("البيانات الوظيفية", Image.asset(ImagePaths.JOB_INFORMATION_ICON,
       //   color: AppColors.APP_MAIN_COLOR,
       //
@@ -236,19 +250,22 @@ class _PersonalProfileScreenState extends State<PersonalProfileScreen> {
       //   color: AppColors.APP_MAIN_COLOR,
       // )),
 
-      _MenuItem("الحضور والانصراف وفق الموقع", Image.asset(ImagePaths.ATTENDANCE_LOCATION_ICON,
-        color: AppColors.APP_MAIN_COLOR,
-      )),
+      _MenuItem(
+          "الحضور والانصراف وفق الموقع",
+          Image.asset(
+            ImagePaths.ATTENDANCE_LOCATION_ICON,
+            color: AppColors.APP_MAIN_COLOR,
+          )),
 
       // _MenuItem("طلب سلفة", Image.asset(ImagePaths.CONTRACT_ICON,
       //   color: AppColors.APP_MAIN_COLOR,
       // )),
-
     ];
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: GridView.builder(
+        shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         itemCount: menuItems.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -262,38 +279,57 @@ class _PersonalProfileScreenState extends State<PersonalProfileScreen> {
           return Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color:  Colors.white,
+              color: Colors.white,
               border: Border.all(color: Colors.orange, width: 1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: InkWell(
               onTap: () {
-                if(index == 0){
-                  Navigator.push(context, PageTransition(child: const PersonalDataScreen(), type: PageTransitionType.leftToRight));
-                }
-                else if(index == 1){
-                  Navigator.push(context, PageTransition(child:  const RegisterAttendanceByLocationScreen(), type: PageTransitionType.leftToRight));
+                if (index == 0) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: const PersonalDataScreen(),
+                          type: PageTransitionType.leftToRight));
+                } else if (index == 1) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: const RegisterAttendanceByLocationScreen(),
+                          type: PageTransitionType.leftToRight));
 
                   // Navigator.push(context, PageTransition(child: const EmploymentDetailsScreen(), type: PageTransitionType.leftToRight));
-
-                }else if(index == 2){
-                  Navigator.push(context, PageTransition(child: const AttendanceScreen(), type: PageTransitionType.leftToRight));
-
-                }else if(index == 3){
-                  Navigator.push(context, PageTransition(child:  RequestHolidayScreen(), type: PageTransitionType.leftToRight));
-
-                }else if(index == 4){
-                  Navigator.push(context, PageTransition(child:   const RevealingRanksScreen(), type: PageTransitionType.leftToRight));
-
+                } else if (index == 2) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: const AttendanceScreen(),
+                          type: PageTransitionType.leftToRight));
+                } else if (index == 3) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: RequestHolidayScreen(),
+                          type: PageTransitionType.leftToRight));
+                } else if (index == 4) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: const RevealingRanksScreen(),
+                          type: PageTransitionType.leftToRight));
+                } else if (index == 5) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: const RegisterAttendanceByLocationScreen(),
+                          type: PageTransitionType.leftToRight));
+                } else {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: RequestAdvanceScreen(),
+                          type: PageTransitionType.leftToRight));
                 }
-                else if(index == 5){
-                  Navigator.push(context, PageTransition(child:  const RegisterAttendanceByLocationScreen(), type: PageTransitionType.leftToRight));
-
-                }else{
-                  Navigator.push(context, PageTransition(child:  RequestAdvanceScreen(), type: PageTransitionType.leftToRight));
-
-                }
-
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -305,9 +341,10 @@ class _PersonalProfileScreenState extends State<PersonalProfileScreen> {
                     textAlign: TextAlign.center,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: FontSizes.FONT_SIZE_12, color: Colors.black,
-                    fontWeight: FontWeight.w500,
-
+                    style: const TextStyle(
+                      fontSize: FontSizes.FONT_SIZE_12,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
@@ -320,18 +357,21 @@ class _PersonalProfileScreenState extends State<PersonalProfileScreen> {
   }
 
   Widget _buildLogoutButton() {
-    return  Padding(
+    return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: GestureDetector(
-        onTap: (){
+        onTap: () {
           context.read<AuthCubit>().logOut();
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(ImagePaths.LOG_OUT_ICON,),
+            Image.asset(
+              ImagePaths.LOG_OUT_ICON,
+            ),
             const SizedBox(width: 5),
-            Text(AppLocalizations.of(context)!.log_out, style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16)),
+            Text(AppLocalizations.of(context)!.log_out,
+                style: const TextStyle(fontSize: FontSizes.FONT_SIZE_16)),
           ],
         ),
       ),
@@ -341,12 +381,11 @@ class _PersonalProfileScreenState extends State<PersonalProfileScreen> {
 
 class _MenuItem {
   final String title;
-  final  icon;
+  final icon;
   final bool isSelected;
 
   _MenuItem(this.title, this.icon, {this.isSelected = false});
 }
-
 
 class CornerClipper extends CustomClipper<Path> {
   @override

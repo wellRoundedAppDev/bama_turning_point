@@ -37,6 +37,17 @@
 	<string>App needs access to location to register your attendance/dismissal</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>App needs access to location to register your attendance/dismissal</string>
+
+
+
+	<key>NSCameraUsageDescription</key>
+    <string>We need access to your camera to detect and recognize faces.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to your photos to detect faces from your gallery.</string>
+
+
+
+
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

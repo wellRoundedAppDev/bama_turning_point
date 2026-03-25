@@ -44,7 +44,6 @@ class RegisterFaceDialog extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(15),
             child: Column(
-              spacing: 10,
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
