@@ -41,7 +41,9 @@ class SignInScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    const SizedBox(height: 60,),
+                    const SizedBox(
+                      height: 60,
+                    ),
                     // Row(children: [
                     //   IconButton(onPressed: (){
                     //     Navigator.pop(context);
@@ -52,26 +54,77 @@ class SignInScreen extends StatelessWidget {
                     // const SizedBox(
                     //   height: 16,
                     // ),
-                    ClipOval(
-                        child: Image.asset(
-                      ImagePaths.APP_LOGO,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: MediaQuery.of(context).size.height * 0.2,
-                    )),
-                    const SizedBox(height: 16,),
+                    GestureDetector(
+                      onTap: () {
+                        if (kDebugMode) {
+                          print("object");
+                        }
+                        showDialog(
+                            context: context,
+                            builder: (context) => Material(
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 60,
+                                      ),
+                                      SizedBox(
+                                          height: 50,
+                                          child: CustomInput(
+                                            controller: controller,
+                                            borderColor:
+                                                AppColors.APP_MAIN_COLOR,
+                                          )),
+                                      const SizedBox(
+                                        height: 24,
+                                      ),
+                                      CustomButton(
+                                          text: "Submit",
+                                          action: () async {
+                                            // if (kDebugMode) {
+                                            //   print(controller.text);
+                                            // }
+                                            // var saveLoginData = await getLoginCredentialsFromSharedPrefs();
+                                            // if(saveLoginData != null){
+                                            //   controller.text =  saveLoginData['baseUrl']??"";
+                                            // }
+                                            ApiUrls.BASE_URL = controller.text;
 
-                    Text(AppLocalizations.of(context)!.login,style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: FontSizes.FONT_SIZE_20),),
+                                            if (kDebugMode) {
+                                              print(ApiUrls.BASE_URL);
+                                            }
+                                            Navigator.pop(context);
+                                          })
+                                    ],
+                                  ),
+                                )));
+                      },
+                      child: ClipOval(
+                          child: Image.asset(
+                        ImagePaths.APP_LOGO,
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        height: MediaQuery.of(context).size.height * 0.2,
+                      )),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+
+                    Text(
+                      AppLocalizations.of(context)!.login,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: FontSizes.FONT_SIZE_20),
+                    ),
 
                     const SizedBox(
                       height: 32,
                     ),
                     CustomInput(
-                      label:
-                          AppLocalizations.of(context)!.username,
-
-                      hintText:
-                          AppLocalizations.of(context)!.username,
-
+                      label: AppLocalizations.of(context)!.username,
+                      hintText: AppLocalizations.of(context)!.username,
                       validator: (value) {
                         if (value == null || value.isEmpty
                             // (value?.length??0) < 8 ||
@@ -81,7 +134,6 @@ class SignInScreen extends StatelessWidget {
                               .enter_your_main_userName;
                         }
                       },
-
                       textInputType: TextInputType.name,
                       onSaved: (v) => AuthCubit.get(context)
                           .loginFormInput
@@ -174,11 +226,9 @@ class SignInScreen extends StatelessWidget {
                             text: AppLocalizations.of(context)!.login,
                             isLoading: state is LoginLoadingState,
                             action: () async {
-
-
                               AuthCubit.get(context).loginFromLoginForm(
-                                  isCheckingOut: isCheckingOut,
-                                 );
+                                isCheckingOut: isCheckingOut,
+                              );
                             });
                       },
                     ),
@@ -220,75 +270,25 @@ class SignInScreen extends StatelessWidget {
                 ),
               ),
 
-        // Positioned(
-        //   top: 40,
-        //   left: 0,
-        //   child: IconButton(onPressed: (){
-        //     Navigator.pop(context);
-        //   }, icon: const Icon(Icons.arrow_forward_ios,color: Colors.black,))),
+              // Positioned(
+              //   top: 40,
+              //   left: 0,
+              //   child: IconButton(onPressed: (){
+              //     Navigator.pop(context);
+              //   }, icon: const Icon(Icons.arrow_forward_ios,color: Colors.black,))),
               Positioned(
                 top: 0,
                 right: 0,
                 bottom: MediaQuery.of(context).size.height * 0.35,
-                child: Image.asset(ImagePaths.ORANGE_CURVY_DECORATION,
+                child: Image.asset(
+                  ImagePaths.ORANGE_CURVY_DECORATION,
                   fit: BoxFit.cover,
-
                 ),
               ),
 
               Positioned(
-
-
-
-
-                  child: GestureDetector(
-                      onTap: (){
-                        if (kDebugMode) {
-                          print("object");
-                        }
-                        showDialog(context: context,builder: (context)=>Material(child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 60,),
-                              SizedBox(
-                                  height: 50,
-                                  child: CustomInput(controller: controller,
-
-                                  borderColor: AppColors.APP_MAIN_COLOR,
-                                  )),
-
-                              const SizedBox(height: 24,),
-
-                              CustomButton(text: "Submit", action: () async {
-
-                               
-
-
-                                // if (kDebugMode) {
-                                //   print(controller.text);
-                                // }
-                                // var saveLoginData = await getLoginCredentialsFromSharedPrefs();
-                                // if(saveLoginData != null){
-                                //   controller.text =  saveLoginData['baseUrl']??"";
-                                // }
-                                ApiUrls.BASE_URL =
-
-
-                                    controller.text;
-
-                                if (kDebugMode) {
-                                  print(ApiUrls.BASE_URL);
-                                }
-                                Navigator.pop(context);
-                              })
-                            ],
-                          ),
-                        )));
-                      },
-                      child: Container(color: Colors.transparent,height: 50,width: 50))
-              ),
-
+                  child: Container(
+                      color: Colors.transparent, height: 50, width: 50)),
             ],
           ),
         ),

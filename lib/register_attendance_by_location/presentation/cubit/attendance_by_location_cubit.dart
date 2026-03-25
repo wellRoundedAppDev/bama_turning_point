@@ -123,7 +123,6 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
   }
 
   registerAttendance(String baseUrl) async {
-
     AttendanceByLocationApis apis =
         AttendanceByLocationApis(DioHelper()..init(baseUrl));
 
@@ -133,25 +132,21 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
       return;
     }
 
-
-   var res = await  Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
-    child:  FaceDetectionScreen(isUserRegistering: false,)
-    ));
-
+    var res = await Navigator.push(
+        context,
+        PageTransition(
+            type: PageTransitionType.leftToRight,
+            child: FaceDetectionScreen(
+              isUserRegistering: false,
+            )));
 
     print(res);
 
-
-
-    if(res == null || res['res']==false){
-
-      showAppSnackBar(
-          content: "فشل تحقق");
+    if (res == null || res['res'] == false) {
+      showAppSnackBar(content: "فشل تحقق");
 
       return;
     }
-
-
 
     var employeeId = MyApp.navKey.currentState?.context
         .read<AuthCubit>()
@@ -170,10 +165,12 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
     if (response?.success == true) {
       showAppSnackBar(content: response?.message ?? "");
       emit(RegisterAttendanceByLocationSuccessState());
-    } else if (response?.success == false) {
+    }
+    else if (response?.success == false) {
       showAppSnackBar(content: response?.message ?? "");
       emit(RegisterAttendanceByLocationFailedState());
-    } else {
+    }
+    else {
       showAppSnackBar(
           content: AppLocalizations.of(context)!
               .check_your_internet_connection_and_try_again_later);
@@ -189,19 +186,20 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
     List<BiometricType> availableBiometrics =
         await auth.getAvailableBiometrics();
 
-
     bool supportsFace = availableBiometrics.contains(BiometricType.face) ||
         availableBiometrics.contains(BiometricType.strong);
 
 // 2. Explicitly check if Fingerprint is the ONLY thing available
-    bool onlyFingerprint = availableBiometrics.contains(BiometricType.fingerprint) &&
-        !availableBiometrics.contains(BiometricType.face);
+    bool onlyFingerprint =
+        availableBiometrics.contains(BiometricType.fingerprint) &&
+            !availableBiometrics.contains(BiometricType.face);
 
     if (!supportsFace || onlyFingerprint) {
-      showAppSnackBar(content: "الجهاز لا يدعم بصمة الوجه (يدعم بصمة الإصبع فقط أو غير مدعوم)");
+      showAppSnackBar(
+          content:
+              "الجهاز لا يدعم بصمة الوجه (يدعم بصمة الإصبع فقط أو غير مدعوم)");
       return;
     }
-
 
     if (true) {
       // Fingerprint authentication is possible
@@ -244,7 +242,6 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
             emit(RegisterAttendanceByLocationNWConnectionFailedState());
           }
         } else {
-
           showAppSnackBar(content: "فشل تحقق");
           // User failed to authenticate or canceled
         }
@@ -265,31 +262,21 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
       return;
     }
 
-
-
-    var res = await  Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight,
-        child:  FaceDetectionScreen(isUserRegistering: false,)
-    ));
-
+    var res = await Navigator.push(
+        context,
+        PageTransition(
+            type: PageTransitionType.leftToRight,
+            child: FaceDetectionScreen(
+              isUserRegistering: false,
+            )));
 
     print(res);
 
-
-
-    if(res['res']==false){
-
-
-      showAppSnackBar(
-          content: "فشل تحقق");
+    if (res['res'] == false) {
+      showAppSnackBar(content: "فشل تحقق");
 
       return;
     }
-
-
-
-
-
-
 
     var employeeId = MyApp.navKey.currentState?.context
         .read<AuthCubit>()
@@ -324,18 +311,20 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
     final LocalAuthentication auth = LocalAuthentication();
     bool canCheckBiometrics = await auth.canCheckBiometrics;
     List<BiometricType> availableBiometrics =
-    await auth.getAvailableBiometrics();
-
+        await auth.getAvailableBiometrics();
 
     bool supportsFace = availableBiometrics.contains(BiometricType.face) ||
         availableBiometrics.contains(BiometricType.strong);
 
 // 2. Explicitly check if Fingerprint is the ONLY thing available
-    bool onlyFingerprint = availableBiometrics.contains(BiometricType.fingerprint) &&
-        !availableBiometrics.contains(BiometricType.face);
+    bool onlyFingerprint =
+        availableBiometrics.contains(BiometricType.fingerprint) &&
+            !availableBiometrics.contains(BiometricType.face);
 
     if (!supportsFace || onlyFingerprint) {
-      showAppSnackBar(content: "الجهاز لا يدعم بصمة الوجه (يدعم بصمة الإصبع فقط أو غير مدعوم)");
+      showAppSnackBar(
+          content:
+              "الجهاز لا يدعم بصمة الوجه (يدعم بصمة الإصبع فقط أو غير مدعوم)");
       return;
     }
 
@@ -348,8 +337,6 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
             stickyAuth: true,
           ),
         );
-
-
 
         print(authenticated);
         if (authenticated) {
@@ -385,7 +372,6 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
           // User failed to authenticate or canceled
 
           showAppSnackBar(content: "فشل تحقق");
-
         }
       } on PlatformException catch (e) {
         // Handle platform-specific errors

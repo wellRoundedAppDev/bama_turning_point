@@ -44,7 +44,6 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
 
   void pickAndProcess({ImageSource source = ImageSource.camera}) async {
 
-
     final prefs = await SharedPreferences.getInstance();
     final userJson = prefs.getString("registered_face");
 
@@ -53,57 +52,132 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
       _imageActualSize = null;
       isProcessing = true;
     });
+
     recognizedFaces.clear();
-    final imageFile = await imagePicker.pickImage(source: source);
+
+    // 1. Set maxWidth/Height to prevent iOS memory crashes with high-res photos
+    final imageFile = await imagePicker.pickImage(
+      source: source,
+      maxWidth: 1000,
+      maxHeight: 1000,
+      preferredCameraDevice: CameraDevice.front, // Hint for iOS to start with front cam
+    );
+
     if (imageFile != null) {
-      // detect faces
+      // 2. Load the image using the 'image' package
+      var decodedImage = await img.decodeImageFile(imageFile.path);
+      if (decodedImage == null) return;
+
+      // 3. FIX FOR iOS FRONT CAMERA:
+      // If using the camera, we bake the orientation and flip it
+      // so the facial vector matches the "Registry" version.
+      if (source == ImageSource.camera) {
+        // Bakes the EXIF rotation into the image pixels
+        decodedImage = img.bakeOrientation(decodedImage);
+
+        // Manually flip horizontally to fix the mirroring issue
+        decodedImage = img.flipHorizontal(decodedImage);
+      }
+
+      // 4. Run Face Detection on the original file
+      // Note: ML Kit's InputImage.fromFile is usually smart enough for detection,
+      // but the 'flip' above ensures the RECOGNITION (vectors) match your database.
       final List<Face> faces = await detectFaces(File(imageFile.path));
-      final image = await img.decodeImageFile(imageFile.path);
-      // if (image != null) return;
+
       for (final face in faces) {
-        // crop image and generate facial vector
-        final facialVector = await faceRecognition.recognizeFace(image!, face);
+        // 5. Generate vector using the potentially flipped/fixed image
+        final facialVector = await faceRecognition.recognizeFace(decodedImage, face);
         final faceDetail = FaceRegistry.findFromList(facialVector, face.boundingBox);
+
         if (faceDetail != null) recognizedFaces.add(faceDetail);
-
-
 
         if (userJson != null) {
           final userMap = json.decode(userJson) as Map<String, dynamic>;
           var registeredUser = FaceRegisteredUser.fromJson(userMap);
-          if(faceDetail?.user.id == registeredUser.id){
 
-            print(faceDetail?.user.id);
-            print(registeredUser.id);
-
-             Navigator.pop(context,{"res":true});
+          if (faceDetail?.user.id == registeredUser.id && faceDetail!.isRecognized) {
+            Navigator.pop(context, {"res": true});
             return;
-
           }
-
         }
       }
 
-      if(userJson != null && widget.isUserRegistering == false){
-        Navigator.pop(context,{"res":false});
-
+      if (userJson != null && widget.isUserRegistering == false) {
+        Navigator.pop(context, {"res": false});
       }
 
-
-
       setState(() {
-        _imageActualSize = Size(image!.width.toDouble(), image.height.toDouble());
-        final resizeHeight = (image.height / image.width) * resizeImageWidth;
-        _viewImage = img.copyResize(image, width: resizeImageWidth, height: resizeHeight.toInt());
+        _imageActualSize = Size(decodedImage!.width.toDouble(), decodedImage.height.toDouble());
+        final resizeHeight = (decodedImage.height / decodedImage.width) * resizeImageWidth;
+        _viewImage = img.copyResize(decodedImage, width: resizeImageWidth, height: resizeHeight.toInt());
         isProcessing = false;
       });
-
-
-
-
-
+    } else {
+      setState(() => isProcessing = false);
     }
   }
+  // void pickAndProcess({ImageSource source = ImageSource.camera}) async {
+  //
+  //
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final userJson = prefs.getString("registered_face");
+  //
+  //   setState(() {
+  //     _viewImage = null;
+  //     _imageActualSize = null;
+  //     isProcessing = true;
+  //   });
+  //   recognizedFaces.clear();
+  //   final imageFile = await imagePicker.pickImage(source: source);
+  //   if (imageFile != null) {
+  //     // detect faces
+  //     final List<Face> faces = await detectFaces(File(imageFile.path));
+  //     final image = await img.decodeImageFile(imageFile.path);
+  //     // if (image != null) return;
+  //     for (final face in faces) {
+  //       // crop image and generate facial vector
+  //       final facialVector = await faceRecognition.recognizeFace(image!, face);
+  //       final faceDetail = FaceRegistry.findFromList(facialVector, face.boundingBox);
+  //       if (faceDetail != null) recognizedFaces.add(faceDetail);
+  //
+  //
+  //
+  //       if (userJson != null) {
+  //         final userMap = json.decode(userJson) as Map<String, dynamic>;
+  //         var registeredUser = FaceRegisteredUser.fromJson(userMap);
+  //         if(faceDetail?.user.id == registeredUser.id){
+  //
+  //           print(faceDetail?.user.id);
+  //           print(registeredUser.id);
+  //
+  //            Navigator.pop(context,{"res":true});
+  //           return;
+  //
+  //         }
+  //
+  //       }
+  //     }
+  //
+  //     if(userJson != null && widget.isUserRegistering == false){
+  //       Navigator.pop(context,{"res":false});
+  //
+  //     }
+  //
+  //
+  //
+  //     setState(() {
+  //       _imageActualSize = Size(image!.width.toDouble(), image.height.toDouble());
+  //       final resizeHeight = (image.height / image.width) * resizeImageWidth;
+  //       _viewImage = img.copyResize(image, width: resizeImageWidth, height: resizeHeight.toInt());
+  //       isProcessing = false;
+  //     });
+  //
+  //
+  //
+  //
+  //
+  //   }
+  // }
 
   Future<ui.Image?> loadUiImage(img.Image? image) async {
     if (image == null) return null;
