@@ -413,7 +413,7 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
       await setUserLocation();
 
       initialCameraPosition =
-          CameraPosition(target: currentUserLocation!, zoom: 14);
+          CameraPosition(target: const LatLng(33.31422018657671, 44.27157146084738)!, zoom: 14);
       location = Location();
       // location?.changeSettings(interval: 3000);
       var permission = await Permission.locationAlways.isGranted;
