@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:classic_eccomerce/app_settings/app_settings_cubit/app_settings_states.dart';
 import 'package:classic_eccomerce/authentication/presentation/auth_cubit/auth_cubit.dart';
-import 'package:classic_eccomerce/core/constants/paths/sound_paths.dart';
-import 'package:classic_eccomerce/core/constants/server_urls_and_keys/api_urls.dart';
 import 'package:classic_eccomerce/core/helpers/dio_helper.dart';
 import 'package:classic_eccomerce/core/locales/l10n/app_localizations.dart';
 import 'package:classic_eccomerce/main.dart';
@@ -413,7 +410,7 @@ class AttendanceByLocationCubit extends Cubit<AttendanceByLocationStates> {
       await setUserLocation();
 
       initialCameraPosition =
-          CameraPosition(target: const LatLng(33.31422018657671, 44.27157146084738)!, zoom: 14);
+          CameraPosition(target: currentUserLocation!, zoom: 14);
       location = Location();
       // location?.changeSettings(interval: 3000);
       var permission = await Permission.locationAlways.isGranted;

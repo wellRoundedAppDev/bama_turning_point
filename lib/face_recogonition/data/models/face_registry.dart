@@ -65,7 +65,7 @@ mixin FaceRegistry {
   }
 
   static FaceMatch? findFromList(List<double> vectors, Rect boundingRect) {
-    double cutoffThreshold = 1;
+    double cutoffThreshold = 0.8;
     FaceMatch? userMatch;
 
     if (_registeredUser != null) {
