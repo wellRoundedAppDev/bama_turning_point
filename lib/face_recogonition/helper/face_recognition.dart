@@ -16,9 +16,9 @@ class FaceRecognition {
     _interpreter = Interpreter.fromBuffer(modelBuffer.buffer.asUint8List());
   }
 
-  Future<List<double>> recognizeFace(img.Image image, Face face) async {
+  Future<List<double>> recognizeFace(img.Image image, Rect boundingBox) async {
     try {
-      List input = _imageProcessor(image, face);
+      List input = _imageProcessor(image, boundingBox);
       input = input.reshape([1, 112, 112, 3]);
       List output = List.generate(1, (index) => List.filled(192, 0));
       _interpreter.run(input, output);
@@ -29,19 +29,19 @@ class FaceRecognition {
     return [];
   }
 
-  List _imageProcessor(img.Image imageInput, Face faceDetected) {
-    img.Image croppedImage = _cropFace(imageInput, faceDetected);
+  List _imageProcessor(img.Image imageInput, Rect boundingBox) {
+    img.Image croppedImage = _cropFace(imageInput, boundingBox);
     img.Image image = img.copyResizeCropSquare(croppedImage, size: 112);
 
     Float32List imageAsList = imageToByteListFloat32(image);
     return imageAsList;
   }
 
-  img.Image _cropFace(img.Image convertedImage, Face faceDetected) {
-    double x = faceDetected.boundingBox.left - 10.0;
-    double y = faceDetected.boundingBox.top - 10.0;
-    double w = faceDetected.boundingBox.width + 10.0;
-    double h = faceDetected.boundingBox.height + 10.0;
+  img.Image _cropFace(img.Image convertedImage, Rect boundingBox) {
+    double x = boundingBox.left - 10.0;
+    double y = boundingBox.top - 10.0;
+    double w = boundingBox.width + 10.0;
+    double h = boundingBox.height + 10.0;
     return img.copyCrop(convertedImage, x: x.round(), y: y.round(), width: w.round(), height: h.round());
   }
 
