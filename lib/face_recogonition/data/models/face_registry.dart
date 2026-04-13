@@ -65,23 +65,34 @@ mixin FaceRegistry {
   }
 
   static FaceMatch? findFromList(List<double> vectors, Rect boundingRect) {
-    double cutoffThreshold = 0.8;
+    double cutoffThreshold = 0.82; // Cosine similarity threshold
     FaceMatch? userMatch;
 
     if (_registeredUser != null) {
       final List<double> knownVector = _registeredUser!.vectorList;
-      double distance = 0;
+      
+      double dotProduct = 0;
+      double normA = 0;
+      double normB = 0;
 
       for (int i = 0; i < vectors.length; i++) {
-        double diff = vectors[i] - knownVector[i];
-        distance += pow(diff, 2);
+        dotProduct += vectors[i] * knownVector[i];
+        normA += vectors[i] * vectors[i];
+        normB += knownVector[i] * knownVector[i];
       }
-      distance = sqrt(distance);
-      debugPrint("${_registeredUser!.name}  $distance");
-      userMatch = (user: _registeredUser!.copyWith(list: vectors), difference: distance, boundingRect: boundingRect, isRecognized: true);
+
+      double cosineSimilarity = 0;
+      if (normA > 0 && normB > 0) {
+        cosineSimilarity = dotProduct / (sqrt(normA) * sqrt(normB));
+      }
+      
+      debugPrint("${_registeredUser!.name}  Cosine Similarity: $cosineSimilarity");
+      // Use 1 - similarity as a compatible difference metric
+      double difference = 1 - cosineSimilarity; 
+      userMatch = (user: _registeredUser!.copyWith(list: vectors), difference: difference, boundingRect: boundingRect, isRecognized: cosineSimilarity >= cutoffThreshold);
     }
 
-    if (_registeredUser == null || (userMatch?.difference ?? 1) > cutoffThreshold) {
+    if (_registeredUser == null || (userMatch != null && !userMatch.isRecognized)) {
       return (user: FaceRegisteredUser("Unknown", vectors,0), difference: 1, boundingRect: boundingRect, isRecognized: false);
     }
     return userMatch;

@@ -20,7 +20,7 @@ class FaceRecognition {
     try {
       List input = _imageProcessor(image, boundingBox);
       input = input.reshape([1, 112, 112, 3]);
-      List output = List.generate(1, (index) => List.filled(192, 0));
+      var output = List.generate(1, (index) => List<double>.filled(192, 0.0));
       _interpreter.run(input, output);
       return output[0];
     } catch (error) {
@@ -40,8 +40,19 @@ class FaceRecognition {
   img.Image _cropFace(img.Image convertedImage, Rect boundingBox) {
     double x = boundingBox.left - 10.0;
     double y = boundingBox.top - 10.0;
-    double w = boundingBox.width + 10.0;
-    double h = boundingBox.height + 10.0;
+    double w = boundingBox.width + 20.0;
+    double h = boundingBox.height + 20.0;
+
+    x = x < 0 ? 0 : x;
+    y = y < 0 ? 0 : y;
+
+    if (x + w > convertedImage.width) {
+      w = convertedImage.width - x;
+    }
+    if (y + h > convertedImage.height) {
+      h = convertedImage.height - y;
+    }
+
     return img.copyCrop(convertedImage, x: x.round(), y: y.round(), width: w.round(), height: h.round());
   }
 
