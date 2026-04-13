@@ -70,27 +70,89 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
       if (decodedImage == null) return;
 
       // 3. FIX FOR iOS FRONT CAMERA:
-      // If using the camera, we bake the orientation and flip it
-      // so the facial vector matches the "Registry" version.
+      // If using the camera, we bake the orientation
+      bool isFlipped = false;
       if (source == ImageSource.camera) {
         // Bakes the EXIF rotation into the image pixels
         decodedImage = img.bakeOrientation(decodedImage);
-
-        // Manually flip horizontally to fix the mirroring issue
-        decodedImage = img.flipHorizontal(decodedImage);
+        
+        if (Platform.isIOS) {
+          // Manually flip horizontally to fix the mirroring issue
+          decodedImage = img.flipHorizontal(decodedImage);
+          isFlipped = true;
+        }
       }
 
       // 4. Run Face Detection on the original file
-      // Note: ML Kit's InputImage.fromFile is usually smart enough for detection,
-      // but the 'flip' above ensures the RECOGNITION (vectors) match your database.
       final List<Face> faces = await detectFaces(File(imageFile.path));
 
+      if (widget.isUserRegistering) {
+        String? errorMessage;
+        if (faces.isEmpty) {
+          errorMessage = "No face detected. Please capture a clear image of your face.";
+        } else if (faces.length > 1) {
+          errorMessage = "Multiple faces detected. Please make sure only you are in the frame.";
+        } else {
+          final face = faces.first;
+          final eulerY = face.headEulerAngleY ?? 0;
+          final eulerZ = face.headEulerAngleZ ?? 0;
+          final eulerX = face.headEulerAngleX ?? 0;
+          
+          if (eulerY.abs() > 15 || eulerZ.abs() > 15 || eulerX.abs() > 15) {
+            errorMessage = "Please look directly at the camera.";
+          } else if (decodedImage != null) {
+            final faceWidthRatio = face.boundingBox.width / decodedImage.width;
+            if (faceWidthRatio < 0.20) {
+              errorMessage = "Please move your face closer to the camera.";
+            } else if (
+                face.boundingBox.left < 0 || 
+                face.boundingBox.top < 0 || 
+                face.boundingBox.right > decodedImage.width || 
+                face.boundingBox.bottom > decodedImage.height) {
+              errorMessage = "Your face must be fully inside the frame.";
+            }
+          }
+        }
+
+        if (errorMessage != null) {
+          setState(() {
+            isProcessing = false;
+          });
+          if (context.mounted) {
+            showDialog(
+              context: context, 
+              builder: (ctx) => AlertDialog(
+                title: const Text("Registration Error"),
+                content: Text(errorMessage!),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(ctx),
+                    child: const Text("OK")
+                  )
+                ]
+              )
+            );
+          }
+          return;
+        }
+      }
+
       for (final face in faces) {
+        Rect boundingBox = face.boundingBox;
+        if (isFlipped && decodedImage != null) {
+          // Map the bounding box horizontally
+          boundingBox = Rect.fromLTRB(
+              decodedImage.width - face.boundingBox.right,
+              face.boundingBox.top,
+              decodedImage.width - face.boundingBox.left,
+              face.boundingBox.bottom);
+        }
+
         // 5. Generate vector using the potentially flipped/fixed image
         final facialVector =
-            await faceRecognition.recognizeFace(decodedImage, face);
+            await faceRecognition.recognizeFace(decodedImage!, boundingBox);
         final faceDetail =
-            FaceRegistry.findFromList(facialVector, face.boundingBox);
+            FaceRegistry.findFromList(facialVector, boundingBox);
 
         if (faceDetail != null) recognizedFaces.add(faceDetail);
 
@@ -196,6 +258,25 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
   }
 
   Future registerFace() async {
+    if (recognizedFaces.isEmpty || _viewImage == null || !recognizedFaces.any((faceData) => !faceData.isRecognized)) {
+      if (context.mounted) {
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text("Error"),
+            content: const Text("No valid face found to register. Please select another image."),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: const Text("OK")
+              )
+            ]
+          )
+        );
+      }
+      return;
+    }
+
     final unknownFace =
         recognizedFaces.firstWhere((faceData) => !faceData.isRecognized);
     final faceBounding = unknownFace.boundingRect;
