@@ -69,18 +69,10 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
       var decodedImage = await img.decodeImageFile(imageFile.path);
       if (decodedImage == null) return;
 
-      // 3. FIX FOR iOS FRONT CAMERA:
-      // If using the camera, we bake the orientation
-      bool isFlipped = false;
+      // 3. Bake orientation for front camera to prevent crop misalignment
       if (source == ImageSource.camera) {
         // Bakes the EXIF rotation into the image pixels
         decodedImage = img.bakeOrientation(decodedImage);
-        
-        if (Platform.isIOS) {
-          // Manually flip horizontally to fix the mirroring issue
-          decodedImage = img.flipHorizontal(decodedImage);
-          isFlipped = true;
-        }
       }
 
       // 4. Run Face Detection on the original file
@@ -139,14 +131,6 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
 
       for (final face in faces) {
         Rect boundingBox = face.boundingBox;
-        if (isFlipped && decodedImage != null) {
-          // Map the bounding box horizontally
-          boundingBox = Rect.fromLTRB(
-              decodedImage.width - face.boundingBox.right,
-              face.boundingBox.top,
-              decodedImage.width - face.boundingBox.left,
-              face.boundingBox.bottom);
-        }
 
         // 5. Generate vector using the potentially flipped/fixed image
         final facialVector =
